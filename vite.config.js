@@ -16,7 +16,7 @@ const scss = {
 
 /** @type {import('vite').UserConfig} */
 const config = {
-  base: 'https://reuters-graphics.github.io/graphics-svelte-components/',
+  base: 'https://reuters-graphics.github.io/graphics-components/',
   css: {
     preprocessorOptions: { scss: preprocess.scss },
   },

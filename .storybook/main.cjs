@@ -22,7 +22,7 @@ module.exports = {
   },
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
-      base: configType === 'PRODUCTION' ? 'https://reuters-graphics.github.io/graphics-svelte-components/' : '/',
+      base: configType === 'PRODUCTION' ? 'https://reuters-graphics.github.io/graphics-components/' : '/',
       css: {
         preprocessorOptions: { scss: preprocess.scss },
       },
