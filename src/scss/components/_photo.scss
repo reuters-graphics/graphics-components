@@ -1,0 +1,27 @@
+@import "~@reuters-graphics/style-color/scss/thematic/brand";
+
+$component-margin: 3rem !default;
+
+figure.photo {
+  margin-top: $component-margin;
+  margin-bottom: $component-margin;
+
+  @extend .well;
+
+  figcaption {
+    @extend .font-sans;
+
+    font-size: 0.8rem;
+    color: $brand-secondary;
+  }
+
+  &.fluid {
+    figcaption {
+      padding-left: 10px;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}

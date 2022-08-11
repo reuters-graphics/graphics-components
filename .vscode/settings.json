@@ -1,0 +1,20 @@
+{
+  "i18n-ally.localesPaths": [
+    "locales"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "eslint.validate": [
+    "javascript",
+    "svelte"
+  ],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.associations": {
+    "*.svx": "mdx"
+  },
+  "[mdx]": {
+    "editor.wordWrap": "on"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "svelteStrictMode": true,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "embeddedLanguageFormatting": "auto",
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false
+}

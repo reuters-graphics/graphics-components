@@ -1,0 +1,15 @@
+.uppercase {
+  text-transform: uppercase;
+
+  &.important {
+    text-transform: uppercase !important;
+  }
+}
+
+.lowercase {
+  text-transform: lowercase;
+
+  &.important {
+    text-transform: lowercase !important;
+  }
+}

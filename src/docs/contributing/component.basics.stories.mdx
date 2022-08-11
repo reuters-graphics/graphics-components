@@ -1,0 +1,165 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+
+<Meta title="Contributing/Component Basics" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Component basics
+
+## Dependencies
+
+Components should be written to be included in any Svelte app. If your component needs, for example, values from SvelteKit stores, these should be passed in as props.
+
+## Typescript
+
+By default, component's are written in TypeScript, which adds robust type-checking and helpful hints for people using your component in editors like Visual Studio Code.
+
+If you've never used TypeScript, you can check out the [5-minute intro](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html).
+
+If you're still a little uneasy about writing TypeScript, you can still write basically all your component logic in plain JavaScript, but we'll probably make sure your component's outermost props are typed before we merge your PR. (Reuters Graphics, can ask Jon for help with this.)
+
+### Typing and documenting component props
+
+Document props using [JSDoc comments](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) (be sure to mark required props) and type props with TypeScript.
+
+Here are a few examples:
+
+#### Typing simple props
+
+```svelte
+<script lang="ts">
+  /** Height of the component */
+  export let height: number = 250;
+  /** Text colour */
+  export let colour: string = 'blue';
+</script>
+```
+
+#### Documenting required props
+
+```svelte
+<script lang="ts">
+  /**
+   * Image source
+   * @required
+   */
+  export let src: string;
+  /**
+   * AltText for the image
+   * @required
+   */
+  export let altText: string;
+</script>
+```
+
+#### Custom types for props
+
+```svelte
+<script lang="ts">
+  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+
+  /** Width of the component within the text well. */
+  export let width: ContainerWidth = 'normal';
+
+  interface Person {
+    name: string;
+    age: number;
+  }
+
+  /**
+   * Array of people
+   * @required
+   */
+  export let people: Person[];
+</script>
+```
+
+#### Future syntax
+
+Using some future syntax like [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) in your components currently breaks the automatic discovery of JSDoc comments in your component, which are used to fill in the [ArgsTable](https://storybook.js.org/docs/react/writing-docs/doc-block-argstable).
+
+So instead of...
+
+```javascript
+myObject?.myOptionalProp;
+```
+
+...unfortunately, use something old-fashioned like...
+
+```javascript
+myObject.myOptionalProp ? myObject.myOptionalProp : null;
+```
+
+If your component docs still aren't working, check if you're using other future-JS sytax, for now.
+
+## Styles
+
+### SCSS
+
+Use SCSS with the `lang` attribute to write your styles.
+
+```svelte
+<button>My component</button>
+
+<style lang="scss">
+  button {
+    color: blue;
+  }
+</style>
+```
+
+### Scope
+
+Styles should **always** be scoped to your components.
+
+```svelte
+<button>My component</button>
+
+<style lang="scss">
+  button {
+    color: blue;
+  }
+</style>
+```
+
+In rare cases, you can use the SCSS `:global` operator to style child elements in your component, but those rules should still be scoped below a parent element.
+
+```svelte
+<svg></svg>
+
+<style lang="scss">
+  svg {
+    :global {
+      path: {
+        stroke: black;
+      }
+    }
+  }
+</style>
+```
+
+### CSS variables
+
+Use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) and props to allow better theming of your components.
+
+```svelte
+<script>
+  export let textColour = '#333';
+</script>
+
+<div style="--textColour: {textColour};">
+  <h3>My title</h3>
+  <p>My text.</p>
+  <p></p>
+</div>
+
+<style lang="scss">
+  div {
+    h3,
+    p {
+      color: var(--textColour, #333);
+    }
+  }
+</style>
+```

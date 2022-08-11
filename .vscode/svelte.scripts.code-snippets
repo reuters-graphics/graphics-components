@@ -1,0 +1,43 @@
+{
+	"Static assets path": {
+		"scope": "javascript",
+		"prefix": "static",
+		"body": [
+			"import { getPath } from '$utils/statics';",
+      "",
+			"getPath('${1:filepath}')"
+		],
+		"description": "Add a static assets file path"
+	},
+  "SvelteKit $app/env": {
+		"scope": "javascript",
+		"prefix": "env",
+		"body": [
+			"import { browser, dev, prerendering } from '$app/env';"
+		],
+		"description": "SvelteKit $app/env stores"
+	},
+  "Fetch script module": {
+    "scope": "svelte",
+    "prefix": "fetch-module",
+    "body": [
+      "<script context=\"module\">",
+      "  export async function load({ page, fetch, session, context }) {",
+      "    const url = 'https://$1';",
+      "    const res = await fetch(url);",
+      "    if (res.ok) {",
+      "      return {",
+      "        props: {",
+      "          data: await res.json(),",
+      "        },",
+      "      };",
+      "    }",
+      "    return {",
+      "      status: res.status,",
+      "      error: new Error('Could not fetch!'),",
+      "    };",
+      "  }",
+      "</script>"
+    ]
+  }
+}

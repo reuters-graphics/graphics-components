@@ -1,0 +1,160 @@
+@import "~@reuters-graphics/style-color/scss/sequential/sesame";
+
+$well-regular: 660px !default;
+$well-wide: 930px !default;
+$well-wider: 1200px !default;
+$graphic-narrower: 330px !default;
+$graphic-narrow: 510px !default;
+
+$grid-gutter-width: 30px; // The bootstrap default variable
+
+$component-margin: 3rem !default;
+
+section.graphic {
+  margin-top: $component-margin;
+  margin-bottom: $component-margin;
+
+  @extend .well;
+
+  &.narrower {
+    max-width: $graphic-narrower;
+  }
+
+  &.narrow {
+    max-width: $graphic-narrow;
+  }
+
+  &.snap {
+    width: $graphic-narrower;
+
+    @media (min-width: $graphic-narrow) {
+      &:not(.skip-narrow) {
+        width: $graphic-narrow;
+      }
+    }
+
+    @media (min-width: $well-regular) {
+      &:not(.skip-regular) {
+        width: $well-regular;
+      }
+    }
+
+    &.narrower {
+      @media (min-width: $graphic-narrower) {
+        width: $graphic-narrower;
+      }
+    }
+
+    &.narrow {
+      @media (min-width: $graphic-narrow) {
+        width: $graphic-narrow;
+      }
+    }
+
+    &.wide {
+      @media (min-width: $well-wide) {
+        width: $well-wide;
+      }
+    }
+
+    &.wider {
+      @media (min-width: $well-wide) {
+        &:not(.skip-wide) {
+          width: $well-wide;
+        }
+      }
+
+      @media (min-width: $well-wider) {
+        // This rule is just to get around the cascade on the :not(.skip-wide)
+        &:not(.skip-wider) {
+          width: $well-wider;
+        }
+      }
+    }
+  }
+
+  @extend .font-sans;
+
+  &.bordered {
+    @extend .separated;
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    @extend .font-sans;
+    @extend .paragraph-size;
+  }
+
+  // Use for footnotes and source lines
+  aside {
+    p {
+      @extend .small-size;
+
+      margin-bottom: 5px;
+      color: $brand-text-secondary;
+    }
+  }
+}
+
+
+// Within an article container we account for 15px padding left and right for .snap class widths
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  section.graphic {
+    &.snap {
+      width: $graphic-narrower;
+  
+      @media (min-width: $graphic-narrow + $grid-gutter-width) {
+        &:not(.skip-narrow) {
+          width: $graphic-narrow;
+        }
+      }
+  
+      @media (min-width: $well-regular + $grid-gutter-width) {
+        &:not(.skip-regular) {
+          width: $well-regular;
+        }
+      }
+  
+      &.narrower {
+        @media (min-width: $graphic-narrower + $grid-gutter-width) {
+          width: $graphic-narrower;
+        }
+      }
+  
+      &.narrow {
+        @media (min-width: $graphic-narrow + $grid-gutter-width) {
+          width: $graphic-narrow;
+        }
+      }
+  
+      &.wide {
+        @media (min-width: $well-wide + $grid-gutter-width) {
+          width: $well-wide;
+        }
+      }
+  
+      &.wider {
+        @media (min-width: $well-wide + $grid-gutter-width) {
+          &:not(.skip-wide) {
+            width: $well-wide;
+          }
+        }
+  
+        @media (min-width: $well-wider + $grid-gutter-width) {
+          // This rule is just to get around the cascade on the :not(.skip-wide)
+          &:not(.skip-wider) {
+            width: $well-wider;
+          }
+        }
+      }
+    }
+  }
+}

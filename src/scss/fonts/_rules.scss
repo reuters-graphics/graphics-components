@@ -1,0 +1,17 @@
+@import "mixins";
+
+.font-sans {
+  @include font-sans;
+}
+
+.font-serif {
+  @include font-serif;
+}
+
+.font-monospace {
+  @include font-monospace;
+}
+
+.font-display {
+  @include font-display;
+}

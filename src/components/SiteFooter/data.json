@@ -1,0 +1,210 @@
+[
+    {
+        "company_description": "Reuters, the news and media division of Thomson Reuters, is the world’s largest multimedia news provider, reaching billions of people worldwide every day. Reuters provides business, financial, national and international news to professionals via desktop terminals, the world's media organizations, industry events and directly to consumers.",
+        "disclaimer_link": "https://www.reuters.com/info-pages/disclaimer/",
+        "copyright_link": "https://www.thomsonreuters.com/en/policies/copyright.html",
+        "copyright_year": "2022",
+        "latest_links": [
+            {
+                "text": "Home",
+                "url": "/",
+                "self": true
+            }
+        ],
+        "browse_links": [
+            {
+                "text": "World",
+                "url": "/world/",
+                "self": true
+            },
+            {
+                "text": "Business",
+                "url": "/business/",
+                "self": true
+            },
+            {
+                "text": "Legal",
+                "url": "/legal/",
+                "self": true
+            },
+            {
+                "text": "Markets",
+                "url": "/markets/",
+                "self": true
+            },
+            {
+                "text": "Breakingviews",
+                "url": "/breakingviews/",
+                "self": true
+            },
+            {
+                "text": "Technology",
+                "url": "/technology/",
+                "self": true
+            },
+            {
+                "text": "Investigations",
+                "url": "/investigates/"
+            },
+            {
+                "text": "Lifestyle",
+                "url": "/lifestyle/",
+                "self": true
+            }
+        ],
+        "media_links": [
+            {
+                "text": "Videos",
+                "url": "https://www.reuters.com/video/",
+                "symbol": "videos"
+            },
+            {
+                "text": "Pictures",
+                "url": "https://www.reuters.com/news/pictures",
+                "symbol": "pictures"
+            },
+            {
+                "text": "Graphics",
+                "url": "https://graphics.reuters.com/",
+                "symbol": "graphics"
+            }
+        ],
+        "about_links": [
+            {
+                "text": "About Reuters",
+                "url": "https://www.reutersagency.com/en/about/about-us/"
+            },
+            {
+                "text": "Careers",
+                "url": "https://www.thomsonreuters.com/en/careers.html"
+            },
+            {
+                "text": "Reuters News Agency",
+                "url": "https://www.reutersagency.com/en/?utm_source=website&utm_medium=reuters&utm_campaign=site-referral&utm_content=us&utm_term=0"
+            },
+            {
+                "text": "Brand Attribution Guidelines",
+                "url": "https://www.reutersagency.com/en/about/about-us/brand-attribution-guidelines/"
+            },
+            {
+                "text": "Reuters Leadership",
+                "url": "https://www.reutersagency.com/en/about/leadership-team/"
+            },
+            {
+                "text": "Reuters Fact Check",
+                "url": "https://www.reuters.com/fact-check/"
+            },
+            {
+                "text": "Reuters Diversity Report",
+                "url": "https://www.reuters.com/DiversityReportApril2022"
+            }
+        ],
+        "stay_informed_links": [
+            {
+                "text": "Download the App",
+                "url": "https://www.reuters.com/tools/mobile/us"
+            },
+            {
+                "text": "Newsletters",
+                "url": "https://newslink.reuters.com/join/subscribe"
+            }
+        ],
+        "social_links": [
+            {
+                "type": "twitter",
+                "url": "https://www.twitter.com/Reuters"
+            },
+            {
+                "type": "facebook",
+                "url": "https://www.facebook.com/Reuters"
+            },
+            {
+                "type": "instagram",
+                "url": "https://www.instagram.com/Reuters"
+            },
+            {
+                "type": "youtube",
+                "url": "https://www.youtube.com/user/ReutersVideo"
+            },
+            {
+                "type": "linkedin",
+                "url": "https://www.linkedin.com/company/10256858/"
+            }
+        ],
+        "tr_products": [
+            {
+                "name": "Westlaw",
+                "description": "Build the strongest argument relying on authoritative content, attorney-editor expertise, and industry defining technology.",
+                "url": "https://legal.thomsonreuters.com/en/products/westlaw"
+            },
+            {
+                "name": "Onesource",
+                "description": "The most comprehensive solution to manage all your complex and ever-expanding tax and compliance needs.",
+                "url": "https://tax.thomsonreuters.com/en/onesource"
+            },
+            {
+                "name": "Checkpoint",
+                "description": "The industry leader for online information for tax, accounting and finance professionals.",
+                "url": "https://tax.thomsonreuters.com/en/checkpoint"
+            }
+        ],
+        "refinitiv_products": [
+            {
+                "name": "Refinitiv Workspace",
+                "description": " Access unmatched financial data, news and content in a highly-customised workflow experience on desktop, web and mobile.",
+                "url": " https://www.refinitiv.com/en/products/refinitiv-workspace"
+            },
+            {
+                "name": "Refinitiv Data Catalogue",
+                "description": " Browse an unrivalled portfolio of real-time and historical market data and insights from worldwide sources and experts.",
+                "url": " https://www.refinitiv.com/en/financial-data"
+            },
+            {
+                "name": "Refinitiv World-Check",
+                "description": "Screen for heightened risk individual and entities globally to help uncover hidden risks in business relationships and human networks.",
+                "url": "https://www.refinitiv.com/en/products/world-check-kyc-screening"
+            }
+        ],
+        "ad_links": [
+            {
+                "text": "Advertise With Us",
+                "url": "https://www.reutersagency.com/en/services/advertising-solutions/"
+            },
+            {
+                "text": "Advertising Guidelines",
+                "url": "/info-pages/advertising-guidelines/"
+            }
+        ],
+        "misc_links": [
+            {
+                "text": "Cookies",
+                "url": "https://www.thomsonreuters.com/en/privacy-statement.html#cookies"
+            },
+            {
+                "text": "Terms of Use",
+                "url": "/info-pages/terms-of-use/"
+            },
+            {
+                "text": "Privacy",
+                "url": "https://www.thomsonreuters.com/en/privacy-statement.html"
+            },
+            {
+                "text": "Digital Accessibility",
+                "url": "https://www.thomsonreuters.com/en/policies/digital-accessibility-policy.html"
+            },
+            {
+                "text": "Corrections",
+                "url": "/info-pages/contact-us/"
+            },
+            {
+                "text": "Site Feedback",
+                "url": "https://trdigital.iad1.qualtrics.com/jfe/form/SV_8kte8gArGyCGVhz"
+            },
+            {
+                "text": "Do Not Sell My Personal Information",
+                "url": "javascript:window.OneTrust.ToggleInfoDisplay();",
+                "self": "true"
+            }
+        ]
+    }
+]

@@ -1,0 +1,93 @@
+@import "~@reuters-graphics/style-color/scss/sequential/sesame";
+
+section.body-text {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @extend .well;
+
+  p {
+    @extend .font-serif;
+    @extend .paragraph-size;
+
+    -webkit-font-smoothing: antialiased;
+
+    a {
+      color: inherit;
+      background-size: 1px 1px;
+      background-image: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="2" y2="2" stroke="rgba(0, 0, 0, 0.8)" /></svg>');
+      background-position: 0 1.3rem;
+      background-repeat: repeat-x;
+
+      @include media-breakpoint-down(sm) {
+        background-position: 0 1.2rem;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  // Hard-enforce the no h1 rule? YES!
+  h1 {
+    display: none;
+  }
+
+  h2 {
+    margin: 4rem 0 2rem;
+    text-align: center;
+    font-weight: 600;
+
+    &::after {
+      display: block;
+      content: '';
+      background: $brand-secondary;
+      height: 3px;
+      width: 100px;
+      margin: 10px auto 2rem;
+    }
+  }
+
+  ul,
+  ol {
+    @extend .paragraph-size;
+  }
+
+  blockquote {
+    margin: 30px 0;
+    border-left: 2px solid $brand-secondary;
+    padding-left: 15px;
+
+    p {
+      @extend .blockquote-size;
+    }
+
+    // Markdown cheat to use for attribution
+    blockquote {
+      border: 0;
+      padding: 0;
+      margin: -5px 0 0;
+
+      p {
+        color: $gray-500;
+        font-size: 1rem;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 0.9rem;
+        }
+      }
+
+      // Kill any additional nestings...
+      blockquote {
+        display: none;
+      }
+    }
+  }
+
+  &.font-sans {
+    p {
+      @extend .font-sans;
+    }
+  }
+}

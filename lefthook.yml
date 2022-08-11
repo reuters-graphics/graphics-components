@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    eslint:
+      glob: 'src/**/*.js'
+      run: npx eslint --cache --fix {staged_files}
+    prettier:
+      glob: 'src/**/*.{js,scss,md,svelte}'
+      run: npx prettier --write {staged_files}

@@ -1,0 +1,84 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+
+<Meta
+  title="Contributing/Recipes: Basic story"
+  parameters={{ ...parameters }}
+/>
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Recipes: Basic story
+
+To make a basic story, you'll need to setup a few things from storybook's Svelte [Component Story Framework (CSF)](https://storybook.js.org/docs/svelte/api/csf) library.
+
+Once you've setup the `Meta` and `Template` components as below, you can write a `Story` component with an `args` prop. In that `args` prop you can pass values that will be used to fill in your component's props.
+
+```svelte
+<!-- YourComponent.stories.svelte -->
+<script>
+  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+
+  import YourComponent from './YourComponent.svelte';
+
+  const meta = {
+    title: 'Components/YourComponent',
+    component: YourComponent,
+  };
+</script>
+
+<Meta {...meta} />
+
+<Template let:args>
+  <YourComponent {...args} />
+</Template>
+
+<Story
+  name="Default"
+  args="{{
+    width: 'normal',
+  }}"
+/>
+```
+
+For example, the `width` property in the `Story` args above would be passed to your component as though you'd written it like this:
+
+```svelte
+<YourComponent width="normal" />
+```
+
+You can define additional stories with _different_ args to show how your component will render with different props like:
+
+```svelte
+<!-- ... -->
+
+<Story
+  name="Default"
+  args="{{
+    width: 'normal',
+  }}"
+/>
+
+<Story
+  name="Extra wide"
+  args="{{
+    width: 'wider',
+  }}"
+/>
+```
+
+If you want even more control, you can skip the `args` and pass your component directly into the `Story` with whatever props you need:
+
+```svelte
+<Story name="Super custom">
+  <YourComponent
+    width="fluid"
+    data="{[
+      { id: 'UK', value: 65 },
+      { id: 'USA', value: 265 },
+    ]}"
+  />
+</Story>
+```
+
+> **Pro tip:** If you pass your component in directly, your users won't be able to control its props using Storybook's built-in [controls panel](https://storybook.js.org/docs/svelte/essentials/controls), so it's always best to start with a default example using `args`.

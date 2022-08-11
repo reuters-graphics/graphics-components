@@ -1,0 +1,293 @@
+---
+title: Video
+description: General-purpose video component. Can play on load or when the video comes into view and has play/pause controls. Supports videos with or without audio.
+slug: video
+---
+
+<script>
+  import { assets } from '$app/paths';
+  import Video from './index.svelte';
+  import DemoContainer from '../_docs/DemoContainer/index.svelte';
+</script>
+
+<section>
+
+    ## {title}
+
+    {description}
+
+</section>
+
+
+```svelte
+<script>
+  import { assets } from '$app/paths'; // helper if importing video from 'statics'
+  import { Video } from '@reuters-graphics/graphics-svelte-components';
+</script>
+
+<Video 
+  ariaDescription={"Compulsory description of your video for screen readers."}
+  src={`${assets}/videos/myVideo.mp4`} // or a URL to an external video
+  size={'wide'} // normal, wide, wider, widest or fluid
+  caption={'Optional caption for your video.'}
+/>
+```
+
+
+<DemoContainer>
+  <Video 
+    ariaDescription="Description of your video for screen readers."
+    src={`${assets}/videos/Sequence silent video_4.mp4`}
+    size='wide'
+    caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
+  />
+</DemoContainer>
+
+
+<section>
+
+#### When to play and whether to loop
+`playVideoWhenInView`, `playVideoThreshold`
+
+- By default, the video will **start playing when 50% of the video element's height is visible on the page**. 
+To control the threshold of visibility at which the video starts playing, add the prop `playVideoThreshold` and set it to a value between 0 and 1, 
+where 0 means that the video will start playing as soon as its top enters the viewport, while 1 means it will start when the whole video is in the viewport.
+
+- If you don't want the video to play when you scroll to it, but **on page load**, add the prop `playVideoWhenInView={false}`. The default of the prop is `true`,
+which corresponds to the behaviour described above.
+
+`loopVideo`
+- By default, the video will **loop**. If you don't want that, add the prop `loopVideo={false}`. 
+
+Here is an example of what the same video would look like with a visibility threshold of 0.9 and not looping. Scroll down slowly to observe the behaviour. 
+</section>
+
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-svelte-components';
+</script>
+
+<Video 
+  ariaDescription={"Compulsory description of your video for screen readers."}
+  src={'path-to-video-or-external-url'} 
+  size={'normal'}
+  loopVideo={false}
+  playVideoThreshold={0.9}
+/>
+```
+
+<DemoContainer>
+  <Video 
+    ariaDescription="Description of your video for screen readers."
+    src={`${assets}/videos/Sequence silent video_4.mp4`} 
+    size='normal'
+    caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
+    loopVideo={false}
+    playVideoThreshold={0.9}
+  />
+</DemoContainer>
+
+
+<section>
+
+#### Controls (play / pause)
+
+`showControls`
+- By default, the video has a play/pause button, which corresponds to 
+`showControls={true}`. If you don't want these, just set `showControls={false}`. 
+When you do that, the icons themselves will disappear but the functionality of playing and pausing remains and can be done by clicking on the video itself. 
+If you don't want to enable any play/pause functionality, add `possibleToPlayPause={false}`. 
+- If you want to show the controls only when the video is hovered, set `hoverToSeeControls={true}`. 
+
+`controlsColour`, `controlsOpacity`,  `controlsPosition`, `separateReplayIcon`
+
+If you do want to leave the controls, you have a couple of options to style them:
+- Set `controlsColour` to a colour of your choosing. 
+- Set `controlsOpacity` to a value between `0` and `1` to control the opacity. The default is `0.5`. 
+- Change the placement of the controls to one of: `top right`, `top left`, `bottom right`, `bottom left` by setting `controlsPosition`. 
+- Change the play button to a replay button at the end of the video with the option `separateReplayIcon={true}`.
+
+Here is an example with bottom right corner white opaque controls, with a replay button, where you have to hover on the video to see the controls. 
+
+</section>
+
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-svelte-components';
+</script>
+
+<Video 
+  ariaDescription={"Compulsory description of your video for screen readers."}
+  src={'path-to-video-or-external-url'} 
+  size={'normal'}
+  caption={'Optional caption for your video.'}
+  playVideoThreshold={0.1}
+  controlsColour={'white'}
+  controlsOpacity={1}
+  controlsPosition={'bottom right'}
+  separateReplayIcon={true}
+  loopVideo={false} // If you don't set loopVideo to false, you won't see the loop button
+  hoverToSeeControls={true}
+/>
+```
+
+<DemoContainer>
+  <Video 
+    ariaDescription="Description of your video for screen readers."
+    src={`${assets}/videos/Sequence silent video_4.mp4`} 
+    size='normal'
+    caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
+    playVideoThreshold={0.1}
+    controlsColour={'white'}
+    controlsOpacity={1}
+    controlsPosition={'bottom right'}
+    separateReplayIcon={true}
+    loopVideo={false} 
+    hoverToSeeControls={true}
+  />
+</DemoContainer>
+
+
+<section>
+
+#### Videos with sound
+
+If you've ever had to put sound on a page in recent years, 
+you'll know that auto-playing sound is not allowed by browsers. The user will need to interact with the page first, and it will depend on your 
+particular use case how and when you'd like this to happen. This component provides two options to deal with this. 
+If you have a video with sound, make sure to add the prop `muteVideo={false}`.
+
+Then you can either:
+-  `allowSoundToAutoplay={false}` (default) : Don't allow the video to autoplay under any circumstances other than when the user clicks the 'play' on the video. Note that this 
+works whether or not you have the controls visible, i.e. with `showControls` being `true` or `false`, as long as you allow 
+play/pause behaviour with `possibleToPlayPause={true}` (default).
+
+- `allowSoundToAutoplay={true}` : Allow the video to autoplay when it comes into view as long as the user has interacted with the page preivously, i.e. they have clicked/tapped 
+anywhere on the page. 
+
+You should keep `playVideoWhenInView={true}` (default). There is no option to autoplay video with sound when the user clicks on the page 
+elsewhere if the video is not in view. In other words, you can't start playing sound for a video which is not in view with this component. 
+This is probably not a behaviour you'd want anyway. 
+
+The example below allows for autoplay if the user has interacted with the page before the video comes into view. To see this, reload the page 
+and go to the top. Click anywhere on the page before scrolling down to the video and you should see it autoplay when it comes into view. 
+
+</section>
+
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-svelte-components';
+</script>
+
+<Video 
+  ariaDescription={"Compulsory description of your video for screen readers."}
+  src={'path-to-video-or-external-url'} 
+  size={'normal'}
+  controlsOpacity={1}
+  loopVideo={false}
+  muteVideo={false}
+  allowSoundToAutoplay={true}
+/>
+```
+
+<DemoContainer>
+  <Video 
+    ariaDescription="Description of your video for screen readers."
+    src={`${assets}/videos/Sequence sound video.mp4`} 
+    size='normal'
+    caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
+    controlsOpacity={1}
+    loopVideo={false}
+    muteVideo={false}
+    playVideoWhenInView={true}
+    showControls={true}
+    allowSoundToAutoplay={true}
+  />
+</DemoContainer>
+
+
+<section>
+
+### All the props
+Here is a list of all the props that you can pass to the component for reference. Most of them are discussed above.
+
+##### Required
+
+- **src** (string) - Path to the video relative to the `statics` folder. 
+- **ariaDescription** (string) and **ariaHidden** (bool) - Either write a description for screen readers in ariaDescription or set ariaHidden to false. 
+
+
+##### Optional
+
+- **caption** (string) - default <span class='default'>**" " (none)**</span> <span class='separator'></span> options: Write a caption to go with the video.
+
+- **size** (string) - default <span class='default'>**'normal'**</span> <span class='separator'></span> options: *'normal'*, *'wide'*, *'wider'*, *'widest'*, *'fluid'*
+
+- **preloadVideo** (string) -  default <span class='default'>**'auto'**</span> <span class='separator'></span> 
+options: *'none'* (Don't preload the video on page load),
+*'auto'* (Preload the video),
+*'metadata'* (Only preload the metadata)
+
+- **loopVideo** (bool) - default <span class='default'>**true**</span> <span class='separator'></span> options: *true*, *false* 
+
+- **muteVideo** (bool) - default <span class='default'>**true**</span> <span class='separator'></span> options: *true*, *false* 
+
+- **allowSoundToAutoplay** (bool) - default  <span class='default'>**false**</span><span class='separator'></span> options: *true*, *false*.
+For video with sound, whether video should be allowed to autoplay if the user has previously interacted with DOM. You need to set `muteVideo` to `true` 
+for this to work. 
+
+
+- **playVideoWhenInView** (bool) - default <span class='default'>**true**</span> <span class='separator'></span> 
+options: *true* (Only start playing the video when it comes into view), *false* (Start playing as soon as the page and video load)
+
+- **playVideoThreshold** (float) - default <span class='default'>**0.5**</span> <span class='separator'></span> options: *float between 0 and 1*.
+How much of the video should be into view to start playing when playVideoWhenInView is true. 
+
+- **possibleToPlayPause** (bool) - default <span class='default'>**true**</span> <span class='separator'></span> options: *true*, *false* 
+
+- **showControls** (bool) - default <span class='default'>**true**</span> <span class='separator'></span> options: *true*, *false*.
+Whether to show the play/pause controls or not.
+
+- **hoverToSeeControls** (bool) - default <span class='default'>**false**</span><span class='separator'></span> options: *true*, *false*.
+Whether you need to hover over the video to see the controls.
+
+- **separateReplayIcon** (bool) - default <span class='default'>**false**</span> <span class='separator'></span> options: *true*, *false*.
+Whether to use a separate replay icon or use the play icon for replay as well.
+
+- **controlsColour** (colour string) - default <span class='default'>**'#333'**</span> <span class='separator'></span> options: *any valid colour string*.
+Controls the colour of the play/pause buttons.
+
+- **controlsOpacity** (float) - default <span class='default'>**0.5**</span> <span class='separator'></span> options: *float between 0 and 1*.
+Controls the opacity of the play/pause buttons.
+
+- **controlsPosition** (string) - default <span class='default'>**'top left'**</span> <span class='separator'></span> 
+options: *'top right'*, *'top left'*, *'bottom right'*, *'bottom left'*.
+Controls the position of the play/pause buttons.
+
+
+</section>
+
+
+<style>
+  ul {
+    list-style-type: none;
+  }
+  li {
+    font-size: 1.2rem;
+  }
+  .default {
+    color: #006d77;
+  }
+  .separator {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: #666;
+    border-radius: 50%;
+    margin: 0 5px 0 5px;
+    transform: translateY(-2.5px);
+  }
+</style>

@@ -1,0 +1,29 @@
+table.docblock-argstable {
+  p {
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
+
+div.sbdocs-content {
+  & > h2, & > div > div > h2 {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    &:first-of-type {
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .docblock-source {
+    margin: 1rem 0;
+  }
+
+ & > blockquote, & > div > div > blockquote, blockquote.sbdocs {
+    background-color: #ededed;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
+

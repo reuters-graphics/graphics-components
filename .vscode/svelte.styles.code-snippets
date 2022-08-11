@@ -1,0 +1,49 @@
+{
+	"Svelte SCSS style": {
+		"scope": "svelte",
+		"prefix": "scss",
+		"body": [
+			"<style lang=\"scss\">",
+			"$1",
+			"</style>"
+		],
+		"description": "Add a Svelte SCSS style tag"
+	},
+	"Reuters Graphics styles theme": {
+		"scope": "svelte",
+		"prefix": "theme",
+		"body": [
+			"<style lang=\"scss\">",
+			"  @import '~@reuters-graphics/style-main/scss/fonts/font-faces';",
+			"  :global {",
+			"    @import '@reuters-graphics/style-theme-eisbaer/scss/main';",
+			"  }",
+			"</style>"
+		],
+		"description": "Add Reuters Graphics theme to page"
+	},
+	"Reuters Graphics fonts mixins": {
+		"scope": "scss",
+		"prefix": "fonts-mixins",
+		"body": [
+			"@import \"~@reuters-graphics/style-main/scss/fonts/mixins\";",
+			"",
+			"$1 {",
+			"  @include font-sans;",
+			"}"
+		],
+		"description": "Add Reuters Graphics fonts mixins"
+	},
+	"Reuters Graphics fonts variables": {
+		"scope": "scss",
+		"prefix": "fonts-variables",
+		"body": [
+			"@import \"~@reuters-graphics/style-main/scss/fonts/variables\";",
+			"",
+			"$1 {",
+			"  font-family: $font-family-sans-serif;",
+			"}"
+		],
+		"description": "Add Reuters Graphics fonts variables"
+	}
+}

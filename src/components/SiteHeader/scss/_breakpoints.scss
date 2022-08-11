@@ -1,0 +1,59 @@
+// From FSC:
+// Our design layouts are based on 2 artboard sizes:
+// 375px for small screens and 1440px for desktop.
+
+// However, these are snapshots to inform the core layouts.
+// Some aspects of the design system adapt to breakpoints between these sizes.
+
+// Our design layouts therefore show the snapshots for mobile on the 375px artboard and wide on the 1440px artboard.
+
+// Note that if we refer only to desktop it means all layouts above 1023px, similarly mobile in general is below 1024px.
+
+// Note that the desktop breakpoint kicks-in at 1024px, which also accommodates iPad/tablet in landscape.
+// This is the last size before the layout adapts to the mobile view.
+
+$maxWidth: 1440px;
+
+@mixin for-small-mobile {
+  @media (max-width: 518px) { @content; }
+}
+
+@mixin for-mobile {
+  @media (max-width: 745px) { @content; }
+}
+
+@mixin for-tablet {
+  @media (min-width: 746px) and (max-width: 1023px) { @content; }
+}
+
+@mixin for-tablet-up {
+  @media (min-width: 746px) { @content; }
+}
+
+@mixin for-tablet-down {
+  @media (max-width: 1023px) { @content; }
+}
+
+@mixin for-tight-desktop {
+  @media (min-width: 1024px) and (max-width: 1060px) { @content; }
+}
+
+@mixin for-desktop {
+  @media (min-width: 1024px) { @content; }
+}
+
+@mixin for-wide-desktop {
+  @media (min-width: 1300px) { @content; }
+}
+
+@mixin for-extra-wide-desktop {
+  @media (min-width: 1440px) { @content; }
+}
+
+@mixin above-max {
+  @media (min-width: $maxWidth) { @content; }
+}
+
+@mixin max-width {
+  max-width: $maxWidth;
+}

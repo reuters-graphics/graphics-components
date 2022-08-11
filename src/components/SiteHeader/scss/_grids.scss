@@ -1,0 +1,126 @@
+@use 'sass:math';
+
+@import '_breakpoints.scss';
+
+@mixin spacing-single($properties, $delta: 1) {
+  @each $property in $properties {
+    #{$property}: (math.div(32, 1440) * 100vw * $delta);
+  }
+
+  @include for-tablet-down {
+    @each $property in $properties {
+      #{$property}: (math.div(16, 375) * 100vw * $delta);
+    }
+  }
+
+  @include above-max {
+    @each $property in $properties {
+      #{$property}: (32px * $delta);
+    }
+  }
+}
+
+@mixin spacing-single-half($properties, $delta: 1) {
+  @each $property in $properties {
+    #{$property}: (calc(16 / 1440) * 100vw * $delta);
+  }
+
+  @include for-tablet-down {
+    @each $property in $properties {
+      #{$property}: (math.div(8, 375) * 100vw * $delta);
+    }
+  }
+
+  @include above-max {
+    @each $property in $properties {
+      #{$property}: (16px * $delta);
+    }
+  }
+}
+
+@mixin spacing-single-34($properties, $delta: 1) {
+    @each $property in $properties {
+      #{$property}: (math.div(24, 1440) * 100vw * $delta);
+    }
+
+    @include for-tablet-down {
+      @each $property in $properties {
+        #{$property}: (math.div(12, 375) * 100vw * $delta);
+      }
+    }
+
+    @include above-max {
+      @each $property in $properties {
+        #{$property}: (24px * $delta);
+      }
+    }
+  }
+
+@mixin spacing-150($properties, $delta: 1) {
+  @each $property in $properties {
+    #{$property}: (math.div(48, 1440) * 100vw * $delta);
+  }
+
+  @include for-tablet-down {
+    @each $property in $properties {
+      #{$property}: (math.div(24, 375) * 100vw * $delta);
+    }
+  }
+
+  @include above-max {
+    @each $property in $properties {
+      #{$property}: (48px * $delta);
+    }
+  }
+}
+
+@mixin spacing-75($properties, $delta: 1) {
+  @each $property in $properties {
+    #{$property}: (math.div(24, 1440) * 100vw * $delta);
+  }
+
+  @include above-max {
+    @each $property in $properties {
+      #{$property}: (24px * $delta);
+    }
+  }
+}
+
+@mixin spacing-50($properties, $delta: 1) {
+  @each $property in $properties {
+    #{$property}: (math.div(16, 1440) * 100vw * $delta);
+  }
+
+  @include above-max {
+    @each $property in $properties {
+      #{$property}: (16px * $delta);
+    }
+  }
+}
+
+@mixin responsive-columns($columns, $size: 1fr) {
+  @content;
+
+  display: grid;
+  grid-template-columns: repeat($columns, $size);
+
+  // Desktop grid (all screens greater than or equal to 1024px)
+  @include spacing-single(grid-column-gap);
+
+  // Mobile grid (all screens up to and including 1023px)
+  @include for-tablet-down {
+    grid-template-columns: repeat(4, $size);
+  }
+}
+
+@mixin at-4-columns {
+  @include for-tablet-down {
+    @content;
+  }
+}
+
+@mixin above-4-columns {
+  @include for-desktop {
+    @content;
+  }
+}

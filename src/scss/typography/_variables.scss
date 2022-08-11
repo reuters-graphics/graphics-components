@@ -1,0 +1,42 @@
+@import "../spacing/variables";
+@import "../fonts/variables";
+@import "@reuters-graphics/style-color/scss/sequential/sesame";
+
+// Font sizes
+$font-size-xs: 0.8rem !default;
+$font-size-sm: 0.875rem !default;
+$font-size-base: 1rem !default;
+$font-size-article: 1.2rem !default;
+$font-size-lg: 1.3rem !default;
+$font-size-xl: 1.5rem !default;
+$font-size-2xl: 2.4rem !default;
+$font-size-3xl: 2.8rem !default;
+
+$lead-font-size: ($font-size-base * 1.25) !default;
+$small-font-size: 80% !default;
+$blockquote-font-size: ($font-size-base * 1.5) !default;
+
+$line-height-base: 1.5 !default;
+
+$text-muted:  $brand-text-secondary;
+
+$blockquote-small-color: $brand-text-secondary;
+
+$blockquote-border-color: $gray-200 !default;
+$blockquote-border-width: 0.25rem !default;
+
+
+$hr-border-color: rgba($black, 0.1) !default;
+
+
+// Headings
+$headings-font-family: $font-family-display;
+$headings-font-weight: 700 !default;
+$headings-color: $brand-text-primary;
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;

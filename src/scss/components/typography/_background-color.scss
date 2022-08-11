@@ -1,0 +1,71 @@
+@import "~@reuters-graphics/style-color/scss/thematic/brand";
+
+$white-background: $brand-background !default;
+$black-background: $brand-inverted-background !default;
+
+.background,
+.background-light {
+  background-color: $white-background;
+
+  &.important {
+    background-color: $white-background !important;
+  }
+}
+
+.background-dark {
+  background-color: $black-background;
+
+  &.important {
+    background-color: $black-background !important;
+  }
+}
+
+
+.background-alpha,
+.background-alpha-light {
+  background-color: rgba($white-background, 0.75);
+
+  &.important {
+    background-color: rgba($white-background, 0.75) !important;
+  }
+}
+
+.background-alpha-lighter {
+  background-color: rgba($white-background, 0.5);
+
+  &.important {
+    background-color: rgba($white-background, 0.5) !important;
+  }
+}
+
+.background-alpha-lightest {
+  background-color: rgba($white-background, 0.25);
+
+  &.important {
+    background-color: rgba($white-background, 0.25) !important;
+  }
+}
+
+.background-alpha-dark {
+  background-color: rgba($black-background, 0.3);
+
+  &.important {
+    background-color: rgba($black-background, 0.3) !important;
+  }
+}
+
+.background-alpha-darker {
+  background-color: rgba($black-background, 0.6);
+
+  &.important {
+    background-color: rgba($black-background, 0.6) !important;
+  }
+}
+
+.background-alpha-darkest {
+  background-color: rgba($black-background, 0.9);
+
+  &.important {
+    background-color: rgba($black-background, 0.9) !important;
+  }
+}

@@ -1,0 +1,27 @@
+$well-regular: 660px !default;
+$well-wide: 930px !default;
+$well-wider: 1200px !default;
+
+.well {
+  max-width: $well-regular;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.wide {
+    max-width: $well-wide;
+  }
+
+  &.wider {
+    max-width: $well-wider;
+  }
+
+  &.widest {
+    max-width: 100%;
+  }
+
+  &.fluid {
+    width: 100vw;
+    margin-left: -15px;
+    max-width: none;
+  }
+}

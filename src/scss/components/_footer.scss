@@ -1,0 +1,19 @@
+@import "~@reuters-graphics/style-main/scss/typography/mixins";
+@import "~@reuters-graphics/style-color/scss/thematic/brand";
+
+footer {
+  @include font-display;
+
+  nav {
+    a {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: $brand-inverted-nav;
+
+      &:hover,
+      &:active {
+        color: $brand-inverted-nav-active;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+
+<Meta title="Actions/cssVariables" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# `cssVariables`
+
+A Svelte [action](https://svelte.dev/tutorial/actions) you can use to easily set [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) on HTML elements. Useful for passing JavaScript values to your component SCSS like this:
+
+```svelte
+<script>
+  import { cssVariables } from '@reuters-graphics/graphics-svelte-components';
+
+  export let height = 300;
+  export let textColour = 'red';
+
+  // Create an object of variable names and CSS values...
+  $: variables = {
+    height: height + 'px',
+    textColour: textColour,
+  };
+</script>
+
+<!-- Attach it to a parent element with the action -->
+<div use:cssVariables="{variables}">
+  <p>My text...</p>
+</div>
+
+<style lang="scss">
+  /**
+   * Now use your variables in your SCSS!
+   */
+  div {
+    height: var(--height);
+    p {
+      color: var(--textColour);
+    }
+  }
+</style>
+```

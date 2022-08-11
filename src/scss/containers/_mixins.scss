@@ -1,0 +1,60 @@
+$column-width-narrower: 330px !default;
+$column-width-narrow: 510px !default;
+$column-width-normal: 660px !default;
+$column-width-wide: 930px !default;
+$column-width-wider: 1200px !default;
+
+@mixin snap-section($article-padding: 30px) {
+  width: $column-width-narrower;
+
+  @media (min-width: ($column-width-narrow + $article-padding)) {
+    &:not(.skip-narrow) {
+      width: $column-width-narrow;
+    }
+  }
+
+  @media (min-width: ($column-width-normal + $article-padding)) {
+    &:not(.skip-normal) {
+      width: $column-width-normal;
+    }
+  }
+
+  &.narrower {
+    @media (min-width: ($column-width-narrower + $article-padding)) {
+      width: $column-width-narrower;
+    }
+  }
+
+  &.narrow {
+    @media (min-width: ($column-width-narrow + $article-padding)) {
+      width: $column-width-narrow;
+    }
+  }
+
+  &.wide {
+    @media (min-width: ($column-width-wide + $article-padding)) {
+      width: $column-width-wide;
+    }
+  }
+
+  &.wider {
+    @media (min-width: ($column-width-wide + $article-padding)) {
+      &:not(.skip-wide) {
+        width: $column-width-wide;
+      }
+    }
+
+    @media (min-width: ($column-width-wider + $article-padding)) {
+      // This rule is just to get around the cascade on the :not(.skip-wide)
+      &:not(.skip-wider) {
+        width: $column-width-wider;
+      }
+    }
+  }
+  &.widest, &.fluid {
+    width: inherit;
+  }
+  &.fluid {
+    width: calc(100% + $article-padding);
+  }
+}

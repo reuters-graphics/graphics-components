@@ -1,0 +1,320 @@
+---
+title: Ai2svelte
+description: A shortcut for ai2svelte graphics.
+slug: ai2svelte
+---
+
+<script>
+  import DemoContainer from '../_docs/DemoContainer/index.svelte';
+  import Ai2svelte from './index.svelte';
+  import AiChart from './ai2svelte/ai-chart.exclude.svelte';
+  import DataTable from './ai2svelte/data-table.exclude.svelte'
+
+  const fetchComponent = async(componentName) => {
+    return (await import(`./ai2svelte/${componentName}.exclude.svelte`)).default
+  };
+</script>
+
+<section>
+
+## {title}
+
+Pass a component created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte) to this component, which will wrap it in a graphics section tag.
+
+</section>
+
+```svelte
+<script>
+  import { Ai2svelte } from '@reuters-graphics/graphics-svelte-components';
+  import MyAiChart from './some-chart.svelte';
+</script>
+
+<Ai2svelte
+  AiGraphic="{MyAiChart}"
+  ariaDescription="Description of your graphic for screen readers."
+/>
+```
+
+<DemoContainer>
+  <Ai2svelte AiGraphic={AiChart} ariaHidden = {true}
+  ariaDescription="A map of Haiti shows the epicenter of an earthquake in the southwest of the country." />
+</DemoContainer>
+
+<section>
+
+## Accessibility props
+
+`ariaHidden`
+
+- Set to `true` by default, which means HTML text content in the
+ ai2svelte component are visible on the page but not read aloud by screen readers.
+ (Read more about aria-hidden elements [here](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden).)
+- Set it to `false` to make the screen reader read aloud HTML text content in ai2svelte.
+
+`ariaDescription`
+
+- If `ariaHidden` is `true`, make sure you add an `ariaDescription`, which is invisible on the page but is read aloud by screen readers.
+- This prop takes a string, like altText for an image.
+- It should describe what the chart is showing and why it's important. This is helpful for:
+  - Blind readers using screen-reading or Braille conversion software
+  - All readers if the image is unavailable or takes too long to load
+- Read about writing aria description, also known as alt text, [here](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81).
+
+<section class='note'>
+
+🚨 **Important:** If `ariaHidden` is `true` but you are missing `ariaDescription` or some other special alternative for screen readers (more on this later), your graphic will be hidden from the page and you will see a warning in your console.
+
+</section>
+
+Graphics kit users can set your `ariaHidden` prop and write your  `ariaDescription` in the google doc like this:
+
+</section>
+
+```bash
+# In your Google doc...
+[blocks]
+
+# ...
+Type: ai2svelte
+ComponentName: my-chart
+AriaHidden: true // or false
+AltText: Add a descriptive line on the graphic for screen readers. 
+
+[]
+```
+
+<section>
+
+## Graphic width
+
+Adjust the size of the graphic by passing a class name corresponding to one of our well widths: `wide`, `wider`, `widest` or `fluid`.
+
+</section>
+
+```svelte
+<script>
+  import { Ai2svelte } from '@reuters-graphics/graphics-svelte-components';
+  import MyAiChart from './some-chart.svelte';
+</script>
+
+<Ai2svelte
+  AiGraphic="{MyAiChart}"
+  size="wide"
+  ariaDescription="A map of Haiti shows the epicenter of an earthquake in the southwest of the country."
+/>
+```
+
+<DemoContainer>
+  <Ai2svelte AiGraphic={AiChart} size='wide'
+  ariaDescription="A map of Haiti shows the epicenter of an earthquake in the southwest of the country." />
+</DemoContainer>
+
+<section>
+
+## Chart title, description, source and note
+
+Add additional chart chatter through slots.
+
+</section>
+
+```svelte
+<script>
+  import { Ai2svelte } from '@reuters-graphics/graphics-svelte-components';
+  import MyAiChart from './some-chart.svelte';
+</script>
+
+<!-- Add an ID and change the default width of your graphic -->
+<Ai2svelte
+  AiGraphic="{MyAiChart}"
+  id="ai-map"
+  size="wide"
+  ariaDescription="A map of Haiti shows the epicenter of an earthquake in the southwest of the country." 
+>
+  <!-- Add a title and/or notes with slots -->
+  <div slot="title" class="title">
+    <h4>Earthquake in Haiti</h4>
+    <p>A 7.0 magnitude earthquake struck the island on Tuesday.</p>
+  </div>
+  <aside slot="notes">
+    <p class="note">Note: Data current as of Wednesday.</p>
+    <p class="source">Source: USGIS</p>
+  </aside>
+</Ai2svelte>
+
+<style lang="scss">
+  // You can now style those elements!
+  h4 {
+    color: darkred;
+  }
+</style>
+```
+
+<DemoContainer>
+  <Ai2svelte AiGraphic="{AiChart}" id="ai-map"
+   ariaHidden = {true}
+   size="wide"
+  ariaDescription="A map of Haiti shows the epicenter of an earthquake in the southwest of the country." >
+    <!-- Add a title and/or notes with slots -->
+    <div slot="title" class="title">
+      <h4>Earthquake in Haiti</h4>
+      <p>A 7.0 magnitude earthquake struck the island on Tuesday.</p>
+    </div>
+    <aside slot="notes">
+      <p class="note">Note: Data current as of Wednesday.</p>
+      <p class="source">Source: USGIS</p>
+    </aside>
+  </Ai2svelte>
+</DemoContainer>
+
+<style>
+  div.title h4 {
+    color: darkred;
+  }
+</style>
+
+<section>
+
+## Using ArchieML google doc
+
+You can use this component to layout AI graphics via an [ArchieML](http://archieml.org/)-formatted Google doc by using the following pattern to dynamically import an ai2svelte component:
+
+</section>
+
+```bash
+# In your Google doc...
+[blocks]
+
+# ...
+Type: ai2svelte
+ComponentName: my-chart
+
+[]
+```
+
+```svelte
+<!-- src/lib/Page.svelte -->
+<script>
+  import content from '$locales/en/content.json';
+  import { Ai2svelte } from '@reuters-graphics/graphics-svelte-components';
+
+  import { truthyString } from '$utils/truthyString';
+  import { fetchComponent } from '$utils/dynamicComponents';
+</script>
+
+{#each content.blocks as block}
+  {#if block.Type === 'ai2svelte'}
+    {#await fetchComponent(block.ComponentName)}
+        <div></div>
+      {:then component}
+        <Ai2svelte
+          AiGraphic="{component}"
+          id="{block.ComponentName}"
+          size="{block.Size}"
+          ariaHidden="{truthyString(block.AriaHidden)}"
+          ariaDescription="{block.AltText}"
+        >
+        <!-- Code below is optional. Can delete if you have no dek, source, note, etc. -->
+          <div slot="title" class="title">
+            {#if block.Title}<h4>{block.Title}</h4>{/if}
+            {#if block.Chatter}<p>{block.Chatter}</p>{/if}
+          </div>
+          <aside slot="notes">
+            {#if block.Note}<p class="note">Note: {block.Note}</p>{/if}
+            {#if block.Source}<p class="source">Source: {block.Source}</p>{/if}
+          </aside>
+          <!-- End of optional code -->
+        </Ai2svelte>
+      {:catch error}
+        {console.error(
+          `Error fetching component: ./ai2svelte/${block.ComponentName}.svelte`,
+          error
+        )}
+      {/await}
+  {/if}
+{/each}
+```
+
+<section>
+
+This comes with some restrictions, though. Be sure your `fetchComponent` function follows [the limits on dynamic imports](https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations).
+
+**NOTE**: Make sure you wrap the function `truthyString()` around `block.StackBackground`. `truthyString()` converts the string pulled from Google docs ('true', 'false', etc.)
+into a Boolean.
+
+</section>
+
+<section class='pt-5'>
+
+## Customising data for screen readers
+
+Sometimes, in addition to or instead of adding an aria description for graphics,
+ we want to also provide a data table, a lengthier description with more complex element structure or something else.
+
+You can add custom information for screen readers only by using the `hidden` slot.
+
+For example, for the line chart below, we can add a **data table** that helps screen-reader users navigate the data.
+
+</section>
+
+```svelte
+<script>
+  import SRDataTable from './SRDataTable.svelte';
+</script>
+<Ai2svelte
+  AiGraphic="{MyAiChart}"
+  ariaDescription="A line chart showing daily closing prices for S&P 500, Dow, and Nasdaq from Dec. 31, 2021 to Jan. 10, 2022"
+>
+  <slot slot="hidden">
+    <SRDataTable/>
+  </slot>
+<Ai2svelte/>
+```
+
+<DemoContainer>
+  {#await fetchComponent('ai-linechart') then component}
+    <Ai2svelte AiGraphic="{component}"
+      ariaDescription="A map of Haiti shows the epicenter of an earthquake in the southwest of the country.">
+      <slot slot="hidden"><DataTable/></slot>
+      </Ai2svelte>
+  {/await}
+</DemoContainer>
+
+<section>
+
+This is what `<SRDataTable/>` looks like. (You can make an HTML table using DataWrapper.)
+
+</section>
+
+```svelte
+<table class="line-chart-data">
+  <thead
+    ><tr>
+      <th data-column="Date" data-row="-1">Date </th><th
+        data-column="S&amp;P 500"
+        data-row="-1"
+        >S&amp;P 500
+      </th><th data-column="Dow" data-row="-1">Dow </th><th
+        data-column="Nasdaq"
+        data-row="-1"
+        >Nasdaq
+      </th>
+    </tr></thead
+  >
+  <tbody
+    ><tr> <td>December 31, 2021</td><td>0%</td><td>0</td><td>0%</td></tr><tr>
+      <td>January 3, 2022</td><td>1%</td><td>1</td><td>1%</td></tr
+    ><tr> <td>January 4, 2022</td><td>1%</td><td>1</td><td>−0%</td></tr><tr>
+      <td>January 5, 2022</td><td>−1%</td><td>0</td><td>−3%</td></tr
+    ><tr> <td>January 6, 2022</td><td>−1%</td><td>−0</td><td>−4%</td></tr><tr>
+      <td>January 7, 2022</td><td>−2%</td><td>−0</td><td>−5%</td></tr
+    ><tr> <td>January 10, 2022</td><td>−2%</td><td>−1</td><td>−4%</td></tr>
+  </tbody>
+</table>
+
+```
+
+<section>
+
+[Read this](https://accessibility.psu.edu/images/charts/) for more information on screen-reader data tables for charts.
+
+</section>

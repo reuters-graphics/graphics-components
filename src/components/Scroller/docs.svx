@@ -1,0 +1,459 @@
+---
+title: Scroller
+description: Easy scrollytelling with layout options.
+slug: scroller
+---
+
+<script>
+  import DemoContainer from '../_docs/DemoContainer/index.svelte';
+  import Scroller from './index.svelte';
+  import Clicker from './demos/basic/_Clicker.svelte';
+  import StackedStep from './demos/basic/_Stacked.svelte';
+  import BasicStep from './demos/basic/_Step.svelte';
+  import { assets } from '$app/paths';
+
+  const basicSteps = [
+    { background: BasicStep, backgroundProps: { colour: 'red' }, foreground: '#### Step 1\n\nLorem ipsum red' },
+    { background: BasicStep, backgroundProps: { colour: 'blue' }, foreground: '#### Step 2\n\nLorem ipsum blue' },
+    { background: BasicStep, backgroundProps: { colour: 'green' }, foreground: '#### Step 3\n\nLorem ipsum green' },
+  ];
+
+  const stackedSteps = [
+    { background: StackedStep, backgroundProps: { colour: 'red', i: 0 }, foreground: '#### Step 1\n\nLorem ipsum red' },
+    { background: StackedStep, backgroundProps: { colour: 'blue', i: 1 }, foreground: '#### Step 2\n\nLorem ipsum blue' },
+    { background: StackedStep, backgroundProps: { colour: 'green', i: 2 }, foreground: '#### Step 3\n\nLorem ipsum green' },
+  ];
+
+  const basicStepsComponent = [
+    { background: BasicStep, backgroundProps: { colour: 'red' }, foreground: Clicker },
+    { background: BasicStep, backgroundProps: { colour: 'blue' }, foreground: '#### Step 2\n\nLorem ipsum blue' },
+    { background: BasicStep, backgroundProps: { colour: 'green' }, foreground: Clicker, foregroundProps: { count: 100 } },
+  ];
+
+  const ai2svelteSteps = [
+    { background: 'ai-scroller-1', foreground: '#### Step 1\n\nLorem ipsum' },
+    { background: 'ai-scroller-2', foreground: '#### Step 2\n\nLorem ipsum' },
+    { background: 'ai-scroller-3', foreground: '#### Step 3\n\nLorem ipsum' },
+  ];
+
+  const fetchComponent = async(componentName) => {
+    return (await import(`./demos/ai2html/${componentName}.exclude.svelte`)).default
+  };
+
+  const makeSteps = async(steps) => {
+    const scrollerSteps = [];
+    for (const step of steps) {
+      const background = await fetchComponent(step.background);
+      scrollerSteps.push({ ...step, ...{ background }});
+    }
+    return scrollerSteps;
+  }
+
+</script>
+
+<section>
+
+## {title}
+
+Easy scrollytelling.
+
+<section class='note'>
+
+This component is designed to handle most common layouts for scrollytelling. If you need something more complex, though, you should use [svelte-scroller](https://github.com/sveltejs/svelte-scroller), which is a lower level component you can more easily customize.
+
+</section>
+
+`steps` _an array of objects_
+
+- `background` A background component **REQUIRED**
+- `backgroundProps` An object of props given to background component
+- `foreground` Either a markdown string or a foreground component **REQUIRED**
+- `foregroundProps` An object of props given to foreground component
+
+`backgroundSize`
+
+- Adjusts the size of the background graphic by passing a class name corresponding to one of our well widths: `normal`, `wide`, `wider`, `widest` or `fluid`.
+
+</section>
+
+```svelte
+<script>
+  import { Scroller } from '@reuters-graphics/graphics-svelte-components';
+  import RedGraphic from './RedGraphic.svelte';
+  import BlueGraphic from './BlueGraphic.svelte';
+  import GreenGraphic from './GreenGraphic.svelte';
+
+  const steps = [
+    {
+      background: RedGraphic,
+      foreground: '#### Step 1\n\nLorem ipsum red',
+    },
+    {
+      background: BlueGraphic,
+      foreground: '#### Step 2\n\nLorem ipsum blue',
+    },
+    {
+      background: GreenGraphic,
+      foreground: '#### Step 3\n\nLorem ipsum green',
+    },
+  ];
+
+  const backgroundSize = 'wide';
+</script>
+
+<Scroller steps="{steps}" backgroundSize="{backgroundSize}" />
+```
+
+<DemoContainer fluid={true}>
+  <Scroller
+    steps={basicSteps}
+    backgroundSize="wide"
+    id='example1'
+  />
+</DemoContainer>
+
+<section>
+
+Control the layout of your component with the `foregroundPosition` prop.
+
+`foregroundPosition`
+
+- `middle` Text and graphic middle _default_
+- `left` Text to left, graphic stays middle
+- `right` Text to right, graphic stays middle
+- `left opposite` Text to left, graphic to right
+- `right opposite` Text to right, graphic to left
+
+Both text and graphic will revert to the middle when the window drops below 1200px.
+
+**Note:** Make sure your `backgroundSize` prop is _not_ set to `fluid` if using either left or right opposite option.
+
+</section>
+
+```svelte
+<script>
+  import { Scroller } from '@reuters-graphics/graphics-svelte-components';
+  import RedGraphic from './RedGraphic.svelte';
+  import BlueGraphic from './BlueGraphic.svelte';
+  import GreenGraphic from './GreenGraphic.svelte';
+
+  const steps = [
+    {
+      background: RedGraphic,
+      foreground: '#### Step 1\n\nLorem ipsum',
+    },
+    {
+      background: BlueGraphic,
+      foreground: '#### Step 2\n\nLorem ipsum',
+    },
+    {
+      background: GreenGraphic,
+      foreground: '#### Step 3\n\nLorem ipsum',
+    },
+  ];
+</script>
+
+<Scroller
+  steps="{steps}"
+  foregroundPosition="right opposite"
+  backgroundSize="normal"
+/>
+```
+
+<DemoContainer fluid={true}>
+  <Scroller
+    steps={basicSteps}
+    foregroundPosition='right opposite'
+    backgroundSize='normal'
+    id='example2'
+  />
+</DemoContainer>
+
+<section>
+
+`stackBackground`
+
+- Determines whether previous background step graphics will stack below current one.
+- `true` _default_ Background graphics from previous steps will remain visible below active one, allowing you to stack graphics with transparent backgrounds.
+- `false` Only the background graphic from the current step will show and backgrounds from previous steps are hidden.
+
+`preload`
+
+- Determines how many background steps to load before and after the currently active one. This prop basically lazyloads backgrounds, which is useful for making sure you're not loading too many images at once for long scrolls.
+- Default is `1`, which loads one background before and one after the currently active one.
+- `0` disables lazyloading and loads all backgrounds at once.
+
+</section>
+
+```svelte
+<Scroller steps="{steps}" stackBackground="{true}" preload="{0}" />
+```
+
+<DemoContainer fluid={true}>
+  <Scroller
+    steps={stackedSteps}
+    foregroundPosition='middle'
+    backgroundSize='normal'
+    preload={0}
+    id='example-stack'
+  />
+</DemoContainer>
+
+<section>
+
+Pass a component to `foreground` and use `backgroundProps` and `foregroundProps` to pass data to your components.
+
+</section>
+
+```svelte
+<script>
+  import { Scroller } from '@reuters-graphics/graphics-svelte-components';
+  import MultiColourGraphic from './MultiColourGraphic.svelte';
+  import InteractiveText from './InteractiveText.svelte';
+
+  const steps = [
+    {
+      background: MultiColourGraphic,
+      backgroundProps: { colour: 'red' }, // 👈
+      foreground: InteractiveText, // 👈
+    },
+    {
+      background: MultiColourGraphic,
+      backgroundProps: { colour: 'blue' },
+      foreground: '#### Step 2\n\nLorem ipsum blue',
+    },
+    {
+      background: MultiColourGraphic,
+      backgroundProps: { colour: 'green' },
+      foreground: InteractiveText,
+      foregroundProps: { count: 100 }, // 👈
+    },
+  ];
+</script>
+
+<Scroller steps="{steps}" backgroundSize="widest" />
+```
+
+<DemoContainer fluid={true}>
+  <Scroller
+    steps={basicStepsComponent}
+    backgroundSize="widest"
+    id='example3'
+  />
+</DemoContainer>
+
+<section>
+
+Add an ID to your scroller and use SCSS `:global` rules to override any styles.
+
+<section class='note'>
+
+This is the main way you should customise this component for any layouts not covered by the props we've already mentioned. Most small layout shifts can be handled with simple SCSS. Check out the component in your browser's inspector to find which elements you want to target with custom styles.
+
+If you're still struggling to make this component work for your design, it may be a good sign you should reach for [svelte-scroller](https://github.com/sveltejs/svelte-scroller) instead.
+
+</section>
+
+</section>
+
+```svelte
+<Scroller steps="{steps}" backgroundSize="widest" id="my-scroller" />
+
+<!-- svelte-ignore css-unused-selector -->
+<style lang="scss">
+  // 👇 Go global!
+  :global {
+    #my-scroller {
+      .step-foreground {
+        max-width: 400px;
+        background-color: #333;
+        h4,
+        p {
+          color: white;
+        }
+      }
+    }
+  }
+</style>
+```
+
+<DemoContainer fluid={true}>
+  <Scroller
+    steps={basicSteps}
+    backgroundSize="widest"
+    id='scroller-example-4'
+  />
+</DemoContainer>
+
+<section>
+
+You can also use this component to layout an AI-based graphics scroller via an [ArchieML](http://archieml.org/)-formatted Google doc by using the following pattern to dynamically import [ai2svelte](https://github.com/reuters-graphics/ai2svelte) components for the background:
+
+<section class='note'>
+
+If you're using the [graphics kit](https://github.com/reuters-graphics/bluprint_graphics-kit), this pattern is already wired up in the boilerplate included in the Page.svelte component. Free money!
+
+</section>
+
+</section>
+
+```bash
+# In your Google doc...
+[blocks]
+
+# ...
+Type: ai-scroller
+ID: my-scroller
+BackgroundSize: fluid
+ForegroundPosition: middle
+
+[.steps]
+Background: ai-scroller-1
+Foreground: \#\#\#\# Step 1
+
+Lorem ipsum...
+:end
+
+Background: ai-scroller-2
+Foreground: \#\#\#\# Step 2
+
+Lorem ipsum...
+:end
+
+Background: ai-scroller-3
+Foreground: \#\#\#\# Step 3
+
+Lorem ipsum...
+:end
+
+[]
+
+[]
+```
+
+```svelte
+<!-- src/lib/Page.svelte -->
+<script>
+  import { assets } from '$app/paths';
+  import content from '$locales/en/content.json';
+  import { Scroller } from '@reuters-graphics/graphics-svelte-components';
+  import { fetchComponent, makeScrollerSteps } from '$utils/dynamicComponents';
+  import { truthyString } from '$utils/truthyString';
+</script>
+
+{#each content.blocks as block}
+  {#if block.Type === 'ai-scroller'}
+    {#await makeScrollerSteps(block.steps)}
+      <div></div>
+    {:then steps}
+      <Scroller
+          steps="{steps}"
+          backgroundSize="{block.BackgroundSize}"
+          foregroundPosition="{block.ForegroundPosition}"
+          id="{block.ID}"
+          embedded="{embedded}"
+          stackBackground="{truthyString(block.StackBackground)}"
+      />
+    {:catch error}
+      {console.error('Error making steps for scroller', error)}
+    {/await}
+  {/if}
+{/each}
+```
+
+<section>
+
+This pattern comes with some restrictions, though. Be sure your `fetchComponent` function follows [the limits on dynamic imports](https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations).
+
+**NOTE**: Make sure you wrap the function `truthyString()` around `block.StackBackground`. `truthyString()` converts the string pulled from Google docs ('true', 'false', etc.)
+into a Boolean.
+</section> 
+
+<section class='note'>
+
+##### Tips
+Each step needs its own .ai file unless you want to show the same graphic twice. The .ai file can be named anything -- just make sure you add the correct file name, without the .ai extension, to the google doc.
+
+Tip: First, make one master .ai file that contains graphics for all steps. Put graphics for each step into its own layer, which you might name step-1, step-2, etc. When you are ready to export, create separate .ai files for each step by hiding all but one layer and choosing save as. This makes it easier to manage multiple files and make sure graphics in different steps are aligned.
+
+Example workflow:
+
+Make maps-scroll-master.ai
+Make graphics for each step and put them in separate layers: step-1, step-2, etc.
+Once all graphics are ready, show just the step-1 layer and hide all others. Save the file as maps-scroll-1.ai, then run the ai2svelte script. In the google doc, set Background: maps-scroll-1 for step 1.
+Do the same for all other layers
+
+</section>
+
+<DemoContainer fluid={true}>
+  {#await makeSteps(ai2svelteSteps) then steps}
+    <Scroller
+      steps={steps}
+      backgroundSize="fluid"
+      id='example-5'
+    />
+  {/await}
+</DemoContainer>
+
+<section>
+
+This component can also unravel the scrolling experience into a flat, linear layout. Use this when the graphic will be embedded in an iframe.
+
+`embedded`
+
+- Setting to `true` will unroll the scroll experience into a flat layout. `true` will also cause the `foregroundPosition` prop to be ignored. (Use global SCSS to adjust the style of foreground text.)
+
+`embeddedLayout`
+
+- `fb` (default) will layout the foreground before the background in each step.
+- `bf` will lead with the background in each step.
+
+</section>
+
+```svelte
+<Scroller
+  steps="{steps}"
+  backgroundSize="fluid"
+  embedded="{true}"
+  embeddedLayout="fb"
+/>
+```
+
+<DemoContainer fluid={true}>
+  {#await makeSteps(ai2svelteSteps) then steps}
+    <Scroller
+      steps={steps}
+      backgroundSize="fluid"
+      id='example6'
+      embedded=true
+    />
+  {/await}
+</DemoContainer>
+
+<style lang="scss">
+  :global {
+    section.note {
+      margin: 2rem auto;
+      padding: 10px;
+      border-left: 10px solid #999;
+      p {
+        font-size: 0.95rem;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+    li {
+      margin-bottom: 2px;
+    }
+    #scroller-example-4 {
+      .step-foreground{
+        max-width: 400px;
+        background-color: #333;
+        h4, p {
+          color: white;
+        }
+      }
+    }
+  }
+</style>
