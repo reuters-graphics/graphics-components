@@ -1,0 +1,73 @@
+@import "~@reuters-graphics/style-color/scss/categorical/base";
+
+.color-black {
+  color: $black;
+
+  &.important {
+    color: $black !important;
+  }
+}
+
+.color-gray {
+  color: $gray;
+
+  &.important {
+    color: $gray !important;
+  }
+}
+
+.color-white {
+  color: $white;
+
+  &.important {
+    color: $white !important;
+  }
+}
+
+.color-yellow {
+  color: $yellow;
+
+  &.important {
+    color: $yellow !important;
+  }
+}
+
+.color-orange {
+  color: $orange;
+
+  &.important {
+    color: $orange !important;
+  }
+}
+
+.color-red {
+  color: $red;
+
+  &.important {
+    color: $red !important;
+  }
+}
+
+.color-green {
+  color: $green;
+
+  &.important {
+    color: $green !important;
+  }
+}
+
+.color-blue {
+  color: $blue;
+
+  &.important {
+    color: $blue !important;
+  }
+}
+
+.color-purple {
+  color: $purple;
+
+  &.important {
+    color: $purple !important;
+  }
+}

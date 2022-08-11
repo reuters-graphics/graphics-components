@@ -1,0 +1,88 @@
+@import "@reuters-graphics/style-color/scss/sequential/sesame";
+@import "@reuters-graphics/style-color/scss/thematic/brand";
+
+@import "../fonts/mixins";
+@import "../typography/font-size";
+
+@mixin body-text {
+  p {
+    @include font-serif;
+
+    @extend .paragraph-size;
+
+    -webkit-font-smoothing: antialiased;
+
+    a {
+      color: inherit;
+      background-size: 1px 1px;
+      background-image: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="2" y2="2" stroke="rgba(0, 0, 0, 0.8)" /></svg>');
+      background-position: 0 1.3rem;
+      background-repeat: repeat-x;
+
+      @media(max-width: 540px) {
+        background-position: 0 1.2rem;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  h2 {
+    margin: 4rem 0 2rem;
+    text-align: center;
+    font-weight: 600;
+
+    &::after {
+      display: block;
+      content: '';
+      background: $brand-secondary;
+      height: 3px;
+      width: 100px;
+      margin: 10px auto 2rem;
+    }
+  }
+
+  ul li,
+  ol li {
+    @extend .paragraph-size;
+  }
+
+  blockquote {
+    margin: 30px 0;
+    border-left: 2px solid $brand-secondary;
+    padding-left: 15px;
+
+    p {
+      @extend .blockquote-size;
+    }
+
+    // Markdown cheat to use for attribution
+    blockquote {
+      border: 0;
+      padding: 0;
+      margin: -5px 0 0;
+
+      p {
+        color: $gray-500;
+        font-size: 1rem;
+
+        @media(max-width: 540px) {
+          font-size: 0.9rem;
+        }
+      }
+
+      // Kill any additional nestings...
+      blockquote {
+        display: none;
+      }
+    }
+  }
+
+  &.font-sans {
+    p {
+      @include font-sans;
+    }
+  }
+}

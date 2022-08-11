@@ -1,6 +1,7 @@
 <script lang="ts">
   import { throttle } from 'lodash-es';
   import { onMount } from 'svelte';
+  import Block from '../Block/Block.svelte';
 
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   /** Width of the chart within the text well. */
@@ -145,77 +146,78 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <section
-    class="photo before-after {width}"
-    style="height: {containerHeight}px;"
-    bind:clientWidth="{containerWidth}"
-  >
-    <figure
-      style="{figStyle}"
-      class="before-after-container"
-      on:touchstart="{start}"
-      on:mousedown="{start}"
-      bind:this="{figure}"
-      aria-labelledby="{$$slots.caption && `${id}-caption`}"
+  <Block {width} cls="photo before-after">
+    <div
+      style="height: {containerHeight}px;"
+      bind:clientWidth="{containerWidth}"
     >
-      <img
-        bind:this="{img}"
-        src="{afterSrc}"
-        alt="{afterAlt}"
-        on:load="{measureLoadedImage}"
-        on:mousedown|preventDefault
-        style="{imgStyle}"
-        class="after"
-        aria-describedby="{$$slots.beforeOverlay && `${id}-before`}"
-      />
-
-      <img
-        src="{beforeSrc}"
-        alt="{beforeAlt}"
-        on:mousedown|preventDefault
-        style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
-        class="before"
-        aria-describedby="{$$slots.afterOverlay && `${id}-after`}"
-      />
-      {#if $$slots.beforeOverlay}
-        <div
-          id="image-before-label"
-          class="overlay-container before"
-          bind:clientWidth="{beforeOverlayWidth}"
-          style="clip-path: inset(0 {beforeOverlayClip}px 0 0);"
-        >
-          <!-- Overlay for before image -->
-          <slot
-            name="beforeOverlay"
-            description="{`${id}-before-description`}"
-          />
-        </div>
-      {/if}
-      {#if $$slots.afterOverlay}
-        <div id="image-after-label" class="overlay-container after">
-          <!-- Overlay for after image -->
-          <slot name="afterOverlay" description="{`${id}-after-description`}" />
-        </div>
-      {/if}
-      <div
-        tabindex="0"
-        class="handle"
-        style="left: calc({offset *
-          100}% - 20px); --before-after-handle-colour: {handleColour}; --before-after-handle-inactive-opacity: {handleInactiveOpacity};"
-        on:focus="{onFocus}"
-        on:blur="{onBlur}"
+      <figure
+        style="{figStyle}"
+        class="before-after-container"
+        on:touchstart="{start}"
+        on:mousedown="{start}"
+        bind:this="{figure}"
+        aria-labelledby="{$$slots.caption && `${id}-caption`}"
       >
-        <div class="arrow-left"></div>
-        <div class="arrow-right"></div>
-      </div>
-    </figure>
-  </section>
-  {#if $$slots.caption}
-    <section class="graphic caption {width}" id="{`${id}-caption`}">
-      <!-- Caption for image credits -->
-      <slot name="caption" />
-    </section>
-  {/if}
+        <img
+          bind:this="{img}"
+          src="{afterSrc}"
+          alt="{afterAlt}"
+          on:load="{measureLoadedImage}"
+          on:mousedown|preventDefault
+          style="{imgStyle}"
+          class="after"
+          aria-describedby="{$$slots.beforeOverlay && `${id}-before`}"
+        />
+
+        <img
+          src="{beforeSrc}"
+          alt="{beforeAlt}"
+          on:mousedown|preventDefault
+          style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
+          class="before"
+          aria-describedby="{$$slots.afterOverlay && `${id}-after`}"
+        />
+        {#if $$slots.beforeOverlay}
+          <div
+            id="image-before-label"
+            class="overlay-container before"
+            bind:clientWidth="{beforeOverlayWidth}"
+            style="clip-path: inset(0 {beforeOverlayClip}px 0 0);"
+          >
+            <!-- Overlay for before image -->
+            <slot
+              name="beforeOverlay"
+              description="{`${id}-before-description`}"
+            />
+          </div>
+        {/if}
+        {#if $$slots.afterOverlay}
+          <div id="image-after-label" class="overlay-container after">
+            <!-- Overlay for after image -->
+            <slot name="afterOverlay" description="{`${id}-after-description`}" />
+          </div>
+        {/if}
+        <div
+          tabindex="0"
+          class="handle"
+          style="left: calc({offset *
+            100}% - 20px); --before-after-handle-colour: {handleColour}; --before-after-handle-inactive-opacity: {handleInactiveOpacity};"
+          on:focus="{onFocus}"
+          on:blur="{onBlur}"
+        >
+          <div class="arrow-left"></div>
+          <div class="arrow-right"></div>
+        </div>
+      </figure>
+    </div>
+    {#if $$slots.caption}
+      <section class="graphic caption {width}" id="{`${id}-caption`}">
+        <!-- Caption for image credits -->
+        <slot name="caption" />
+      </section>
+    {/if}
+  </Block>
 {/if}
 
 <style lang="scss">

@@ -9,27 +9,14 @@
 @import "mixins";
 
 // Bootstrap
-@import "bootstrap/imports";
+@import "bootstrap/main";
 
 // Styles
 @import "fonts/rules";
 @import "typography/rules";
-
-// The well
-@import "containers/main";
+@import "typography/main";
 
 // Components
-@import "components/typography/main";
 @import "components/article-metadata";
-@import "components/article";
-@import "components/body-text";
 @import "components/end-notes";
-@import "components/footer";
 @import "components/graphic";
-@import "components/headline";
-@import "components/hero-title";
-@import "components/nav";
-@import "components/photo";
-@import "components/referrals";
-@import "components/section";
-@import "components/seo-headline";

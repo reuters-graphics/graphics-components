@@ -7,11 +7,22 @@
   export let text: string;
 
   import { marked } from 'marked';
-  import Section from '../Section/Section.svelte';
+  import Block from '../Block/Block.svelte';
 </script>
 
-<Section cls="body-text">
+<Block cls="body-text">
   {#if text}
     {@html marked.parse(text)}
   {/if}
-</Section>
+</Block>
+
+<!-- svelte-ignore css-unused-selector -->
+<style lang="scss">
+  @import "../../scss/mixins";
+
+  :global {
+    div.article-block.body-text {
+      @include body-text;
+    }
+  }
+</style>

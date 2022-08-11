@@ -63,7 +63,7 @@
     <!-- Add a crown -->
     <img slot="crown" src="{crownImgSrc}" alt="Illustration of Europe" />
     <!-- Override the hed with a named slot -->
-    <h2 slot="hed" class="spaced font-serif">Europa</h2>
+    <h1 slot="hed" class="spaced font-serif">Europa</h1>
     <span slot="dateline">Published Jan. 1, 2020</span>
   </Headline>
 </Story>

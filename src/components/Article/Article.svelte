@@ -3,9 +3,10 @@
   export let embedded: boolean = false;
 
   /** Add an id to the article tag to target it with custom CSS. */
-  export let id: string = '';
-  /** ARIA role of the article, usually ["main"](https://w3c.github.io/aria/#main) if enclosing the story. */
-  export let role: string = 'main';
+  export let id: string | null = null;
+  
+  /** ARIA role of the article. */
+  export let role: string | null = null;
 
   interface ColumnWidths {
     /** Narrower column width */
@@ -40,10 +41,12 @@
   };
 </script>
 
-<article {id} class:embedded={embedded} role={role} use:cssVariables={columnWidthVars}>
-  <!-- Article content -->
-  <slot></slot>
-</article>
+<main>
+  <article id={id} class:embedded={embedded} role={role} use:cssVariables={columnWidthVars}>
+    <!-- Article content -->
+    <slot></slot>
+  </article>
+</main>
 
 <style lang="scss">
   article {

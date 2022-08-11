@@ -10,25 +10,25 @@ The `Article` component also creates several column dimensions inside our articl
 
 (Check out the below demo in the "Canvas" tab to better see the wider differences.)
 
-When combined with the `Section` component, you can set custom column widths by passing an object to the `columnWidths` prop with pixel values for the `narrower`, `narrow`, `normal`, `wide` and `wider` column widths.
+When combined with the `Block` component, you can set custom column widths by passing an object to the `columnWidths` prop with pixel values for the `narrower`, `narrow`, `normal`, `wide` and `wider` column widths.
 
 ```svelte
 <Article
   columnWidths={{ narrower: 310, narrow: 450, normal: 550, wide: 675, wider: 1400 }}
 >
-  <Section width='narrower' />
-  <Section width='narrow' />
-  <Section width='normal' />
-  <Section width='wide' />
-  <Section width='wider' />
-  <Section width='widest' />
-  <Section width='fluid' />
+  <Block width='narrower' />
+  <Block width='narrow' />
+  <Block width='normal' />
+  <Block width='wide' />
+  <Block width='wider' />
+  <Block width='widest' />
+  <Block width='fluid' />
 </Article>
 ```
 
 > Keep in mind, other tools, like our AI templates, use our default column widths, so customising those widths here may have downstream consequences for graphics made outside your code.
 
-If you're not using our `Section` component, you can still inherit the column widths from `Article` to create your own custom container using the article well dimensions by using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) like this:
+If you're not using our `Block` component, you can still inherit the column widths from `Article` to create your own custom container using the article well dimensions by using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) like this:
 
 ```svelte
 <div class="my-special-container">

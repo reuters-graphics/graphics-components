@@ -1,7 +1,6 @@
 const { mergeConfig } = require('vite');
 const preprocess = require('../bin/preprocess/index.cjs');
 
-
 module.exports = {
   "stories": [
     "../src/**/*.stories.mdx",
@@ -20,6 +19,9 @@ module.exports = {
     "storyStoreV7": false,
     "previewMdx2": true,
   },
+  typescript: {
+    check: false,
+  },
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
       base: configType === 'PRODUCTION' ? 'https://reuters-graphics.github.io/graphics-components/' : '/',
@@ -28,7 +30,7 @@ module.exports = {
       },
       resolve: {
         alias: {
-          '@reuters-graphics/svelte-charts': './src',
+          '@reuters-graphics/graphics-components': './src',
           '$lib': './src',
           '$docs': './src/docs',
         },

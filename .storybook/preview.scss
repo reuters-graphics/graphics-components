@@ -1,3 +1,5 @@
+@import "../src/scss/fonts/mixins";
+
 table.docblock-argstable {
   p {
     font-family: inherit;
@@ -19,11 +21,33 @@ div.sbdocs-content {
     margin: 1rem 0;
   }
 
- & > blockquote, & > div > div > blockquote, blockquote.sbdocs {
+ blockquote.sbdocs {
     background-color: #ededed;
     padding: 15px 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin: 2rem auto;
+    p {
+      font-size: 16px;
+      line-height: 22px;
+    }
   }
 }
 
+p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
+  font-size: 18px;
+  line-height: 29px;
+  @include font-display;
+}
+
+// .sbdocs {
+//   max-width: 800px;
+//   margin: 0 auto !important;
+//   display: block;
+// }
+// .sbdocs.sbdocs-pre {
+//   max-width: 1000px;
+// }
+// .sbdocs.sbdocs-wrapper, .sbdocs.sbdocs-content, .sbdocs.sbdocs-preview {
+//   max-width: 100%;
+// }

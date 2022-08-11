@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Block from '../Block/Block.svelte';
 
   /**
    * Photo src
@@ -71,27 +72,43 @@
   });
 </script>
 
-<figure
-  class="photo { width }"
-  bind:this="{container}"
->
-  {#if !lazy || (intersectable && intersecting)}
-    <img src="{src}" alt="{altText}" />
-  {:else}
-    <div class="placeholder" height="{`${height}px`}"></div>
-  {/if}
-  {#if caption}
-    <figcaption>{caption}</figcaption>
-  {/if}
-  {#if (!altText)}
-    <div class='alt-warning'>Missing altText</div>
-  {/if}
-</figure>
+<Block {width} cls="photo">
+  <figure
+    bind:this="{container}"
+    aria-label="media"
+    class:fluid={width === 'fluid'}
+  >
+    {#if !lazy || (intersectable && intersecting)}
+      <img src="{src}" alt="{altText}" />
+    {:else}
+      <div class="placeholder" height="{`${height}px`}"></div>
+    {/if}
+    {#if caption}
+      <figcaption>{caption}</figcaption>
+    {/if}
+    {#if (!altText)}
+      <div class='alt-warning'>Missing altText</div>
+    {/if}
+  </figure>
+</Block>
 
 <style lang="scss">
   @import "@reuters-graphics/style-main/scss/fonts/mixins";
+  @import "@reuters-graphics/style-color/scss/thematic/brand";
+
   figure {
+    width: 100%;
     position: relative;
+
+    img {
+      width: 100%;
+    }
+
+    .placeholder {
+      background-color: #ccc;
+      width: 100%;
+    }
+
     div.alt-warning {
       @include font-display;
       padding: 5px 10px;
@@ -103,13 +120,18 @@
       font-size: 14px;
       line-height: 16px;
     }
-  }
-  .placeholder {
-    background-color: #ccc;
-    width: 100%;
-  }
-  figcaption {
-    @include font-display;
-    font-weight: 400;
+
+    figcaption {
+      @include font-display;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: $brand-secondary;
+    }
+
+    &.fluid {
+      figcaption {
+        padding-left: 15px;
+      }
+    }
   }
 </style>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Block from '../Block/Block.svelte';
   /** 
    * iFrame title 
    * @required
@@ -45,7 +46,7 @@
   });
 </script>
 
-<section class="graphic {width}">
+<Block cls="graphic" {width}>
   {#if $$slots.title}
     <div class="chatter-container">
       <!-- Custom headline and chatter slot -->
@@ -70,13 +71,9 @@
       <slot name="notes" />
     </div>
   {/if}
-</section>
+</Block>
 
 <style lang="scss">
-  @import '@reuters-graphics/style-theme-eisbaer/scss/components/containers/widths';
-  .chatter-container {
-    @extend .well;
-  }
   .datawrapper-chart {
     margin: auto;
   }

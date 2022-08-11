@@ -17,7 +17,7 @@
   export let sectionColour: string = 'red';
 </script>
 
-<section class="headline">
+<header class="headline">
   <!-- Crown named slot -->
   <slot name="crown"></slot>
   <div class="title">
@@ -28,7 +28,7 @@
       <!-- Headline override named slot -->
       <slot name="hed"></slot>
     {:else}
-      <h2>{hed}</h2>
+      <h1>{hed}</h1>
     {/if}
     {#if dek}
       <p>{dek}</p>
@@ -54,8 +54,33 @@
       {/if}
     </aside>
   {/if}
-</section>
+</header>
 
 <style lang="scss">
+  @import "../../scss/mixins";
+
+  header.headline {
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+
+    h1 {
+      font-size: 4rem;
+      margin: 5px 0;
+      line-height: 1.1;
+    }
+
+    p {
+      @include font-display;
+
+      margin: 0;
+      font-weight: 200;
+
+      &.section-title {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+    }
+  }
 </style>
 

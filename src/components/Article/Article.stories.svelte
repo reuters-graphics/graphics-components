@@ -8,7 +8,7 @@
   import customWellWidthsDocs from './stories/docs/customWellWidths.md?raw';
 
   import Article from './Article.svelte';
-  import Section from '../Section/Section.svelte';
+  import Block from '../Block/Block.svelte';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
@@ -46,24 +46,24 @@
 >
   <Article id="article-column-widths-demo">
     <div class="article-boundaries">
-      <Section id="section-demo" width="narrower">narrower</Section>
-      <Section id="section-demo" width="narrow">narrow</Section>
-      <Section id="section-demo">normal</Section>
-      <Section id="section-demo" width="wide">wide</Section>
-      <Section id="section-demo" width="wider">wider</Section>
-      <Section id="section-demo" width="widest">widest</Section>
-      <Section id="section-demo" width="fluid">fluid</Section>
+      <Block id="section-demo" width="narrower">narrower</Block>
+      <Block id="section-demo" width="narrow">narrow</Block>
+      <Block id="section-demo">normal</Block>
+      <Block id="section-demo" width="wide">wide</Block>
+      <Block id="section-demo" width="wider">wider</Block>
+      <Block id="section-demo" width="widest">widest</Block>
+      <Block id="section-demo" width="fluid">fluid</Block>
     </div>
   </Article>
   <Article id="article-column-widths-demo" columnWidths={{ narrower: 310, narrow: 450, normal: 550, wide: 675, wider: 1400 }}>
     <div class="article-boundaries custom">
-      <Section id="section-demo" width="narrower">narrower*</Section>
-      <Section id="section-demo" width="narrow">narrow*</Section>
-      <Section id="section-demo">normal*</Section>
-      <Section id="section-demo" width="wide">wide*</Section>
-      <Section id="section-demo" width="wider">wider*</Section>
-      <Section id="section-demo" width="widest">widest</Section>
-      <Section id="section-demo" width="fluid">fluid</Section>
+      <Block id="section-demo" width="narrower">narrower*</Block>
+      <Block id="section-demo" width="narrow">narrow*</Block>
+      <Block id="section-demo">normal*</Block>
+      <Block id="section-demo" width="wide">wide*</Block>
+      <Block id="section-demo" width="wider">wider*</Block>
+      <Block id="section-demo" width="widest">widest</Block>
+      <Block id="section-demo" width="fluid">fluid</Block>
     </div>
   </Article>
 </Story>
@@ -86,13 +86,13 @@
         height: 100%;
         background-color: #bbb;
         &.custom {
-          section {
+          div.article-block {
             background: rgb(211, 132, 123);
           }
         }
       }
 
-      section {
+      div.article-block {
         height: 300px;
         background: #81a1c1;
         margin-bottom: 2px;
