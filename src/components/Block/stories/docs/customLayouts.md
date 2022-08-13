@@ -1,4 +1,4 @@
-Our article well is designed to handle basic page layout when you're not trying to think about it, but it's also made to get out of the way quickly when you need to do something custom.
+Our article well is designed to provide a basic responsive layout issues for you, but it's also made to get out of the way quickly when you need to do something custom.
 
 If you need to get really radical, the easiest way is to create a `Block` with a `fluid` width -- which basically cancels out the article well dimensions -- and then code whatever you need from scratch or with another framework.
 

@@ -21,8 +21,11 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  @import '../../../scss/bootstrap/main';
   @import '@reuters-graphics/style-main/scss/fonts/mixins';
+
+  a {
+    text-decoration: none;
+  }
 
   .image {
     width: 100%;
@@ -59,7 +62,7 @@
     width: 25%;
     padding: 0 10px;
 
-    @include media-breakpoint-down(sm) {
+    @media (max-width: 768px) {
       width: 33.33333%;
 
       &:nth-child(4) {
@@ -67,7 +70,7 @@
       }
     }
 
-    @include media-breakpoint-down(xs) {
+    @media (max-width: 575px) {
       width: 50%;
 
       &:nth-child(3) {

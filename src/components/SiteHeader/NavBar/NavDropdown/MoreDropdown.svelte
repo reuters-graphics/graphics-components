@@ -40,6 +40,14 @@
   @import '../../scss/_grids.scss';
   @import '../../scss/_z-indexes.scss';
 
+  a {
+    text-decoration: none;
+    &:hover {
+      color: inherit;
+      text-decoration: underline !important;
+    }
+  }
+
   .more-sections {
     position: relative;
 
@@ -71,6 +79,10 @@
         display: inline-block;
         padding: 4px 0;
         margin-bottom: 2px;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline !important;
+        }
       }
     }
 
@@ -84,6 +96,10 @@
       @media (min-width: 1300px) {
         font-size: 18px;
       }
+      text-decoration: none;
+        &:hover {
+          text-decoration: underline !important;
+        }
     }
   }
 </style>

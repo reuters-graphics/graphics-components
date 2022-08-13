@@ -4,15 +4,15 @@
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
 
-  import EndNotes from './EndNotes.svelte';
+  import NoteText from './NoteText.svelte';
 
   import {
     withComponentDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
-    title: 'Components/EndNotes',
-    component: EndNotes,
+    title: 'Components/NoteText',
+    component: NoteText,
     ...withComponentDocs(componentDocs),
   };
 </script>
@@ -20,18 +20,18 @@
 <Meta {...meta} />
 
 <Template let:args>
-  <EndNotes {...args} />
+  <NoteText {...args} />
 </Template>
 
 <Story
   name="Default"
   args={{
-    text: `### Source
+    text: `## Source
 
-Reuters research.
+[European Forest Fire Information System](https://effis.jrc.ec.europa.eu/); Reuters research
 
-### Credits
+#### Credits
 
-People.`
+Jane Doe & John Doe`
   }}
 />

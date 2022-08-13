@@ -1,0 +1,33 @@
+@import "fonts";
+
+@mixin note-text {  
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include font-display;
+
+    margin: 1rem 0 0;
+    font-size: 1rem;
+  }
+
+  p {
+    @include font-display;
+
+    font-size: 1rem;
+    font-weight: 200;
+    a {
+      color: currentColor;
+      background-size: 1px 1px;
+      background-image: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="2" y2="2" stroke="rgba(0, 0, 0, 0.8)" /></svg>');
+      background-position: 0 1.1rem;
+      background-repeat: repeat-x;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

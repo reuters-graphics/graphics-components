@@ -43,6 +43,7 @@
     flex-direction: row;
     justify-content: flex-start;
     color: var(--nav-primary, $tr-dark-grey);
+    text-decoration: none;
 
     &:hover,
     &:focus {

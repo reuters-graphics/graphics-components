@@ -46,6 +46,14 @@
   @import '../../scss/_colors.scss';
   @import '../../scss/_breakpoints.scss';
 
+  a {
+    text-decoration: none;
+    &:hover {
+      color: inherit;
+      text-decoration: underline !important;
+    }
+  }
+
   .sections {
     display: flex;
 
@@ -96,6 +104,10 @@
     -webkit-font-smoothing: antialiased;
     @media (min-width: 1300px) {
       font-size: 18px;
+    }
+    &:hover {
+      color: inherit;
+      text-decoration: underline !important;
     }
   }
 

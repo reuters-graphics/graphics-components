@@ -1,4 +1,4 @@
-@import "variables";
+@import "../fonts/variables";
 
 @mixin font-sans($i: false) {
   $important: if($i, "!important", "");

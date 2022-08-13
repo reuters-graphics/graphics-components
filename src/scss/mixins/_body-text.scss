@@ -1,11 +1,15 @@
 @import "@reuters-graphics/style-color/scss/sequential/sesame";
 @import "@reuters-graphics/style-color/scss/thematic/brand";
 
-@import "../fonts/mixins";
+@import "fonts";
 @import "../typography/font-size";
 
 @mixin body-text {
-  p {
+  p,
+  ul li,
+  ul li p,
+  ol li,
+  ol li p {
     @include font-serif;
 
     @extend .paragraph-size;
@@ -13,14 +17,21 @@
     -webkit-font-smoothing: antialiased;
 
     a {
-      color: inherit;
+      color: currentColor;
       background-size: 1px 1px;
       background-image: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="2" y2="2" stroke="rgba(0, 0, 0, 0.8)" /></svg>');
       background-position: 0 1.3rem;
       background-repeat: repeat-x;
+      text-decoration: none;
+      // TODO: Assign this to background colour CSS var and the underline will skip descenders
+    //   text-shadow:
+    // 1px 1px white,
+    // 1px -1px white,
+    // -1px 1px white,
+    // -1px -1px white;
 
       @media(max-width: 540px) {
-        background-position: 0 1.2rem;
+        background-position: 0 1.1rem;
       }
 
       &:hover {
@@ -44,9 +55,12 @@
     }
   }
 
-  ul li,
-  ol li {
-    @extend .paragraph-size;
+  ul {
+    padding-left: 1.75rem;
+    list-style-type: square;
+  }
+  p + ul {
+    margin-top: -0.75rem;
   }
 
   blockquote {

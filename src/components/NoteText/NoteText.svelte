@@ -5,12 +5,12 @@
    * @required
    */
   export let text: string;
-
+  
   import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block cls="body-text">
+<Block cls="notes">
   {#if text}
     {@html marked.parse(text)}
   {/if}
@@ -18,13 +18,13 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  // Technically... we probably should unbind these styles from the component
+  // Same as body text... we probably should unbind these styles from the component
   // and import them in the app through a separate scss file.
   @import "../../scss/mixins";
 
   :global {
-    div.article-block.body-text {
-      @include body-text;
+    div.article-block.notes {
+      @include note-text;
     }
   }
 </style>

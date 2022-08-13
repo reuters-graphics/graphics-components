@@ -113,11 +113,12 @@
       position: absolute;
       bottom: 0;
       left: 5px;
+      color: white;
     }
     .padding-label {
       position: absolute;
       top: 0;
-      left: -15px;
+      left: -17px;
       span {
         font-size: 18px;
       }

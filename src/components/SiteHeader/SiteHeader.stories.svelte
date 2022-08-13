@@ -7,6 +7,7 @@
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
 
   import SiteHeader, { themes } from './SiteHeader.svelte';
+  import Block from '../Block/Block.svelte';
 
   import {
     withComponentDocs,
@@ -26,7 +27,7 @@
 <Meta {...meta} />
 
 <Template let:args>
-  <div>
+  <div class="cancel-article">
     <SiteHeader {...args} />
   </div>
 </Template>
@@ -45,7 +46,9 @@
 
 
 <style>
-  div {
-    min-height: 89px;
+  div.cancel-article {
+    min-height: 625px;
+    width: calc(100% + 30px);
+    margin-left: -15px;
   }
 </style>

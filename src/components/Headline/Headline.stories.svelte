@@ -51,7 +51,7 @@
     <!-- Use named slots to add a byline... -->
     <span slot="byline">By <strong>Peppa Pig</strong></span>
     <!-- ...and a dateline. -->
-    <span slot="dateline">Published Jan. 1, 2020</span>
+    <span slot="dateline">Published <time datetime="{new Date('2020-01-01').toISOString()}">Jan. 1, 2020</time></span>
   </Headline>
 </Story>
 
@@ -64,6 +64,6 @@
     <img slot="crown" src="{crownImgSrc}" alt="Illustration of Europe" />
     <!-- Override the hed with a named slot -->
     <h1 slot="hed" class="spaced font-serif">Europa</h1>
-    <span slot="dateline">Published Jan. 1, 2020</span>
+    <span slot="dateline">Published <time datetime="{new Date('2020-01-01').toISOString()}">Jan. 1, 2020</time></span>
   </Headline>
 </Story>

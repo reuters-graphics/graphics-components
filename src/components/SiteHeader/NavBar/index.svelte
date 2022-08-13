@@ -1,6 +1,6 @@
 <script>
   import DownArrow from './DownArrow.svelte';
-  import SectionDrowdown from './NavDropdown/SectionDrowdown.svelte';
+  import SectionDropdown from './NavDropdown/SectionDropdown.svelte';
   import MoreDropdown from './NavDropdown/MoreDropdown.svelte';
   import { normalizeUrl } from './utils/index';
   import { getContext } from 'svelte';
@@ -67,7 +67,7 @@
               </button>
             </div>
             {#if $activeSection === section.id}
-              <SectionDrowdown
+              <SectionDropdown
                 section="{section}"
                 headingText="{`Latest in ${section.name}`}"
               />
@@ -160,6 +160,7 @@
       a,
       span {
         color: var(--nav-primary, $tr-dark-grey);
+        text-decoration: none;
         &:hover,
         &:active {
           text-decoration: none;

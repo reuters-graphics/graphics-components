@@ -134,6 +134,10 @@
     @include for-tablet-down {
       height: $mobile-nav-height;
     }
+
+    a {
+      text-decoration: none;
+    }
   }
 
   .scroll-container {
