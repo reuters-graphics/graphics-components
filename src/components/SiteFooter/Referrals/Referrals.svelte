@@ -52,5 +52,7 @@
   .row {
     margin-right: -10px;
     margin-left: -10px;
+    display: flex;
+    flex-wrap: wrap;
   }
 </style>

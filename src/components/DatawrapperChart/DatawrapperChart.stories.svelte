@@ -38,24 +38,19 @@
     src: 'https://graphics.reuters.com/USA-ABORTION/lgpdwggnwvo/media-embed.html',
     id: 'abortion-rights-map',
     ariaLabel: 'map',
-    title: 'Global abortion access',
+    frameTitle: 'Global abortion access',
   }}
 />
 
 <Story name="With chatter" {...withStoryDocs(withChatterDocs)}>
   <DatawrapperChart
-    title='Global abortion access'
+    frameTitle='Global abortion access'
     ariaLabel='map'
     id='abortion-rights-map'
     src='https://graphics.reuters.com/USA-ABORTION/lgvdwemlbpo/media-embed.html'
+    title="Global abortion access"
+    description="A map of worldwide access to abortion."
+    notes={'Note: Different indicators and additional restrictions, including different gestational limits, apply in some countries. Refer to source for full classification. Current as of May 4, 2022.\n\nSource: Center for Reproductive Rights'}
   >
-    <div slot="title" class="title">
-      <h3>Global abortion access</h3>
-      <p>A map of worldwide access to abortion.</p>
-    </div>
-    <aside slot="notes">
-      <p class="note">Note: Different indicators and additional restrictions, including different gestational limits, apply in some countries. Refer to source for full classification. Current as of May 4, 2022.</p>
-      <p class="source">Source: Center for Reproductive Rights</p>
-    </aside>
   </DatawrapperChart>
 </Story>

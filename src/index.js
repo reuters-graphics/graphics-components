@@ -1,13 +1,16 @@
 // export { default as Ai2svelte } from './Ai2svelte/index.svelte';
+export { default as Article } from './components/Article/Article.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
+export { default as Block } from './components/Block/Block.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';
 export { default as EmbedPreviewerLink } from './components/EmbedPreviewerLink/EmbedPreviewerLink.svelte';
-export { default as NoteText } from './components/NoteText/NoteText.svelte';
 export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.svelte';
 export { default as Framer } from './components/Framer/Framer.svelte';
+export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.svelte';
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as Hero } from './components/Hero/Hero.svelte';
+export { default as NoteText } from './components/NoteText/NoteText.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';
 // export { default as Scroller } from './Scroller/index.svelte';

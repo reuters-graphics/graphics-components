@@ -21,23 +21,23 @@
   
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'normal';
+
+  import Block from '../../Block/Block.svelte';
 </script>
 
-<section class="photo {width}">
+<Block {width} cls="photo">
   <div
     style:background-image={`url(${src})`}
     style:height={`${height}px`}
   />
   <p class="visually-hidden">{altText}</p>
-</section>
+</Block>
 
 <style lang="scss">
-  section.photo {
-    div {
-      width: 100%;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+  div {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .visually-hidden {
     clip: rect(0 0 0 0);

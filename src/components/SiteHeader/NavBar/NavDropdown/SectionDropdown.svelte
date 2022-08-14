@@ -49,7 +49,7 @@
   a {
     text-decoration: none;
     &:hover {
-      color: inherit;
+      color: var(--nav-primary, $tr-dark-grey);
       text-decoration: underline !important;
     }
   }

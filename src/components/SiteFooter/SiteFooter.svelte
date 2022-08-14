@@ -66,13 +66,22 @@
   </div>
 </footer>
 
+<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
   footer {
-    margin-top: 3rem;
+    margin-top: 4rem;
     background-color: var(--nav-background, #fff);
     div {
       max-width: 1400px;
       margin: 0 auto;
+    }
+    :global {
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 </style>

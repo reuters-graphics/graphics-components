@@ -1,17 +1,33 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Block from '../Block/Block.svelte';
+  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+  /**
+   * Title of the graphic
+   * @type {string}
+   */
+   export let title: string | null = null;
+
+  /**
+   * Description of the graphic, passed in as a markdown string.
+   * @type {string}
+   */
+  export let description: string | null = null;
   /** 
-   * iFrame title 
+   * iframe title 
    * @required
    */
-  export let title: string = '';
+  export let frameTitle: string = '';
+  /**
+   * Notes to the graphic, passed in as a markdown string.
+   * @type {string}
+   */
+   export let notes: string | null = null;
   /** 
-   * iFrame aria label
+   * iframe aria label
    * @required
    */
   export let ariaLabel: string = '';
-  /** iFrame id */
+  /** iframe id */
   export let id: string = '';
   /** 
    * Datawrapper embed URL
@@ -21,12 +37,20 @@
 
   type ScrollingOption = 'auto' | 'yes' | 'no';
 
-  /** iFrame scrolling option */
+  /** iframe scrolling option */
   export let scrolling: ScrollingOption = 'no';
 
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   /** Width of the chart within the text well. */
   export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
+
+  /**
+   * Set a different width for the text within the text well, for example, 
+   * "normal" to keep the title, description and notes inline with the rest
+   * of the text well. Can't ever be wider than `width`.
+   * @type {string}
+   */
+   export let textWidth: ContainerWidth | null = null;
 
   onMount(() => {
     if (typeof window !== 'undefined') {
@@ -46,32 +70,29 @@
   });
 </script>
 
-<Block cls="graphic" {width}>
+<GraphicBlock {width} {textWidth} {title} {description} {notes}>
   {#if $$slots.title}
-    <div class="chatter-container">
-      <!-- Custom headline and chatter slot -->
-      <slot name="title" />
-    </div>
+    <!-- Custom headline and chatter slot -->
+    <slot name="title" />
   {/if}
 
   <div class="datawrapper-chart">
     <iframe
-      title="{title}"
+      title="{frameTitle}"
       aria-label="{ariaLabel}"
       id="{id}"
       src="{src}"
       scrolling="{scrolling}"
       frameborder="0"
-      style="width: 0; min-width: 100% !important; border: none;"></iframe>
+      style="width: 0; min-width: 100% !important; border: none;"
+    ></iframe>
   </div>
 
   {#if $$slots.notes}
-    <div class="chatter-container">
-      <!-- Custom notes and source slot -->
-      <slot name="notes" />
-    </div>
+    <!-- Custom notes and source slot -->
+    <slot name="notes" />
   {/if}
-</Block>
+</GraphicBlock>
 
 <style lang="scss">
   .datawrapper-chart {

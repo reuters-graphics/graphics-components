@@ -27,7 +27,7 @@
 <Meta {...meta} />
 
 <Template let:args>
-  <div class="cancel-article">
+  <div>
     <SiteHeader {...args} />
   </div>
 </Template>
@@ -46,7 +46,7 @@
 
 
 <style>
-  div.cancel-article {
+  div {
     min-height: 625px;
     width: calc(100% + 30px);
     margin-left: -15px;

@@ -71,6 +71,7 @@
 
 <style>
   div {
-    min-height: 89px;
+    width: calc(100% + 30px);
+    margin-left: -15px;
   }
 </style>

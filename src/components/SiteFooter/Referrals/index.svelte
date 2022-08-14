@@ -37,6 +37,10 @@
       color: var(--nav-primary, #666);
       a {
         color: var(--nav-primary, #666);
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
