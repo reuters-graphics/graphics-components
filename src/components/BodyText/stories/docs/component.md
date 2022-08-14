@@ -1,4 +1,6 @@
-Body text includes the main text of your page.
+The `BodyText` creates the main text of your page. You can pass the `text` prop a [markdown-formatted](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) string, which will be parsed into paragraphs, headers, lists, blockquotes or whatever else you need.
+
+Use it like this:
 
 ```svelte
 <script>
@@ -13,6 +15,8 @@ Body text includes the main text of your page.
 
 <BodyText text="{markdownText}" />
 ```
+
+... or more commonly, you'll use it with a Google doc in the Graphics Kit like this:
 
 ```svelte
 <script>

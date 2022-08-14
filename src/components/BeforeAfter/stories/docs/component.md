@@ -2,7 +2,7 @@ A before and after image comparison component.
 
 ```svelte
 <script>
-  import { BeforeAfter } from '@reuters-graphics/graphics-svelte-components';
+  import { BeforeAfter } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // If using in the Graphics Kit
 </script>
 

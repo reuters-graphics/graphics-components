@@ -27,5 +27,5 @@ export {
   themes as SiteHeaderThemes
 } from './components/SiteHeader/SiteHeader.svelte';
 export { default as Spinner } from './components/Spinner/Spinner.svelte';
-// export { default as Video } from './Video/index.svelte';
+export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';

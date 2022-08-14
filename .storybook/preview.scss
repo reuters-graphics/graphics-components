@@ -40,6 +40,10 @@ p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
   @include font-display;
 }
 
+.sbdocs {
+  @include font-display;
+}
+
 // .sbdocs {
 //   max-width: 800px;
 //   margin: 0 auto !important;

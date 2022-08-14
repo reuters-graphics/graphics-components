@@ -14,7 +14,7 @@
   import PlaceholderImg from './stories/placeholder.png';
 
   const meta = {
-    title: 'Components/GraphicBlock',
+    title: 'Layout/GraphicBlock',
     component: GraphicBlock,
     ...withComponentDocs(componentDocs),
     // https://storybook.js.org/docs/svelte/essentials/controls
@@ -42,7 +42,7 @@
 </Template>
 
 <Story
-  name="Basic"
+  name="Default"
   args="{{
     width: 'normal',
     title: 'Bacon ipsum dolor amet t-bone',

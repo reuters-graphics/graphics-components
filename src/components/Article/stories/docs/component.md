@@ -4,7 +4,7 @@ The `Article` component contains all the content of our story and also establish
 
 ```svelte
 <script>
-  import { Article } from '@reuters-graphics/graphics-svelte-components';
+  import { Article } from '@reuters-graphics/graphics-components';
 </script>
 
 <Article>

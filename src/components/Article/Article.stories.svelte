@@ -26,7 +26,7 @@
 </Template>
 
 <Story
-  name="Basic"
+  name="Default"
   args="{{
     embedded: false,
     id: '',
@@ -113,7 +113,7 @@
       position: absolute;
       bottom: 0;
       left: 5px;
-      color: white;
+      color: #666;
     }
     .padding-label {
       position: absolute;
