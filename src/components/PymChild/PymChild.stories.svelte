@@ -21,6 +21,7 @@
 
 <Template let:args>
   <PymChild {...args} />
+  <div>Nothing to see here. 😎</div>
 </Template>
 
 <Story

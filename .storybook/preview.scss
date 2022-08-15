@@ -1,4 +1,5 @@
 @import "../src/scss/mixins";
+@import "../src/scss/colours/thematic/tr";
 
 table.docblock-argstable {
   p {
@@ -34,15 +35,19 @@ div.sbdocs-content {
   }
 }
 
-p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li, a.sbdocs-a {
+p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
   font-size: 18px;
   line-height: 29px;
   @include font-display;
 }
 
 a.sbdocs-a {
-  color: inherit;
-  text-decoration: underline;
+  @include font-display;
+  color: $tr-muted-blue;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .sbdocs {
