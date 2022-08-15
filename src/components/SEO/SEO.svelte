@@ -1,45 +1,76 @@
-<script>
-  import pkg from '$pkg';
-  import { page } from '$app/stores';
-  import { get } from 'lodash-es';
-  import urljoin from 'proper-url-join';
-  import { browser } from '$app/env';
+<script lang="ts">
   import analytics from './analytics';
   import publisherTags from './publisherTags';
-  import { assets } from '$app/paths';
 
+  /**
+   * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
+   * @required
+   * @type {URL}
+   */
+  export let url: URL | null = null;
+
+  /**
+   * SEO title
+   * @required
+   * @type {string}
+   */
   export let seoTitle;
+  /**
+   * SEO description
+   * @required
+   * @type {string}
+   */
   export let seoDescription;
+  /**
+   * Share title
+   * @required
+   * @type {string}
+   */
   export let shareTitle;
+  /**
+   * Share description
+   * @required
+   * @type {string}
+   */
   export let shareDescription;
+  /**
+   * Share image path. **Must be an absolute path.**
+   * @required
+   * @type {string}
+   */
   export let shareImgPath;
+  /**
+   * [HTML lang attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang). **Two-letter code only.**
+   * @type {string}
+   */
   export let lang = 'en';
-  export let hostname = 'graphics.reuters.com';
+  /**
+   * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+   * @type {string}
+   */
+  export let publishTime: string = '';
+  /**
+   * Updated time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+   * @type {string}
+   */
+  export let updateTime: string = '';
+  
+  interface GraphicAuthor {
+    name: string;
+    url: string;
+  }
 
-  const parseUrl = (url) => {
-    try {
-      return new URL(url);
-    } catch {
-      return {};
-    }
-  };
-
-  const url = get(pkg, 'homepage')
-    ? urljoin(parseUrl(pkg.homepage).origin, $page.url.pathname, {
-        trailingSlash: true,
-      })
-    : get(pkg, 'reuters.preview')
-    ? urljoin(parseUrl(pkg.reuters.preview).origin, $page.url.pathname, {
-        trailingSlash: true,
-      })
-    : $page.host
-    ? urljoin('https://' + $page.host, $page.url.pathname, {
-        trailingSlash: true,
-      })
-    : `https://${hostname}`;
+  /**
+   * Array of authors for the piece. Each author object must have `name` and `url` attributes.
+   */
+  export let authors: GraphicAuthor[] = [];
+  /**
+   * Whether to inject Google Analytics code for this page.
+   */
+  export let includeAnalytics: boolean = false;
 
   // Only fire analytics on prod sites
-  if (browser && window.location.host === 'graphics.reuters.com') {
+  if (typeof window !== 'undefined' && includeAnalytics) {
     analytics(url, seoTitle);
     publisherTags();
   }
@@ -62,27 +93,27 @@
     '@context': 'http://schema.org',
     '@type': 'NewsArticle',
     headline: seoTitle,
-    url,
+    url: url.href,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': url,
+      '@id': url.href,
     },
-    thumbnailUrl: urljoin(assets, shareImgPath),
+    thumbnailUrl: shareImgPath,
     image: [
       {
         '@context': 'http://schema.org',
         '@type': 'ImageObject',
-        url: urljoin(assets, shareImgPath),
+        url: shareImgPath,
       },
     ],
     publisher: { '@id': 'https://www.reuters.com/#publisher' },
     copyrightHolder: { '@id': 'https://www.reuters.com/#publisher' },
     sourceOrganization: { '@id': 'https://www.reuters.com/#publisher' },
     copyrightYear: new Date().getFullYear(),
-    dateCreated: get(pkg, 'reuters.graphic.published'),
-    datePublished: get(pkg, 'reuters.graphic.published'),
-    dateModified: get(pkg, 'reuters.graphic.updated'),
-    author: get(pkg, 'reuters.graphic.authors', []).map(({ name, url }) => ({
+    dateCreated: publishTime,
+    datePublished: publishTime,
+    dateModified: updateTime,
+    author: authors.map(({ name, url }) => ({
       '@type': 'Person',
       name,
       url,
@@ -98,7 +129,7 @@
   <html lang="{lang}"></html>
   <title>{seoTitle}</title>
   <meta name="description" content="{seoDescription}" />
-  <link rel="canonical" href="{url}" />
+  <link rel="canonical" href="{url.href}" />
   <link
     rel="shortcut icon"
     type="image/x-icon"
@@ -123,7 +154,7 @@
     sizes="96x96"
   />
 
-  <meta property="og:url" content="{url}" />
+  <meta property="og:url" content="{url.href}" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{shareTitle}" itemprop="name" />
   <meta
@@ -133,7 +164,7 @@
   />
   <meta
     property="og:image"
-    content="{urljoin(assets, shareImgPath)}"
+    content="{shareImgPath}"
     itemprop="image"
   />
   <meta property="og:site_name" content="Reuters" />
@@ -141,10 +172,10 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ReutersGraphics" />
   <meta name="twitter:creator" content="@ReutersGraphics" />
-  <meta name="twitter:domain" content="{`https://${hostname}`}" />
+  <meta name="twitter:domain" content="{url.origin}" />
   <meta name="twitter:title" content="{shareTitle}" />
   <meta name="twitter:description" content="{shareDescription}" />
-  <meta name="twitter:image:src" content="{urljoin(assets, shareImgPath)}" />
+  <meta name="twitter:image:src" content="{shareImgPath}" />
 
   <meta property="fb:app_id" content="319194411438328" />
   <meta property="fb:admins" content="616167736" />

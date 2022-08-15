@@ -13,7 +13,7 @@ export { default as NoteText } from './components/NoteText/NoteText.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';
 // export { default as Scroller } from './Scroller/index.svelte';
-// export { default as SEO } from './SEO/index.svelte';
+export { default as SEO } from './components/SEO/SEO.svelte';
 export { default as Sharer } from './components/Sharer/Sharer.svelte';
 export {
   default as SiteFooter,

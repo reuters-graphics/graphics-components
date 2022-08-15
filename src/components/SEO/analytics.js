@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 const attachScript = function (i, s, o, g, r, a, m) {
   i.GoogleAnalyticsObject = r;
