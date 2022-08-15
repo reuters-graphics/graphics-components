@@ -1,6 +1,5 @@
 <script lang="ts">
-  // You can declare custom types to help users implement your component.
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+  import type { ContainerWidth } from '../@types/global';
   
   /** 
    * Width of the component within the text well.
@@ -62,8 +61,14 @@
    * @type {string}
    */
   export let ariaLabel: string = 'chart';
+  /**
+   * ARIA description, passed in as a markdown string.
+   * @type {string}
+   */
+  export let ariaDescription: string | null = null;
 
-  import GraphicBlockTextWrapper from "./GraphicBlockTextWrapper.svelte";
+  import AriaHidden from './AriaHidden.svelte';
+  import TextBlock from "./TextBlock.svelte";
   import Block from "../Block/Block.svelte";
   import { marked } from 'marked';
 </script>
@@ -71,31 +76,43 @@
 <Block {id} {snap} {noMargin} {role} {width} {ariaLabel} cls="graphic {cls}">
   <div>
     {#if $$slots.title}
-      <GraphicBlockTextWrapper width={textWidth}>
+      <TextBlock width={textWidth}>
         <!-- Custom title content -->
         <slot name="title" />
-      </GraphicBlockTextWrapper>
+      </TextBlock>
     {:else if (title)}
-      <GraphicBlockTextWrapper width={textWidth}>
+      <TextBlock width={textWidth}>
         <h3>{title}</h3>
         {#if (description)}
           {@html marked(description)}
         {/if}
-      </GraphicBlockTextWrapper>
+      </TextBlock>
     {/if}
-    <!-- Graphic content -->
-    <slot></slot>
+    <AriaHidden hidden={(!!($$slots.aria) || !!ariaDescription)}>
+      <!-- Graphic content -->
+      <slot></slot>
+    </AriaHidden>
+    {#if $$slots.aria || ariaDescription}
+      <div class="visually-hidden">
+        {#if $$slots.aria}
+          <!-- Custom ARIA markup -->
+          <slot name="aria"></slot>
+        {:else}
+          {@html marked(ariaDescription)}
+        {/if}
+      </div>
+    {/if}
     {#if $$slots.notes}
-      <GraphicBlockTextWrapper width={textWidth}>
+      <TextBlock width={textWidth}>
         <!-- Custom notes content -->
         <slot name="notes" />
-      </GraphicBlockTextWrapper>
+      </TextBlock>
     {:else if (notes)}
-      <GraphicBlockTextWrapper width={textWidth}>
+      <TextBlock width={textWidth}>
         <aside>
           {@html marked(notes)}
         </aside>
-      </GraphicBlockTextWrapper>
+      </TextBlock>
     {/if}
   </div>
 </Block>
@@ -107,5 +124,9 @@
     :global {
       @include graphic-text;
     }
+  }
+
+  .visually-hidden {
+    @include visually-hidden;
   }
 </style>

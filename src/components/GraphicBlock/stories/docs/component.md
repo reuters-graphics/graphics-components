@@ -1,4 +1,4 @@
-The `GraphicBlock` component is a subset of the [`Block`](./?path=/docs/layout-block) component that also handles text elements around a graphic.
+The `GraphicBlock` component is a special derivative of the [`Block`](./?path=/docs/layout-block) component that also handles text elements around a graphic.
 
 Many other components use this one to wrap graphics with styled text. When you use it, you'll also wrap your chart elements or component with it like this:
 

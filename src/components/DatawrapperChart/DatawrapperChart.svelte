@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+  import type { ContainerWidth } from '../@types/global';
   /**
    * Title of the graphic
    * @type {string}
@@ -40,7 +41,6 @@
   /** iframe scrolling option */
   export let scrolling: ScrollingOption = 'no';
 
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   /** Width of the chart within the text well. */
   export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
 

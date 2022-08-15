@@ -4,6 +4,8 @@
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore
+  import quickitDocs from './stories/docs/quickit.md?raw';
+  // @ts-ignore
   import missingAltTextDocs from './stories/docs/missingAltText.md?raw';
 
   import FeaturePhoto from './FeaturePhoto.svelte';
@@ -43,6 +45,17 @@
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS'
   }}
+/>
+
+<Story
+  name="🚀 QUICKIT"
+  args={{
+    src: sharkSrc,
+    altText: 'A shark!',
+    width: 'normal',
+    caption: 'Carcharodon carcharias - REUTERS'
+  }}
+  {...withStoryDocs(quickitDocs)}
 />
 
 <Story

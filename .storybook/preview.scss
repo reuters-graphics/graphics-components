@@ -34,10 +34,15 @@ div.sbdocs-content {
   }
 }
 
-p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
+p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li, a.sbdocs-a {
   font-size: 18px;
   line-height: 29px;
   @include font-display;
+}
+
+a.sbdocs-a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .sbdocs {

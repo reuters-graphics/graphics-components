@@ -17,14 +17,12 @@
 </Block>
 
 <!-- svelte-ignore css-unused-selector -->
-<style lang="scss">
+<style lang="scss" global>
   // Technically... we probably should unbind these styles from the component
   // and import them in the app through a separate scss file.
   @import "../../scss/mixins";
 
-  :global {
-    div.article-block.body-text {
-      @include body-text;
-    }
+  div.article-block.body-text {
+    @include body-text;
   }
 </style>

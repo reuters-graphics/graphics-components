@@ -4,9 +4,17 @@
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore
+  import quickitDocs from './stories/docs/quickit.md?raw';
+  // @ts-ignore
   import customTextDocs from './stories/docs/customText.md?raw';
+  // @ts-ignore
+  import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
+  // @ts-ignore
+  import ariaDocs from './stories/docs/aria.md?raw';
 
   import GraphicBlock from './GraphicBlock.svelte';
+
+  import AiMap from './stories/ai2svelte/ai-chart.svelte';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
@@ -14,7 +22,7 @@
   import PlaceholderImg from './stories/placeholder.png';
 
   const meta = {
-    title: 'Layout/GraphicBlock',
+    title: 'Components/GraphicBlock',
     component: GraphicBlock,
     ...withComponentDocs(componentDocs),
     // https://storybook.js.org/docs/svelte/essentials/controls
@@ -52,12 +60,25 @@
 />
 
 <Story
+  name="🚀 QUICKIT"
+  {...withStoryDocs(quickitDocs)}
+>
+  <GraphicBlock
+    width="normal"
+    title="Earthquake in Haiti"
+    description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
+    notes="Note: A shakemap represents the ground shaking produced by an earthquake."
+  >
+    <AiMap />
+  </GraphicBlock>
+</Story>
+
+<Story
   name="Custom text"
   {...withStoryDocs(customTextDocs)}
 >
   <GraphicBlock
     width="normal"
-    notes={"Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)"}
   >
     <div slot="title">
       <h5>My smaller title</h5>
@@ -65,6 +86,38 @@
     <div class="demo-graphic">
       <img src="{PlaceholderImg}" alt="placeholder" />
     </div>
+    <aside slot="notes">
+      <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
+    </aside>
+  </GraphicBlock>
+</Story>
+
+<Story
+  name="Ai2svelte"
+  {...withStoryDocs(ai2svelteDocs)}
+>
+  <GraphicBlock
+    width="normal"
+    title="Earthquake in Haiti"
+    description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
+    notes="Note: A shakemap represents the ground shaking produced by an earthquake."
+  >
+    <AiMap />
+  </GraphicBlock>
+</Story>
+
+<Story
+  name="ARIA"
+  {...withStoryDocs(ariaDocs)}
+>
+  <GraphicBlock
+    width="normal"
+    title="Earthquake in Haiti"
+    description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
+    notes="Note: A shakemap represents the ground shaking produced by an earthquake."
+    ariaDescription="A map showing the shake intensity produced by the earthquake."
+  >
+    <AiMap />
   </GraphicBlock>
 </Story>
 

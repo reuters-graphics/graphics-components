@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Block from '../Block/Block.svelte';
+  import type { ContainerWidth } from '../@types/global';
 
   /**
    * Photo src
@@ -23,19 +24,14 @@
    * Height of the photo placeholder when lazy-loading
    */
   export let height: number = 100;
-
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
-
   /**
    * Width of the container, one of: normal, wide, wider, widest or fluid
    */
   export let width: ContainerWidth = 'normal';
-
   /**
    * Whether to lazy load the photo using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
    */
   export let lazy: boolean = false;
-
   /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top` when lazy loading. */
   export let top = 0;
   /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom` when lazy loading. */

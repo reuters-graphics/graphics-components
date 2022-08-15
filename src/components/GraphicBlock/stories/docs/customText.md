@@ -7,5 +7,8 @@ You can override the markup used to generate the chart text elements by using th
 >
   <h5 slot="title">My smaller title</h5>
   <div id="my-chart" />
+  <aside slot="notes">
+    <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
+  </aside>
 </GraphicBlock>
 ```

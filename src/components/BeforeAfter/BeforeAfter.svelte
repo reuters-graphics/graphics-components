@@ -2,8 +2,8 @@
   import { throttle } from 'lodash-es';
   import { onMount } from 'svelte';
   import Block from '../Block/Block.svelte';
+  import type { ContainerWidth } from '../@types/global';
 
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   /** Width of the chart within the text well. */
   export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
   /** Height of the component */

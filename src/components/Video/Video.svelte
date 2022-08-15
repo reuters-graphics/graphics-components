@@ -2,6 +2,7 @@
   import IntersectionObserver from 'svelte-intersection-observer';
   import Controls from './Controls.svelte';
   import Block from '../Block/Block.svelte';
+  import type { ContainerWidth } from '../@types/global';
 
   /// //////////////////////////////////
   /// /////////// Props ////////////////
@@ -14,14 +15,12 @@
   export let ariaHidden = true;
   export let ariaDescription = null;
   export let caption = '';
-
-  type ColumnWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   
   /** 
    * Width of the block within the article well. 
    * @type {string}
    */
-  export let width: ColumnWidth = 'normal';
+  export let width: ContainerWidth = 'normal';
 
   type PreloadOptions = 'auto' | 'none' | 'metadata';
 

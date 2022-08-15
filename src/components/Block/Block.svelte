@@ -1,8 +1,8 @@
 <script lang="ts">
-  type ColumnWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+  import type { ContainerWidth } from '../@types/global';
   
   /** Width of the block within the article well. */
-  export let width: ColumnWidth = 'normal';
+  export let width: ContainerWidth = 'normal';
 
   /** Add an id to the block tag to target it with custom CSS. */
   export let id: string = '';
