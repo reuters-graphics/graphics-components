@@ -6,15 +6,15 @@
    * Title of the graphic
    * @type {string}
    */
-   export let title: string | null = null;
+  export let title: string | null = null;
 
   /**
    * Description of the graphic, passed in as a markdown string.
    * @type {string}
    */
   export let description: string | null = null;
-  /** 
-   * iframe title 
+  /**
+   * iframe title
    * @required
    */
   export let frameTitle: string = '';
@@ -22,15 +22,15 @@
    * Notes to the graphic, passed in as a markdown string.
    * @type {string}
    */
-   export let notes: string | null = null;
-  /** 
+  export let notes: string | null = null;
+  /**
    * iframe aria label
    * @required
    */
   export let ariaLabel: string = '';
   /** iframe id */
   export let id: string = '';
-  /** 
+  /**
    * Datawrapper embed URL
    * @required
    */
@@ -45,7 +45,7 @@
   export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
 
   /**
-   * Set a different width for the text within the text well, for example, 
+   * Set a different width for the text within the text well, for example,
    * "normal" to keep the title, description and notes inline with the rest
    * of the text well. Can't ever be wider than `width`.
    * @type {string}
@@ -55,6 +55,7 @@
   let frameElement;
 
   $: frameFiller = (e) => {
+    /* eslint-disable */
     if (void 0 !== e.data['datawrapper-height']) {
       const t = [frameElement];
       for (const a in e.data['datawrapper-height']) {
@@ -65,7 +66,8 @@
         }
       }
     }
-  }
+    /* eslint-enable */
+  };
 
   onMount(() => {
     if (typeof window !== 'undefined') {
@@ -76,10 +78,16 @@
     if (typeof window !== 'undefined') {
       window.removeEventListener('message', frameFiller);
     }
-  })
+  });
 </script>
 
-<GraphicBlock {width} {textWidth} {title} {description} {notes}>
+<GraphicBlock
+  width="{width}"
+  textWidth="{textWidth}"
+  title="{title}"
+  description="{description}"
+  notes="{notes}"
+>
   {#if $$slots.title}
     <!-- Custom headline and chatter slot -->
     <slot name="title" />
@@ -87,15 +95,14 @@
 
   <div class="datawrapper-chart">
     <iframe
-      bind:this={frameElement}
+      bind:this="{frameElement}"
       title="{frameTitle}"
       aria-label="{ariaLabel}"
       id="{id}"
       src="{src}"
       scrolling="{scrolling}"
       frameborder="0"
-      style="width: 0; min-width: 100% !important; border: none;"
-    ></iframe>
+      style="width: 0; min-width: 100% !important; border: none;"></iframe>
   </div>
 
   {#if $$slots.notes}
