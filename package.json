@@ -1,10 +1,10 @@
 {
-  "name": "@reuters-graphics/graphics-svelte-components",
-  "version": "0.3.32",
+  "name": "@reuters-graphics/graphics-components",
+  "version": "0.0.1-beta.1",
   "type": "module",
   "private": false,
-  "homepage": "https://reuters-graphics.github.io/graphics-svelte-components",
-  "repository": "https://github.com/reuters-graphics/graphics-svelte-components",
+  "homepage": "https://reuters-graphics.github.io/graphics-components",
+  "repository": "https://github.com/reuters-graphics/graphics-components",
   "scripts": {
     "start": "start-storybook -p 3000",
     "new": "node ./bin/newComponent/index.cjs",
