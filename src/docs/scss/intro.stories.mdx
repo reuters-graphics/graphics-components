@@ -6,3 +6,18 @@ import { parameters } from '$docs/utils/docsPage.js';
 ![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
 
 # SCSS
+
+This library also includes our main SCSS stylesheets and pre-defined classes and SCSS mixins you can use to style your pages.
+
+### Importing our main stylesheet
+
+Import the SCSS directly in your top-level component. (This is done for you in the Graphics Kit.)
+
+```svelte
+<!-- pages/index.svelte -->
+<script>
+  // other imports and stuffs ...
+
+  import '@reuters-graphics/graphics-components/dist/scss/main.scss';
+</script>
+```

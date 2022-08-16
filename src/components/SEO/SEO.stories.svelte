@@ -10,11 +10,11 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
-    title: 'Utilities/SEO',
+    title: 'Components/SEO',
     component: SEO,
     ...withComponentDocs(componentDocs),
   };

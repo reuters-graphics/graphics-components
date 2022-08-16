@@ -57,7 +57,8 @@ export const parameters = {
           'Recipes: Story with custom docs',
           'Recipes: Story with custom controls',
           'Recipes: Story with media',
-          'Recipes: Story for a component with slots'
+          'Recipes: Story for a component with slots',
+          'Writing docs pages',
         ],
       ],
     },

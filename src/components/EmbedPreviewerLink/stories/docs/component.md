@@ -7,5 +7,5 @@ An embed tool for development in graphics kit.
   import { dev } from '$app/env';
 </script>
 
-<EmbedPreviewerLink dev={dev} />
+<EmbedPreviewerLink dev="{dev}" />
 ```

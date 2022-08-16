@@ -14,7 +14,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
-    title: 'Utilities/Visible',
+    title: 'Components/Visible',
     component: Visible,
     ...withComponentDocs(componentDocs),
   };

@@ -7,5 +7,5 @@ An embed tool for development in the Graphics Kit.
   const embeds = ['/embeds/my-chart/index.html'];
 </script>
 
-<Framer embeds={embeds} />
+<Framer embeds="{embeds}" />
 ```

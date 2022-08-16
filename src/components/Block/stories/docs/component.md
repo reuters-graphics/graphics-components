@@ -9,7 +9,6 @@ Blocks are stacked vertically within the well created by the [`Article`](./?path
   import { Block } from '@reuters-graphics/graphics-components';
 </script>
 
-
 <Block width="normal">
   <!-- Your stuff for this block -->
 </Block>

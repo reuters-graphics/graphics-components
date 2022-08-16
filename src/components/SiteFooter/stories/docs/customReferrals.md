@@ -3,7 +3,7 @@ Pass up to four custom referrals to the `referrals` prop.
 ```svelte
 <script>
   import { SiteFooter } from '@reuters-graphics/graphics-components';
-  
+
   const customReferrals = [
     {
       url: 'https://graphics.reuters.com/world-coronavirus-tracker-and-maps/',

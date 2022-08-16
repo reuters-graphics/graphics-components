@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/addon-docs';
 import { parameters } from '$docs/utils/docsPage.js';
 
-<Meta title="Contributing/Component Basics" parameters={{ ...parameters }} />
+<Meta title="Contributing/Component basics" parameters={{ ...parameters }} />
 
 ![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
 
@@ -17,7 +17,7 @@ By default, component's are written in TypeScript, which adds robust type-checki
 
 If you've never used TypeScript, you can check out the [5-minute intro](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html).
 
-If you're still a little uneasy about writing TypeScript, you can still write basically all your component logic in plain JavaScript, but we'll probably make sure your component's outermost props are typed before we merge your PR. (Reuters Graphics, can ask Jon for help with this.)
+> If you've never used TypeScript, you can check out the [5-minute intro](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html). If you're still uneasy writing TypeScript, don't sweat it! Just write your component in plain JavaScript/Svelte. We'll convert at least your component's props to TypeScript as part of the PR review.
 
 ### Typing and documenting component props
 
@@ -131,7 +131,7 @@ In rare cases, you can use the SCSS `:global` operator to style child elements i
 <style lang="scss">
   svg {
     :global {
-      path: {
+      path {
         stroke: black;
       }
     }

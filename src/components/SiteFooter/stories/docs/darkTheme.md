@@ -15,12 +15,21 @@ The component also exports some preset themes you can use or customise:
 
 ```svelte
 <script>
-  import { SiteFooter, SiteFooterThemes } from '@reuters-graphics/graphics-components';
+  import {
+    SiteFooter,
+    SiteFooterThemes,
+  } from '@reuters-graphics/graphics-components';
 </script>
 
 <!-- Use a preset theme. -->
-<SiteFooter theme={SiteFooterThemes.dark} />
+<SiteFooter theme="{SiteFooterThemes.dark}" />
 
 <!-- Customise a couple colours in a theme. -->
-<SiteFooter theme={{ ...SiteFooterThemes.default, background: '#e0d3b8', rules: '#aaa' }} />
+<SiteFooter
+  theme="{{
+    ...SiteFooterThemes.default,
+    background: '#e0d3b8',
+    rules: '#aaa',
+  }}"
+/>
 ```

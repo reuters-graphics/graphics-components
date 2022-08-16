@@ -6,11 +6,11 @@ Easily add a responsive Datawrapper embed on your page.
 </script>
 
 <DatawrapperChart
-  title='Global abortion access'
-  ariaLabel='map'
-  id='abortion-rights-map'
-  src='https://graphics.reuters.com/USA-ABORTION/lgpdwggnwvo/media-embed.html'
- />
+  title="Global abortion access"
+  ariaLabel="map"
+  id="abortion-rights-map"
+  src="https://graphics.reuters.com/USA-ABORTION/lgpdwggnwvo/media-embed.html"
+/>
 ```
 
 ##### Getting the chart URL for `src`

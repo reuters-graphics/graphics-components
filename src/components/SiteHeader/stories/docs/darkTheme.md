@@ -15,12 +15,21 @@ The component also exports some preset themes you can use or customise:
 
 ```svelte
 <script>
-  import { SiteHeader, SiteHeaderThemes } from '@reuters-graphics/graphics-components';
+  import {
+    SiteHeader,
+    SiteHeaderThemes,
+  } from '@reuters-graphics/graphics-components';
 </script>
 
 <!-- Use a preset theme. -->
-<SiteHeader theme={SiteHeaderThemes.dark} />
+<SiteHeader theme="{SiteHeaderThemes.dark}" />
 
 <!-- Customise a couple colours in a theme. -->
-<SiteHeader theme={{ ...SiteHeaderThemes.default, background: '#e0d3b8', rules: '#aaa' }} />
+<SiteHeader
+  theme="{{
+    ...SiteHeaderThemes.default,
+    background: '#e0d3b8',
+    rules: '#aaa',
+  }}"
+/>
 ```
