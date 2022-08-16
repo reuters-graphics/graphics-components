@@ -2,7 +2,7 @@ Easily add a responsive Datawrapper embed on your page.
 
 ```svelte
 <script>
-  import { DatawrapperChart } from '@reuters-graphics/graphics-svelte-components';
+  import { DatawrapperChart } from '@reuters-graphics/graphics-components';
 </script>
 
 <DatawrapperChart

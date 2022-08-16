@@ -2,7 +2,7 @@ Add a crown image in the `crown` named slot and override the headline in the `he
 
 ```svelte
 <script>
-  import { Headline } from '@reuters-graphics/graphics-svelte-components';
+  import { Headline } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 </script>
 

@@ -2,7 +2,7 @@ Simple loading spinner. Use it to help hide long loading times for components th
 
 ```svelte
 <script>
-  import { Spinner } from '@reuters-graphics/graphics-svelte-components';
+  import { Spinner } from '@reuters-graphics/graphics-components';
 
   let somethingsLoading = true;
 </script>

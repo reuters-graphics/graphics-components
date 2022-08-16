@@ -2,7 +2,7 @@ Reuters Graphics headline
 
 ```svelte
 <script>
-  import { Headline } from '@reuters-graphics/graphics-svelte-components';
+  import { Headline } from '@reuters-graphics/graphics-components';
 </script>
 
 <Headline

@@ -6,7 +6,7 @@ Reuters dotcom site header, ported from [Raptor UI components](https://github.co
 
 ```svelte
 <script>
-  import { SiteHeader } from '@reuters-graphics/graphics-svelte-components';
+  import { SiteHeader } from '@reuters-graphics/graphics-components';
 </script>
 
 <SiteHeader />

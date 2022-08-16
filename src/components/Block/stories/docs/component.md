@@ -6,7 +6,7 @@ Blocks are stacked vertically within the well created by the [`Article`](./?path
 
 ```svelte
 <script>
-  import { Block } from '@reuters-graphics/graphics-svelte-components';
+  import { Block } from '@reuters-graphics/graphics-components';
 </script>
 
 
