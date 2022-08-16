@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
   /**
@@ -50,24 +50,33 @@
    * of the text well. Can't ever be wider than `width`.
    * @type {string}
    */
-   export let textWidth: ContainerWidth | null = null;
+  export let textWidth: ContainerWidth | null = null;
+
+  let frameElement;
+
+  $: frameFiller = (e) => {
+    if (void 0 !== e.data['datawrapper-height']) {
+      const t = [frameElement];
+      for (const a in e.data['datawrapper-height']) {
+        for (let r = 0; r < t.length; r++) {
+          if (t[r].contentWindow === e.source) {
+            t[r].style.height = e.data['datawrapper-height'][a] + 'px';
+          }
+        }
+      }
+    }
+  }
 
   onMount(() => {
     if (typeof window !== 'undefined') {
-      window.addEventListener('message', function (e) {
-        if (void 0 !== e.data['datawrapper-height']) {
-          const t = document.querySelectorAll('iframe');
-          for (const a in e.data['datawrapper-height']) {
-            for (let r = 0; r < t.length; r++) {
-              if (t[r].contentWindow === e.source) {
-                t[r].style.height = e.data['datawrapper-height'][a] + 'px';
-              }
-            }
-          }
-        }
-      });
+      window.addEventListener('message', frameFiller);
     }
   });
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('message', frameFiller);
+    }
+  })
 </script>
 
 <GraphicBlock {width} {textWidth} {title} {description} {notes}>
@@ -78,6 +87,7 @@
 
   <div class="datawrapper-chart">
     <iframe
+      bind:this={frameElement}
       title="{frameTitle}"
       aria-label="{ariaLabel}"
       id="{id}"
