@@ -2,4 +2,6 @@
 
 # ⚙️ graphics-components
 
-Home of the next generation.
+Svelte components, SCSS and more for Reuters Graphics pages.
+
+[Read the docs.](https://reuters-graphics.github.io/graphics-components/)
