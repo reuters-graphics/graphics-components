@@ -14,7 +14,6 @@ const config = {
       $lib: './src',
       $docs: './src/docs',
     },
-    extensions: ['.js', '.svelte', '.ts', '.json'],
   },
   plugins: [
     svelte({
