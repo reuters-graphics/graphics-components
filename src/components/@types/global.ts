@@ -29,5 +29,3 @@ export interface ScrollerStep {
    */
   foregroundProps?: Object;
 }
-
-export {};
