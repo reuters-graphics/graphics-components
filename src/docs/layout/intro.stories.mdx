@@ -1,8 +1,31 @@
 import { Meta } from '@storybook/addon-docs';
 import { parameters } from '$docs/utils/docsPage.js';
 
+import WellImg from './article-well.jpg';
+
 <Meta title="Layout/Intro" parameters={{ ...parameters }} />
 
 ![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
 
 # Layout
+
+Layout components are special Svelte components that setup our default page layout.
+
+Generally, our page layout includes a central text well and a few block breakpoints that can be either wider or narrower.
+
+Here's how it works:
+
+<img
+  className="feature"
+  src={WellImg}
+  width="100%"
+  style={{ margin: '3rem 0' }}
+/>
+
+The `Layout` component sets up the set dimensions of the well and the block breakpoints. The `Block` component is a wrapper for individual parts of a page.
+
+In many cases, you won't need to mess with `Layout`.
+
+More regularly, you'll use a `Block` to wrap a graphic or some other part of the page. (Most of our pre-fab components already use `Block` to set up the width options for your content.)
+
+The docs in this section explain how to use our basic layout components to build the basic structure of your page and also how to break out of our default layout if you need to do something different.
