@@ -8,10 +8,7 @@
 
   import Visible from './Visible.svelte';
 
-  import {
-    withSource,
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
+  import { withSource, withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Components/Visible',
@@ -32,7 +29,4 @@
   </Visible>
 </Template>
 
-<Story
-  name="Default"
-  {...withSource({ svelte: defaultSnippet })}
-/>
+<Story name="Default" {...withSource({ svelte: defaultSnippet })} />
