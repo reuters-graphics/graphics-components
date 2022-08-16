@@ -1,10 +1,13 @@
-<script>
-  export let steps = [];
+<script lang="ts">
+  import type { ScrollerStep } from  '../@types/global';
+
+  export let steps: ScrollerStep[] = [];
+
   import { marked } from 'marked';
 </script>
 
 {#each steps as step, i}
-  <section class="step-foreground-container step-{i + 1}">
+  <div class="step-foreground-container step-{i + 1}">
     {#if step.foreground === '' || !step.foreground}
       <!-- Empty foreground -->
       <div class="empty-step-foreground"></div>
@@ -20,12 +23,11 @@
         {/if}
       </div>
     {/if}
-  </section>
+  </div>
 {/each}
 
-<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  section {
+  div.step-foreground-container {
     height: 100vh;
     width: initial;
     max-width: initial;
@@ -33,14 +35,14 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 5rem;
-  }
-  section .step-foreground {
-    max-width: 550px;
-    width: 100%;
-    padding: 1.2rem 30px;
-    background: rgba(255, 255, 255, 0.8);
-  }
-  section .step-foreground :global(p:last-child) {
-    margin-bottom: 0;
+    .step-foreground {
+      max-width: 550px;
+      width: 100%;
+      padding: 1.2rem 30px;
+      background: rgba(255, 255, 255, 0.8);
+      :global(p:last-child) {
+        margin-bottom: 0;
+      }
+    }
   }
 </style>

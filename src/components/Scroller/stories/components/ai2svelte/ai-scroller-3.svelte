@@ -1,5 +1,15 @@
 <script>
-  import { assets } from '$app/paths';
+  // Hard-coding for demo purposes only...
+  // @ts-ignore
+  import stepXl from './images/step-3-xl.png';
+  // @ts-ignore
+  import stepLg from './images/step-3-lg.png';
+  // @ts-ignore
+  import stepMd from './images/step-3-md.png';
+  // @ts-ignore
+  import stepSm from './images/step-3-sm.png';
+  // @ts-ignore
+  import stepXs from './images/step-3-xs.png';
   let width = null;
 </script>
 
@@ -14,7 +24,7 @@
         id="g-step-3-xl-img"
         class="g-aiImg"
         alt=""
-        style="background-image: url({assets}/images/graphics/step-3-xl.png);"
+        style="background-image: url({stepXl});"
       ></div>
       <div
         id="g-ai0-1"
@@ -34,7 +44,7 @@
         id="g-step-3-lg-img"
         class="g-aiImg"
         alt=""
-        style="background-image: url({assets}/images/graphics/step-3-lg.png);"
+        style="background-image: url({stepLg});"
       ></div>
       <div
         id="g-ai1-1"
@@ -54,7 +64,7 @@
         id="g-step-3-md-img"
         class="g-aiImg"
         alt=""
-        style="background-image: url({assets}/images/graphics/step-3-md.png);"
+        style="background-image: url({stepMd});"
       ></div>
       <div
         id="g-ai2-1"
@@ -74,7 +84,7 @@
         id="g-step-3-sm-img"
         class="g-aiImg"
         alt=""
-        style="background-image: url({assets}/images/graphics/step-3-sm.png);"
+        style="background-image: url({stepSm});"
       ></div>
       <div
         id="g-ai3-1"
@@ -94,7 +104,7 @@
         id="g-step-3-xs-img"
         class="g-aiImg"
         alt=""
-        style="background-image: url({assets}/images/graphics/step-3-xs.png);"
+        style="background-image: url({stepXs});"
       ></div>
       <div
         id="g-ai4-1"

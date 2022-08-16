@@ -1,8 +1,10 @@
-<script>
-  export let index;
-  export let steps = [];
-  export let preload = 1;
-  export let stackBackground = true;
+<script lang="ts">
+  import type { ScrollerStep } from  '../@types/global';
+
+  export let index: number;
+  export let steps: ScrollerStep[] = [];
+  export let preload: number = 1;
+  export let stackBackground: boolean = true;
 </script>
 
 {#each steps as step, i}

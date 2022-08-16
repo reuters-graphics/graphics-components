@@ -6,6 +6,10 @@ table.docblock-argstable {
     font-family: inherit;
     font-size: inherit;
   }
+
+  ul {
+    padding-inline-start: 20px;
+  }
 }
 
 div.sbdocs-content {
@@ -53,6 +57,7 @@ a.sbdocs-a {
 .sbdocs {
   @include font-display;
 }
+
 
 // .sbdocs {
 //   max-width: 800px;

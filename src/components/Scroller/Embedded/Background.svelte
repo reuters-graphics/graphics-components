@@ -1,14 +1,18 @@
-<script>
-  export let step;
-  export let backgroundSize;
-  export let index;
+<script lang="ts">
+  import type { ContainerWidth, ScrollerStep } from '../../@types/global';
+  
+  export let step: ScrollerStep;
+  export let backgroundWidth: ContainerWidth;
+  export let index: number;
+
+  import Block from '../../Block/Block.svelte';
 </script>
 
-<section class="background-container graphic {backgroundSize}" step="{index + 1}">
+<Block width={backgroundWidth} cls="background-container step-{index + 1}">
   <div class="embedded-background step-{index + 1}">
     <svelte:component
       this="{step.background}"
       {...step.backgroundProps || {}}
     />
   </div>
-</section>
+</Block>
