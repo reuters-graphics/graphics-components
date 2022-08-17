@@ -1,5 +1,5 @@
-@import "../colours/thematic/tr";
-@import "./fonts";
+@import '../colours/thematic/tr';
+@import './fonts';
 
 @mixin graphic-text {
   h3 {
@@ -17,8 +17,8 @@
     &:last-of-type {
       margin-bottom: 1rem;
     }
-  
-    @media(max-width: 540px) {
+
+    @media (max-width: 540px) {
       font-size: 1rem;
       line-height: 1.35rem;
     }
@@ -48,9 +48,8 @@
       &:last-of-type {
         margin-bottom: 0;
       }
-      
 
-      @media(max-width: 540px) {
+      @media (max-width: 540px) {
         font-size: 0.8rem;
         line-height: 1.1rem;
       }

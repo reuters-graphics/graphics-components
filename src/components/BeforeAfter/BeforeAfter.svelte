@@ -9,7 +9,6 @@
   /** Height of the component */
   export let height = 600;
 
-
   /**
    * If set, makes the height a ratio of the component's width.
    * @type {number}
@@ -68,7 +67,8 @@
   let isFocused = false;
   let containerWidth;
 
-  $: containerHeight = (containerWidth && heightRatio) ? containerWidth * heightRatio : height;
+  $: containerHeight =
+    containerWidth && heightRatio ? containerWidth * heightRatio : height;
 
   const onFocus = () => (isFocused = true);
   const onBlur = () => (isFocused = false);
@@ -100,16 +100,16 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure ?
-        parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2)) :
-        0;
+      const figureOffset = figure
+        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
+        : 0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin ?
-          handleMargin :
-          x > w - handleMargin ?
-            w - handleMargin :
-            x;
+        x < handleMargin
+          ? handleMargin
+          : x > w - handleMargin
+          ? w - handleMargin
+          : x;
       offset = x / w;
     }
   };
@@ -151,7 +151,7 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <Block {width} {id} cls="photo before-after">
+  <Block width="{width}" id="{id}" cls="photo before-after">
     <div
       style="height: {containerHeight}px;"
       bind:clientWidth="{containerWidth}"
@@ -200,7 +200,10 @@
         {#if $$slots.afterOverlay}
           <div id="image-after-label" class="overlay-container after">
             <!-- Overlay for after image -->
-            <slot name="afterOverlay" description="{`${id}-after-description`}" />
+            <slot
+              name="afterOverlay"
+              description="{`${id}-after-description`}"
+            />
           </div>
         {/if}
         <div
@@ -226,8 +229,8 @@
 {/if}
 
 <style lang="scss">
-  @import "../../scss/mixins/fonts";
-  @import "../../scss/colours/thematic/tr";
+  @import '../../scss/mixins/fonts';
+  @import '../../scss/colours/thematic/tr';
   figure.before-after-container {
     overflow: hidden;
     position: relative;
@@ -336,9 +339,8 @@
         &:last-of-type {
           margin-bottom: 0;
         }
-        
 
-        @media(max-width: 540px) {
+        @media (max-width: 540px) {
           font-size: 0.8rem;
           line-height: 1.1rem;
         }

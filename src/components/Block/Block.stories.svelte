@@ -21,7 +21,15 @@
     argTypes: {
       width: {
         control: 'select',
-        options: ['narrower', 'narrow', 'normal', 'wide', 'wider', 'widest', 'fluid'],
+        options: [
+          'narrower',
+          'narrow',
+          'normal',
+          'wide',
+          'wider',
+          'widest',
+          'fluid',
+        ],
       },
     },
   };
@@ -52,49 +60,61 @@
     <!-- Enter bootstrap grid! -->
     <div class="container-fluid text-center">
       <div class="row">
-        <div class="col">
-          Column
-        </div>
-        <div class="col-6">
-          Column
-        </div>
-        <div class="col">
-          Column
-        </div>
+        <div class="col">Column</div>
+        <div class="col-6">Column</div>
+        <div class="col">Column</div>
       </div>
       <div class="row">
-        <div class="col">
-          Column
-        </div>
-        <div class="col">
-          Column
-        </div>
+        <div class="col">Column</div>
+        <div class="col">Column</div>
       </div>
     </div>
   </Block>
 </Story>
 
-<Story
-  name="Snap widths"
-  {...withStoryDocs(snapWidthsDocs)}
->
-<Article id="block-demo-article">
-  <div class="article-boundaries">
-    <div class="label">Article</div>
-      <Block width="narrower" snap={true} cls="block-snap-widths-demo">narrower</Block>
-      <Block width="narrow" snap={true} cls="block-snap-widths-demo">narrow</Block>
-      <Block width="normal" snap={true} cls="block-snap-widths-demo">normal</Block>
-      <Block width="wide" snap={true} cls="block-snap-widths-demo">wide</Block>
-      <Block width="wider" snap={true} cls="block-snap-widths-demo">wider</Block>
-      <Block width="narrower" snap={true} cls="block-snap-widths-demo even">narrower</Block>
-      <Block width="narrow" snap={true} cls="block-snap-widths-demo even">narrow</Block>
-      <Block width="normal" snap={true} cls="block-snap-widths-demo even skip-narrow">normal.skip-narrow</Block>
-      <Block width="wide" snap={true} cls="block-snap-widths-demo even skip-normal skip-narrow">wide.skip-normal.skip-narrow</Block>
-      <Block width="wider" snap={true} cls="block-snap-widths-demo even skip-wide">wider.skip-wide</Block>
+<Story name="Snap widths" {...withStoryDocs(snapWidthsDocs)}>
+  <Article id="block-demo-article">
+    <div class="article-boundaries">
+      <div class="label">Article</div>
+      <Block width="narrower" snap="{true}" cls="block-snap-widths-demo"
+        >narrower</Block
+      >
+      <Block width="narrow" snap="{true}" cls="block-snap-widths-demo"
+        >narrow</Block
+      >
+      <Block width="normal" snap="{true}" cls="block-snap-widths-demo"
+        >normal</Block
+      >
+      <Block width="wide" snap="{true}" cls="block-snap-widths-demo">wide</Block
+      >
+      <Block width="wider" snap="{true}" cls="block-snap-widths-demo"
+        >wider</Block
+      >
+      <Block width="narrower" snap="{true}" cls="block-snap-widths-demo even"
+        >narrower</Block
+      >
+      <Block width="narrow" snap="{true}" cls="block-snap-widths-demo even"
+        >narrow</Block
+      >
+      <Block
+        width="normal"
+        snap="{true}"
+        cls="block-snap-widths-demo even skip-narrow">normal.skip-narrow</Block
+      >
+      <Block
+        width="wide"
+        snap="{true}"
+        cls="block-snap-widths-demo even skip-normal skip-narrow"
+        >wide.skip-normal.skip-narrow</Block
+      >
+      <Block
+        width="wider"
+        snap="{true}"
+        cls="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
+      >
     </div>
-</Article>
+  </Article>
 </Story>
-
 
 <style lang="scss">
   :global {
@@ -103,7 +123,7 @@
       position: relative;
       width: calc(100% + 30px);
       margin-left: -15px;
-      
+
       .article-boundaries {
         padding: 0 0 18px;
         width: 100%;
@@ -123,7 +143,8 @@
           }
         }
       }
-      .label, div.article-block.block-snap-widths-demo {
+      .label,
+      div.article-block.block-snap-widths-demo {
         padding-left: 3px;
         color: white;
       }
