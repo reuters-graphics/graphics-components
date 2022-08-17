@@ -1,6 +1,6 @@
-Normally, `Block` containers resize fluidly below the original `width`. Sometimes, though, you may want the container to snap to the fixed widths of the article well -- for example, if you have a static graphic that looks fine at the set column breakpoints, but isn't so great at widths inbetween.
+Normally, `Block` containers resize fluidly below the original `width`. Sometimes, though, you may want the container to snap to the next breakpoint -- for example, if you have a static graphic that looks fine at the set block breakpoints, but isn't so great at widths inbetween.
 
-You can use the `snap` prop to force the container to snap to each column width successively as the window sizes down.
+You can use the `snap` prop to force the container to snap to each block width successively as the window sizes down.
 
 ```svelte
 <Block width="wider" snap={true}>
@@ -8,7 +8,7 @@ You can use the `snap` prop to force the container to snap to each column width 
 </Block>
 ```
 
-If you want to skip certain column widths entirely, you can add one or more class of `skip-{column width}` to the `Block`.
+If you want to skip certain block widths entirely, you can add one or more class of `skip-{block width class}` to the `Block`.
 
 ```svelte
 <!-- Will skip wide and go straight to normal column width on resize. -->
@@ -23,7 +23,7 @@ This is probably easier to see in action than explain in words, so check out the
 
 #### Using with custom column widths
 
-Snap width breakpoints are hard-coded to the default article well column widths, so if you set custom `columnWidths` on the `Article` tag, you can't use this functionality without a little extra work.
+Snap width breakpoints are hard-coded to the default article well column widths, so if you set custom `columnWidths` on the `Article` tag (**rare!**), you can't use this functionality without a little extra work.
 
 Luckily, it's still pretty easy. Just add a `cls` or `id` to your `Block` so you can target it with some custom SCSS. Now, defined a few SCSS variables corresponding to your custom column widths and use the `block-snap-widths` SCSS mixin to get the same functionality at your custom breakpoints.
 

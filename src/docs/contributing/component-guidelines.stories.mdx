@@ -1,21 +1,22 @@
 import { Meta } from '@storybook/addon-docs';
 import { parameters } from '$docs/utils/docsPage.js';
 
-<Meta title="Contributing/Component basics" parameters={{ ...parameters }} />
+<Meta
+  title="Contributing/Component guidelines"
+  parameters={{ ...parameters }}
+/>
 
 ![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
 
-# Component basics
+# Component guidelines
 
 ## Dependencies
 
-Components should be written to be included in any Svelte app. If your component needs, for example, values from SvelteKit stores, these should be passed in as props.
+Components should be written for any Svelte context. If your component needs, for example, values from SvelteKit stores, these should be passed in as props.
 
 ## Typescript
 
 By default, component's are written in TypeScript, which adds robust type-checking and helpful hints for people using your component in editors like Visual Studio Code.
-
-If you've never used TypeScript, you can check out the [5-minute intro](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html).
 
 > If you've never used TypeScript, you can check out the [5-minute intro](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html). If you're still uneasy writing TypeScript, don't sweat it! Just write your component in plain JavaScript/Svelte. We'll convert at least your component's props to TypeScript as part of the PR review.
 

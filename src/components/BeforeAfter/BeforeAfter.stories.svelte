@@ -17,7 +17,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -65,9 +65,7 @@
     <h6>Oct. 20, 2020</h6>
     <p>But then forces built up.</p>
   </div>
-  <aside slot="caption">
-    <p>Photos by MAXAR Technologies, 2021.</p>
-  </aside>
+  <p slot="caption">Photos by MAXAR Technologies, 2021.</p>
 </BeforeAfter>
 
 <style lang="scss">

@@ -7,4 +7,67 @@ import { parameters } from '$docs/utils/docsPage.js';
 
 # Using with Google docs
 
-TK
+Most of the default examples in these docs show how to use components by passing data into them directly through props. In the Kit, though, you likely won't be hard-coding things like text strings in your code and instead will get them from a Google doc.
+
+It's usually easy to use a Google Doc to fill in the props for our components, but it may mean you need to write a tiny bit of code to translate strings from a doc into the data type our component's props expect.
+
+Let's look at a basic component, `ProfileCard`, with a demo that looks like this in the docs:
+
+```svelte
+<script>
+  import { ProfileCard } from '@reuters-graphics/graphics-components';
+</script>
+
+<ProfileCard
+  name="Tom"
+  img="{'https://cats.com/cat1.jpg'}"
+  birthday="{new Date('2020-09-25')}"
+  bio="Some notes.\n\nWith multiple paragraphs."
+  isStaff="{true}"
+/>
+```
+
+The data for the component's props includes strings, a date and a boolean.
+
+In our Google doc, we might fill out a block for this component like this:
+
+```yaml
+Type: profile-card
+Name: Tom
+Image: images/tom-the-cat.jpg
+Birthday: 2020-09-25
+Bio: Some notes.
+
+With multiple paragraphs.
+:end
+Staff: true
+```
+
+Now we can tie that data into your blocks loop like this:
+
+```svelte
+<script>
+  // These are usually already imported for you
+  import { assets } from '$app/paths';
+  import content from '$locales/en/content.json';
+
+  import { ProfileCard } from '@reuters-graphics/graphics-components';
+</script>
+
+{#each content.blocks as block}
+  <!-- ... other blocks -->
+
+  {:else if block.Type === 'profile-card'}
+    <ProfileCard
+      name="{block.Name}"
+      img={`${assets}/${block.Image}`}
+      birthday={new Date(block.Birthday)}
+      bio="{block.Bio}"
+      isStaff={block.Staff === 'true'}
+    />
+
+  <!-- ... other blocks -->
+{/each}
+```
+
+Notice how we're coercing some of our data from strings into other data types: a boolean for `isStaff`, a date for `birthday` and an absolute path for `img`.

@@ -43,6 +43,14 @@ p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
   font-size: 18px;
   line-height: 29px;
   @include font-display;
+
+  .highlight {
+    background-color: rgb(254, 254, 160);
+    padding: 0 4px;
+  }
+  .bold {
+    font-weight: bold;
+  }
 }
 
 a.sbdocs-a {

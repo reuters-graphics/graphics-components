@@ -9,7 +9,8 @@
   /** Height of the component */
   export let height = 600;
 
-  /** 
+
+  /**
    * If set, makes the height a ratio of the component's width.
    * @type {number}
    */
@@ -45,7 +46,7 @@
   /** Percentage of the component width the handle will travel ona key press */
   export let keyPressStep = 0.05;
 
-  /** Initial offset of the handle, between 0 and 1.*/
+  /** Initial offset of the handle, between 0 and 1. */
   export let offset = 0.5;
 
   const random4 = () =>
@@ -53,7 +54,11 @@
       .toString(16)
       .substring(1);
 
-  const id = 'before-after-' + random4() + random4();
+  /**
+   * Add an ID to target with SCSS.
+   * @type {string}
+   */
+  export let id: string = 'before-after-' + random4() + random4();
 
   let img;
   let imgOffset = null;
@@ -95,16 +100,16 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure
-        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
-        : 0;
+      const figureOffset = figure ?
+        parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2)) :
+        0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin
-          ? handleMargin
-          : x > w - handleMargin
-          ? w - handleMargin
-          : x;
+        x < handleMargin ?
+          handleMargin :
+          x > w - handleMargin ?
+            w - handleMargin :
+            x;
       offset = x / w;
     }
   };
@@ -146,7 +151,7 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <Block {width} cls="photo before-after">
+  <Block {width} {id} cls="photo before-after">
     <div
       style="height: {containerHeight}px;"
       bind:clientWidth="{containerWidth}"
@@ -212,16 +217,17 @@
       </figure>
     </div>
     {#if $$slots.caption}
-      <section class="graphic caption {width}" id="{`${id}-caption`}">
+      <aside class="before-after-caption" id="{`${id}-caption`}">
         <!-- Caption for image credits -->
         <slot name="caption" />
-      </section>
+      </aside>
     {/if}
   </Block>
 {/if}
 
 <style lang="scss">
-  @import "@reuters-graphics/style-main/scss/fonts/mixins";
+  @import "../../scss/mixins/fonts";
+  @import "../../scss/colours/thematic/tr";
   figure.before-after-container {
     overflow: hidden;
     position: relative;
@@ -318,7 +324,33 @@
       border-right: 10px solid var(--before-after-handle-colour);
     }
   }
-  section.graphic.caption {
+  aside.before-after-caption {
     margin: 0 auto;
+    @include font-display;
+    :global {
+      p {
+        @include font-display;
+        color: $tr-medium-grey;
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+        
+
+        @media(max-width: 540px) {
+          font-size: 0.8rem;
+          line-height: 1.1rem;
+        }
+
+        a {
+          color: currentColor;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 </style>

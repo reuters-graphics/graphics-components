@@ -138,6 +138,7 @@
       border-radius: 4px;
       padding: 20px;
       color: white;
+      text-align: center;
     }
     div.row:first-child {
       div {

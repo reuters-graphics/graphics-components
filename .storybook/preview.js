@@ -33,11 +33,11 @@ export const parameters = {
         'Guides',
         [
           'Using these docs',
-          'Getting help',
           'Using with the Graphics Kit',
           'Using with Google docs',
           'Customising components with SCSS',
           '*',
+          'Getting help',
         ],
         'Layout',
         ['Intro', '*'],
