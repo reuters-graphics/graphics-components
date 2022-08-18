@@ -12,7 +12,7 @@ The `ariaDescription` string will be processed as markdown, so you can add multi
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   ariaDescription="A map showing the shake intensity produced by the earthquake."
 >
-  <MyAiMap basePath={assets} />
+  <MyAiMap assetsPath={assets} />
 </GraphicBlock>
 ```
 

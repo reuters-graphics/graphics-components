@@ -5,16 +5,16 @@ export default (node, props) => {
   });
 
   return {
-    update(new_props) {
-      Object.entries(new_props).forEach(([key, value]) => {
+    update(newProps) {
+      Object.entries(newProps).forEach(([key, value]) => {
         node.style.setProperty(`--${key}`, value);
         delete props[key];
       });
 
-      Object.keys(props).forEach(name =>
-        node.style.removeProperty(`--${name}`),
-      );
-      props = new_props;
+      Object.keys(props).forEach((name) => {
+        node.style.removeProperty(`--${name}`);
+      });
+      props = newProps;
     },
   };
 };
