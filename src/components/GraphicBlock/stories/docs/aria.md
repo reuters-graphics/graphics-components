@@ -12,7 +12,7 @@ The `ariaDescription` string will be processed as markdown, so you can add multi
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   ariaDescription="A map showing the shake intensity produced by the earthquake."
 >
-  <MyAiMap assetsPath={assets} />
+  <MyAiMap assetsPath="{assets}" />
 </GraphicBlock>
 ```
 
@@ -29,9 +29,12 @@ You can add custom markup for screen readers only by using the `aria` named slot
   description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
 >
-  <MyAiMap basePath={assets} />
+  <MyAiMap basePath="{assets}" />
   <div slot="aria">
-    <p>A shakemap shows the intensity of the 7.2-magnitude earthquake that struck Haiti at 8:29 a.m. EST, Aug. 14, 2021.</p>
+    <p>
+      A shakemap shows the intensity of the 7.2-magnitude earthquake that struck
+      Haiti at 8:29 a.m. EST, Aug. 14, 2021.
+    </p>
     <table>
       <tr>
         <th>City</th>

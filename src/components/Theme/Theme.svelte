@@ -29,14 +29,11 @@
 <div
   class="theme theme-{name}"
   style="display: contents;"
-  use:cssVariables={flatten({ [name]: styles })}
+  use:cssVariables="{flatten({ [name]: styles })}"
 >
   <!-- Clients can override the theme above by attaching custom properties to this element. -->
-  <div
-    class="theme-client-override theme-{name}"
-    style="display: contents;"
-  >
+  <div class="theme-client-override theme-{name}" style="display: contents;">
     <!-- Themed content -->
-    <slot></slot>
+    <slot />
   </div>
 </div>

@@ -14,6 +14,6 @@ You can use `GraphicBlock` with components created by [ai2svelte](https://github
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   ariaDescription="A map showing shake intensity of the quake."
 >
-  <MyAiMap assetsPath={assets} />
+  <MyAiMap assetsPath="{assets}" />
 </GraphicBlock>
 ```

@@ -6,9 +6,7 @@
 
   import Theme, { themes } from './Theme.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Components/Theme',
@@ -21,7 +19,7 @@
         control: {
           type: 'select', // Type 'select' is automatically inferred when 'options' is defined
           labels: {
-          // 'labels' maps option values to string labels
+            // 'labels' maps option values to string labels
             main: 'Main',
             dark: 'Dark',
           },
@@ -43,29 +41,31 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     styles: themes.main,
-  }}
+  }}"
 />
 
 <Story
   name="Inheritance"
-  args={{
+  args="{{
     styles: themes.main,
-  }}
+  }}"
 >
-  <Theme styles={themes.main}>
+  <Theme styles="{themes.main}">
     <div class="themed">
       <p>My theme</p>
-      <Theme styles={themes.dark}>
+      <Theme styles="{themes.dark}">
         <div class="themed">
           <p>My sub-theme</p>
-          <Theme styles={themes.main}>
+          <Theme styles="{themes.main}">
             <div class="themed">
               <p>My sub-sub-theme</p>
             </div>
           </Theme>
-          <Theme styles={{ colour: { background: 'steelblue', primary: '#fff' } }}>
+          <Theme
+            styles="{{ colour: { background: 'steelblue', primary: '#fff' } }}"
+          >
             <div class="themed">
               <p>My other sub-sub-theme</p>
             </div>
@@ -77,7 +77,7 @@
 </Story>
 
 <style lang="scss">
-  @import "../../scss/mixins/fonts";
+  @import '../../scss/mixins/fonts';
   div.themed {
     background-color: var(--theme-colour-background);
     padding: 2rem;
