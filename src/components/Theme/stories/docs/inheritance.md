@@ -9,7 +9,7 @@ The demo below shows a more complex example of nesting themes, but more likely y
 
 <Theme>
   <!-- Page content styled with the default light theme. -->
-  <Theme theme={{ colour: { background: 'lightgrey' }}}>
+  <Theme theme="{{ colour: { background: 'lightgrey' } }}">
     <!-- A darker background for this section. -->
   </Theme>
   <!-- Back to normal here... -->

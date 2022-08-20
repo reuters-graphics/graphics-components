@@ -1,21 +1,21 @@
-@import "fonts/font-faces";
+@import 'fonts/font-faces';
 
 // Variables
-@import "@reuters-graphics/style-color/scss/categorical/base";
-@import "@reuters-graphics/style-color/scss/thematic/brand";
-@import "variables";
+@import '@reuters-graphics/style-color/scss/categorical/base';
+@import '@reuters-graphics/style-color/scss/thematic/brand';
+@import 'variables';
 
 // Mixins
-@import "mixins";
+@import 'mixins';
 
 // Bootstrap
-@import "bootstrap/main";
+@import 'bootstrap/main';
 
 // Styles
-@import "fonts/rules";
-@import "typography/rules";
-@import "typography/main";
-@import "spacers/rules";
+@import 'fonts/rules';
+@import 'typography/rules';
+@import 'typography/main';
+@import 'spacers/rules';
 
 // Components
-@import "components/article-metadata";
+@import 'components/article-metadata';

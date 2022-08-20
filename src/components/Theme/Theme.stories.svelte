@@ -12,7 +12,10 @@
 
   import Theme, { themes } from './Theme.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$lib/docs/utils/withParams.js';
+  import {
+    withComponentDocs,
+    withStoryDocs,
+  } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Theming/Theme',
@@ -21,10 +24,7 @@
     argTypes: {
       base: {
         control: 'select',
-        options: [
-          'light',
-          'dark',
-        ],
+        options: ['light', 'dark'],
       },
       themes: { control: false },
     },
@@ -49,19 +49,19 @@
   }}"
 />
 
-<Story
-  name="Custom theme"
-  {...withStoryDocs(customiseDocs)}
->
-  <Theme base="dark" theme={{ colour: { accent: 'yellow' }, font: { 'family-hed': 'freight-book' } }}>
+<Story name="Custom theme" {...withStoryDocs(customiseDocs)}>
+  <Theme
+    base="dark"
+    theme="{{
+      colour: { accent: 'yellow' },
+      font: { 'family-hed': 'freight-book' },
+    }}"
+  >
     <ThemedPage />
   </Theme>
 </Story>
 
-<Story
-  name="Inheritance"
-  {...withStoryDocs(inheritanceDocs)}
->
+<Story name="Inheritance" {...withStoryDocs(inheritanceDocs)}>
   <Theme theme="{themes.light}">
     <div class="themed">
       <p>Theme</p>
@@ -78,7 +78,7 @@
               colour: { background: 'steelblue', 'text-primary': '#fff' },
               font: { 'family-note': 'freight-book' },
             }}"
-            base='dark'
+            base="dark"
           >
             <div class="themed">
               <p>Sub-sub sibling</p>

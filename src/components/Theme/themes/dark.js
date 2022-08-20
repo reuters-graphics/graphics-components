@@ -13,7 +13,8 @@ export default {
     'size-base': '1.375',
     'family-serif': 'freight-book, serif',
     'family-sans-serif': 'Knowledge, sans-serif',
-    'family-monospace': 'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+    'family-monospace':
+      'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
     'family-hed': 'var(--theme-font-family-sans-serif)',
     'family-subhed': 'var(--theme-font-family-sans-serif)',
     'family-body': 'var(--theme-font-family-serif)',

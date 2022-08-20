@@ -6,19 +6,17 @@
 
   import data from './data.json';
 
-  
   interface Referral {
     url: URL;
     image: URL;
     title: string;
     description?: string;
   }
-  
+
   /**
    * Custom referrals to other Reuters Graphics projects
    */
   export let referrals: Referral[] = [];
-
 </script>
 
 <footer

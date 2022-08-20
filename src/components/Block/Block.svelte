@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
-  
+
   /** Width of the block within the article well. */
   export let width: ContainerWidth = 'normal';
 
@@ -20,18 +20,18 @@
 </script>
 
 <div
-  {id}
+  id="{id}"
   class="article-block {width} {cls}"
-  class:snap={snap && width !== 'fluid' && width !== 'widest'}
-  {role}
-  aria-label={ariaLabel}
+  class:snap="{snap && width !== 'fluid' && width !== 'widest'}"
+  role="{role}"
+  aria-label="{ariaLabel}"
 >
   <!-- block content -->
-  <slot></slot>
+  <slot />
 </div>
 
 <style lang="scss">
-  @import "../../scss/mixins";
+  @import '../../scss/mixins';
 
   div.article-block {
     max-width: var(--normal-column-width, 660px);

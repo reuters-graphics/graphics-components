@@ -7,10 +7,11 @@ From there, you can pass a custom theme object to the `theme` prop. (Check out t
 ```svelte
 <Theme
   base="dark"
-  theme={{
+  theme="{{
     colour: { accent: 'yellow' },
     font: { 'family-hed': 'freight-book' },
-  }}>
+  }}"
+>
   <!-- Page content -->
 </Theme>
 ```

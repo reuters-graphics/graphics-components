@@ -11,7 +11,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs
+    withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -32,22 +32,15 @@
   </div>
 </Template>
 
-<Story
-  name="Default"
-/>
+<Story name="Default" />
 
-
-<Story
-  name="Customised theme"
-  {...withStoryDocs(darkThemeDocs)}
->
+<Story name="Customised theme" {...withStoryDocs(darkThemeDocs)}>
   <div>
     <Theme base="dark">
       <SiteHeader />
     </Theme>
   </div>
 </Story>
-
 
 <style>
   div {

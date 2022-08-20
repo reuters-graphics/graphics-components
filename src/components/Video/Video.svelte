@@ -15,7 +15,7 @@
   export let ariaHidden = true;
   export let ariaDescription = null;
   export let caption = '';
-  
+
   /**
    * Width of the block within the article well.
    * @type {string}
@@ -122,7 +122,7 @@
   on:touchstart="{setInteractedWithDom}"
 />
 
-<Block {width} cls="video-container">
+<Block width="{width}" cls="video-container">
   <div
     on:mouseover="{() => {
       interactiveControlsOpacity = controlsOpacity;
@@ -163,9 +163,9 @@
                   on:pausePlayEvent="{pausePlayEvent}"
                   paused="{paused}"
                   clickedOnPauseBtn="{clickedOnPauseBtn}"
-                  controlsOpacity="{hoverToSeeControls ?
-                    interactiveControlsOpacity :
-                    controlsOpacity}"
+                  controlsOpacity="{hoverToSeeControls
+                    ? interactiveControlsOpacity
+                    : controlsOpacity}"
                   controlsPosition="{controlsPosition}"
                   widthVideoContainer="{widthVideoContainer}"
                   heightVideoContainer="{heightVideoContainer}"
@@ -196,7 +196,9 @@
               bind:paused
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
-              style="{showControls ? 'position: relative' : 'position: relative'}"
+              style="{showControls
+                ? 'position: relative'
+                : 'position: relative'}"
             >
               <track kind="captions" />
             </video>
@@ -262,7 +264,7 @@
 </Block>
 
 <style lang="scss">
-  @import "../../scss/colours/thematic/tr";
+  @import '../../scss/colours/thematic/tr';
   .video-wrapper {
     position: relative;
     video {

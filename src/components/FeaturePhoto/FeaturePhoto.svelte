@@ -68,11 +68,11 @@
   });
 </script>
 
-<Block {width} cls="photo">
+<Block width="{width}" cls="photo">
   <figure
     bind:this="{container}"
     aria-label="media"
-    class:fluid={width === 'fluid'}
+    class:fluid="{width === 'fluid'}"
   >
     {#if !lazy || (intersectable && intersecting)}
       <img src="{src}" alt="{altText}" />
@@ -82,15 +82,15 @@
     {#if caption}
       <figcaption>{caption}</figcaption>
     {/if}
-    {#if (!altText)}
-      <div class='alt-warning'>Missing altText</div>
+    {#if !altText}
+      <div class="alt-warning">Missing altText</div>
     {/if}
   </figure>
 </Block>
 
 <style lang="scss">
-  @import "../../scss/fonts/variables";
-  @import "../../scss/colours/thematic/tr";
+  @import '../../scss/fonts/variables';
+  @import '../../scss/colours/thematic/tr';
 
   figure {
     width: 100%;

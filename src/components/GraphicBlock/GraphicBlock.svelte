@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
-  
+
   /**
    * Width of the component within the text well.
    * @type {string}
@@ -70,42 +70,49 @@
   import { marked } from 'marked';
 </script>
 
-<Block {id} {snap} {role} {width} {ariaLabel} cls="graphic {cls}">
+<Block
+  id="{id}"
+  snap="{snap}"
+  role="{role}"
+  width="{width}"
+  ariaLabel="{ariaLabel}"
+  cls="graphic {cls}"
+>
   <div>
     {#if $$slots.title}
-      <TextBlock width={textWidth}>
+      <TextBlock width="{textWidth}">
         <!-- Custom title content -->
         <slot name="title" />
       </TextBlock>
-    {:else if (title)}
-      <TextBlock width={textWidth}>
+    {:else if title}
+      <TextBlock width="{textWidth}">
         <h3>{title}</h3>
-        {#if (description)}
+        {#if description}
           {@html marked(description)}
         {/if}
       </TextBlock>
     {/if}
-    <AriaHidden hidden={(!!($$slots.aria) || !!ariaDescription)}>
+    <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
       <!-- Graphic content -->
-      <slot></slot>
+      <slot />
     </AriaHidden>
     {#if $$slots.aria || ariaDescription}
       <div class="visually-hidden">
         {#if $$slots.aria}
           <!-- Custom ARIA markup -->
-          <slot name="aria"></slot>
+          <slot name="aria" />
         {:else}
           {@html marked(ariaDescription)}
         {/if}
       </div>
     {/if}
     {#if $$slots.notes}
-      <TextBlock width={textWidth}>
+      <TextBlock width="{textWidth}">
         <!-- Custom notes content -->
         <slot name="notes" />
       </TextBlock>
-    {:else if (notes)}
-      <TextBlock width={textWidth}>
+    {:else if notes}
+      <TextBlock width="{textWidth}">
         <aside>
           {@html marked(notes)}
         </aside>
@@ -116,7 +123,7 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  @import "../../scss/mixins";
+  @import '../../scss/mixins';
   div {
     :global {
       @include graphic-text;

@@ -20,16 +20,16 @@
     {#if $$slots.crown}
       <div class="crown-container">
         <!-- Crown named slot -->
-        <slot name="crown"></slot>
+        <slot name="crown" />
       </div>
     {/if}
     <div class="title">
       {#if section}
-        <p class={'section-title'}>{section}</p>
+        <p class="{'section-title'}">{section}</p>
       {/if}
       {#if $$slots.hed}
         <!-- Headline override named slot -->
-        <slot name="hed"></slot>
+        <slot name="hed" />
       {:else}
         <h1>{hed}</h1>
       {/if}
@@ -37,13 +37,13 @@
         <p>{dek}</p>
       {/if}
     </div>
-    {#if ($$slots.byline || $$slots.dateline)}
-      <aside class="article-metadata" class:pt-1={!dek}>
+    {#if $$slots.byline || $$slots.dateline}
+      <aside class="article-metadata" class:pt-1="{!dek}">
         {#if $$slots.byline}
           <div class="byline-container">
             <div class="byline">
               <!-- Byline named slot -->
-              <slot name="byline"></slot>
+              <slot name="byline" />
             </div>
           </div>
         {/if}
@@ -51,7 +51,7 @@
           <div class="dateline-container">
             <div class="published">
               <!-- Dateline named slot -->
-              <slot name="dateline"></slot>
+              <slot name="dateline" />
             </div>
           </div>
         {/if}
@@ -61,8 +61,8 @@
 </Block>
 
 <style lang="scss">
-  @import "../../scss/colours/thematic/tr";
-  @import "../../scss/fonts/variables";
+  @import '../../scss/colours/thematic/tr';
+  @import '../../scss/fonts/variables';
 
   header.headline {
     text-align: center;
@@ -129,4 +129,3 @@
     }
   }
 </style>
-

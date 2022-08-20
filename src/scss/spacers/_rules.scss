@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 @each $level, $value in $margin-levels {
   .m-#{$level} {

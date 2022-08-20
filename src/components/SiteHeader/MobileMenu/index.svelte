@@ -22,7 +22,10 @@
   >
     <header class="header">
       <div class="logo">
-        <ReutersLogo logoColour="var(--nav-accent)" textColour="var(--nav-primary)" />
+        <ReutersLogo
+          logoColour="var(--nav-accent)"
+          textColour="var(--nav-primary)"
+        />
       </div>
       <button class="button close-button" on:click="{releaseMobileMenu}">
         <div class="button-container">

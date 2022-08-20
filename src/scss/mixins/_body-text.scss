@@ -4,7 +4,14 @@
 @import '../colours/thematic/tr';
 
 @mixin body-text {
-  h2, h3, h4, h5, h6, p, li, blockquote {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  blockquote {
     color: var(--theme-colour-text-primary, $tr-dark-grey);
   }
   p,
@@ -26,8 +33,7 @@
       background-repeat: repeat-x;
       text-decoration: none;
       // TODO: Assign this to background colour CSS var and the underline will skip descenders
-      text-shadow:
-        1px 1px var(--theme-colour-background, #ffffff),
+      text-shadow: 1px 1px var(--theme-colour-background, #ffffff),
         1px -1px var(--theme-colour-background, #ffffff),
         -1px 1px var(--theme-colour-background, #ffffff),
         -1px -1px var(--theme-colour-background, #ffffff);
@@ -99,6 +105,9 @@
   }
 
   &.font-sans {
-    font-family: var(--theme-font-family-sans-serif, $font-family-sans-serif) !important;
+    font-family: var(
+      --theme-font-family-sans-serif,
+      $font-family-sans-serif
+    ) !important;
   }
 }
