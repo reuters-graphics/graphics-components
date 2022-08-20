@@ -23,9 +23,9 @@
   const reframe = (embed) => {
     pymParent = new pym.Parent(
       'frame-parent',
-      /^http/.test(embed) ?
-        embed :
-        urljoin(window.location.origin, embed, { trailingSlash: true })
+      /^http/.test(embed)
+        ? embed
+        : urljoin(window.location.origin, embed, { trailingSlash: true })
     );
   };
 

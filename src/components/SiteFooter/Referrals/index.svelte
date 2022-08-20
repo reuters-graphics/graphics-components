@@ -11,7 +11,7 @@
       <h2>
         <a href="https://graphics.reuters.com/">More from Reuters Graphics</a>
       </h2>
-      {#if (typeof window !== 'undefined')}
+      {#if typeof window !== 'undefined'}
         <Referrals referrals="{referrals}" />
       {/if}
     </section>
