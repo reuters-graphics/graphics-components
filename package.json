@@ -10,7 +10,8 @@
     "new": "node ./bin/newComponent/index.cjs",
     "build:package": "node ./bin/buildPackage/index.js",
     "build:docs": "build-storybook -o docs",
-    "build": "npm-run-all build:package build:docs"
+    "build": "npm-run-all build:package build:docs",
+    "prepublishOnly": "npm run build:package"
   },
   "license": "MIT",
   "types": "dist/@types/index.d.ts",

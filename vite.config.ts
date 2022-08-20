@@ -10,7 +10,7 @@ const config = {
   },
   resolve: {
     alias: {
-      '@reuters-graphics/graphics-svelte-components': './src',
+      '@reuters-graphics/graphics-components': './src',
       $lib: './src',
       $docs: './src/docs',
     },

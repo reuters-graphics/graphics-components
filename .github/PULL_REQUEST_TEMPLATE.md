@@ -11,7 +11,7 @@ Tell us what this PR does or link to any related issues that describe the goal h
 
 ### Before submitting, please check that you've
 
-- [ ] Read our [contributing guide](https://github.com/reuters-graphics/graphics-svelte-components/blob/master/CONTRIBUTING.md) at some point
+- [ ] Read our [contributing guide](https://github.com/reuters-graphics/graphics-components/blob/master/CONTRIBUTING.md) at some point
 - [ ] Formatted you code correctly (i.e., prettier cleaned it up)
 - [ ] Documented any new components or features
 - [ ] Tagged an editor to review

@@ -1,6 +1,6 @@
 ---
 title: Build error on commit
-assignees: hobbes7878, MinamiFunakoshiTR
+assignees: hobbes7878
 labels: bug
 ---
 
