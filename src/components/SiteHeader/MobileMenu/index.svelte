@@ -58,7 +58,7 @@
   @import '../scss/_grids.scss';
   @import '../scss/_colors.scss';
   @import '../scss/_z-indexes.scss';
-  @import '@reuters-graphics/style-main/scss/fonts/mixins';
+  @import '../../../scss/fonts/mixins';
 
   $mobile-nav-height: 56px;
 

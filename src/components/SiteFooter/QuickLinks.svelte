@@ -122,7 +122,7 @@
   @import '../SiteHeader/scss/_grids.scss';
   @import '../SiteHeader/scss/_colors.scss';
 
-  @import '~@reuters-graphics/style-main/scss/fonts/mixins';
+  @import '../../scss/fonts/mixins';
 
   .content-container {
     @include max-width;

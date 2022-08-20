@@ -23,9 +23,9 @@
   const reframe = (embed) => {
     pymParent = new pym.Parent(
       'frame-parent',
-      /^http/.test(embed)
-        ? embed
-        : urljoin(window.location.origin, embed, { trailingSlash: true })
+      /^http/.test(embed) ?
+        embed :
+        urljoin(window.location.origin, embed, { trailingSlash: true })
     );
   };
 
@@ -78,8 +78,7 @@
 />
 
 <style lang="scss">
-  @import '@reuters-graphics/style-color/scss/thematic/brand';
-  @import '@reuters-graphics/style-main/scss/fonts/mixins';
+  @import '../../scss/fonts/mixins';
 
   header {
     @include font-display;

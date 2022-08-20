@@ -1,5 +1,5 @@
-@import "../fonts/variables";
-@import "../colours/thematic/tr";
+@import '../fonts/variables';
+@import '../colours/thematic/tr';
 
 // Font sizes
 $font-size-xs: 0.8rem !default;
@@ -17,21 +17,19 @@ $blockquote-font-size: ($font-size-base * 1.5) !default;
 
 $line-height-base: 1.5 !default;
 
-$text-muted:  $tr-medium-grey;
+$text-muted: $tr-medium-grey;
 
-$blockquote-small-color: $tr-medium-grey;;
+$blockquote-small-color: $tr-medium-grey;
 
 $blockquote-border-color: $tr-dark-grey !default;
 $blockquote-border-width: 0.25rem !default;
 
-
 $hr-border-color: rgba($black, 0.1) !default;
-
 
 // Headings
 $headings-font-family: $font-family-display;
 $headings-font-weight: 700 !default;
-$headings-color: $brand-text-primary;
+$headings-color: $tr-dark-grey;
 
 $h1-font-size: $font-size-base * 2.5 !default;
 $h2-font-size: $font-size-base * 2 !default;

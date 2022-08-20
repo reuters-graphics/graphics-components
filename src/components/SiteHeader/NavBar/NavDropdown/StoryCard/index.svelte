@@ -35,8 +35,8 @@
 </div>
 
 <style lang="scss">
-  @import '../../../scss/_colors.scss';
-  @import '@reuters-graphics/style-main/scss/fonts/mixins';
+  @import '../../../../../scss/fonts/mixins';
+  @import '../../../../../scss/colours/thematic/tr';
 
   .story-card a {
     display: flex;

@@ -1,8 +1,6 @@
 @import 'fonts/font-faces';
 
 // Variables
-@import '@reuters-graphics/style-color/scss/categorical/base';
-@import '@reuters-graphics/style-color/scss/thematic/brand';
 @import 'variables';
 
 // Mixins
@@ -16,6 +14,3 @@
 @import 'typography/rules';
 @import 'typography/main';
 @import 'spacers/rules';
-
-// Components
-@import 'components/article-metadata';

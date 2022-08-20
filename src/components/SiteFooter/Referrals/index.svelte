@@ -19,7 +19,7 @@
 </IntersectionObserver>
 
 <style lang="scss">
-  @import '@reuters-graphics/style-main/scss/fonts/mixins';
+  @import '../../../scss/fonts/mixins';
   @import '../../SiteHeader/scss/_breakpoints.scss';
   @import '../../SiteHeader/scss/_grids.scss';
 

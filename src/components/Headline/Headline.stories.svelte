@@ -14,7 +14,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs
+    withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -32,16 +32,13 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     section: 'World News',
     hed: 'Reuters Graphics interactive',
-  }}
+  }}"
 />
 
-<Story
-  name="With byline"
-  {...withStoryDocs(withBylineDocs)}
->
+<Story name="With byline" {...withStoryDocs(withBylineDocs)}>
   <Headline
     hed="{'Reuters Graphics Interactive'}"
     dek="{'The beginning of a beautiful page'}"
@@ -50,19 +47,24 @@
     <!-- Use named slots to add a byline... -->
     <span slot="byline">By <strong>Peppa Pig</strong></span>
     <!-- ...and a dateline. -->
-    <span slot="dateline">Published <time datetime="{new Date('2020-01-01').toISOString()}">Jan. 1, 2020</time></span>
+    <span slot="dateline"
+      >Published <time datetime="{new Date('2020-01-01').toISOString()}"
+        >Jan. 1, 2020</time
+      ></span
+    >
   </Headline>
 </Story>
 
-<Story
-  name="With crown"
-  {...withStoryDocs(withCrownDocs)}
->
+<Story name="With crown" {...withStoryDocs(withCrownDocs)}>
   <Headline>
     <!-- Add a crown -->
     <img slot="crown" src="{crownImgSrc}" alt="Illustration of Europe" />
     <!-- Override the hed with a named slot -->
     <h1 slot="hed" class="spaced font-serif">Europa</h1>
-    <span slot="dateline">Published <time datetime="{new Date('2020-01-01').toISOString()}">Jan. 1, 2020</time></span>
+    <span slot="dateline"
+      >Published <time datetime="{new Date('2020-01-01').toISOString()}"
+        >Jan. 1, 2020</time
+      ></span
+    >
   </Headline>
 </Story>
