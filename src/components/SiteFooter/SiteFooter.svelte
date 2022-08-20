@@ -1,21 +1,3 @@
-<script context="module">
-  /**
-   * Exported preset themes you can use to customise the `theme` prop.
-   */
-  export const themes = {
-    default: {
-      background: '#fff',
-      primary: '#404040',
-      rules: '#d0d0d0',
-    },
-    dark: {
-      background: '#333',
-      primary: '#eee',
-      rules: '#999',
-    },
-  };
-</script>
-
 <script lang="ts">
   import QuickLinks from './QuickLinks.svelte';
   import CompanyLinks from './CompanyLinks.svelte';
@@ -24,17 +6,6 @@
 
   import data from './data.json';
 
-  interface Theme {
-    background?: string;
-    primary?: string;
-    accent?: string;
-    rules?: string;
-  }
-
-  /**
-   * Pass in a custom theme to control the colours in the header.
-   */
-  export let theme: Theme = {};
   
   interface Referral {
     url: URL;
@@ -48,14 +19,13 @@
    */
   export let referrals: Referral[] = [];
 
-  const navTheme = { ...themes.default, ...theme };
 </script>
 
 <footer
   style="{`
-    --nav-background: ${navTheme.background};
-    --nav-primary: ${navTheme.primary};
-    --nav-rules: ${navTheme.rules};
+    --nav-background: var(--theme-colour-background, #fff);
+    --nav-primary: var(--theme-colour-text-primary, #404040);
+    --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
   `}"
 >
   <div>

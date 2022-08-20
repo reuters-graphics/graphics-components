@@ -11,21 +11,21 @@
    * Section title
    */
   export let section: string | null = null;
-  /**
-   * Section colour
-   */
-  export let sectionColour: string = 'red';
 
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block>
+<Block cls="mb-1">
   <header class="headline">
-    <!-- Crown named slot -->
-    <slot name="crown"></slot>
+    {#if $$slots.crown}
+      <div class="crown-container">
+        <!-- Crown named slot -->
+        <slot name="crown"></slot>
+      </div>
+    {/if}
     <div class="title">
       {#if section}
-        <p class={`section-title color-${sectionColour}`}>{section}</p>
+        <p class={'section-title'}>{section}</p>
       {/if}
       {#if $$slots.hed}
         <!-- Headline override named slot -->
@@ -38,7 +38,7 @@
       {/if}
     </div>
     {#if ($$slots.byline || $$slots.dateline)}
-      <aside class="article-metadata">
+      <aside class="article-metadata" class:pt-1={!dek}>
         {#if $$slots.byline}
           <div class="byline-container">
             <div class="byline">
@@ -61,37 +61,41 @@
 </Block>
 
 <style lang="scss">
-  @import "@reuters-graphics/style-color/scss/thematic/brand";
-  @import "../../scss/mixins";
+  @import "../../scss/colours/thematic/tr";
+  @import "../../scss/fonts/variables";
 
   header.headline {
     text-align: center;
     margin-top: 4rem;
-    margin-bottom: 3rem;
+    margin-bottom: 0;
+    color: var(--theme-colour-text-primary, $tr-dark-grey);
 
     :global {
       h1 {
         font-size: 4rem;
         margin: 5px 0;
         line-height: 1.1;
+        font-family: var(--theme-font-family-hed, $font-family-display);
+        color: var(--theme-colour-text-primary, $tr-dark-grey);
       }
 
       p {
-        @include font-display;
-
+        font-family: var(--theme-font-family-subhed, $font-family-display);
+        color: var(--theme-colour-text-primary, $tr-dark-grey);
         margin: 0;
         font-weight: 200;
 
         &.section-title {
           font-size: 1rem;
           font-weight: 800;
+          color: var(--theme-colour-accent, $tr-dark-red);
         }
       }
     }
     .article-metadata {
       padding: 40px 0;
-
-      @include font-sans;
+      font-family: var(--theme-font-family-note, $font-family-display);
+      color: var(--theme-colour-text-primary, $tr-dark-grey);
 
       text-align: center;
 
@@ -102,7 +106,7 @@
       .byline {
         :global {
           a {
-            color: $brand-text;
+            color: var(--theme-colour-text-primary, $tr-dark-grey);
             text-decoration: none;
           }
         }
@@ -111,16 +115,17 @@
       .dateline-container {
         text-transform: uppercase;
 
-        color: $brand-text-secondary;
+        color: var(--theme-colour-text-secondary, $tr-medium-grey);
         font-size: 0.8rem;
         line-height: 1.2rem;
+        letter-spacing: 0.2px;
       }
     }
 
-    section.headline {
-      .article-metadata {
-        padding: 2rem 0 0;
-      }
+    div.crown-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 </style>

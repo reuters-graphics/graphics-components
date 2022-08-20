@@ -1,17 +1,17 @@
 @import "../mixins";
 
 .font-sans {
-  @include font-sans;
+  @include font-sans(true);
 }
 
 .font-serif {
-  @include font-serif;
+  @include font-serif(true);
 }
 
 .font-monospace {
-  @include font-monospace;
+  @include font-monospace(true);
 }
 
 .font-display {
-  @include font-display;
+  @include font-display(true);
 }

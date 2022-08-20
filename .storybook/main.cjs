@@ -17,7 +17,7 @@ module.exports = {
   },
   "features": {
     "storyStoreV7": false,
-    "previewMdx2": true,
+    "previewMdx2": false, // Until this is fixed: https://github.com/storybookjs/storybook/issues/18556
   },
   typescript: {
     check: false,

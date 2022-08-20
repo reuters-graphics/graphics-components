@@ -1,8 +1,8 @@
 import '../src/scss/main.scss';
 import './preview.scss';
 
-import Article from '../src/components/Article/Article.svelte';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import Wrapper from './Wrapper.svelte';
 import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import svelte from './svelte-highlighting.js';
@@ -41,6 +41,8 @@ export const parameters = {
         ],
         'Layout',
         ['Intro', '*'],
+        'Theming',
+        ['*'],
         'Components',
         ['Intro', '*'],
         '*',
@@ -65,4 +67,4 @@ export const parameters = {
   }
 };
 
-export const decorators = [() => ({ Component: Article })];
+export const decorators = [() => ({ Component: Wrapper })];

@@ -100,16 +100,16 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure
-        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
-        : 0;
+      const figureOffset = figure ?
+        parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2)) :
+        0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin
-          ? handleMargin
-          : x > w - handleMargin
-          ? w - handleMargin
-          : x;
+        x < handleMargin ?
+          handleMargin :
+          x > w - handleMargin ?
+            w - handleMargin :
+            x;
       offset = x / w;
     }
   };
@@ -229,7 +229,7 @@
 {/if}
 
 <style lang="scss">
-  @import '../../scss/mixins/fonts';
+  @import '../../scss/fonts/variables';
   @import '../../scss/colours/thematic/tr';
   figure.before-after-container {
     overflow: hidden;
@@ -257,7 +257,8 @@
       position: absolute;
       :global {
         p {
-          @include font-display;
+          font-family: var(--theme-font-family-note, $font-family-display);
+          color: var(--theme-colour-text-primary);
           font-size: 1rem;
           line-height: 1.2rem;
           &:last-child {
@@ -329,11 +330,12 @@
   }
   aside.before-after-caption {
     margin: 0 auto;
-    @include font-display;
+    font-family: var(--theme-font-family-note, $font-family-display);
+    color: var(--theme-colour-text-secondary, $tr-medium-grey);
     :global {
       p {
-        @include font-display;
-        color: $tr-medium-grey;
+        font-family: var(--theme-font-family-note, $font-family-display);
+        color: var(--theme-colour-text-secondary, $tr-medium-grey);
         font-size: 0.9rem;
         line-height: 1.2rem;
         &:last-of-type {

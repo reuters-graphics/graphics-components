@@ -67,14 +67,21 @@ a.sbdocs-a {
 }
 
 
-// .sbdocs {
-//   max-width: 800px;
-//   margin: 0 auto !important;
-//   display: block;
-// }
-// .sbdocs.sbdocs-pre {
-//   max-width: 1000px;
-// }
-// .sbdocs.sbdocs-wrapper, .sbdocs.sbdocs-content, .sbdocs.sbdocs-preview {
-//   max-width: 100%;
-// }
+code {
+  font-size: 90%;
+  margin-left: 2px;
+  margin-right: 2px;
+  background-color: #efefef;
+  padding: 2px 4px;
+}
+
+img {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+div.reset-article {
+  width: calc(100% + 30px);
+  margin-left: -15px;
+}

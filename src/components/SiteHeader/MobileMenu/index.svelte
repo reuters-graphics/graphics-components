@@ -4,7 +4,6 @@
   import { normalizeUrl } from '../NavBar/utils/index.js';
 
   export let data = [];
-  export let theme = {};
   export let isMobileMenuOpen = false;
   export let releaseMobileMenu = () => {};
 </script>
@@ -14,16 +13,16 @@
     class="overlay"
     aria-modal="true"
     style="{`
-      --nav-background: ${theme.background};
-      --nav-primary: ${theme.primary};
-      --nav-accent: ${theme.accent};
-      --nav-rules: ${theme.rules};
-      --nav-shadow: ${theme.shadow};
+      --nav-background: var(--theme-colour-background, #fff);
+      --nav-primary: var(--theme-colour-text-primary, #404040);
+      --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
+      --nav-accent: var(--theme-colour-brand-logo, #fa6400);
+      --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
     `}"
   >
     <header class="header">
       <div class="logo">
-        <ReutersLogo logoColour="{theme.accent}" textColour="{theme.primary}" />
+        <ReutersLogo logoColour="var(--nav-accent)" textColour="var(--nav-primary)" />
       </div>
       <button class="button close-button" on:click="{releaseMobileMenu}">
         <div class="button-container">

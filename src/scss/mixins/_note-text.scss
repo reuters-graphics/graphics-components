@@ -1,4 +1,4 @@
-@import './fonts';
+@import '../fonts/variables';
 
 @mixin note-text {
   h2,
@@ -6,18 +6,18 @@
   h4,
   h5,
   h6 {
-    @include font-display;
-
+    font-family: var(--theme-font-family-note, $font-family-display);
+    color: var(--theme-colour-text-primary);
     margin: 1rem 0 0;
     font-size: 1rem;
     letter-spacing: 0.5px;
   }
 
   p {
-    @include font-display;
-
+    font-family: var(--theme-font-family-note, $font-family-display);
     font-size: 1rem;
     font-weight: 200;
+    color: var(--theme-colour-text-primary);
     a {
       color: currentColor;
       background-size: 1px 1px;

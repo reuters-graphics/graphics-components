@@ -15,16 +15,13 @@ export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.sve
 export { default as Scroller } from './components/Scroller/Scroller.svelte';
 export { default as SEO } from './components/SEO/SEO.svelte';
 export { default as Sharer } from './components/Sharer/Sharer.svelte';
-export {
-  default as SiteFooter,
-  // @ts-ignore
-  themes as SiteFooterThemes
-} from './components/SiteFooter/SiteFooter.svelte';
-export {
-  default as SiteHeader,
-  // @ts-ignore
-  themes as SiteHeaderThemes
-} from './components/SiteHeader/SiteHeader.svelte';
+export { default as SiteFooter } from './components/SiteFooter/SiteFooter.svelte';
+export { default as SiteHeader } from './components/SiteHeader/SiteHeader.svelte';
 export { default as Spinner } from './components/Spinner/Spinner.svelte';
+export {
+  default as Theme,
+  // @ts-ignore
+  themes
+} from './components/Theme/Theme.svelte';
 export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';

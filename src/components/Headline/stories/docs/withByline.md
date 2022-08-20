@@ -9,7 +9,6 @@ Add a byline and dateline with `byline` and `dateline` named slots.
   hed="{'Reuters Graphics Interactive'}"
   dek="{'The beginning of a beautiful page'}"
   section="{'Global news'}"
-  sectionColour="{'orange'}"
 >
   <!-- Use named slots to add a byline... -->
   <span slot="byline">By <strong>Peppa Pig</strong></span>

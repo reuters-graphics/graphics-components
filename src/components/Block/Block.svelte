@@ -12,9 +12,6 @@
   /** Snap block to column widths, rather than fluidly resizing them. */
   export let snap: boolean = false;
 
-  /** By default, all blocks have a margin bottom, except the last child. Set to `false` to remove this margin or set a `cls`/`id` and target with custom CSS. */
-  export let noMargin: boolean = false;
-
   /** ARIA [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) for the block */
   export let role: string | null = null;
 
@@ -26,7 +23,6 @@
   {id}
   class="article-block {width} {cls}"
   class:snap={snap && width !== 'fluid' && width !== 'widest'}
-  class:no-margin={noMargin}
   {role}
   aria-label={ariaLabel}
 >
@@ -43,11 +39,7 @@
     margin-right: auto;
     margin-top: 0;
     &:not(:last-child) {
-      margin-bottom: 4rem;
-    }
-
-    &.no-margin {
-      margin-bottom: 0;
+      margin-bottom: 3rem;
     }
 
     &.narrower {

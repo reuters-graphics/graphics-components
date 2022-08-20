@@ -3,28 +3,30 @@
 
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
+  // @ts-ignore
+  import customiseDocs from './stories/docs/customise.md?raw';
+  // @ts-ignore
+  import inheritanceDocs from './stories/docs/inheritance.md?raw';
+
+  import ThemedPage from './stories/ThemedPage.svelte';
 
   import Theme, { themes } from './Theme.svelte';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+  import { withComponentDocs, withStoryDocs } from '$lib/docs/utils/withParams.js';
 
   const meta = {
-    title: 'Components/Theme',
+    title: 'Theming/Theme',
     component: Theme,
     ...withComponentDocs(componentDocs),
     argTypes: {
-      styles: {
-        options: Object.keys(themes), // An array of serializable values
-        mapping: themes, // Maps serializable option values to complex arg values
-        control: {
-          type: 'select', // Type 'select' is automatically inferred when 'options' is defined
-          labels: {
-            // 'labels' maps option values to string labels
-            main: 'Main',
-            dark: 'Dark',
-          },
-        },
+      base: {
+        control: 'select',
+        options: [
+          'light',
+          'dark',
+        ],
       },
+      themes: { control: false },
     },
   };
 </script>
@@ -32,42 +34,54 @@
 <Meta {...meta} />
 
 <Template let:args>
-  <Theme {...args}>
-    <div class="themed">
-      <p>My theme</p>
-    </div>
-  </Theme>
+  <div class="reset-article">
+    <Theme {...args}>
+      <ThemedPage />
+    </Theme>
+  </div>
 </Template>
 
 <Story
   name="Default"
   args="{{
-    styles: themes.main,
+    theme: themes.light,
+    base: 'light',
   }}"
 />
 
 <Story
-  name="Inheritance"
-  args="{{
-    styles: themes.main,
-  }}"
+  name="Custom theme"
+  {...withStoryDocs(customiseDocs)}
 >
-  <Theme styles="{themes.main}">
+  <Theme base="dark" theme={{ colour: { accent: 'yellow' }, font: { 'family-hed': 'freight-book' } }}>
+    <ThemedPage />
+  </Theme>
+</Story>
+
+<Story
+  name="Inheritance"
+  {...withStoryDocs(inheritanceDocs)}
+>
+  <Theme theme="{themes.light}">
     <div class="themed">
-      <p>My theme</p>
-      <Theme styles="{themes.dark}">
+      <p>Theme</p>
+      <Theme theme="{themes.dark}">
         <div class="themed">
-          <p>My sub-theme</p>
-          <Theme styles="{themes.main}">
+          <p>Sub-theme</p>
+          <Theme theme="{themes.light}">
             <div class="themed">
-              <p>My sub-sub-theme</p>
+              <p>Sub-sub</p>
             </div>
           </Theme>
           <Theme
-            styles="{{ colour: { background: 'steelblue', primary: '#fff' } }}"
+            theme="{{
+              colour: { background: 'steelblue', 'text-primary': '#fff' },
+              font: { 'family-note': 'freight-book' },
+            }}"
+            base='dark'
           >
             <div class="themed">
-              <p>My other sub-sub-theme</p>
+              <p>Sub-sub sibling</p>
             </div>
           </Theme>
         </div>
@@ -86,11 +100,11 @@
     display: flex;
     justify-content: center;
     flex-flow: column;
-    border: 1px solid var(--theme-colour-primary);
+    border: 1px solid var(--theme-colour-text-primary);
     border-radius: 20px;
     p {
-      @include font-display;
-      color: var(--theme-colour-primary);
+      font-family: var(--theme-font-family-note);
+      color: var(--theme-colour-text-primary);
       text-align: center;
       margin: 0;
       display: block;

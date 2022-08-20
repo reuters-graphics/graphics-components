@@ -1,35 +1,11 @@
-Customise colours by passing an object to the `theme` prop. You can customise any or all of the following default properties:
-
-```javascript
-// Customisable colours
-{
-  background: '#fff',
-  primary: '#404040',
-  accent: '#fa6400',
-  rules: '#d0d0d0',
-  shadow: '0 1px 4px 2px rgb(64 64 64 / 8%)',
-}
-```
-
-The component also exports some preset themes you can use or customise:
+Colours are customised by the [`Theme`](?path=/docs/theming-theme--default) component.
 
 ```svelte
 <script>
-  import {
-    SiteFooter,
-    SiteFooterThemes,
-  } from '@reuters-graphics/graphics-components';
+  import { SiteFooter, Theme } from '@reuters-graphics/graphics-components';
 </script>
 
-<!-- Use a preset theme. -->
-<SiteFooter theme="{SiteFooterThemes.dark}" />
-
-<!-- Customise a couple colours in a theme. -->
-<SiteFooter
-  theme="{{
-    ...SiteFooterThemes.default,
-    background: '#e0d3b8',
-    rules: '#aaa',
-  }}"
-/>
+<Theme base="dark">
+  <SiteFooter />
+</Theme>
 ```

@@ -6,12 +6,12 @@
   // @ts-ignore
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
 
-  import SiteHeader, { themes } from './SiteHeader.svelte';
-  import Block from '../Block/Block.svelte';
+  import SiteHeader from './SiteHeader.svelte';
+  import Theme from '../Theme/Theme.svelte';
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -36,13 +36,17 @@
   name="Default"
 />
 
+
 <Story
   name="Customised theme"
-  args={{
-    theme: themes.dark,
-  }}
   {...withStoryDocs(darkThemeDocs)}
-/>
+>
+  <div>
+    <Theme base="dark">
+      <SiteHeader />
+    </Theme>
+  </div>
+</Story>
 
 
 <style>

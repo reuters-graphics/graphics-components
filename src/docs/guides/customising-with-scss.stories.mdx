@@ -41,19 +41,19 @@ In our case, we want to change the absolute position of those elements. To test 
 
 <img src={testImg} width="600" style={{ margin: '0 0 1rem' }} />
 
-Now that we know we can change what we need through CSS it's time to write some SCSS.
+Now that we know we can change what we need through CSS it's time to write some SCSS, either in your `global.scss` file or directly in a component like `App.svelte`.
 
 First, let's look at the class of the style rule we changed in the inspector:
 
 `figure.before-after-container.s-khJY-w4TYkp5 .overlay-container.before.s-khJY-w4TYkp5`
 
-The first thing we need to do is <span class="highlight">strip out any Svelte class names</span>, i.e., those weird `.s-khJY-w4TYkp5` classes. Why? Those are random classes Svelte adds to CSS, and we can't guarantee they won't change.
+One thing we always need to do is <span class="highlight">strip out any Svelte class names</span>, i.e., those weird `.s-khJY-w4TYkp5` classes. Why? Those are random classes Svelte adds to CSS, and we can't guarantee they won't change.
 
 That leaves us with:
 
 `figure.before-after-container .overlay-container.before`
 
-But we need our style rule to _beat_ the original style in the CSS cascade, and right now, it's less specific.
+But we need our style rule to _beat_ the original style in the CSS cascade, and right now, it's less specific without those class names we stripped.
 
 The easiest way to make sure your style rule wins out is to <span class="highlight">add an ID either directly to the element or to a parent</span>. In our case, let's add an ID through the `BeforeAfter` `id` prop. Now we can use it! (For extra credit, though, we'll drop the `.before` so our new style rule applies to _both_ overlays.)
 

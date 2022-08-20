@@ -4,7 +4,7 @@
 @mixin graphic-text {
   h3 {
     margin-bottom: 0.5rem;
-    color: $tr-dark-grey;
+    color: var(--theme-colour-text-primary, $tr-dark-grey);
   }
 
   p {
@@ -12,7 +12,7 @@
     @include font-display;
     font-size: 1.1rem;
     line-height: 1.5rem;
-    color: $tr-dark-grey;
+    color: var(--theme-colour-text-primary, $tr-dark-grey);
     margin-bottom: 1rem;
     &:last-of-type {
       margin-bottom: 1rem;
@@ -42,7 +42,7 @@
     p {
       @include font-display;
       margin-bottom: 0;
-      color: $tr-medium-grey;
+      color: var(--theme-colour-text-secondary, $tr-medium-grey);
       font-size: 0.9rem;
       line-height: 1.2rem;
       &:last-of-type {

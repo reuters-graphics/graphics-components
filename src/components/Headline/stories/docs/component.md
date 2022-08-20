@@ -9,6 +9,5 @@ Reuters Graphics headline
   hed="{'Reuters Graphics Interactive'}"
   dek="{'The beginning of a beautiful page'}"
   section="{'Global news'}"
-  sectionColour="{'orange'}"
 />
 ```

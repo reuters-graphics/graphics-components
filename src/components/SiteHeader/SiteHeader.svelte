@@ -1,39 +1,4 @@
-<script context="module">
-  /**
-   * Exported preset themes you can use to customise the `theme` prop.
-   */
-  export const themes = {
-    default: {
-      background: '#fff',
-      primary: '#404040',
-      accent: '#fa6400',
-      rules: '#d0d0d0',
-      shadow: '0 1px 4px 2px rgb(64 64 64 / 8%)',
-    },
-    dark: {
-      background: '#333',
-      primary: '#eee',
-      accent: '#fa6400',
-      rules: '#999',
-      shadow: '0 1px 4px 2px rgb(255 255 255 / 10%)',
-    },
-  };
-</script>
-
 <script lang="ts">
-  interface Theme {
-    background?: string;
-    primary?: string;
-    accent?: string;
-    rules?: string;
-    shadow?: string;
-  }
-
-  /**
-   * Pass in a custom theme to control the colours in the header.
-   */
-  export let theme: Theme = {};
-
   import { ReutersLogo } from '../../index.js';
   import NavBar from './NavBar/index.svelte';
   import data from './data.json';
@@ -42,9 +7,6 @@
   import MenuIcon from './svgs/Menu.svelte';
   import MobileMenu from './MobileMenu/index.svelte';
 
-  const navTheme = { ...themes.default, ...theme };
-
-  setContext('nav-theme', writable(navTheme));
   setContext('nav-active-section', writable(null));
 
   const { sections } = data[0];
@@ -54,11 +16,11 @@
 
 <header
   style="{`
-    --nav-background: ${navTheme.background};
-    --nav-primary: ${navTheme.primary};
-    --nav-accent: ${navTheme.accent};
-    --nav-rules: ${navTheme.rules};
-    --nav-shadow: ${navTheme.shadow};
+    --nav-background: var(--theme-colour-background, #fff);
+    --nav-primary: var(--theme-colour-text-primary, #404040);
+    --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
+    --nav-accent: var(--theme-colour-brand-logo, #fa6400);
+    --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
   `}"
 >
   <div class="nav-container show-nav">
@@ -69,8 +31,8 @@
             <div class="logo">
               <a href="https://www.reuters.com">
                 <ReutersLogo
-                  logoColour="{navTheme.accent}"
-                  textColour="{navTheme.primary}"
+                  logoColour="var(--nav-accent)"
+                  textColour="var(--nav-primary)"
                 />
               </a>
             </div>
@@ -105,7 +67,6 @@
 </header>
 
 <MobileMenu
-  theme="{navTheme}"
   isMobileMenuOpen="{isMobileMenuOpen}"
   releaseMobileMenu="{() => {
     isMobileMenuOpen = false;

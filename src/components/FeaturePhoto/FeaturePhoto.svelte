@@ -89,8 +89,8 @@
 </Block>
 
 <style lang="scss">
-  @import "@reuters-graphics/style-main/scss/fonts/mixins";
-  @import "@reuters-graphics/style-color/scss/thematic/brand";
+  @import "../../scss/fonts/variables";
+  @import "../../scss/colours/thematic/tr";
 
   figure {
     width: 100%;
@@ -106,7 +106,7 @@
     }
 
     div.alt-warning {
-      @include font-display;
+      font-family: $font-family-display;
       padding: 5px 10px;
       background-color: red;
       color: white;
@@ -118,10 +118,10 @@
     }
 
     figcaption {
-      @include font-display;
       font-weight: 400;
       font-size: 0.8rem;
-      color: $brand-secondary;
+      font-family: var(--theme-font-family-note, $font-family-display);
+      color: var(--theme-colour-text-secondary, $tr-medium-grey);
     }
 
     &.fluid {

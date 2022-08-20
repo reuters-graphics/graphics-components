@@ -8,20 +8,18 @@
   // @ts-ignore
   import customReferralsDocs from './stories/docs/customReferrals.md?raw';
 
-  import SiteFooter, { themes } from './SiteFooter.svelte';
+  import SiteFooter from './SiteFooter.svelte';
+  import Theme from '../Theme/Theme.svelte';
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Components/SiteFooter',
     component: SiteFooter,
     ...withComponentDocs(componentDocs),
-    argsTypes: {
-      themes: { control: { disable: true } },
-    },
   };
 
   const customReferrals = [
@@ -54,11 +52,14 @@
 
 <Story
   name="Customised theme"
-  args={{
-    theme: themes.dark,
-  }}
   {...withStoryDocs(darkThemeDocs)}
-/>
+>
+  <div>
+    <Theme base="dark">
+      <SiteFooter />
+    </Theme>
+  </div>
+</Story>
 
 <Story
   name="Customised referrals"

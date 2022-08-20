@@ -16,8 +16,8 @@
   export let ariaDescription = null;
   export let caption = '';
   
-  /** 
-   * Width of the block within the article well. 
+  /**
+   * Width of the block within the article well.
    * @type {string}
    */
   export let width: ContainerWidth = 'normal';
@@ -163,9 +163,9 @@
                   on:pausePlayEvent="{pausePlayEvent}"
                   paused="{paused}"
                   clickedOnPauseBtn="{clickedOnPauseBtn}"
-                  controlsOpacity="{hoverToSeeControls
-                    ? interactiveControlsOpacity
-                    : controlsOpacity}"
+                  controlsOpacity="{hoverToSeeControls ?
+                    interactiveControlsOpacity :
+                    controlsOpacity}"
                   controlsPosition="{controlsPosition}"
                   widthVideoContainer="{widthVideoContainer}"
                   heightVideoContainer="{heightVideoContainer}"
@@ -262,6 +262,7 @@
 </Block>
 
 <style lang="scss">
+  @import "../../scss/colours/thematic/tr";
   .video-wrapper {
     position: relative;
     video {
@@ -283,7 +284,7 @@
   }
   figcaption {
     font-size: 0.8rem;
-    color: #666666;
+    color: var(--theme-colour-text-secondary, $tr-medium-grey);
   }
 
   button {
