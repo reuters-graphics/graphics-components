@@ -1,5 +1,5 @@
 @import '../colours/thematic/tr';
-@import './fonts';
+@import '../fonts/mixins';
 
 @mixin graphic-text {
   h3 {

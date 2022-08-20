@@ -13,40 +13,6 @@ Mixins allow you to re-use styles we've already defined in your components. Read
 
 ## Available mixins
 
-### `font-{sans|serif|display|monospace}`
-
-Mixin our fonts.
-
-```svelte
-<p>
-  <span class="serif">Lorem</span>
-  <span class="sans">ipsum</span>
-  <span class="display">dolor</span>
-  <span class="mono">sit</span>
-</p>
-
-<style lang="scss">
-  // Import SCSS mixins
-  @import 'reuters-graphics/graphics-components/dist/scss/mixins';
-
-  // Use them with classes.
-  p {
-    .serif {
-      @include font-serif;
-    }
-    .sans {
-      @include font-sans;
-    }
-    .display {
-      @include font-display;
-    }
-    .mono {
-      @include font-monospace;
-    }
-  }
-</style>
-```
-
 ### `body-text`
 
 Mixin our default body text styles.

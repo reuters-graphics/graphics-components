@@ -14,7 +14,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -34,7 +34,7 @@
   name="Default"
   args={{
     section: 'World News',
-    hed: 'Reuters Graphics interactive'
+    hed: 'Reuters Graphics interactive',
   }}
 />
 
@@ -46,7 +46,6 @@
     hed="{'Reuters Graphics Interactive'}"
     dek="{'The beginning of a beautiful page'}"
     section="{'Global news'}"
-    sectionColour="{'orange'}"
   >
     <!-- Use named slots to add a byline... -->
     <span slot="byline">By <strong>Peppa Pig</strong></span>

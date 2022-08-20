@@ -1,5 +1,5 @@
 @import "../fonts/variables";
-@import "@reuters-graphics/style-color/scss/sequential/sesame";
+@import "../colours/thematic/tr";
 
 // Font sizes
 $font-size-xs: 0.8rem !default;
@@ -17,11 +17,11 @@ $blockquote-font-size: ($font-size-base * 1.5) !default;
 
 $line-height-base: 1.5 !default;
 
-$text-muted:  $brand-text-secondary;
+$text-muted:  $tr-medium-grey;
 
-$blockquote-small-color: $brand-text-secondary;
+$blockquote-small-color: $tr-medium-grey;;
 
-$blockquote-border-color: $gray-200 !default;
+$blockquote-border-color: $tr-dark-grey !default;
 $blockquote-border-width: 0.25rem !default;
 
 

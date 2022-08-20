@@ -14,7 +14,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -91,7 +91,7 @@
 </Story>
 
 <style lang="scss">
-  @import '../../scss/mixins/fonts';
+  @import '../../scss/fonts/mixins';
   div.themed {
     background-color: var(--theme-colour-background);
     padding: 2rem;
