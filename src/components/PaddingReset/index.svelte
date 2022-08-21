@@ -4,10 +4,10 @@
 
 {#if width === 'fluid'}
   <div>
-    <slot></slot>
+    <slot />
   </div>
 {:else}
-  <slot></slot>
+  <slot />
 {/if}
 
 <style>

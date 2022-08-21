@@ -4,9 +4,8 @@
 
 ```svelte
 <script>
-  import { PhotoPack  } from '@reuters-graphics/graphics-svelte-components';
+  import { PhotoPack } from '@reuters-graphics/graphics-svelte-components';
 </script>
-
 
 <PhotoPack />
 ```

@@ -81,14 +81,14 @@
 >
   <div>
     {#if $$slots.title}
-      <PaddingReset width={width}>
+      <PaddingReset width="{width}">
         <TextBlock width="{textWidth}">
           <!-- Custom title content -->
           <slot name="title" />
         </TextBlock>
       </PaddingReset>
     {:else if title}
-      <PaddingReset width={width}>
+      <PaddingReset width="{width}">
         <TextBlock width="{textWidth}">
           <h3>{title}</h3>
           {#if description}
@@ -112,14 +112,14 @@
       </div>
     {/if}
     {#if $$slots.notes}
-      <PaddingReset width={width}>
+      <PaddingReset width="{width}">
         <TextBlock width="{textWidth}">
           <!-- Custom notes content -->
           <slot name="notes" />
         </TextBlock>
       </PaddingReset>
     {:else if notes}
-      <PaddingReset width={width}>
+      <PaddingReset width="{width}">
         <TextBlock width="{textWidth}">
           <aside>
             {@html marked(notes)}

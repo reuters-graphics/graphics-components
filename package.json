@@ -112,6 +112,8 @@
     "./components/Headline/Headline.svelte": "./dist/components/Headline/Headline.svelte",
     "./components/Hero/Hero.svelte": "./dist/components/Hero/Hero.svelte",
     "./components/NoteText/NoteText.svelte": "./dist/components/NoteText/NoteText.svelte",
+    "./components/PaddingReset/index.svelte": "./dist/components/PaddingReset/index.svelte",
+    "./components/PhotoPack/PhotoPack.svelte": "./dist/components/PhotoPack/PhotoPack.svelte",
     "./components/PymChild/PymChild.svelte": "./dist/components/PymChild/PymChild.svelte",
     "./components/ReutersLogo/ReutersLogo.svelte": "./dist/components/ReutersLogo/ReutersLogo.svelte",
     "./components/SEO/SEO.svelte": "./dist/components/SEO/SEO.svelte",

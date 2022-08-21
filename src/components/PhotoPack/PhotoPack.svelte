@@ -16,9 +16,21 @@
   // Coerce string values to numbers, where needed
   $: imgs = images.map((img) => ({
     ...img,
-    row: !img.row ? 1 : typeof img.row === 'string' ? parseInt(img.row) || 1 : img.row,
-    group: !img.group ? 1 : typeof img.group === 'string' ? parseInt(img.group) || 1 : img.group,
-    maxHeight: !img.maxHeight ? null : img.maxHeight === 'string' ? parseFloat(img.maxHeight) || null : img.maxHeight,
+    row: !img.row
+      ? 1
+      : typeof img.row === 'string'
+      ? parseInt(img.row) || 1
+      : img.row,
+    group: !img.group
+      ? 1
+      : typeof img.group === 'string'
+      ? parseInt(img.group) || 1
+      : img.group,
+    maxHeight: !img.maxHeight
+      ? null
+      : img.maxHeight === 'string'
+      ? parseFloat(img.maxHeight) || null
+      : img.maxHeight,
   }));
 
   /**
@@ -55,7 +67,7 @@
   export let cls: string = '';
 
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
-  
+
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'normal';
   /**
@@ -72,33 +84,37 @@
   import { marked } from 'marked';
 
   const group = (groupArray, key = 'row') => {
-    const groupObj = groupBy(groupArray, d => d[key]);
+    const groupObj = groupBy(groupArray, (d) => d[key]);
     const groupKeys = Object.keys(groupObj).sort();
-    return groupKeys.map(k => key === 'row' ? group(groupObj[k], 'group') : groupObj[k]);
+    return groupKeys.map((k) =>
+      key === 'row' ? group(groupObj[k], 'group') : groupObj[k]
+    );
   };
 
   $: rows = group(imgs);
 
   let containerWidth;
   $: rowsBroken = (containerWidth || Infinity) <= breakRows;
-  $: groupsBroken = (containerWidth || Infinity) <= (breakGroups < breakRows ? breakGroups : breakRows);
+  $: groupsBroken =
+    (containerWidth || Infinity) <=
+    (breakGroups < breakRows ? breakGroups : breakRows);
 </script>
 
-<Block {width} {id} cls="photopack {cls}">
+<Block width="{width}" id="{id}" cls="photopack {cls}">
   <div class="photopack-container" bind:clientWidth="{containerWidth}">
     {#each rows as row, ri}
       <div
-        class="photopack-row" 
-        style:gap="0 {gap}px" 
-        style:margin-bottom={gap + 'px'} 
-        class:break={rowsBroken}
+        class="photopack-row"
+        style:gap="0 {gap}px"
+        style:margin-bottom="{gap + 'px'}"
+        class:break="{rowsBroken}"
       >
         {#each row as group, gi}
           <div
             class="photopack-group"
             style:gap="0 {gap}px"
-            style:margin-bottom={gap + 'px'} 
-            class:break={groupsBroken}
+            style:margin-bottom="{gap + 'px'}"
+            class:break="{groupsBroken}"
           >
             {#each group as img, i}
               <figure
@@ -117,14 +133,14 @@
       </div>
     {/each}
   </div>
-  <PaddingReset width={width}>
-    <Block width={captionWidth}>
-      <div class='captions-container'>
+  <PaddingReset width="{width}">
+    <Block width="{captionWidth}">
+      <div class="captions-container">
         {#each rows as row, ri}
           {#each row as group, gi}
             {#each group as img, i}
               {#if img.caption}
-                <div id="{id}-figure-{ri}-{gi}-{i}" class='caption'>
+                <div id="{id}-figure-{ri}-{gi}-{i}" class="caption">
                   {@html marked(img.caption)}
                 </div>
               {/if}
@@ -137,8 +153,8 @@
 </Block>
 
 <style lang="scss">
-  @import "../../scss/fonts/variables";
-  @import "../../scss/colours/thematic/tr";
+  @import '../../scss/fonts/variables';
+  @import '../../scss/colours/thematic/tr';
 
   div.photopack-container {
     display: block;
