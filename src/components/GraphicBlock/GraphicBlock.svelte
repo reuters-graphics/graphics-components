@@ -67,6 +67,7 @@
   import AriaHidden from './AriaHidden.svelte';
   import TextBlock from './TextBlock.svelte';
   import Block from '../Block/Block.svelte';
+  import PaddingReset from '../PaddingReset/index.svelte';
   import { marked } from 'marked';
 </script>
 
@@ -80,17 +81,21 @@
 >
   <div>
     {#if $$slots.title}
-      <TextBlock width="{textWidth}">
-        <!-- Custom title content -->
-        <slot name="title" />
-      </TextBlock>
+      <PaddingReset width={width}>
+        <TextBlock width="{textWidth}">
+          <!-- Custom title content -->
+          <slot name="title" />
+        </TextBlock>
+      </PaddingReset>
     {:else if title}
-      <TextBlock width="{textWidth}">
-        <h3>{title}</h3>
-        {#if description}
-          {@html marked(description)}
-        {/if}
-      </TextBlock>
+      <PaddingReset width={width}>
+        <TextBlock width="{textWidth}">
+          <h3>{title}</h3>
+          {#if description}
+            {@html marked(description)}
+          {/if}
+        </TextBlock>
+      </PaddingReset>
     {/if}
     <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
       <!-- Graphic content -->
@@ -107,16 +112,20 @@
       </div>
     {/if}
     {#if $$slots.notes}
-      <TextBlock width="{textWidth}">
-        <!-- Custom notes content -->
-        <slot name="notes" />
-      </TextBlock>
+      <PaddingReset width={width}>
+        <TextBlock width="{textWidth}">
+          <!-- Custom notes content -->
+          <slot name="notes" />
+        </TextBlock>
+      </PaddingReset>
     {:else if notes}
-      <TextBlock width="{textWidth}">
-        <aside>
-          {@html marked(notes)}
-        </aside>
-      </TextBlock>
+      <PaddingReset width={width}>
+        <TextBlock width="{textWidth}">
+          <aside>
+            {@html marked(notes)}
+          </aside>
+        </TextBlock>
+      </PaddingReset>
     {/if}
   </div>
 </Block>

@@ -34,7 +34,7 @@
 </Template>
 
 <Story
-  name="Basic"
+  name="Default"
   args="{{
     width: 'normal',
     src: SharkImg,

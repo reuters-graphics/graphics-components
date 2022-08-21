@@ -22,7 +22,7 @@
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'normal';
 
-  import Block from '../../Block/Block.svelte';
+  import Block from '../Block/Block.svelte';
 </script>
 
 <Block {width} cls="photo">

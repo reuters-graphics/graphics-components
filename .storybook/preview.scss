@@ -64,22 +64,25 @@ a.sbdocs-a {
 
 .sbdocs {
   @include font-display;
+
+  &:not(.sbdocs-preview) {
+    code {
+      font-size: 90%;
+      margin-left: 2px;
+      margin-right: 2px;
+      background-color: #efefef;
+      padding: 2px 4px;
+    }
+  
+    img {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 
-code {
-  font-size: 90%;
-  margin-left: 2px;
-  margin-right: 2px;
-  background-color: #efefef;
-  padding: 2px 4px;
-}
-
-img {
-  display: block;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
 
 div.reset-article {
   width: calc(100% + 30px);
