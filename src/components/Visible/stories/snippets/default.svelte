@@ -1,5 +1,5 @@
 <script>
-  import { Visible } from '@reuters-graphics/graphics-svelte-components';
+  import { Visible } from '@reuters-graphics/graphics-components';
 </script>
 
 <Visible let:visible>

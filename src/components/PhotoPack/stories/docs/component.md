@@ -2,7 +2,7 @@ The `PhotoPack` component makes simple photo grids with custom layouts at whatev
 
 ```svelte
 <script>
-  import { PhotoPack } from '@reuters-graphics/graphics-svelte-components';
+  import { PhotoPack } from '@reuters-graphics/graphics-components';
 
   const images = [
     {
