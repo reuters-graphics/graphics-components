@@ -118,9 +118,7 @@
         'Surveillance footage shows a missile hitting a residential building in Kyiv, Ukraine, February 26, 2022, in this still image taken from a video obtained by REUTERS',
     },
   ];
-  const altTextLayouts = [
-    { breakpoint: 450, rows: [2] },
-  ];
+  const altTextLayouts = [{ breakpoint: 450, rows: [2] }];
 </script>
 
 <Meta {...meta} />
