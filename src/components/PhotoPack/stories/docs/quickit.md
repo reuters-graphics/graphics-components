@@ -44,7 +44,10 @@ In your project, you can use the `getPhotoPackPropsFromDoc` utilty to easily con
 ```svelte
 <!-- App.svelte -->
 <script>
-  import { getPhotoPackPropsFromDoc, PhotoPack } from '@reuters-graphics/graphics-components';
+  import {
+    getPhotoPackPropsFromDoc,
+    PhotoPack,
+  } from '@reuters-graphics/graphics-components';
 
   // These should be already imported for you.
   import content from '$locales/en/content.json';
@@ -55,11 +58,10 @@ In your project, you can use the `getPhotoPackPropsFromDoc` utilty to easily con
   {#if block.Type === 'text'}
     <!-- ... other blocks -->
 
-  <!-- Copy/paste into your blocks loop! -->
+    <!-- Copy/paste into your blocks loop! -->
   {:else if block.Type === 'photo-pack'}
     <PhotoPack {...getPhotoPackPropsFromDoc(block, assets)} />
-  <!-- END copy/paste -->
-
+    <!-- END copy/paste -->
   {/if}
 {/each}
 ```

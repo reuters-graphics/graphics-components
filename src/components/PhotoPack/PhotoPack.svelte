@@ -61,7 +61,7 @@
 
   const groupRows = (images, layout) => {
     // Default layout, one img per row
-    if (!layout) return images.map(img => [img]);
+    if (!layout) return images.map((img) => [img]);
     // Otherwise, chunk into rows according to layout scheme
     let i = 0;
     const rows = [];
@@ -76,13 +76,14 @@
     return rows;
   };
   // Sort so breakpoints always descend
-  $: layouts.sort((a, b) => a.breakpoint < b.breakpoint ? 1 : -1);
-  $: layout = layouts.find(l => (
-    // Must have valid rows schema, i.e., adds to the total number of images
-    l.rows.reduce((a, b) => a + b, 0) === images.length &&
-    // Breakpoint is higher than container width
-    ((containerWidth || 0) >= l.breakpoint)
-  ));
+  $: layouts.sort((a, b) => (a.breakpoint < b.breakpoint ? 1 : -1));
+  $: layout = layouts.find(
+    (l) =>
+      // Must have valid rows schema, i.e., adds to the total number of images
+      l.rows.reduce((a, b) => a + b, 0) === images.length &&
+      // Breakpoint is higher than container width
+      (containerWidth || 0) >= l.breakpoint
+  );
   $: rows = groupRows(images, layout);
 </script>
 
@@ -156,7 +157,7 @@
       }
       :global(p) {
         font-size: 0.85rem;
-        line-height: 1.10rem;
+        line-height: 1.1rem;
         font-family: var(--theme-font-family-note, $font-family-display);
         color: var(--theme-colour-text-secondary, $tr-medium-grey);
         margin: 0;

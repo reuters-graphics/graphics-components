@@ -8,7 +8,7 @@ The `PhotoPack` component makes simple photo grids with custom layouts at whatev
     {
       src: 'https://...',
       altText: 'Alt text',
-      caption:'Lorem ipsum. REUTERS/Photog',
+      caption: 'Lorem ipsum. REUTERS/Photog',
       // Optional max-height of image across all layouts
       maxHeight: 800,
     },
@@ -16,15 +16,15 @@ The `PhotoPack` component makes simple photo grids with custom layouts at whatev
   ];
 
   const layouts = [
-    { 
+    {
       // Breakpoint above which this layout applies
-      breakpoint: 450, 
+      breakpoint: 450,
       // Number of photos in each row of this layout, adding up to the total number of images
-      rows: [1, 2, 1] 
+      rows: [1, 2, 1],
     },
     { breakpoint: 750, rows: [1, 3] },
   ];
 </script>
 
-<PhotoPack images={images} layouts={layouts} />
+<PhotoPack images="{images}" layouts="{layouts}" />
 ```
