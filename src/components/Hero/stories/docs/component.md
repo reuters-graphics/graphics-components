@@ -1,4 +1,3 @@
-
 > 🔨 **Under construction**: We're working on this component to make it better. Pardon our mess.
 
 Reuters Graphics headline
