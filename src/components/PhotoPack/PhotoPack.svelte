@@ -102,6 +102,9 @@
               alt="{img.altText}"
               style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
             />
+            {#if !img.altText}
+              <div class="alt-warning">altText</div>
+            {/if}
           </figure>
         {/each}
       </div>
@@ -139,11 +142,23 @@
         flex: 1;
         margin: 0;
         padding: 0;
+        position: relative;
         img {
           margin: 0;
           width: 100%;
           height: 100%;
           object-fit: cover;
+        }
+        div.alt-warning {
+          font-family: $font-family-display;
+          padding: 5px 10px;
+          background-color: red;
+          color: white;
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 14px;
+          line-height: 16px;
         }
       }
     }

@@ -83,7 +83,7 @@
       <figcaption>{caption}</figcaption>
     {/if}
     {#if !altText}
-      <div class="alt-warning">Missing altText</div>
+      <div class="alt-warning">altText</div>
     {/if}
   </figure>
 </Block>
