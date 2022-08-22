@@ -1,3 +1,4 @@
+// Components
 export { default as Article } from './components/Article/Article.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
@@ -25,3 +26,6 @@ export {
 } from './components/Theme/Theme.svelte';
 export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
+
+// Utilities
+export { getPhotoPackPropsFromDoc } from './components/PhotoPack/docProps';

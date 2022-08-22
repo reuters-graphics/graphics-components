@@ -3,48 +3,23 @@
     src: string;
     altText: string;
     caption?: string;
-    row?: number | string;
-    group?: number | string;
-    maxHeight?: number | string;
+    maxHeight?: number;
   }
   /**
-   * A set of images
+   * Array of image objects
    * @required
    */
   export let images: Image[] = [];
 
-  // Coerce string values to numbers, where needed
-  $: imgs = images.map((img) => ({
-    ...img,
-    row: !img.row
-      ? 1
-      : typeof img.row === 'string'
-      ? parseInt(img.row) || 1
-      : img.row,
-    group: !img.group
-      ? 1
-      : typeof img.group === 'string'
-      ? parseInt(img.group) || 1
-      : img.group,
-    maxHeight: !img.maxHeight
-      ? null
-      : img.maxHeight === 'string'
-      ? parseFloat(img.maxHeight) || null
-      : img.maxHeight,
-  }));
-
+  interface Layout {
+    breakpoint: number;
+    rows: number[];
+  }
   /**
-   * Container width below which to break rows.
-   * @type {number}
+   * Array of layout objects
+   * @required
    */
-  export let breakRows: number = 900;
-  /**
-   * Container width below which to break groups, if groups specified in images.
-   * (Should be smaller than `breakRows`.)
-   * @type {number}
-   */
-  export let breakGroups: number = breakRows;
-
+  export let layouts: Layout[] = [];
   /**
    * Gap between images.
    * @type {number}
@@ -80,24 +55,35 @@
 
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/index.svelte';
-  import { groupBy } from 'lodash-es';
   import { marked } from 'marked';
 
-  const group = (groupArray, key = 'row') => {
-    const groupObj = groupBy(groupArray, (d) => d[key]);
-    const groupKeys = Object.keys(groupObj).sort();
-    return groupKeys.map((k) =>
-      key === 'row' ? group(groupObj[k], 'group') : groupObj[k]
-    );
-  };
-
-  $: rows = group(imgs);
-
   let containerWidth;
-  $: rowsBroken = (containerWidth || Infinity) <= breakRows;
-  $: groupsBroken =
-    (containerWidth || Infinity) <=
-    (breakGroups < breakRows ? breakGroups : breakRows);
+
+  const groupRows = (images, layout) => {
+    // Default layout, one img per row
+    if (!layout) return images.map(img => [img]);
+    // Otherwise, chunk into rows according to layout scheme
+    let i = 0;
+    const rows = [];
+    for (const rowLength of layout.rows) {
+      const row = [];
+      for (const imgI of [...Array(rowLength).keys()]) {
+        row.push(images[imgI + i]);
+      }
+      rows.push(row);
+      i += rowLength;
+    }
+    return rows;
+  };
+  // Sort so breakpoints always descend
+  $: layouts.sort((a, b) => a.breakpoint < b.breakpoint ? 1 : -1);
+  $: layout = layouts.find(l => (
+    // Must have valid rows schema, i.e., adds to the total number of images
+    l.rows.reduce((a, b) => a + b, 0) === images.length &&
+    // Breakpoint is higher than container width
+    ((containerWidth || 0) >= l.breakpoint)
+  ));
+  $: rows = groupRows(images, layout);
 </script>
 
 <Block width="{width}" id="{id}" cls="photopack {cls}">
@@ -107,28 +93,15 @@
         class="photopack-row"
         style:gap="0 {gap}px"
         style:margin-bottom="{gap + 'px'}"
-        class:break="{rowsBroken}"
       >
-        {#each row as group, gi}
-          <div
-            class="photopack-group"
-            style:gap="0 {gap}px"
-            style:margin-bottom="{gap + 'px'}"
-            class:break="{groupsBroken}"
-          >
-            {#each group as img, i}
-              <figure
-                style="--gap: {gap}px;"
-                aria-labelledby="{id}-figure-{ri}-{gi}-{i}"
-              >
-                <img
-                  src="{img.src}"
-                  alt="{img.altText}"
-                  style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
-                />
-              </figure>
-            {/each}
-          </div>
+        {#each row as img, i}
+          <figure aria-labelledby="{id}-figure-{ri}-{i}">
+            <img
+              src="{img.src}"
+              alt="{img.altText}"
+              style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
+            />
+          </figure>
         {/each}
       </div>
     {/each}
@@ -137,14 +110,12 @@
     <Block width="{captionWidth}">
       <div class="captions-container">
         {#each rows as row, ri}
-          {#each row as group, gi}
-            {#each group as img, i}
-              {#if img.caption}
-                <div id="{id}-figure-{ri}-{gi}-{i}" class="caption">
-                  {@html marked(img.caption)}
-                </div>
-              {/if}
-            {/each}
+          {#each row as img, i}
+            {#if img.caption}
+              <div id="{id}-figure-{ri}-{i}" class="caption">
+                {@html marked(img.caption)}
+              </div>
+            {/if}
           {/each}
         {/each}
       </div>
@@ -163,51 +134,33 @@
     div.photopack-row {
       display: flex;
       justify-content: space-between;
-      &.break {
-        display: block;
-        div.photopack-group {
-          display: flex;
-          justify-content: space-between;
-          &.break {
-            display: block;
-            figure {
-              display: block;
-              max-height: unset;
-              margin-bottom: var(--gap);
-            }
-          }
-        }
-      }
-      div.photopack-group {
-        display: contents;
-      }
-    }
-
-    figure {
-      flex: 1;
-      margin: 0;
-      padding: 0;
-      img {
+      figure {
+        flex: 1;
         margin: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        padding: 0;
+        img {
+          margin: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
   }
 
   div.captions-container {
     div.caption {
-      margin: 0 0 0.5rem;
+      margin: 0 0 0.6rem;
       &:last-of-type {
         margin-bottom: 0;
       }
       :global(p) {
         font-size: 0.85rem;
-        line-height: 1.15rem;
+        line-height: 1.10rem;
         font-family: var(--theme-font-family-note, $font-family-display);
         color: var(--theme-colour-text-secondary, $tr-medium-grey);
         margin: 0;
+        font-weight: 300;
       }
     }
   }
