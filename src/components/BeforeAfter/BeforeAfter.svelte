@@ -39,7 +39,7 @@
   /** Drag handle colour */
   export let handleColour = 'white';
   /** Drag handle opacity */
-  export let handleInactiveOpacity = 0.4;
+  export let handleInactiveOpacity = 0.6;
   /** Margin at the edge of the image to stop dragging */
   export let handleMargin = 20;
   /** Percentage of the component width the handle will travel ona key press */
@@ -100,16 +100,16 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure
-        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
-        : 0;
+      const figureOffset = figure ?
+        parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2)) :
+        0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin
-          ? handleMargin
-          : x > w - handleMargin
-          ? w - handleMargin
-          : x;
+        x < handleMargin ?
+          handleMargin :
+          x > w - handleMargin ?
+            w - handleMargin :
+            x;
       offset = x / w;
     }
   };
@@ -241,6 +241,7 @@
       top: 0;
       left: 0;
       z-index: 20;
+      margin: 0;
       &.after {
         z-index: 21;
       }
@@ -258,7 +259,6 @@
       :global {
         p {
           font-family: var(--theme-font-family-note, $font-family-display);
-          color: var(--theme-colour-text-primary);
           font-size: 1rem;
           line-height: 1.2rem;
           &:last-child {
