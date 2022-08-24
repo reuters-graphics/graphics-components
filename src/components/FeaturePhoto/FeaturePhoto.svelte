@@ -70,17 +70,14 @@
 </script>
 
 <Block width="{width}" cls="photo">
-  <figure
-    bind:this="{container}"
-    aria-label="media"
-  >
+  <figure bind:this="{container}" aria-label="media">
     {#if !lazy || (intersectable && intersecting)}
       <img src="{src}" alt="{altText}" />
     {:else}
       <div class="placeholder" height="{`${height}px`}"></div>
     {/if}
     {#if caption}
-      <PaddingReset containerIsFluid={width === 'fluid'}>
+      <PaddingReset containerIsFluid="{width === 'fluid'}">
         <figcaption>{caption}</figcaption>
       </PaddingReset>
     {/if}

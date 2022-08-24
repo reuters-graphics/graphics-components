@@ -7,9 +7,7 @@
   import PaddingReset from './PaddingReset.svelte';
   import Block from '../Block/Block.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Utilities/PaddingReset',
@@ -31,14 +29,14 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     containerIsFluid: true,
-  }}
+  }}"
   let:args
 />
 
 <style lang="scss">
-  div{
+  div {
     height: 30px;
     width: 100%;
     margin-bottom: 2px;
