@@ -144,7 +144,7 @@
 />
 
 <Story
-  name="Mising altText"
+  name="Missing altText"
   args="{{
     width: 'wide',
     captionWidth: 'normal',

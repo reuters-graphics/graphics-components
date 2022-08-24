@@ -47,7 +47,7 @@
     }
 
     &.narrow {
-      max-width: var(--narrow-column-width, 330px);
+      max-width: var(--narrow-column-width, 510px);
     }
 
     &.wide {

@@ -5,7 +5,7 @@
   /** Add an id to the article tag to target it with custom CSS. */
   export let id: string | null = null;
 
-  /** ARIA role of the article. */
+  /** ARIA role of the article */
   export let role: string | null = null;
 
   interface ColumnWidths {
