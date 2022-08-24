@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Block from '../Block/Block.svelte';
   import type { ContainerWidth } from '../@types/global';
+  import PaddingReset from '../PaddingReset/PaddingReset.svelte';
 
   /**
    * Photo src
@@ -72,7 +73,6 @@
   <figure
     bind:this="{container}"
     aria-label="media"
-    class:fluid="{width === 'fluid'}"
   >
     {#if !lazy || (intersectable && intersecting)}
       <img src="{src}" alt="{altText}" />
@@ -80,7 +80,9 @@
       <div class="placeholder" height="{`${height}px`}"></div>
     {/if}
     {#if caption}
-      <figcaption>{caption}</figcaption>
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <figcaption>{caption}</figcaption>
+      </PaddingReset>
     {/if}
     {#if !altText}
       <div class="alt-warning">altText</div>
@@ -123,12 +125,6 @@
       font-size: 0.8rem;
       font-family: var(--theme-font-family-note, $font-family-display);
       color: var(--theme-colour-text-secondary, $tr-medium-grey);
-    }
-
-    &.fluid {
-      figcaption {
-        padding-left: 15px;
-      }
     }
   }
 </style>

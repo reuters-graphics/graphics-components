@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import Block from '../Block/Block.svelte';
   import type { ContainerWidth } from '../@types/global';
+  import PaddingReset from '../PaddingReset/PaddingReset.svelte';
 
   /** Width of the chart within the text well. */
   export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
@@ -100,16 +101,16 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure
-        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
-        : 0;
+      const figureOffset = figure ?
+        parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2)) :
+        0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin
-          ? handleMargin
-          : x > w - handleMargin
-          ? w - handleMargin
-          : x;
+        x < handleMargin ?
+          handleMargin :
+          x > w - handleMargin ?
+            w - handleMargin :
+            x;
       offset = x / w;
     }
   };
@@ -220,10 +221,12 @@
       </figure>
     </div>
     {#if $$slots.caption}
-      <aside class="before-after-caption" id="{`${id}-caption`}">
-        <!-- Caption for image credits -->
-        <slot name="caption" />
-      </aside>
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <aside class="before-after-caption" id="{`${id}-caption`}">
+          <!-- Caption for image credits -->
+          <slot name="caption" />
+        </aside>
+      </PaddingReset>
     {/if}
   </Block>
 {/if}

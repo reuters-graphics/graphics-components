@@ -11,6 +11,8 @@ export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as Hero } from './components/Hero/Hero.svelte';
 export { default as NoteText } from './components/NoteText/NoteText.svelte';
+export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
+export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';
 export { default as Scroller } from './components/Scroller/Scroller.svelte';

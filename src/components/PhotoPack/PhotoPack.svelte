@@ -54,7 +54,7 @@
   export let captionWidth: ContainerWidth = 'normal';
 
   import Block from '../Block/Block.svelte';
-  import PaddingReset from '../PaddingReset/index.svelte';
+  import PaddingReset from '../PaddingReset/PaddingReset.svelte';
   import { marked } from 'marked';
 
   let containerWidth;
@@ -110,7 +110,7 @@
       </div>
     {/each}
   </div>
-  <PaddingReset width="{width}">
+  <PaddingReset containerIsFluid="{width === 'fluid'}">
     <Block width="{captionWidth}">
       <div class="captions-container">
         {#each rows as row, ri}

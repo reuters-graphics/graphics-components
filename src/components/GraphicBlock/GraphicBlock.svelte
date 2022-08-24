@@ -67,7 +67,7 @@
   import AriaHidden from './AriaHidden.svelte';
   import TextBlock from './TextBlock.svelte';
   import Block from '../Block/Block.svelte';
-  import PaddingReset from '../PaddingReset/index.svelte';
+  import PaddingReset from '../PaddingReset/PaddingReset.svelte';
   import { marked } from 'marked';
 </script>
 
@@ -81,14 +81,14 @@
 >
   <div>
     {#if $$slots.title}
-      <PaddingReset width="{width}">
+      <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
           <!-- Custom title content -->
           <slot name="title" />
         </TextBlock>
       </PaddingReset>
     {:else if title}
-      <PaddingReset width="{width}">
+      <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
           <h3>{title}</h3>
           {#if description}
@@ -112,14 +112,14 @@
       </div>
     {/if}
     {#if $$slots.notes}
-      <PaddingReset width="{width}">
+      <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
           <!-- Custom notes content -->
           <slot name="notes" />
         </TextBlock>
       </PaddingReset>
     {:else if notes}
-      <PaddingReset width="{width}">
+      <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
           <aside>
             {@html marked(notes)}
