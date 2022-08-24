@@ -26,7 +26,7 @@ You can also add the padding conditionally by using the `containerIsFluid` prop,
   export let width = 'fluid';
 </script>
 
-<Block width="fluid">
+<Block width="{width}">
   <img src="{src}" alt="..." width="100%" />
   <PaddingReset containerIsFluid="{width === 'fluid'}">
     <p>A caption for the image that will be padded when Block is fluid.</p>
