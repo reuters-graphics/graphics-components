@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -11,7 +11,8 @@
     "build:package": "node ./bin/buildPackage/index.js",
     "build:docs": "build-storybook -o docs && touch ./docs/.nojekyll",
     "build": "npm-run-all build:package build:docs",
-    "prepublishOnly": "npm run build:package"
+    "prepublishOnly": "npm run build:package",
+    "postversion": "git push origin && git push origin --tags"
   },
   "license": "MIT",
   "types": "dist/@types/index.d.ts",
