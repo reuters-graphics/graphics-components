@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.1-beta.4",
+  "version": "0.0.1-beta.5",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -207,5 +207,6 @@
     "./scss/typography/_transform.scss": "./dist/scss/typography/_transform.scss",
     "./scss/typography/_variables.scss": "./dist/scss/typography/_variables.scss",
     ".": "./dist/index.js"
-  }
+  },
+  "svelte": "./dist/index.js"
 }
