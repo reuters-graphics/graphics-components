@@ -3,17 +3,18 @@
   import publisherTags from './publisherTags';
 
   /**
-   * [URL origin](https://developer.mozilla.org/en-US/docs/Web/API/URL/origin) for the page.
+   * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
+   * is globally available as `import.meta.env.BASE_URL`.
    * @required
    * @type {string}
    */
-  export let origin: string = '';
+  export let baseUrl: string = '';
   /**
    * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
    * @required
    * @type {URL}
    */
-  export let url: URL | null = null;
+  export let pageUrl: URL | null = null;
 
   /**
    * SEO title
@@ -60,7 +61,7 @@
    * @type {string}
    */
   export let updateTime: string = '';
-  
+
   interface GraphicAuthor {
     name: string;
     url: string;
@@ -75,7 +76,8 @@
    */
   export let includeAnalytics: boolean = false;
 
-  $: canonicalUrl = origin + url.pathname;
+  $: origin = new URL(baseUrl).origin;
+  $: canonicalUrl = origin + pageUrl.pathname;
 
   // Only fire analytics on prod sites
   if (typeof window !== 'undefined' && includeAnalytics) {
@@ -170,11 +172,7 @@
     content="{shareDescription}"
     itemprop="description"
   />
-  <meta
-    property="og:image"
-    content="{shareImgPath}"
-    itemprop="image"
-  />
+  <meta property="og:image" content="{shareImgPath}" itemprop="image" />
   <meta property="og:site_name" content="Reuters" />
 
   <meta name="twitter:card" content="summary_large_image" />

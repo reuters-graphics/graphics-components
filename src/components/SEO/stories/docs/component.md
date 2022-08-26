@@ -6,8 +6,10 @@ The `SEO` component adds essential metadata to published pages.
 </script>
 
 <SEO
-  origin="https://graphics.reuters.com"
-  url={new URL('https://graphics.reuters.com/world-coronavirus-tracker-and-maps/')}
+  baseUrl="https://graphics.reuters.com"
+  pageUrl="{new URL(
+    'https://graphics.reuters.com/world-coronavirus-tracker-and-maps/'
+  )}"
   seoTitle="A title for Google"
   seoDescription="A description for Google"
   shareTitle="A title for Twitter/Facebook"
@@ -16,10 +18,10 @@ The `SEO` component adds essential metadata to published pages.
   lang="en"
   publishTime="2020-09-15T00:00:00.000Z"
   updateTime="2021-01-10T12:30:00.000Z"
-  authors={[
+  authors="{[
     { name: 'Jane Doe', url: 'https://twitter.com/JaneDoe' },
     { name: 'John Doe', url: 'https://twitter.com/JohnDoe' },
-  ]}
-  includeAnalytics={true}
+  ]}"
+  includeAnalytics="{true}"
 />
 ```
