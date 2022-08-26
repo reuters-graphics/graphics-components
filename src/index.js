@@ -31,3 +31,4 @@ export { default as Visible } from './components/Visible/Visible.svelte';
 
 // Utilities
 export { getPhotoPackPropsFromDoc } from './components/PhotoPack/docProps.js';
+export { getScrollerPropsFromDoc } from './components/Scroller/docProps.js';

@@ -1,4 +1,4 @@
-You can, of course, use `Scroller` with graphics created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte).
+A more detailed example of using `Scroller` with graphics created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte).
 
 ```svelte
 <script>
@@ -11,9 +11,9 @@ You can, of course, use `Scroller` with graphics created by [ai2svelte](https://
   import { assets } from '$app/paths'; // If using with the Graphics Kit
 
   const steps = [
-    { background: MyAiMap1, backgroundProps: { basePath: assets }, foreground: '#### Step 1\n\nLorem ipsum' },
-    { background: MyAiMap2, backgroundProps: { basePath: assets }, foreground: '#### Step 2\n\nLorem ipsum' },
-    { background: MyAiMap3, backgroundProps: { basePath: assets }, foreground: '#### Step 3\n\nLorem ipsum' },
+    { background: MyAiMap1, backgroundProps: { assetsPath: assets }, foreground: '#### Step 1\n\nLorem ipsum' },
+    { background: MyAiMap2, backgroundProps: { assetsPath: assets }, foreground: '#### Step 2\n\nLorem ipsum' },
+    { background: MyAiMap3, backgroundProps: { assetsPath: assets }, foreground: '#### Step 3\n\nLorem ipsum' },
   ]
 </script>
 

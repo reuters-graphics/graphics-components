@@ -7,6 +7,8 @@
   import interactiveDocs from './stories/docs/interactive.md?raw';
   // @ts-ignore
   import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
+  // @ts-ignore
+  import quickitDocs from './stories/docs/quickit.md?raw';
 
   import Scroller from './Scroller.svelte';
 
@@ -18,8 +20,29 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
+
+  import { getScrollerPropsFromDoc } from './docProps';
+
+  const aiCharts = {
+    AiMap1,
+    AiMap2,
+    AiMap3,
+  };
+
+  const docBlock = {
+    Type: 'scroller',
+    Width: 'fluid',
+    ForegroundPosition: 'middle',
+    ID: 'my-scroller',
+    StackBackground: 'true',
+    Steps: [
+      { Background: 'AiMap1', Text: '#### Step 1\n\nLorem ipsum' },
+      { Background: 'AiMap2', Text: '#### Step 2\n\nLorem ipsum' },
+      { Background: 'AiMap3', Text: '#### Step 3\n\nLorem ipsum' },
+    ],
+  };
 
   const meta = {
     title: 'Components/Scroller',
@@ -62,6 +85,12 @@
     embeddedLayout: 'fb',
     embedded: false,
   }}
+/>
+
+<Story
+  name="🚀 QUICKIT"
+  args={getScrollerPropsFromDoc(docBlock, aiCharts)}
+  {...withStoryDocs(quickitDocs)}
 />
 
 <Story

@@ -1,4 +1,4 @@
-You can use `GraphicBlock` with components created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte).
+A more detailed example of using `GraphicBlock` with components created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte).
 
 ```svelte
 <script>
