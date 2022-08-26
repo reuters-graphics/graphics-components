@@ -5,8 +5,8 @@ export default {
     'text-primary': '#ffffff',
     'text-secondary': 'rgb(255 255 255 / 60%)',
     accent: ' #ef3c2a',
-    'brand-logo': '#fa6400',
-    'brand-rules': '#999999',
+    'brand-logo': '#ffffff',
+    'brand-rules': 'rgb(255 255 255 / 25%)',
     'brand-shadow': 'rgb(255 255 255 / 10%)',
   },
   font: {
