@@ -2,6 +2,8 @@ Add the `SEO` component to any page specified in the `pages/` directory of the G
 
 Most of the fields are filled in by other sources, like your Google Doc and package.json. (Usually, the fastest way is to copy the `SEO` component from one of the pages already in your project.)
 
+> **IMPORTANT:** For *reasons*, we can't document the value of `VITE_BASE_URL` below. It's `import` + `.meta.env.BASE_URL` (concatenate all that) in the Graphics Kit and other Vite-based rigs.
+
 ```svelte
 <script>
   import { SEO } from '@reuters-graphics/graphics-components';
@@ -13,7 +15,7 @@ Most of the fields are filled in by other sources, like your Google Doc and pack
 
 <SEO
   lang="en"
-  baseUrl="{import.meta.env.BASE_URL}"
+  baseUrl="{VITE_BASE_URL}"
   pageUrl="{$page.url}"
   seoTitle="{content.SEOTitle}"
   seoDescription="{content.SEODescription}"
