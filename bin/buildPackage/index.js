@@ -28,6 +28,15 @@ const excludedTypeDefs = [
   '**/*.stories.svelte.d.ts',
 ];
 
+
+const prettifyImport = (filename) => {
+  return filename
+    // strip index.js
+    .replace(/\/index\.js$|(\/[^/]+)\.js$/, '$1')
+    // normalize SCSS partials
+    .replace(/_(.*)\.scss$/, '$1');
+};
+
 /**
  * This is a basic port of sveltekit's own packaging method:
  * https://github.com/sveltejs/kit/tree/master/packages/kit/src/packaging
@@ -65,7 +74,7 @@ const build = async () => {
       await processOther(file);
     }
     if (file === 'index.js') continue; // Always add root index last to exports...
-    pkgExports[`./${file.replace(/\/index\.js$|(\/[^/]+)\.js$/, '$1')}`] = `./dist/${file}`;
+    pkgExports[`./${prettifyImport(file)}`] = `./dist/${file}`;
   }
   pkgExports['.'] = './dist/index.js';
   const pkg = fs.readJSONSync(PACKAGE);

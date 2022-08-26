@@ -10,7 +10,10 @@
   import Article from './Article.svelte';
   import Block from '../Block/Block.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$lib/docs/utils/withParams.js';
+  import {
+    withComponentDocs,
+    withStoryDocs,
+  } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Layout/Article',
@@ -40,10 +43,7 @@
   </Article>
 </Story>
 
-<Story
-  name="Custom columns"
-  {...withStoryDocs(customWellWidthsDocs)}
->
+<Story name="Custom columns" {...withStoryDocs(customWellWidthsDocs)}>
   <Article id="article-column-widths-demo">
     <div class="article-boundaries">
       <Block id="section-demo" width="narrower">narrower</Block>
@@ -55,7 +55,16 @@
       <Block id="section-demo" width="fluid">fluid</Block>
     </div>
   </Article>
-  <Article id="article-column-widths-demo" columnWidths={{ narrower: 310, narrow: 450, normal: 550, wide: 675, wider: 1400 }}>
+  <Article
+    id="article-column-widths-demo"
+    columnWidths="{{
+      narrower: 310,
+      narrow: 450,
+      normal: 550,
+      wide: 675,
+      wider: 1400,
+    }}"
+  >
     <div class="article-boundaries custom">
       <Block id="section-demo" width="narrower">narrower*</Block>
       <Block id="section-demo" width="narrow">narrow*</Block>
@@ -79,7 +88,7 @@
       background-color: #ddd;
       position: relative;
       margin-bottom: 10px;
-      
+
       .article-boundaries {
         padding: 0;
         width: 100%;
