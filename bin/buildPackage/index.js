@@ -34,7 +34,7 @@ const prettifyImport = (filename) => {
     // strip index.js
     .replace(/\/index\.js$|(\/[^/]+)\.js$/, '$1')
     // normalize SCSS partials
-    .replace(/_(.*)\.scss$/, '$1');
+    .replace(/\/_?([^/]+)\.scss$/, '/$1');
 };
 
 /**
