@@ -3,6 +3,12 @@
   import publisherTags from './publisherTags';
 
   /**
+   * [URL origin](https://developer.mozilla.org/en-US/docs/Web/API/URL/origin) for the page.
+   * @required
+   * @type {string}
+   */
+  export let origin: string = '';
+  /**
    * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
    * @required
    * @type {URL}
@@ -69,9 +75,11 @@
    */
   export let includeAnalytics: boolean = false;
 
+  $: canonicalUrl = origin + url.pathname;
+
   // Only fire analytics on prod sites
   if (typeof window !== 'undefined' && includeAnalytics) {
-    analytics(url, seoTitle);
+    analytics(canonicalUrl, seoTitle);
     publisherTags();
   }
 
@@ -93,10 +101,10 @@
     '@context': 'http://schema.org',
     '@type': 'NewsArticle',
     headline: seoTitle,
-    url: url.href,
+    url: canonicalUrl,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': url.href,
+      '@id': canonicalUrl,
     },
     thumbnailUrl: shareImgPath,
     image: [
@@ -129,7 +137,7 @@
   <html lang="{lang}"></html>
   <title>{seoTitle}</title>
   <meta name="description" content="{seoDescription}" />
-  <link rel="canonical" href="{url.href}" />
+  <link rel="canonical" href="{canonicalUrl}" />
   <link
     rel="shortcut icon"
     type="image/x-icon"
@@ -154,7 +162,7 @@
     sizes="96x96"
   />
 
-  <meta property="og:url" content="{url.href}" />
+  <meta property="og:url" content="{canonicalUrl}" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{shareTitle}" itemprop="name" />
   <meta
@@ -172,7 +180,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@ReutersGraphics" />
   <meta name="twitter:creator" content="@ReutersGraphics" />
-  <meta name="twitter:domain" content="{url.origin}" />
+  <meta name="twitter:domain" content="{origin}" />
   <meta name="twitter:title" content="{shareTitle}" />
   <meta name="twitter:description" content="{shareDescription}" />
   <meta name="twitter:image:src" content="{shareImgPath}" />

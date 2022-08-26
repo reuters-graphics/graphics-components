@@ -6,6 +6,7 @@ The `SEO` component adds essential metadata to published pages.
 </script>
 
 <SEO
+  origin="https://graphics.reuters.com"
   url={new URL('https://graphics.reuters.com/world-coronavirus-tracker-and-maps/')}
   seoTitle="A title for Google"
   seoDescription="A description for Google"

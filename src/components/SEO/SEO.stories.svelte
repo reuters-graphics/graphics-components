@@ -10,7 +10,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -30,6 +30,7 @@
 <Story
   name="Default"
   args="{{
+    origin: 'https://graphics.reuters.com',
     url: new URL('https://graphics.reuters.com/hello-world/'),
     publishTime: new Date('2020-09-15').toISOString(),
   }}"
@@ -38,6 +39,7 @@
 <Story
   name="🚀 QUICKIT"
   args="{{
+    origin: 'https://graphics.reuters.com',
     url: new URL('https://graphics.reuters.com/hello-world/'),
     publishTime: new Date('2020-09-15').toISOString(),
   }}"

@@ -13,6 +13,7 @@ Most of the fields are filled in by other sources, like your Google Doc and pack
 
 <SEO
   lang="en"
+  origin={import.meta.env.BASE_URL}
   url={$page.url}
   seoTitle="{content.SEOTitle}"
   seoDescription="{content.SEODescription}"
