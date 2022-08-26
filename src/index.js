@@ -30,4 +30,4 @@ export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
 
 // Utilities
-export { getPhotoPackPropsFromDoc } from './components/PhotoPack/docProps';
+export { getPhotoPackPropsFromDoc } from './components/PhotoPack/docProps.js';
