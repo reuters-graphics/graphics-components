@@ -10,4 +10,4 @@ The `Theme` component wraps your page content and uses [CSS variables](../?path=
 </Theme>
 ```
 
-> For Kit users, the `Theme` is set for you in your graphics homepage (`pages/+page.svelte`). You can customise it there for the whole page.
+> For Graphics Kit users, the `Theme` is set for you in your graphics homepage (`pages/+page.svelte`). You can customise it there for the whole page.
