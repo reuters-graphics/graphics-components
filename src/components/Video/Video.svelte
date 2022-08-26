@@ -163,9 +163,9 @@
                   on:pausePlayEvent="{pausePlayEvent}"
                   paused="{paused}"
                   clickedOnPauseBtn="{clickedOnPauseBtn}"
-                  controlsOpacity="{hoverToSeeControls ?
-                    interactiveControlsOpacity :
-                    controlsOpacity}"
+                  controlsOpacity="{hoverToSeeControls
+                    ? interactiveControlsOpacity
+                    : controlsOpacity}"
                   controlsPosition="{controlsPosition}"
                   widthVideoContainer="{widthVideoContainer}"
                   heightVideoContainer="{heightVideoContainer}"
@@ -196,9 +196,9 @@
               bind:paused
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
-              style="{showControls ?
-                'position: relative' :
-                'position: relative'}"
+              style="{showControls
+                ? 'position: relative'
+                : 'position: relative'}"
             >
               <track kind="captions" />
             </video>
