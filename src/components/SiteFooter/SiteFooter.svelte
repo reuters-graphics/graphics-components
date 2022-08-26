@@ -37,7 +37,7 @@
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
   footer {
-    margin-top: 4rem;
+    margin-top: 0;
     background-color: var(--nav-background, #fff);
     div {
       max-width: 1400px;
