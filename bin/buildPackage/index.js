@@ -79,6 +79,7 @@ const build = async () => {
   pkgExports['.'] = './dist/index.js';
   const pkg = fs.readJSONSync(PACKAGE);
   pkg.type = 'module';
+  pkg.types = './dist/@types/index.d.ts',
   pkg.files = ['dist'];
   pkg.private = false;
   pkg.exports = pkgExports;
