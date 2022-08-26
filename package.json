@@ -189,7 +189,7 @@
     "./scss/fonts/mixins": "./dist/scss/fonts/_mixins.scss",
     "./scss/fonts/rules": "./dist/scss/fonts/_rules.scss",
     "./scss/fonts/variables": "./dist/scss/fonts/_variables.scss",
-    "./scss/main.scss": "./dist/scss/main.scss",
+    "./scss/main": "./dist/scss/main.scss",
     "./scss/mixins/block": "./dist/scss/mixins/_block.scss",
     "./scss/mixins/body-text": "./dist/scss/mixins/_body-text.scss",
     "./scss/mixins/graphic": "./dist/scss/mixins/_graphic.scss",
