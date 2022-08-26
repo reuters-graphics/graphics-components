@@ -5,7 +5,7 @@
    * @required
    */
   export let text: string;
-  
+
   import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
@@ -20,7 +20,7 @@
 <style lang="scss" global>
   // Same as body text... we probably should unbind these styles from the component
   // and import them in the app through a separate scss file.
-  @import "../../scss/mixins";
+  @import '../../scss/mixins';
 
   div.article-block.notes {
     @include note-text;

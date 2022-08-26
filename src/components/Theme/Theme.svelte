@@ -23,18 +23,19 @@
    */
   export let base: Base = 'light';
 
-  import cssVariables from '../../actions/cssVariables';
   import flatten from './utils/flatten';
   import mergeThemes from './utils/merge';
 
   /** @type {Theme} */
   $: mergedTheme = mergeThemes({}, themes[base] || themes.light, theme);
+  
+  $: cssVariables = Object.entries(flatten({ theme: mergedTheme })).map(([key, value]) => `--${key}: ${value};`).join(' ');
 </script>
 
 <div
   class="theme"
-  style="display: contents;"
-  use:cssVariables="{flatten({ theme: mergedTheme })}"
+  style="{cssVariables}"
+  style:display="contents"
 >
   <!-- Clients can override the theme above by attaching custom properties to this element. -->
   <div class="theme-client-override" style="display: contents;">
