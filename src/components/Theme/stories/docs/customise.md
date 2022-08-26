@@ -11,7 +11,7 @@ Check out the "Control" column for `theme` in the properties table above to see 
 > ```scss
 > // global.scss
 > body {
->   background-color: #333; 
+>   background-color: #333;
 > }
 > ```
 
