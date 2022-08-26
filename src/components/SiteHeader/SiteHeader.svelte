@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ReutersLogo } from '../../index.js';
+  import ReutersLogo from '../ReutersLogo/ReutersLogo.svelte';
   import NavBar from './NavBar/index.svelte';
   import data from './data.json';
   import { setContext } from 'svelte';

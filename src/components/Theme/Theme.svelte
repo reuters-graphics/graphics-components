@@ -28,15 +28,13 @@
 
   /** @type {Theme} */
   $: mergedTheme = mergeThemes({}, themes[base] || themes.light, theme);
-  
-  $: cssVariables = Object.entries(flatten({ theme: mergedTheme })).map(([key, value]) => `--${key}: ${value};`).join(' ');
+
+  $: cssVariables = Object.entries(flatten({ theme: mergedTheme }))
+    .map(([key, value]) => `--${key}: ${value};`)
+    .join(' ');
 </script>
 
-<div
-  class="theme"
-  style="{cssVariables}"
-  style:display="contents"
->
+<div class="theme" style="{cssVariables}" style:display="contents">
   <!-- Clients can override the theme above by attaching custom properties to this element. -->
   <div class="theme-client-override" style="display: contents;">
     <!-- Themed content -->

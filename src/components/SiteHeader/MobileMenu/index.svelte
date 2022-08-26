@@ -1,5 +1,5 @@
 <script>
-  import { ReutersLogo } from '../../../index.js';
+  import ReutersLogo from '../../ReutersLogo/ReutersLogo.svelte';
   import CloseIcon from '../svgs/Close.svelte';
   import { normalizeUrl } from '../NavBar/utils/index.js';
 
