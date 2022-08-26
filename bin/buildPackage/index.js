@@ -73,6 +73,7 @@ const build = async () => {
   pkg.files = ['dist'];
   pkg.private = false;
   pkg.exports = pkgExports;
+  pkg.svelte = './dist/index.js';
   fs.writeFileSync(PACKAGE, JSON.stringify(pkg, null, 2));
 }
 
