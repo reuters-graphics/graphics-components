@@ -1,4 +1,4 @@
-import type { ComponentType, SvelteComponentTyped } from 'svelte';
+import type { ComponentType } from 'svelte';
 
 interface BlockStep {
   Background: string;
@@ -17,7 +17,7 @@ interface Block {
 
 interface AiCharts {
   [key: string]: ComponentType,
-};
+}
 
 export const getScrollerPropsFromDoc = (docBlock: Block, aiCharts: AiCharts, assetsPath: string = '') => {
   return {

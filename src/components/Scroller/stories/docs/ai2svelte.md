@@ -11,19 +11,30 @@ A more detailed example of using `Scroller` with graphics created by [ai2svelte]
   import { assets } from '$app/paths'; // If using with the Graphics Kit
 
   const steps = [
-    { background: MyAiMap1, backgroundProps: { assetsPath: assets }, foreground: '#### Step 1\n\nLorem ipsum' },
-    { background: MyAiMap2, backgroundProps: { assetsPath: assets }, foreground: '#### Step 2\n\nLorem ipsum' },
-    { background: MyAiMap3, backgroundProps: { assetsPath: assets }, foreground: '#### Step 3\n\nLorem ipsum' },
-  ]
+    {
+      background: MyAiMap1,
+      backgroundProps: { assetsPath: assets },
+      foreground: '#### Step 1\n\nLorem ipsum',
+    },
+    {
+      background: MyAiMap2,
+      backgroundProps: { assetsPath: assets },
+      foreground: '#### Step 2\n\nLorem ipsum',
+    },
+    {
+      background: MyAiMap3,
+      backgroundProps: { assetsPath: assets },
+      foreground: '#### Step 3\n\nLorem ipsum',
+    },
+  ];
 </script>
-
 
 <Scroller
   steps="{steps}"
   backgroundWidth="fluid"
   foregroundPosition="middle"
-  stackBackground={true}
-  embedded={false}
+  stackBackground="{true}"
+  embedded="{false}"
 />
 ```
 
@@ -55,34 +66,45 @@ Lorem Ipsum
   // This should be already imported for you.
   import content from '$locales/en/content.json';
 
-
   // Get the data for the block in content by its ID
-  const scrollerBlock = content.blocks.find(block => block.ID === 'map-scrolly');
+  const scrollerBlock = content.blocks.find(
+    (block) => block.ID === 'map-scrolly'
+  );
 
   // Now plug your text into your step foregrounds
   const steps = [
-    { background: MyAiMap1, backgroundProps: { basePath: assets }, foreground: scrollerBlock.Step1Text },
-    { background: MyAiMap2, backgroundProps: { basePath: assets }, foreground: scrollerBlock.Step2Text },
-    { background: MyAiMap3, backgroundProps: { basePath: assets }, foreground: scrollerBlock.Step3Text },
-  ]
+    {
+      background: MyAiMap1,
+      backgroundProps: { basePath: assets },
+      foreground: scrollerBlock.Step1Text,
+    },
+    {
+      background: MyAiMap2,
+      backgroundProps: { basePath: assets },
+      foreground: scrollerBlock.Step2Text,
+    },
+    {
+      background: MyAiMap3,
+      backgroundProps: { basePath: assets },
+      foreground: scrollerBlock.Step3Text,
+    },
+  ];
 </script>
 
 {#each content.blocks as block}
   {#if block.Type === 'text'}
     <!-- ... other blocks -->
 
-  <!-- Copy/paste into your blocks loop! -->
+    <!-- Copy/paste into your blocks loop! -->
   {:else if block.Type === 'scroller' && block.ID === 'map-scrolly'}
     <Scroller
       steps="{steps}"
       backgroundWidth="fluid"
       foregroundPosition="middle"
-      stackBackground={true}
-      embedded={false}
+      stackBackground="{true}"
+      embedded="{false}"
     />
-  <!-- END copy/paste -->
-
-
+    <!-- END copy/paste -->
   {/if}
 {/each}
 ```

@@ -20,7 +20,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs
+    withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
   import { getScrollerPropsFromDoc } from './docProps';
@@ -74,53 +74,90 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     steps: [
-      { background: BasicStep, backgroundProps: { colour: 'red' }, foreground: '#### Step 1\n\nLorem ipsum red' },
-      { background: BasicStep, backgroundProps: { colour: 'blue' }, foreground: '#### Step 2\n\nLorem ipsum blue' },
-      { background: BasicStep, backgroundProps: { colour: 'green' }, foreground: '#### Step 3\n\nLorem ipsum green' },
+      {
+        background: BasicStep,
+        backgroundProps: { colour: 'red' },
+        foreground: '#### Step 1\n\nLorem ipsum red',
+      },
+      {
+        background: BasicStep,
+        backgroundProps: { colour: 'blue' },
+        foreground: '#### Step 2\n\nLorem ipsum blue',
+      },
+      {
+        background: BasicStep,
+        backgroundProps: { colour: 'green' },
+        foreground: '#### Step 3\n\nLorem ipsum green',
+      },
     ],
     foregroundPosition: 'middle',
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}
+  }}"
 />
 
 <Story
   name="🚀 QUICKIT"
-  args={getScrollerPropsFromDoc(docBlock, aiCharts)}
+  args="{getScrollerPropsFromDoc(docBlock, aiCharts)}"
   {...withStoryDocs(quickitDocs)}
 />
 
 <Story
   name="Foreground components"
-  args={{
+  args="{{
     steps: [
-      { background: BasicStep, backgroundProps: { colour: 'red' }, foreground: InteractiveForeground },
-      { background: BasicStep, backgroundProps: { colour: 'blue' }, foreground: '#### Step 2\n\nLorem ipsum blue' },
-      { background: BasicStep, backgroundProps: { colour: 'green' }, foreground: InteractiveForeground, foregroundProps: { count: 100 } },
+      {
+        background: BasicStep,
+        backgroundProps: { colour: 'red' },
+        foreground: InteractiveForeground,
+      },
+      {
+        background: BasicStep,
+        backgroundProps: { colour: 'blue' },
+        foreground: '#### Step 2\n\nLorem ipsum blue',
+      },
+      {
+        background: BasicStep,
+        backgroundProps: { colour: 'green' },
+        foreground: InteractiveForeground,
+        foregroundProps: { count: 100 },
+      },
     ],
     foregroundPosition: 'middle',
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}
+  }}"
   {...withStoryDocs(interactiveDocs)}
 />
 
 <Story
   name="Ai2svelte"
-  args={{
+  args="{{
     steps: [
-      { background: AiMap1, backgroundProps: { colour: 'red' }, foreground: '#### Step 1\n\nLorem ipsum' },
-      { background: AiMap2, backgroundProps: { colour: 'blue' }, foreground: '#### Step 2\n\nLorem ipsum' },
-      { background: AiMap3, backgroundProps: { colour: 'green' }, foreground: '#### Step 3\n\nLorem ipsum' },
+      {
+        background: AiMap1,
+        backgroundProps: { colour: 'red' },
+        foreground: '#### Step 1\n\nLorem ipsum',
+      },
+      {
+        background: AiMap2,
+        backgroundProps: { colour: 'blue' },
+        foreground: '#### Step 2\n\nLorem ipsum',
+      },
+      {
+        background: AiMap3,
+        backgroundProps: { colour: 'green' },
+        foreground: '#### Step 3\n\nLorem ipsum',
+      },
     ],
     foregroundPosition: 'middle',
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}
+  }}"
   {...withStoryDocs(ai2svelteDocs)}
 />
