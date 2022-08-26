@@ -163,9 +163,9 @@
                   on:pausePlayEvent="{pausePlayEvent}"
                   paused="{paused}"
                   clickedOnPauseBtn="{clickedOnPauseBtn}"
-                  controlsOpacity="{hoverToSeeControls
-                    ? interactiveControlsOpacity
-                    : controlsOpacity}"
+                  controlsOpacity="{hoverToSeeControls ?
+                    interactiveControlsOpacity :
+                    controlsOpacity}"
                   controlsPosition="{controlsPosition}"
                   widthVideoContainer="{widthVideoContainer}"
                   heightVideoContainer="{heightVideoContainer}"
@@ -196,9 +196,9 @@
               bind:paused
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
-              style="{showControls
-                ? 'position: relative'
-                : 'position: relative'}"
+              style="{showControls ?
+                'position: relative' :
+                'position: relative'}"
             >
               <track kind="captions" />
             </video>
@@ -257,7 +257,7 @@
         </div>
       {/if}
       {#if caption}
-        <figcaption>{caption}</figcaption>
+        <div class="caption">{caption}</div>
       {/if}
     {/if}
   </div>
@@ -284,7 +284,7 @@
     white-space: nowrap !important;
     border: 0 !important;
   }
-  figcaption {
+  div.caption {
     font-size: 0.8rem;
     color: var(--theme-colour-text-secondary, $tr-medium-grey);
   }
