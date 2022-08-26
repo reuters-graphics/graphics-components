@@ -76,7 +76,15 @@
    */
   export let includeAnalytics: boolean = false;
 
-  $: origin = new URL(baseUrl).origin;
+  const getOrigin = (baseUrl) => {
+    try {
+      return new URL(baseUrl).origin;
+    } catch {
+      return '';
+    }
+  };
+
+  $: origin = getOrigin(baseUrl);
   $: canonicalUrl = origin + pageUrl.pathname;
 
   // Only fire analytics on prod sites
