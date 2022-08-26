@@ -20,6 +20,7 @@
 </script>
 
 <footer
+  class="my-0"
   style="{`
     --nav-background: var(--theme-colour-background, #fff);
     --nav-primary: var(--theme-colour-text-primary, #404040);

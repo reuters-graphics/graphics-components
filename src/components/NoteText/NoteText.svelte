@@ -10,7 +10,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block cls="notes">
+<Block cls="notes mb-4">
   {#if text}
     {@html marked.parse(text)}
   {/if}
