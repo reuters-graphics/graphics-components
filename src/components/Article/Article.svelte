@@ -30,7 +30,7 @@
     wider: 1200,
   };
 
-  import cssVariables from '$lib/actions/cssVariables/index.js';
+  import cssVariables from '../../actions/cssVariables/index.js';
 
   $: columnWidthVars = {
     'narrower-column-width': columnWidths.narrower + 'px',

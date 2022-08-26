@@ -10,7 +10,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs,
+    withStoryDocs
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -22,7 +22,7 @@
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
-    }
+    },
   };
 </script>
 

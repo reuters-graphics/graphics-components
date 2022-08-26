@@ -10,7 +10,7 @@
   import Article from './Article.svelte';
   import Block from '../Block/Block.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs, withStoryDocs } from '$lib/docs/utils/withParams.js';
 
   const meta = {
     title: 'Layout/Article',
