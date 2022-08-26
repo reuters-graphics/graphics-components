@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.1-beta.18",
+  "version": "0.0.1-beta.19",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -127,6 +127,7 @@
     "./components/Scroller/Embedded/index.svelte": "./dist/components/Scroller/Embedded/index.svelte",
     "./components/Scroller/Foreground.svelte": "./dist/components/Scroller/Foreground.svelte",
     "./components/Scroller/Scroller.svelte": "./dist/components/Scroller/Scroller.svelte",
+    "./components/Scroller/docProps.ts": "./dist/components/Scroller/docProps.ts",
     "./components/Sharer/Sharer.svelte": "./dist/components/Sharer/Sharer.svelte",
     "./components/Sharer/utils/copyToClipboard": "./dist/components/Sharer/utils/copyToClipboard.js",
     "./components/Sharer/utils/facebook": "./dist/components/Sharer/utils/facebook.js",
