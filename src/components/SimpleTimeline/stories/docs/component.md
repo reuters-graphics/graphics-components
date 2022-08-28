@@ -20,6 +20,9 @@ A simple, clean text timeline.
   ];
 </script>
 
-
-<SimpleTimeline dates={dates} symbolColour="#999" dateColour="rgb(224, 90, 57)" />
+<SimpleTimeline
+  dates="{dates}"
+  symbolColour="#999"
+  dateColour="rgb(224, 90, 57)"
+/>
 ```

@@ -35,14 +35,13 @@
    */
   export let id: string = '';
 
-
   import Block from '../Block/Block.svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import { faLink } from '@fortawesome/free-solid-svg-icons';
   import { marked } from 'marked';
 </script>
 
-<Block width="normal" id={id} cls="simple-timeline-container {cls}">
+<Block width="normal" id="{id}" cls="simple-timeline-container {cls}">
   <div class="timeline" style="--symbol-colour:{symbolColour};">
     {#each dates as date}
       <div class="date">
@@ -55,7 +54,7 @@
             stroke-width="2"
             fill="transparent"></circle>
         </svg>
-        <h5 style:color={dateColour}>{date.date}</h5>
+        <h5 style:color="{dateColour}">{date.date}</h5>
         {#each date.events as event}
           <div class="event pb-2">
             {#if event.titleLink}
