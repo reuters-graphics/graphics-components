@@ -24,8 +24,13 @@
    * Width of the background
    */
   export let backgroundWidth: ContainerWidth = 'fluid';
-  
-  type ForegroundPosition = 'middle' | 'left' | 'right' | 'left opposite' | 'right opposite';
+
+  type ForegroundPosition =
+    | 'middle'
+    | 'left'
+    | 'right'
+    | 'left opposite'
+    | 'right opposite';
 
   /**
    * Position of the foreground. One of: middle, left, right, left opposite or right opposite.
@@ -114,7 +119,7 @@
       >
         <div class="scroller-graphic-well">
           <Block
-            width={backgroundWidth}
+            width="{backgroundWidth}"
             cls="background-container step-{index + 1}"
           >
             <Background
@@ -123,7 +128,7 @@
               preload="{preload}"
               stackBackground="{stackBackground}"
             />
-        </Block>
+          </Block>
         </div>
       </div>
 

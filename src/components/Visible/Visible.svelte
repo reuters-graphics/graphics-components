@@ -17,10 +17,10 @@
   export let right = 0;
   /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
   export let threshold = 0;
-  
+
   let visible = false;
   let container: HTMLElement;
-  
+
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
       const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;

@@ -23,10 +23,16 @@
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'normal';
 
+  /** Add an ID to target with SCSS. */
+  export let id: string = '';
+
+  /** Add a class to target with SCSS. */
+  export let cls: string = '';
+
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block {width} cls="photo">
+<Block {width} {id} cls="photo {cls}">
   <div
     style:background-image={`url(${src})`}
     style:height={`${height}px`}
