@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -133,6 +133,7 @@
     "./components/Sharer/utils/facebook": "./dist/components/Sharer/utils/facebook.js",
     "./components/Sharer/utils/meta": "./dist/components/Sharer/utils/meta.js",
     "./components/Sharer/utils/twitter": "./dist/components/Sharer/utils/twitter.js",
+    "./components/SimpleTimeline/SimpleTimeline.svelte": "./dist/components/SimpleTimeline/SimpleTimeline.svelte",
     "./components/SiteFooter/CompanyLinks.svelte": "./dist/components/SiteFooter/CompanyLinks.svelte",
     "./components/SiteFooter/LegalLinks.svelte": "./dist/components/SiteFooter/LegalLinks.svelte",
     "./components/SiteFooter/QuickLinks.svelte": "./dist/components/SiteFooter/QuickLinks.svelte",
