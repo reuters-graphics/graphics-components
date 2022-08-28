@@ -1,8 +1,4 @@
-<!-- 
-  @component The `Article` component contains all the content of our story and also establishes the dimensions of our article well, the default central trunk of our page layout.
-  
-  [Docs](https://reuters-graphics.github.io/graphics-components/?path=/docs/layout-article--default)
--->
+<!-- @component `Article` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/layout-article--default) -->
 <script lang="ts">
   /** Set to true for embeddables. */
   export let embedded: boolean = false;

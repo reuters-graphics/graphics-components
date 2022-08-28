@@ -1,3 +1,4 @@
+<!-- @component `Video` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Video--default) -->
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import Controls from './Controls.svelte';
@@ -163,9 +164,9 @@
                   on:pausePlayEvent="{pausePlayEvent}"
                   paused="{paused}"
                   clickedOnPauseBtn="{clickedOnPauseBtn}"
-                  controlsOpacity="{hoverToSeeControls
-                    ? interactiveControlsOpacity
-                    : controlsOpacity}"
+                  controlsOpacity="{hoverToSeeControls ?
+                    interactiveControlsOpacity :
+                    controlsOpacity}"
                   controlsPosition="{controlsPosition}"
                   widthVideoContainer="{widthVideoContainer}"
                   heightVideoContainer="{heightVideoContainer}"
@@ -196,9 +197,9 @@
               bind:paused
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
-              style="{showControls
-                ? 'position: relative'
-                : 'position: relative'}"
+              style="{showControls ?
+                'position: relative' :
+                'position: relative'}"
             >
               <track kind="captions" />
             </video>

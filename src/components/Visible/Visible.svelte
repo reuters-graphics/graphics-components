@@ -1,8 +1,9 @@
+<!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Visible--default) -->
 <script lang="ts">
   import { onMount } from 'svelte';
   /**
-   * Whether to change visibility just once. 
-   * 
+   * Whether to change visibility just once.
+   *
    * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
    */
   export let once: boolean = false;

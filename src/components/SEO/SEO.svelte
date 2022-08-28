@@ -1,3 +1,4 @@
+<!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SEO--default) -->
 <script lang="ts">
   import analytics from './analytics';
   import publisherTags from './publisherTags';

@@ -1,3 +1,4 @@
+<!-- @component `NoteText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-NoteText--default) -->
 <script lang="ts">
   /**
    * A markdown text string.

@@ -1,8 +1,4 @@
-<!--
-  @component The `YourComponent` component
-
-  [Docs](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-YourComponent--default)
--->
+<!-- @component `YourComponent` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-YourComponent--default) -->
 <script lang="ts">
   /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
 

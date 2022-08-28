@@ -1,3 +1,4 @@
+<!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Headline--default) -->
 <script lang="ts">
   /**
    * Headline

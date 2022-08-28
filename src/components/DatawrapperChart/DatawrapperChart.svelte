@@ -1,3 +1,4 @@
+<!-- @component `DatawrapperChart` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-DatawrapperChart--default) -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';

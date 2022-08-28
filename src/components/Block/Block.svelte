@@ -1,3 +1,4 @@
+<!-- @component `Block` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/layout-block--default) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
 

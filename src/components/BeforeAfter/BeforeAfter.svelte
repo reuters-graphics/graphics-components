@@ -1,3 +1,4 @@
+<!-- @component `BeforeAfter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-beforeafter--default) -->
 <script lang="ts">
   import { throttle } from 'lodash-es';
   import { onMount } from 'svelte';
@@ -101,16 +102,16 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure
-        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
-        : 0;
+      const figureOffset = figure ?
+        parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2)) :
+        0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin
-          ? handleMargin
-          : x > w - handleMargin
-          ? w - handleMargin
-          : x;
+        x < handleMargin ?
+          handleMargin :
+          x > w - handleMargin ?
+            w - handleMargin :
+            x;
       offset = x / w;
     }
   };

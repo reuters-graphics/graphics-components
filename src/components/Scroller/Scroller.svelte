@@ -1,5 +1,6 @@
+<!-- @component `Scroller` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Scroller--default) -->
 <script lang="ts">
-  import type { ContainerWidth, ScrollerStep } from  '../@types/global';
+  import type { ContainerWidth, ScrollerStep } from '../@types/global';
 
   /**
    * ID of the scroller container
@@ -8,9 +9,9 @@
   export let id: string = '';
   /**
    * An array of step objects that define the steps in your scroller.
-   * 
+   *
    * Each step object in the array can have:
-   * 
+   *
    * - `background` A background component **REQUIRED**
    * - `backgroundProps` An object of props given to the background component
    * - `foreground` Either a markdown-formatted string or a foreground component **REQUIRED**
@@ -25,25 +26,25 @@
   export let backgroundWidth: ContainerWidth = 'fluid';
   
   type ForegroundPosition = 'middle' | 'left' | 'right' | 'left opposite' | 'right opposite';
- 
+
   /**
-   * Position of the foreground. One of: middle, left, right, left opposite or right opposite. 
-   * 
+   * Position of the foreground. One of: middle, left, right, left opposite or right opposite.
+   *
    * "opposite" options push the background to the other side on larger viewports.
-   * 
+   *
    * @type {string}
-   */ 
+   */
   export let foregroundPosition: ForegroundPosition = 'middle';
   /**
    * Whether previous background steps should stack below the current one.
-   * 
+   *
    * - `true` _default_ Background graphics from previous steps will remain visible below the active one, allowing you to stack graphics with transparent backgrounds.
    * - `false` Only the background graphic from the current step will show and backgrounds from previous steps are hidden.
    */
   export let stackBackground: boolean = true;
   /**
    * How many background steps to load before and after the currently active one, effectively lazy-loading them.
-   * 
+   *
    * Setting to `0` disables lazy-loading and loads all backgrounds at once.
    */
   export let preload: number = 1;
@@ -55,11 +56,11 @@
   type EmbeddedLayout = 'fb' | 'bf';
 
   /**
-   * Layout order when `embedded` is `true`. 
-   * 
-   * - `fb` _default_ Foreground then background 
+   * Layout order when `embedded` is `true`.
+   *
+   * - `fb` _default_ Foreground then background
    * - `bf` Background then foreground
-   * 
+   *
    * @type {string}
    */
   export let embeddedLayout: EmbeddedLayout = 'fb';

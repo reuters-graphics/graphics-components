@@ -1,3 +1,4 @@
+<!-- @component `SiteHeader` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SiteHeader--default) -->
 <script lang="ts">
   import ReutersLogo from '../ReutersLogo/ReutersLogo.svelte';
   import NavBar from './NavBar/index.svelte';

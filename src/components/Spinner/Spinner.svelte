@@ -1,3 +1,4 @@
+<!-- @component `Spinner` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Spinner--default) -->
 <script lang="ts">
   /** Primary colour of the spinner. */
   export let colour: string = '#666';

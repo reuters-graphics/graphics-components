@@ -1,3 +1,4 @@
+<!-- @component `GraphicBlock` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-GraphicBlock--default) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
 
