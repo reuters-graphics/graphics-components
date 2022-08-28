@@ -15,7 +15,7 @@
 
 ```svelte
 <script>
-  import { YourComponent  } from '@reuters-graphics/graphics-svelte-components';
+  import { YourComponent } from '@reuters-graphics/graphics-components';
 </script>
 
 

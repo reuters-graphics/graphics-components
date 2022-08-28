@@ -21,7 +21,7 @@
 <style lang="scss" global>
   // Technically... we probably should unbind these styles from the component
   // and import them in the app through a separate scss file.
-  @import "../../scss/mixins";
+  @import '../../scss/mixins';
 
   div.article-block.body-text {
     @include body-text;

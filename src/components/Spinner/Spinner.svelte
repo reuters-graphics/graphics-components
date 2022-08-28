@@ -22,7 +22,7 @@
 
 <div
   style:width="100%"
-  style:height={`${(width + (containerPadding * 2))}px`}
+  style:height="{`${width + containerPadding * 2}px`}"
   class="component-container"
 >
   <div

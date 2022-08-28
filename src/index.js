@@ -18,6 +18,7 @@ export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.sve
 export { default as Scroller } from './components/Scroller/Scroller.svelte';
 export { default as SEO } from './components/SEO/SEO.svelte';
 export { default as Sharer } from './components/Sharer/Sharer.svelte';
+export { default as SimpleTimeline } from './components/SimpleTimeline/SimpleTimeline.svelte';
 export { default as SiteFooter } from './components/SiteFooter/SiteFooter.svelte';
 export { default as SiteHeader } from './components/SiteHeader/SiteHeader.svelte';
 export { default as Spinner } from './components/Spinner/Spinner.svelte';
