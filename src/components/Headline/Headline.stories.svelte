@@ -6,9 +6,10 @@
   // @ts-ignore
   import withBylineDocs from './stories/docs/withByline.md?raw';
   // @ts-ignore
-  import withCrownDocs from './stories/docs/withCrown.md?raw';
-  // @ts-ignore
   import customHedDocs from './stories/docs/customHed.md?raw';
+  // @ts-ignore
+  import withCrownDocs from './stories/docs/withCrown.md?raw';
+
   // @ts-ignore
   import crownImgSrc from './stories/crown.png';
 
@@ -16,7 +17,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs
+    withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
