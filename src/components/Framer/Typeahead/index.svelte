@@ -147,7 +147,7 @@
           .slice(0, limit)
           .filter((result) => !filter(result.original))
           .map((result) => ({ ...result, disabled: disable(result.original) }))
-      : data.slice(0, 10).map((d) => ({ string: extract(d), original: d }));
+      : data.map((d) => ({ string: extract(d), original: d }));
 
   $: resultsId = results.map((result) => extract(result.original)).join('');
   $: showResults = !hideDropdown && results.length > 0 && isFocused;
@@ -277,8 +277,9 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%;
+    width: calc(100% - 2px);
     padding: 0;
+    margin: 0;
     list-style: none;
     background-color: inherit;
   }
@@ -286,12 +287,15 @@
   [aria-expanded='true'] ul {
     z-index: 1;
     border: 1px solid #ddd;
-    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 50vh;
+    overflow-y: scroll;
   }
 
   li,
   .no-results {
     padding: 0.25rem 1rem;
+    @include font-display;
+    color: #333;
   }
 
   li {
