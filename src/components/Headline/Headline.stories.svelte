@@ -16,7 +16,7 @@
 
   import {
     withComponentDocs,
-    withStoryDocs
+    withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
   const meta = {
@@ -59,12 +59,15 @@
 
 <Story name="Custom hed" {...withStoryDocs(customHedDocs)}>
   <Headline>
-    <h1 class="custom-hed" slot='hed'>
+    <h1 class="custom-hed" slot="hed">
       <span class="small">The secret to</span>
       “The Nutcracker's”
       <span class="small">success</span>
     </h1>
-    <p class="custom-dek" slot="dek">How “The Nutcracker” ballet became an <span>American holday staple</span>and a financial pillar of ballet companies across the country</p>
+    <p class="custom-dek" slot="dek">
+      How “The Nutcracker” ballet became an <span>American holday staple</span
+      >and a financial pillar of ballet companies across the country
+    </p>
   </Headline>
 </Story>
 

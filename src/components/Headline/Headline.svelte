@@ -41,12 +41,9 @@
       {#if $$slots.dek}
         <!-- Dek named slot-->
         <slot name="dek" />
-      {:else}
-        {#if dek}
-          {@html marked(dek)}
-        {/if}
+      {:else if dek}
+        {@html marked(dek)}
       {/if}
-      
     </div>
     {#if $$slots.byline || $$slots.dateline}
       <aside class="article-metadata" class:pt-1="{!dek}">

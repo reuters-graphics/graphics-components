@@ -6,12 +6,16 @@ Use the `hed` and/or `dek` named slots to override those elements with completel
 </script>
 
 <Headline>
-  <h1 slot='hed' class="custom-hed">
+  <h1 slot="hed" class="custom-hed">
     <span class="small block">The secret to</span>
     “The Nutcracker's”
     <span class="small block">success</span>
   </h1>
-  <p slot="dek" class="custom-dek">How “The Nutcracker” ballet became an <span class="highlight">American holday staple</span>and a financial pillar of ballet companies across the country</p>
+  <p slot="dek" class="custom-dek">
+    How “The Nutcracker” ballet became an <span class="highlight"
+      >American holday staple</span
+    >and a financial pillar of ballet companies across the country
+  </p>
 </Headline>
 
 <style lang="scss">
