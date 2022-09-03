@@ -1,19 +1,23 @@
 <!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Headline--default) -->
 <script lang="ts">
   /**
-   * Headline
+   * Headline, parsed as an _inline_ markdown string in an `h1` element.
+   * @type {string}
    */
   export let hed: string = 'Reuters Graphics Interactive';
   /**
-   * Dek
+   * Dek, parsed as a markdown string.
+   * @type {string}
    */
   export let dek: string | null = null;
   /**
    * Section title
+   * @type {string}
    */
   export let section: string | null = null;
 
   import Block from '../Block/Block.svelte';
+  import { marked } from 'marked';
 </script>
 
 <Block cls="mb-1">
@@ -29,14 +33,20 @@
         <p class="{'section-title'}">{section}</p>
       {/if}
       {#if $$slots.hed}
-        <!-- Headline override named slot -->
+        <!-- Headline named slot -->
         <slot name="hed" />
       {:else}
-        <h1>{hed}</h1>
+        <h1>{@html marked.parseInline(hed)}</h1>
       {/if}
-      {#if dek}
-        <p>{dek}</p>
+      {#if $$slots.dek}
+        <!-- Dek named slot-->
+        <slot name="dek" />
+      {:else}
+        {#if dek}
+          {@html marked(dek)}
+        {/if}
       {/if}
+      
     </div>
     {#if $$slots.byline || $$slots.dateline}
       <aside class="article-metadata" class:pt-1="{!dek}">
