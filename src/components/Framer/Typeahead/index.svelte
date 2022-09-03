@@ -171,7 +171,8 @@
   aria-haspopup="listbox"
   aria-owns="{id}-listbox"
   class:dropdown="{results.length > 0}"
-  aria-expanded="{showResults}"
+  aria-expanded="{showResults ||
+    (isFocused && value.length > 0 && results.length === 0)}"
   id="{id}-typeahead"
 >
   <Search
@@ -257,10 +258,8 @@
         </li>
       {/each}
     {/if}
-    {#if $$slots['no-results'] && !hideDropdown && value.length > 0 && results.length === 0}
-      <div class:no-results="{true}">
-        <slot name="no-results" value="{value}" />
-      </div>
+    {#if value.length > 0 && results.length === 0}
+      <li class="no-results disabled">No embeds found...</li>
     {/if}
   </ul>
 </div>
@@ -280,7 +279,7 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    background-color: inherit;
+    background-color: #fff;
   }
 
   [aria-expanded='true'] ul {
@@ -291,10 +290,15 @@
   }
 
   li,
-  .no-results {
+  li.no-results {
     padding: 0.25rem 1rem;
     @include font-display;
     color: #333;
+  }
+  li.no-results {
+    color: #333;
+    font-size: 0.85rem;
+    font-style: italic;
   }
 
   li {
