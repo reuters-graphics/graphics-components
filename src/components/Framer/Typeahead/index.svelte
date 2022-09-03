@@ -275,7 +275,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    width: calc(100% - 2px);
+    width: 100%;
     padding: 0;
     margin: 0;
     list-style: none;
