@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -106,6 +106,8 @@
     "./components/FeaturePhoto/FeaturePhoto.svelte": "./dist/components/FeaturePhoto/FeaturePhoto.svelte",
     "./components/Framer/Framer.svelte": "./dist/components/Framer/Framer.svelte",
     "./components/Framer/Resizer/index.svelte": "./dist/components/Framer/Resizer/index.svelte",
+    "./components/Framer/Typeahead/fuzzy": "./dist/components/Framer/Typeahead/fuzzy.js",
+    "./components/Framer/Typeahead/index.svelte": "./dist/components/Framer/Typeahead/index.svelte",
     "./components/Framer/stores": "./dist/components/Framer/stores.js",
     "./components/Framer/uniqNames": "./dist/components/Framer/uniqNames.js",
     "./components/GraphicBlock/AriaHidden.svelte": "./dist/components/GraphicBlock/AriaHidden.svelte",
