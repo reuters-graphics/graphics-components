@@ -7,6 +7,7 @@
   import Resizer from './Resizer/index.svelte';
   import { width } from './stores.js';
   import getUniqNames from './uniqNames.js';
+  import Typeahead from './Typeahead/index.svelte';
 
   export let embeds;
   export let breakpoints = [330, 510, 660, 930, 1200];
@@ -46,22 +47,33 @@
     />
   </header>
 
-  <nav>
-    {#each embeds as embed, i}
-      <button
-        on:click="{() => {
-          activeEmbed = embed;
-        }}"
-        class:active="{activeEmbed === embed}"
+  <div id="typeahead-container">
+    <div class="embed-link">
+      <a
+        rel="external"
+        target="_blank"
+        href="{activeEmbed}"
+        title="{activeEmbed}"
       >
-        {embedTitles[i]}
-        <a rel="external" target="_blank" href="{embed}" title="{embed}">
-          <Fa icon="{faLink}" />
-        </a>
-      </button>
-    {/each}
-  </nav>
+        Live link <Fa icon="{faLink}" />
+      </a>
+    </div>
+    <Typeahead
+      label="Select an embed"
+      value="{embedTitles[0]}"
+      extract="{(d) => embedTitles[d.index]}"
+      data="{embeds.map((embed, index) => ({ index, embed }))}"
+      placeholder="{'Search'}"
+      showDropdownOnFocus="{true}"
+      on:select="{({ detail }) => {
+        activeEmbed = detail.original.embed;
+      }}"
+    />
+  </div>
 
+  <div id="preview-label" style="width:{$width}px;">
+    <p>Preview</p>
+  </div>
   <div id="frame-parent" style="width:{$width}px;"></div>
 </div>
 
@@ -90,33 +102,35 @@
     margin: 20px 0;
   }
 
-  nav {
-    text-align: center;
-    margin: 0 auto 20px;
-    max-width: 900px;
-    button {
-      margin: 0 4px 5px;
-      background-color: transparent;
-      border: 0;
-      color: #999;
-      padding: 2px 2px;
-      cursor: pointer;
-      @include font-display;
-      font-weight: 400;
-      &.active {
-        border-bottom: 2px solid #666;
-        color: #666;
-      }
-      &:focus {
-        outline: none;
-      }
+  div#typeahead-container {
+    max-width: 660px;
+    margin: 0 auto 15px;
+    position: relative;
+    div.embed-link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      z-index: 2;
       a {
+        @include font-display;
         color: #bbb;
         font-size: 12px;
+        text-decoration: none !important;
         &:hover {
           color: #666;
         }
       }
+    }
+  }
+
+  div#preview-label {
+    margin: 0 auto;
+    p {
+      @include font-display;
+      color: #aaa;
+      font-size: 0.75rem;
+      margin: 0 0 0.25rem;
     }
   }
 
