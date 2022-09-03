@@ -270,7 +270,6 @@
 
   [data-svelte-typeahead] {
     position: relative;
-    background-color: #fff;
   }
 
   ul {
@@ -342,6 +341,7 @@
     font-size: 1rem;
     border: 0;
     border-radius: 0 !important;
+    background-color: #fff;
     border: 1px solid #ddd;
     @include font-sans;
   }
