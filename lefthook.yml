@@ -6,3 +6,5 @@ pre-commit:
     prettier:
       glob: 'src/**/*.{js,scss,md,svelte}'
       run: npx prettier --write {staged_files}
+    addChanged:
+      run: git add .
