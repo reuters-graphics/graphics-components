@@ -27,7 +27,7 @@ module.exports = {
       {
         arrays: 'always-multiline',
         objects: 'always-multiline',
-        imports: 'never',
+        imports: 'always-multiline',
         exports: 'never',
         functions: 'never',
       },
