@@ -68,17 +68,18 @@
     </div>
     <Typeahead
       label="Select an embed"
-      value="{embedTitles[0]}"
+      value="{embedTitles[embeds.indexOf(activeEmbed)]}"
       extract="{(d) => embedTitles[d.index]}"
       data="{embeds.map((embed, index) => ({ index, embed }))}"
       placeholder="{'Search'}"
       showDropdownOnFocus="{true}"
       on:select="{({ detail }) => {
-        if (typeof window !== 'undefined')
+        if (typeof window !== 'undefined') {
           window.localStorage.setItem(
             'framer-active-embed',
             detail.original.embed
           );
+        }
         activeEmbed = detail.original.embed;
       }}"
     />
