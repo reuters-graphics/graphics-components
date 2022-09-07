@@ -14,7 +14,15 @@
   export let minFrameWidth = 320;
   export let maxFrameWidth = 1200;
 
-  let activeEmbed = embeds[0];
+  const getDefaultEmbed = () => {
+    if (typeof window === 'undefined') return embeds[0];
+    const lastActiveEmbed = window.localStorage.getItem('framer-active-embed');
+    if (!lastActiveEmbed) return embeds[0];
+    if (embeds.indexOf(lastActiveEmbed) > -1) return lastActiveEmbed;
+    return embeds[0];
+  };
+
+  let activeEmbed = getDefaultEmbed();
 
   $: embedTitles = getUniqNames(embeds);
 
@@ -66,6 +74,11 @@
       placeholder="{'Search'}"
       showDropdownOnFocus="{true}"
       on:select="{({ detail }) => {
+        if (typeof window !== 'undefined')
+          window.localStorage.setItem(
+            'framer-active-embed',
+            detail.original.embed
+          );
         activeEmbed = detail.original.embed;
       }}"
     />
