@@ -22,36 +22,41 @@
    * @required
    * @type {string}
    */
-  export let seoTitle;
+  export let seoTitle: string;
   /**
    * SEO description
    * @required
    * @type {string}
    */
-  export let seoDescription;
+  export let seoDescription: string;
   /**
    * Share title
    * @required
    * @type {string}
    */
-  export let shareTitle;
+  export let shareTitle: string;
   /**
    * Share description
    * @required
    * @type {string}
    */
-  export let shareDescription;
+  export let shareDescription: string;
   /**
    * Share image path. **Must be an absolute path.**
    * @required
    * @type {string}
    */
-  export let shareImgPath;
+  export let shareImgPath: string;
+  /**
+   * Share image alt text, up to 420 characters.
+   * @type {string}
+   */
+  export let shareImgAlt: string = '';
   /**
    * [HTML lang attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang). **Two-letter code only.**
    * @type {string}
    */
-  export let lang = 'en';
+  export let lang: string = 'en';
   /**
    * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
    * @type {string}
@@ -193,7 +198,10 @@
   <meta name="twitter:domain" content="{origin}" />
   <meta name="twitter:title" content="{shareTitle}" />
   <meta name="twitter:description" content="{shareDescription}" />
-  <meta name="twitter:image:src" content="{shareImgPath}" />
+  <meta name="twitter:image" content="{shareImgPath}" />
+  {#if shareImgAlt}
+    <meta name="twitter:image:alt" content="{shareImgAlt}" />
+  {/if}
 
   <meta property="fb:app_id" content="319194411438328" />
   <meta property="fb:admins" content="616167736" />
