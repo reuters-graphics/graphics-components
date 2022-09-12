@@ -88,6 +88,7 @@
     "marked": "^4.0.8",
     "proper-url-join": "^2.1.1",
     "pym.js": "^1.3.2",
+    "slugify": "^1.6.5",
     "svelte-fa": "^2.4.0",
     "svelte-intersection-observer": "^0.10.0",
     "svelte-search": "^2.0.1",
