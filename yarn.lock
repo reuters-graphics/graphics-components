@@ -7748,6 +7748,11 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
+journalize@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/journalize/-/journalize-2.5.1.tgz#d9c70452566e2b40f99b02b0263281c493c8c9b0"
+  integrity sha512-ha19m4ZiRitEsdMuwk0QMyjqTVicsJUJxz9TNkWBFJHIKAgEmXBJ8A6XR/GM1oW9fpRoGCBNLYej5U7ZdnDBMg==
+
 js-string-escape@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/js-string-escape/-/js-string-escape-1.0.1.tgz#e2625badbc0d67c7533e9edc1068c587ae4137ef"
