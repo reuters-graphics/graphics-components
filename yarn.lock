@@ -7748,6 +7748,11 @@ jest-worker@^27.4.5:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
+journalize@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/journalize/-/journalize-2.5.1.tgz#d9c70452566e2b40f99b02b0263281c493c8c9b0"
+  integrity sha512-ha19m4ZiRitEsdMuwk0QMyjqTVicsJUJxz9TNkWBFJHIKAgEmXBJ8A6XR/GM1oW9fpRoGCBNLYej5U7ZdnDBMg==
+
 js-string-escape@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/js-string-escape/-/js-string-escape-1.0.1.tgz#e2625badbc0d67c7533e9edc1068c587ae4137ef"
@@ -10810,6 +10815,11 @@ slice-ansi@^2.1.0:
     ansi-styles "^3.2.0"
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
+
+slugify@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.5.tgz#c8f5c072bf2135b80703589b39a3d41451fbe8c8"
+  integrity sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==
 
 snake-case@^3.0.4:
   version "3.0.4"
