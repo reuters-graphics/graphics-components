@@ -200,6 +200,10 @@
         font-weight: 600;
         font-size: 1rem;
         line-height: 1.4rem;
+        @media (max-width: 600px) {
+          font-size: 0.9rem;
+          line-height: 1.2rem;
+        }
         a {
           color: var(--theme-colour-text-primary, $tr-dark-grey);
           text-decoration: none;
@@ -217,6 +221,10 @@
         line-height: 1.1rem;
         letter-spacing: 0.3px;
         margin-top: 0.5rem;
+        @media (max-width: 600px) {
+          font-size: 0.75rem;
+          line-height: 1.05rem;
+        }
       }
     }
   }
