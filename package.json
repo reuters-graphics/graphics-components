@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -175,6 +175,7 @@
     "./components/SiteHeader/scss/z-indexes": "./dist/components/SiteHeader/scss/_z-indexes.scss",
     "./components/SiteHeader/svgs/Close.svelte": "./dist/components/SiteHeader/svgs/Close.svelte",
     "./components/SiteHeader/svgs/Menu.svelte": "./dist/components/SiteHeader/svgs/Menu.svelte",
+    "./components/SiteHeadline/SiteHeadline.svelte": "./dist/components/SiteHeadline/SiteHeadline.svelte",
     "./components/Spinner/Spinner.svelte": "./dist/components/Spinner/Spinner.svelte",
     "./components/Theme/@types/component.ts": "./dist/components/Theme/@types/component.ts",
     "./components/Theme/Theme.svelte": "./dist/components/Theme/Theme.svelte",
