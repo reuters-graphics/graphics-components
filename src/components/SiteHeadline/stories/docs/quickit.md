@@ -24,5 +24,7 @@ Updated:
   sectionUrl="{content.SectionUrl}"
   hed="{content.Hed}"
   authors="{content.Authors.split(',')}"
+  publishTime="{content.Published}"
+  updateTime="{content.Updated}"
 />
 ```
