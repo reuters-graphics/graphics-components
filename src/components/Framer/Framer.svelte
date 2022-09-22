@@ -23,6 +23,7 @@
   };
 
   let activeEmbed = getDefaultEmbed();
+  let activeEmbedIndex = embeds.indexOf(activeEmbed);
 
   $: embedTitles = getUniqNames(embeds);
 
@@ -30,11 +31,17 @@
   let pymParent;
 
   const reframe = (embed) => {
+    // Bit of hack for handling adding query strings dynamically to embeds.
+    // cf. also the value prop on the Typeahead component...
+    const activeEmbed =
+      embeds.indexOf(embed) > -1
+        ? embed
+        : embeds[activeEmbedIndex] || embeds[0];
     pymParent = new pym.Parent(
       'frame-parent',
-      /^http/.test(embed)
-        ? embed
-        : urljoin(window.location.origin, embed, { trailingSlash: true })
+      /^http/.test(activeEmbed)
+        ? activeEmbed
+        : urljoin(window.location.origin, activeEmbed, { trailingSlash: true })
     );
   };
 
@@ -68,7 +75,9 @@
     </div>
     <Typeahead
       label="Select an embed"
-      value="{embedTitles[embeds.indexOf(activeEmbed)]}"
+      value="{embedTitles[embeds.indexOf(activeEmbed)] ||
+        embedTitles[activeEmbedIndex] ||
+        embedTitles[0]}"
       extract="{(d) => embedTitles[d.index]}"
       data="{embeds.map((embed, index) => ({ index, embed }))}"
       placeholder="{'Search'}"
@@ -81,6 +90,7 @@
           );
         }
         activeEmbed = detail.original.embed;
+        activeEmbedIndex = detail.original.index;
       }}"
     />
   </div>
@@ -103,12 +113,9 @@
   maxFrameWidth="{maxFrameWidth}"
 />
 
-<style lang="scss">
-  @import '../../scss/fonts/mixins';
-
+<style>
   header {
-    @include font-display;
-
+    font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
     font-size: 50px;
     text-align: center;
     text-transform: uppercase;
@@ -120,32 +127,32 @@
     max-width: 660px;
     margin: 0 auto 15px;
     position: relative;
-    div.embed-link {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: inline-block;
-      z-index: 2;
-      a {
-        @include font-display;
-        color: #bbb;
-        font-size: 12px;
-        text-decoration: none !important;
-        &:hover {
-          color: #666;
-        }
-      }
-    }
+  }
+  div#typeahead-container div.embed-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    z-index: 2;
+  }
+  div#typeahead-container div.embed-link a {
+    font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
+    color: #bbb;
+    font-size: 12px;
+    text-decoration: none !important;
+  }
+  div#typeahead-container div.embed-link a:hover {
+    color: #666;
   }
 
   div#preview-label {
     margin: 0 auto;
-    p {
-      @include font-display;
-      color: #aaa;
-      font-size: 0.75rem;
-      margin: 0 0 0.25rem;
-    }
+  }
+  div#preview-label p {
+    font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
+    color: #aaa;
+    font-size: 0.75rem;
+    margin: 0 0 0.25rem;
   }
 
   #frame-parent {
@@ -159,11 +166,11 @@
     bottom: 5px;
     left: 10px;
     font-size: 18px;
-    a {
-      color: #ccc;
-      &:hover {
-        color: #666;
-      }
-    }
+  }
+  div#home-link a {
+    color: #ccc;
+  }
+  div#home-link a:hover {
+    color: #666;
   }
 </style>
