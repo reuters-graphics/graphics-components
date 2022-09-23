@@ -113,7 +113,7 @@
   maxFrameWidth="{maxFrameWidth}"
 />
 
-<style>
+<style lang="scss">
   header {
     font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
     font-size: 50px;
@@ -159,6 +159,9 @@
     border: 1px solid #ddd;
     margin: 0 auto;
     width: var(--width);
+    :global(iframe) {
+      display: block;
+    }
   }
 
   div#home-link {
