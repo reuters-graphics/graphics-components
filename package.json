@@ -122,6 +122,7 @@
     "./components/PhotoPack/PhotoPack.svelte": "./dist/components/PhotoPack/PhotoPack.svelte",
     "./components/PhotoPack/docProps.ts": "./dist/components/PhotoPack/docProps.ts",
     "./components/PymChild/PymChild.svelte": "./dist/components/PymChild/PymChild.svelte",
+    "./components/PymChild/stores": "./dist/components/PymChild/stores.js",
     "./components/ReutersLogo/ReutersLogo.svelte": "./dist/components/ReutersLogo/ReutersLogo.svelte",
     "./components/SEO/SEO.svelte": "./dist/components/SEO/SEO.svelte",
     "./components/SEO/analytics": "./dist/components/SEO/analytics.js",
