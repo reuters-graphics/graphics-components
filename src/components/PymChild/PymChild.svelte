@@ -5,11 +5,12 @@
 
   import { onMount } from 'svelte';
   import pym from 'pym.js';
+  import { pymChildStore } from './stores.js';
 
-  // @ts-ignore
   let pymChild;
 
   onMount(() => {
     pymChild = new pym.Child({ polling });
+    pymChildStore.set(pymChild);
   });
 </script>

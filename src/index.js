@@ -14,6 +14,7 @@ export { default as NoteText } from './components/NoteText/NoteText.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
+export { pymChildStore } from './components/PymChild/stores.js';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';
 export { default as Scroller } from './components/Scroller/Scroller.svelte';
 export { default as SEO } from './components/SEO/SEO.svelte';
