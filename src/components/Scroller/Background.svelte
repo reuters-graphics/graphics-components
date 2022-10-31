@@ -9,7 +9,8 @@
 
 {#each steps as step, i}
   <!-- Load the step(s) before and after the active one, only -->
-  {#if preload === 0 || (i >= index - preload && i <= index + preload)}
+  <!-- Unless stackBackground is true. If so, keep all steps before the current one loaded. -->
+  {#if preload === 0 || (i >= (stackBackground ? 0 : index - preload) && i <= index + preload)}
     <div
       class="step-background step-{i + 1}"
       class:visible="{stackBackground ? i <= index : i === index}"
