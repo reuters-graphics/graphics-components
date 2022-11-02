@@ -14,7 +14,6 @@ Most of the fields are filled in by other sources, like your Google Doc and pack
 </script>
 
 <SEO
-  lang="en"
   baseUrl="{VITE_BASE_URL}"
   pageUrl="{$page.url}"
   seoTitle="{content.SEOTitle}"

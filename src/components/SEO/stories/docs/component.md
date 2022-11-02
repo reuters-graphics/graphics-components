@@ -16,7 +16,6 @@ The `SEO` component adds essential metadata to published pages.
   shareDecription="A description for Twitter/Facebook"
   shareImgPath="https://graphics.reuters.com/world-coronavirus-tracker-and-maps/assets/images/share.jpg"
   shareImgAlt="An image showing global COVID infection rates"
-  lang="en"
   publishTime="2020-09-15T00:00:00.000Z"
   updateTime="2021-01-10T12:30:00.000Z"
   authors="{[
