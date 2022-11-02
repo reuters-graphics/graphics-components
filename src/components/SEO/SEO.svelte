@@ -53,11 +53,6 @@
    */
   export let shareImgAlt: string = '';
   /**
-   * [HTML lang attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang). **Two-letter code only.**
-   * @type {string}
-   */
-  export let lang: string = 'en';
-  /**
    * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
    * @type {string}
    */
@@ -153,7 +148,6 @@
 </script>
 
 <svelte:head>
-  <html lang="{lang}"></html>
   <title>{seoTitle}</title>
   <meta name="description" content="{seoDescription}" />
   <link rel="canonical" href="{canonicalUrl}" />
