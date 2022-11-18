@@ -16,30 +16,32 @@ const attachScript = function (i, s, o, g, r, a, m) {
 /* eslint-enable */
 
 export default (page, title) => {
-  if (!window.ga) {
-    attachScript(
-      window,
-      document,
-      'script',
-      'https://www.google-analytics.com/analytics.js',
-      'ga'
-    );
+  try {
+    if (!window.ga) {
+      attachScript(
+        window,
+        document,
+        'script',
+        'https://www.google-analytics.com/analytics.js',
+        'ga'
+      );
 
-    window.ga('create', 'UA-41619329-3', { cookieDomain: 'auto' });
-    window.ga('require', 'linkid', 'linkid.js');
-  }
+      window.ga('create', 'UA-41619329-3', { cookieDomain: 'auto' });
+      window.ga('require', 'linkid', 'linkid.js');
+    }
 
-  window.ga('send', 'pageview', {
-    page,
-    title,
-  });
-
-  if (!inIframe()) {
-    // start time on page tracking if not in an iframe
-    riveted.init({
-      reportInterval: 30,
+    window.ga('send', 'pageview', {
+      page,
+      title,
     });
-  }
+
+    if (!inIframe()) {
+      // start time on page tracking if not in an iframe
+      riveted.init({
+        reportInterval: 30,
+      });
+    }
+  } catch (e) {}
 };
 
 // checks if page is in an iframe
