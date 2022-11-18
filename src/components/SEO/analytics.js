@@ -16,31 +16,31 @@ const attachScript = function (i, s, o, g, r, a, m) {
 /* eslint-enable */
 
 export default (page, title) => {
-  attachScript(
-    window,
-    document,
-    'script',
-    'https://www.google-analytics.com/analytics.js',
-    'ga'
-  );
+  if (!window.ga) {
+    attachScript(
+      window,
+      document,
+      'script',
+      'https://www.google-analytics.com/analytics.js',
+      'ga'
+    );
 
-  window.ga('create', 'UA-41619329-3', { cookieDomain: 'auto' });
-  window.ga('require', 'linkid', 'linkid.js');
+    window.ga('create', 'UA-41619329-3', { cookieDomain: 'auto' });
+    window.ga('require', 'linkid', 'linkid.js');
+  }
+
   window.ga('send', 'pageview', {
     page,
     title,
   });
 
   if (!inIframe()) {
-    //start time on page tracking if not in an iframe
+    // start time on page tracking if not in an iframe
     riveted.init({
       reportInterval: 30,
     });
   }
 };
-
-
-
 
 // checks if page is in an iframe
 function inIframe() {
@@ -51,28 +51,27 @@ function inIframe() {
   }
 }
 
-
 /*
  * START: Riveted time on page tracking code
  * see aditional documentation here: https://riveted.parsnip.io/
  */
-
+/* eslint-disable */
 var riveted = (function () {
-  var started = false;
-  var stopped = false;
-  var turnedOff = false;
-  var clockTime = 0;
-  var startTime = new Date();
-  var clockTimer = null;
-  var idleTimer = null;
-  var sendEvent;
-  var sendUserTiming;
-  var reportInterval;
-  var idleTimeout;
-  var nonInteraction;
-  var universalGA;
-  var classicGA;
-  var googleTagManager;
+  let started = false;
+  let stopped = false;
+  let turnedOff = false;
+  let clockTime = 0;
+  const startTime = new Date();
+  let clockTimer = null;
+  let idleTimer = null;
+  let sendEvent;
+  let sendUserTiming;
+  let reportInterval;
+  let idleTimeout;
+  let nonInteraction;
+  let universalGA;
+  let classicGA;
+  let googleTagManager;
 
   function init(options) {
     /*
@@ -126,8 +125,8 @@ var riveted = (function () {
     // Page visibility listeners
     addListener(document, 'visibilitychange', visibilityChange);
     addListener(document, 'webkitvisibilitychange', visibilityChange);
-    
-    //sends initial zero value
+
+    // sends initial zero value
     sendEvent(0);
   }
 
@@ -140,18 +139,18 @@ var riveted = (function () {
    */
 
   function throttle(func, wait) {
-    var context, args, result;
-    var timeout = null;
-    var previous = 0;
-    var later = function () {
+    let context, args, result;
+    let timeout = null;
+    let previous = 0;
+    const later = function () {
       previous = new Date();
       timeout = null;
       result = func.apply(context, args);
     };
     return function () {
-      var now = new Date();
+      const now = new Date();
       if (!previous) previous = now;
-      var remaining = wait - (now - previous);
+      const remaining = wait - (now - previous);
       context = this;
       args = arguments;
       if (remaining <= 0) {
@@ -190,7 +189,7 @@ var riveted = (function () {
         event: 'RivetedTiming',
         eventCategory: 'Riveted',
         timingVar: 'First Interaction',
-        timingValue: timingValue,
+        timingValue,
       });
     } else {
       if (universalGA) {
@@ -233,7 +232,7 @@ var riveted = (function () {
           'Time Spent',
           time.toString(),
           reportInterval,
-          { nonInteraction: nonInteraction }
+          { nonInteraction }
         );
       }
 
@@ -290,8 +289,8 @@ var riveted = (function () {
 
   function startRiveted() {
     // Calculate seconds from start to first interaction
-    var currentTime = new Date();
-    var diff = currentTime - startTime;
+    const currentTime = new Date();
+    const diff = currentTime - startTime;
 
     // Set global
     started = true;
@@ -321,12 +320,12 @@ var riveted = (function () {
   }
 
   return {
-    init: init,
-    trigger: trigger,
-    setIdle: setIdle,
+    init,
+    trigger,
+    setIdle,
     on: turnOn,
     off: turnOff,
   };
 })();
-
+/* eslint-enable */
 /* END: Riveted time on page tracking code */

@@ -91,10 +91,16 @@
   $: origin = getOrigin(baseUrl);
   $: canonicalUrl = origin + pageUrl.pathname;
 
+  let hasEnabledPublisherTags = false;
   // Only fire analytics on prod sites
-  if (typeof window !== 'undefined' && includeAnalytics) {
-    analytics(canonicalUrl, seoTitle);
-    publisherTags();
+  $: {
+    if (typeof window !== 'undefined' && includeAnalytics) {
+      analytics(canonicalUrl, seoTitle);
+      if (!hasEnabledPublisherTags) {
+        publisherTags();
+        hasEnabledPublisherTags = true;
+      }
+    }
   }
 
   const orgLdJson = {
@@ -111,7 +117,7 @@
     url: 'https://www.reuters.com/',
   };
 
-  const articleLdJson = {
+  $: articleLdJson = {
     '@context': 'http://schema.org',
     '@type': 'NewsArticle',
     headline: seoTitle,
