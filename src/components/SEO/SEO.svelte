@@ -154,64 +154,66 @@
 </script>
 
 <svelte:head>
-  <title>{seoTitle}</title>
-  <meta name="description" content="{seoDescription}" />
-  <link rel="canonical" href="{canonicalUrl}" />
-  <link
-    rel="shortcut icon"
-    type="image/x-icon"
-    href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon.ico"
-  />
-  <link
-    rel="icon"
-    type="image/png"
-    href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon-16x16.png"
-    sizes="16x16"
-  />
-  <link
-    rel="icon"
-    type="image/png"
-    href="https://s1.reutersmedia.net/resources_v2/images/favicon/favicon-32x32.png"
-    sizes="32x32"
-  />
-  <link
-    rel="icon"
-    type="image/png"
-    href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon-96x96.png"
-    sizes="96x96"
-  />
+  {#key canonicalUrl}
+    <title>{seoTitle}</title>
+    <meta name="description" content="{seoDescription}" />
+    <link rel="canonical" href="{canonicalUrl}" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon.ico"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://s1.reutersmedia.net/resources_v2/images/favicon/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
 
-  <meta property="og:url" content="{canonicalUrl}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="{shareTitle}" itemprop="name" />
-  <meta
-    property="og:description"
-    content="{shareDescription}"
-    itemprop="description"
-  />
-  <meta property="og:image" content="{shareImgPath}" itemprop="image" />
-  <meta property="og:site_name" content="Reuters" />
+    <meta property="og:url" content="{canonicalUrl}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{shareTitle}" itemprop="name" />
+    <meta
+      property="og:description"
+      content="{shareDescription}"
+      itemprop="description"
+    />
+    <meta property="og:image" content="{shareImgPath}" itemprop="image" />
+    <meta property="og:site_name" content="Reuters" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@ReutersGraphics" />
-  <meta name="twitter:creator" content="@ReutersGraphics" />
-  <meta name="twitter:domain" content="{origin}" />
-  <meta name="twitter:title" content="{shareTitle}" />
-  <meta name="twitter:description" content="{shareDescription}" />
-  <meta name="twitter:image" content="{shareImgPath}" />
-  {#if shareImgAlt}
-    <meta name="twitter:image:alt" content="{shareImgAlt}" />
-  {/if}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ReutersGraphics" />
+    <meta name="twitter:creator" content="@ReutersGraphics" />
+    <meta name="twitter:domain" content="{origin}" />
+    <meta name="twitter:title" content="{shareTitle}" />
+    <meta name="twitter:description" content="{shareDescription}" />
+    <meta name="twitter:image" content="{shareImgPath}" />
+    {#if shareImgAlt}
+      <meta name="twitter:image:alt" content="{shareImgAlt}" />
+    {/if}
 
-  <meta property="fb:app_id" content="319194411438328" />
-  <meta property="fb:admins" content="616167736" />
-  <meta property="fb:admins" content="625796953" />
-  <meta property="fb:admins" content="571759798" />
+    <meta property="fb:app_id" content="319194411438328" />
+    <meta property="fb:admins" content="616167736" />
+    <meta property="fb:admins" content="625796953" />
+    <meta property="fb:admins" content="571759798" />
 
-  {@html `<${'script'} type="application/ld+json">${JSON.stringify(
-    orgLdJson
-  )}</script>`}
-  {@html `<${'script'} type="application/ld+json">${JSON.stringify(
-    articleLdJson
-  )}</script>`}
+    {@html `<${'script'} type="application/ld+json">${JSON.stringify(
+      orgLdJson
+    )}</script>`}
+    {@html `<${'script'} type="application/ld+json">${JSON.stringify(
+      articleLdJson
+    )}</script>`}
+  {/key}
 </svelte:head>
