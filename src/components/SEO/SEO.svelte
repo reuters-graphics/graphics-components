@@ -91,15 +91,11 @@
   $: origin = getOrigin(baseUrl);
   $: canonicalUrl = origin + pageUrl.pathname;
 
-  let hasEnabledPublisherTags = false;
   // Only fire analytics on prod sites
   $: {
     if (typeof window !== 'undefined' && includeAnalytics) {
       analytics(canonicalUrl, seoTitle);
-      if (!hasEnabledPublisherTags) {
-        publisherTags();
-        hasEnabledPublisherTags = true;
-      }
+      publisherTags();
     }
   }
 

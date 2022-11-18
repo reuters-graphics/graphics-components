@@ -1,7 +1,13 @@
 export default () => {
+  const { protocol } = document.location;
+  const gptScript = document.querySelector(
+    `script[src="${protocol}//www.googletagservices.com/tag/js/gpt.js"]`
+  );
+  // Only do this once.
+  if (gptScript) return;
   const googletag = window.googletag || {};
   googletag.cmd = googletag.cmd || [];
-  (function() {
+  (function () {
     const gads = document.createElement('script');
     gads.async = true;
     gads.type = 'text/javascript';
@@ -12,7 +18,7 @@ export default () => {
     const node = document.getElementsByTagName('script')[0];
     node.parentNode.insertBefore(gads, node);
   })();
-  googletag.cmd.push(function() {
+  googletag.cmd.push(function () {
     googletag
       .defineSlot(
         '/4735792/reuters_investigates',
