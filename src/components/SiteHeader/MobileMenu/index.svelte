@@ -158,6 +158,7 @@
     .section-link,
     .subsection-link {
       @include font-display;
+      text-decoration: none;
       line-height: 1.2;
       color: var(--nav-primary);
 
