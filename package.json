@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -123,6 +123,8 @@
     "./components/PhotoPack/docProps.ts": "./dist/components/PhotoPack/docProps.ts",
     "./components/PymChild/PymChild.svelte": "./dist/components/PymChild/PymChild.svelte",
     "./components/PymChild/stores": "./dist/components/PymChild/stores.js",
+    "./components/ReferralBlock/ReferralBlock.svelte": "./dist/components/ReferralBlock/ReferralBlock.svelte",
+    "./components/ReferralBlock/stores": "./dist/components/ReferralBlock/stores.js",
     "./components/ReutersLogo/ReutersLogo.svelte": "./dist/components/ReutersLogo/ReutersLogo.svelte",
     "./components/SEO/SEO.svelte": "./dist/components/SEO/SEO.svelte",
     "./components/SEO/analytics": "./dist/components/SEO/analytics.js",
