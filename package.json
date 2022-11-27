@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -125,6 +125,7 @@
     "./components/PymChild/stores": "./dist/components/PymChild/stores.js",
     "./components/ReferralBlock/ReferralBlock.svelte": "./dist/components/ReferralBlock/ReferralBlock.svelte",
     "./components/ReferralBlock/stores": "./dist/components/ReferralBlock/stores.js",
+    "./components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte": "./dist/components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte",
     "./components/ReutersLogo/ReutersLogo.svelte": "./dist/components/ReutersLogo/ReutersLogo.svelte",
     "./components/SEO/SEO.svelte": "./dist/components/SEO/SEO.svelte",
     "./components/SEO/analytics": "./dist/components/SEO/analytics.js",
@@ -186,6 +187,7 @@
     "./components/Theme/themes/light": "./dist/components/Theme/themes/light.js",
     "./components/Theme/utils/flatten": "./dist/components/Theme/utils/flatten.js",
     "./components/Theme/utils/merge": "./dist/components/Theme/utils/merge.js",
+    "./components/ToolsHeader/ToolsHeader.svelte": "./dist/components/ToolsHeader/ToolsHeader.svelte",
     "./components/Video/Controls.svelte": "./dist/components/Video/Controls.svelte",
     "./components/Video/Video.svelte": "./dist/components/Video/Video.svelte",
     "./components/Visible/Visible.svelte": "./dist/components/Visible/Visible.svelte",
