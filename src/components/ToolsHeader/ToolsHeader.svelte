@@ -58,7 +58,6 @@
 
 <style lang="scss">
   header {
-    width: 100%;
     padding: 10px 15px;
     display: flex;
     gap: 15px;
