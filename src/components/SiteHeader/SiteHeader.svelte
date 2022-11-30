@@ -21,11 +21,11 @@
       const response = await fetch(
         'https://www.reuters.com/site-api/header/?' +
           new URLSearchParams({
-            website: 'reuters',
+            _website: 'reuters',
             outputType: 'json',
           })
       );
-      const headerData = (await response.json())[0];
+      const headerData = await response.json();
       // Dumb verification...
       if (!headerData[0].sections) return;
       data = headerData;

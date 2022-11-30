@@ -27,11 +27,11 @@
       const response = await fetch(
         'https://www.reuters.com/site-api/footer/?' +
           new URLSearchParams({
-            website: 'reuters',
+            _website: 'reuters',
             outputType: 'json',
           })
       );
-      const footerData = (await response.json())[2];
+      const footerData = await response.json();
       // Dumb verification...
       if (!footerData[0].company_description) return;
       data = footerData;
