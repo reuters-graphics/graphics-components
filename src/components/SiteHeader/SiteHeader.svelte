@@ -2,17 +2,37 @@
 <script lang="ts">
   import ReutersLogo from '../ReutersLogo/ReutersLogo.svelte';
   import NavBar from './NavBar/index.svelte';
-  import data from './data.json';
-  import { setContext } from 'svelte';
+  import starterData from './data.json';
+  import { onMount, setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import MenuIcon from './svgs/Menu.svelte';
   import MobileMenu from './MobileMenu/index.svelte';
 
   setContext('nav-active-section', writable(null));
 
-  const { sections } = data[0];
+  let data = starterData;
+
+  $: sections = data[0].sections;
 
   let isMobileMenuOpen = false;
+
+  onMount(async () => {
+    try {
+      const response = await fetch(
+        'https://www.reuters.com/site-api/header/?' +
+          new URLSearchParams({
+            website: 'reuters',
+            outputType: 'json',
+          })
+      );
+      const headerData = (await response.json())[0];
+      // Dumb verification...
+      if (!headerData[0].sections) return;
+      data = headerData;
+    } catch {
+      console.warn('Unable to fetch site header data');
+    }
+  });
 </script>
 
 <header

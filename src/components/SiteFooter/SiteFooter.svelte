@@ -5,7 +5,8 @@
   import LegalLinks from './LegalLinks.svelte';
   import Referrals from './Referrals/index.svelte';
 
-  import data from './data.json';
+  import starterData from './data.json';
+  import { onMount } from 'svelte';
 
   interface Referral {
     url: URL;
@@ -18,6 +19,26 @@
    * Custom referrals to other Reuters Graphics projects
    */
   export let referrals: Referral[] = [];
+
+  let data = starterData;
+
+  onMount(async () => {
+    try {
+      const response = await fetch(
+        'https://www.reuters.com/site-api/footer/?' +
+          new URLSearchParams({
+            website: 'reuters',
+            outputType: 'json',
+          })
+      );
+      const footerData = (await response.json())[2];
+      // Dumb verification...
+      if (!footerData[0].company_description) return;
+      data = footerData;
+    } catch {
+      console.warn('Unable to fetch site footer data');
+    }
+  });
 </script>
 
 <footer
