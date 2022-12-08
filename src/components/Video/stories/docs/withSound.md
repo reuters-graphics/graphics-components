@@ -27,7 +27,7 @@ and go to the top. Click anywhere on the page before scrolling down to the video
 <Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
-  size="{'normal'}"
+  width="{'normal'}"
   controlsOpacity="{1}"
   loopVideo="{false}"
   muteVideo="{false}"

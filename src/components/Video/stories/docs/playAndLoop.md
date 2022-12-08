@@ -1,11 +1,11 @@
 `playVideoWhenInView`, `playVideoThreshold`
 
 - By default, the video will **start playing when 50% of the video element's height is visible on the page**.
-To control the threshold of visibility at which the video starts playing, add the prop `playVideoThreshold` and set it to a value between 0 and 1,
-where 0 means that the video will start playing as soon as its top enters the viewport, while 1 means it will start when the whole video is in the viewport.
+  To control the threshold of visibility at which the video starts playing, add the prop `playVideoThreshold` and set it to a value between 0 and 1,
+  where 0 means that the video will start playing as soon as its top enters the viewport, while 1 means it will start when the whole video is in the viewport.
 
 - If you don't want the video to play when you scroll to it, but **on page load**, add the prop `playVideoWhenInView={false}`. The default of the prop is `true`,
-which corresponds to the behaviour described above.
+  which corresponds to the behaviour described above.
 
 `loopVideo`
 
@@ -18,11 +18,11 @@ Here is an example of what the same video would look like with a visibility thre
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<Video 
-  ariaDescription={"Compulsory description of your video for screen readers."}
-  src={'path-to-video-or-external-url'} 
-  size={'normal'}
-  loopVideo={false}
-  playVideoThreshold={0.9}
+<Video
+  ariaDescription="{'Compulsory description of your video for screen readers.'}"
+  src="{'path-to-video-or-external-url'}"
+  width="{'normal'}"
+  loopVideo="{false}"
+  playVideoThreshold="{0.9}"
 />
 ```
