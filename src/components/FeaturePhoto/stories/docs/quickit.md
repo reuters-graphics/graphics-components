@@ -24,17 +24,15 @@ Caption: Carcharodon carcharias - REUTERS
   {#if block.Type === 'text'}
     <!-- ... other blocks -->
 
-  <!-- Copy/paste into your blocks loop! -->
+    <!-- Copy/paste into your blocks loop! -->
   {:else if block.Type === 'photo'}
-    <FeautrePhoto
-      width={block.Width}
-      src={`${assets}/${block.Src}`}
-      altText={block.AltText}
-      caption={block.Caption}
+    <FeaturePhoto
+      width="{block.Width}"
+      src="{`${assets}/${block.Src}`}"
+      altText="{block.AltText}"
+      caption="{block.Caption}"
     />
-  <!-- END copy/paste -->
-
-
+    <!-- END copy/paste -->
   {/if}
 {/each}
 ```

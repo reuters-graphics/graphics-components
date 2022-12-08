@@ -8,7 +8,7 @@ A full-width photo inside the text well.
 
 <FeaturePhoto
   src="{`${assets}/images/myImage.jpg`}"
-  alt="Some alt text"
+  altText="Some alt text"
   caption="A caption"
   lazy="{false}"
   width="normal"
