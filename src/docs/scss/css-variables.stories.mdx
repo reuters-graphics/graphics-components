@@ -25,6 +25,8 @@ Several [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_C
 ```
 
 ## Variables
+Read more about how to override or define your own CSS variables in the [Themes](/docs/theming-theme--custom-theme) section.
+
 
 ### Colours
 
@@ -38,15 +40,41 @@ Several [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_C
 | `--theme-colour-brand-rules`    | Rules in header and footer      |
 | `--theme-colour-brand-shadow`   | Box shadow on header            |
 
-### Fonts
+### Font family and sizes
+
+| CSS variable                     | Role                                                                   |
+| -------------------------------- | -----------------------------------------------------------------------|
+| `--theme-font-family-hed`        | Headline (`h1`) font family                                            |
+| `--theme-font-family-subhed`     | Subhead (`h2`-`h6`) font family                                        |
+| `--theme-font-family-body`       | Body (`.body-text > p`) font family                                    |
+| `--theme-font-family-note`       | Note (`.note-text > p`, `.end-note > p`, `.foot-note > p`) font family |
+| `--theme-font-size-hed`          | Headline (`h1`) font size                                              |
+| `--theme-font-size-subhed-1`     | Subhead (`h2`) font size                                               |
+| `--theme-font-size-subhed-2`     | Subhead (`h3`) font size                                               |
+| `--theme-font-size-subhed-3`     | Subhead (`h4`-`h6`) font size                                          |
+| `--theme-font-size-body`         | Body (`.body-text > p`) font size                                      |
+| `--theme-font-size-note-1`       | Body description (`.note-text > p`)  font size                         |
+| `--theme-font-size-note-2`       | Endnotes (`.end-note > p`)  font size                                  |
+| `--theme-font-size-note-3`       | Dateline/Caption (`.foot-note > p`)  font size                         |
+
+
+### Font faces
 
 | CSS variable                     | Role                            |
 | -------------------------------- | ------------------------------- |
-| `--theme-font-size-base`         | Base font size                  |
-| `--theme-font-family-serif`      | Base serif font family          |
-| `--theme-font-family-sans-serif` | Base sans-serif font family     |
-| `--theme-font-family-monospace`  | Base monospace font family      |
-| `--theme-font-family-hed`        | Headline (`h1`) font family     |
-| `--theme-font-family-subhed`     | Subhead (`h2`-`h6`) font family |
-| `--theme-font-family-body`       | Body text font family           |
-| `--theme-font-family-note`       | Note font family                |
+| `--theme-fontface-display`       | Base display font family        |
+| `--theme-fontface-serif`         | Base serif font family          |
+| `--theme-fontface-sans-serif`    | Base sans-serif font family     |
+| `--theme-fontface-monospace`     | Base monospace font family      |
+
+### Size scale
+
+| CSS variable                     | Role                            |
+| -------------------------------- | ------------------------------- |
+| `--theme-scale-size-base`        | Scale factor for base body size |
+| `--theme-scale-size-1`           | Size level 1                    |
+| `--theme-scale-size-2`           | Size level 2                    |
+| `--theme-scale-size-3`           | Size level 3                    |
+| `--theme-scale-size-4`           | Size level 4                    |
+| `--theme-scale-size-5`           | Size level 5                    |
+| `--theme-scale-size-6`           | Size level 6                    |
