@@ -1,7 +1,10 @@
 <!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SEO--default) -->
 <script lang="ts">
-  import analytics from './analytics';
-  import publisherTags from './publisherTags';
+  import {
+    loadChartbeat,
+    loadGA,
+    loadPublisherTags,
+  } from './analytics/index.js';
 
   /**
    * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
@@ -94,8 +97,9 @@
   // Only fire analytics on prod sites
   $: {
     if (typeof window !== 'undefined' && includeAnalytics) {
-      analytics(canonicalUrl, seoTitle);
-      publisherTags();
+      loadChartbeat(authors);
+      loadGA(canonicalUrl, seoTitle);
+      loadPublisherTags();
     }
   }
 
