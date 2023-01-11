@@ -1,12 +1,7 @@
 {
-  "i18n-ally.localesPaths": [
-    "locales"
-  ],
+  "i18n-ally.localesPaths": ["locales"],
   "i18n-ally.keystyle": "nested",
-  "eslint.validate": [
-    "javascript",
-    "svelte"
-  ],
+  "eslint.validate": ["javascript", "svelte"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
@@ -16,5 +11,6 @@
   },
   "[mdx]": {
     "editor.wordWrap": "on"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
