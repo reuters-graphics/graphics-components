@@ -1,7 +1,7 @@
 import type { ComponentType } from 'svelte';
 
 interface BlockStep {
-  AltText: string;
+  AltText?: string;
   Background: string;
   Text: string;
 }

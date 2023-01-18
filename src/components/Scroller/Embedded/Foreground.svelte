@@ -13,7 +13,9 @@
   <div class="empty-step-foreground step-{index + 1}"></div>
 
   {#if typeof step.altText === 'string'}
-    <p class="background-alt-text visually-hidden">{step.altText}</p>
+    <div class="background-alt-text visually-hidden">
+      {@html marked.parse(step.altText)}
+    </div>
   {/if}
 {:else if typeof step.foreground === 'string'}
   <Block cls="body-text step-{index + 1}">
@@ -22,7 +24,9 @@
     </div>
 
     {#if typeof step.altText === 'string'}
-      <p class="background-alt-text visually-hidden">{step.altText}</p>
+      <div class="background-alt-text visually-hidden">
+        {@html marked.parse(step.altText)}
+      </div>
     {/if}
   </Block>
 {:else}

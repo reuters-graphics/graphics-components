@@ -52,19 +52,21 @@ Step1Text: #### Step 1
 Lorem Ipsum
 :end
 AltText1: A map showing the Upper West side in New York City.
+:end
 
 Step2Text: #### Step 2
 
 Lorem Ipsum
 :end
 AltText2: The same map now highlights 98th Street.
+:end
 
 Step3Text: #### Step 3
 
 Lorem Ipsum
 :end
 AltText3: The same map now highlights three locations near 98th Street where something particulary important happened.
-
+:end
 ```
 
 ```svelte

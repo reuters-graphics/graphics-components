@@ -9,7 +9,7 @@ export type ContainerWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider'
  * A step in the Scroller component.
  */
 export interface ScrollerStep {
-  altText: string;
+  altText?: string;
   /**
    * A background component
    * @required
