@@ -11,17 +11,31 @@ Check out the "Canvas" tab to play with the layout options available on this com
   import MyColourBackground from './MyColourBackground.svelte';
 
   const steps = [
-    { background: MyColourBackground, backgroundProps: { colour: 'red' }, foreground: '#### Step 1\n\nLorem ipsum red' },
-    { background: MyColourBackground, backgroundProps: { colour: 'blue' }, foreground: '#### Step 2\n\nLorem ipsum blue' },
-    { background: MyColourBackground, backgroundProps: { colour: 'green' }, foreground: '#### Step 3\n\nLorem ipsum green' },
-  ]
+    {
+      background: MyColourBackground,
+      backgroundProps: { colour: 'red' },
+      foreground: '#### Step 1\n\nLorem ipsum red',
+      altText: 'Red background',
+    },
+    {
+      background: MyColourBackground,
+      backgroundProps: { colour: 'blue' },
+      foreground: '#### Step 2\n\nLorem ipsum blue',
+      altText: 'Blue background',
+    },
+    {
+      background: MyColourBackground,
+      backgroundProps: { colour: 'green' },
+      foreground: '#### Step 3\n\nLorem ipsum green',
+      altText: 'Green background',
+    },
+  ];
 </script>
-
 
 <Scroller
   steps="{steps}"
   backgroundWidth="fluid"
   foregroundPosition="middle"
-  embedded={false}
+  embedded="{false}"
 />
 ```

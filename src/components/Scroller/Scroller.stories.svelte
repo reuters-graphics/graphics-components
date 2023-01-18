@@ -38,9 +38,22 @@
     ID: 'my-scroller',
     StackBackground: 'true',
     Steps: [
-      { Background: 'AiMap1', Text: '#### Step 1\n\nLorem ipsum' },
-      { Background: 'AiMap2', Text: '#### Step 2\n\nLorem ipsum' },
-      { Background: 'AiMap3', Text: '#### Step 3\n\nLorem ipsum' },
+      {
+        Background: 'AiMap1',
+        Text: '#### Step 1\n\nLorem ipsum',
+        AltText: 'A map showing the Upper West side in New York City.',
+      },
+      {
+        Background: 'AiMap2',
+        Text: '#### Step 2\n\nLorem ipsum',
+        AltText: 'The same map now highlights 98th Street.',
+      },
+      {
+        Background: 'AiMap3',
+        Text: '#### Step 3\n\nLorem ipsum',
+        AltText:
+          'The same map now highlights three locations near 98th Street where something particulary important happened.',
+      },
     ],
   };
 
@@ -80,16 +93,19 @@
         background: BasicStep,
         backgroundProps: { colour: 'red' },
         foreground: '#### Step 1\n\nLorem ipsum red',
+        altText: 'Red background',
       },
       {
         background: BasicStep,
         backgroundProps: { colour: 'blue' },
         foreground: '#### Step 2\n\nLorem ipsum blue',
+        altText: 'Blue background',
       },
       {
         background: BasicStep,
         backgroundProps: { colour: 'green' },
         foreground: '#### Step 3\n\nLorem ipsum green',
+        altText: 'Green background',
       },
     ],
     foregroundPosition: 'middle',
@@ -142,16 +158,21 @@
         background: AiMap1,
         backgroundProps: { colour: 'red' },
         foreground: '#### Step 1\n\nLorem ipsum',
+        altText: 'A map showing the Upper West side in New York City.',
       },
       {
         background: AiMap2,
         backgroundProps: { colour: 'blue' },
         foreground: '#### Step 2\n\nLorem ipsum',
+        altText:
+          'The same map now highlights 98th Street where something interesting happened.',
       },
       {
         background: AiMap3,
         backgroundProps: { colour: 'green' },
         foreground: '#### Step 3\n\nLorem ipsum',
+        altText:
+          'The same map now highlights three locations near 98th Street where something particulary important happened.',
       },
     ],
     foregroundPosition: 'middle',

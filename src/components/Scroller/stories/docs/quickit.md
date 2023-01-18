@@ -35,17 +35,25 @@ StackBackground: true
 
   Lorem ipsum
   :end
+  AltText: A map showing the Upper West side in New York City.
+
+  Can add paragraphs of alt text if you want to break up sentences.
+  :end
 
   Background: AiMap2
   Text: #### Step 2
 
   Lorem ipsum
   :end
+  AltText: The same map now highlights 98th Street.
+  :end
 
   Background: AiMap3
   Text: #### Step 3
 
   Lorem ipsum
+  :end
+  AltText: The same map now highlights three locations near 98th Street where something particulary important happened.
   :end
 []
 

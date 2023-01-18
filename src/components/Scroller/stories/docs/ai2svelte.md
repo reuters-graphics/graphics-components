@@ -15,16 +15,19 @@ A more detailed example of using `Scroller` with graphics created by [ai2svelte]
       background: MyAiMap1,
       backgroundProps: { assetsPath: assets },
       foreground: '#### Step 1\n\nLorem ipsum',
+      altText: 'A map showing TKTK',
     },
     {
       background: MyAiMap2,
       backgroundProps: { assetsPath: assets },
       foreground: '#### Step 2\n\nLorem ipsum',
+      altText: 'The same map now highlights something interesting.',
     },
     {
       background: MyAiMap3,
       backgroundProps: { assetsPath: assets },
       foreground: '#### Step 3\n\nLorem ipsum',
+      altText: 'The same map now shows something else that is interesting.',
     },
   ];
 </script>
@@ -48,13 +51,21 @@ Step1Text: #### Step 1
 
 Lorem Ipsum
 :end
+AltText1: A map showing the Upper West side in New York City.
+:end
+
 Step2Text: #### Step 2
 
 Lorem Ipsum
 :end
+AltText2: The same map now highlights 98th Street.
+:end
+
 Step3Text: #### Step 3
 
 Lorem Ipsum
+:end
+AltText3: The same map now highlights three locations near 98th Street where something particulary important happened.
 :end
 ```
 
@@ -77,16 +88,19 @@ Lorem Ipsum
       background: MyAiMap1,
       backgroundProps: { basePath: assets },
       foreground: scrollerBlock.Step1Text,
+      altText: scrollerBlock.AltText1,
     },
     {
       background: MyAiMap2,
       backgroundProps: { basePath: assets },
       foreground: scrollerBlock.Step2Text,
+      altText: scrollerBlock.AltText2,
     },
     {
       background: MyAiMap3,
       backgroundProps: { basePath: assets },
       foreground: scrollerBlock.Step3Text,
+      altText: scrollerBlock.AltText3,
     },
   ];
 </script>
