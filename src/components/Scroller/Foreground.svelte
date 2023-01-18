@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ScrollerStep } from  '../@types/global';
+  import type { ScrollerStep } from '../@types/global';
 
   export let steps: ScrollerStep[] = [];
 
@@ -11,6 +11,9 @@
     {#if step.foreground === '' || !step.foreground}
       <!-- Empty foreground -->
       <div class="empty-step-foreground"></div>
+      {#if typeof step.altText === 'string'}
+        <p class="background-alt-text visually-hidden">{step.altText}</p>
+      {/if}
     {:else}
       <div class="step-foreground">
         {#if typeof step.foreground === 'string'}
@@ -22,11 +25,16 @@
           />
         {/if}
       </div>
+      {#if typeof step.altText === 'string'}
+        <p class="background-alt-text visually-hidden">{step.altText}</p>
+      {/if}
     {/if}
   </div>
 {/each}
 
 <style lang="scss">
+  @import './../../scss/mixins';
+
   div.step-foreground-container {
     height: 100vh;
     width: initial;
@@ -44,5 +52,9 @@
         margin-bottom: 0;
       }
     }
+  }
+
+  .visually-hidden {
+    @include visually-hidden;
   }
 </style>

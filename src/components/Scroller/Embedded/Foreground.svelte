@@ -11,11 +11,19 @@
 {#if step.foreground === '' || !step.foreground}
   <!-- Empty foreground -->
   <div class="empty-step-foreground step-{index + 1}"></div>
+
+  {#if typeof step.altText === 'string'}
+    <p class="background-alt-text visually-hidden">{step.altText}</p>
+  {/if}
 {:else if typeof step.foreground === 'string'}
   <Block cls="body-text step-{index + 1}">
     <div class="embedded-foreground step-{index + 1}">
       {@html marked.parse(step.foreground)}
     </div>
+
+    {#if typeof step.altText === 'string'}
+      <p class="background-alt-text visually-hidden">{step.altText}</p>
+    {/if}
   </Block>
 {:else}
   <div class="embedded-foreground step-{index + 1}">
@@ -27,7 +35,7 @@
 {/if}
 
 <style lang="scss">
-  @import "./../../../scss/mixins";
+  @import './../../../scss/mixins';
   div.embedded-foreground {
     :global {
       @include body-text;
@@ -35,5 +43,9 @@
     :global(p:last-child) {
       margin-bottom: 0;
     }
+  }
+
+  .visually-hidden {
+    @include visually-hidden;
   }
 </style>

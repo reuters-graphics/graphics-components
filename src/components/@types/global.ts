@@ -5,11 +5,11 @@ import type { ComponentType } from 'svelte';
  */
 export type ContainerWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
-
 /**
  * A step in the Scroller component.
  */
 export interface ScrollerStep {
+  altText: string;
   /**
    * A background component
    * @required
@@ -19,7 +19,7 @@ export interface ScrollerStep {
    * Optional props for background component
    */
   backgroundProps?: Object;
-  /** 
+  /**
    * Foreground can either be a component or markdown-formatted string.
    * @required
    */
