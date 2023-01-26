@@ -6,9 +6,12 @@
   // @ts-ignore
   import customiseDocs from './stories/docs/customise.md?raw';
   // @ts-ignore
+  import patternDocs from './stories/docs/pattern.md?raw';
+  // @ts-ignore
   import inheritanceDocs from './stories/docs/inheritance.md?raw';
 
   import ThemedPage from './stories/ThemedPage.svelte';
+  import SiteHeader from '../SiteHeader/SiteHeader.svelte';
 
   import Theme, { themes } from './Theme.svelte';
 
@@ -61,6 +64,20 @@
   </Theme>
 </Story>
 
+<Story name="Background patterns" {...withStoryDocs(patternDocs)}>
+  <div id="pattern-bg">
+    <Theme
+      base="dark"
+      theme="{{
+        colour: { background: 'transparent' },
+      }}"
+    >
+      <SiteHeader />
+      <ThemedPage />
+    </Theme>
+  </div>
+</Story>
+
 <Story name="Inheritance" {...withStoryDocs(inheritanceDocs)}>
   <Theme theme="{themes.light}">
     <div class="themed">
@@ -109,6 +126,17 @@
       margin: 0;
       display: block;
       width: 100%;
+    }
+  }
+
+  div#pattern-bg {
+    background-image: url(https://res.cloudinary.com/practicaldev/image/fetch/s--BuPz-p40--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nphrgz8yfnjylrwfr0yl.png);
+
+    :global(.nav-container .inner) {
+      background: #161019 !important;
+    }
+    :global(.nav-container .dropdown) {
+      background: #161019 !important;
     }
   }
 </style>
