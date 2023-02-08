@@ -4,6 +4,7 @@ export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.sve
 export { default as Block } from './components/Block/Block.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';
+export { default as DocumentCloud } from './components/DocumentCloud/DocumentCloud.svelte';
 export { default as EmbedPreviewerLink } from './components/EmbedPreviewerLink/EmbedPreviewerLink.svelte';
 export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.svelte';
 export { default as Framer } from './components/Framer/Framer.svelte';
