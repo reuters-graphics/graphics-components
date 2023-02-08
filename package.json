@@ -105,6 +105,7 @@
     "./components/Block/Block.svelte": "./dist/components/Block/Block.svelte",
     "./components/BodyText/BodyText.svelte": "./dist/components/BodyText/BodyText.svelte",
     "./components/DatawrapperChart/DatawrapperChart.svelte": "./dist/components/DatawrapperChart/DatawrapperChart.svelte",
+    "./components/DocumentCloud/DocumentCloud.svelte": "./dist/components/DocumentCloud/DocumentCloud.svelte",
     "./components/EmbedPreviewerLink/EmbedPreviewerLink.svelte": "./dist/components/EmbedPreviewerLink/EmbedPreviewerLink.svelte",
     "./components/FeaturePhoto/FeaturePhoto.svelte": "./dist/components/FeaturePhoto/FeaturePhoto.svelte",
     "./components/Framer/Framer.svelte": "./dist/components/Framer/Framer.svelte",
