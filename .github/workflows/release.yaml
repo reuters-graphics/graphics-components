@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # Restricts release to:
+    #   1) pushes of release tags
+    #   2) the default branch
+    #   3) the base repository
+    if: |
+      github.event_name == 'push' && startsWith(github.ref, 'refs/tags') &&
+      endsWith(github.event.base_ref, github.event.repository.default_branch) &&
+      github.repository == 'reuters-graphics/graphics-components'
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - id: setup-node
+        name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+          scope: '@reuters-graphics'
+
+      - id: install-deps
+        name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - id: build-docs
+        name: Build docs
+        run: npm run build:docs
+
+      - id: version
+        name: Version
+        run: npm version ${{ github.ref_name }} --no-git-tag-version
+
+      - id: publish
+        name: Publish
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - id: commit
+        name: Commit
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          git add .
+          git commit -m "published ${{ github.ref_name }}"
+          git push
