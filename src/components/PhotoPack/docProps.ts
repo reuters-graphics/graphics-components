@@ -1,6 +1,7 @@
 import urlJoin from 'proper-url-join';
 
 interface BlockImage {
+  Type: string,
   Src: string;
   AltText: string;
   Caption?: string;
@@ -31,6 +32,7 @@ export const getPhotoPackPropsFromDoc = (docBlock: Block, assetsPath: string = '
     captionWidth: docBlock.CaptionWidth,
     gap: docBlock.Gap && isNaN(docBlock.Gap as any) ? null : parseInt(docBlock.Gap),
     images: docBlock.Images.map((img) => ({
+      type: img.Type,
       src: /^https?:\/\/|^\/\//i.test(img.Src) ? img.Src : urlJoin(assetsPath, img.Src),
       altText: img.AltText,
       caption: img.Caption,
