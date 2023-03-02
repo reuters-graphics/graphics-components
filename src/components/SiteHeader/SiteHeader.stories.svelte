@@ -42,7 +42,7 @@
   </div>
 </Story>
 
-<style>
+<style lang="scss">
   div {
     min-height: 625px;
     width: calc(100% + 30px);

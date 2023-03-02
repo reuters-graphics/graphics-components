@@ -12,9 +12,10 @@
    *
    * Each step object in the array can have:
    *
-   * - `background` A background component **REQUIRED**
+   * - `background` A background component. **REQUIRED**
    * - `backgroundProps` An object of props given to the background component
    * - `foreground` Either a markdown-formatted string or a foreground component **REQUIRED**
+   * - `altText` A string describing the background graphic, which is read aloud after the foreground blurb. You can add it to each step or, if you want to add just one alt text to describe all graphics in the scroll section, add it to just the first step. **RECOMMENDED**
    * - `foregroundProps` An object of props given to the foreground component
    *
    * @required
@@ -116,6 +117,7 @@
         class="background"
         class:right="{foregroundPosition === 'left opposite'}"
         class:left="{foregroundPosition === 'right opposite'}"
+        aria-hidden="true"
       >
         <div class="scroller-graphic-well">
           <Block

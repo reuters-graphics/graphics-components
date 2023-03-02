@@ -26,7 +26,7 @@ slug: video
 <Video
   ariaDescription={"Compulsory description of your video for screen readers."}
   src={`${assets}/videos/myVideo.mp4`} // or a URL to an external video
-  size={'wide'} // normal, wide, wider, widest or fluid
+  width={'wide'} // normal, wide, wider, widest or fluid
   caption={'Optional caption for your video.'}
 />
 ```
@@ -35,7 +35,7 @@ slug: video
   <Video
     ariaDescription="Description of your video for screen readers."
     src={`${assets}/videos/Sequence silent video_4.mp4`}
-    size="wide"
+    width="wide"
     caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
   />
 </DemoContainer>
@@ -69,7 +69,7 @@ Here is an example of what the same video would look like with a visibility thre
 <Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
-  size="{'normal'}"
+  width="{'normal'}"
   loopVideo="{false}"
   playVideoThreshold="{0.9}"
 />
@@ -79,7 +79,7 @@ Here is an example of what the same video would look like with a visibility thre
   <Video
     ariaDescription="Description of your video for screen readers."
     src={`${assets}/videos/Sequence silent video_4.mp4`}
-    size="normal"
+    width="normal"
     caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
     loopVideo={false}
     playVideoThreshold={0.9}
@@ -182,7 +182,7 @@ and go to the top. Click anywhere on the page before scrolling down to the video
 <Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
-  size="{'normal'}"
+  width="{'normal'}"
   controlsOpacity="{1}"
   loopVideo="{false}"
   muteVideo="{false}"
@@ -194,7 +194,7 @@ and go to the top. Click anywhere on the page before scrolling down to the video
   <Video
     ariaDescription="Description of your video for screen readers."
     src={`${assets}/videos/Sequence sound video.mp4`}
-    size="normal"
+    width="normal"
     caption="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
     controlsOpacity={1}
     loopVideo={false}

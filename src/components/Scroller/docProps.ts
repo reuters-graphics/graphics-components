@@ -1,6 +1,7 @@
 import type { ComponentType } from 'svelte';
 
 interface BlockStep {
+  AltText?: string;
   Background: string;
   Text: string;
 }
@@ -30,6 +31,7 @@ export const getScrollerPropsFromDoc = (docBlock: Block, aiCharts: AiCharts, ass
       background: aiCharts[step.Background],
       backgroundProps: { assetsPath },
       foreground: step.Text,
+      altText: step.AltText,
     })),
   };
 };
