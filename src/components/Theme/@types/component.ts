@@ -8,7 +8,7 @@ interface Scale {
   'size-6': string,
 }
 
-interface Fontface {
+interface Typeface {
   'display': string,
   'serif': string,
   'sans-serif': string,
@@ -42,14 +42,14 @@ interface Font {
 
 export interface Theme {
   scale: Scale,
-  fontface: Fontface
+  typeface: Typeface
   colour: Colour,
   font: Font;
 };
 
 export interface CustomTheme {
   scale?: Partial<Scale>,
-  fontface?: Partial<Fontface>,
+  typeface?: Partial<Typeface>,
   colour?: Partial<Colour>,
   font?: Partial<Font>
 }

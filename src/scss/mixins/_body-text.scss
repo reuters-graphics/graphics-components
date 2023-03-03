@@ -1,6 +1,6 @@
 @import '../fonts/mixins';
 @import '../fonts/variables';
-@import '../typography/font-size';
+@import '../typography_old/font-size';
 @import '../colours/thematic/tr';
 
 @mixin body-text {
@@ -14,6 +14,7 @@
   blockquote {
     color: var(--theme-colour-text-primary, $tr-dark-grey);
   }
+
   p,
   ul li,
   ul li p,
@@ -67,6 +68,7 @@
     padding-left: 1.75rem;
     list-style-type: square;
   }
+
   p + ul {
     margin-top: -0.75rem;
   }

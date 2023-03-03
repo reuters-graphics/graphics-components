@@ -1,3 +1,11 @@
+/**
+ * Styles for svelte components
+ * Custom grid system
+ * Colour and typography systems using CSS variable from Theme
+ * Utility classes for quick styling
+ * 🄯2023 Reuters Graphics Style Guide
+ */
+
 @import 'fonts/font-faces';
 
 // Variables
@@ -11,6 +19,9 @@
 
 // Styles
 @import 'fonts/rules';
-@import 'typography/rules';
-@import 'typography/main';
+@import 'typography_old/rules';
+@import 'typography_old/main';
 @import 'spacers/rules';
+
+/* TYPOGRAPHY */
+@import 'typography/main';

@@ -1,5 +1,14 @@
-@import 'box-shadow';
-@import 'font-size';
-@import 'letter-spacing';
-@import 'text-shadow';
-@import 'transform';
+/** 
+ * Default typography styles for Reuters Graphics projects
+ * Uses sizes and typeface declarations from CSS variables defined in the Theme
+ * Knowlege, Source Sans Pro and Freight Book font declarations
+ * Includes Font size levels from 1 to 6
+ * Includes Font families for display, serif, sans-serif and monospace text
+ * Includes predefined responsive style tokens for hed, subheads(3), body and note(3) text
+ * 🄯2023 Reuters Graphics
+ */
+
+@import 'font-faces';
+@import 'mixins';
+@import 'classes';
+@import 'rules';
