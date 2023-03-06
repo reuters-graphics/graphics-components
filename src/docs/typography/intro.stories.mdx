@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+
+import Typeset from './typeset.png';
+import TypeGuides from './type-guides.png'
+
+<Meta title="Typography/Intro" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Typography
+
+Our design system includes a typographic scale based on the scale of fifths to create six harmonic levels of font sizes. These will guide the basic sizing of headlines, body text and spacing in a graphics page. 
+
+The typographic scale is set using the CSS variable in the theme component. You can customise them if you need a bespoke typesetting for your project.
+
+## The type system
+
+<img
+  className="feature"
+  src={Typeset}
+  width="100%"
+  style={{ margin: '3rem 0' }}
+/>
+
+<img
+  className="feature"
+  src={TypeGuides}
+  width="100%"
+  style={{ margin: '3rem 0' }}
+/>
+
+## How it works
+
+Somthing about the base sizes and derived scale coupled with other styles

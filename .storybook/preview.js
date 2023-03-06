@@ -50,6 +50,8 @@ export const parameters = {
         ['Intro', '*'],
         'SCSS',
         ['Intro', '*'],
+        'Typography',
+        ['Intro', '*'],
         'Actions',
         ['Intro', '*'],
         'Contributing',
