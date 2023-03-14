@@ -51,7 +51,7 @@ export const parameters = {
         'SCSS',
         ['Intro', '*'],
         'Typography',
-        ['Intro', '*'],
+        ['Intro', 'How to use', ['Text styles', '*'], '*'],
         'Actions',
         ['Intro', '*'],
         'Contributing',
