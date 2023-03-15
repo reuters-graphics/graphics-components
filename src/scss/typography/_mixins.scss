@@ -57,6 +57,7 @@
   font-family: var(--theme-font-family-hed) #{$important};
   font-weight: 500 #{$important};
   line-height: 1.14 #{$important};
+  color: var(--theme-colour-text-primary) #{$important};
 }
 
 @mixin font-subhed-1($i: false) {
@@ -65,6 +66,7 @@
   font-family: var(--theme-font-family-subhed) #{$important};
   font-weight: 700 #{$important};
   line-height: 1.14 #{$important};
+  color: var(--theme-colour-text-primary) #{$important};
 }
 
 @mixin font-subhed-2($i: false) {
@@ -73,6 +75,7 @@
   font-family: var(--theme-font-family-subhed) #{$important};
   font-weight: 700 #{$important};
   line-height: 1.28 #{$important};
+  color: var(--theme-colour-text-primary) #{$important};
 }
 
 @mixin font-subhed-3($i: false) {
@@ -82,6 +85,7 @@
   font-weight: 500 #{$important};
   line-height: 1.4 #{$important};
   text-transform: uppercase #{$important};
+  color: var(--theme-colour-text-secondary) #{$important};
 }
 
 @mixin font-body($i: false) {
@@ -90,6 +94,7 @@
   font-family: var(--theme-font-family-body) #{$important};
   font-weight: 400 #{$important};
   line-height: 1.5 #{$important};
+  color: var(--theme-colour-text-primary) #{$important};
 }
 
 @mixin font-note-1($i: false) {
@@ -98,6 +103,7 @@
   font-family: var(--theme-font-family-note) #{$important};
   font-weight: 300 #{$important};
   line-height: 1.4 #{$important};
+  color: var(--theme-colour-text-primary) #{$important};
 }
 
 @mixin font-note-2($i: false) {
@@ -106,6 +112,7 @@
   font-family: var(--theme-font-family-note) #{$important};
   font-weight: 300 #{$important};
   line-height: 1.4 #{$important};
+  color: var(--theme-colour-text-secondary) #{$important};
 }
 
 @mixin font-note-3($i: false) {
@@ -114,4 +121,5 @@
   font-family: var(--theme-font-family-note) #{$important};
   font-weight: 400 #{$important};
   line-height: 1.4 #{$important};
+  color: var(--theme-colour-text-secondary) #{$important};
 }

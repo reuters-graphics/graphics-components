@@ -2,7 +2,7 @@
 export default {
   scale: {
     'size-base': 1.375,
-    'size-base-mobile': 1.25,
+    'size-base-mobile': 1.125,
     'size-1': 'calc(var(--theme-scale-size-base) * 2.25rem)',
     'size-2': 'calc(var(--theme-scale-size-base) * 1.5rem)',
     'size-3': 'calc(var(--theme-scale-size-base) * 1rem)',

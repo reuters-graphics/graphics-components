@@ -1,7 +1,19 @@
 /* RESPONSIVE SCALING */
 @media (max-width: 510px) {
   div.theme {
-    --theme-scale-size-base: var(--theme-scale-size-base-mobile);
+    // --theme-scale-size-base: var(--theme-scale-size-base-mobile) !important;
+    --theme-scale-size-1: calc(
+      var(--theme-scale-size-base-mobile) * 2.25rem
+    ) !important;
+    --theme-scale-size-2: calc(
+      var(--theme-scale-size-base-mobile) * 1.5rem
+    ) !important;
+    --theme-scale-size-3: calc(
+      var(--theme-scale-size-base-mobile) * 1rem
+    ) !important;
+    --theme-scale-size-4: calc(
+      var(--theme-scale-size-base-mobile) * 0.9rem
+    ) !important;
   }
 }
 

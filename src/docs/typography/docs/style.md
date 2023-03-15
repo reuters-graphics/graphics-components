@@ -7,17 +7,34 @@ The styles are automatically applied to native HTML elements like the `H` and `p
 </div>
 ```
 
-## With CSS classes
+**These are the available styles and their corresponding tokens.**
 
-Add the `font-` class to any element for the classes to take effect. Check out the available classes and their associated styles in the example below.
+| Style         | class            | mixin           |
+| ------------- | ---------------- | --------------- |
+| Page title    | `.font-hed `     | `font-hed `     |
+| Section title | `.font-subhed-1` | `font-subhed-1` |
+| Subhed        | `.font-subhed-2` | `font-subhed-2` |
+| Smallhed      | `.font-subhed-3` | `font-subhed-3` |
+| Body text     | `.font-body `    | `font-body`     |
+| Body note     | `.font-note-1`   | `font-note-1`   |
+| Endnotes      | `.font-note-2`   | `font-note-2`   |
+| Footnotes     | `.font-note-3`   | `font-note-3`   |
+
+## Styling with with CSS classes
+
+> This is the most common way you probably will add styles inside your svelte components in the HTML code.
+
+Add the `font-` class to any element for the classes to take effect.
 
 ```svelte
-<div class="font-body">...your text here</div>
+<!-- Text using body font style --><div class="font-body">your text here</div>
 ```
 
-## With SCSS mixins
+## Styling with with SCSS mixins
 
-Include the mixins in your stylesheets as shown below.
+> This is useful when you need to compose styles for elements using your own classes.
+
+Include the mixins in your SCSS code block as shown below.
 
 ```svelte
 <div class="my-class">...your text here</div>
@@ -30,3 +47,7 @@ Include the mixins in your stylesheets as shown below.
   }
 </style>
 ```
+
+## See the styles in action
+
+Select a style from the menu in the `control` column and see it added to the text.

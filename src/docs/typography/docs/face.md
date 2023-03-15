@@ -1,5 +1,16 @@
 There are four font families provided via the `Theme`, which feeds into all the text styles. If you need to specifically apply font family styles to your HTML elements, you can use the following methods.
 
+<br />
+
+**These are the available font family types and their corresponding tokens.**
+
+| typeface        | class                  | mixin                 |
+| --------------- | ---------------------- | --------------------- |
+| Display font    | `.typeface-display`    | `typeface-display`    |
+| Serif font      | `.typeface-serif`      | `typeface-serif`      |
+| Sans-serif font | `.typeface-sans-serif` | `typeface-sans-serif` |
+| Monospace font  | `.typeface-monospace`  | `typeface-monospace`  |
+
 ## With CSS classes
 
 Add the `typeface-` class to any element for the classes to take effect. Check out the available classes and their associated sizes in the example below.
@@ -23,3 +34,5 @@ Include the mixins in your stylesheets as shown below.
   }
 </style>
 ```
+
+## See the typefaces in action
