@@ -12,7 +12,7 @@
   import style from './docs/style.md?raw';
 
   const meta = {
-    title: 'Typography/How to use',
+    title: 'Typography/Using the system',
     component: StyleDemo,
     ...withComponentDocs(style),
     argTypes: {

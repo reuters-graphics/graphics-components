@@ -12,7 +12,7 @@
   import size from './docs/size.md?raw';
 
   const meta = {
-    title: 'Typography/How to use',
+    title: 'Typography/Using the system',
     component: SizeDemo,
     ...withComponentDocs(size),
     argTypes: {

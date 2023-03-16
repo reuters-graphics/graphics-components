@@ -79,6 +79,24 @@ Read more about how to override or define your own CSS variables in the [Themes]
 | `--theme-scale-size-5`           | Size level 5                     | calc(var(--theme-scale-size-base) \* 0.72rem) |
 | `--theme-scale-size-6`           | Size level 6                     | calc(var(--theme-scale-size-base) \* 0.66rem) |
 
+## Customising variables
+
+You can redefine any of the CSS variables by declaring it in your `<Theme>` component with the new values. Read more on how to [customise theme](/docs/theming-theme--custom-theme).
+
+```svelte
+<Theme
+  base="light"
+  theme="{{
+    colour: {
+      // This replaces the default text-secondary colour '#666666' for light theme
+      'text-secondary': '#213310',
+    },
+  }}"
+>
+  <!-- page stuff -->
+</Theme>
+```
+
 ## Adding custom variables
 
 For some projects, you may need more style attributes that you can define globally while allowing it to be customisable. You may be doing so using SCSS variable in your `main.scss` but that prevent those styles from being customised/overridden from the client side. Hence, it is a good practice to define such thematic styles in the `Theme` component using CSS variables.

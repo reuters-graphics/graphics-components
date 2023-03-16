@@ -12,7 +12,7 @@
   import face from './docs/face.md?raw';
 
   const meta = {
-    title: 'Typography/How to use',
+    title: 'Typography/Using the system',
     component: FaceDemo,
     ...withComponentDocs(face),
     argTypes: {
