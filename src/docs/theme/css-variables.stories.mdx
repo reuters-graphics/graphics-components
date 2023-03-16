@@ -24,7 +24,7 @@ Several [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_C
 </style>
 ```
 
-## Variables
+## Default theme variables
 
 Read more about how to override or define your own CSS variables in the [Themes](/docs/theming-theme--custom-theme) section.
 
@@ -78,3 +78,52 @@ Read more about how to override or define your own CSS variables in the [Themes]
 | `--theme-scale-size-4`           | Size level 4                     | calc(var(--theme-scale-size-base) \* 0.9rem)  |
 | `--theme-scale-size-5`           | Size level 5                     | calc(var(--theme-scale-size-base) \* 0.72rem) |
 | `--theme-scale-size-6`           | Size level 6                     | calc(var(--theme-scale-size-base) \* 0.66rem) |
+
+## Adding custom variables
+
+For some projects, you may need more style attributes that you can define globally while allowing it to be customisable. You may be doing so using SCSS variable in your `main.scss` but that prevent those styles from being customised/overridden from the client side. Hence, it is a good practice to define such thematic styles in the `Theme` component using CSS variables.
+
+For example, you want to define the border radius for your info cards in you app. You can create a new set of styles in the `<Theme>` as follows –
+
+```svelte
+<Theme
+  base="light"
+  theme="{{
+    style: {
+      'border-radius': '22px',
+    },
+  }}"
+>
+  <!-- page stuff -->
+</Theme>
+
+<style lang="scss">
+  .card {
+    border-radius: var(--theme-style-border-radius);
+  }
+</style>
+```
+
+You can also use Svelte's variables to change the CSS values assigned on some condition.
+e.g. A smaller border radius on mobile screens.
+
+```svelte
+<script>
+  // other code
+
+  let windowWidth;
+</script>
+
+<svelte:window bind:innerWidth="{windowWidth}" />
+
+<Theme
+  base="light"
+  theme="{{
+    style: {
+      'border-radius': windowWidth > 475 ? '22px' : '11px',
+    },
+  }}"
+>
+  <!-- page stuff -->
+</Theme>
+```

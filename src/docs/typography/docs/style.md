@@ -7,15 +7,15 @@ The styles are automatically applied to native HTML elements like the `H` and `p
 </div>
 ```
 
-These are the available **text styles** and their **corresponding tokens**. The `font-size-` inherits the sizes based on the scale as described by the [Type System](/docs/typography-intro--page). Check out the CSS variables in the Styling section to see the default values assigned by the Theme.
+These are the available **text styles** and their **corresponding tokens**. The `font-size-` inherits the sizes based on the scale as described by the [Type System](/docs/typography-intro--page). Check out the CSS variables in the Styling section to see the default values and roles assigned by the Theme.
 
 | Style         | class            | mixin           | CSS vars used from Theme                                                                     |
 | ------------- | ---------------- | --------------- | -------------------------------------------------------------------------------------------- |
-| Page title    | `.font-hed `     | `font-hed `     | `--theme-font-size-hed`, `--theme-font-family-hed` , `--theme-colour-text-primary`           |
+| Page title    | `.font-hed`      | `font-hed`      | `--theme-font-size-hed`, `--theme-font-family-hed` , `--theme-colour-text-primary`           |
 | Section title | `.font-subhed-1` | `font-subhed-1` | `--theme-font-size-subhed-1`, `--theme-font-family-subhed` , `--theme-colour-text-primary`   |
 | Subhed        | `.font-subhed-2` | `font-subhed-2` | `--theme-font-size-subhed-2`, `--theme-font-family-subhed` , `--theme-colour-text-primary`   |
 | Smallhed      | `.font-subhed-3` | `font-subhed-3` | `--theme-font-size-subhed-3`, `--theme-font-family-subhed` , `--theme-colour-text-secondary` |
-| Body text     | `.font-body `    | `font-body`     | `--theme-font-size-body`, `--theme-font-family-body` , `--theme-colour-text-primary`         |
+| Body text     | `.font-body`     | `font-body`     | `--theme-font-size-body`, `--theme-font-family-body` , `--theme-colour-text-primary`         |
 | Body note     | `.font-note-1`   | `font-note-1`   | `--theme-font-size-note-1`, `--theme-font-family-note` , `--theme-colour-text-primary`       |
 | Endnotes      | `.font-note-2`   | `font-note-2`   | `--theme-font-size-note-2`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
 | Footnotes     | `.font-note-3`   | `font-note-3`   | `--theme-font-size-note-3`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |

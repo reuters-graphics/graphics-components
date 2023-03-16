@@ -2,7 +2,7 @@ import { Meta } from '@storybook/addon-docs';
 import { parameters } from '$docs/utils/docsPage.js';
 
 import Typeset from './typeset.png';
-import TypeGuides from './type-guides.png'
+import TypeGuides from './type-guides.png';
 import DemoImg from './demo.png';
 
 <Meta title="Typography/Intro" parameters={{ ...parameters }} />
@@ -11,20 +11,11 @@ import DemoImg from './demo.png';
 
 # Typography
 
-Our design system includes a typographic scale based on the scale of fifths to create six harmonic levels of font sizes. These will guide the basic sizing of headlines, body text and spacing in a graphics page. 
+Our design system includes a typographic scale based on the scale of fifths to create six harmonic levels of font sizes. These will guide the basic sizing of headlines, body text and spacing in a graphics page.
 
 The typographic scale is set using the CSS variable in the theme component. You can customise them if you need a bespoke typesetting for your project.
 
-
-
 ## The type system
-
-<img
-  className="feature"
-  src={Typeset}
-  width="100%"
-  style={{ margin: '3rem 0' }}
-/>
 
 <img
   className="feature"
@@ -33,16 +24,28 @@ The typographic scale is set using the CSS variable in the theme component. You 
   style={{ margin: '3rem 0' }}
 />
 
+## How it works
+
+<img
+  className="feature"
+  src={Typeset}
+  width="100%"
+  style={{ margin: '3rem 0' }}
+/>
+
+Text styles are composed using [CSS variables](/docs/theming-css-variables--page) for size, family and colours from the `Theme`. The font size inherits `--theme-scale-size-*` and font family inherits `--theme-typeface-*`. See which CSS vars flow in to the type system in the [How to use text styles](/docs/typography-how-to-use--text-styles) section.
+
 ## Default usage
 
 In your projects, you will use the typographic styles as per the function –
+
 - Page title, subheads and section titles
 - Body copy
 - Graphic descriptions, captions and other notes
 
 The styles are also applied to native HTML elements like the `H` and `p` tags.
 
-> For Graphics Kit users, the typographic styles are already imported and applied to the individual components. So, if you want to customise them, check the next `Customising text styles`  section.
+> For Graphics Kit users, the typographic styles are already imported and applied to the individual components.
 
 <img
   className="feature"
@@ -50,7 +53,3 @@ The styles are also applied to native HTML elements like the `H` and `p` tags.
   width="100%"
   style={{ margin: '3rem 0' }}
 />
-
-## How it works
-
-Somthing about the base sizes and derived scale coupled with other styles
