@@ -2,14 +2,14 @@ There are four font families provided via the `Theme`, which feeds into all the 
 
 <br />
 
-**These are the available font family types and their corresponding tokens.**
+These are the available **font family types** and their **corresponding tokens**. Check out the CSS variables in the Styling section to see the default values assigned by the Theme.
 
-| typeface        | class                  | mixin                 |
-| --------------- | ---------------------- | --------------------- |
-| Display font    | `.typeface-display`    | `typeface-display`    |
-| Serif font      | `.typeface-serif`      | `typeface-serif`      |
-| Sans-serif font | `.typeface-sans-serif` | `typeface-sans-serif` |
-| Monospace font  | `.typeface-monospace`  | `typeface-monospace`  |
+| typeface        | class                  | mixin                 | CSS vars used from Theme      |
+| --------------- | ---------------------- | --------------------- | ----------------------------- |
+| Display font    | `.typeface-display`    | `typeface-display`    | `--theme-typeface-display`    |
+| Serif font      | `.typeface-serif`      | `typeface-serif`      | `--theme-typeface-serif`      |
+| Sans-serif font | `.typeface-sans-serif` | `typeface-sans-serif` | `--theme-typeface-sans-serif` |
+| Monospace font  | `.typeface-monospace`  | `typeface-monospace`  | `--theme-typeface-monospace`  |
 
 ## With CSS classes
 
