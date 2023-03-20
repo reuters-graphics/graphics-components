@@ -42,7 +42,7 @@ export const parameters = {
         'Layout',
         ['Intro', '*'],
         'Theming',
-        ['*'],
+        ['Theme', '*'],
         'Components',
         ['Intro', '*'],
         '*',
