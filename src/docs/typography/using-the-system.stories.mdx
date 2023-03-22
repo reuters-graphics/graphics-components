@@ -33,6 +33,11 @@ Apply text styles to any element using CSS classes that correspond to each text 
 <p class="font-note-1">Sans-serif text...</p>
 ```
 
+<div class="type-system-demo">
+  <div class="font-subhed-1">Subhed</div>
+  <p class="font-note-1">Sans-serif text...</p>
+</div>
+
 The following text style elements and corresponding classes are available:
 
 | Style         | class            | mixin           | CSS vars used from Theme                                                                     |
@@ -46,7 +51,16 @@ The following text style elements and corresponding classes are available:
 | Endnotes      | `.font-note-2`   | `font-note-2`   | `--theme-font-size-note-2`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
 | Footnotes     | `.font-note-3`   | `font-note-3`   | `--theme-font-size-note-3`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
 
-TK Demo...
+<div class="type-system-demo">
+  <p class="font-hed">Lorem ipsum dolor sit amet...</p>
+  <p class="font-subhed-1">Lorem ipsum dolor sit amet...</p>
+  <p class="font-subhed-2">Lorem ipsum dolor sit amet...</p>
+  <p class="font-subhed-3">Lorem ipsum dolor sit amet...</p>
+  <p class="font-body">Lorem ipsum dolor sit amet...</p>
+  <p class="ffont-note-1">Lorem ipsum dolor sit amet...</p>
+  <p class="ffont-note-2">Lorem ipsum dolor sit amet...</p>
+  <p class="ffont-note-3">Lorem ipsum dolor sit amet...</p>
+</div>
 
 ### Type sizes
 
@@ -61,10 +75,17 @@ The following classes apply specific text sizes to any element:
 | 5     | `.font-size-5` | `font-size-5` | `--theme-scale-size-5`   |
 | 6     | `.font-size-6` | `font-size-6` | `--theme-scale-size-6`   |
 
+<div class="type-system-demo">
+  <p class="font-size-1">Lorem ipsum dolor sit amet...</p>
+  <p class="font-size-2">Lorem ipsum dolor sit amet...</p>
+  <p class="font-size-3">Lorem ipsum dolor sit amet...</p>
+  <p class="font-size-4">Lorem ipsum dolor sit amet...</p>
+  <p class="font-size-5">Lorem ipsum dolor sit amet...</p>
+  <p class="font-size-6">Lorem ipsum dolor sit amet...</p>
+</div>
+
 > The text sizes are always a multiple of `size-base = 1.375`. On mobile
 > {max-width:510px}, levels 1, 2, 3, 4 scale down to `size-base-mobile = 1.125`
-
-TK Demo...
 
 ### Typefaces
 
@@ -77,4 +98,9 @@ The following classes apply typefaces to any element:
 | Sans-serif font | `.typeface-sans-serif` | `typeface-sans-serif` | `--theme-typeface-sans-serif` |
 | Monospace font  | `.typeface-monospace`  | `typeface-monospace`  | `--theme-typeface-monospace`  |
 
-TK Demo...
+<div class="type-system-demo">
+  <p class="typeface-display">Lorem ipsum dolor sit amet...</p>
+  <p class="typeface-serif">Lorem ipsum dolor sit amet...</p>
+  <p class="typeface-sans-serif">Lorem ipsum dolor sit amet...</p>
+  <p class="typeface-monospace">Lorem ipsum dolor sit amet...</p>
+</div>

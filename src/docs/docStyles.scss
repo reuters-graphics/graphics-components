@@ -1,6 +1,22 @@
-
 img.feature {
   max-width: 100%;
   margin: 0 auto;
   display: block;
+}
+
+div.type-system-demo {
+  // @TODO import type mixins here to apply styles to demos...
+  margin: 2rem auto;
+  background-color: #ededed;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  *:first-child {
+    margin-top: 0;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
 }
