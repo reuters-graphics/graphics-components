@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+
+<Meta title="Typography/Using the type system" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Using the type system
+
+## Type style heirarchy
+
+The type styles consist of 3 elements: size, typeface and colour. TKTKTK
+
+## Using type styles
+
+Type styles are automatically applied to native HTML elements like `h` and `p` tags and to certain combinations of elements that represent specific text components.
+
+```svelte
+<div>
+  <h2>Here's a section title</h2>
+  <p>and some text to go with it...</p>
+</div>
+
+<div class="endnote">
+  <p><strong>Editors:</strong> Simon Scarr</p>
+</div>
+```
+
+Apply text styles to any element using CSS classes that correspond to each text element type.
+
+```svelte
+<div class="font-subhed-1">Subhed</div>
+<p class="font-note-1">Sans-serif text...</p>
+```
+
+The following text style elements and corresponding classes are available:
+
+| Style         | class            | mixin           | CSS vars used from Theme                                                                     |
+| ------------- | ---------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| Page title    | `.font-hed`      | `font-hed`      | `--theme-font-size-hed`, `--theme-font-family-hed` , `--theme-colour-text-primary`           |
+| Section title | `.font-subhed-1` | `font-subhed-1` | `--theme-font-size-subhed-1`, `--theme-font-family-subhed` , `--theme-colour-text-primary`   |
+| Subhed        | `.font-subhed-2` | `font-subhed-2` | `--theme-font-size-subhed-2`, `--theme-font-family-subhed` , `--theme-colour-text-primary`   |
+| Smallhed      | `.font-subhed-3` | `font-subhed-3` | `--theme-font-size-subhed-3`, `--theme-font-family-subhed` , `--theme-colour-text-secondary` |
+| Body text     | `.font-body`     | `font-body`     | `--theme-font-size-body`, `--theme-font-family-body` , `--theme-colour-text-primary`         |
+| Body note     | `.font-note-1`   | `font-note-1`   | `--theme-font-size-note-1`, `--theme-font-family-note` , `--theme-colour-text-primary`       |
+| Endnotes      | `.font-note-2`   | `font-note-2`   | `--theme-font-size-note-2`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
+| Footnotes     | `.font-note-3`   | `font-note-3`   | `--theme-font-size-note-3`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
+
+TK Demo...
+
+### Type sizes
+
+The following classes apply specific text sizes to any element:
+
+| level | class          | mixin         | CSS vars used from Theme |
+| ----- | -------------- | ------------- | ------------------------ |
+| 1     | `.font-size-1` | `font-size-1` | `--theme-scale-size-1`   |
+| 2     | `.font-size-2` | `font-size-2` | `--theme-scale-size-2`   |
+| 3     | `.font-size-3` | `font-size-3` | `--theme-scale-size-3`   |
+| 4     | `.font-size-4` | `font-size-4` | `--theme-scale-size-4`   |
+| 5     | `.font-size-5` | `font-size-5` | `--theme-scale-size-5`   |
+| 6     | `.font-size-6` | `font-size-6` | `--theme-scale-size-6`   |
+
+> The text sizes are always a multiple of `size-base = 1.375`. On mobile
+> {max-width:510px}, levels 1, 2, 3, 4 scale down to `size-base-mobile = 1.125`
+
+TK Demo...
+
+### Typefaces
+
+The following classes apply typefaces to any element:
+
+| typeface        | class                  | mixin                 | CSS vars used from Theme      |
+| --------------- | ---------------------- | --------------------- | ----------------------------- |
+| Display font    | `.typeface-display`    | `typeface-display`    | `--theme-typeface-display`    |
+| Serif font      | `.typeface-serif`      | `typeface-serif`      | `--theme-typeface-serif`      |
+| Sans-serif font | `.typeface-sans-serif` | `typeface-sans-serif` | `--theme-typeface-sans-serif` |
+| Monospace font  | `.typeface-monospace`  | `typeface-monospace`  | `--theme-typeface-monospace`  |
+
+TK Demo...

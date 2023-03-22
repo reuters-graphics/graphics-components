@@ -7,26 +7,32 @@ import { parameters } from '$docs/utils/docsPage.js';
 
 # CSS variables
 
-Several [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) are provided by the [`Theme`](?path=/docs/components-theme--default) component. All other components in this library use these variables for styling basic colours and typography. You can (and probably _should_) use them in you own code, too.
+The [`Theme`](?path=/docs/components-theme--default) component uses **[CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)** to control major parts of your page's theme.
 
-> In the future, client's may be allowed to override our CSS variables to match their own house styles. So when using CSS variables, it's a good idea to set a [fallback value](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#custom_property_fallback_values), in case a client misconfigures a variable override.
->
+All other components in this library use those variables for styling basic colours and typography, helping keep our pages uniform and making it easier to customise the theme. CSS variables also allow our clients to easily change elements of our theme to match their brand.
+
+This doc explains which variables are set and how you can use them in custom components you create.
+
 > **Note:** CSS variables do not currently affect [ai2svelte](https://github.com/reuters-graphics/ai2svelte/) graphics, so you should continue to make sure your colours match the theme of your page directly in Adobe Illustrator for those graphics.
+
+## Using CSS variables directly
+
+If you're new to how CSS variables work, [here's a video](https://www.youtube.com/watch?v=PHO6TBq_auI) that does a decent job explaining what they are, how they work and why they're useful.
+
+You can use any of the CSS variables the `Theme` component sets in your own code with the [`var()`](https://www.w3schools.com/css/css3_variables.asp) function.
 
 ```svelte
 <p>My custom text</p>
 
 <style lang="scss">
   p {
-    color: var(--theme-colour-text-primary, #333);
-    font-family: var(--theme-font-family-body, Knowledge);
+    color: var(--theme-colour-text-primary);
+    font-family: var(--theme-typeface-monospace);
   }
 </style>
 ```
 
-## Default theme variables
-
-Read more about how to override or define your own CSS variables in the [Themes](/docs/theming-theme--custom-theme) section.
+## Theme variables
 
 ### Colours
 
@@ -40,24 +46,7 @@ Read more about how to override or define your own CSS variables in the [Themes]
 | `--theme-colour-brand-rules`    | Rules in header and footer      | #d0d0d0                | rgb(255 255 255 / 25%) |
 | `--theme-colour-brand-shadow`   | Box shadow on header            | rgb(64 64 64 / 80%)    | rgb(255 255 255 / 10%) |
 
-### Font family and sizes
-
-| CSS variable                 | Role                                                                   | Default values                   |
-| ---------------------------- | ---------------------------------------------------------------------- | -------------------------------- |
-| `--theme-font-family-hed`    | Headline (`h1`) font family                                            | var(--theme-typeface-display)    |
-| `--theme-font-family-subhed` | Subhead (`h2`-`h6`) font family                                        | var(--theme-typeface-sans-serif) |
-| `--theme-font-family-body`   | Body (`.body-text > p`) font family                                    | var(--theme-typeface-serif)      |
-| `--theme-font-family-note`   | Note (`.note-text > p`, `.end-note > p`, `.foot-note > p`) font family | var(--theme-typeface-sans-serif) |
-| `--theme-font-size-hed`      | Headline (`h1`) font size                                              | var(--theme-scale-size-1)        |
-| `--theme-font-size-subhed-1` | Subhead (`h2`) font size                                               | var(--theme-scale-size-2)        |
-| `--theme-font-size-subhed-2` | Subhead (`h3`) font size                                               | var(--theme-scale-size-3)        |
-| `--theme-font-size-subhed-3` | Subhead (`h4`-`h6`) font size                                          | var(--theme-scale-size-6)        |
-| `--theme-font-size-body`     | Body (`.body-text > p`) font size                                      | var(--theme-scale-size-3)        |
-| `--theme-font-size-note-1`   | Body description (`.note-text > p`) font size                          | var(--theme-scale-size-4)        |
-| `--theme-font-size-note-2`   | Endnotes (`.end-note > p`) font size                                   | var(--theme-scale-size-5)        |
-| `--theme-font-size-note-3`   | Dateline/Caption (`.foot-note > p`) font size                          | var(--theme-scale-size-6)        |
-
-### Typefaces (Fonts)
+### Typefaces
 
 | CSS variable                  | Role                        | Default values                                                       |
 | ----------------------------- | --------------------------- | -------------------------------------------------------------------- |
@@ -66,7 +55,29 @@ Read more about how to override or define your own CSS variables in the [Themes]
 | `--theme-typeface-sans-serif` | Base sans-serif font family | Knowledge, sans-serif                                                |
 | `--theme-typeface-monospace`  | Base monospace font family  | Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace |
 
-### Size scale
+### Font families
+
+| CSS variable                 | Role                                                                   | Default values                   |
+| ---------------------------- | ---------------------------------------------------------------------- | -------------------------------- |
+| `--theme-font-family-hed`    | Headline (`h1`) font family                                            | var(--theme-typeface-display)    |
+| `--theme-font-family-subhed` | Subhead (`h2`-`h6`) font family                                        | var(--theme-typeface-sans-serif) |
+| `--theme-font-family-body`   | Body (`.body-text > p`) font family                                    | var(--theme-typeface-serif)      |
+| `--theme-font-family-note`   | Note (`.note-text > p`, `.end-note > p`, `.foot-note > p`) font family | var(--theme-typeface-sans-serif) |
+
+### Font sizes
+
+| CSS variable                 | Role                                          | Default values            |
+| ---------------------------- | --------------------------------------------- | ------------------------- |
+| `--theme-font-size-hed`      | Headline (`h1`) font size                     | var(--theme-scale-size-1) |
+| `--theme-font-size-subhed-1` | Subhead (`h2`) font size                      | var(--theme-scale-size-2) |
+| `--theme-font-size-subhed-2` | Subhead (`h3`) font size                      | var(--theme-scale-size-3) |
+| `--theme-font-size-subhed-3` | Subhead (`h4`-`h6`) font size                 | var(--theme-scale-size-6) |
+| `--theme-font-size-body`     | Body (`.body-text > p`) font size             | var(--theme-scale-size-3) |
+| `--theme-font-size-note-1`   | Body description (`.note-text > p`) font size | var(--theme-scale-size-4) |
+| `--theme-font-size-note-2`   | Endnotes (`.end-note > p`) font size          | var(--theme-scale-size-5) |
+| `--theme-font-size-note-3`   | Dateline/Caption (`.foot-note > p`) font size | var(--theme-scale-size-6) |
+
+### Size scale (fonts, margin, padding)
 
 | CSS variable                     | Role                             | Default values                                |
 | -------------------------------- | -------------------------------- | --------------------------------------------- |
@@ -81,7 +92,7 @@ Read more about how to override or define your own CSS variables in the [Themes]
 
 ## Customising variables
 
-You can redefine any of the CSS variables by declaring it in your `<Theme>` component with the new values. Read more on how to [customise theme](/docs/theming-theme--custom-theme).
+You can redefine any of the above CSS variables in the `<Theme>` component. Read more in [the docs](/docs/theming-theme--custom-theme).
 
 ```svelte
 <Theme
@@ -97,11 +108,11 @@ You can redefine any of the CSS variables by declaring it in your `<Theme>` comp
 </Theme>
 ```
 
-## Adding custom variables
+## Adding extra variables
 
-For some projects, you may need more style attributes that you can define globally while allowing it to be customisable. You may be doing so using SCSS variable in your `main.scss` but that prevent those styles from being customised/overridden from the client side. Hence, it is a good practice to define such thematic styles in the `Theme` component using CSS variables.
+You can obviously add your own CSS variables to any page. While you could set your custom variables in, for example, a global SCSS stylesheet like `global.scss`, we generally recommend setting them directly through the `Theme` component.
 
-For example, you want to define the border radius for your info cards in you app. You can create a new set of styles in the `<Theme>` as follows –
+For example, let's say you want to define a border radius for some card elements on your page. You can add a custom property to the `theme` prop like this:
 
 ```svelte
 <Theme
@@ -114,6 +125,12 @@ For example, you want to define the border radius for your info cards in you app
 >
   <!-- page stuff -->
 </Theme>
+```
+
+... and then access the CSS variable in your code like this:
+
+```svelte
+<div class="card"></div>
 
 <style lang="scss">
   .card {
@@ -122,8 +139,9 @@ For example, you want to define the border radius for your info cards in you app
 </style>
 ```
 
-You can also use Svelte's variables to change the CSS values assigned on some condition.
-e.g. A smaller border radius on mobile screens.
+Using the `Theme` component for your own CSS variables lets clients customise them the same as any of our default theme values.
+
+You can also easily change a variable's value based on some condition. For example, to set a smaller border radius on mobile screens, you might:
 
 ```svelte
 <script>
