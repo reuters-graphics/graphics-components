@@ -1,4 +1,4 @@
-Present structured data in an interactive table
+Present structured data in a table. Consider making it interactive.
 
 ---
 
@@ -6,11 +6,9 @@ Present structured data in an interactive table
 <script>
   import { Table } from '@reuters-graphics/graphics-components';
 
-  const sampleData = [];
+  // Import your data as JSON, or otherwise structure it
+  import yourData from './stories/homeRuns.json';
 </script>
 
-<Table
-  width: 'normal',
-  data: sampleData,
-/>
+<Table data="{yourData}" />
 ```

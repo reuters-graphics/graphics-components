@@ -4,23 +4,94 @@
 
   /**
    * A source for the data.
+   * @type []
    * @required
    */
   export let data: [];
 
-  // A list of the fields to include in the table. By default everything goes.
-  export let includedFields: string[] = Object.keys(data[0]);
+  /**
+   * A title that runs above the table.
+   * @type string
+   */
+  export let title: string;
 
-  export let allowSearch: boolean = true;
-  export let searchPlaceholder: string = 'Type to search';
+  /**
+   * A footnote that runs below the table.
+   * @type string
+   */
+  export let notes: string;
 
-  // Table row limit
+  /**
+   * list of the fields to include in the table. By default everything goes.
+   * @type []
+   */
+  export let includedFields: string[] = Object.keys(data[0]).filter(
+    (f) => f !== 'searchStr'
+  );
+
+  /**
+   * The default page size.
+   * @type number
+   */
   export let pageSize: number = 25;
 
-  // You can declare custom types to help users implement your component.
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+  /**
+   * Whether or not searches are allowed.
+   * @type boolean
+   */
+  export let searchable: boolean = false;
+
+  /**
+   * The label to place above the search box.
+   * @type string
+   */
+  export let searchLabel: string;
+
+  /**
+   * The placeholder text that appears in the search box.
+   * @type string
+   */
+  export let searchPlaceholder: string;
+
+  /**
+   * A field to offer uses as an interactive filter.
+   * @type string
+   */
+  export let filterField: string;
+
+  /**
+   * The label to place above the filter box
+   * @type string
+   */
+  export let filterLabel: string;
+
+  /**
+   * Whether or not sorts are allowed.
+   * @type boolean
+   */
+  export let sortable: boolean = false;
+
+  /**
+   * The column to sort by. By default it's the first header.
+   * @type string
+   */
+  export let sortField: string = Object.keys(data[0])[0];
+
+  /**
+   * The direction of the sort. By default it's ascending.
+   * @type SortDirection
+   */
+  type SortDirection = 'ascending' | 'descending';
+  export let sortDirection: SortDirection = 'ascending';
+
+  /**
+   * Custom field formatting functions. Should be keyed to the name of the field.
+   * @type object
+   */
+  export let fieldFormatters: object = {};
 
   /** Width of the component within the text well. */
+  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   export let width: ContainerWidth = 'normal';
 
   /** Add an ID to target with SCSS. */
@@ -31,18 +102,50 @@
 
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
-  import { filterArray, paginateArray, numberWithCommas } from './utils.js';
+  import {
+    filterArray,
+    paginateArray,
+    numberWithCommas,
+    uniqueAttr,
+    isNumeric,
+  } from './utils.js';
 
   /** Set filtering and pagination configuration */
   let pageNumber = 1;
   let searchText = '';
-  $: filteredData = filterArray(data, searchText);
-  $: currentPageData = paginateArray(filteredData, pageSize, pageNumber);
+  const filterList = filterField
+    ? uniqueAttr(data, filterField).sort((a, b) => a.localeCompare(b))
+    : undefined;
+  let filterValue = '';
+  $: filteredData = filterArray(data, searchText, filterField, filterValue);
+  $: sortedData = sortArray(filteredData, sortField, sortDirection);
+  $: currentPageData = paginateArray(sortedData, pageSize, pageNumber);
 
-  //* * Handle filtering and pagination events */
+  // Estimate the text alignment of our fields. Strings go left. Numbers go right.
+  function getAlignment(value) {
+    return isNumeric(value) ? 'right' : 'left';
+  }
+  const fieldAlignments = includedFields.reduce((acc, cur) => {
+    acc[cur] = getAlignment(data[0][cur]);
+    return acc;
+  }, {});
+
+  //* * Handle search, filter, sort and pagination events */
   function handleSearchInput(event) {
     searchText = event.target.value;
     pageNumber = 1;
+  }
+
+  function handleFilterInput(event) {
+    const value = event.target.value;
+    filterValue = value === 'all' ? '' : value;
+    pageNumber = 1;
+  }
+
+  function handleSort(event) {
+    if (!sortable) return;
+    sortField = event.target.getAttribute('data-field');
+    sortDirection = sortDirection === 'ascending' ? 'descending' : 'ascending';
   }
 
   function goToPreviousPage() {
@@ -57,9 +160,33 @@
     }
   }
 
+  function sortArray(array, column, direction) {
+    if (!sortable) return array;
+    return array.sort((a, b) => {
+      if (a[column] < b[column]) {
+        return direction === 'ascending' ? -1 : 1;
+      } else if (a[column] > b[column]) {
+        return direction === 'ascending' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  function formatValue(item, field) {
+    const value = item[field];
+    if (field in fieldFormatters) {
+      const func = fieldFormatters[field];
+      return func(value);
+    } else {
+      return value;
+    }
+  }
+
   /** Boot it up. */
   onMount(() => {
     data.forEach((d) => {
+      // Compose the string we will allow users to search
       d.searchStr = includedFields
         .map((field) => d[field])
         .join(' ')
@@ -70,39 +197,96 @@
 
 <Block width="{width}" id="{id}" cls="{cls}">
   <section class="table-wrapper">
-    {#if allowSearch}
+    {#if searchable || filterList}
       <section class="input">
-        <div class="search">
-          <input
-            id="search--input"
-            class="search--input"
-            type="text"
-            placeholder="{searchPlaceholder}"
-            on:input="{handleSearchInput}"
-          />
-        </div>
+        {#if searchable}
+          <div class="search">
+            <label for="filter--select"
+              >{#if searchLabel}{searchLabel}{:else}Search{/if}</label
+            >
+            <input
+              id="search--input"
+              class="search--input"
+              type="text"
+              placeholder="{searchPlaceholder}"
+              on:input="{handleSearchInput}"
+            />
+          </div>
+        {/if}
+        {#if filterList}
+          {#if searchable}<div
+              style="clear: both; display: block; padding-top: 1rem;"
+            ></div>{/if}
+          <div class="filter">
+            <label for="filter--select"
+              >{#if filterLabel}{filterLabel}{:else}Filter by {filterField}{/if}</label
+            >
+            <select
+              class="filter--select"
+              name="filter--select"
+              id="filter--select"
+              on:input="{handleFilterInput}"
+            >
+              <option value="all">All</option>
+              {#each filterList as object}
+                <option value="{object}">{object}</option>
+              {/each}
+            </select>
+          </div>
+        {/if}
       </section>
     {/if}
     <section class="table">
       <table>
-        <thead>
+        {#if title}
+          <caption class="table--caption table--caption--title"
+            >{@html title}</caption
+          >
+        {/if}
+        <thead class="table--thead">
           <tr>
             {#each includedFields as field}
-              <th>{field}</th>
+              <th
+                scope="col"
+                class:sortable
+                class:sort-ascending="{sortable &&
+                  sortField === field &&
+                  sortDirection === 'ascending'}"
+                class:sort-descending="{sortable &&
+                  sortField === field &&
+                  sortDirection === 'descending'}"
+                data-field="{field}"
+                on:click="{handleSort}"
+                style="text-align: {fieldAlignments[field]}"
+              >
+                {field}
+              </th>
             {/each}
           </tr>
         </thead>
-        <tbody>
+        <tbody class="table--tbody">
           {#each currentPageData as item, idx}
             <tr data-row-index="{idx}">
               {#each includedFields as field}
-                <td>
-                  {@html item[field]}
+                <td
+                  data-row-index="{idx}"
+                  data-field="{field}"
+                  data-value="{item[field]}"
+                  style="text-align: {fieldAlignments[field]}"
+                >
+                  {@html formatValue(item, field)}
                 </td>
               {/each}
             </tr>
           {/each}
         </tbody>
+        {#if notes}
+          <tfoot class="table--tfoot table--tfoot--footnote">
+            <tr>
+              <td colspan="{includedFields.length}">{@html notes}</td>
+            </tr>
+          </tfoot>
+        {/if}
       </table>
     </section>
     {#if filteredData.length > pageSize}
@@ -166,12 +350,35 @@
       font-size: 1rem;
       font-family: var(--theme-font-family-sans-serif, $font-family-sans-serif);
       color: var(--theme-colour-text-primary, $tr-dark-grey);
+      .table--caption--title {
+        caption-side: top;
+        font-weight: 500;
+        color: var(--theme-colour-text-primary, $tr-dark-grey);
+        font-size: 1.25rem;
+      }
       thead {
         tr {
           border-bottom: 1px solid $tr-muted-grey;
           th {
             font-weight: 500;
-            vertical-align: bottom;
+            line-height: 1.4;
+            &.sortable {
+              cursor: pointer;
+            }
+            &.sort-ascending:after {
+              content: ' ▲';
+              font-size: 0.75rem;
+              color: $tr-orange;
+              vertical-align: 10%;
+              padding: 0 0 0 0.0612rem;
+            }
+            &.sort-descending:after {
+              content: ' ▼';
+              font-size: 0.75rem;
+              color: $tr-orange;
+              vertical-align: 10%;
+              padding: 0 0 0 0.0612rem;
+            }
           }
         }
       }
@@ -180,7 +387,18 @@
           border-bottom: 1px solid $tr-light-muted-grey;
         }
         td {
-          line-height: 2rem;
+          padding: 0.333rem 0;
+        }
+      }
+      .table--tfoot--footnote {
+        tr {
+          border-bottom: 0;
+        }
+        td {
+          font-weight: 400;
+          color: var(--theme-colour-text-primary, $tr-dark-grey);
+          font-size: 0.75rem;
+          padding: 0.666rem 0 0 0;
         }
       }
     }
@@ -189,14 +407,31 @@
   section.input {
     margin: 16px 0;
     background-color: $tr-ultra-light-grey;
-    padding: 1.25rem 0.75rem;
+    padding: 0.75rem;
     font-size: 1rem;
     width: 100%;
     border: 1px solid $tr-light-muted-grey;
+    label {
+      line-height: 1.333;
+      display: block;
+      font-size: 1.125rem;
+      font-family: $font-family-display;
+      font-weight: 500;
+    }
     .search {
       .search--input {
         padding: 0.33rem;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
+        height: 2.3rem;
+        border: 1px solid $tr-muted-grey;
+        border-radius: 5px;
+        width: 300px;
+      }
+    }
+    .filter {
+      .filter--select {
+        padding: 0.33rem;
+        font-size: 1.1rem;
         height: 2.3rem;
         border: 1px solid $tr-muted-grey;
         border-radius: 5px;

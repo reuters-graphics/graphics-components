@@ -1,0 +1,887 @@
+[
+    {
+        "Country": "Afghanistan",
+        "Region": "Southern Asia",
+        "Score": 40.19
+    },
+    {
+        "Country": "Albania",
+        "Region": "Southern Europe",
+        "Score": 30.59
+    },
+    {
+        "Country": "Algeria",
+        "Region": "Northern Africa",
+        "Score": 47.26
+    },
+    {
+        "Country": "Andorra",
+        "Region": "Southern Europe",
+        "Score": 23.32
+    },
+    {
+        "Country": "Angola",
+        "Region": "Sub-Saharan Africa",
+        "Score": 34.06
+    },
+    {
+        "Country": "Argentina",
+        "Region": "Latin America and the Caribbean",
+        "Score": 28.99
+    },
+    {
+        "Country": "Armenia",
+        "Region": "Western Asia",
+        "Score": 28.83
+    },
+    {
+        "Country": "Australia",
+        "Region": "Australia and New Zealand",
+        "Score": 19.79
+    },
+    {
+        "Country": "Austria",
+        "Region": "Western Europe",
+        "Score": 16.34
+    },
+    {
+        "Country": "Azerbaijan",
+        "Region": "Western Asia",
+        "Score": 58.77
+    },
+    {
+        "Country": "Bahrain",
+        "Region": "Western Asia",
+        "Score": 61.1
+    },
+    {
+        "Country": "Bangladesh",
+        "Region": "Southern Asia",
+        "Score": 49.71
+    },
+    {
+        "Country": "Belarus",
+        "Region": "Eastern Europe",
+        "Score": 50.82
+    },
+    {
+        "Country": "Belgium",
+        "Region": "Western Europe",
+        "Score": 11.69
+    },
+    {
+        "Country": "Belize",
+        "Region": "Latin America and the Caribbean",
+        "Score": 27.61
+    },
+    {
+        "Country": "Benin",
+        "Region": "Sub-Saharan Africa",
+        "Score": 38.18
+    },
+    {
+        "Country": "Bhutan",
+        "Region": "Southern Asia",
+        "Score": 28.86
+    },
+    {
+        "Country": "Bolivia",
+        "Region": "Latin America and the Caribbean",
+        "Score": 35.47
+    },
+    {
+        "Country": "Bosnia and Herzegovina",
+        "Region": "Southern Europe",
+        "Score": 28.34
+    },
+    {
+        "Country": "Botswana",
+        "Region": "Sub-Saharan Africa",
+        "Score": 23.25
+    },
+    {
+        "Country": "Brazil",
+        "Region": "Latin America and the Caribbean",
+        "Score": 36.25
+    },
+    {
+        "Country": "Brunei",
+        "Region": "South-eastern Asia",
+        "Score": 49.91
+    },
+    {
+        "Country": "Bulgaria",
+        "Region": "Eastern Europe",
+        "Score": 37.29
+    },
+    {
+        "Country": "Burkina Faso",
+        "Region": "Sub-Saharan Africa",
+        "Score": 23.17
+    },
+    {
+        "Country": "Burundi",
+        "Region": "Sub-Saharan Africa",
+        "Score": 47.57
+    },
+    {
+        "Country": "Cambodia",
+        "Region": "South-eastern Asia",
+        "Score": 46.84
+    },
+    {
+        "Country": "Cameroon",
+        "Region": "Sub-Saharan Africa",
+        "Score": 43.78
+    },
+    {
+        "Country": "Canada",
+        "Region": "Northern America",
+        "Score": 15.25
+    },
+    {
+        "Country": "Cape Verde",
+        "Region": "Sub-Saharan Africa",
+        "Score": 20.09
+    },
+    {
+        "Country": "Central African Republic",
+        "Region": "Sub-Saharan Africa",
+        "Score": 41.92
+    },
+    {
+        "Country": "Chad",
+        "Region": "Sub-Saharan Africa",
+        "Score": 40.2
+    },
+    {
+        "Country": "Chile",
+        "Region": "Latin America and the Caribbean",
+        "Score": 27.89
+    },
+    {
+        "Country": "China",
+        "Region": "Eastern Asia",
+        "Score": 78.72
+    },
+    {
+        "Country": "Colombia",
+        "Region": "Latin America and the Caribbean",
+        "Score": 43.74
+    },
+    {
+        "Country": "Comoros",
+        "Region": "Sub-Saharan Africa",
+        "Score": 30.65
+    },
+    {
+        "Country": "Congo",
+        "Region": "Sub-Saharan Africa",
+        "Score": 38.83
+    },
+    {
+        "Country": "Costa Rica",
+        "Region": "Latin America and the Caribbean",
+        "Score": 8.76
+    },
+    {
+        "Country": "Cote d'Ivoire",
+        "Region": "Sub-Saharan Africa",
+        "Score": 28.87
+    },
+    {
+        "Country": "Croatia",
+        "Region": "Southern Europe",
+        "Score": 27.95
+    },
+    {
+        "Country": "Cuba",
+        "Region": "Latin America and the Caribbean",
+        "Score": 63.94
+    },
+    {
+        "Country": "Cyprus",
+        "Region": "Western Asia",
+        "Score": 19.85
+    },
+    {
+        "Country": "Czechia",
+        "Region": "Eastern Europe",
+        "Score": 23.38
+    },
+    {
+        "Country": "Democratic Republic of Congo",
+        "Region": "Sub-Saharan Africa",
+        "Score": 48.59
+    },
+    {
+        "Country": "Denmark",
+        "Region": "Northern Europe",
+        "Score": 8.57
+    },
+    {
+        "Country": "Djibouti",
+        "Region": "Sub-Saharan Africa",
+        "Score": 78.62
+    },
+    {
+        "Country": "Dominican Republic",
+        "Region": "Latin America and the Caribbean",
+        "Score": 25.6
+    },
+    {
+        "Country": "Ecuador",
+        "Region": "Latin America and the Caribbean",
+        "Score": 32.83
+    },
+    {
+        "Country": "Egypt",
+        "Region": "Northern Africa",
+        "Score": 56.17
+    },
+    {
+        "Country": "El Salvador",
+        "Region": "Latin America and the Caribbean",
+        "Score": 30.49
+    },
+    {
+        "Country": "Equatorial Guinea",
+        "Region": "Sub-Saharan Africa",
+        "Score": 55.67
+    },
+    {
+        "Country": "Eritrea",
+        "Region": "Sub-Saharan Africa",
+        "Score": 81.45
+    },
+    {
+        "Country": "Estonia",
+        "Region": "Northern Europe",
+        "Score": 15.25
+    },
+    {
+        "Country": "Eswatini",
+        "Region": "Sub-Saharan Africa",
+        "Score": 46.34
+    },
+    {
+        "Country": "Ethiopia",
+        "Region": "Sub-Saharan Africa",
+        "Score": 33.63
+    },
+    {
+        "Country": "Fiji",
+        "Region": "Melanesia",
+        "Score": 27.92
+    },
+    {
+        "Country": "Finland",
+        "Region": "Northern Europe",
+        "Score": 6.99
+    },
+    {
+        "Country": "France",
+        "Region": "Western Europe",
+        "Score": 22.6
+    },
+    {
+        "Country": "Gabon",
+        "Region": "Sub-Saharan Africa",
+        "Score": 38.6
+    },
+    {
+        "Country": "Gambia",
+        "Region": "Sub-Saharan Africa",
+        "Score": 30.76
+    },
+    {
+        "Country": "Georgia",
+        "Region": "Western Asia",
+        "Score": 28.64
+    },
+    {
+        "Country": "Germany",
+        "Region": "Western Europe",
+        "Score": 15.24
+    },
+    {
+        "Country": "Ghana",
+        "Region": "Sub-Saharan Africa",
+        "Score": 21.33
+    },
+    {
+        "Country": "Greece",
+        "Region": "Southern Europe",
+        "Score": 29.01
+    },
+    {
+        "Country": "Guatemala",
+        "Region": "Latin America and the Caribbean",
+        "Score": 38.45
+    },
+    {
+        "Country": "Guinea",
+        "Region": "Sub-Saharan Africa",
+        "Score": 35.42
+    },
+    {
+        "Country": "Guinea-Bissau",
+        "Region": "Sub-Saharan Africa",
+        "Score": 32.68
+    },
+    {
+        "Country": "Guyana",
+        "Region": "Latin America and the Caribbean",
+        "Score": 25.61
+    },
+    {
+        "Country": "Haiti",
+        "Region": "Latin America and the Caribbean",
+        "Score": 31.12
+    },
+    {
+        "Country": "Honduras",
+        "Region": "Latin America and the Caribbean",
+        "Score": 49.35
+    },
+    {
+        "Country": "Hong Kong",
+        "Region": "Eastern Asia",
+        "Score": 30.44
+    },
+    {
+        "Country": "Hungary",
+        "Region": "Eastern Europe",
+        "Score": 31.76
+    },
+    {
+        "Country": "Iceland",
+        "Region": "Northern Europe",
+        "Score": 15.37
+    },
+    {
+        "Country": "India",
+        "Region": "Southern Asia",
+        "Score": 46.56
+    },
+    {
+        "Country": "Indonesia",
+        "Region": "South-eastern Asia",
+        "Score": 37.4
+    },
+    {
+        "Country": "Iran",
+        "Region": "Southern Asia",
+        "Score": 72.7
+    },
+    {
+        "Country": "Iraq",
+        "Region": "Western Asia",
+        "Score": 55.57
+    },
+    {
+        "Country": "Ireland",
+        "Region": "Northern Europe",
+        "Score": 11.91
+    },
+    {
+        "Country": "Israel",
+        "Region": "Western Asia",
+        "Score": 30.9
+    },
+    {
+        "Country": "Italy",
+        "Region": "Southern Europe",
+        "Score": 23.39
+    },
+    {
+        "Country": "Jamaica",
+        "Region": "Latin America and the Caribbean",
+        "Score": 9.96
+    },
+    {
+        "Country": "Japan",
+        "Region": "Eastern Asia",
+        "Score": 28.88
+    },
+    {
+        "Country": "Jordan",
+        "Region": "Western Asia",
+        "Score": 42.89
+    },
+    {
+        "Country": "Kazakhstan",
+        "Region": "Central Asia",
+        "Score": 50.28
+    },
+    {
+        "Country": "Kenya",
+        "Region": "Sub-Saharan Africa",
+        "Score": 33.65
+    },
+    {
+        "Country": "Kuwait",
+        "Region": "Western Asia",
+        "Score": 34.36
+    },
+    {
+        "Country": "Kyrgyzstan",
+        "Region": "Central Asia",
+        "Score": 30.37
+    },
+    {
+        "Country": "Laos",
+        "Region": "South-eastern Asia",
+        "Score": 70.56
+    },
+    {
+        "Country": "Latvia",
+        "Region": "Northern Europe",
+        "Score": 19.26
+    },
+    {
+        "Country": "Lebanon",
+        "Region": "Western Asia",
+        "Score": 34.93
+    },
+    {
+        "Country": "Lesotho",
+        "Region": "Sub-Saharan Africa",
+        "Score": 31.61
+    },
+    {
+        "Country": "Liberia",
+        "Region": "Sub-Saharan Africa",
+        "Score": 33.36
+    },
+    {
+        "Country": "Libya",
+        "Region": "Northern Africa",
+        "Score": 55.73
+    },
+    {
+        "Country": "Liechtenstein",
+        "Region": "Western Europe",
+        "Score": 19.49
+    },
+    {
+        "Country": "Lithuania",
+        "Region": "Northern Europe",
+        "Score": 20.15
+    },
+    {
+        "Country": "Luxembourg",
+        "Region": "Western Europe",
+        "Score": 17.56
+    },
+    {
+        "Country": "Madagascar",
+        "Region": "Sub-Saharan Africa",
+        "Score": 28.24
+    },
+    {
+        "Country": "Malawi",
+        "Region": "Sub-Saharan Africa",
+        "Score": 28.8
+    },
+    {
+        "Country": "Malaysia",
+        "Region": "South-eastern Asia",
+        "Score": 39.47
+    },
+    {
+        "Country": "Maldives",
+        "Region": "Southern Asia",
+        "Score": 29.13
+    },
+    {
+        "Country": "Mali",
+        "Region": "Sub-Saharan Africa",
+        "Score": 33.5
+    },
+    {
+        "Country": "Malta",
+        "Region": "Southern Europe",
+        "Score": 30.46
+    },
+    {
+        "Country": "Mauritania",
+        "Region": "Sub-Saharan Africa",
+        "Score": 32.25
+    },
+    {
+        "Country": "Mauritius",
+        "Region": "Sub-Saharan Africa",
+        "Score": 28.74
+    },
+    {
+        "Country": "Mexico",
+        "Region": "Latin America and the Caribbean",
+        "Score": 46.71
+    },
+    {
+        "Country": "Moldova",
+        "Region": "Eastern Europe",
+        "Score": 31.61
+    },
+    {
+        "Country": "Mongolia",
+        "Region": "Eastern Asia",
+        "Score": 28.97
+    },
+    {
+        "Country": "Montenegro",
+        "Region": "Southern Europe",
+        "Score": 34.33
+    },
+    {
+        "Country": "Morocco",
+        "Region": "Northern Africa",
+        "Score": 43.94
+    },
+    {
+        "Country": "Mozambique",
+        "Region": "Sub-Saharan Africa",
+        "Score": 35.39
+    },
+    {
+        "Country": "Myanmar",
+        "Region": "South-eastern Asia",
+        "Score": 46.14
+    },
+    {
+        "Country": "Namibia",
+        "Region": "Sub-Saharan Africa",
+        "Score": 19.72
+    },
+    {
+        "Country": "Nepal",
+        "Region": "Southern Asia",
+        "Score": 34.62
+    },
+    {
+        "Country": "Netherlands",
+        "Region": "Western Europe",
+        "Score": 9.67
+    },
+    {
+        "Country": "New Zealand",
+        "Region": "Australia and New Zealand",
+        "Score": 10.04
+    },
+    {
+        "Country": "Nicaragua",
+        "Region": "Latin America and the Caribbean",
+        "Score": 39.98
+    },
+    {
+        "Country": "Niger",
+        "Region": "Sub-Saharan Africa",
+        "Score": 28.44
+    },
+    {
+        "Country": "Nigeria",
+        "Region": "Sub-Saharan Africa",
+        "Score": 39.69
+    },
+    {
+        "Country": "North Korea",
+        "Region": "Eastern Asia",
+        "Score": 81.28
+    },
+    {
+        "Country": "North Macedonia",
+        "Region": "Southern Europe",
+        "Score": 31.67
+    },
+    {
+        "Country": "Norway",
+        "Region": "Northern Europe",
+        "Score": 6.72
+    },
+    {
+        "Country": "Oman",
+        "Region": "Western Asia",
+        "Score": 43.37
+    },
+    {
+        "Country": "Pakistan",
+        "Region": "Southern Asia",
+        "Score": 46.86
+    },
+    {
+        "Country": "Palestine",
+        "Region": "Western Asia",
+        "Score": 43.18
+    },
+    {
+        "Country": "Panama",
+        "Region": "Latin America and the Caribbean",
+        "Score": 29.94
+    },
+    {
+        "Country": "Papua New Guinea",
+        "Region": "Melanesia",
+        "Score": 24.88
+    },
+    {
+        "Country": "Paraguay",
+        "Region": "Latin America and the Caribbean",
+        "Score": 33.52
+    },
+    {
+        "Country": "Peru",
+        "Region": "Latin America and the Caribbean",
+        "Score": 31.71
+    },
+    {
+        "Country": "Philippines",
+        "Region": "South-eastern Asia",
+        "Score": 45.64
+    },
+    {
+        "Country": "Poland",
+        "Region": "Eastern Europe",
+        "Score": 28.84
+    },
+    {
+        "Country": "Portugal",
+        "Region": "Southern Europe",
+        "Score": 10.11
+    },
+    {
+        "Country": "Qatar",
+        "Region": "Western Asia",
+        "Score": 42.6
+    },
+    {
+        "Country": "Romania",
+        "Region": "Eastern Europe",
+        "Score": 24.91
+    },
+    {
+        "Country": "Russia",
+        "Region": "Eastern Europe",
+        "Score": 48.71
+    },
+    {
+        "Country": "Rwanda",
+        "Region": "Sub-Saharan Africa",
+        "Score": 50.66
+    },
+    {
+        "Country": "Samoa",
+        "Region": "Polynesia",
+        "Score": 19.24
+    },
+    {
+        "Country": "Saudi Arabia",
+        "Region": "Western Asia",
+        "Score": 62.73
+    },
+    {
+        "Country": "Senegal",
+        "Region": "Sub-Saharan Africa",
+        "Score": 25.22
+    },
+    {
+        "Country": "Serbia",
+        "Region": "Southern Europe",
+        "Score": 32.03
+    },
+    {
+        "Country": "Seychelles",
+        "Region": "Sub-Saharan Africa",
+        "Score": 25.66
+    },
+    {
+        "Country": "Sierra Leone",
+        "Region": "Sub-Saharan Africa",
+        "Score": 29.61
+    },
+    {
+        "Country": "Singapore",
+        "Region": "South-eastern Asia",
+        "Score": 55.2
+    },
+    {
+        "Country": "Slovakia",
+        "Region": "Eastern Europe",
+        "Score": 23.02
+    },
+    {
+        "Country": "Slovenia",
+        "Region": "Southern Europe",
+        "Score": 23.1
+    },
+    {
+        "Country": "Somalia",
+        "Region": "Sub-Saharan Africa",
+        "Score": 55.47
+    },
+    {
+        "Country": "South Africa",
+        "Region": "Sub-Saharan Africa",
+        "Score": 21.59
+    },
+    {
+        "Country": "South Korea",
+        "Region": "Eastern Asia",
+        "Score": 23.43
+    },
+    {
+        "Country": "South Sudan",
+        "Region": "Sub-Saharan Africa",
+        "Score": 45.78
+    },
+    {
+        "Country": "Spain",
+        "Region": "Southern Europe",
+        "Score": 20.44
+    },
+    {
+        "Country": "Sri Lanka",
+        "Region": "Southern Asia",
+        "Score": 42.2
+    },
+    {
+        "Country": "Sudan",
+        "Region": "Northern Africa",
+        "Score": 52.93
+    },
+    {
+        "Country": "Suriname",
+        "Region": "Latin America and the Caribbean",
+        "Score": 16.95
+    },
+    {
+        "Country": "Sweden",
+        "Region": "Northern Europe",
+        "Score": 7.24
+    },
+    {
+        "Country": "Switzerland",
+        "Region": "Western Europe",
+        "Score": 10.55
+    },
+    {
+        "Country": "Syria",
+        "Region": "Western Asia",
+        "Score": 70.63
+    },
+    {
+        "Country": "Taiwan",
+        "Region": "Eastern Asia",
+        "Score": 23.86
+    },
+    {
+        "Country": "Tajikistan",
+        "Region": "Central Asia",
+        "Score": 55.52
+    },
+    {
+        "Country": "Tanzania",
+        "Region": "Sub-Saharan Africa",
+        "Score": 40.69
+    },
+    {
+        "Country": "Thailand",
+        "Region": "South-eastern Asia",
+        "Score": 45.22
+    },
+    {
+        "Country": "Timor",
+        "Region": "South-eastern Asia",
+        "Score": 29.11
+    },
+    {
+        "Country": "Togo",
+        "Region": "Sub-Saharan Africa",
+        "Score": 29.59
+    },
+    {
+        "Country": "Tonga",
+        "Region": "Polynesia",
+        "Score": 24.59
+    },
+    {
+        "Country": "Trinidad and Tobago",
+        "Region": "Latin America and the Caribbean",
+        "Score": 21.55
+    },
+    {
+        "Country": "Tunisia",
+        "Region": "Northern Africa",
+        "Score": 29.53
+    },
+    {
+        "Country": "Turkey",
+        "Region": "Western Asia",
+        "Score": 49.79
+    },
+    {
+        "Country": "Turkmenistan",
+        "Region": "Central Asia",
+        "Score": 80.03
+    },
+    {
+        "Country": "Uganda",
+        "Region": "Sub-Saharan Africa",
+        "Score": 41.19
+    },
+    {
+        "Country": "Ukraine",
+        "Region": "Eastern Europe",
+        "Score": 32.96
+    },
+    {
+        "Country": "United Arab Emirates",
+        "Region": "Western Asia",
+        "Score": 43.13
+    },
+    {
+        "Country": "United Kingdom",
+        "Region": "Northern Europe",
+        "Score": 21.59
+    },
+    {
+        "Country": "United States",
+        "Region": "Northern America",
+        "Score": 23.93
+    },
+    {
+        "Country": "Uruguay",
+        "Region": "Latin America and the Caribbean",
+        "Score": 16.38
+    },
+    {
+        "Country": "Uzbekistan",
+        "Region": "Central Asia",
+        "Score": 50.74
+    },
+    {
+        "Country": "Venezuela",
+        "Region": "Latin America and the Caribbean",
+        "Score": 47.6
+    },
+    {
+        "Country": "Vietnam",
+        "Region": "South-eastern Asia",
+        "Score": 78.46
+    },
+    {
+        "Country": "Yemen",
+        "Region": "Western Asia",
+        "Score": 62.35
+    },
+    {
+        "Country": "Zambia",
+        "Region": "Sub-Saharan Africa",
+        "Score": 38.21
+    },
+    {
+        "Country": "Zimbabwe",
+        "Region": "Sub-Saharan Africa",
+        "Score": 43.12
+    }
+]
