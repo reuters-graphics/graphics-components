@@ -387,7 +387,7 @@
           border-bottom: 1px solid $tr-light-muted-grey;
         }
         td {
-          padding: 0.333rem 0;
+          padding: 0.333rem 0.1667rem;
         }
       }
       .table--tfoot--footnote {
