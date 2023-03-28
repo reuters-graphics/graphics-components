@@ -362,6 +362,7 @@
           th {
             font-weight: 500;
             line-height: 1.4;
+            padding: 0 0.333rem;
             &.sortable {
               cursor: pointer;
             }
@@ -387,7 +388,7 @@
           border-bottom: 1px solid $tr-light-muted-grey;
         }
         td {
-          padding: 0.333rem 0.1667rem;
+          padding: 0.333rem;
         }
       }
       .table--tfoot--footnote {
