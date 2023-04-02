@@ -7,6 +7,8 @@
   // @ts-ignore
   import metadataDocs from './stories/docs/metadata.md?raw';
   // @ts-ignore
+  import truncateDocs from './stories/docs/truncate.md?raw';
+  // @ts-ignore
   import searchDocs from './stories/docs/search.md?raw';
   // @ts-ignore
   import filterDocs from './stories/docs/filter.md?raw';
@@ -69,10 +71,21 @@
 />
 
 <Story
+  name="Truncate"
+  {...withStoryDocs(truncateDocs)}
+  args="{{
+    data: homeRuns,
+    truncated: true,
+    source: 'Source: Baseball Reference',
+  }}"
+/>
+
+<Story
   name="Search"
   {...withStoryDocs(searchDocs)}
   args="{{
     data: pressFreedom,
+    paginated: true,
     searchable: true,
     title: 'Press Freedom Index',
     notes:
@@ -85,6 +98,7 @@
   {...withStoryDocs(filterDocs)}
   args="{{
     data: pressFreedom,
+    paginated: true,
     filterField: 'Region',
     title: 'Press Freedom Index',
     notes:
@@ -99,6 +113,7 @@
     data: pressFreedom,
     searchable: true,
     filterField: 'Region',
+    paginated: true,
     title: 'Press Freedom Index',
     notes:
       "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
@@ -110,12 +125,13 @@
   {...withStoryDocs(sortDocs)}
   args="{{
     data: pressFreedom,
-    title: 'Press Freedom Index',
-    notes:
-      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
     sortable: true,
     sortField: 'Score',
     sortDirection: 'descending',
+    paginated: true,
+    title: 'Press Freedom Index',
+    notes:
+      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
   }}"
 />
 

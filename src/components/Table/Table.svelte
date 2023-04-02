@@ -42,6 +42,24 @@
   );
 
   /**
+   * Whether or not the table is cutoff after a set number of rows.
+   * @type {boolean}
+   */
+  export let truncated: boolean = false;
+
+  /**
+   * If the table is truncated, how many rows to allow before the cutoff.
+   * @type {number}
+   */
+  export let truncateLength: number = 5;
+
+  /**
+   * Whether or not the table is paginated after a set number of rows.
+   * @type {boolean}
+   */
+  export let paginated: boolean = false;
+
+  /**
    * The default page size.
    * @type {number}
    */
@@ -122,7 +140,8 @@
     isNumeric,
   } from './utils.js';
 
-  /** Set filtering and pagination configuration */
+  /** Set truncate, filtering and pagination configuration */
+  let showAll = false;
   let pageNumber = 1;
   let searchText = '';
   const filterList = filterField
@@ -131,7 +150,15 @@
   let filterValue = '';
   $: filteredData = filterArray(data, searchText, filterField, filterValue);
   $: sortedData = sortArray(filteredData, sortField, sortDirection);
-  $: currentPageData = paginateArray(sortedData, pageSize, pageNumber);
+  $: currentPageData = () => {
+    if (truncated) {
+      return showAll ? sortedData : sortedData.slice(0, truncateLength + 1);
+    } else if (paginated) {
+      return paginateArray(sortedData, pageSize, pageNumber);
+    } else {
+      return sortedData;
+    }
+  };
 
   // Estimate the text alignment of our fields. Strings go left. Numbers go right.
   function getAlignment(value) {
@@ -142,7 +169,11 @@
     return acc;
   }, {});
 
-  //* * Handle search, filter, sort and pagination events */
+  //* * Handle show all, search, filter, sort and pagination events */
+  function toggleTruncate(event) {
+    showAll = !showAll;
+  }
+
   function handleSearchInput(event) {
     searchText = event.target.value;
     pageNumber = 1;
@@ -249,7 +280,12 @@
       </section>
     {/if}
     <section class="table">
-      <table>
+      <table
+        class:paginated
+        class:truncated="{truncated &&
+          !showAll &&
+          data.length > truncateLength}"
+      >
         {#if title || dek}
           <caption class="table--caption">
             {#if title}
@@ -282,7 +318,7 @@
           </tr>
         </thead>
         <tbody class="table--tbody">
-          {#each currentPageData as item, idx}
+          {#each currentPageData() as item, idx}
             <tr data-row-index="{idx}">
               {#each includedFields as field}
                 <td
@@ -298,7 +334,7 @@
           {/each}
         </tbody>
         {#if notes || source}
-          <tfoot class="table--tfoot table--tfoot--footnote">
+          <tfoot class="table--tfoot">
             {#if notes}
               <tr>
                 <td colspan="{includedFields.length}">{@html notes}</td>
@@ -313,7 +349,15 @@
         {/if}
       </table>
     </section>
-    {#if filteredData.length > pageSize}
+    {#if truncated && data.length > truncateLength}
+      <nav aria-label="Show all button" class="show-all">
+        <button on:click="{toggleTruncate}"
+          >{#if showAll}Show fewer rows{:else}Show {data.length -
+              truncateLength} more rows{/if}</button
+        >
+      </nav>
+    {/if}
+    {#if paginated}
       <nav aria-label="pagination" class="pagination">
         <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
           ><div class="icon-wrapper">
@@ -430,15 +474,27 @@
           padding: 0.5rem 0.25rem 0.5rem 0;
         }
       }
-      .table--tfoot--footnote {
+      tfoot.table--tfoot {
+        display: table-row;
         tr {
           border-bottom: 0;
         }
         td {
           font-weight: 300;
-          color: var(--theme-colour-text-primary, $tr-dark-grey);
+          color: $tr-dark-grey;
           font-size: 0.8rem;
           padding: 0.5rem 0 0 0;
+        }
+      }
+      &.truncated {
+        tbody tr:last-child:not(:first-child) {
+          border-bottom: none;
+          mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            transparent 100%
+          );
         }
       }
     }
@@ -477,6 +533,25 @@
         border-radius: 5px;
         width: 300px;
       }
+    }
+  }
+
+  nav.show-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    button {
+      font-size: 0.8rem;
+      font-family: $font-family-display;
+      font-weight: 500;
+      min-width: 175px;
+      padding: 0.33rem 0.5rem;
+      border: 1px solid $tr-muted-grey;
+      border-radius: 4px;
+      background: $white;
+      color: $tr-medium-grey;
+      cursor: pointer;
     }
   }
 
