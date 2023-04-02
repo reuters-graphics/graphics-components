@@ -62,7 +62,9 @@
     width: 'normal',
     data: homeRuns,
     title: 'Career home run leaders',
-    notes: 'As of Opening Day 2023',
+    dek: 'In baseball, a home run (also known as a "dinger" or "tater") occurs when a batter hits the ball over the outfield fence. When a home run is hit, the batter and any runners on base are able to score.',
+    notes: 'Note: As of Opening Day 2023',
+    source: 'Source: Baseball Reference',
   }}"
 />
 

@@ -11,15 +11,27 @@
 
   /**
    * A title that runs above the table.
-   * @type string
+   * @type {string}
    */
-  export let title: string;
+  export let title: string | null = null;
+
+  /**
+   * A block of text that runs above the table.
+   * @type {string}
+   */
+  export let dek: string | null = null;
 
   /**
    * A footnote that runs below the table.
-   * @type string
+   * @type {string}
    */
-  export let notes: string;
+  export let notes: string | null = null;
+
+  /**
+   * A source line that runs below the table.
+   * @type {string}
+   */
+  export let source: string | null = null;
 
   /**
    * list of the fields to include in the table. By default everything goes.
@@ -31,62 +43,62 @@
 
   /**
    * The default page size.
-   * @type number
+   * @type {number}
    */
   export let pageSize: number = 25;
 
   /**
    * Whether or not searches are allowed.
-   * @type boolean
+   * @type {boolean}
    */
   export let searchable: boolean = false;
 
   /**
    * The label to place above the search box.
-   * @type string
+   * @type {string}
    */
   export let searchLabel: string;
 
   /**
    * The placeholder text that appears in the search box.
-   * @type string
+   * @type {string}
    */
   export let searchPlaceholder: string;
 
   /**
    * A field to offer uses as an interactive filter.
-   * @type string
+   * @type {string}
    */
   export let filterField: string;
 
   /**
    * The label to place above the filter box
-   * @type string
+   * @type {string}
    */
   export let filterLabel: string;
 
   /**
    * Whether or not sorts are allowed.
-   * @type boolean
+   * @type {boolean}
    */
   export let sortable: boolean = false;
 
   /**
    * The column to sort by. By default it's the first header.
-   * @type string
+   * @type {string}
    */
   export let sortField: string = Object.keys(data[0])[0];
 
   /**
    * The direction of the sort. By default it's ascending.
-   * @type SortDirection
+   * @type {SortDirection}
    */
   type SortDirection = 'ascending' | 'descending';
   export let sortDirection: SortDirection = 'ascending';
 
   /**
    * Custom field formatting functions. Should be keyed to the name of the field.
-   * @type object
+   * @type {object}
    */
   export let fieldFormatters: object = {};
 
@@ -238,10 +250,15 @@
     {/if}
     <section class="table">
       <table>
-        {#if title}
-          <caption class="table--caption table--caption--title"
-            >{@html title}</caption
-          >
+        {#if title || dek}
+          <caption class="table--caption">
+            {#if title}
+              <div class="table--caption--title">{@html title}</div>
+            {/if}
+            {#if dek}
+              <div class="table--caption--dek">{@html dek}</div>
+            {/if}
+          </caption>
         {/if}
         <thead class="table--thead">
           <tr>
@@ -280,11 +297,18 @@
             </tr>
           {/each}
         </tbody>
-        {#if notes}
+        {#if notes || source}
           <tfoot class="table--tfoot table--tfoot--footnote">
-            <tr>
-              <td colspan="{includedFields.length}">{@html notes}</td>
-            </tr>
+            {#if notes}
+              <tr>
+                <td colspan="{includedFields.length}">{@html notes}</td>
+              </tr>
+            {/if}
+            {#if source}
+              <tr>
+                <td colspan="{includedFields.length}">{@html source}</td>
+              </tr>
+            {/if}
           </tfoot>
         {/if}
       </table>
@@ -348,21 +372,34 @@
       border-spacing: 0;
       width: 100%;
       font-size: 1rem;
-      font-family: var(--theme-font-family-sans-serif, $font-family-sans-serif);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
-      .table--caption--title {
+      font-family: $font-family-display;
+      color: $tr-dark-grey;
+      .table--caption {
         caption-side: top;
-        font-weight: 500;
-        color: var(--theme-colour-text-primary, $tr-dark-grey);
-        font-size: 1.25rem;
+        .table--caption--title {
+          font-weight: 500;
+          color: $tr-dark-grey;
+          font-size: 1.33rem;
+          padding: 0;
+        }
+        .table--caption--dek {
+          font-size: 1rem;
+          font-weight: 300;
+          padding: 0;
+          line-height: 1.4;
+        }
       }
       thead {
         tr {
-          border-bottom: 1px solid $tr-muted-grey;
+          border-bottom: 1px solid $tr-light-grey;
           th {
+            color: $tr-medium-grey;
+            font-size: 0.85rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06rem;
             line-height: 1.4;
-            padding: 0 0.333rem;
+            padding: 0.5rem 0.25rem 0.5rem 0;
             &.sortable {
               cursor: pointer;
             }
@@ -388,7 +425,9 @@
           border-bottom: 1px solid $tr-light-muted-grey;
         }
         td {
-          padding: 0.333rem;
+          font-size: 1rem;
+          font-weight: 300;
+          padding: 0.5rem 0.25rem 0.5rem 0;
         }
       }
       .table--tfoot--footnote {
@@ -396,10 +435,10 @@
           border-bottom: 0;
         }
         td {
-          font-weight: 400;
+          font-weight: 300;
           color: var(--theme-colour-text-primary, $tr-dark-grey);
-          font-size: 0.75rem;
-          padding: 0.666rem 0 0 0;
+          font-size: 0.8rem;
+          padding: 0.5rem 0 0 0;
         }
       }
     }
