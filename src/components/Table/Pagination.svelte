@@ -1,5 +1,8 @@
 <script lang="ts">
   import { intcomma } from 'journalize';
+  import LeftArrow from './LeftArrow.svelte';
+  import RightArrow from './RightArrow.svelte';
+  import ProgressBar from './ProgressBar.svelte';
   /**
    * The current page number.
    * @type {number}
@@ -24,6 +27,11 @@
    */
   export let n: number = null;
 
+  $: minRow = pageNumber * pageSize - pageSize + 1;
+  $: maxRow = pageNumber * pageSize - pageSize + pageLength;
+  $: numPages = Math.ceil(n / pageSize);
+  $: progress = pageNumber / numPages;
+
   function goToPreviousPage() {
     if (pageNumber > 1) {
       pageNumber -= 1;
@@ -31,7 +39,7 @@
   }
 
   function goToNextPage() {
-    if (pageNumber < Math.ceil(n / pageSize)) {
+    if (pageNumber < numPages) {
       pageNumber += 1;
     }
   }
@@ -40,37 +48,20 @@
 <nav aria-label="pagination" class="pagination">
   <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
     ><div class="icon-wrapper">
-      <svg
-        class="icon"
-        aria-hidden="true"
-        focusable="false"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 6 11"
-        ><path
-          d="m1.76 5.134 3.887-3.887a.71.71 0 0 0 0-1.027.709.709 0 0 0-1.027 0l-4.4 4.4a.71.71 0 0 0 0 1.027l4.4 4.4c.147.147.367.22.513.22a.79.79 0 0 0 .513-.22.71.71 0 0 0 0-1.027L1.76 5.133Z"
-        ></path></svg
-      > <span class="visually-hidden">Previous page</span>
+      <LeftArrow />
+      <span class="visually-hidden">Previous page</span>
     </div></button
   >
-  <span class="label" aria-label="page {pageNumber}" aria-current="page"
-    >{pageNumber * pageSize - pageSize + 1}-{pageNumber * pageSize -
-      pageSize +
-      pageLength} of {intcomma(n)}</span
-  >
+  <div class="label" aria-label="page {pageNumber}" aria-current="page">
+    <div class="records">{minRow}-{maxRow} of {intcomma(n)}</div>
+    <div class="progress"><ProgressBar bind:progress /></div>
+  </div>
   <button
     on:click="{goToNextPage}"
     disabled="{pageNumber === Math.ceil(n / pageSize)}"
     ><div class="icon-wrapper">
-      <svg
-        class="icon"
-        aria-hidden="true"
-        focusable="false"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 7 11"
-        ><path
-          d="m6.013 4.987-4.4-4.4a.71.71 0 0 0-1.027 0 .709.709 0 0 0 0 1.027L4.473 5.5.586 9.387a.71.71 0 0 0 0 1.027c.147.147.293.22.513.22.22 0 .367-.073.514-.22l4.4-4.4a.71.71 0 0 0 0-1.027Z"
-        ></path></svg
-      > <span class="visually-hidden">Next page</span>
+      <RightArrow />
+      <span class="visually-hidden">Next page</span>
     </div></button
   >
 </nav>
@@ -82,41 +73,51 @@
   nav.pagination {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 1rem;
-    font-size: 1rem;
-    font-family: $font-family-display;
-    font-weight: 400;
     button {
-      padding: 5px 10px;
-      border: 1px solid;
-      border-color: $tr-contrast-grey;
-      border-radius: 8px;
+      border: 1px solid $tr-light-grey;
+      border-radius: 50%;
       background: $white;
-      color: $tr-medium-grey;
+      color: $tr-light-grey;
       cursor: pointer;
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       &:disabled {
-        border-color: $tr-light-grey;
-        color: $tr-light-grey;
         cursor: default;
+        .icon-wrapper:hover {
+          color: $tr-light-grey;
+          border-color: $tr-light-grey;
+        }
       }
       .icon-wrapper {
         display: flex;
         align-items: center;
         justify-content: center;
         white-space: nowrap;
-        transition: all 0.15s ease;
-        .icon {
-          height: 1rem;
-          width: 1rem;
-          fill: currentColor;
+        &:hover {
+          color: $tr-medium-grey;
+          border-color: $tr-medium-grey;
         }
       }
     }
     .label {
-      margin: 0 1rem;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: auto;
+      min-width: 110px;
+      margin: 0 0.5rem;
+      .records {
+        font-size: 0.8rem;
+        font-family: $font-family-display;
+        font-weight: 300;
+        margin: 0 1rem;
+        color: $tr-medium-grey;
+      }
+      .progress {
+        padding: 0.33rem 0 0 0;
+      }
     }
   }
 
