@@ -132,10 +132,10 @@
 
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
+  import Pagination from './Pagination.svelte';
   import {
     filterArray,
     paginateArray,
-    numberWithCommas,
     uniqueAttr,
     isNumeric,
   } from './utils.js';
@@ -150,15 +150,13 @@
   let filterValue = '';
   $: filteredData = filterArray(data, searchText, filterField, filterValue);
   $: sortedData = sortArray(filteredData, sortField, sortDirection);
-  $: currentPageData = () => {
-    if (truncated) {
-      return showAll ? sortedData : sortedData.slice(0, truncateLength + 1);
-    } else if (paginated) {
-      return paginateArray(sortedData, pageSize, pageNumber);
-    } else {
-      return sortedData;
-    }
-  };
+  $: currentPageData = truncated
+    ? showAll
+      ? sortedData
+      : sortedData.slice(0, truncateLength + 1)
+    : paginated
+    ? paginateArray(sortedData, pageSize, pageNumber)
+    : sortedData;
 
   // Estimate the text alignment of our fields. Strings go left. Numbers go right.
   function getAlignment(value) {
@@ -189,18 +187,6 @@
     if (!sortable) return;
     sortField = event.target.getAttribute('data-field');
     sortDirection = sortDirection === 'ascending' ? 'descending' : 'ascending';
-  }
-
-  function goToPreviousPage() {
-    if (pageNumber > 1) {
-      pageNumber -= 1;
-    }
-  }
-
-  function goToNextPage() {
-    if (pageNumber < Math.ceil(filteredData.length / pageSize)) {
-      pageNumber += 1;
-    }
   }
 
   function sortArray(array, column, direction) {
@@ -318,7 +304,7 @@
           </tr>
         </thead>
         <tbody class="table--tbody">
-          {#each currentPageData() as item, idx}
+          {#each currentPageData as item, idx}
             <tr data-row-index="{idx}">
               {#each includedFields as field}
                 <td
@@ -358,46 +344,12 @@
       </nav>
     {/if}
     {#if paginated}
-      <nav aria-label="pagination" class="pagination">
-        <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
-          ><div class="icon-wrapper">
-            <svg
-              class="icon"
-              aria-hidden="true"
-              focusable="false"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 6 11"
-              ><path
-                d="m1.76 5.134 3.887-3.887a.71.71 0 0 0 0-1.027.709.709 0 0 0-1.027 0l-4.4 4.4a.71.71 0 0 0 0 1.027l4.4 4.4c.147.147.367.22.513.22a.79.79 0 0 0 .513-.22.71.71 0 0 0 0-1.027L1.76 5.133Z"
-              ></path></svg
-            > <span class="visually-hidden">Previous page</span>
-          </div></button
-        >
-        <span class="label" aria-label="page {pageNumber}" aria-current="page"
-          >{pageNumber * pageSize - pageSize + 1}-{pageNumber * pageSize -
-            pageSize +
-            currentPageData.length} of {numberWithCommas(
-            filteredData.length
-          )}</span
-        >
-        <button
-          on:click="{goToNextPage}"
-          disabled="{pageNumber === Math.ceil(filteredData.length / pageSize)}"
-          ><div class="icon-wrapper">
-            <svg
-              class="icon"
-              aria-hidden="true"
-              focusable="false"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 7 11"
-              ><path
-                d="m6.013 4.987-4.4-4.4a.71.71 0 0 0-1.027 0 .709.709 0 0 0 0 1.027L4.473 5.5.586 9.387a.71.71 0 0 0 0 1.027c.147.147.293.22.513.22.22 0 .367-.073.514-.22l4.4-4.4a.71.71 0 0 0 0-1.027Z"
-              ></path></svg
-            > <span class="visually-hidden">Next page</span>
-          </div></button
-        >
-      </nav>
-    {/if}
+      <Pagination
+        bind:pageNumber
+        bind:pageSize
+        bind:pageLength="{currentPageData.length}"
+        bind:n="{sortedData.length}"
+      />{/if}
   </section>
 </Block>
 
@@ -553,56 +505,5 @@
       color: $tr-medium-grey;
       cursor: pointer;
     }
-  }
-
-  nav.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-family: $font-family-display;
-    font-weight: 400;
-    button {
-      padding: 5px 10px;
-      border: 1px solid;
-      border-color: $tr-contrast-grey;
-      border-radius: 8px;
-      background: $white;
-      color: $tr-medium-grey;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      &:disabled {
-        border-color: $tr-light-grey;
-        color: $tr-light-grey;
-        cursor: default;
-      }
-      .icon-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        transition: all 0.15s ease;
-        .icon {
-          height: 1rem;
-          width: 1rem;
-          fill: currentColor;
-        }
-      }
-    }
-    .label {
-      margin: 0 1rem;
-    }
-  }
-
-  .visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
   }
 </style>

@@ -16,12 +16,6 @@ export function paginateArray(array, pageSize, pageNumber) {
   return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
 
-export function numberWithCommas(n) {
-  const parts = n.toString().split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return parts.join('.');
-}
-
 export function uniqueAttr(array, attr) {
   return array.map((e) => e[attr]).filter(unique);
 }

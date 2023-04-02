@@ -9,6 +9,8 @@
   // @ts-ignore
   import truncateDocs from './stories/docs/truncate.md?raw';
   // @ts-ignore
+  import paginateDocs from './stories/docs/paginate.md?raw';
+  // @ts-ignore
   import searchDocs from './stories/docs/search.md?raw';
   // @ts-ignore
   import filterDocs from './stories/docs/filter.md?raw';
@@ -81,6 +83,18 @@
 />
 
 <Story
+  name="Paginate"
+  {...withStoryDocs(paginateDocs)}
+  args="{{
+    data: pressFreedom,
+    title: 'Press Freedom Index',
+    paginated: true,
+    source:
+      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
+  }}"
+/>
+
+<Story
   name="Search"
   {...withStoryDocs(searchDocs)}
   args="{{
@@ -88,7 +102,7 @@
     paginated: true,
     searchable: true,
     title: 'Press Freedom Index',
-    notes:
+    source:
       "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
   }}"
 />
