@@ -315,6 +315,13 @@
               {/each}
             </tr>
           {/each}
+          {#if searchable && searchText && currentPageData.length === 0}
+            <tr>
+              <td class="no-results" colspan="{includedFields.length}">
+                No results found for "{searchText}"
+              </td>
+            </tr>
+          {/if}
         </tbody>
         {#if notes || source}
           <tfoot class="table--tfoot">
@@ -384,7 +391,7 @@
       }
       thead {
         tr {
-          border-bottom: 1px solid $tr-light-grey;
+          border-bottom: 1px solid $tr-medium-grey;
           th {
             color: $tr-medium-grey;
             font-size: 0.85rem;
@@ -408,12 +415,15 @@
       }
       tbody {
         tr {
-          border-bottom: 1px solid $tr-light-muted-grey;
+          border-bottom: 1px solid $tr-muted-grey;
         }
         td {
           font-size: 1rem;
           font-weight: 300;
           padding: 0.5rem 0.25rem 0.5rem 0;
+          &.no-results {
+            color: $tr-muted-grey;
+          }
         }
       }
       tfoot.table--tfoot {
