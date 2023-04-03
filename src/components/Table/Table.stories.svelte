@@ -99,8 +99,8 @@
   {...withStoryDocs(searchDocs)}
   args="{{
     data: pressFreedom,
-    paginated: true,
     searchable: true,
+    paginated: true,
     title: 'Press Freedom Index',
     source:
       "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",

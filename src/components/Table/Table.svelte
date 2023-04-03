@@ -72,16 +72,10 @@
   export let searchable: boolean = false;
 
   /**
-   * The label to place above the search box.
-   * @type {string}
-   */
-  export let searchLabel: string;
-
-  /**
    * The placeholder text that appears in the search box.
    * @type {string}
    */
-  export let searchPlaceholder: string;
+  export let searchPlaceholder: string = 'Search in table';
 
   /**
    * A field to offer uses as an interactive filter.
@@ -133,6 +127,7 @@
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
+  import Search from './Search.svelte';
   import SortArrow from './SortArrow.svelte';
   import {
     filterArray,
@@ -174,7 +169,7 @@
   }
 
   function handleSearchInput(event) {
-    searchText = event.target.value;
+    searchText = event.detail.value;
     pageNumber = 1;
   }
 
@@ -227,45 +222,6 @@
 
 <Block width="{width}" id="{id}" cls="{cls}">
   <section class="table-wrapper">
-    {#if searchable || filterList}
-      <section class="input">
-        {#if searchable}
-          <div class="search">
-            <label for="filter--select"
-              >{#if searchLabel}{searchLabel}{:else}Search{/if}</label
-            >
-            <input
-              id="search--input"
-              class="search--input"
-              type="text"
-              placeholder="{searchPlaceholder}"
-              on:input="{handleSearchInput}"
-            />
-          </div>
-        {/if}
-        {#if filterList}
-          {#if searchable}<div
-              style="clear: both; display: block; padding-top: 1rem;"
-            ></div>{/if}
-          <div class="filter">
-            <label for="filter--select"
-              >{#if filterLabel}{filterLabel}{:else}Filter by {filterField}{/if}</label
-            >
-            <select
-              class="filter--select"
-              name="filter--select"
-              id="filter--select"
-              on:input="{handleFilterInput}"
-            >
-              <option value="all">All</option>
-              {#each filterList as object}
-                <option value="{object}">{object}</option>
-              {/each}
-            </select>
-          </div>
-        {/if}
-      </section>
-    {/if}
     <section class="table">
       <table
         class:paginated
@@ -273,13 +229,44 @@
           !showAll &&
           data.length > truncateLength}"
       >
-        {#if title || dek}
+        {#if title || dek || searchable}
           <caption class="table--caption">
             {#if title}
               <div class="table--caption--title">{@html title}</div>
             {/if}
             {#if dek}
               <div class="table--caption--dek">{@html dek}</div>
+            {/if}
+            {#if searchable || filterList}
+              <section class="input">
+                {#if searchable}
+                  <Search
+                    bind:searchPlaceholder
+                    on:search="{handleSearchInput}"
+                  />
+                {/if}
+                {#if filterList}
+                  {#if searchable}<div
+                      style="clear: both; display: block; padding-top: 1rem;"
+                    ></div>{/if}
+                  <div class="filter">
+                    <label for="filter--select"
+                      >{#if filterLabel}{filterLabel}{:else}Filter by {filterField}{/if}</label
+                    >
+                    <select
+                      class="filter--select"
+                      name="filter--select"
+                      id="filter--select"
+                      on:input="{handleFilterInput}"
+                    >
+                      <option value="all">All</option>
+                      {#each filterList as object}
+                        <option value="{object}">{object}</option>
+                      {/each}
+                    </select>
+                  </div>
+                {/if}
+              </section>
             {/if}
           </caption>
         {/if}
@@ -456,28 +443,16 @@
   }
 
   section.input {
-    margin: 16px 0;
-    background-color: $tr-ultra-light-grey;
-    padding: 0.75rem;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
     font-size: 1rem;
     width: 100%;
-    border: 1px solid $tr-light-muted-grey;
     label {
       line-height: 1.333;
       display: block;
       font-size: 1.125rem;
       font-family: $font-family-display;
       font-weight: 500;
-    }
-    .search {
-      .search--input {
-        padding: 0.33rem;
-        font-size: 1.1rem;
-        height: 2.3rem;
-        border: 1px solid $tr-muted-grey;
-        border-radius: 5px;
-        width: 300px;
-      }
     }
     .filter {
       .filter--select {
