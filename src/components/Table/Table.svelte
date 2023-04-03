@@ -128,11 +128,12 @@
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
   import Search from './Search.svelte';
+  import Select from './Select.svelte';
   import SortArrow from './SortArrow.svelte';
   import {
     filterArray,
     paginateArray,
-    uniqueAttr,
+    getOptions,
     isNumeric,
   } from './utils.js';
 
@@ -140,9 +141,7 @@
   let showAll = false;
   let pageNumber = 1;
   let searchText = '';
-  const filterList = filterField
-    ? uniqueAttr(data, filterField).sort((a, b) => a.localeCompare(b))
-    : undefined;
+  const filterList = filterField ? getOptions(data, filterField) : undefined;
   let filterValue = '';
   $: filteredData = filterArray(data, searchText, filterField, filterValue);
   $: sortedData = sortArray(filteredData, sortField, sortDirection);
@@ -174,8 +173,8 @@
   }
 
   function handleFilterInput(event) {
-    const value = event.target.value;
-    filterValue = value === 'all' ? '' : value;
+    const value = event.detail.value;
+    filterValue = value === 'All' ? '' : value;
     pageNumber = 1;
   }
 
@@ -239,31 +238,21 @@
             {/if}
             {#if searchable || filterList}
               <section class="input">
-                {#if searchable}
-                  <Search
-                    bind:searchPlaceholder
-                    on:search="{handleSearchInput}"
-                  />
-                {/if}
                 {#if filterList}
-                  {#if searchable}<div
-                      style="clear: both; display: block; padding-top: 1rem;"
-                    ></div>{/if}
-                  <div class="filter">
-                    <label for="filter--select"
-                      >{#if filterLabel}{filterLabel}{:else}Filter by {filterField}{/if}</label
-                    >
-                    <select
-                      class="filter--select"
-                      name="filter--select"
-                      id="filter--select"
-                      on:input="{handleFilterInput}"
-                    >
-                      <option value="all">All</option>
-                      {#each filterList as object}
-                        <option value="{object}">{object}</option>
-                      {/each}
-                    </select>
+                  <div class="table--caption--filter">
+                    <Select
+                      label="{filterLabel || filterField}"
+                      options="{filterList}"
+                      on:select="{handleFilterInput}"
+                    />
+                  </div>
+                {/if}
+                {#if searchable}
+                  <div class="table--caption--search">
+                    <Search
+                      bind:searchPlaceholder
+                      on:search="{handleSearchInput}"
+                    />
                   </div>
                 {/if}
               </section>
@@ -455,25 +444,13 @@
   section.input {
     margin: 0.5rem 0 0 0;
     padding: 0;
-    font-size: 1rem;
     width: 100%;
-    label {
-      line-height: 1.333;
-      display: block;
-      font-size: 1.125rem;
-      font-family: $font-family-display;
-      font-weight: 500;
-    }
-    .filter {
-      .filter--select {
-        padding: 0.33rem;
-        font-size: 1.1rem;
-        height: 2.3rem;
-        border: 1px solid $tr-muted-grey;
-        border-radius: 5px;
-        width: 300px;
-      }
-    }
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   nav.show-all {

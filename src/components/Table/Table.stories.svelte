@@ -129,7 +129,8 @@
     filterField: 'Region',
     paginated: true,
     title: 'Press Freedom Index',
-    notes:
+    dek: 'Reporters Without Borders ranks countries based on their level of press freedom using criteria such as the degree of media pluralism and violence against journalists.',
+    source:
       "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
   }}"
 />
@@ -155,11 +156,11 @@
   args="{{
     data: richestWomen,
     title: 'The Richest Women in the World',
-    notes:
+    source:
       "Source: <a href='https://www.forbes.com/sites/rachelsandler/2022/04/05/the-top-richest-women-in-the-world-2022/?sh=29c2f69446a8'>Forbes</a>",
     sortable: true,
     sortField: 'Net worth (in billions)',
     sortDirection: 'descending',
-    fieldFormatters: { 'Net worth (in billions)': (v) => '$' + v },
+    fieldFormatters: { 'Net worth (in billions)': (v) => '$' + v.toFixed(1) },
   }}"
 />

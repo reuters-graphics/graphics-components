@@ -1,19 +1,21 @@
-Provide custom formatters by providing functions keyed to your field names to the `fieldFormatters` option. Columns are still sorted by the raw, underlying values. This can be used to provide the unit of measurement with numeric fields.
+Format columns by supplying functions keyed to field names with the `fieldFormatters` option. Columns are still sorted using the raw, underlying values.
+
+Among other things, this feature can be used to provide a unit of measurement with numeric fields.
 
 ```svelte
 <script lang="ts">
 const fieldFormatters = {
- 'Net worth (in billions)': (v) => '$' + v
+ 'Net worth (in billions)': (v) => '$' + v.toFixed(1)
 };
 </script>
 
 <Table
-  data={yourData}
-  fieldFormatters={fieldFormatters},
-  sortable=true,
-  sortField='Score',
-  sortDirection='descending',
-  title='Press Freedom Index',
-  notes='Source: <a href="https://en.wikipedia.org/wiki/Press_Freedom_Index">Reporters Without Borders</a>',
+  data="{yourData}"
+  fieldFormatters="{fieldFormatters}",
+  sortable="{true}",
+  sortField="{'Score'}",
+  sortDirection="{'descending'}",
+  title:"{'The Richest Women in the World'}",
+  source: "{'Source: Forbes'}",
 />
 ```

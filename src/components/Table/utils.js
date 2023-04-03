@@ -24,6 +24,17 @@ export function unique(value, index, array) {
   return array.indexOf(value) === index;
 }
 
+export function getOptions(data, attr) {
+  // Get all the unique values in the provided field. Sort it.
+  const attrList = uniqueAttr(data, attr).sort((a, b) => a.localeCompare(b));
+
+  // Tack 'All' as the front as the first option.
+  attrList.unshift('All');
+
+  // Convert the list into Option typed objects ready for our Select component
+  return attrList.map((a) => ({ text: a, value: a }));
+}
+
 export function isNumeric(value) {
   return (
     typeof value === 'number' ||
