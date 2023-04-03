@@ -350,9 +350,6 @@
   @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
-  .table-wrapper {
-    margin: 2rem 0;
-  }
   section.table {
     overflow-x: auto;
     table {
@@ -410,6 +407,7 @@
           font-size: 1rem;
           font-weight: 300;
           padding: 0.5rem 0.25rem 0.5rem 0;
+          vertical-align: top;
           &.no-results {
             color: $tr-muted-grey;
           }

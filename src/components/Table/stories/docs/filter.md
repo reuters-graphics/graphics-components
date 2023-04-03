@@ -3,7 +3,6 @@ Allow users to filter the table by providing one of the attributes as the `filte
 ```svelte
 <Table
   data="{yourData}"
-  ,
   filterField="{'Region'}"
   paginated="{true}"
   title="{'Press Freedom Index'}"
