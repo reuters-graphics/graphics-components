@@ -4,18 +4,18 @@ Among other things, this feature can be used to provide a unit of measurement wi
 
 ```svelte
 <script lang="ts">
-const fieldFormatters = {
- 'Net worth (in billions)': (v) => '$' + v.toFixed(1)
-};
+  const fieldFormatters = {
+    'Net worth (in billions)': (v) => '$' + v.toFixed(1),
+  };
 </script>
 
 <Table
   data="{yourData}"
-  fieldFormatters="{fieldFormatters}",
-  sortable="{true}",
-  sortField="{'Score'}",
-  sortDirection="{'descending'}",
-  title:"{'The Richest Women in the World'}",
-  source: "{'Source: Forbes'}",
+  fieldFormatters="{fieldFormatters}"
+  sortable="{true}"
+  sortField="{'Score'}"
+  sortDirection="{'descending'}"
+  title="{'The Richest Women in the World'}"
+  source="{'Source: Forbes'}"
 />
 ```

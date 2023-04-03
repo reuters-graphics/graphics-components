@@ -89,8 +89,7 @@
     data: pressFreedom,
     title: 'Press Freedom Index',
     paginated: true,
-    source:
-      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
+    source: 'Source: Reporters Without Borders',
   }}"
 />
 
@@ -102,8 +101,7 @@
     searchable: true,
     paginated: true,
     title: 'Press Freedom Index',
-    source:
-      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
+    source: 'Source: Reporters Without Borders',
   }}"
 />
 
@@ -115,8 +113,7 @@
     paginated: true,
     filterField: 'Region',
     title: 'Press Freedom Index',
-    notes:
-      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
+    notes: 'Source: Reporters Without Borders',
   }}"
 />
 
@@ -130,8 +127,7 @@
     paginated: true,
     title: 'Press Freedom Index',
     dek: 'Reporters Without Borders ranks countries based on their level of press freedom using criteria such as the degree of media pluralism and violence against journalists.',
-    source:
-      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
+    source: 'Source: Reporters Without Borders',
   }}"
 />
 
@@ -145,8 +141,7 @@
     sortDirection: 'descending',
     paginated: true,
     title: 'Press Freedom Index',
-    source:
-      "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
+    source: 'Source: Reporters Without Borders',
   }}"
 />
 

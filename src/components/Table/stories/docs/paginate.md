@@ -9,6 +9,6 @@ This is a good option when publishing large tables for readers to explore. It wo
   data="{yourData}"
   paginated="{true}"
   title="{'Press Freedom Index'}"
-  source="{'<a href="https://en.wikipedia.org/wiki/Press_Freedom_Index">Reporters Without Borders</a>'}"
+  source="{'Reporters Without Borders'}"
 />
 ```
