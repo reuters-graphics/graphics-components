@@ -133,6 +133,7 @@
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
+  import SortArrow from './SortArrow.svelte';
   import {
     filterArray,
     paginateArray,
@@ -287,6 +288,7 @@
             {#each includedFields as field}
               <th
                 scope="col"
+                class="table--thead--th"
                 class:sortable
                 class:sort-ascending="{sortable &&
                   sortField === field &&
@@ -299,6 +301,14 @@
                 style="text-align: {fieldAlignments[field]}"
               >
                 {field}
+                {#if sortable}
+                  <div
+                    class="table--thead--sortarrow"
+                    class:invisible="{sortField !== field}"
+                  >
+                    <SortArrow bind:sortDirection />
+                  </div>
+                {/if}
               </th>
             {/each}
           </tr>
@@ -399,19 +409,12 @@
             &.sortable {
               cursor: pointer;
             }
-            &.sort-ascending:after {
-              content: ' ▲';
-              font-size: 0.75rem;
-              color: $tr-orange;
-              vertical-align: 10%;
-              padding: 0 0 0 0.0612rem;
-            }
-            &.sort-descending:after {
-              content: ' ▼';
-              font-size: 0.75rem;
-              color: $tr-orange;
-              vertical-align: 10%;
-              padding: 0 0 0 0.0612rem;
+            .table--thead--sortarrow {
+              display: inline-block;
+              margin: 0 0 0 0.125rem;
+              &.invisible {
+                display: none;
+              }
             }
           }
         }

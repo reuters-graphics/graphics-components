@@ -144,7 +144,7 @@
     sortDirection: 'descending',
     paginated: true,
     title: 'Press Freedom Index',
-    notes:
+    source:
       "Source: <a href='https://en.wikipedia.org/wiki/Press_Freedom_Index'>Reporters Without Borders</a>",
   }}"
 />
