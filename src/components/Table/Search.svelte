@@ -58,14 +58,16 @@
       top: 0.15rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: $tr-muted-grey;
+      fill: var(--theme-colour-brand-rules, $tr-muted-grey);
     }
     .search--input {
-      font-family: $font-family-display;
+      font-family: var(--theme-font-family-hed, $font-family-display);
+      color: var(--theme-colour-text-primary, $tr-dark-grey);
       padding: 0 0 0 2rem;
       font-size: 0.8rem;
       height: 33px;
-      border: 1px solid $tr-muted-grey;
+      border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+      background: transparent;
       border-radius: 6px;
       width: 100%;
     }
@@ -75,7 +77,7 @@
       top: 0.15rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: $tr-dark-grey;
+      fill: var(--theme-colour-text-primary, $tr-medium-grey);
       cursor: pointer;
       &.invisible {
         display: none;

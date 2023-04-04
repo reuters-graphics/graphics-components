@@ -27,9 +27,9 @@
 <style lang="scss">
   @import '../../scss/colours/thematic/tr';
   path {
-    fill: $tr-muted-grey;
+    fill: var(--theme-colour-brand-rules, $tr-muted-grey);
     &.active {
-      fill: $tr-dark-grey;
+      fill: var(--theme-colour-text-primary, $tr-dark-grey);
     }
   }
 </style>

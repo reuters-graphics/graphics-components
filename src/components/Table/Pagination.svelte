@@ -76,18 +76,20 @@
     align-items: flex-start;
     margin-top: 1rem;
     button {
-      border: 1px solid $tr-light-grey;
+      border: 1px solid var(--theme-colour-text-secondary, $tr-light-grey);
       border-radius: 50%;
-      background: $white;
-      color: $tr-light-grey;
+      background: var(--theme-color-background);
+      color: var(--theme-colour-text-secondary, $tr-light-grey);
       cursor: pointer;
       width: 35px;
       height: 35px;
       &:disabled {
         cursor: default;
+        color: var(--theme-colour-brand-rules);
+        border-color: var(--theme-colour-brand-rules);
         .icon-wrapper:hover {
-          color: $tr-light-grey;
-          border-color: $tr-light-grey;
+          color: var(--theme-colour-brand-rules);
+          border-color: var(--theme-colour-brand-rules);
         }
       }
       .icon-wrapper {
@@ -96,8 +98,8 @@
         justify-content: center;
         white-space: nowrap;
         &:hover {
-          color: $tr-medium-grey;
-          border-color: $tr-medium-grey;
+          color: var(--theme-colour-text-primary, $tr-medium-grey);
+          border-color: var(--theme-colour-text-primary, $tr-medium-grey);
         }
       }
     }
@@ -110,10 +112,10 @@
       margin: 0 0.5rem;
       .records {
         font-size: 0.8rem;
-        font-family: $font-family-display;
+        font-family: var(--theme-font-family-hed, $font-family-display);
         font-weight: 300;
         margin: 0 1rem;
-        color: $tr-medium-grey;
+        color: var(--theme-colour-text-primary, $tr-medium-grey);
       }
       .progress {
         padding: 0.33rem 0 0 0;

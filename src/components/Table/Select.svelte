@@ -44,20 +44,21 @@
 
   .select {
     width: 256px;
-    font-family: $font-family-display;
+    font-family: var(--theme-font-family-hed, $font-family-display);
     label {
       display: block;
       font-size: 0.8rem;
       font-weight: 300;
-      color: $tr-dark-grey;
+      color: var(--theme-colour-text-primary, $tr-dark-grey);
       padding: 0 0 0.125rem 0;
     }
     .select--input {
       position: relative;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 400;
       height: 33px;
-      border: 1px solid $tr-muted-grey;
+      border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+      color: var(--theme-colour-text-primary, $tr-dark-grey);
       border-radius: 6px;
       width: 100%;
       padding: 0.5rem;
