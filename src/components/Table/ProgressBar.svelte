@@ -20,9 +20,9 @@
     .progress-bar--segment {
       height: 5px;
       width: 30%;
-      background-color: $tr-muted-grey;
+      background-color: var(--theme-colour-brand-rules, $tr-muted-grey);
       &.active {
-        background-color: $tr-medium-grey;
+        background-color: var(--theme-colour-text-primary, $tr-medium-grey);
       }
     }
   }
