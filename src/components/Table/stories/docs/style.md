@@ -8,7 +8,6 @@ Each column has `data-field` attribute that contains the field's name. Use it to
 <Table
   id="{'custom-table'}"
   data="{yourData}"
-  fieldFormatters="{fieldFormatters}"
   title="{'The Richest Women in the World'}"
   source="{'Source: Forbes'}"
 />
