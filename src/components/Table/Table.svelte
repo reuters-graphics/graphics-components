@@ -373,6 +373,8 @@
           border-bottom: 1px solid
             var(--theme-colour-text-primary, $tr-medium-grey);
           th {
+            position: sticky;
+            top: 0;
             color: var(--theme-colour-text-primary, $tr-medium-grey);
             font-size: 0.85rem;
             font-weight: 500;
