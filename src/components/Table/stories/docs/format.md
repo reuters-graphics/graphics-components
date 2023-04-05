@@ -1,4 +1,4 @@
-Format columns by supplying functions keyed to field names with the `fieldFormatters` option. Columns are still sorted using the raw, underlying values.
+Format column values by supplying functions keyed to field names with the `fieldFormatters` option. Columns are still sorted using the raw, underlying values.
 
 Among other things, this feature can be used to provide a unit of measurement with numeric fields.
 

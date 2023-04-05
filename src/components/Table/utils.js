@@ -34,13 +34,3 @@ export function getOptions(data, attr) {
   // Convert the list into Option typed objects ready for our Select component
   return attrList.map((a) => ({ text: a, value: a }));
 }
-
-export function isNumeric(value) {
-  return (
-    typeof value === 'number' ||
-    value instanceof Number ||
-    typeof value === 'bigint' ||
-    value instanceof BigInt ||
-    (typeof value === 'string' && !isNaN(value))
-  );
-}

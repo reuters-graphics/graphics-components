@@ -138,12 +138,7 @@
   import Search from './Search.svelte';
   import Select from './Select.svelte';
   import SortArrow from './SortArrow.svelte';
-  import {
-    filterArray,
-    paginateArray,
-    getOptions,
-    isNumeric,
-  } from './utils.js';
+  import { filterArray, paginateArray, getOptions } from './utils.js';
 
   /** Set truncate, filtering and pagination configuration */
   let showAll = false;
@@ -160,15 +155,6 @@
     : paginated
     ? paginateArray(sortedData, pageSize, pageNumber)
     : sortedData;
-
-  // Estimate the text alignment of our fields. Strings go left. Numbers go right.
-  function getAlignment(value) {
-    return isNumeric(value) ? 'right' : 'left';
-  }
-  const fieldAlignments = includedFields.reduce((acc, cur) => {
-    acc[cur] = getAlignment(data[0][cur]);
-    return acc;
-  }, {});
 
   //* * Handle show all, search, filter, sort and pagination events */
   function toggleTruncate(event) {
@@ -282,7 +268,6 @@
                   sortDirection === 'descending'}"
                 data-field="{field}"
                 on:click="{handleSort}"
-                style="text-align: {fieldAlignments[field]}"
               >
                 {field}
                 {#if sortable && sortableFields.includes(field)}
@@ -305,7 +290,6 @@
                   data-row-index="{idx}"
                   data-field="{field}"
                   data-value="{item[field]}"
-                  style="text-align: {fieldAlignments[field]}"
                 >
                   {@html formatValue(item, field)}
                 </td>
@@ -402,9 +386,6 @@
             .table--thead--sortarrow {
               display: inline-block;
               margin: 0 0 0 0.125rem;
-              &.invisible {
-                display: none;
-              }
             }
           }
         }

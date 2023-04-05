@@ -20,6 +20,8 @@
   import sortDocs from './stories/docs/sort.md?raw';
   // @ts-ignore
   import formatDocs from './stories/docs/format.md?raw';
+  // @ts-ignore
+  import styleDocs from './stories/docs/style.md?raw';
 
   import Table from './Table.svelte';
 
@@ -151,11 +153,22 @@
   args="{{
     data: richestWomen,
     title: 'The Richest Women in the World',
-    source:
-      "Source: <a href='https://www.forbes.com/sites/rachelsandler/2022/04/05/the-top-richest-women-in-the-world-2022/?sh=29c2f69446a8'>Forbes</a>",
+    source: 'Source: Forbes',
     sortable: true,
     sortField: 'Net worth (in billions)',
     sortDirection: 'descending',
     fieldFormatters: { 'Net worth (in billions)': (v) => '$' + v.toFixed(1) },
   }}"
+/>
+
+<Story
+  name="Style"
+  {...withStoryDocs(styleDocs)}
+  args="{{
+    id: 'custom-table',
+    data: richestWomen,
+    title: 'The Richest Women in the World',
+    source: 'Source: Forbes',
+  }}"
+  ,
 />
