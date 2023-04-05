@@ -102,6 +102,14 @@
   export let sortField: string = Object.keys(data[0])[0];
 
   /**
+   * The columns that are allowed to sort. It's all of them by default.
+   * @type {string}
+   */
+  export let sortableFields: string[] = Object.keys(data[0]).filter(
+    (f) => f !== 'searchStr'
+  );
+
+  /**
    * The direction of the sort. By default it's ascending.
    * @type {SortDirection}
    */
@@ -265,7 +273,7 @@
               <th
                 scope="col"
                 class="table--thead--th"
-                class:sortable
+                class:sortable="{sortable && sortableFields.includes(field)}"
                 class:sort-ascending="{sortable &&
                   sortField === field &&
                   sortDirection === 'ascending'}"
@@ -277,12 +285,12 @@
                 style="text-align: {fieldAlignments[field]}"
               >
                 {field}
-                {#if sortable}
-                  <div
-                    class="table--thead--sortarrow"
-                    class:invisible="{sortField !== field}"
-                  >
-                    <SortArrow bind:sortDirection />
+                {#if sortable && sortableFields.includes(field)}
+                  <div class="table--thead--sortarrow avoid-clicks">
+                    <SortArrow
+                      bind:sortDirection
+                      active="{sortField === field}"
+                    />
                   </div>
                 {/if}
               </th>
@@ -444,6 +452,10 @@
         }
       }
     }
+  }
+
+  .avoid-clicks {
+    pointer-events: none;
   }
 
   section.input {
