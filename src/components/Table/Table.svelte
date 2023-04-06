@@ -220,7 +220,38 @@
 </script>
 
 <Block width="{width}" id="{id}" cls="{cls}">
-  <section class="table-wrapper">
+  <article class="table-wrapper">
+    {#if title || dek || searchable || filterList}
+      <header class="table--header">
+        {#if title}
+          <h2 class="table--header--title">{@html title}</h2>
+        {/if}
+        {#if dek}
+          <p class="table--header--dek">{@html dek}</p>
+        {/if}
+        {#if searchable || filterList}
+          <nav class="input">
+            {#if filterList}
+              <div class="table--header--filter">
+                <Select
+                  label="{filterLabel || filterField}"
+                  options="{filterList}"
+                  on:select="{handleFilterInput}"
+                />
+              </div>
+            {/if}
+            {#if searchable}
+              <div class="table--header--search">
+                <Search
+                  bind:searchPlaceholder
+                  on:search="{handleSearchInput}"
+                />
+              </div>
+            {/if}
+          </nav>
+        {/if}
+      </header>
+    {/if}
     <section class="table">
       <table
         class:paginated
@@ -228,37 +259,6 @@
           !showAll &&
           data.length > truncateLength}"
       >
-        {#if title || dek || searchable}
-          <caption class="table--caption">
-            {#if title}
-              <div class="table--caption--title">{@html title}</div>
-            {/if}
-            {#if dek}
-              <div class="table--caption--dek">{@html dek}</div>
-            {/if}
-            {#if searchable || filterList}
-              <section class="input">
-                {#if filterList}
-                  <div class="table--caption--filter">
-                    <Select
-                      label="{filterLabel || filterField}"
-                      options="{filterList}"
-                      on:select="{handleFilterInput}"
-                    />
-                  </div>
-                {/if}
-                {#if searchable}
-                  <div class="table--caption--search">
-                    <Search
-                      bind:searchPlaceholder
-                      on:search="{handleSearchInput}"
-                    />
-                  </div>
-                {/if}
-              </section>
-            {/if}
-          </caption>
-        {/if}
         <thead class="table--thead">
           <tr>
             {#each includedFields as field}
@@ -342,104 +342,113 @@
         bind:pageLength="{currentPageData.length}"
         bind:n="{sortedData.length}"
       />{/if}
-  </section>
+  </article>
 </Block>
 
 <style lang="scss">
   @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
-  section.table {
-    table {
-      background-color: transparent;
-      border-collapse: separate;
-      border-spacing: 0;
-      width: 100%;
+  .table-wrapper {
+    font-size: 1rem;
+    font-family: var(--theme-font-family-hed, $font-family-display);
+    color: var(--theme-colour-text-primary, $tr-dark-grey);
+  }
+
+  .table--header {
+    width: 100%;
+    font-size: 1rem;
+    font-family: var(--theme-font-family-hed, $font-family-display);
+    color: var(--theme-colour-text-primary, $tr-dark-grey);
+    h2.table--header--title {
+      font-weight: 500;
+      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      font-size: 1.33rem;
+      padding: 0;
+      margin: 0.5rem 0;
+    }
+    p.table--header--dek {
       font-size: 1rem;
       font-family: var(--theme-font-family-hed, $font-family-display);
       color: var(--theme-colour-text-primary, $tr-dark-grey);
-      .table--caption {
-        caption-side: top;
-        .table--caption--title {
-          font-weight: 500;
-          color: var(--theme-colour-text-primary, $tr-dark-grey);
-          font-size: 1.33rem;
-          padding: 0;
-        }
-        .table--caption--dek {
-          font-size: 1rem;
-          font-weight: 300;
-          padding: 0;
-          line-height: 1.4;
-          color: var(--theme-colour-text-primary);
-        }
-      }
-      thead {
-        tr {
-          th {
-            border-bottom: 1px solid
-              var(--theme-colour-text-primary, $tr-medium-grey);
-            color: var(--theme-colour-text-primary, $tr-medium-grey);
-            background-color: var(--theme-colour-background, #fff);
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.06rem;
-            line-height: 1.4;
-            padding: 0.5rem 0.25rem 0.5rem 0;
-            &.sticky {
-              position: sticky;
-              top: 0;
-            }
-            &.sortable {
-              cursor: pointer;
-            }
-            .table--thead--sortarrow {
-              display: inline-block;
-              margin: 0 0 0 0.125rem;
-            }
-          }
-        }
-      }
-      tbody {
-        td {
-          font-size: 1rem;
-          font-weight: 300;
-          padding: 0.5rem 0.25rem 0.5rem 0;
-          vertical-align: top;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0;
+      margin: 0.5rem 0;
+      line-height: 1.4;
+      color: var(--theme-colour-text-primary);
+    }
+  }
+
+  section.table table {
+    background-color: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    thead {
+      tr {
+        th {
           border-bottom: 1px solid
-            var(--theme-colour-brand-rules, $tr-muted-grey);
-          &.no-results {
-            color: var(--theme-colour-text-secondary, $tr-muted-grey);
+            var(--theme-colour-text-primary, $tr-medium-grey);
+          color: var(--theme-colour-text-primary, $tr-medium-grey);
+          background-color: var(--theme-colour-background, #fff);
+          font-size: 0.85rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.06rem;
+          line-height: 1.4;
+          padding: 0.5rem 0.25rem 0.5rem 0;
+          &.sticky {
+            position: sticky;
+            top: 0;
+          }
+          &.sortable {
+            cursor: pointer;
+          }
+          .table--thead--sortarrow {
+            display: inline-block;
+            margin: 0 0 0 0.125rem;
           }
         }
       }
-      tfoot.table--tfoot {
-        display: table-row;
-        tr {
-          border-bottom: 0;
-        }
-        td {
-          font-weight: 300;
-          color: var(--theme-colour-text-primary, $tr-dark-grey);
-          font-size: 0.8rem;
-          padding: 0.5rem 0 0 0;
+    }
+    tbody {
+      td {
+        font-size: 1rem;
+        font-weight: 300;
+        padding: 0.5rem 0.25rem 0.5rem 0;
+        vertical-align: top;
+        border-bottom: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+        &.no-results {
+          color: var(--theme-colour-text-secondary, $tr-muted-grey);
         }
       }
-      &.truncated {
-        tbody tr:last-child:not(:first-child) {
-          border-bottom: none;
-          mask-image: linear-gradient(
-            to bottom,
-            var(--theme-colour-text-primary) 0%,
-            transparent 100%
-          );
-          -webkit-mask-image: linear-gradient(
-            to bottom,
-            var(--theme-colour-text-primary) 0%,
-            transparent 100%
-          );
-        }
+    }
+    tfoot.table--tfoot {
+      display: table-row;
+      tr {
+        border-bottom: 0;
+      }
+      td {
+        font-weight: 300;
+        color: var(--theme-colour-text-primary, $tr-dark-grey);
+        font-size: 0.8rem;
+        padding: 0.5rem 0 0 0;
+      }
+    }
+    &.truncated {
+      tbody tr:last-child:not(:first-child) {
+        border-bottom: none;
+        mask-image: linear-gradient(
+          to bottom,
+          var(--theme-colour-text-primary) 0%,
+          transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          var(--theme-colour-text-primary) 0%,
+          transparent 100%
+        );
       }
     }
   }
@@ -448,7 +457,7 @@
     pointer-events: none;
   }
 
-  section.input {
+  nav.input {
     margin: 0.5rem 0 0 0;
     padding: 0;
     width: 100%;
