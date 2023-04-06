@@ -30,7 +30,6 @@
   $: minRow = pageNumber * pageSize - pageSize + 1;
   $: maxRow = pageNumber * pageSize - pageSize + pageLength;
   $: numPages = Math.ceil(n / pageSize);
-  $: progress = pageNumber / numPages;
 
   function goToPreviousPage() {
     if (pageNumber > 1) {
