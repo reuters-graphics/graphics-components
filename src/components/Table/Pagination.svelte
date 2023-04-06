@@ -116,9 +116,6 @@
         margin: 0 1rem;
         color: var(--theme-colour-text-primary, $tr-medium-grey);
       }
-      .progress {
-        padding: 0.33rem 0 0 0;
-      }
     }
   }
 
