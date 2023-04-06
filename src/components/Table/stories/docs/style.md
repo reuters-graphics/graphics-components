@@ -1,8 +1,8 @@
 You can tailor the table's appearance by crafting CSS that targets specific elements.
 
-Like other components, you can apply labels by providing the `id` of `cls` options, which can allow you to make broad changes that remain limited to your element.
+Like other components, you can apply labels by providing the `id` of `cls` options, which allow you to make broad changes that remain limited to your element.
 
-Each column has `data-field` attribute that contains the field's name. Use it to apply different styles to different fields. One common use is setting different text alignments on different columns.
+Each column has a `data-field` attribute that contains the field's name. Use it to apply different styles to different fields. One common use is setting different text alignments on different columns.
 
 ```svelte
 <Table
