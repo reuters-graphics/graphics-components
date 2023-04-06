@@ -56,6 +56,7 @@
       position: relative;
       font-size: 0.8rem;
       font-weight: 400;
+      line-height: 1;
       height: 33px;
       border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
       color: var(--theme-colour-text-primary, $tr-dark-grey);
