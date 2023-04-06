@@ -369,10 +369,9 @@
       color: var(--theme-colour-text-primary, $tr-dark-grey);
       font-size: 1rem;
       font-weight: 300;
+      line-height: 1.4;
       padding: 0;
       margin: 0.5rem 0;
-      line-height: 1.4;
-      color: var(--theme-colour-text-primary);
     }
   }
 
