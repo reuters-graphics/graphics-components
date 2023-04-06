@@ -365,7 +365,6 @@
       margin: 0.5rem 0;
     }
     p.table--header--dek {
-      font-size: 1rem;
       font-family: var(--theme-font-family-hed, $font-family-display);
       color: var(--theme-colour-text-primary, $tr-dark-grey);
       font-size: 1rem;
