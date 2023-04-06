@@ -2,7 +2,7 @@
   import { intcomma } from 'journalize';
   import LeftArrow from './LeftArrow.svelte';
   import RightArrow from './RightArrow.svelte';
-  import ProgressBar from './ProgressBar.svelte';
+
   /**
    * The current page number.
    * @type {number}
@@ -54,7 +54,6 @@
   >
   <div class="label" aria-label="page {pageNumber}" aria-current="page">
     <div class="records">{minRow}-{maxRow} of {intcomma(n)}</div>
-    <div class="progress"><ProgressBar bind:progress /></div>
   </div>
   <button
     on:click="{goToNextPage}"
@@ -73,7 +72,7 @@
   nav.pagination {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 1rem;
     button {
       border: 1px solid var(--theme-colour-text-secondary, $tr-light-grey);
