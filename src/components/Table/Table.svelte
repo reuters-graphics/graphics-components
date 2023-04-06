@@ -122,6 +122,12 @@
    */
   export let fieldFormatters: object = {};
 
+  /**
+   * Whether the table header should be sticky.
+   * @type {boolean}
+   */
+  export let stickyHeader = true;
+
   /** Width of the component within the text well. */
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   export let width: ContainerWidth = 'normal';
@@ -266,6 +272,7 @@
                 class:sort-descending="{sortable &&
                   sortField === field &&
                   sortDirection === 'descending'}"
+                class:sticky="{stickyHeader}"
                 data-field="{field}"
                 on:click="{handleSort}"
               >
@@ -343,10 +350,9 @@
   @import '../../scss/fonts/variables';
 
   section.table {
-    overflow-x: auto;
     table {
       background-color: transparent;
-      border-collapse: collapse;
+      border-collapse: separate;
       border-spacing: 0;
       width: 100%;
       font-size: 1rem;
@@ -370,18 +376,21 @@
       }
       thead {
         tr {
-          border-bottom: 1px solid
-            var(--theme-colour-text-primary, $tr-medium-grey);
           th {
-            position: sticky;
-            top: 0;
+            border-bottom: 1px solid
+              var(--theme-colour-text-primary, $tr-medium-grey);
             color: var(--theme-colour-text-primary, $tr-medium-grey);
+            background-color: var(--theme-colour-background, #fff);
             font-size: 0.85rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.06rem;
             line-height: 1.4;
             padding: 0.5rem 0.25rem 0.5rem 0;
+            &.sticky {
+              position: sticky;
+              top: 0;
+            }
             &.sortable {
               cursor: pointer;
             }
@@ -393,15 +402,13 @@
         }
       }
       tbody {
-        tr {
-          border-bottom: 1px solid
-            var(--theme-colour-brand-rules, $tr-muted-grey);
-        }
         td {
           font-size: 1rem;
           font-weight: 300;
           padding: 0.5rem 0.25rem 0.5rem 0;
           vertical-align: top;
+          border-bottom: 1px solid
+            var(--theme-colour-brand-rules, $tr-muted-grey);
           &.no-results {
             color: var(--theme-colour-text-secondary, $tr-muted-grey);
           }
