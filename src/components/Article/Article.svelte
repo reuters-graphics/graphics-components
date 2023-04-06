@@ -60,7 +60,6 @@
     display: block;
     margin: 0;
     padding: 0 15px;
-    overflow-x: hidden;
     background-color: var(--theme-colour-background, transparent);
     &.embedded {
       overflow: auto;

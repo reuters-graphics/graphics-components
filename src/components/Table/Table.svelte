@@ -343,7 +343,7 @@
   @import '../../scss/fonts/variables';
 
   section.table {
-    overflow-x: auto;
+    // overflow-x: auto;
     table {
       background-color: transparent;
       border-collapse: collapse;
