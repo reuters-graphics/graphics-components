@@ -357,9 +357,6 @@
 
   .table--header {
     width: 100%;
-    font-size: 1rem;
-    font-family: var(--theme-font-family-hed, $font-family-display);
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
     h2.table--header--title {
       font-weight: 500;
       color: var(--theme-colour-text-primary, $tr-dark-grey);
