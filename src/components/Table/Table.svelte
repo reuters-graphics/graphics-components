@@ -122,12 +122,6 @@
    */
   export let fieldFormatters: object = {};
 
-  /**
-   * Whether the table header should be sticky.
-   * @type {boolean}
-   */
-  export let stickyHeader = true;
-
   /** Width of the component within the text well. */
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
   export let width: ContainerWidth = 'normal';
@@ -272,7 +266,6 @@
                 class:sort-descending="{sortable &&
                   sortField === field &&
                   sortDirection === 'descending'}"
-                class:sticky="{stickyHeader}"
                 data-field="{field}"
                 on:click="{handleSort}"
               >
@@ -393,10 +386,6 @@
           letter-spacing: 0.06rem;
           line-height: 1.4;
           padding: 0.5rem 0.25rem 0.5rem 0;
-          &.sticky {
-            position: sticky;
-            top: 0;
-          }
           &.sortable {
             cursor: pointer;
           }
