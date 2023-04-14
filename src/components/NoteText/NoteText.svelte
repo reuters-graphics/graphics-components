@@ -7,6 +7,12 @@
    */
   export let text: string;
 
+  /**
+   * Whether or not to include our Trust Principles at the bottom of the note. True by default.
+   * @type {boolean}
+   */
+  export let trustPrinciples: boolean = true;
+
   import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
@@ -14,6 +20,16 @@
 <Block cls="notes mb-6">
   {#if text}
     {@html marked.parse(text)}
+  {/if}
+  {#if trustPrinciples}
+    <h3>Standards</h3>
+    <p>
+      Thomson Reuters is dedicated to upholding the Trust Principles. Learn more
+      by reading <a
+        href="https://www.thomsonreuters.com/en/about-us/trust-principles.html"
+        >our commitment</a
+      > to independence, integrity and freedom from bias.
+    </p>
   {/if}
 </Block>
 
