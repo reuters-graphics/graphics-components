@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
     # Restricts release to:
     #   1) pushes of release tags
     #   2) the default branch
