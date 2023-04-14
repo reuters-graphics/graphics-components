@@ -1,0 +1,42 @@
+[
+    {
+        "Name": "Barry Bonds",
+        "Home runs": 762
+    },
+    {
+        "Name": "Hank Aaron",
+        "Home runs": 755
+    },
+    {
+        "Name": "Babe Ruth",
+        "Home runs": 714
+    },
+    {
+        "Name": "Albert Pujols",
+        "Home runs": 703
+    },
+    {
+        "Name": "Alex Rodriguez",
+        "Home runs": 696
+    },
+    {
+        "Name": "Willie Mays",
+        "Home runs": 660
+    },
+    {
+        "Name": "Ken Griffey Jr.",
+        "Home runs": 630
+    },
+    {
+        "Name": "Jim Thome",
+        "Home runs": 612
+    },
+    {
+        "Name": "Sammy Sosa",
+        "Home runs": 609
+    },
+    {
+        "Name": "Frank Robinson",
+        "Home runs": 586
+    }
+]
