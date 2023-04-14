@@ -368,6 +368,9 @@
     }
   }
 
+  section.table {
+    overflow-x: auto;
+  }
   section.table table {
     background-color: transparent;
     border-collapse: separate;
