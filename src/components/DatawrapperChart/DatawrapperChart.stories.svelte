@@ -13,9 +13,7 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/DatawrapperChart',
-    component: DatawrapperChart,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -26,7 +24,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/DatawrapperChart"
+  component="{DatawrapperChart}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <DatawrapperChart {...args} />

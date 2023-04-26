@@ -39,31 +39,35 @@ div.sbdocs-content {
   }
 }
 
-p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
-  font-size: 18px;
-  line-height: 29px;
-  @include font-display;
-
-  .highlight {
-    background-color: rgb(254, 254, 160);
-    padding: 0 4px;
-  }
-  .bold {
-    font-weight: bold;
-  }
-}
-
-a.sbdocs-a {
-  @include font-display;
-  color: $tr-muted-blue;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
 .sbdocs {
   @include font-display;
+
+  h1 {
+    @include font-display;
+  }
+
+  p, ul, li {
+    font-size: 18px;
+    line-height: 29px;
+    @include font-display;
+  
+    .highlight {
+      background-color: rgb(254, 254, 160);
+      padding: 0 4px;
+    }
+    .bold {
+      font-weight: bold;
+    }
+  }
+
+  a {
+    @include font-display;
+    color: $tr-muted-blue;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   &:not(.sbdocs-preview) {
     code {
@@ -87,8 +91,6 @@ a.sbdocs-a {
     }
   }
 }
-
-
 
 div.reset-article {
   width: calc(100% + 30px);

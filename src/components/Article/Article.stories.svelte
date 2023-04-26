@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
   // Don't lose the "?raw" in markdown imports!
@@ -13,16 +13,14 @@
   import {
     withComponentDocs,
     withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Layout/Article',
-    component: Article,
-    ...withComponentDocs(componentDocs),
-  };
+  } from '../../docs/utils/withParams.js';
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Layout/Article"
+  component="{Article}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Article {...args} />

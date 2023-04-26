@@ -67,4 +67,4 @@ export const parameters = {
   }
 };
 
-export const decorators = [() => ({ Component: Wrapper })];
+export const decorators = [() => Wrapper];

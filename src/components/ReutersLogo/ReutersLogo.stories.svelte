@@ -6,27 +6,21 @@
 
   import ReutersLogo from './ReutersLogo.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/ReutersLogo',
-    component: ReutersLogo,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       logoColour: { control: 'color' },
       textColour: { control: 'color' },
-    }
+    },
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/ReutersLogo" component="{ReutersLogo}" {...metaProps} />
 
 <Template let:args>
   <ReutersLogo {...args} />
 </Template>
 
-<Story
-  name="Default"
-/>
+<Story name="Default" />

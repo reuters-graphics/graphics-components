@@ -9,9 +9,7 @@
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/DocumentCloud',
-    component: DocumentCloud,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -22,7 +20,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/DocumentCloud"
+  component="{DocumentCloud}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <DocumentCloud {...args} />

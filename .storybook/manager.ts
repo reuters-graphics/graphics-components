@@ -1,4 +1,4 @@
-import { addons } from '@storybook/addons';
+import { addons } from '@storybook/manager-api';
 import theme from './Theme';
 
 addons.setConfig({
@@ -8,7 +8,6 @@ addons.setConfig({
   panelPosition: 'bottom',
   enableShortcuts: true,
   showToolbar: true,
-  theme: undefined,
   selectedPanel: undefined,
   initialActive: 'sidebar',
   sidebar: {

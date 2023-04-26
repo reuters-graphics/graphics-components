@@ -15,11 +15,8 @@
 
   const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
 
-  const meta = {
-    title: 'Components/PhotoCarousel',
-    component: PhotoCarousel,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -29,7 +26,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/PhotoCarousel"
+  component="{PhotoCarousel}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <PhotoCarousel {...args} />

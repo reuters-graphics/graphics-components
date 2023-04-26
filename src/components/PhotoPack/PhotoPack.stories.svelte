@@ -13,9 +13,7 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/PhotoPack',
-    component: PhotoPack,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -121,7 +119,7 @@
   const altTextLayouts = [{ breakpoint: 450, rows: [2] }];
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/PhotoPack" component="{PhotoPack}" {...metaProps} />
 
 <Template let:args>
   <PhotoPack {...args} />

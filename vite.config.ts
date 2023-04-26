@@ -1,9 +1,9 @@
-import { scss, sveltePreprocess } from './bin/preprocess/index.cjs';
-
+import { defineConfig } from 'vite';
+import { scss } from './bin/preprocess/index.js';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('vite').UserConfig} */
-const config = {
+const config = defineConfig({
   base: 'https://reuters-graphics.github.io/graphics-components/',
   css: {
     preprocessorOptions: { scss },
@@ -16,11 +16,8 @@ const config = {
     },
   },
   plugins: [
-    svelte({
-      configFile: false,
-      preprocess: sveltePreprocess,
-    }),
+    svelte({}),
   ],
-};
+});
 
 export default config;

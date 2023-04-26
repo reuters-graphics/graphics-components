@@ -6,18 +6,14 @@
 
   import Framer from './Framer.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Utilities/Framer',
-    component: Framer,
-    ...withComponentDocs(componentDocs),
-  };
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Utilities/Framer"
+  component="{Framer}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Framer {...args} />
@@ -25,9 +21,9 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     embeds: [
       'https://graphics.reuters.com/USA-CONGRESS/FUNDRAISING/zjvqkawjlvx/embeds/en/embed/?zzz',
     ],
-  }}
+  }}"
 />

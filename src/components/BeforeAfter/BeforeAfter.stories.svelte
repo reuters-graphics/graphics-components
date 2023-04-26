@@ -20,9 +20,7 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/BeforeAfter',
-    component: BeforeAfter,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       handleColour: { control: 'color' },
@@ -34,7 +32,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/BeforeAfter" component="{BeforeAfter}" {...metaProps} />
 
 <Template let:args>
   <BeforeAfter {...args} />

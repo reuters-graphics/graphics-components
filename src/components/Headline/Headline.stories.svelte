@@ -19,15 +19,13 @@
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/Headline',
-    component: Headline,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/Headline"
+  component="{Headline}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Headline {...args} />
