@@ -2,9 +2,9 @@
   import { onMount } from 'svelte';
   import FreestarAdSlot from '@freestar/pubfig-adslot-vue-component';
 
-  const adUnit = {
-    placementName: 'div-gpt-ad-leaderboard-multi',
-    slotId: 'div-gpt-ad-leaderboard-multi',
+  const adSlot = {
+    placementName: 'div-ad-leaderboard-multi',
+    slotId: 'div-ad-leaderboard-multi',
     targeting: { key1: 'value1', key2: 'value2' },
   };
   const channel = 'custom_channel';
@@ -46,8 +46,8 @@
   <div>
     <FreestarAdSlot
       ad-refresh="{adRefreshCount}"
-      placement-name="{adUnit.placementName}"
-      targeting="{adUnit.targeting}"
+      placement-name="{adSlot.placementName}"
+      targeting="{adSlot.targeting}"
       channel="{channel}"
       classList="{classList}"
       on:new-ad-slots="{onNewAdSlotsHook}"
