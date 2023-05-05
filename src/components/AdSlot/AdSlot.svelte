@@ -1,58 +1,59 @@
-<!-- @component `YourComponent` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-YourComponent--default) -->
-<script lang="ts">
-  /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
+<script>
+  import { onMount } from 'svelte';
+  import FreestarAdSlot from '@freestar/pubfig-adslot-vue-component';
 
-  /**
-   * A source for the image.
-   * @required
-   */
-  export let src: string;
+  const adUnit = {
+    placementName: 'div-gpt-ad-leaderboard-multi',
+    slotId: 'div-gpt-ad-leaderboard-multi',
+    targeting: { key1: 'value1', key2: 'value2' },
+  };
+  const channel = 'custom_channel';
+  const classList = ['m-30', 'p-15', 'b-thin-red'];
+  let adRefreshCount = 0;
 
-  /**
-   * AltText for the image.
-   * @required
-   */
-  export let altText: string;
+  const onNewAdSlotsHook = (placementName) => {
+    console.log('freestar.newAdSlots() was called', { placementName });
+  };
 
-  /** Height of the image. */
-  export let height: number = 500;
+  const onDeleteAdSlotsHook = (placementName) => {
+    console.log('freestar.deleteAdSlots() was called', { placementName });
+  };
 
-  // You can declare custom types to help users implement your component.
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+  const onAdRefreshHook = (placementName) => {
+    console.log('adRefresh was called', { placementName });
+  };
 
-  /** Width of the component within the text well. */
-  export let width: ContainerWidth = 'normal';
+  const onAdRefresh = () => {
+    adRefreshCount += 1;
+  };
 
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
+  const createAdRefreshExample = () => {
+    const interval = setInterval(() => {
+      const maxRefreshes = 5;
+      adRefreshCount += 1;
+      if (adRefreshCount === maxRefreshes) {
+        clearInterval(interval);
+      }
+    }, 5000);
+  };
 
-  /** Add a class to target with SCSS. */
-  export let cls: string = '';
-
-  import Block from '../Block/Block.svelte';
+  onMount(() => {
+    createAdRefreshExample();
+  });
 </script>
 
-<Block width="{width}" id="{id}" cls="photo {cls}">
-  <div
-    style:background-image="{`url(${src})`}"
-    style:height="{`${height}px`}"
-  ></div>
-  <p class="visually-hidden">{altText}</p>
-</Block>
-
-<style lang="scss">
-  div {
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  .visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
-</style>
+<template>
+  <div>
+    <FreestarAdSlot
+      ad-refresh="{adRefreshCount}"
+      placement-name="{adUnit.placementName}"
+      targeting="{adUnit.targeting}"
+      channel="{channel}"
+      classList="{classList}"
+      on:new-ad-slots="{onNewAdSlotsHook}"
+      on:delete-ad-slots="{onDeleteAdSlotsHook}"
+      on:ad-refresh="{onAdRefreshHook}"
+    />
+    <button on:click="{onAdRefresh}"> Trigger Refresh </button>
+  </div>
+</template>
