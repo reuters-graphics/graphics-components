@@ -1,35 +1,58 @@
-<script>
-  export let ad;
+<!-- @component `YourComponent` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-YourComponent--default) -->
+<script lang="ts">
+  /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
 
-  const handleClick = () => {
-    console.log(`AdSlot clicked: ${ad.id}`);
-  };
+  /**
+   * A source for the image.
+   * @required
+   */
+  export let src: string;
 
-  const getCreativeType = () => {
-    switch (ad.type) {
-      case 'image':
-        return 'Image';
-      case 'text':
-        return 'Text';
-      default:
-        return 'Unknown';
-    }
-  };
+  /**
+   * AltText for the image.
+   * @required
+   */
+  export let altText: string;
+
+  /** Height of the image. */
+  export let height: number = 500;
+
+  // You can declare custom types to help users implement your component.
+  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+
+  /** Width of the component within the text well. */
+  export let width: ContainerWidth = 'normal';
+
+  /** Add an ID to target with SCSS. */
+  export let id: string = '';
+
+  /** Add a class to target with SCSS. */
+  export let cls: string = '';
+
+  import Block from '../Block/Block.svelte';
 </script>
 
-<div class="ad-slot" on:click="{handleClick}">
-  <h2>{ad.title}</h2>
-  <div class="ad-content">
-    {#if ad.type === 'image'}
-      <img src="{ad.imageUrl}" alt="{ad.title}" />
-    {:else if ad.type === 'text'}
-      <p>{ad.text}</p>
-    {:else}
-      <p>Unknown ad type</p>
-    {/if}
-  </div>
-  <div class="ad-info">
-    <p>Creative Type: {getCreativeType()}</p>
-    <p>Advertiser: {ad.advertiser}</p>
-  </div>
-</div>
+<Block width="{width}" id="{id}" cls="photo {cls}">
+  <div
+    style:background-image="{`url(${src})`}"
+    style:height="{`${height}px`}"
+  ></div>
+  <p class="visually-hidden">{altText}</p>
+</Block>
+
+<style lang="scss">
+  div {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>
