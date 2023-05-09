@@ -21,6 +21,5 @@ addons.setConfig({
     eject: { hidden: false },
     copy: { hidden: false },
     fullscreen: { hidden: false },
-  },
-  theme,
+  }
 });
