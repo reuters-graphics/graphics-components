@@ -8,12 +8,11 @@
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'normal';
   export let id: string = ''; /** Add an ID to target with SCSS. */
-  export let cls: string = ''; /** Add a class to target with SCSS. */
 
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block width="{width}" id="{id}" cls="photo {cls}">
+<Block width="{width}" id="{id}">
   <div><p>Ad Slot</p></div>
 </Block>
 
