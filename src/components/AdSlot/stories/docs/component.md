@@ -1,0 +1,1 @@
+- The AdSlot component using freestar

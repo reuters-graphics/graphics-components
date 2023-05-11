@@ -101,6 +101,7 @@
     "./actions/cssVariables": "./dist/actions/cssVariables/index.js",
     "./actions/resizeObserver": "./dist/actions/resizeObserver/index.js",
     "./components/@types/global.ts": "./dist/components/@types/global.ts",
+    "./components/AdSlot/AdSlot.svelte": "./dist/components/AdSlot/AdSlot.svelte",
     "./components/Article/Article.svelte": "./dist/components/Article/Article.svelte",
     "./components/BeforeAfter/BeforeAfter.svelte": "./dist/components/BeforeAfter/BeforeAfter.svelte",
     "./components/Block/Block.svelte": "./dist/components/Block/Block.svelte",
