@@ -22,10 +22,13 @@
 <style lang="scss">
   @import '../../scss/colours/thematic/tr';
 
-  svg path {
-    fill: var(--theme-colour-text-secondary, $tr-medium-grey);
+  svg {
+    vertical-align: middle;
+    path {
+      fill: var(--theme-colour-text-secondary, $tr-medium-grey);
+    }
   }
-
+  
   svg rect {
     fill: var(--theme-colour-background, white);
   }
