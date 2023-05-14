@@ -403,7 +403,7 @@
       td {
         font-size: 1rem;
         font-weight: 300;
-        padding: 0.5rem 0.25rem 0.5rem 0;
+        padding: 0.5rem 0.75rem 0.5rem 0;
         vertical-align: top;
         border-bottom: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
         &.no-results {
