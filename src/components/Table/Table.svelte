@@ -385,6 +385,7 @@
           background-color: var(--theme-colour-background, #fff);
           font-size: 0.85rem;
           font-weight: 500;
+          text-align: inherit;
           text-transform: uppercase;
           letter-spacing: 0.06rem;
           line-height: 1.4;
