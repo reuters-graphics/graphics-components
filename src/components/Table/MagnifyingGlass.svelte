@@ -10,8 +10,10 @@
   ></path>
 </svg>
 
-<style>
+<style lang="scss">
+  @import '../../scss/colours/thematic/tr';
+
   svg path {
-    fill: var(--theme-colour-text-secondary);
+    fill: var(--theme-colour-text-secondary, $tr-medium-grey);
   }
 </style>
