@@ -135,7 +135,7 @@
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
-  import Search from './Search.svelte';
+  import SearchInput from '../SearchInput/SearchInput.svelte';
   import Select from './Select.svelte';
   import SortArrow from './SortArrow.svelte';
   import { filterArray, paginateArray, getOptions } from './utils.js';
@@ -236,7 +236,7 @@
             {/if}
             {#if searchable}
               <div class="table--header--search">
-                <Search
+                <SearchInput
                   bind:searchPlaceholder
                   on:search="{handleSearchInput}"
                 />
