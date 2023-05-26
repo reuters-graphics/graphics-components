@@ -21,6 +21,7 @@ export { default as ReferralBlock } from './components/ReferralBlock/ReferralBlo
 export { default as ReutersGraphicsLogo } from './components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';
 export { default as Scroller } from './components/Scroller/Scroller.svelte';
+export { default as SearchInput } from './components/SearchInput/SearchInput.svelte';
 export { default as SEO } from './components/SEO/SEO.svelte';
 export { default as Sharer } from './components/Sharer/Sharer.svelte';
 export { default as SimpleTimeline } from './components/SimpleTimeline/SimpleTimeline.svelte';

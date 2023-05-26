@@ -8,7 +8,7 @@
    * The placeholder text that appears in the search box.
    * @type {string}
    */
-  export let searchPlaceholder: string = 'Search in table';
+  export let searchPlaceholder: string = 'Search...';
 
   let value = '';
   $: active = value !== '';
