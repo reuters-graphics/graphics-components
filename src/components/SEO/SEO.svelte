@@ -1,15 +1,9 @@
 <!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SEO--default) -->
 <script lang="ts">
-  import {
-    loadChartbeat,
-    loadGA,
-    loadPublisherTags,
-  } from './analytics/index.js';
-
   /**
    * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
    * is globally available as `import.meta.env.BASE_URL`.
-   * @required
+   * @requiredx
    * @type {string}
    */
   export let baseUrl: string = '';
@@ -75,10 +69,6 @@
    * Array of authors for the piece. Each author object must have `name` and `url` attributes.
    */
   export let authors: GraphicAuthor[] = [];
-  /**
-   * Whether to inject Google Analytics code for this page.
-   */
-  export let includeAnalytics: boolean = false;
 
   const getOrigin = (baseUrl) => {
     try {
@@ -93,15 +83,6 @@
 
   $: origin = getOrigin(baseUrl);
   $: canonicalUrl = origin + pageUrl.pathname;
-
-  // Only fire analytics on prod sites
-  $: {
-    if (typeof window !== 'undefined' && includeAnalytics) {
-      loadChartbeat(authors);
-      loadGA(canonicalUrl, seoTitle);
-      loadPublisherTags();
-    }
-  }
 
   const orgLdJson = {
     '@context': 'http://schema.org',

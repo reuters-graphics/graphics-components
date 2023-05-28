@@ -41,6 +41,7 @@
     "@storybook/theming": "6.5.9",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@tsconfig/svelte": "^3.0.0",
+    "@types/gtag.js": "^0.0.12",
     "@types/proper-url-join": "^2.1.1",
     "@types/react-syntax-highlighter": "^15.5.4",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
