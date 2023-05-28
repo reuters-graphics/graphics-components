@@ -389,7 +389,7 @@
           text-transform: uppercase;
           letter-spacing: 0.06rem;
           line-height: 1.4;
-          padding: 0.5rem 0.25rem 0.5rem 0;
+          padding: 0.5rem 0.75rem 0.5rem 0;
           &.sortable {
             cursor: pointer;
           }
