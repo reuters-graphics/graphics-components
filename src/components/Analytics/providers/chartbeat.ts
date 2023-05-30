@@ -16,14 +16,16 @@ const attachScript = () => {
 };
 
 export default (authors: { name: string }[]) => {
-  const config = window._sf_async_config = (window._sf_async_config || {});
-  config.uid = UID;
-  config.domain = 'reuters.com';
-  config.flickerControl = false;
-  config.useCanonical = true;
-  config.useCanonicalDomain = true;
-  config.sections = 'Graphics';
-  config.authors = authors.map((a) => a.name).join(',');
+  window._sf_async_config = {
+    uid: UID,
+    domain: 'reuters.com',
+    flickerControl: false,
+    useCanonical: true,
+    useCanonicalDomain: true,
+    sections: 'Graphics',
+    authors: authors.map((a) => a?.name || '').join(','),
+    ...(window._sf_async_config || {}),
+  };
 
   try {
     attachScript();
@@ -31,9 +33,9 @@ export default (authors: { name: string }[]) => {
 };
 
 export const registerPageview = () => {
-  if (!window.pSUPERFLY) return;
+  if (typeof window === 'undefined' || !window.pSUPERFLY) return;
   window.pSUPERFLY({
     path: window.location.pathname,
-    title: document.title,
+    title: document?.title,
   });
 };

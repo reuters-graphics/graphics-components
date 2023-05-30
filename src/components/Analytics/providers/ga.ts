@@ -27,15 +27,17 @@ export default () => {
       window.gtag('js', new Date());
       // config event registers a pageview by default
       window.gtag('config', GOOGLE_TAG_ID, {
-        page_location: window.location.origin + window.location.pathname,
+        send_page_view: false,
       });
+      registerPageview();
     }
   } catch (e) { console.warn(`Error initialising Google Analytics: ${e}`); }
 };
 
 export const registerPageview = () => {
-  if (!window.gtag) return;
+  if (typeof window === 'undefined' || !window.gtag) return;
   window.gtag('event', 'page_view', {
     page_location: window.location.origin + window.location.pathname,
+    page_title: document?.title,
   });
 };
