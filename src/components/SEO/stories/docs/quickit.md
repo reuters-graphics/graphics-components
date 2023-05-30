@@ -25,6 +25,5 @@ Most of the fields are filled in by other sources, like your Google Doc and pack
   publishTime="{pkg?.reuters?.graphic?.published}"
   updateTime="{pkg?.reuters?.graphic?.updated}"
   authors="{pkg?.reuters?.graphic?.authors}"
-  includeAnalytics="{$page.url.hostname === 'graphics.reuters.com'}"
 />
 ```

@@ -1,4 +1,5 @@
 // Components
+export { default as Analytics, registerPageview } from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
