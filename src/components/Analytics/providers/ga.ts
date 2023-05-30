@@ -21,8 +21,8 @@ export default () => {
     if (!window.gtag) {
       attachScript();
       /** @type {Gtag.Gtag} */
-      window.gtag = (...args) => {
-        window.dataLayer.push(...args);
+      window.gtag = function() {
+        window.dataLayer.push(arguments);
       };
       window.gtag('js', new Date());
       // config event registers a pageview by default
