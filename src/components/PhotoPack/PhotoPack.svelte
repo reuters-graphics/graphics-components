@@ -1,6 +1,7 @@
 <!-- @component `PhotoPack` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-PhotoPack--default) -->
 <script lang="ts">
   interface Image {
+    type?: 'image' | 'video';
     src: string;
     altText: string;
     caption?: string;
@@ -98,11 +99,27 @@
       >
         {#each row as img, i}
           <figure aria-labelledby="{id}-figure-{ri}-{i}">
-            <img
-              src="{img.src}"
-              alt="{img.altText}"
-              style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
-            />
+            {#if img.type === 'video'}
+              <video
+                class="media"
+                muted="{true}"
+                autoplay="{true}"
+                loop="{true}"
+                playsinline
+                src="{img.src}"
+                style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
+              ></video>
+              <div class="visually-hidden">
+                <p>{img.altText}</p>
+              </div>
+            {:else}
+              <img
+                class="media"
+                src="{img.src}"
+                alt="{img.altText}"
+                style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
+              />
+            {/if}
             {#if !img.altText}
               <div class="alt-warning">altText</div>
             {/if}
@@ -131,6 +148,11 @@
 <style lang="scss">
   @import '../../scss/fonts/variables';
   @import '../../scss/colours/thematic/tr';
+  @import '../../scss/mixins';
+
+  div.visually-hidden {
+    @include visually-hidden;
+  }
 
   div.photopack-container {
     display: block;
@@ -144,7 +166,7 @@
         margin: 0;
         padding: 0;
         position: relative;
-        img {
+        .media {
           margin: 0;
           width: 100%;
           height: 100%;
