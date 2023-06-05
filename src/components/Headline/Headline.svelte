@@ -80,11 +80,33 @@
 
     :global {
       h1 {
-        font-size: 4rem;
         margin: 5px 0;
         line-height: 1.1;
         font-family: var(--theme-font-family-hed, $font-family-display);
         color: var(--theme-colour-text-primary, $tr-dark-grey);
+
+        // The default font-size for x-small devices (portrait phones, less than 576px)
+        font-size: 2.5rem;
+
+        // Small devices (landscape phones, 576px and up)
+        @media (min-width: 576px) {
+          font-size: 2.75rem;
+        }
+
+        // Medium devices (tablets, 768px and up)
+        @media (min-width: 768px) {
+          font-size: 3rem;
+        }
+
+        // Large devices (desktops, 992px and up)
+        @media (min-width: 992px) {
+          font-size: 3.5rem;
+        }
+
+        // X-Large devices (large desktops, 1200px and up)
+        @media (min-width: 1200px) {
+          font-size: 4rem;
+        }
       }
 
       p {
