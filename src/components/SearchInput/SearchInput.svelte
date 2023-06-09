@@ -1,3 +1,4 @@
+<!-- @component `SearchInput` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SearchInput--default) -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import MagnifyingGlass from './MagnifyingGlass.svelte';
@@ -7,7 +8,7 @@
    * The placeholder text that appears in the search box.
    * @type {string}
    */
-  export let searchPlaceholder: string = 'Search in table';
+  export let searchPlaceholder: string = 'Search...';
 
   let value = '';
   $: active = value !== '';
