@@ -135,7 +135,7 @@
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
-  import Search from './Search.svelte';
+  import SearchInput from '../SearchInput/SearchInput.svelte';
   import Select from './Select.svelte';
   import SortArrow from './SortArrow.svelte';
   import { filterArray, paginateArray, getOptions } from './utils.js';
@@ -236,8 +236,8 @@
             {/if}
             {#if searchable}
               <div class="table--header--search">
-                <Search
-                  bind:searchPlaceholder
+                <SearchInput
+                  bind:searchPlaceholder="{searchPlaceholder}"
                   on:search="{handleSearchInput}"
                 />
               </div>
@@ -248,7 +248,7 @@
     {/if}
     <section class="table">
       <table
-        class:paginated
+        class:paginated="{paginated}"
         class:truncated="{truncated &&
           !showAll &&
           data.length > truncateLength}"
@@ -273,7 +273,7 @@
                 {#if sortable && sortableFields.includes(field)}
                   <div class="table--thead--sortarrow avoid-clicks">
                     <SortArrow
-                      bind:sortDirection
+                      bind:sortDirection="{sortDirection}"
                       active="{sortField === field}"
                     />
                   </div>
@@ -330,8 +330,8 @@
     {/if}
     {#if paginated}
       <Pagination
-        bind:pageNumber
-        bind:pageSize
+        bind:pageNumber="{pageNumber}"
+        bind:pageSize="{pageSize}"
         bind:pageLength="{currentPageData.length}"
         bind:n="{sortedData.length}"
       />{/if}
@@ -385,10 +385,11 @@
           background-color: var(--theme-colour-background, #fff);
           font-size: 0.85rem;
           font-weight: 500;
+          text-align: inherit;
           text-transform: uppercase;
           letter-spacing: 0.06rem;
           line-height: 1.4;
-          padding: 0.5rem 0.25rem 0.5rem 0;
+          padding: 0.5rem 0.75rem 0.5rem 0;
           &.sortable {
             cursor: pointer;
           }
@@ -403,7 +404,7 @@
       td {
         font-size: 1rem;
         font-weight: 300;
-        padding: 0.5rem 0.25rem 0.5rem 0;
+        padding: 0.5rem 0.75rem 0.5rem 0;
         vertical-align: top;
         border-bottom: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
         &.no-results {

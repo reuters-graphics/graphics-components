@@ -3,7 +3,6 @@ Feel free to both search and filter.
 ```html
 <table
   data="{yourData}"
-  ,
   searchable="{true}"
   filterField="{'Region'}"
   paginated="{true}"
