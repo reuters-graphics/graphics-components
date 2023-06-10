@@ -46,7 +46,7 @@
   </div>
 </Template>
 
-<Story name="Default" id="site-footer--default" />
+<Story name="Default" />
 
 <Story name="Customised theme" {...withStoryDocs(darkThemeDocs)}>
   <div>
