@@ -1,6 +1,6 @@
 Invite users to search for something.
 
-```svelte
+```html
 <script>
   import { SearchInput } from '@reuters-graphics/graphics-components';
 

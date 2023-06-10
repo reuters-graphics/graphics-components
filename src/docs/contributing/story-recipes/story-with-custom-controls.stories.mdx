@@ -20,8 +20,6 @@ You can customise the controls in Storybook's built-in [controls panel](https://
   import YourComponent from './YourComponent.svelte';
 
   const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
     argTypes: {
       // A colour picker for the component's "colour" prop
       colour: { control: 'color' },
@@ -38,7 +36,7 @@ You can customise the controls in Storybook's built-in [controls panel](https://
   };
 </script>
 
-<meta {...meta} />
+<Meta title="Components/YourComponent" component="{YourComponent}" {...meta}></Meta>
 
 <template let:args>
   <YourComponent {...args} />

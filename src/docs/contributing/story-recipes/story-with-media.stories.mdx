@@ -34,14 +34,9 @@ Now, import your media file directly in your code, which will resolve to the URL
 
   // 🖼️ Import media you need in stories directly in code!
   import myImageSrc from './stories/imgs/myImage.jpg';
-
-  const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
-  };
 </script>
 
-<meta {...meta} />
+<Meta title="Components/YourComponent" component="{YourComponent}"></Meta>
 
 <template let:args>
   <YourComponent {...args} />

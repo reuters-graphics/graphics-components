@@ -4,7 +4,7 @@ This component also exports a function you can call to register pageviews.
 
 For example, here's how you can use SvelteKit's [`afterNavigate`](https://kit.svelte.dev/docs/modules#$app-navigation-afternavigate) lifecycle to capture additional pageviews:
 
-```svelte
+```html
 <script>
   import {
     Analytics,

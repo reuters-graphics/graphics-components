@@ -45,13 +45,11 @@ Now, import your markdown file in your story page component and attach it to eit
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams';
 
   const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
     ...withComponentDocs(componentDocs),
   };
 </script>
 
-<meta {...meta} />
+<Meta title="Components/YourComponent" component="{YourComponent}" {...meta}></Meta>
 
 <template let:args>
   <YourComponent {...args} />
