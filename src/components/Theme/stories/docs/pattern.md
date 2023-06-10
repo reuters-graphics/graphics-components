@@ -24,13 +24,17 @@ body {
 You may also want to override the background on the header nav if it conflicts with your background, especially the dropdown menu:
 
 ```css
-// global.scss
-// Main nav container
+/* global.scss
+Main nav container */
 .nav-container .inner {
   background: darkblue !important;
-  // Dropdown menu
+  /* Dropdown menu */
   .dropdown {
     background: darkblue !important;
   }
+}
+/* Mobile nav overlay */
+header + .overlay {
+  background: darkblue !important;
 }
 ```
