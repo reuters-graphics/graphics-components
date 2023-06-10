@@ -2,7 +2,7 @@ Note text includes notes to the main article — usually things like sources, cl
 
 Note text can be fed a markdown string, but text styling is intentionally restricted in this component. For example, all heading tags are forced to a single font size and weight.
 
-```svelte
+```html
 <script>
   import { NoteText } from '@reuters-graphics/graphics-components';
 

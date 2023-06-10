@@ -1,7 +1,7 @@
 Feel free to both search and filter.
 
-```svelte
-<Table
+```html
+<table
   data="{yourData}"
   ,
   searchable="{true}"

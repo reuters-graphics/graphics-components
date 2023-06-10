@@ -2,14 +2,14 @@ Format column values by supplying functions keyed to field names with the `field
 
 Among other things, this feature can be used to provide a unit of measurement with numeric fields.
 
-```svelte
+```html
 <script lang="ts">
   const fieldFormatters = {
     'Net worth (in billions)': (v) => '$' + v.toFixed(1),
   };
 </script>
 
-<Table
+<table
   data="{yourData}"
   fieldFormatters="{fieldFormatters}"
   sortable="{true}"

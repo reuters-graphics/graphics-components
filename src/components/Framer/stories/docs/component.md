@@ -1,6 +1,6 @@
 An embed tool for development in the Graphics Kit.
 
-```svelte
+```html
 <script>
   import { Framer } from '@reuters-graphics/graphics-components';
 

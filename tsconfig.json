@@ -19,7 +19,6 @@
 			"$docs": ["src/docs"],
 			"$docs/*": ["src/docs/*"]
 		},
-    "verbatimModuleSyntax": true,
     "sourceMap": true,
     "strict": false,
     "skipLibCheck": true,

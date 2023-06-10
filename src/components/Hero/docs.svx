@@ -5,9 +5,8 @@ slug: hero
 ---
 
 <script>
-  import DemoContainer from '../_docs/DemoContainer/index.svelte';
-  import Hero from './index.svelte';
-  import { assets } from '$app/paths';
+  import DemoContainer from '../_docs/DemoContainer/index.svelte'; import Hero
+  from './index.svelte'; import {assets} from '$app/paths';
 </script>
 
 <section>
@@ -18,7 +17,7 @@ slug: hero
 
 </section>
 
-```svelte
+```html
 <script>
   import { Headline } from '@reuters-graphics/graphics-svelte-components';
   import { assets } from '$app/paths';
@@ -30,16 +29,12 @@ slug: hero
 ```
 
 <DemoContainer>
-  <Hero
-    hed='Eisbär'
-    section='Climate Change'
-    dek="The last of the white bears"
-  >
-    <img slot='image' src={`${assets}/images/polar.jpg`} alt='A polar bear' />
+  <Hero hed="Eisbär" section="Climate Change" dek="The last of the white bears">
+    <img slot="image" src={`${assets}/images/polar.jpg`} alt="A polar bear" />
   </Hero>
 </DemoContainer>
 
-```svelte
+```html
 <script>
   import { Headline } from '@reuters-graphics/graphics-svelte-components';
   import { assets } from '$app/paths';
@@ -60,18 +55,18 @@ slug: hero
 
 <DemoContainer>
   <Hero
-    hed='Eisbär'
-    section='Climate Change'
+    hed="Eisbär"
+    section="Climate Change"
     dek="The last of the white bears"
     overlay={'darker'}
     bottom
     left
   >
-    <img slot='image' src={`${assets}/images/polar.jpg`} alt='A polar bear' />
+    <img slot="image" src={`${assets}/images/polar.jpg`} alt="A polar bear" />
   </Hero>
 </DemoContainer>
 
-```svelte
+```html
 <script>
   import { Headline } from '@reuters-graphics/graphics-svelte-components';
   import { assets } from '$app/paths';
@@ -91,10 +86,14 @@ slug: hero
 
 <DemoContainer>
   <Hero section="Climate Change" overlay={false}>
-  <img slot="image" src="{`${assets}/images/polar.jpg`}" alt="A polar bear" />
-  <h2 slot="hed" class="uppercase spaced-more color-blue text-shadow-lighter">Eisbaer</h2>
-  <p slot="dek" class="color-blue text-shadow-lighter">The last of the white bears</p>
-</Hero>
+    <img slot="image" src="{`${assets}/images/polar.jpg`}" alt="A polar bear" />
+    <h2 slot="hed" class="uppercase spaced-more color-blue text-shadow-lighter">
+      Eisbaer
+    </h2>
+    <p slot="dek" class="color-blue text-shadow-lighter">
+      The last of the white bears
+    </p>
+  </Hero>
 </DemoContainer>
 
 <style lang="scss">

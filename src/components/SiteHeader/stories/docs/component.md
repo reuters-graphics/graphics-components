@@ -4,7 +4,7 @@ Reuters dotcom site header, ported from [Raptor UI components](https://github.co
 
 > **Note:** In the Graphics Kit, you can find this component in `pages/+page.svelte`. Customise it there for the default page.
 
-```svelte
+```html
 <script>
   import { SiteHeader } from '@reuters-graphics/graphics-components';
 </script>

@@ -42,7 +42,7 @@ Remember, all references to images, videos and other media must be _absolute pat
 
 In most cases, that means you'll need to prefix relative paths with the special `assets` Svelte module. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
 
-```svelte
+```html
 <script>
   import content from '$locales/en/content.json';
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
@@ -52,15 +52,11 @@ In most cases, that means you'll need to prefix relative paths with the special 
 </script>
 
 {#each content.blocks as block}
-  <!-- ... other blocks -->
+<!-- ... other blocks -->
 
-  <!-- Use assets to prefix the path to the image. -->
-  {:else if block.Type === 'photo'}
-    <FeautrePhoto
-      src={`${assets}/${block.PathToImage}`}
-    />
-
-{/each}
+<!-- Use assets to prefix the path to the image. -->
+{:else if block.Type === 'photo'} <FeautrePhoto
+src={`${assets}/${block.PathToImage}`} /> {/each}
 ```
 
 ### How do I change this component's styles?
