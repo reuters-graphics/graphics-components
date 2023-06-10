@@ -6,26 +6,22 @@
 
   import EmbedPreviewerLink from './EmbedPreviewerLink.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Utilities/EmbedPreviewerLink',
-    component: EmbedPreviewerLink,
-    ...withComponentDocs(componentDocs),
-  };
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Utilities/EmbedPreviewerLink"
+  component="{EmbedPreviewerLink}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
-    <EmbedPreviewerLink {...args} />
+  <EmbedPreviewerLink {...args} />
 </Template>
 
 <Story
   name="Default"
-  args={{
-    dev: true
-  }}
+  args="{{
+    dev: true,
+  }}"
 />

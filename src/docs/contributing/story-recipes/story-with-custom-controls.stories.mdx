@@ -12,7 +12,7 @@ import { parameters } from '$docs/utils/docsPage.js';
 
 You can customise the controls in Storybook's built-in [controls panel](https://storybook.js.org/docs/svelte/essentials/controls) by passing [argTypes](https://storybook.js.org/docs/svelte/api/argtypes) to `Meta` like this:
 
-```svelte
+```html
 <!-- YourComponent.stories.svelte -->
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
@@ -20,8 +20,6 @@ You can customise the controls in Storybook's built-in [controls panel](https://
   import YourComponent from './YourComponent.svelte';
 
   const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
     argTypes: {
       // A colour picker for the component's "colour" prop
       colour: { control: 'color' },
@@ -38,11 +36,11 @@ You can customise the controls in Storybook's built-in [controls panel](https://
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/YourComponent" component="{YourComponent}" {...meta}></Meta>
 
-<Template let:args>
+<template let:args>
   <YourComponent {...args} />
-</Template>
+</template>
 
 <Story name="Default" />
 ```

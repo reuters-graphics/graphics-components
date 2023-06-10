@@ -1,6 +1,6 @@
 Easily add a responsive Datawrapper embed on your page.
 
-```svelte
+```html
 <script>
   import { DatawrapperChart } from '@reuters-graphics/graphics-components';
 </script>

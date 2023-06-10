@@ -2,7 +2,7 @@ Use text elements in your overlays as [ARIA descriptions](https://developer.mozi
 
 > **💡 TIP:** You must always use the `beforeAlt` / `afterAlt` props to label your image for visually impaired readers, but you can use these descriptions to provide more information or context that the reader might also need.
 
-```svelte
+```html
 <BeforeAfter
   beforeSrc="{`${assets}/images/before-after/myrne-before.jpg`}"
   beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."

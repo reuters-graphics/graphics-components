@@ -8,16 +8,13 @@
   import ReutersGraphicsLogo from './ReutersGraphicsLogo.svelte';
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/ReutersGraphicsLogo',
-    component: ReutersGraphicsLogo,
-    ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/ReutersGraphicsLogo"
+  component="{ReutersGraphicsLogo}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <ReutersGraphicsLogo {...args} />

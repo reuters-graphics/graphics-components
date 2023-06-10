@@ -13,12 +13,6 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/SiteHeadline',
-    component: SiteHeadline,
-    ...withComponentDocs(componentDocs),
-  };
-
   const content = {
     Section: 'Global News',
     SectionUrl: '',
@@ -29,7 +23,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/SiteHeadline"
+  component="{SiteHeadline}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <SiteHeadline {...args} />

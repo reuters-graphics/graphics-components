@@ -18,20 +18,22 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/FeaturePhoto',
-    component: FeaturePhoto,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
-    }
+    },
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/FeaturePhoto"
+  component="{FeaturePhoto}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <FeaturePhoto {...args} />
@@ -39,31 +41,31 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     src: sharkSrc,
     altText: 'A shark!',
     width: 'normal',
-    caption: 'Carcharodon carcharias - REUTERS'
-  }}
+    caption: 'Carcharodon carcharias - REUTERS',
+  }}"
 />
 
 <Story
   name="🚀 QUICKIT"
-  args={{
+  args="{{
     src: sharkSrc,
     altText: 'A shark!',
     width: 'normal',
-    caption: 'Carcharodon carcharias - REUTERS'
-  }}
+    caption: 'Carcharodon carcharias - REUTERS',
+  }}"
   {...withStoryDocs(quickitDocs)}
 />
 
 <Story
   name="Missing altText"
-  args={{
+  args="{{
     src: sharkSrc,
     width: 'normal',
-    caption: 'Carcharodon carcharias - REUTERS'
-  }}
+    caption: 'Carcharodon carcharias - REUTERS',
+  }}"
   {...withStoryDocs(missingAltTextDocs)}
 />

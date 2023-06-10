@@ -12,15 +12,13 @@
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/SEO',
-    component: SEO,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/SEO"
+  component="{SEO}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <SEO {...args} />

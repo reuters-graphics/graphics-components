@@ -19,12 +19,12 @@ This is probably not a behaviour you'd want anyway.
 The example below allows for autoplay if the user has interacted with the page before the video comes into view. To see this, reload the page
 and go to the top. Click anywhere on the page before scrolling down to the video and you should see it autoplay when it comes into view.
 
-```svelte
+```html
 <script>
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<Video
+<video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"

@@ -2,8 +2,8 @@ Allow users to sort the table by setting the `sortable` input. Specify the start
 
 By default, all fields are sortable. If you'd like to limit the columns where sorting is allowed, provide a list to the `sortableFields` option.
 
-```svelte
-<Table
+```html
+<table
   data="{yourData}"
   sortable="{true}"
   sortField="{'Score'}"

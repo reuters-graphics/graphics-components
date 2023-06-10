@@ -4,16 +4,16 @@ This is really useful for lazy loading elements, especially expensive media file
 
 > **Pro tip:** Don't use this for content that's "above the fold" at the top of the page. That'll just slow down the first load of important visible content.
 
-```svelte
+```html
 <script>
   import { Visible } from '@reuters-graphics/graphics-components';
 </script>
 
 <Visible let:visible>
   {#if visible}
-    <p>Visible!</p>
+  <p>Visible!</p>
   {:else}
-    <p>Not yet visible.</p>
+  <p>Not yet visible.</p>
   {/if}
 </Visible>
 ```

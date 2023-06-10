@@ -237,7 +237,7 @@
             {#if searchable}
               <div class="table--header--search">
                 <SearchInput
-                  bind:searchPlaceholder
+                  bind:searchPlaceholder="{searchPlaceholder}"
                   on:search="{handleSearchInput}"
                 />
               </div>
@@ -248,7 +248,7 @@
     {/if}
     <section class="table">
       <table
-        class:paginated
+        class:paginated="{paginated}"
         class:truncated="{truncated &&
           !showAll &&
           data.length > truncateLength}"
@@ -273,7 +273,7 @@
                 {#if sortable && sortableFields.includes(field)}
                   <div class="table--thead--sortarrow avoid-clicks">
                     <SortArrow
-                      bind:sortDirection
+                      bind:sortDirection="{sortDirection}"
                       active="{sortField === field}"
                     />
                   </div>
@@ -330,8 +330,8 @@
     {/if}
     {#if paginated}
       <Pagination
-        bind:pageNumber
-        bind:pageSize
+        bind:pageNumber="{pageNumber}"
+        bind:pageSize="{pageSize}"
         bind:pageLength="{currentPageData.length}"
         bind:n="{sortedData.length}"
       />{/if}

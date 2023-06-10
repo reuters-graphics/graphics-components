@@ -13,9 +13,7 @@
   // @ts-ignore
   import SharkImg from './stories/shark.jpg';
 
-  const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
@@ -27,7 +25,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title='Components/YourComponent'
+  component={YourComponent}
+  {...metaProps}
+/>
 
 <Template let:args>
   <YourComponent {...args} />

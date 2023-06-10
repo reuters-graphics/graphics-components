@@ -9,19 +9,14 @@
 
   import Hero from './Hero.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/Hero',
-    component: Hero,
-    ...withComponentDocs(componentDocs),
-  };
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/Hero"
+  component="{Hero}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Hero {...args} />
@@ -29,9 +24,9 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     section: 'World News',
     hed: 'Reuters Graphics interactive',
     imgSrc: polarImgSrc,
-  }}
+  }}"
 />

@@ -8,15 +8,13 @@
   import Block from '../Block/Block.svelte';
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Utilities/PaddingReset',
-    component: PaddingReset,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Utilities/PaddingReset"
+  component="{PaddingReset}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Block width="fluid">

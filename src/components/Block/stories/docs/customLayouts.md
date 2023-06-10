@@ -2,7 +2,7 @@ Our article well is designed to provide a basic responsive layout for you, but i
 
 If you need to get really radical, the easiest way is to create a `Block` with a `fluid` width -- which basically cancels out the article well dimensions -- and then code whatever you need from scratch or with another framework.
 
-```svelte
+```html
 <Block width="fluid">
   <div class="my-radical-container">
     <!-- Now, you have full control! -->

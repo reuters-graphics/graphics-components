@@ -1,6 +1,6 @@
 A more detailed example of using `Scroller` with graphics created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte).
 
-```svelte
+```html
 <script>
   import { Scroller } from '@reuters-graphics/graphics-components';
 
@@ -69,7 +69,7 @@ AltText3: The same map now highlights three locations near 98th Street where som
 :end
 ```
 
-```svelte
+```html
 <!-- App.svelte -->
 <script>
   // Previos imports and stuff...
@@ -105,20 +105,18 @@ AltText3: The same map now highlights three locations near 98th Street where som
   ];
 </script>
 
-{#each content.blocks as block}
-  {#if block.Type === 'text'}
-    <!-- ... other blocks -->
+{#each content.blocks as block} {#if block.Type === 'text'}
+<!-- ... other blocks -->
 
-    <!-- Copy/paste into your blocks loop! -->
-  {:else if block.Type === 'scroller' && block.ID === 'map-scrolly'}
-    <Scroller
-      steps="{steps}"
-      backgroundWidth="fluid"
-      foregroundPosition="middle"
-      stackBackground="{true}"
-      embedded="{false}"
-    />
-    <!-- END copy/paste -->
-  {/if}
-{/each}
+<!-- Copy/paste into your blocks loop! -->
+{:else if block.Type === 'scroller' && block.ID === 'map-scrolly'}
+<Scroller
+  steps="{steps}"
+  backgroundWidth="fluid"
+  foregroundPosition="middle"
+  stackBackground="{true}"
+  embedded="{false}"
+/>
+<!-- END copy/paste -->
+{/if} {/each}
 ```

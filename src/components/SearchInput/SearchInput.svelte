@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="search" class:active>
+<div class="search" class:active="{active}">
   <div class="search--icon">
     <MagnifyingGlass />
   </div>
@@ -36,7 +36,7 @@
     type="text"
     placeholder="{searchPlaceholder}"
     on:input="{input}"
-    bind:value
+    bind:value="{value}"
   />
   <div class="search--x" class:invisible="{!active}" on:click="{clear}">
     <X />

@@ -14,20 +14,15 @@ To make a basic story, you'll need to setup a few things from storybook's Svelte
 
 Once you've setup the `Meta` and `Template` components as below, you can write a `Story` component with an `args` prop. In that `args` prop you can pass values that will be used to fill in your component's props.
 
-```svelte
+```html
 <!-- YourComponent.stories.svelte -->
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
   import YourComponent from './YourComponent.svelte';
-
-  const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
-  };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/YourComponent" component="{YourComponent}"></Meta>
 
 <Template let:args>
   <YourComponent {...args} />
@@ -43,13 +38,13 @@ Once you've setup the `Meta` and `Template` components as below, you can write a
 
 For example, the `width` property in the `Story` args above would be passed to your component as though you'd written it like this:
 
-```svelte
+```html
 <YourComponent width="normal" />
 ```
 
 You can define additional stories with _different_ args to show how your component will render with different props like:
 
-```svelte
+```html
 <!-- ... -->
 
 <Story
@@ -69,7 +64,7 @@ You can define additional stories with _different_ args to show how your compone
 
 If you want even more control, you can skip the `args` and pass your component directly into the `Story` with whatever props you need:
 
-```svelte
+```html
 <Story name="Super custom">
   <YourComponent
     width="fluid"

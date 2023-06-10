@@ -8,9 +8,7 @@
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/SimpleTimeline',
-    component: SimpleTimeline,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       symbolColour: { control: 'color' },
@@ -94,7 +92,11 @@
   ];
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/SimpleTimeline"
+  component="{SimpleTimeline}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <SimpleTimeline {...args} />

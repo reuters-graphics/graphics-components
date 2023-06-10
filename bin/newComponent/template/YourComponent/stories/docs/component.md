@@ -13,7 +13,7 @@
 
 ---
 
-```svelte
+```html
 <script>
   import { YourComponent } from '@reuters-graphics/graphics-components';
 </script>

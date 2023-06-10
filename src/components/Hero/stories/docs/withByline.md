@@ -1,6 +1,6 @@
 Add a byline and dateline with `byline` and `dateline` named slots.
 
-```svelte
+```html
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
 </script>

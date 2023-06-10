@@ -13,11 +13,8 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Layout/Block',
-    component: Block,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -35,7 +32,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Layout/Block" component="{Block}" {...metaProps} />
 
 <Template let:args>
   <Article id="block-demo-article">

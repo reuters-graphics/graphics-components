@@ -12,15 +12,13 @@
   import Analytics from './Analytics.svelte';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/Analytics',
-    component: Analytics,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/Analytics"
+  component="{Analytics}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Analytics {...args} />
