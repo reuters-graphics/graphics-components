@@ -14,14 +14,14 @@ You can toggle between multiple buttons by linking the `pressed` variable to a `
 <button
   content="{'Yes'}"
   value="{'yes'}"
-  on:click="{handleButtonClick}"
+  on:buttonClicked="{handleButtonClick}"
   pressed="{isPressed === 'yes'}"
 />
 
 <button
   content="{'No'}"
   value="{'no'}"
-  on:click="{handleButtonClick}"
+  on:buttonClicked="{handleButtonClick}"
   pressed="{isPressed === 'no'}"
 />
 ```
