@@ -82,7 +82,7 @@
   };
 
   $: origin = getOrigin(baseUrl);
-  $: canonicalUrl = origin + pageUrl.pathname;
+  $: canonicalUrl = (origin + pageUrl.pathname).replace(/index\.html\/$/, '');
 
   const orgLdJson = {
     '@context': 'http://schema.org',
