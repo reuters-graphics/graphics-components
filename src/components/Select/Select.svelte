@@ -1,6 +1,7 @@
+<!-- @component `Select` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Select--default) -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type { Option } from '../@types/global';
+  import type { Option } from '@reuters-graphics/graphics-components/dist/components/@types/global';
 
   /**
    * The label that appears above the select input.
@@ -14,23 +15,44 @@
    */
   export let options: Option[] = [];
 
+  /**
+   * The selected value
+   * @type {string}
+   */
+  export let selected: string | null = null;
+
+  /** Add an ID to target with SCSS.
+   * @type {string}
+   */
+  export let id: string = '';
+
+  /** Add a class to target with SCSS.
+   * @type {string}
+   */
+  export let cls: string = '';
+
+  /** Add a name to the <select> element.
+   * @type {string}
+   */
+  export let name: string = 'select--input';
+
   const dispatch = createEventDispatcher();
 
-  function input(event) {
+  function onChange(event) {
     const value = event.target.value;
     dispatch('select', { value });
   }
 </script>
 
-<div class="select">
+<div id="{id}" class="select {cls}">
   {#if label}
-    <label for="select--input">{label}</label>
+    <label for="{name}">{label}</label>
   {/if}
   <select
     class="select--input"
-    name="select--input"
-    id="select--input"
-    on:input="{input}"
+    name="{name}"
+    on:change="{onChange}"
+    bind:value="{selected}"
   >
     {#each options as obj}
       <option value="{obj.value}">{obj.text}</option>

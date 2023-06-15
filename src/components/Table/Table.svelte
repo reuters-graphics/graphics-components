@@ -136,7 +136,7 @@
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
   import SearchInput from '../SearchInput/SearchInput.svelte';
-  import Select from './Select.svelte';
+  import Select from '../Select/Select.svelte';
   import SortArrow from './SortArrow.svelte';
   import { filterArray, paginateArray, getOptions } from './utils.js';
 
@@ -230,6 +230,7 @@
                 <Select
                   label="{filterLabel || filterField}"
                   options="{filterList}"
+                  selected="{'All'}"
                   on:select="{handleFilterInput}"
                 />
               </div>
