@@ -30,7 +30,7 @@
 <Story
   name="Default"
   args="{{
-    content: 'My button',
+    text: 'My button',
   }}"
 />
 
@@ -38,7 +38,7 @@
   name="Pressed"
   {...withStoryDocs(pressedDocs)}
   args="{{
-    content: 'My button',
+    text: 'My button',
     pressed: isPressed,
   }}"
 />

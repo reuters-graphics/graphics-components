@@ -5,7 +5,7 @@
   /** The button text.
    * @type {string}
    */
-  export let content: string = 'Click';
+  export let text: string = 'Click';
 
   /** The button value.
    * @type {string}
@@ -42,7 +42,7 @@
   class="{cls}"
   value="{value}"
   aria-pressed="{pressed}"
-  on:click="{handleClick}">{content}</button
+  on:click="{handleClick}">{text}</button
 >
 
 <style lang="scss">

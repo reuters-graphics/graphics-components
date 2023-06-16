@@ -11,8 +11,8 @@ Link the `pressed` variable to a boolean value to toggle the selected state of b
   }
 </script>
 
-<Button
-  content="{'My button'}"
+<button
+  text="{'My button'}"
   on:buttonClicked="{handleButtonClick}"
   pressed="{isPressed}"
 />
