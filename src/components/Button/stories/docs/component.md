@@ -1,5 +1,7 @@
 Invite users to click.
 
+---
+
 ```html
 <script>
   import { Button } from '@reuters-graphics/graphics-components';
