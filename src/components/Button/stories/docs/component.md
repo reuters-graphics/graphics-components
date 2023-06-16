@@ -13,5 +13,5 @@ Invite users to click.
   }
 </script>
 
-<button text="{'My button'}" on:buttonClicked="{handleButtonClick}" />
+<Button text="{'My button'}" on:buttonClicked="{handleButtonClick}" />
 ```
