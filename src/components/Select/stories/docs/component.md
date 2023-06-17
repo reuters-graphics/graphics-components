@@ -23,5 +23,5 @@ Invite users to pick an option from a predefined list.
   ];
 </script>
 
-<select options="{optionList}" />
+<Select options="{optionList}" />
 ```
