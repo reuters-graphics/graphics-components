@@ -20,5 +20,5 @@ This argument lets you set the option that is `selected` by default. It expects 
   ];
 </script>
 
-<select selected="{'g'}" options="{optionList}" />
+<Select selected="{'g'}" options="{optionList}" />
 ```
