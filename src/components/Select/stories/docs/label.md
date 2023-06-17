@@ -20,5 +20,5 @@ You have the option of including a `label` argument that will appear above the p
   ];
 </script>
 
-<select label="{'Pick a color'}" options="{optionList}" />
+<Select label="{'Pick a color'}" options="{optionList}" />
 ```
