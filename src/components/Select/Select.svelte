@@ -1,7 +1,7 @@
 <!-- @component `Select` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Select--default) -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type { Option } from '@reuters-graphics/graphics-components/dist/components/@types/global';
+  import type { Option } from '../@types/global';
 
   /**
    * The label that appears above the select input.
