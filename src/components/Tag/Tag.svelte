@@ -1,6 +1,15 @@
 <!-- @component `Tag` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Tag--default) -->
 <script lang="ts">
+  /**
+   * The text that appears in the tag
+   * @type {string}
+   */
   export let text: string;
+
+  /**
+   * A link to wrap the tag in
+   * @type {string}
+   */
   export let link: string | null = null;
 
   type tagSize = 'normal' | 'big';
