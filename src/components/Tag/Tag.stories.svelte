@@ -52,7 +52,7 @@
   name="Size"
   {...withStoryDocs(bigDocs)}
   args="{{
-    text: 'Link',
+    text: 'Big Tag',
     size: 'big',
   }}"
 />
