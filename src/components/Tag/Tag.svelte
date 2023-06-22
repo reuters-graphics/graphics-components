@@ -38,7 +38,7 @@
       width: auto;
       margin: 0;
       padding: 6px 4px;
-      border: 1px solid white;
+      border: 1px solid var(--nav-background, $white);
     }
     a {
       color: var(--theme-colour-text-primary, $tr-dark-grey);
