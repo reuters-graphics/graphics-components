@@ -5,5 +5,5 @@ Make it bigger with the `size` option.
   import { Tag } from '@reuters-graphics/graphics-components';
 </script>
 
-<Tag text="{'Link'}" size="{'big'}" />
+<Tag text="{'Big Tag'}" size="{'big'}" />
 ```
