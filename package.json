@@ -4,7 +4,10 @@
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
-  "repository": "https://github.com/reuters-graphics/graphics-components",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reuters-graphics/graphics-components.git"
+  },
   "scripts": {
     "start": "storybook dev -p 3000",
     "new": "node ./bin/newComponent/index.cjs",
@@ -12,7 +15,8 @@
     "build:docs": "storybook build -o docs && touch ./docs/.nojekyll",
     "build": "npm-run-all build:package build:docs",
     "prepublishOnly": "npm run build:package",
-    "postversion": "git push origin && git push origin --tags"
+    "postversion": "git push origin && git push origin --tags",
+    "chromatic": "npx chromatic --build-script-name build:docs"
   },
   "license": "MIT",
   "types": "./dist/@types/index.d.ts",
@@ -54,6 +58,7 @@
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "change-case": "^4.1.2",
+    "chromatic": "^6.19.9",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-n": "^16.0.0",
@@ -245,5 +250,10 @@
     "./scss/typography/variables": "./dist/scss/typography/_variables.scss",
     ".": "./dist/index.js"
   },
-  "svelte": "./dist/index.js"
+  "svelte": "./dist/index.js",
+  "bugs": {
+    "url": "https://github.com/reuters-graphics/graphics-components/issues"
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "@reuters-graphics/graphics-components@0.1.5"
 }
