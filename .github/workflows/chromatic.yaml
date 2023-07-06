@@ -4,6 +4,7 @@ on: push
 
 jobs:
   chromatic-deployment:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
