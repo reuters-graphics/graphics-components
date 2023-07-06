@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -254,6 +254,5 @@
   "bugs": {
     "url": "https://github.com/reuters-graphics/graphics-components/issues"
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "@reuters-graphics/graphics-components@0.1.5"
+  "readme": "ERROR: No README data found!"
 }
