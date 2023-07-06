@@ -63,9 +63,3 @@ jobs:
           git add .
           git commit -m "published ${{ github.ref_name }}"
           git push
-
-      - id: publish-chromatic
-        name: Chromatic
-        run: npm run chromatic
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

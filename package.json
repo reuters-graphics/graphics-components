@@ -15,8 +15,7 @@
     "build:docs": "storybook build -o docs && touch ./docs/.nojekyll",
     "build": "npm-run-all build:package build:docs",
     "prepublishOnly": "npm run build:package",
-    "postversion": "git push origin && git push origin --tags",
-    "chromatic": "npx chromatic --build-script-name build:docs"
+    "postversion": "git push origin && git push origin --tags"
   },
   "license": "MIT",
   "types": "./dist/@types/index.d.ts",
