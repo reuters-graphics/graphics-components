@@ -10,12 +10,16 @@
   <a href="{url.replace('index.html', '')}">
     <IntersectionObserver let:intersecting top="{600}" once="{true}">
       {#if intersecting}
-        <div class="image" style="{`background-image: url(${image});`}"></div>
+        <div
+          data-chromatic="ignore"
+          class="image"
+          style="{`background-image: url(${image});`}"
+        ></div>
       {:else}
         <div class="image"></div>
       {/if}
     </IntersectionObserver>
-    <p>{title}</p>
+    <p data-chromatic="ignore">{title}</p>
   </a>
 </div>
 
