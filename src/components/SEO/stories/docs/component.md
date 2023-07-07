@@ -1,6 +1,6 @@
 The `SEO` component adds essential metadata to published pages.
 
-```svelte
+```html
 <script>
   import { SEO } from '@reuters-graphics/graphics-components';
 </script>
@@ -22,6 +22,5 @@ The `SEO` component adds essential metadata to published pages.
     { name: 'Jane Doe', url: 'https://twitter.com/JaneDoe' },
     { name: 'John Doe', url: 'https://twitter.com/JohnDoe' },
   ]}"
-  includeAnalytics="{true}"
 />
 ```

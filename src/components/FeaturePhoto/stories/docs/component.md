@@ -1,6 +1,6 @@
 A full-width photo inside the text well.
 
-```svelte
+```html
 <script>
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...

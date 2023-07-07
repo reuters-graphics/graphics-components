@@ -21,11 +21,8 @@
   // @ts-ignore
   import PlaceholderImg from './stories/placeholder.png';
 
-  const meta = {
-    title: 'Components/GraphicBlock',
-    component: GraphicBlock,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -39,7 +36,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/GraphicBlock"
+  component="{GraphicBlock}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <GraphicBlock {...args}>
@@ -54,15 +55,14 @@
   args="{{
     width: 'normal',
     title: 'Bacon ipsum dolor amet t-bone',
-    description: "Pork loin t-bone jowl prosciutto, short loin flank kevin tri-tip cupim pig pork. Meatloaf tri-tip frankfurter short ribs, cupim brisket bresaola chislic tail jerky burgdoggen pancetta.",
-    notes: "Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)"
+    description:
+      'Pork loin t-bone jowl prosciutto, short loin flank kevin tri-tip cupim pig pork. Meatloaf tri-tip frankfurter short ribs, cupim brisket bresaola chislic tail jerky burgdoggen pancetta.',
+    notes:
+      'Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)',
   }}"
 />
 
-<Story
-  name="🚀 QUICKIT"
-  {...withStoryDocs(quickitDocs)}
->
+<Story name="🚀 QUICKIT" {...withStoryDocs(quickitDocs)}>
   <GraphicBlock
     width="normal"
     title="Earthquake in Haiti"
@@ -73,13 +73,8 @@
   </GraphicBlock>
 </Story>
 
-<Story
-  name="Custom text"
-  {...withStoryDocs(customTextDocs)}
->
-  <GraphicBlock
-    width="normal"
-  >
+<Story name="Custom text" {...withStoryDocs(customTextDocs)}>
+  <GraphicBlock width="normal">
     <div slot="title">
       <h5>My smaller title</h5>
     </div>
@@ -92,10 +87,7 @@
   </GraphicBlock>
 </Story>
 
-<Story
-  name="Ai2svelte"
-  {...withStoryDocs(ai2svelteDocs)}
->
+<Story name="Ai2svelte" {...withStoryDocs(ai2svelteDocs)}>
   <GraphicBlock
     width="normal"
     title="Earthquake in Haiti"
@@ -106,10 +98,7 @@
   </GraphicBlock>
 </Story>
 
-<Story
-  name="ARIA"
-  {...withStoryDocs(ariaDocs)}
->
+<Story name="ARIA" {...withStoryDocs(ariaDocs)}>
   <GraphicBlock
     width="normal"
     title="Earthquake in Haiti"

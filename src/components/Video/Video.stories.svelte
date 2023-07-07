@@ -21,15 +21,13 @@
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/Video',
-    component: Video,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/Video"
+  component="{Video}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Video {...args} />

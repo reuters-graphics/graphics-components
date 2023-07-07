@@ -1,6 +1,6 @@
 To use a background pattern or image, set the background colour property in your custom theme to `transparent`...
 
-```svelte
+```html
 <Theme
   base="dark"
   theme="{{
@@ -13,8 +13,8 @@ To use a background pattern or image, set the background colour property in your
 
 ... then set your background image in global SCSS:
 
-```scss
-// global.scss
+```css
+/* global.scss */
 body {
   background-color: darkblue;
   background-image: url('$assets/images/my-pattern.png');
@@ -23,14 +23,18 @@ body {
 
 You may also want to override the background on the header nav if it conflicts with your background, especially the dropdown menu:
 
-```scss
-// global.scss
-// Main nav container
+```css
+/* global.scss
+Main nav container */
 .nav-container .inner {
   background: darkblue !important;
-  // Dropdown menu
+  /* Dropdown menu */
   .dropdown {
     background: darkblue !important;
   }
+}
+/* Mobile nav overlay */
+header + .overlay {
+  background: darkblue !important;
 }
 ```

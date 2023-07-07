@@ -7,15 +7,13 @@
   import BodyText from './BodyText.svelte';
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/BodyText',
-    component: BodyText,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/BodyText"
+  component="{BodyText}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <BodyText {...args} />

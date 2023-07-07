@@ -4,7 +4,7 @@ Check out the "Canvas" tab to play with the layout options available on this com
 
 > This component is designed to handle most common layouts for scrollytelling. If you need something more complex, though, you should probably use [svelte-scroller](https://github.com/sveltejs/svelte-scroller), which is a lower level component you can more easily customize.
 
-```svelte
+```html
 <script>
   import { Scroller } from '@reuters-graphics/graphics-components';
 

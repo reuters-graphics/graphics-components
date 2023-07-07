@@ -83,7 +83,7 @@
       class="referral-container"
       class:stacked="{clientWidth && clientWidth < 750}"
       class:xs="{clientWidth && clientWidth < 450}"
-      bind:clientWidth
+      bind:clientWidth="{clientWidth}"
     >
       {#each $referrals as referral}
         <div class="referral">
@@ -97,9 +97,13 @@
                 class="headline"
                 class:xs="{clientWidth && clientWidth < 450}"
               >
-                <div class="kicker">{referral.kicker.name}</div>
-                <div class="title">{referral.title}</div>
-                <div class="publish-time">
+                <div class="kicker" data-chromatic="ignore">
+                  {referral.kicker.name}
+                </div>
+                <div class="title" data-chromatic="ignore">
+                  {referral.title}
+                </div>
+                <div class="publish-time" data-chromatic="ignore">
                   {getTime(new Date(referral.display_time))}
                 </div>
               </div>
@@ -108,6 +112,7 @@
                 class:xs="{clientWidth && clientWidth < 450}"
               >
                 <img
+                  data-chromatic="ignore"
                   src="{referral.thumbnail.renditions.landscape['240w']}"
                   alt="{referral.thumbnail.caption ||
                     referral.thumbnail.alt_text}"

@@ -57,9 +57,7 @@
     ],
   };
 
-  const meta = {
-    title: 'Components/Scroller',
-    component: Scroller,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       steps: { control: false },
@@ -79,7 +77,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/Scroller" component="{Scroller}" {...metaProps} />
 
 <Template let:args>
   <Scroller {...args} />

@@ -2,7 +2,7 @@ For Graphics Kit users, the `GraphicBlock` component is built-in to handle [ai2s
 
 First, import your ai2svelte graphic in `App.svelte` and add it to the `aiCharts` object;
 
-```svelte
+```html
 <!-- App.svelte -->
 <script>
   // Other stuff...

@@ -9,6 +9,7 @@ interface BlockStep {
 interface Block {
   Type: string;
   Width: string;
+  Preload?: string;
   ForegroundPosition: string;
   StackBackground?: string;
   EmbeddedLayout?: string;
@@ -27,6 +28,7 @@ export const getScrollerPropsFromDoc = (docBlock: Block, aiCharts: AiCharts, ass
     foregroundPosition: docBlock.ForegroundPosition,
     stackBackground: docBlock.StackBackground === 'true' || !docBlock.StackBackground,
     embeddedLayout: docBlock.EmbeddedLayout,
+    preload: docBlock.Preload ? parseInt(docBlock.Preload) || 1 : 1,
     steps: docBlock.Steps.map((step) => ({
       background: aiCharts[step.Background],
       backgroundProps: { assetsPath },

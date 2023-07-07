@@ -4,7 +4,7 @@ Most of the fields are filled in by other sources, like your Google Doc and pack
 
 > **IMPORTANT:** For _reasons_, we can't document the value of `VITE_BASE_URL` below. It's `import` + `.meta.env.BASE_URL` (concatenate all that) in the Graphics Kit and other Vite-based rigs.
 
-```svelte
+```html
 <script>
   import { SEO } from '@reuters-graphics/graphics-components';
   import pkg from '$pkg';
@@ -25,6 +25,5 @@ Most of the fields are filled in by other sources, like your Google Doc and pack
   publishTime="{pkg?.reuters?.graphic?.published}"
   updateTime="{pkg?.reuters?.graphic?.updated}"
   authors="{pkg?.reuters?.graphic?.authors}"
-  includeAnalytics="{$page.url.hostname === 'graphics.reuters.com'}"
 />
 ```

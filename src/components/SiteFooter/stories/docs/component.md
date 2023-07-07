@@ -2,7 +2,7 @@ Reuters dotcom site footer with graphics referrals, ported from [Raptor UI compo
 
 > **Note:** In the Graphics Kit, you can find this component in `pages/+page.svelte`. Customise it there for the default page.
 
-```svelte
+```html
 <script>
   import { SiteFooter } from '@reuters-graphics/graphics-components';
 </script>

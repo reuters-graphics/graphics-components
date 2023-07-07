@@ -9,15 +9,13 @@
   import Visible from './Visible.svelte';
 
   import { withSource, withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/Visible',
-    component: Visible,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/Visible"
+  component="{Visible}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Visible {...args} let:visible>

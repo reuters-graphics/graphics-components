@@ -6,18 +6,14 @@
 
   import NoteText from './NoteText.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/NoteText',
-    component: NoteText,
-    ...withComponentDocs(componentDocs),
-  };
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/NoteText"
+  component="{NoteText}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <NoteText {...args} />
@@ -25,13 +21,13 @@
 
 <Story
   name="Default"
-  args={{
+  args="{{
     text: `## Source
 
 [European Forest Fire Information System](https://effis.jrc.ec.europa.eu/); Reuters research
 
 #### Credits
 
-Jane Doe & John Doe`
-  }}
+Jane Doe & John Doe`,
+  }}"
 />

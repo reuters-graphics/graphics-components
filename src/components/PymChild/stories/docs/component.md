@@ -1,6 +1,6 @@
 A Pym.js child instance for embeddables.
 
-```svelte
+```html
 <script>
   import { PymChild } from '@reuters-graphics/graphics-components';
 </script>
@@ -10,7 +10,7 @@ A Pym.js child instance for embeddables.
 
 You can access the Pym.js child through its store in other components to send custom height updates to parent frames:
 
-```svelte
+```html
 <script>
   import {
     PymChild,
@@ -24,5 +24,5 @@ You can access the Pym.js child through its store in other components to send cu
 
 <PymChild />
 
-<button on:click="{updateHeight}"> Update height </button>
+<button on:click="{updateHeight}">Update height</button>
 ```

@@ -20,3 +20,9 @@ div.type-system-demo {
     margin-bottom: 0;
   }
 }
+
+#custom-table {
+  [data-field='Net worth (in billions)'] {
+    text-align: right;
+  }
+}

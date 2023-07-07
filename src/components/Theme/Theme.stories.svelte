@@ -20,9 +20,7 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Theming/Theme',
-    component: Theme,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       base: {
@@ -34,7 +32,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Theming/Theme" component="{Theme}" {...metaProps} />
 
 <Template let:args>
   <div class="reset-article">

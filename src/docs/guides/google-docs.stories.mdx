@@ -13,7 +13,7 @@ It's usually easy to use a Google Doc to fill in the props for our components, b
 
 Let's look at a basic component, `ProfileCard`, with a demo that looks like this in the docs:
 
-```svelte
+```html
 <script>
   import { ProfileCard } from '@reuters-graphics/graphics-components';
 </script>
@@ -45,7 +45,7 @@ Staff: true
 
 Now we can tie that data into your blocks loop like this:
 
-```svelte
+```html
 <script>
   // These are usually already imported for you
   import { assets } from '$app/paths';
@@ -55,18 +55,13 @@ Now we can tie that data into your blocks loop like this:
 </script>
 
 {#each content.blocks as block}
-  <!-- ... other blocks -->
+<!-- ... other blocks -->
 
-  {:else if block.Type === 'profile-card'}
-    <ProfileCard
-      name="{block.Name}"
-      img={`${assets}/${block.Image}`}
-      birthday={new Date(block.Birthday)}
-      bio="{block.Bio}"
-      isStaff={block.Staff === 'true'}
-    />
+{:else if block.Type === 'profile-card'} <ProfileCard name="{block.Name}"
+img={`${assets}/${block.Image}`} birthday={new Date(block.Birthday)}
+bio="{block.Bio}" isStaff={block.Staff === 'true'} />
 
-  <!-- ... other blocks -->
+<!-- ... other blocks -->
 {/each}
 ```
 

@@ -12,17 +12,17 @@ If you do want to leave the controls, you have a couple of options to style them
 
 - Set `controlsColour` to a colour of your choosing.
 - Set `controlsOpacity` to a value between `0` and `1` to control the opacity. The default is `0.5`.
-- Change the placement of the controls to one of: `top right`, `top left`, `bottom right`, `bottom left` by setting `controlsPosition`.
+- Change the placement of the controls to one of: `top right`, `top left`, `bottom right`, `bottom left`, `center` by setting `controlsPosition`.
 - Change the play button to a replay button at the end of the video with the option `separateReplayIcon={true}`.
 
 Here is an example with bottom right corner white opaque controls, with a replay button, where you have to hover on the video to see the controls.
 
-```svelte
+```html
 <script>
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<Video
+<video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"

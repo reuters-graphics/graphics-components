@@ -1,6 +1,6 @@
 Use the `hed` and/or `dek` named slots to override those elements with completely custom markup.
 
-```svelte
+```html
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
 </script>
@@ -12,9 +12,9 @@ Use the `hed` and/or `dek` named slots to override those elements with completel
     <span class="small block">success</span>
   </h1>
   <p slot="dek" class="custom-dek">
-    How “The Nutcracker” ballet became an <span class="highlight"
-      >American holday staple</span
-    >and a financial pillar of ballet companies across the country
+    How “The Nutcracker” ballet became an
+    <span class="highlight">American holday staple</span>and a financial pillar
+    of ballet companies across the country
   </p>
 </Headline>
 

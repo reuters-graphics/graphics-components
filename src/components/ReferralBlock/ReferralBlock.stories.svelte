@@ -1,7 +1,6 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // Don't lose the "?raw" in markdown imports!
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
 
@@ -9,11 +8,8 @@
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/ReferralBlock',
-    component: ReferralBlock,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -39,7 +35,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/ReferralBlock"
+  component="{ReferralBlock}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <ReferralBlock {...args} />

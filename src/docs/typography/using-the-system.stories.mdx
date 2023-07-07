@@ -15,7 +15,7 @@ The type styles consist of 3 elements: size, typeface and colour. TKTKTK
 
 Type styles are automatically applied to native HTML elements like `h` and `p` tags and to certain combinations of elements that represent specific text components.
 
-```svelte
+```html
 <div>
   <h2>Here's a section title</h2>
   <p>and some text to go with it...</p>
@@ -28,7 +28,7 @@ Type styles are automatically applied to native HTML elements like `h` and `p` t
 
 Apply text styles to any element using CSS classes that correspond to each text element type.
 
-```svelte
+```html
 <div class="font-subhed-1">Subhed</div>
 <p class="font-note-1">Sans-serif text...</p>
 ```
@@ -57,9 +57,9 @@ The following text style elements and corresponding classes are available:
   <p class="font-subhed-2">Lorem ipsum dolor sit amet...</p>
   <p class="font-subhed-3">Lorem ipsum dolor sit amet...</p>
   <p class="font-body">Lorem ipsum dolor sit amet...</p>
-  <p class="ffont-note-1">Lorem ipsum dolor sit amet...</p>
-  <p class="ffont-note-2">Lorem ipsum dolor sit amet...</p>
-  <p class="ffont-note-3">Lorem ipsum dolor sit amet...</p>
+  <p class="font-note-1">Lorem ipsum dolor sit amet...</p>
+  <p class="font-note-2">Lorem ipsum dolor sit amet...</p>
+  <p class="font-note-3">Lorem ipsum dolor sit amet...</p>
 </div>
 
 ### Type sizes
@@ -85,7 +85,7 @@ The following classes apply specific text sizes to any element:
 </div>
 
 > The text sizes are always a multiple of `size-base = 1.375`. On mobile
-> {max-width:510px}, levels 1, 2, 3, 4 scale down to `size-base-mobile = 1.125`
+> max-width:510px, levels 1, 2, 3, 4 scale down to `size-base-mobile = 1.125`
 
 ### Typefaces
 

@@ -1,6 +1,14 @@
 import type { ComponentType } from 'svelte';
 
 /**
+ * Used for the list of <option> tags nested in a <select> input.
+ */
+export type Option = {
+  value: string;
+  text: string;
+};
+
+/**
  * Used for any props that restrict width of a container to one of pre-fab widths.
  */
 export type ContainerWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';

@@ -1,6 +1,6 @@
 Pass up to four custom referrals to the `referrals` prop.
 
-```svelte
+```html
 <script>
   import { SiteFooter } from '@reuters-graphics/graphics-components';
 

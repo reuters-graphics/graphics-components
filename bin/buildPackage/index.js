@@ -9,7 +9,7 @@ import picomatch from 'picomatch';
 import processOther from './process/other.js';
 import processSvelte from './process/svelte.js';
 import processTypescript from './process/typescript.js';
-import rimraf from 'rimraf';
+import { rimraf } from 'rimraf';
 
 const require = createRequire(import.meta.url);
 

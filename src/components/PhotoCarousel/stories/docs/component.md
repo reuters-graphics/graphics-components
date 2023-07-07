@@ -1,6 +1,6 @@
 A simple, accessible photo carousel with lazy-loading and mobile swipe built in.
 
-```svelte
+```html
 <script>
   import { PhotoCarousel } from '@reuters-graphics/graphics-components';
 
