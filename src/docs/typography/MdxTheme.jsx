@@ -6,7 +6,7 @@ import lightTheme from '../../components/Theme/themes/light';
 
 // This is a React equivalent for the Svelte Theme component
 // which is useful for setting CSS variables in MDX docs around
-// typography demos. It also wraps demos in a unstyled storybook 
+// typography demos. It also wraps demos in an unstyled storybook 
 // canvas.
 
 const ThemeWrapper = (props) => {
