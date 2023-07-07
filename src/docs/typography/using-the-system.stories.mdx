@@ -1,5 +1,9 @@
 import { Meta } from '@storybook/addon-docs';
 import { parameters } from '$docs/utils/docsPage.js';
+import { Canvas, Unstyled } from '@storybook/blocks';
+import Theme from './MdxTheme.jsx';
+
+import './styles.scss';
 
 <Meta title="Typography/Using the type system" parameters={{ ...parameters }} />
 
@@ -33,10 +37,12 @@ Apply text styles to any element using CSS classes that correspond to each text 
 <p class="font-note-1">Sans-serif text...</p>
 ```
 
-<div class="type-system-demo">
-  <div class="font-subhed-1">Subhed</div>
-  <p class="font-note-1">Sans-serif text...</p>
-</div>
+<Theme>
+  <div className="type-system-demo">
+    <div className="font-subhed-1">Subhed</div>
+    <p className="font-note-1">Sans-serif text...</p>
+  </div>
+</Theme>
 
 The following text style elements and corresponding classes are available:
 
@@ -51,16 +57,18 @@ The following text style elements and corresponding classes are available:
 | Endnotes      | `.font-note-2`   | `font-note-2`   | `--theme-font-size-note-2`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
 | Footnotes     | `.font-note-3`   | `font-note-3`   | `--theme-font-size-note-3`, `--theme-font-family-note` , `--theme-colour-text-secondary`     |
 
-<div class="type-system-demo">
-  <p class="font-hed">Lorem ipsum dolor sit amet...</p>
-  <p class="font-subhed-1">Lorem ipsum dolor sit amet...</p>
-  <p class="font-subhed-2">Lorem ipsum dolor sit amet...</p>
-  <p class="font-subhed-3">Lorem ipsum dolor sit amet...</p>
-  <p class="font-body">Lorem ipsum dolor sit amet...</p>
-  <p class="font-note-1">Lorem ipsum dolor sit amet...</p>
-  <p class="font-note-2">Lorem ipsum dolor sit amet...</p>
-  <p class="font-note-3">Lorem ipsum dolor sit amet...</p>
-</div>
+<Theme>
+  <div className="type-system-demo">
+    <p className="font-hed">Lorem ipsum dolor sit amet...</p>
+    <p className="font-subhed-1">Lorem ipsum dolor sit amet...</p>
+    <p className="font-subhed-2">Lorem ipsum dolor sit amet...</p>
+    <p className="font-subhed-3">Lorem ipsum dolor sit amet...</p>
+    <p className="font-body">Lorem ipsum dolor sit amet...</p>
+    <p className="font-note-1">Lorem ipsum dolor sit amet...</p>
+    <p className="font-note-2">Lorem ipsum dolor sit amet...</p>
+    <p className="font-note-3">Lorem ipsum dolor sit amet...</p>
+  </div>
+</Theme>
 
 ### Type sizes
 
@@ -75,14 +83,16 @@ The following classes apply specific text sizes to any element:
 | 5     | `.font-size-5` | `font-size-5` | `--theme-scale-size-5`   |
 | 6     | `.font-size-6` | `font-size-6` | `--theme-scale-size-6`   |
 
-<div class="type-system-demo">
-  <p class="font-size-1">Lorem ipsum dolor sit amet...</p>
-  <p class="font-size-2">Lorem ipsum dolor sit amet...</p>
-  <p class="font-size-3">Lorem ipsum dolor sit amet...</p>
-  <p class="font-size-4">Lorem ipsum dolor sit amet...</p>
-  <p class="font-size-5">Lorem ipsum dolor sit amet...</p>
-  <p class="font-size-6">Lorem ipsum dolor sit amet...</p>
-</div>
+<Theme>
+  <div className="type-system-demo">
+    <p className="font-size-1">Lorem ipsum dolor sit amet...</p>
+    <p className="font-size-2">Lorem ipsum dolor sit amet...</p>
+    <p className="font-size-3">Lorem ipsum dolor sit amet...</p>
+    <p className="font-size-4">Lorem ipsum dolor sit amet...</p>
+    <p className="font-size-5">Lorem ipsum dolor sit amet...</p>
+    <p className="font-size-6">Lorem ipsum dolor sit amet...</p>
+  </div>
+</Theme>
 
 > The text sizes are always a multiple of `size-base = 1.375`. On mobile
 > max-width:510px, levels 1, 2, 3, 4 scale down to `size-base-mobile = 1.125`
@@ -98,9 +108,11 @@ The following classes apply typefaces to any element:
 | Sans-serif font | `.typeface-sans-serif` | `typeface-sans-serif` | `--theme-typeface-sans-serif` |
 | Monospace font  | `.typeface-monospace`  | `typeface-monospace`  | `--theme-typeface-monospace`  |
 
-<div class="type-system-demo">
-  <p class="typeface-display">Lorem ipsum dolor sit amet...</p>
-  <p class="typeface-serif">Lorem ipsum dolor sit amet...</p>
-  <p class="typeface-sans-serif">Lorem ipsum dolor sit amet...</p>
-  <p class="typeface-monospace">Lorem ipsum dolor sit amet...</p>
-</div>
+<Theme>
+  <div className="type-system-demo">
+    <p className="typeface-display">Lorem ipsum dolor sit amet...</p>
+    <p className="typeface-serif">Lorem ipsum dolor sit amet...</p>
+    <p className="typeface-sans-serif">Lorem ipsum dolor sit amet...</p>
+    <p className="typeface-monospace">Lorem ipsum dolor sit amet...</p>
+  </div>
+</Theme>

@@ -20,7 +20,7 @@ Check out the "Control" column for `theme` in the properties table above to see 
   base="dark"
   theme="{{
     colour: { accent: 'yellow' },
-    font: { 'family-hed': 'freight-book' },
+    font: { family: { hed: 'freight-book' } },
   }}"
 >
   <!-- Page content -->

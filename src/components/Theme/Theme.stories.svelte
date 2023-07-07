@@ -55,7 +55,7 @@
     base="dark"
     theme="{{
       colour: { accent: 'yellow' },
-      font: { 'family-hed': 'freight-book' },
+      font: { family: { hed: 'freight-book' } },
     }}"
   >
     <ThemedPage />
@@ -91,7 +91,7 @@
           <Theme
             theme="{{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
-              font: { 'family-note': 'freight-book' },
+              font: { family: { note: 'freight-book' } },
             }}"
             base="dark"
           >

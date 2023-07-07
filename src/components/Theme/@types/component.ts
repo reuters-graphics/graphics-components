@@ -1,5 +1,6 @@
 interface Scale {
   'size-base': number,
+  'size-base-mobile': number;
   'size-1': string,
   'size-2': string,
   'size-3': string,
@@ -25,31 +26,44 @@ interface Colour {
   'brand-shadow': string;
 };
 
+interface FontFamily {
+  'hed': string;
+  'subhed': string;
+  'body': string;
+  'note': string;
+}
+
+interface FontSize {
+  'hed': string;
+  'subhed-1': string;
+  'subhed-2': string;
+  'subhed-3': string;
+  'body': string;
+  'note-1': string;
+  'note-2': string;
+  'note-3': string;
+}
+
 interface Font {
-  'family-hed': string;
-  'family-subhed': string;
-  'family-body': string;
-  'family-note': string;
-  'size-hed': string;
-  'size-subhed-1': string;
-  'size-subhed-2': string;
-  'size-subhed-3': string;
-  'size-body': string;
-  'size-note-1': string;
-  'size-note-2': string;
-  'size-note-3': string;
+  family: FontFamily;
+  size: FontSize;
+}
+
+interface CustomFont {
+  family?: Partial<FontFamily>;
+  size?: Partial<FontSize>;
 }
 
 export interface Theme {
-  scale: Scale,
-  typeface: Typeface
-  colour: Colour,
+  scale: Scale;
+  typeface: Typeface;
+  colour: Colour;
   font: Font;
 };
 
 export interface CustomTheme {
-  scale?: Partial<Scale>,
-  typeface?: Partial<Typeface>,
-  colour?: Partial<Colour>,
-  font?: Partial<Font>
+  scale?: Partial<Scale>;
+  typeface?: Partial<Typeface>;
+  colour?: Partial<Colour>;
+  font?: Partial<CustomFont>;
 }
