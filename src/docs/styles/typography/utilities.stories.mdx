@@ -1,0 +1,106 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyTable from '../../docs-components/CopyTable/Table.jsx';
+
+import './styles.scss';
+
+<Meta
+  title="Styles/Typography/Utility classes"
+  parameters={{ ...parameters }}
+/>
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Utility classes
+
+Utility classes apply various often used styles to your markup. Just copy a class and use it on the element you wish to style.
+
+For example, these classes will bold and uppercase your text:
+
+```html
+<div class="uppercase font-bold">My text</div>
+```
+
+### Make it `!important`
+
+You can make any utility class `!important` by adding a `!` to the front of the class name.
+
+```html
+<div class="!uppercase">My text</div>
+```
+
+---
+
+### Font style
+
+<CopyTable
+  header={['Class', 'Properties']}
+  body={[
+    ['italic', 'font-style: italic;'],
+    ['not-italic', 'font-style: normal;'],
+  ]}
+  copyable={[true, false]}
+/>
+
+### Font weight
+
+<CopyTable
+  header={['Class', 'Properties']}
+  body={[
+    ['font-thin', 'font-weight: 100;'],
+    ['font-extralight', 'font-weight: 200;'],
+    ['font-light', 'font-weight: 300;'],
+    ['font-normal', 'font-weight: 400;'],
+    ['font-medium', 'font-weight: 500;'],
+    ['font-semibold', 'font-weight: 600;'],
+    ['font-bold', 'font-weight: 700;'],
+    ['font-extrabold', 'font-weight: 800;'],
+    ['font-black', 'font-weight: 900;'],
+  ]}
+  copyable={[true, false]}
+/>
+
+### Text align
+
+<CopyTable
+  header={['Class', 'Properties']}
+  body={[
+    ['text-left', 'text-align: left;'],
+    ['text-center', 'text-align: center;'],
+    ['text-right', 'text-align: right;'],
+  ]}
+  copyable={[true, false]}
+/>
+
+### Text transform
+
+<CopyTable
+  header={['Class', 'Properties']}
+  body={[
+    ['uppercase', 'text-transform: uppercase;'],
+    ['lowercase', 'text-transform: lowercase;'],
+  ]}
+  copyable={[true, false]}
+/>
+
+### White space
+
+<CopyTable
+  header={['Class', 'Properties']}
+  body={[
+    ['whitespace-normal', 'white-space: normal;'],
+    ['whitespace-nowrap', 'white-space: nowrap;'],
+  ]}
+  copyable={[true, false]}
+/>
+
+### Word break
+
+<CopyTable
+  header={['Class', 'Properties']}
+  body={[
+    ['break-normal', 'overflow-wrap: normal;\nword-break: normal;'],
+    ['break-words', 'overflow-wrap: break-word;'],
+  ]}
+  copyable={[true, false]}
+/>

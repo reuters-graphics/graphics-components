@@ -4119,7 +4119,12 @@ eslint-config-prettier@^8.8.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz#bfda738d412adc917fd7b038857110efe98c9348"
   integrity sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==
 
-eslint-config-standard-react@*:
+eslint-config-standard-jsx@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-standard-jsx/-/eslint-config-standard-jsx-11.0.0.tgz#70852d395731a96704a592be5b0bfaccfeded239"
+  integrity sha512-+1EV/R0JxEK1L0NGolAr8Iktm3Rgotx3BKwgaX+eAuSX8D952LULKtjgZD3F+e6SvibONnhLwoTi9DPxN5LvvQ==
+
+eslint-config-standard-react@*, eslint-config-standard-react@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-standard-react/-/eslint-config-standard-react-13.0.0.tgz#dcc85bc3210dac858bc94ac53d024a5488ce5568"
   integrity sha512-HrVPGj8UncHfV+BsdJTuJpVsomn6AIrke3Af2Fh4XFvQQDU+iO6N2ZL+UsC+scExft4fU3uf7fJwj7PKWnXJDA==
@@ -4161,7 +4166,7 @@ eslint-plugin-es@^3.0.0:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
 
-eslint-plugin-import@*:
+eslint-plugin-import@*, eslint-plugin-import@^2.27.5:
   version "2.27.5"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.27.5.tgz#876a6d03f52608a3e5bb439c2550588e51dd6c65"
   integrity sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==
@@ -4196,7 +4201,7 @@ eslint-plugin-n@^16.0.0:
     resolve "^1.22.2"
     semver "^7.5.0"
 
-eslint-plugin-node@*:
+eslint-plugin-node@*, eslint-plugin-node@^11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-node/-/eslint-plugin-node-11.1.0.tgz#c95544416ee4ada26740a30474eefc5402dc671d"
   integrity sha512-oUwtPJ1W0SKD0Tr+wqu92c5xuCeQqB3hSCHasn/ZgjFdA9iDGNkNf2Zi9ztY7X+hNuMib23LNGRm6+uN+KLE3g==
@@ -4208,7 +4213,7 @@ eslint-plugin-node@*:
     resolve "^1.10.1"
     semver "^6.1.0"
 
-eslint-plugin-promise@*:
+eslint-plugin-promise@*, eslint-plugin-promise@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-6.1.1.tgz#269a3e2772f62875661220631bd4dafcb4083816"
   integrity sha512-tjqWDwVZQo7UIPMeDReOpUgHCmCiH+ePnVT+5zVapL0uuHnegBUs2smM13CzOs2Xb5+MHMRFTs9v24yjba4Oig==

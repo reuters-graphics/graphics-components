@@ -1,0 +1,61 @@
+$copyable: #0071a1;
+$header: #5e81ac;
+
+.table {
+  min-height: 100px;
+  margin: 0 0 3rem;
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  th,
+  td {
+    padding: 6px 10px;
+  }
+  thead tr {
+    background-color: #5e81ac;
+    color: #ffffff;
+    text-align: left;
+    th {
+      font-weight: 500;
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  }
+  tbody tr {
+    border-bottom: 1px solid #dddddd;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    letter-spacing: -1px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #404040;
+    td {
+      border-right: 1px solid #eee;
+      vertical-align: text-top;
+      button {
+        text-align: left;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+        color: $copyable;
+        letter-spacing: -1px;
+        span {
+          font-size: 1rem;
+          color: inherit;
+          margin-right: 5px;
+          vertical-align: bottom;
+        }
+        &:active {
+          transform: translate(1px, 1px);
+        }
+      }
+    }
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+}

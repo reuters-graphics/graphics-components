@@ -9,10 +9,11 @@
 		"resolveJsonModule": true,
 		"allowJs": true,
 		"checkJs": true,
-		"jsx": "react",
 		"emitDeclarationOnly": true,
+		"jsx": "react",
 		"baseUrl": ".",
 		"rootDir": ".",
+		"rootDirs": [".", "docs/docs-components"],
 		"outDir": "dist",
 		"paths": {
 			"$lib": ["src"],
@@ -32,7 +33,8 @@
 		"src/**/*.jsx",
 		"bin/**/*.{js,cjs}",
 		"*.ts",
-		"*.js"
+		"*.js",
+		"src/docs/**/*.css"
 	],
 	"exclude": ["dist"]
 }
