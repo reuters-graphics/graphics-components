@@ -1,3 +1,5 @@
+@import 'mixins';
+
 /* RESPONSIVE SCALING */
 @media (max-width: 510px) {
   div.theme {
@@ -69,4 +71,79 @@ p {
   p {
     @include font-note-3;
   }
+}
+
+/* FONT SIZE CLASSES */
+.font-size-1 {
+  @include font-size-1($i: false);
+}
+
+.font-size-2 {
+  @include font-size-2($i: false);
+}
+
+.font-size-3 {
+  @include font-size-3($i: false);
+}
+
+.font-size-4 {
+  @include font-size-4($i: false);
+}
+
+.font-size-5 {
+  @include font-size-5($i: false);
+}
+
+.font-size-6 {
+  @include font-size-6($i: false);
+}
+
+/* TYPEFACE CLASSES */
+.typeface-display {
+  @include typeface-display($i: false);
+}
+
+.typeface-serif {
+  @include typeface-serif($i: false);
+}
+
+.typeface-sans-serif {
+  @include typeface-sans-serif($i: false);
+}
+
+.typeface-monospace {
+  @include typeface-monospace($i: false);
+}
+
+/* FONT STYLE TOKEN CLASSES */
+.font-hed {
+  @include font-hed($i: false);
+}
+
+.font-subhed-1 {
+  @include font-subhed-1($i: false);
+}
+
+.font-subhed-2 {
+  @include font-subhed-2($i: false);
+}
+
+.font-subhed-3 {
+  @include font-subhed-3($i: false);
+}
+
+.font-body {
+  @include font-body($i: false);
+}
+
+.font-note-1 {
+  @include font-note-1($i: false);
+}
+
+.font-note-2 {
+  @include font-note-2($i: false);
+}
+
+.font-note-3 {
+  @include font-note-3($i: false);
 }

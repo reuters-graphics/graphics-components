@@ -9,6 +9,7 @@
 		"resolveJsonModule": true,
 		"allowJs": true,
 		"checkJs": true,
+		"jsx": "react",
 		"emitDeclarationOnly": true,
 		"baseUrl": ".",
 		"rootDir": ".",
@@ -28,6 +29,7 @@
 		"src/**/*.js",
 		"src/**/*.ts",
 		"src/**/*.svelte",
+		"src/**/*.jsx",
 		"bin/**/*.{js,cjs}",
 		"*.ts",
 		"*.js"

@@ -1,18 +1,18 @@
 import { Canvas, Unstyled } from '@storybook/blocks';
 
 import React from 'react';
-import flatten from '../../components/Theme/utils/flatten';
-import lightTheme from '../../components/Theme/themes/light';
+import flatten from '../../../components/Theme/utils/flatten';
+import lightTheme from '../../../components/Theme/themes/light';
 
 // This is a React equivalent for the Svelte Theme component
 // which is useful for setting CSS variables in MDX docs around
-// typography demos. It also wraps demos in an unstyled storybook 
+// typography demos. It also wraps demos in an unstyled storybook
 // canvas.
 
 const ThemeWrapper = (props) => {
   const theme = flatten(lightTheme);
   const styleObj = {};
-  Object.keys(theme).map(key => {
+  Object.keys(theme).forEach(key => {
     styleObj[`--theme-${key}`] = theme[key];
   });
   return (
@@ -24,6 +24,6 @@ const ThemeWrapper = (props) => {
       </Canvas>
     </Unstyled>
   );
-}
+};
 
 export default ThemeWrapper;

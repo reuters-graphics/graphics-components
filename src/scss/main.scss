@@ -6,6 +6,9 @@
  * 🄯2023 Reuters Graphics Style Guide
  */
 
+// Reset
+@import 'reset/rules';
+
 @import 'fonts/font-faces';
 
 // Variables
@@ -14,14 +17,6 @@
 // Mixins
 @import 'mixins';
 
-// Bootstrap
-@import 'bootstrap/main';
-
-// Styles
-@import 'fonts/rules';
-@import 'typography_old/rules';
-@import 'typography_old/main';
+// Style rules
 @import 'spacers/rules';
-
-/* TYPOGRAPHY */
-@import 'typography/main';
+@import 'typography/rules';
