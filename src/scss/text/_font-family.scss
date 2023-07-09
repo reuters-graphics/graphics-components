@@ -1,0 +1,18 @@
+.font-serif {
+  font-family: var(--theme-typeface-serif);
+}
+.font-sans {
+  font-family: var(--theme-typeface-sans-serif);
+}
+.font-mono {
+  font-family: var(--theme-typeface-monospace);
+}
+.\!font-serif {
+  font-family: var(--theme-typeface-serif) !important;
+}
+.\!font-sans {
+  font-family: var(--theme-typeface-sans-serif) !important;
+}
+.\!font-mono {
+  font-family: var(--theme-typeface-monospace) !important;
+}

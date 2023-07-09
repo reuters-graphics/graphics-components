@@ -1,0 +1,36 @@
+.self-auto {
+  align-self: auto;
+}
+.self-start {
+  align-self: flex-start;
+}
+.self-end {
+  align-self: flex-end;
+}
+.self-center {
+  align-self: center;
+}
+.self-stretch {
+  align-self: stretch;
+}
+.self-baseline {
+  align-self: baseline;
+}
+.\!self-auto {
+  align-self: auto !important;
+}
+.\!self-start {
+  align-self: flex-start !important;
+}
+.\!self-end {
+  align-self: flex-end !important;
+}
+.\!self-center {
+  align-self: center !important;
+}
+.\!self-stretch {
+  align-self: stretch !important;
+}
+.\!self-baseline {
+  align-self: baseline !important;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Unstyled } from '@storybook/blocks';
+// @ts-ignore
 import classes from './styles.module.scss';
 
 const handleClick = async(props) => {
@@ -22,6 +23,14 @@ const TH = (props) => <th>{props.children}</th>;
 const CopyTable = (props) => {
   return (
     <Unstyled>
+      <div className={classes.title}>
+        {props.title}
+        {(props.title && !props.noLink) && (
+          <a href={`https://developer.mozilla.org/en-US/docs/Web/CSS/${props.title.toLowerCase().replaceAll(' ', '-')}`} target="_blank">
+            <span className="material-symbols-outlined">link</span>
+          </a>
+        )}
+      </div>
       <table className={classes.table}>
         <thead>
           <tr>
