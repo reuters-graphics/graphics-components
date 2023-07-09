@@ -55,7 +55,7 @@
 <Story name="Custom layouts" {...withStoryDocs(customLayoutsDocs)}>
   <Block width="fluid">
     <!-- Enter bootstrap grid! -->
-    <div class="container-fluid text-center">
+    <div id="block-flex-example">
       <div class="row">
         <div class="col">Column</div>
         <div class="col-6">Column</div>
@@ -148,8 +148,11 @@
     }
   }
 
-  div.container-fluid {
+  div#block-flex-example {
     padding: 25px 0;
+    div.row {
+      display: flex;
+    }
     div.row > div {
       background-color: rgb(211, 132, 123);
       border: 1px solid white;
@@ -157,6 +160,7 @@
       padding: 20px;
       color: white;
       text-align: center;
+      flex-grow: 1;
     }
     div.row:first-child {
       div {

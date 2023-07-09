@@ -5,7 +5,7 @@ import ColourPicker from './ColourPicker.jsx';
 
 const Input = ({ value, onChange }) => {
   // Number type
-  if (!isNaN(value)) return <input type="number" value={value} onChange={(e) => onChange(e.target.value)}/>;
+  if (!isNaN(value)) return <input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))}/>;
   // Colour type
   if (!/var\(.*\)/i.test(value) && CSS.supports('color', value)) return (
     <ColourPicker colour={value} onChange={onChange} />

@@ -10,4 +10,4 @@ If you need to get really radical, the easiest way is to create a `Block` with a
 </Block>
 ```
 
-The demo below does exactly that to create an edge-to-edge grid with [bootstrap](https://getbootstrap.com/docs/5.2/layout/grid/).
+The demo below does exactly that to create an edge-to-edge grid with [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/).

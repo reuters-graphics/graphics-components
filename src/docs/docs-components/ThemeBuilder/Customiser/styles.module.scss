@@ -40,7 +40,7 @@
   }
   div.key {
     div.key {
-      padding-left: 20px;
+      padding-left: 10px;
     }
   }
   div.value {
@@ -67,10 +67,11 @@
 
 .colourpicker :global {
   width: 160px;
+  margin-bottom: 10px;
   .react-colorful {
-    height: 140px;
+    height: 120px;
     width: 160px;
-    border: 1px solid #ccc;
+    border: 1px solid #666;
     border-radius: 4px;
     overflow: hidden;
   }
@@ -87,6 +88,6 @@
   }
   input {
     width: 100%;
-    margin-bottom: 10px !important;
+    margin-bottom: 5px !important;
   }
 }
