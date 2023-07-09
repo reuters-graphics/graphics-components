@@ -51,11 +51,22 @@ export const parameters = {
         'SCSS',
         ['Intro', '*'],
         'Styles',
-        ['Typography', [
+        [
           'Intro',
-          'Using the type system',
-          '*',
-        ]],
+          'Typography', [
+            'Classes',
+            'Intro',
+            'Using the type system',
+            '*',
+          ],
+          'Layout', [
+            'Classes',
+            'Spacers',
+            'Flexbox',
+            '*',
+          ],
+          'Borders',
+        ],
         'Actions',
         ['Intro', '*'],
         'Contributing',

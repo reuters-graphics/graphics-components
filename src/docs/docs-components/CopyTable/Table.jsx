@@ -20,13 +20,13 @@ const TD = (props) => <td><Copyable {...props}>{props.children}</Copyable></td>
 const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i}>{c}</TD>))}</tr>
 const TH = (props) => <th>{props.children}</th>;
 
-const CopyTable = (props) => {
+const CopyTable = ({ title = null, header, body, copyable, mdnLink = null }) => {
   return (
     <Unstyled>
       <div className={classes.title}>
-        {props.title}
-        {(props.title && !props.noLink) && (
-          <a href={`https://developer.mozilla.org/en-US/docs/Web/CSS/${props.title.toLowerCase().replaceAll(' ', '-')}`} target="_blank">
+        {title}
+        {(title && mdnLink) && (
+          <a href={`https://developer.mozilla.org/en-US/docs/Web/CSS/${mdnLink}`} target="_blank">
             <span className="material-symbols-outlined">link</span>
           </a>
         )}
@@ -34,11 +34,11 @@ const CopyTable = (props) => {
       <table className={classes.table}>
         <thead>
           <tr>
-            {props.header.map(h => (<TH>{h}</TH>))}
+            {header.map(h => (<TH>{h}</TH>))}
           </tr>
         </thead>
         <tbody>
-          {props.body.map(b => (<TR {...props}>{b}</TR>))}
+          {body.map(b => (<TR {...{ title, header, body, copyable, mdnLink}}>{b}</TR>))}
         </tbody>
       </table>
     </Unstyled>

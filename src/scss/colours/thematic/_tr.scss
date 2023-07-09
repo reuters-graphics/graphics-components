@@ -1,27 +1,29 @@
 // Brand colours from RCOM's raptor system
 // https://github.com/tr/rcom-arc_raptor-ui/blob/develop/packages/rcom-raptor-ui_atomic/styles/_colors.scss
-$tr-orange: #fa6400;
-$tr-dark-orange: #dc4300;
-$tr-light-orange: #ffa100;
-$tr-dark-grey: #404040;
-$tr-medium-grey: #666666;
-$tr-light-grey: #afafaf;
-$tr-muted-grey: #d0d0d0;
-$tr-contrast-grey: #949494;
-$tr-hover-background-grey: #f8f8f8;
-$tr-light-muted-grey: #f4f4f4;
-$tr-ultra-light-grey: #fafafa;
-$tr-dark-blue: #005da2;
-$tr-light-blue: #0099c4;
-$tr-muted-blue: #4386B9;
-$tr-lighter-blue: #7FACCE;
-$tr-superlight-blue: #e5eef5;
-$tr-dark-purple: #621f95;
-$tr-light-purple: #6e3ab7;
-$tr-dark-red: #a00000;
-$tr-light-red: #dc0a0a;
-$tr-dark-green: #387c2b;
-$tr-light-green: #77a22d;
-$black: #000;
-$white: #fff;
-$ad-placeholder: #ffb1b1;
+:root {
+  --gfx-colour-tr-orange: #fa6400;
+  --gfx-colour-tr-dark-orange: #dc4300;
+  --gfx-colour-tr-light-orange: #ffa100;
+  --gfx-colour-tr-dark-grey: #404040;
+  --gfx-colour-tr-medium-grey: #666666;
+  --gfx-colour-tr-light-grey: #afafaf;
+  --gfx-colour-tr-muted-grey: #d0d0d0;
+  --gfx-colour-tr-contrast-grey: #949494;
+  --gfx-colour-tr-hover-background-grey: #f8f8f8;
+  --gfx-colour-tr-light-muted-grey: #f4f4f4;
+  --gfx-colour-tr-ultra-light-grey: #fafafa;
+  --gfx-colour-tr-dark-blue: #005da2;
+  --gfx-colour-tr-light-blue: #0099c4;
+  --gfx-colour-tr-muted-blue: #4386b9;
+  --gfx-colour-tr-lighter-blue: #7facce;
+  --gfx-colour-tr-superlight-blue: #e5eef5;
+  --gfx-colour-tr-dark-purple: #621f95;
+  --gfx-colour-tr-light-purple: #6e3ab7;
+  --gfx-colour-tr-dark-red: #a00000;
+  --gfx-colour-tr-light-red: #dc0a0a;
+  --gfx-colour-tr-dark-green: #387c2b;
+  --gfx-colour-tr-light-green: #77a22d;
+  --gfx-colour-tr-black: #000;
+  --gfx-colour-tr-white: #fff;
+  --gfx-colour-tr-ad-placeholder: #ffb1b1;
+}

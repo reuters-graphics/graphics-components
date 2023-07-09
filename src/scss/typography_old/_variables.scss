@@ -17,19 +17,19 @@ $blockquote-font-size: ($font-size-base * 1.5) !default;
 
 $line-height-base: 1.5 !default;
 
-$text-muted: $tr-medium-grey;
+$text-muted: var(--colour-tr-medium-grey);
 
-$blockquote-small-color: $tr-medium-grey;
+$blockquote-small-color: var(--colour-tr-medium-grey);
 
-$blockquote-border-color: $tr-dark-grey !default;
+$blockquote-border-color: var(--colour-tr-dark-grey) !default;
 $blockquote-border-width: 0.25rem !default;
 
-$hr-border-color: rgba($black, 0.1) !default;
+$hr-border-color: rgba(var(--colour-tr-black), 0.1) !default;
 
 // Headings
 $headings-font-family: $font-family-display;
 $headings-font-weight: 700 !default;
-$headings-color: $tr-dark-grey;
+$headings-color: var(--colour-tr-dark-grey);
 
 $h1-font-size: $font-size-base * 2.5 !default;
 $h2-font-size: $font-size-base * 2 !default;

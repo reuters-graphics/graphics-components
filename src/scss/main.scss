@@ -7,7 +7,7 @@
  */
 
 // Reset
-@import 'reset/rules';
+@import 'reset/main';
 
 @import 'fonts/font-faces';
 
@@ -18,7 +18,8 @@
 @import 'mixins';
 
 // Style rules
-@import 'spacers/rules';
+@import 'borders/main';
+@import 'spacers/main';
 @import 'typography/rules';
-@import 'text/rules';
-@import 'layout/rules';
+@import 'text/main';
+@import 'layout/main';

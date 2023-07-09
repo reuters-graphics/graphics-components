@@ -1,5 +1,4 @@
 @import "../src/scss/mixins";
-@import "../src/scss/colours/thematic/tr";
 
 table.docblock-argstable {
   p {
@@ -62,7 +61,7 @@ div.sbdocs-content {
 
   a {
     @include font-display;
-    color: $tr-muted-blue;
+    color: var(--gfx-colour-tr-muted-blue);
     text-decoration: none;
     &:hover {
       text-decoration: underline;

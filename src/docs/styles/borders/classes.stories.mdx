@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyTable from '../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../utils/parseCss';
+
+{/* @ts-ignore */}
+import borderColor from '$lib/scss/borders/\_border-color.scss?raw';
+
+{/* @ts-ignore */}
+import borderRadius from '$lib/scss/borders/\_border-radius.scss?raw';
+
+{/* @ts-ignore */}
+import borderStyle from '$lib/scss/borders/\_border-style.scss?raw';
+
+{/* @ts-ignore */}
+import borderWidth from '$lib/scss/borders/\_border-width.scss?raw';
+
+<Meta title="Styles/Borders/Classes" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Border classes
+
+<CopyTable
+  title="Border color"
+  mdnLink="border-color"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(borderColor)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Border radius"
+  mdnLink="border-radius"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(borderRadius)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Border style"
+  mdnLink="border-style"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(borderStyle)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Border width"
+  mdnLink="border-width"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(borderWidth)}
+  copyable={[true, false]}
+/>

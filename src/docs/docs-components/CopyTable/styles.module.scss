@@ -49,7 +49,25 @@ $header: #5e81ac;
       -moz-osx-font-smoothing: grayscale;
     }
   }
+  thead {
+    display: block;
+    width: 100%;
+    tr {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+    }
+  }
+  tbody {
+    display: block;
+    max-height: 305px;
+    overflow-y: scroll;
+    border-bottom: 1px solid hsla(203, 50%, 30%, 0.15);
+  }
   tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
     border: 1px solid hsla(203, 50%, 30%, 0.15);
     border-radius: 4px;
     font-size: 0.9rem;
