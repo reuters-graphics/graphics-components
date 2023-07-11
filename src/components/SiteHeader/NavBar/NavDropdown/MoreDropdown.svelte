@@ -73,7 +73,7 @@
 
       .subsection-link {
         font-size: 16px;
-        color: var(--nav-primary, $tr-dark-grey);
+        color: var(--nav-primary, var(--tr-dark-grey));
         line-height: 18px;
         font-weight: 400;
         display: inline-block;
@@ -92,14 +92,14 @@
       line-height: 18px;
       font-size: 16px;
       display: inline-block;
-      color: var(--nav-primary, $tr-dark-grey);
+      color: var(--nav-primary, var(--tr-dark-grey));
       @media (min-width: 1300px) {
         font-size: 18px;
       }
       text-decoration: none;
-        &:hover {
-          text-decoration: underline !important;
-        }
+      &:hover {
+        text-decoration: underline !important;
+      }
     }
   }
 </style>

@@ -44,7 +44,6 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
   .search {
@@ -59,15 +58,15 @@
       top: 0.15rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: var(--theme-colour-brand-rules, $tr-muted-grey);
+      fill: var(--theme-colour-brand-rules);
     }
     .search--input {
       font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary);
       padding: 0 0 0 2rem;
       font-size: 0.8rem;
       height: 33px;
-      border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+      border: 1px solid var(--theme-colour-brand-rules);
       background: transparent;
       border-radius: 6px;
       width: 100%;
@@ -78,7 +77,7 @@
       top: 0.15rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: var(--theme-colour-text-primary, $tr-medium-grey);
+      fill: var(--theme-colour-text-primary);
       cursor: pointer;
       &.invisible {
         display: none;

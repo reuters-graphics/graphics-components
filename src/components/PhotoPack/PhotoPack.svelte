@@ -130,7 +130,6 @@
 
 <style lang="scss">
   @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
 
   div.photopack-container {
     display: block;
@@ -175,7 +174,7 @@
         font-size: 0.85rem;
         line-height: 1.1rem;
         font-family: var(--theme-font-family-note, $font-family-display);
-        color: var(--theme-colour-text-secondary, $tr-medium-grey);
+        color: var(--theme-colour-text-secondary);
         margin: 0;
         font-weight: 300;
       }

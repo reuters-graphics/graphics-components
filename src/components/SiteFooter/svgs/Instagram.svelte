@@ -18,6 +18,6 @@
 <style lang="scss">
   @import './../../SiteHeader/scss/_colors.scss';
   svg {
-    fill: var(--nav-primary, $tr-dark-grey);
+    fill: var(--nav-primary, var(--tr-dark-grey));
   }
 </style>

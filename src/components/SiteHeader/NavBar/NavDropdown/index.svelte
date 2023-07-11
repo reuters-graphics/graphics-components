@@ -104,7 +104,7 @@
   }
 
   .dropdown-container {
-    border-top: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-top: 1px solid var(--nav-rules, var(--tr-muted-grey));
     box-shadow: 0 10px 16px rgba(black, 0.1);
     overflow: hidden;
     background: var(--nav-background, $white);
@@ -146,7 +146,7 @@
 
     .inner {
       @include spacing-single(padding-left);
-      border-left: 1px solid var(--nav-rules, $tr-muted-grey);
+      border-left: 1px solid var(--nav-rules, var(--tr-muted-grey));
     }
 
     @include for-extra-wide-desktop {
@@ -177,7 +177,7 @@
 
     &:nth-child(1),
     &:nth-child(2) {
-      border-bottom: 1px solid var(--nav-rules, $tr-muted-grey);
+      border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
     }
 
     &:nth-child(3),
@@ -190,7 +190,7 @@
         padding-top: 20px;
       }
       &:nth-child(3) {
-        border-bottom: 1px solid var(--nav-rules, $tr-muted-grey);
+        border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
       }
     }
   }
@@ -215,7 +215,7 @@
 
   span.latest {
     font-size: 16px;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
     @media (min-width: 1300px) {
       font-size: 18px;
     }

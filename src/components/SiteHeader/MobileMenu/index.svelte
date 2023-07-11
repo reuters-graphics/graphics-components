@@ -130,14 +130,14 @@
 
   .header {
     @include spacing-single(padding-left padding-right);
-    border-bottom: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
   }
 
   .section {
     @include spacing-single(padding-left padding-right);
     padding-top: 16px;
     padding-bottom: 16px;
-    border-bottom: 1px solid $tr-muted-grey;
+    border-bottom: 1px solid var(--tr-muted-grey);
     width: 100%;
     max-width: 100%;
 

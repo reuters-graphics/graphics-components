@@ -49,7 +49,7 @@
   a {
     text-decoration: none;
     &:hover {
-      color: var(--nav-primary, $tr-dark-grey);
+      color: var(--nav-primary, var(--tr-dark-grey));
       text-decoration: underline !important;
     }
   }
@@ -100,7 +100,7 @@
     text-decoration: none;
     text-transform: none;
     font-smooth: always;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
     -webkit-font-smoothing: antialiased;
     @media (min-width: 1300px) {
       font-size: 18px;
@@ -115,7 +115,7 @@
     line-height: 1.75;
     letter-spacing: 0;
     font-size: 16px;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
     font-weight: 400;
     font-smooth: always;
     -webkit-font-smoothing: antialiased;

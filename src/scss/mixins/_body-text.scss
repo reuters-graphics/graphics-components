@@ -12,7 +12,7 @@
   p,
   li,
   blockquote {
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
+    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
   }
 
   p,
@@ -22,7 +22,7 @@
   ol li p {
     -webkit-font-smoothing: antialiased;
     font-family: var(--theme-font-family-body, $font-family-serif);
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
+    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
 
     @extend .paragraph-size;
 
@@ -57,7 +57,7 @@
     &::after {
       display: block;
       content: '';
-      background: var(--theme-colour-text-secondary, $tr-medium-grey);
+      background: var(--theme-colour-text-secondary, var(--tr-medium-grey));
       height: 3px;
       width: 100px;
       margin: 10px auto 2rem;
@@ -75,7 +75,8 @@
 
   blockquote {
     margin: 30px 0;
-    border-left: 2px solid var(--theme-colour-text-secondary, $tr-medium-grey);
+    border-left: 2px solid
+      var(--theme-colour-text-secondary, var(--tr-medium-grey));
     padding-left: 15px;
 
     p {
@@ -91,7 +92,7 @@
 
       p {
         font-family: var(--theme-font-family-body, $font-family-serif);
-        color: var(--theme-colour-text-primary, $tr-dark-grey);
+        color: var(--theme-colour-text-primary, var(--tr-dark-grey));
         font-size: 1rem;
 
         @media (max-width: 540px) {

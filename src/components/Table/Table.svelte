@@ -339,27 +339,26 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
   .table-wrapper {
     font-size: 1rem;
     font-family: var(--theme-font-family-hed, $font-family-display);
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
+    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
   }
 
   .table--header {
     width: 100%;
     h2.table--header--title {
       font-weight: 500;
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       font-size: 1.33rem;
       padding: 0;
       margin: 0.5rem 0;
     }
     p.table--header--dek {
       font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.4;
@@ -380,8 +379,8 @@
       tr {
         th {
           border-bottom: 1px solid
-            var(--theme-colour-text-primary, $tr-medium-grey);
-          color: var(--theme-colour-text-primary, $tr-medium-grey);
+            var(--theme-colour-text-primary, var(--tr-medium-grey));
+          color: var(--theme-colour-text-primary, var(--tr-medium-grey));
           background-color: var(--theme-colour-background, #fff);
           font-size: 0.85rem;
           font-weight: 500;
@@ -406,9 +405,10 @@
         font-weight: 300;
         padding: 0.5rem 0.75rem 0.5rem 0;
         vertical-align: top;
-        border-bottom: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+        border-bottom: 1px solid
+          var(--theme-colour-brand-rules, var(--tr-muted-grey));
         &.no-results {
-          color: var(--theme-colour-text-secondary, $tr-muted-grey);
+          color: var(--theme-colour-text-secondary, var(--tr-muted-grey));
         }
       }
     }
@@ -419,7 +419,7 @@
       }
       td {
         font-weight: 300;
-        color: var(--theme-colour-text-primary, $tr-dark-grey);
+        color: var(--theme-colour-text-primary, var(--tr-dark-grey));
         font-size: 0.8rem;
         padding: 0.5rem 0 0 0;
       }
@@ -468,10 +468,10 @@
       font-weight: 500;
       min-width: 175px;
       padding: 0.33rem 0.5rem;
-      border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+      border: 1px solid var(--theme-colour-brand-rules, var(--tr-muted-grey));
       border-radius: 4px;
       background: var(--theme-colour-background);
-      color: var(--theme-colour-text-primary, $tr-medium-grey);
+      color: var(--theme-colour-text-primary, var(--tr-medium-grey));
       cursor: pointer;
     }
   }

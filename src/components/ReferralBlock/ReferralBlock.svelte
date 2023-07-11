@@ -128,7 +128,6 @@
 
 <style lang="scss">
   @import '../../scss/fonts/mixins';
-  @import '../../scss/colours/thematic/tr';
 
   h4 {
     font-family: var(--theme-font-family-subhed);

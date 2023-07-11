@@ -135,7 +135,6 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
   :global(div.article-block.headline-container) {
@@ -145,7 +144,7 @@
   // Official styles
   header.headline {
     text-align: center;
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
+    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
 
     h1 {
       text-align: left;
@@ -153,7 +152,7 @@
       line-height: 1.14;
       margin: 0.6rem 0;
       font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       @media (max-width: 900px) {
         font-size: 2.6rem;
       }
@@ -165,13 +164,13 @@
 
     p {
       font-family: var(--theme-font-family-subhed, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       margin: 0;
       font-weight: 200;
 
       &.section-title {
         font-weight: 800;
-        color: var(--theme-colour-text-secondary, $tr-light-grey);
+        color: var(--theme-colour-text-secondary, var(--tr-light-grey));
         text-align: left;
         font-size: 1.2rem;
         opacity: 0.8;
@@ -179,7 +178,7 @@
           font-size: 1rem;
         }
         a {
-          color: var(--theme-colour-text-secondary, $tr-light-grey);
+          color: var(--theme-colour-text-secondary, var(--tr-light-grey));
           text-decoration: none;
         }
       }
@@ -188,7 +187,7 @@
       padding: 40px 0 0;
       padding-top: 0;
       font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       text-align: left;
 
       .byline-container {
@@ -205,7 +204,7 @@
           line-height: 1.2rem;
         }
         a {
-          color: var(--theme-colour-text-primary, $tr-dark-grey);
+          color: var(--theme-colour-text-primary, var(--tr-dark-grey));
           text-decoration: none;
           white-space: nowrap;
           &:hover {
@@ -216,7 +215,7 @@
 
       .dateline-container {
         text-transform: uppercase;
-        color: var(--theme-colour-text-secondary, $tr-medium-grey);
+        color: var(--theme-colour-text-secondary, var(--tr-medium-grey));
         font-size: 0.8rem;
         line-height: 1.1rem;
         letter-spacing: 0.3px;

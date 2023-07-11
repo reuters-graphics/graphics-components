@@ -20,12 +20,10 @@
 </svg>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
-
   svg {
     vertical-align: middle;
     path {
-      fill: var(--theme-colour-text-secondary, $tr-medium-grey);
+      fill: var(--theme-colour-text-secondary);
     }
     rect {
       fill: var(--theme-colour-background, white);

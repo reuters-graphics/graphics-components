@@ -175,7 +175,6 @@
 
 <style lang="scss">
   @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
 
   .carousel-container {
     margin-bottom: 10px;
@@ -275,7 +274,7 @@
     p.caption {
       margin: 5px 0 0;
       font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-secondary, $tr-medium-grey);
+      color: var(--theme-colour-text-secondary);
       font-size: 0.85rem;
       line-height: 1.1rem;
       font-weight: 300;

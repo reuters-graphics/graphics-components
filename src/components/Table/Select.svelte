@@ -39,7 +39,6 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
   .select {
@@ -49,7 +48,7 @@
       display: block;
       font-size: 0.8rem;
       font-weight: 300;
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       padding: 0 0 0.125rem 0;
     }
     .select--input {
@@ -58,8 +57,8 @@
       font-weight: 400;
       line-height: 1;
       height: 33px;
-      border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      border: 1px solid var(--theme-colour-brand-rules, var(--tr-muted-grey));
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       border-radius: 6px;
       width: 100%;
       padding: 0.5rem;

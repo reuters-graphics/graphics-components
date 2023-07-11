@@ -46,7 +46,6 @@
 <style lang="scss">
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
-  @import '../SiteHeader/scss/_colors.scss';
 
   @import '../../scss/fonts/mixins';
 
@@ -68,7 +67,7 @@
   }
 
   .legal {
-    border-top: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-top: 1px solid var(--nav-rules);
 
     .content-container {
       @include spacing-single(padding-left padding-right);
@@ -142,7 +141,7 @@
       align-items: center;
       a {
         @include font-display;
-        color: var(--nav-primary, $tr-dark-grey);
+        color: var(--nav-primary);
         font-size: 14px;
         font-weight: 500;
       }
@@ -159,7 +158,7 @@
     margin: 0;
     @include font-display;
     font-size: 14px;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary);
     a {
       color: inherit;
     }

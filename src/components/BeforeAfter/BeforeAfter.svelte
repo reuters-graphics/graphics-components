@@ -233,8 +233,6 @@
 {/if}
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
   figure.before-after-container {
     overflow: hidden;
     position: relative;
@@ -262,7 +260,7 @@
       position: absolute;
       :global {
         p {
-          font-family: var(--theme-font-family-note, $font-family-display);
+          font-family: var(--theme-font-family-note);
           font-size: 1rem;
           line-height: 1.2rem;
           &:last-child {
@@ -334,12 +332,12 @@
   }
   aside.before-after-caption {
     margin: 0 auto;
-    font-family: var(--theme-font-family-note, $font-family-display);
-    color: var(--theme-colour-text-secondary, $tr-medium-grey);
+    font-family: var(--theme-font-family-note);
+    color: var(--theme-colour-text-secondary);
     :global {
       p {
-        font-family: var(--theme-font-family-note, $font-family-display);
-        color: var(--theme-colour-text-secondary, $tr-medium-grey);
+        font-family: var(--theme-font-family-note);
+        color: var(--theme-colour-text-secondary);
         font-size: 0.9rem;
         line-height: 1.2rem;
         &:last-of-type {

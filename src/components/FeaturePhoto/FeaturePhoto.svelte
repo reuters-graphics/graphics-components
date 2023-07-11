@@ -90,7 +90,6 @@
 
 <style lang="scss">
   @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
 
   figure {
     width: 100%;
@@ -122,7 +121,7 @@
       font-weight: 400;
       font-size: 0.8rem;
       font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-secondary, $tr-medium-grey);
+      color: var(--theme-colour-text-secondary);
     }
   }
 </style>

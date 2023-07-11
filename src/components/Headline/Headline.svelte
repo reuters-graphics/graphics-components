@@ -69,14 +69,13 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   @import '../../scss/fonts/variables';
 
   header.headline {
     text-align: center;
     margin-top: 4rem;
     margin-bottom: 0;
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
+    color: var(--theme-colour-text-primary);
 
     :global {
       h1 {
@@ -84,26 +83,26 @@
         margin: 5px 0;
         line-height: 1.1;
         font-family: var(--theme-font-family-hed, $font-family-display);
-        color: var(--theme-colour-text-primary, $tr-dark-grey);
+        color: var(--theme-colour-text-primary);
       }
 
       p {
         font-family: var(--theme-font-family-subhed, $font-family-display);
-        color: var(--theme-colour-text-primary, $tr-dark-grey);
+        color: var(--theme-colour-text-primary);
         margin: 0;
         font-weight: 200;
 
         &.section-title {
           font-size: 1rem;
           font-weight: 800;
-          color: var(--theme-colour-accent, $tr-dark-red);
+          color: var(--theme-colour-accent);
         }
       }
     }
     .article-metadata {
       padding: 40px 0;
       font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary);
 
       text-align: center;
 
@@ -114,7 +113,7 @@
       .byline {
         :global {
           a {
-            color: var(--theme-colour-text-primary, $tr-dark-grey);
+            color: var(--theme-colour-text-primary);
             text-decoration: none;
           }
         }
@@ -123,7 +122,7 @@
       .dateline-container {
         text-transform: uppercase;
 
-        color: var(--theme-colour-text-secondary, $tr-medium-grey);
+        color: var(--theme-colour-text-secondary);
         font-size: 0.8rem;
         line-height: 1.2rem;
         letter-spacing: 0.2px;

@@ -131,7 +131,7 @@
       top: 0;
       background: var(--nav-background, $white);
       pointer-events: auto;
-      border-bottom: 1px solid var(--nav-rules, $tr-muted-grey);
+      border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
 
       // @include for-tablet-down {
       //   border-bottom: none;

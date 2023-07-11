@@ -159,7 +159,7 @@
 
       a,
       span {
-        color: var(--nav-primary, $tr-dark-grey);
+        color: var(--nav-primary, var(--tr-dark-grey));
         text-decoration: none;
         &:hover,
         &:active {
@@ -172,7 +172,7 @@
           //   bottom: 0;
           //   display: block;
           //   height: 4px;
-          //   background: var(--nav-accent, $tr-orange);
+          //   background: var(--nav-accent, var(--tr-orange));
           //   opacity: 0.5;
           // }
         }
@@ -190,7 +190,7 @@
         bottom: 0;
         display: block;
         height: 4px;
-        background: var(--nav-accent, $tr-orange);
+        background: var(--nav-accent, var(--tr-orange));
         opacity: 1 !important;
       }
     }
@@ -207,7 +207,7 @@
         bottom: 0;
         display: block;
         height: 4px;
-        background: var(--nav-accent, $tr-orange);
+        background: var(--nav-accent, var(--tr-orange));
       }
     }
   }
@@ -222,7 +222,7 @@
     @include font-display;
     font-weight: 500;
     font-size: 16px;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
 
     &:not(.focused) {
       outline: none;

@@ -147,7 +147,7 @@
         <!-- Video element with Intersection Observer -->
         <IntersectionObserver
           element="{element}"
-          bind:intersecting
+          bind:intersecting="{intersecting}"
           threshold="{playVideoThreshold}"
           once="{false}"
         >
@@ -193,8 +193,8 @@
               preload="{preloadVideo}"
               loop="{loopVideo}"
               bind:currentTime="{time}"
-              bind:duration
-              bind:paused
+              bind:duration="{duration}"
+              bind:paused="{paused}"
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
               style="{showControls
@@ -246,8 +246,8 @@
             preload="{preloadVideo}"
             loop="{loopVideo}"
             bind:currentTime="{time}"
-            bind:duration
-            bind:paused
+            bind:duration="{duration}"
+            bind:paused="{paused}"
             autoplay
             bind:clientWidth="{widthVideo}"
             bind:clientHeight="{heightVideo}"
@@ -265,7 +265,6 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   .video-wrapper {
     position: relative;
     video {
@@ -287,7 +286,7 @@
   }
   div.caption {
     font-size: 0.8rem;
-    color: var(--theme-colour-text-secondary, $tr-medium-grey);
+    color: var(--theme-colour-text-secondary, var(--tr-medium-grey));
   }
 
   button {

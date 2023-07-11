@@ -49,7 +49,6 @@
 <style lang="scss">
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
-  @import '../SiteHeader/scss/_colors.scss';
 
   @import '../../scss/fonts/mixins';
   .content-container {
@@ -70,7 +69,7 @@
   }
 
   .company {
-    border-top: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-top: 1px solid var(--nav-rules);
 
     .content-container {
       @include spacing-single(padding-left padding-right);
@@ -105,12 +104,12 @@
     .symbol {
       .button {
         border-radius: 8px;
-        border: 1px solid var(--nav-rules, $tr-muted-grey);
+        border: 1px solid var(--nav-rules);
         background: var(--nav-background, #fff);
         color: var(--nav-primary, #666);
 
         &:hover {
-          border: 1px solid var(--nav-primary, $tr-dark-grey);
+          border: 1px solid var(--nav-primary);
         }
       }
     }
@@ -142,7 +141,7 @@
       margin-bottom: 12px;
       line-height: 1.333;
       font-size: 16px;
-      color: var(--nav-primary, $tr-dark-grey);
+      color: var(--nav-primary);
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       @media (min-width: 1300px) {
@@ -153,7 +152,7 @@
       @include font-display;
       line-height: 1.43;
       font-size: 14px;
-      color: var(--nav-primary, $tr-dark-grey);
+      color: var(--nav-primary);
       font-weight: 400;
     }
   }
