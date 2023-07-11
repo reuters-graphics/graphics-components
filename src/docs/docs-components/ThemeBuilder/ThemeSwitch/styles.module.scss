@@ -17,11 +17,15 @@
     color: #999;
     cursor: pointer;
     border: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     &:hover {
       color: #333;
     }
     span {
       font-size: 1.2rem;
+      line-height: 1.2rem;
     }
     &.active {
       background-color: #fff;

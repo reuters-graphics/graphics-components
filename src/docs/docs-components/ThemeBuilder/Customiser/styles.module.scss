@@ -13,7 +13,7 @@
     display: inline-flex;
     div {
       margin-right: 4px;
-      background-color: #ddd;
+      background-color: #fff;
       border: 1px solid #bbb;
       color: #777;
       font-size: 1rem;
@@ -22,9 +22,9 @@
       width: 1.2rem;
       height: 1.2rem;
       display: inline-flex;
-      justify-items: center;
+      justify-content: center;
       align-items: center;
-      border-radius: 1.2rem;
+      border-radius: 4px;
       span {
         display: inline-block;
         font-size: 1rem;
@@ -32,9 +32,10 @@
     }
     &.open {
       div {
-        background-color: #666;
-        border: 1px solid #bbb;
-        color: white;
+        // background-color: #666;
+        // border: 1px solid #bbb;
+        color: #333;
+        font-weight: bold;
       }
     }
   }
@@ -46,17 +47,16 @@
   div.value {
     padding-left: 10px;
     div.input-container {
-      padding-left: 10px;
+      padding-left: 0px;
     }
     input {
       width: 100%;
-      border: 0;
       outline: 0 !important;
       margin: 5px 0 5px;
       padding: 2px 5px;
-      background-color: #efefef;
+      background-color: rgb(245, 242, 240);
       padding: 5px 5px !important;
-      border: 1px solid #666 !important;
+      border: 1px solid #ccc !important;
       border-radius: 4px;
     }
     input[type='color'] {
