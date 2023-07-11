@@ -19,7 +19,7 @@ $header: #5e81ac;
   }
 }
 
-.table {
+.table :global {
   min-height: 100px;
   margin: 0 0 3rem;
   width: 100%;
@@ -77,6 +77,7 @@ $header: #5e81ac;
       border-right: 1px solid #eee;
       vertical-align: text-top;
       color: #2e3438;
+      position: relative;
       button {
         text-align: left;
         padding: 0;
@@ -84,11 +85,24 @@ $header: #5e81ac;
         background-color: transparent;
         cursor: pointer;
         color: $copyable;
+
         span {
           font-size: 1rem;
           color: inherit;
           margin-right: 5px;
           vertical-align: bottom;
+        }
+        div.copy-tag {
+          position: absolute;
+          right: 4px;
+          top: 50%;
+          transform: translate(0, -50%);
+          background-color: #333;
+          pointer-events: none;
+          color: white;
+          padding: 4px 6px;
+          border-radius: 4px;
+          font-size: 12px;
         }
         &:active {
           transform: translate(1px, 1px);
