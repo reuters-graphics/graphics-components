@@ -22,3 +22,21 @@ p {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
 }
+
+ol,
+ul {
+  padding-left: 2rem;
+}
+
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-bottom: 0;
+}
