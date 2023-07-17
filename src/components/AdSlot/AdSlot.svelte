@@ -47,32 +47,19 @@
     href="https://confiant-integrations.global.ssl.fastly.net"
     crossorigin=""
   />
+
   <!-- Below is a link to a CSS file that accounts for Cumulative Layout Shift, a new Core Web Vitals subset that Google uses to help rank your site in search -->
   <!-- The file is intended to eliminate the layout shifts that are seen when ads load into the page. If you don't want to use this, simply remove this file -->
   <!-- To find out more about CLS, visit https://web.dev/vitals/ -->
   <link rel="stylesheet" href="https://a.pub.network/reuters-com/cls.css" />
+
   <script
     id="btstrp"
-    src="https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js"></script>
+    src="https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js">
+  </script>
+
   <script type="text/javascript">
-    console.log('#GJ before freestar init', window.freestar);
-    var freestar = window.freestar || {};
-    freestar.queue = freestar.queue || [];
-    freestar.config = freestar.config || {};
-    freestar.config.enabled_slots = [];
-    freestar.initCallback = function () {
-      freestar.config.enabled_slots.length === 0
-        ? (freestar.initCallbackCalled = false)
-        : freestar.newAdSlots(freestar.config.enabled_slots);
-    };
-
-    freestar.config.channel = '/4735792/reuters.com/home';
-
     console.log('#GJ svelte:head is about to be executed');
-
-    const ONETRUST_LOGS = 'ot_logs';
-    const ONETRUST_GEOLOCATION_MOCK = 'ot_geolocation_mock';
-    const ONETRUST_SCRIPT_ID = '38cb75bd-fbe1-4ac8-b4af-e531ab368caf-test';
 
     const getParameterByName = (name, url = window.location.href) => {
       // eslint-disable-next-line no-useless-escape
@@ -135,6 +122,23 @@
         };
       });
     }
+
+    console.log('#GJ before freestar init', window.freestar);
+    var freestar = window.freestar || {};
+    freestar.queue = freestar.queue || [];
+    freestar.config = freestar.config || {};
+    freestar.config.enabled_slots = [];
+    freestar.initCallback = function () {
+      freestar.config.enabled_slots.length === 0
+        ? (freestar.initCallbackCalled = false)
+        : freestar.newAdSlots(freestar.config.enabled_slots);
+    };
+
+    freestar.config.channel = '/4735792/reuters.com/home';
+
+    const ONETRUST_LOGS = 'ot_logs';
+    const ONETRUST_GEOLOCATION_MOCK = 'ot_geolocation_mock';
+    const ONETRUST_SCRIPT_ID = '38cb75bd-fbe1-4ac8-b4af-e531ab368caf-test';
 
     var script = document.querySelector('#btstrp');
     script.addEventListener('load', function () {
@@ -215,24 +219,12 @@
         });
 
         console.log('#GJ adding ads', window.graphicsAdQueue);
-        /* freestar.queue.push(function() {
-          freestar.newAdSlots(window.graphicsAdQueue || [], 'foobar');
-        }) */
+        if (!Array.isArray(window.graphicsAdQueue)) {
+          console.error('Ad queue not initialized!');
+        }
 
         freestar.queue.push(function () {
-          freestar.newAdSlots(
-            [
-              {
-                placementName: 'reuters_desktop_leaderboard_atf',
-                slotId: 'reuters_desktop_leaderboard_atf_id',
-                targeting: {
-                  foo: 'bar',
-                  bar: 'baz',
-                },
-              },
-            ],
-            'foobar'
-          );
+          freestar.newAdSlots(window.graphicsAdQueue || [], 'foobar');
         });
 
         freestar.queue.push(function () {
@@ -253,10 +245,4 @@
 
 <Block id="{id}" cls="freestar-adslot {cls}">
   <div data-freestar-ad="{dataFreestarAd || null}" id="{placementName}"></div>
-
-  <!-- Tag ID: reuters_desktop_leaderboard_atf -->
-  <div
-    data-freestar-ad="__970x250"
-    id="reuters_desktop_leaderboard_atf_id"
-  ></div>
 </Block>

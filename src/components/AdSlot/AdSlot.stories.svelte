@@ -17,9 +17,9 @@
       placementName: {
         control: 'select',
         options: [
+          'reuters_desktop_leaderboard_atf',
           'reuters_desktop_native',
           'reuters_desktop_canvas',
-          'reuters_desktop_leaderboard_atf',
         ],
       },
       dataFreestarAd: {
@@ -34,12 +34,13 @@
 
 <Template let:args>
   <AdSlot {...args} />
+  <!-- <AdSlot placementName="reuters_desktop_canvas" dataFreestarAd="__970x250" /> Add a crown -->
 </Template>
 
 <Story
   name="Default"
   args="{{
-    placementName: 'reuters_desktop_canvas',
-    slotId: 'reuters_desktop_canvas',
+    placementName: 'reuters_desktop_leaderboard_atf',
+    dataFreestarAd: '__970x250',
   }}"
 />
