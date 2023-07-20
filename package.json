@@ -40,7 +40,6 @@
     "@storybook/testing-library": "^0.0.13",
     "@storybook/theming": "6.5.9",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
-    "@tr/rcom-bootstrap": "1.0.19-alpha-2",
     "@tsconfig/svelte": "^3.0.0",
     "@types/proper-url-join": "^2.1.1",
     "@types/react-syntax-highlighter": "^15.5.4",
