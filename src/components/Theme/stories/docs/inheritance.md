@@ -2,7 +2,7 @@ Styles that use `Theme`'s CSS variables will always use those set by the nearest
 
 The demo below shows a more complex example of nesting themes, but more likely you'll so something like this:
 
-```html
+```svelte
 <script>
   import { Theme } from '@reuters-graphics/graphics-components';
 </script>

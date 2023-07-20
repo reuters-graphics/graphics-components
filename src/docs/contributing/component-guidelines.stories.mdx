@@ -28,7 +28,7 @@ Here are a few examples:
 
 #### Typing simple props
 
-```html
+```svelte
 <script lang="ts">
   /** Height of the component */
   export let height: number = 250;
@@ -39,7 +39,7 @@ Here are a few examples:
 
 #### Documenting required props
 
-```html
+```svelte
 <script lang="ts">
   /**
    * Image source
@@ -56,7 +56,7 @@ Here are a few examples:
 
 #### Custom types for props
 
-```html
+```svelte
 <script lang="ts">
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
@@ -106,7 +106,7 @@ Always set [fallback values](https://developer.mozilla.org/en-US/docs/Web/CSS/Us
 
 Use SCSS with the `lang` attribute to write your styles.
 
-```html
+```svelte
 <button>My component</button>
 
 <style lang="scss">
@@ -120,7 +120,7 @@ Use SCSS with the `lang` attribute to write your styles.
 
 Styles should **always** be scoped to your components.
 
-```html
+```svelte
 <button>My component</button>
 
 <style lang="scss">
@@ -132,7 +132,7 @@ Styles should **always** be scoped to your components.
 
 In rare cases, you can use the SCSS `:global` operator to style child elements in your component, but those rules should still be scoped below a parent element.
 
-```html
+```svelte
 <svg></svg>
 
 <style lang="scss">
@@ -150,7 +150,7 @@ In rare cases, you can use the SCSS `:global` operator to style child elements i
 
 Use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) and props to allow better theming of your components.
 
-```html
+```svelte
 <script>
   export let textColour = '#333';
 </script>

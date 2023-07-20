@@ -1,6 +1,6 @@
 Add overlays with the `beforeOverlay` and `afterOverlay` slots and a caption to the `caption` slot, then style these elements to match your page design as below.
 
-```html
+```svelte
 <BeforeAfter
   beforeSrc="{`${assets}/images/before-after/myrne-before.jpg`}"
   beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."

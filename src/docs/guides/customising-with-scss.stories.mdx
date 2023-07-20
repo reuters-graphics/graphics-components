@@ -57,7 +57,7 @@ But we need our style rule to _beat_ the original style in the CSS cascade, and 
 
 The easiest way to make sure your style rule wins out is to <span class="highlight">add an ID either directly to the element or to a parent</span>. In our case, let's add an ID through the `BeforeAfter` `id` prop. Now we can use it! (For extra credit, though, we'll drop the `.before` so our new style rule applies to _both_ overlays.)
 
-```css
+```scss
 figure#my-before-after .overlay-container {
   bottom: 0;
 }
@@ -67,7 +67,7 @@ Now our selector is more specific. We win!
 
 If you don't see a way to add an ID through a component's props, then just wrap the component in a `div` in your code:
 
-```html
+```svelte
 <div id="my-before-after">
   <BeforeAfter />
 </div>
@@ -75,7 +75,7 @@ If you don't see a way to add an ID through a component's props, then just wrap 
 
 ... and use that, instead!
 
-```css
+```scss
 div#my-before-after figure .overlay-container {
   bottom: 0;
 }

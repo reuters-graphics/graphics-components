@@ -4,7 +4,7 @@ The `ariaDescription` string will be processed as markdown, so you can add multi
 
 > **Note:** When you set an `ariaDescription`, your graphic will be automatically wrapped in a div that tells screen readers not to read the text in the graphic, but instead read the hidden ARIA description.
 
-```html
+```svelte
 <GraphicBlock
   width="normal"
   title="Earthquake in Haiti"
@@ -22,7 +22,7 @@ You can add custom markup for screen readers only by using the `aria` named slot
 
 > **Note:** The `aria` slot will override the `ariaDescription` and will also hide the text in your graphic from screen readers.
 
-```html
+```svelte
 <GraphicBlock
   width="normal"
   title="Earthquake in Haiti"

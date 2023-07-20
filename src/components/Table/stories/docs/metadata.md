@@ -1,6 +1,6 @@
 Set the `title`, `dek`, `notes` and `source` options to add supporting metadata above and below the table.
 
-```html
+```svelte
 <Table data="{yourData}" title="{'Career home run leaders'}" dek="{'In baseball,
 a home run (also known as a "dinger" or "tater") occurs when a batter hits the
 ball over the outfield fence. When a home run is hit, the batter and any runners

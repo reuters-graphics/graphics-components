@@ -25,7 +25,7 @@ YourComponent/
 
 Now, import your media file directly in your code, which will resolve to the URL of the file.
 
-```html
+```svelte
 <!-- YourComponent.stories.svelte -->
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
@@ -36,7 +36,7 @@ Now, import your media file directly in your code, which will resolve to the URL
   import myImageSrc from './stories/imgs/myImage.jpg';
 </script>
 
-<Meta title="Components/YourComponent" component="{YourComponent}"></Meta>
+<Meta title="Components/YourComponent" component="{YourComponent}" />
 
 <template let:args>
   <YourComponent {...args} />

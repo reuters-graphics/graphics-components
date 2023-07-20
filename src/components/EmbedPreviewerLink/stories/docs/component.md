@@ -1,6 +1,6 @@
 An embed tool for development in graphics kit.
 
-```html
+```svelte
 <script>
   import { EmbedPreviewerLink } from '@reuters-graphics/graphics-components';
 

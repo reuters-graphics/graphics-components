@@ -9,7 +9,7 @@ import { parameters } from '$docs/utils/docsPage.js';
 
 You can control spacing — margin and padding — of your elements by adding one or more of our spacer classes.
 
-```html
+```svelte
 <!-- Adds margin-top and padding -->
 <div class="mt-2 p-2">
   <p>My spaced out content</p>
@@ -48,7 +48,7 @@ Spacer classes are specified with a level, from `0` - `6`, where `0` is no spaci
 
 You can customise the spacing levels in your project by defining the following SCSS variables, shown below with their default values:
 
-```css
+```scss
 $margin-levels: (
   '0': 0,
   '1': 1rem,
@@ -56,7 +56,7 @@ $margin-levels: (
   '3': 3rem,
   '4': 4rem,
   '5': 5rem,
-  '6': 6rem
+  '6': 6rem,
 );
 
 $padding-levels: (
@@ -66,13 +66,13 @@ $padding-levels: (
   '3': 1.75rem,
   '4': 2.25rem,
   '5': 3rem,
-  '6': 4rem
+  '6': 4rem,
 );
 ```
 
 Make sure you import or define these variables _before_ importing the style library.
 
-```css
+```scss
 @import 'my-custom-variables'; // Where you overrided the spacer variables
 @import '@reuters-graphics/graphics-components/dist/scss/main';
 ```

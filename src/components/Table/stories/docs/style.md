@@ -4,13 +4,13 @@ Like other components, you can apply labels by providing the `id` of `cls` optio
 
 Each column has a `data-field` attribute that contains the field's name. Use it to apply different styles to different fields. One common use is setting different text alignments on different columns.
 
-```html
+```svelte
 <table
   id="{'custom-table'}"
   data="{yourData}"
   title="{'The Richest Women in the World'}"
   source="{'Source: Forbes'}"
-/>
+></table>
 
 <style lang="scss">
   /* Here we right align the table's numeric column. */

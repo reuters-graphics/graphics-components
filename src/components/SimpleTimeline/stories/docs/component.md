@@ -1,6 +1,6 @@
 A simple, clean text timeline.
 
-```html
+```svelte
 <script>
   import { SimpleTimeline } from '@reuters-graphics/graphics-components';
 

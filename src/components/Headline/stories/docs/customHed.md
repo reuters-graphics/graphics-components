@@ -1,6 +1,6 @@
 Use the `hed` and/or `dek` named slots to override those elements with completely custom markup.
 
-```html
+```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
 </script>

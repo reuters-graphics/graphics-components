@@ -17,7 +17,7 @@ slug: hero
 
 </section>
 
-```html
+```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-svelte-components';
   import { assets } from '$app/paths';
@@ -34,7 +34,7 @@ slug: hero
   </Hero>
 </DemoContainer>
 
-```html
+```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-svelte-components';
   import { assets } from '$app/paths';
@@ -66,7 +66,7 @@ slug: hero
   </Hero>
 </DemoContainer>
 
-```html
+```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-svelte-components';
   import { assets } from '$app/paths';
