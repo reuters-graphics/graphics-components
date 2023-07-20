@@ -5,6 +5,7 @@
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
 
+  import AdScripts from './AdScripts.svelte';
   import AdSlot from './AdSlot.svelte';
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
@@ -33,6 +34,7 @@
 <Meta {...meta} />
 
 <Template let:args>
+  <AdScripts />
   <AdSlot {...args} />
   <!-- <AdSlot placementName="reuters_desktop_canvas" dataFreestarAd="__970x250" /> Add a crown -->
 </Template>

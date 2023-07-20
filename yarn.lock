@@ -2471,11 +2471,6 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-"@tr/rcom-bootstrap@1.0.19-alpha-2":
-  version "1.0.19-alpha-2"
-  resolved "https://npm.pkg.github.com/download/@tr/rcom-bootstrap/1.0.19-alpha-2/b6dd0970ac9a8fce8eb9890cc75576ea08c5ba06"
-  integrity sha512-+qg2hyJHlGB8z82K1JL0me3JeIpogrIh56pe1FaZUK9qn2lVHtdQVdjYCD52UR9lpeBpAWEAy9MgeoTvpi/9zQ==
-
 "@tsconfig/svelte@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@tsconfig/svelte/-/svelte-3.0.0.tgz"
