@@ -54,13 +54,13 @@ export const parameters = {
         [
           'Intro',
           'Typography', [
-            'Classes',
+            'Main',
             'Intro',
             'Using the type system',
             '*',
           ],
           'Layout', [
-            'Classes',
+            'Main',
             'Spacers',
             'Flexbox',
             '*',

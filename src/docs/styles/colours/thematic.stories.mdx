@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+
+{/* @ts-ignore */}
+import greyScheme from '$lib/scss/colours/thematic/\_grey.scss?raw';
+
+{/* @ts-ignore */}
+import trScheme from '$lib/scss/colours/thematic/\_tr.scss?raw';
+
+{/* @ts-ignore */}
+import nordScheme from '$lib/scss/colours/thematic/\_nord.scss?raw';
+
+<Meta title="Styles/Colours/Thematic" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Colours
+
+Several colour schemes are accessible through CSS variables in the tables below.
+
+<CopyColourTable
+  title="Grey"
+  header={['Colour', 'CSS variable']}
+  body={extractCssColourVariables(greyScheme)}
+/>
+
+<CopyColourTable
+  title="Thomson Reuters"
+  header={['Colour', 'CSS variable']}
+  body={extractCssColourVariables(trScheme)}
+/>
+
+<CopyColourTable
+  title="Nord"
+  header={['Colour', 'CSS variable']}
+  body={extractCssColourVariables(nordScheme)}
+/>
