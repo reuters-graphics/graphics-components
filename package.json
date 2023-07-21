@@ -39,7 +39,7 @@
     "@storybook/addon-interactions": "^7.1.0",
     "@storybook/addon-links": "^7.1.0",
     "@storybook/addon-mdx-gfm": "^7.1.0",
-    "@storybook/addon-svelte-csf": "link:../addon-svelte-csf",
+    "@storybook/addon-svelte-csf": "3.0.5--canary.113.02ce02a.0",
     "@storybook/blocks": "^7.1.0",
     "@storybook/builder-vite": "^7.1.0",
     "@storybook/manager-api": "^7.1.0",

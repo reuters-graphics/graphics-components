@@ -2558,9 +2558,15 @@
     "@storybook/types" "7.1.0"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-svelte-csf@link:../addon-svelte-csf":
-  version "0.0.0"
-  uid ""
+"@storybook/addon-svelte-csf@3.0.5--canary.113.02ce02a.0":
+  version "3.0.5--canary.113.02ce02a.0"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-svelte-csf/-/addon-svelte-csf-3.0.5--canary.113.02ce02a.0.tgz#0ceedfd46445658c72d639bf99763af3807a6442"
+  integrity sha512-rIVyzB6bbfsmK+iokmiQMHwPNTanIh3wbhwDNpbIDy7jN1QytIvdCIhRwNuYqt+U63JgDIWMnasqe9FOicVuNA==
+  dependencies:
+    "@babel/runtime" "^7.22.6"
+    dedent "^1.2.0"
+    fs-extra "^11.1.1"
+    magic-string "^0.30.1"
 
 "@storybook/addon-toolbars@7.1.0":
   version "7.1.0"
@@ -4601,6 +4607,11 @@ dedent-js@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/dedent-js/-/dedent-js-1.0.1.tgz#bee5fb7c9e727d85dffa24590d10ec1ab1255305"
   integrity sha512-OUepMozQULMLUmhxS95Vudo0jb0UchLimi3+pQ2plj61Fcy8axbP9hbiD4Sz6DPqn6XG3kfmziVfQ1rSys5AJQ==
+
+dedent@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/dedent/-/dedent-1.2.0.tgz#32039cd75c035f684e01c4a07cb88c0ecbeb57be"
+  integrity sha512-i4tcg0ClgvMUSxwHpt+NHQ01ZJmAkl6eBvDNrSZG9e+oLRTCSHv0wpr/Bzjpf6CwKeIHGevE1M34Y1Axdms5VQ==
 
 deep-equal@^2.0.5:
   version "2.2.0"
