@@ -4,9 +4,6 @@ import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
 import { extractCssColourVariables } from '../../utils/parseCss';
 
 {/* @ts-ignore */}
-import greyScheme from '$lib/scss/colours/thematic/\_grey.scss?raw';
-
-{/* @ts-ignore */}
 import trScheme from '$lib/scss/colours/thematic/\_tr.scss?raw';
 
 {/* @ts-ignore */}
@@ -16,17 +13,7 @@ import nordScheme from '$lib/scss/colours/thematic/\_nord.scss?raw';
 
 ![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
 
-# Colours
-
-Several colour schemes are accessible through CSS variables in the tables below.
-
-<CopyColourTable
-  title="Grey"
-  header={['Colour', 'CSS variable']}
-  body={extractCssColourVariables(greyScheme)}
-  included
-  partial="thematic/_grey.scss"
-/>
+# Thematic colours
 
 <CopyColourTable
   title="Thomson Reuters"

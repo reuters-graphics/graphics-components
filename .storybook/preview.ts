@@ -66,6 +66,11 @@ export const parameters = {
             '*',
           ],
           'Borders',
+          'Colours', [
+            'Primary',
+            'Thematic',
+            '*',
+          ]
         ],
         'Actions',
         ['Intro', '*'],

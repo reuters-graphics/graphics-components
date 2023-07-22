@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+
+{/* @ts-ignore */}
+import greyScheme from '$lib/scss/colours/primary/\_grey.scss?raw';
+
+{/* @ts-ignore */}
+import redScheme from '$lib/scss/colours/primary/\_red.scss?raw';
+
+{/* @ts-ignore */}
+import blueScheme from '$lib/scss/colours/primary/\_blue.scss?raw';
+
+<Meta title="Styles/Colours/Primary" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Primary colours
+
+<CopyColourTable
+  title="Grey"
+  header={['Colour', 'CSS variable']}
+  body={extractCssColourVariables(greyScheme)}
+  included
+  partial="primary/_grey.scss"
+/>
+
+<CopyColourTable
+  title="Red"
+  header={['Colour', 'CSS variable']}
+  body={extractCssColourVariables(redScheme)}
+  partial="primary/_red.scss"
+/>
+
+<CopyColourTable
+  title="Blue"
+  header={['Colour', 'CSS variable']}
+  body={extractCssColourVariables(blueScheme)}
+  partial="primary/_blue.scss"
+/>
