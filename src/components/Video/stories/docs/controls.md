@@ -17,7 +17,7 @@ If you do want to leave the controls, you have a couple of options to style them
 
 Here is an example with bottom right corner white opaque controls, with a replay button, where you have to hover on the video to see the controls.
 
-```html
+```svelte
 <script>
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
@@ -33,6 +33,5 @@ Here is an example with bottom right corner white opaque controls, with a replay
   controlsPosition="{'bottom right'}"
   separateReplayIcon="{true}"
   loopVideo="{false}"
-  hoverToSeeControls="{true}"
-/>
+  hoverToSeeControls="{true}"></video>
 ```

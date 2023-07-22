@@ -4,7 +4,7 @@ In a SvelteKit context, you can use `$app` stores to restrict when you send anal
 
 For example, the following excludes analytics from pages in development or hosted on our preview server:
 
-```html
+```svelte
 <script>
   import { Analytics } from '@reuters-graphics/graphics-components';
   import { dev } from '$app/environment';
@@ -12,6 +12,6 @@ For example, the following excludes analytics from pages in development or hoste
 </script>
 
 {#if !dev && $page.url?.hostname !== 'graphics.thomsonreuters.com'}
-<Analytics />
+  <Analytics />
 {/if}
 ```

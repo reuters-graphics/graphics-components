@@ -1,6 +1,6 @@
 A more detailed example of using `GraphicBlock` with components created by [ai2svelte](https://github.com/reuters-graphics/ai2svelte).
 
-```html
+```svelte
 <script>
   import { GraphicBlock } from '@reuters-graphics/graphics-components';
   import MyAiMap from './ai2svelte/my-map.svelte';

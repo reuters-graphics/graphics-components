@@ -2,10 +2,10 @@ When your table has 10 or more rows, consider clipping it by setting the `trunca
 
 This is a good option for simple tables with row counts between 10 and 30. It works best when the table doesn't require interactivity.
 
-```html
+```svelte
 <table
   data="{yourData}"
   truncated="{true}"
   source="{'Source: Baseball Reference'}"
-/>
+></table>
 ```

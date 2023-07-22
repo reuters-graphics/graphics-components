@@ -2,7 +2,7 @@ Normally, `Block` containers resize fluidly below the original `width`. Sometime
 
 You can use the `snap` prop to force the container to snap to each block width successively as the window sizes down.
 
-```html
+```svelte
 <Block width="wider" snap="{true}">
   <!-- Your stuff for this block -->
 </Block>
@@ -10,7 +10,7 @@ You can use the `snap` prop to force the container to snap to each block width s
 
 If you want to skip certain block widths entirely, you can add one or more class of `skip-{block width class}` to the `Block`.
 
-```html
+```svelte
 <!-- Will skip wide and go straight to normal column width on resize. -->
 <Block width="wider" snap="{true}" class="skip-wide">
   <!-- Your stuff for this block -->
@@ -27,7 +27,7 @@ Snap width breakpoints are hard-coded to the default article well column widths,
 
 Luckily, it's still pretty easy. Just add a `cls` or `id` to your `Block` so you can target it with some custom SCSS. Now, defined a few SCSS variables corresponding to your custom column widths and use the `block-snap-widths` SCSS mixin to get the same functionality at your custom breakpoints.
 
-```html
+```svelte
 <Block width="wider" snap="{true}" class="custom-blocks">
   <!-- Your stuff for this block -->
 </Block>

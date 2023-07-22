@@ -2,7 +2,7 @@ A header for internal tooling sites.
 
 > **Note:** Don't use this component for public pages.
 
-```html
+```svelte
 <script>
   import { ToolsHeader } from '@reuters-graphics/graphics-components';
 </script>
