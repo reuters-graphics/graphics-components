@@ -40,7 +40,8 @@
    * Add a class to target with SCSS.
    * @type {string}
    */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
@@ -88,7 +89,7 @@
   $: rows = groupRows(images, layout);
 </script>
 
-<Block width="{width}" id="{id}" cls="photopack {cls}">
+<Block width="{width}" id="{id}" class="photopack {cls}">
   <div class="photopack-container" bind:clientWidth="{containerWidth}">
     {#each rows as row, ri}
       <div

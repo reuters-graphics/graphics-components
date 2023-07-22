@@ -24,12 +24,13 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block width="{width}" id="{id}" cls="photo {cls}">
+<Block width="{width}" id="{id}" class="photo {cls}">
   <iframe
     src="https://embed.documentcloud.org/documents/{slug}/?embed=1&amp;responsive=1&amp;title=1"
     title="{altText}"

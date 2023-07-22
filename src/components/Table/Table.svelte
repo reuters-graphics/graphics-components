@@ -130,7 +130,8 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
@@ -213,7 +214,7 @@
   });
 </script>
 
-<Block width="{width}" id="{id}" cls="{cls}">
+<Block width="{width}" id="{id}" class="{cls}">
   <article class="table-wrapper">
     {#if title || dek || searchable || filterList}
       <header class="table--header">

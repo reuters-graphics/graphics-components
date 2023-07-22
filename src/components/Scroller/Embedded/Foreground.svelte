@@ -18,7 +18,7 @@
     </div>
   {/if}
 {:else if typeof step.foreground === 'string'}
-  <Block cls="body-text step-{index + 1}">
+  <Block class="body-text step-{index + 1}">
     <div class="embedded-foreground step-{index + 1}">
       {@html marked.parse(step.foreground)}
     </div>

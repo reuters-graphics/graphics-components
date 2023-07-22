@@ -73,41 +73,43 @@
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
-      <Block width="narrower" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="narrower" snap="{true}" class="block-snap-widths-demo"
         >narrower</Block
       >
-      <Block width="narrow" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="narrow" snap="{true}" class="block-snap-widths-demo"
         >narrow</Block
       >
-      <Block width="normal" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="normal" snap="{true}" class="block-snap-widths-demo"
         >normal</Block
       >
-      <Block width="wide" snap="{true}" cls="block-snap-widths-demo">wide</Block
+      <Block width="wide" snap="{true}" class="block-snap-widths-demo"
+        >wide</Block
       >
-      <Block width="wider" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="wider" snap="{true}" class="block-snap-widths-demo"
         >wider</Block
       >
-      <Block width="narrower" snap="{true}" cls="block-snap-widths-demo even"
+      <Block width="narrower" snap="{true}" class="block-snap-widths-demo even"
         >narrower</Block
       >
-      <Block width="narrow" snap="{true}" cls="block-snap-widths-demo even"
+      <Block width="narrow" snap="{true}" class="block-snap-widths-demo even"
         >narrow</Block
       >
       <Block
         width="normal"
         snap="{true}"
-        cls="block-snap-widths-demo even skip-narrow">normal.skip-narrow</Block
+        class="block-snap-widths-demo even skip-narrow"
+        >normal.skip-narrow</Block
       >
       <Block
         width="wide"
         snap="{true}"
-        cls="block-snap-widths-demo even skip-normal skip-narrow"
+        class="block-snap-widths-demo even skip-normal skip-narrow"
         >wide.skip-normal.skip-narrow</Block
       >
       <Block
         width="wider"
         snap="{true}"
-        cls="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
+        class="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
       >
     </div>
   </Article>

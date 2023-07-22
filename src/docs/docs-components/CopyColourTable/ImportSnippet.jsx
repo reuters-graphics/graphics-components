@@ -15,7 +15,7 @@ const Copyable = (props) => {
 
   useEffect(() => {
     if(timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => { setCopied(false); }, 1000);
+    timeout = setTimeout(() => { setCopied(false); }, 1500);
   }, [copied]);
 
   const handleClick = async({ partial }) => {

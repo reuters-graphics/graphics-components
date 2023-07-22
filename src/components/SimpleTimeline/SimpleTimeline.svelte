@@ -28,7 +28,8 @@
    * Set a class to target with SCSS.
    * @type {string}
    */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
   /**
    * Set an ID to target with SCSS.
    * @type {string}
@@ -41,7 +42,7 @@
   import { marked } from 'marked';
 </script>
 
-<Block width="normal" id="{id}" cls="simple-timeline-container {cls}">
+<Block width="normal" id="{id}" class="simple-timeline-container {cls}">
   <div class="timeline" style="--symbol-colour:{symbolColour};">
     {#each dates as date}
       <div class="date">

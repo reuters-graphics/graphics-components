@@ -101,11 +101,11 @@
 </script>
 
 {#if !embedded}
-  <Block width="fluid" cls="scroller-container" id="{id}">
+  <Block width="fluid" class="scroller-container" id="{id}">
     <SvelteScroller
-      bind:index
-      bind:offset
-      bind:progress
+      bind:index="{index}"
+      bind:offset="{offset}"
+      bind:progress="{progress}"
       threshold="{threshold}"
       top="{top}"
       bottom="{bottom}"
@@ -122,7 +122,7 @@
         <div class="scroller-graphic-well">
           <Block
             width="{backgroundWidth}"
-            cls="background-container step-{index + 1}"
+            class="background-container step-{index + 1}"
           >
             <Background
               index="{index}"
@@ -140,7 +140,7 @@
     </SvelteScroller>
   </Block>
 {:else}
-  <Block width="widest" cls="scroller-container embedded" id="{id}">
+  <Block width="widest" class="scroller-container embedded" id="{id}">
     <Embedded
       steps="{steps}"
       embeddedLayout="{embeddedLayout}"

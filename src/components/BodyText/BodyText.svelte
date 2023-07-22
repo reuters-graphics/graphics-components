@@ -7,11 +7,15 @@
    */
   export let text: string;
 
+  /** Add a class to target with SCSS. */
+  let cls: string = '';
+  export { cls as class };
+
   import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block cls="body-text">
+<Block class="body-text {cls}">
   {#if text}
     {@html marked.parse(text)}
   {/if}

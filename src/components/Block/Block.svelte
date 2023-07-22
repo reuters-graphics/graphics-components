@@ -8,7 +8,8 @@
   /** Add an id to the block tag to target it with custom CSS. */
   export let id: string = '';
   /** Add extra classes to the block tag to target it with custom CSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   /** Snap block to column widths, rather than fluidly resizing them. */
   export let snap: boolean = false;

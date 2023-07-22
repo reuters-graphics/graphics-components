@@ -11,7 +11,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block cls="notes mb-6">
+<Block class="notes mb-6">
   {#if text}
     {@html marked.parse(text)}
   {/if}

@@ -123,7 +123,7 @@
   on:touchstart="{setInteractedWithDom}"
 />
 
-<Block width="{width}" cls="video-container">
+<Block width="{width}" class="video-container">
   <div
     on:mouseover="{() => {
       interactiveControlsOpacity = controlsOpacity;

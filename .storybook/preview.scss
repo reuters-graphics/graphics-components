@@ -61,8 +61,9 @@ div.sbdocs-content {
 
   a {
     @include font-display;
-    color: var(--gfx-colour-tr-muted-blue);
+    color: #0071a1;
     text-decoration: none;
+    text-underline-offset: 2px;
     &:hover {
       text-decoration: underline;
     }

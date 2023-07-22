@@ -70,7 +70,7 @@
   });
 </script>
 
-<Block width="{width}" cls="photo">
+<Block width="{width}" class="photo">
   <figure bind:this="{container}" aria-label="media">
     {#if !lazy || (intersectable && intersecting)}
       <img src="{src}" alt="{altText}" />

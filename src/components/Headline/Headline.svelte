@@ -20,7 +20,7 @@
   import { marked } from 'marked';
 </script>
 
-<Block cls="mb-1">
+<Block class="mb-1">
   <header class="headline">
     {#if $$slots.crown}
       <div class="crown-container">

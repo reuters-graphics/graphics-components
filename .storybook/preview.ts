@@ -67,6 +67,7 @@ export const parameters = {
           ],
           'Borders',
           'Colours', [
+            'Intro',
             'Primary',
             'Thematic',
             '*',

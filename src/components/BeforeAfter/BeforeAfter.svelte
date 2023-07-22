@@ -153,7 +153,7 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <Block width="{width}" id="{id}" cls="photo before-after">
+  <Block width="{width}" id="{id}" class="photo before-after">
     <div
       style="height: {containerHeight}px;"
       bind:clientWidth="{containerWidth}"

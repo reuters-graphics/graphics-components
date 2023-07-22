@@ -9,7 +9,8 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   interface Image {
     /**
@@ -96,7 +97,7 @@
   };
 </script>
 
-<Block width="{width}" id="{id}" cls="photo-carousel {cls}">
+<Block width="{width}" id="{id}" class="photo-carousel {cls}">
   <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"

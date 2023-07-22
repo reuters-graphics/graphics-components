@@ -38,7 +38,8 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   import Block from '../Block/Block.svelte';
   import { referrals } from './stores.js';
@@ -75,7 +76,7 @@
 </script>
 
 {#if $referrals.length === number}
-  <Block width="{width}" id="{id}" cls="referrals-block {cls}">
+  <Block width="{width}" id="{id}" class="referrals-block {cls}">
     {#if heading}
       <h4 class:stacked="{clientWidth && clientWidth < 750}">{heading}</h4>
     {/if}

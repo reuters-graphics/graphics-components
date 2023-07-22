@@ -38,7 +38,8 @@
    * Add extra classes to target with custom CSS.
    * @type {string}
    */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   import Block from '../Block/Block.svelte';
   import slugify from 'slugify';
@@ -63,7 +64,7 @@
     first.getDate() === second.getDate();
 </script>
 
-<Block id="{id}" cls="headline-container {cls}" width="normal">
+<Block id="{id}" class="headline-container {cls}" width="normal">
   <header class="headline">
     <div class="title">
       {#if section}
