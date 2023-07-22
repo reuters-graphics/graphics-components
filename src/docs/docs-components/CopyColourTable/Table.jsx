@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
+import ImportSnippet from './ImportSnippet';
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism-light';
 import { Unstyled } from '@storybook/blocks';
 // @ts-ignore
 import classes from './styles.module.scss';
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
+
+SyntaxHighlighter.registerLanguage('scss', scss);
 
 const Copyable = (props) => {
   const handleClick = async(props) => {
@@ -49,12 +55,13 @@ const Cell = (props) => {
 const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i}>{c}</TD>))}</tr>
 const TH = (props) => <th>{props.children}</th>;
 
-const CopyTable = ({ title = null, header, body, copyable, mdnLink = null }) => {
+const CopyTable = ({ title = null, header, body, copyable, mdnLink = null, included = false, partial }) => {
   return (
     <Unstyled>
       <div className={classes.title}>
         {title}
       </div>
+      <ImportSnippet included={included} partial={partial} />
       <table className={classes.table}>
         <thead>
           <tr>
