@@ -1,18 +1,20 @@
+@import 'tokens/font-family';
+
 .font-serif {
-  font-family: var(--theme-typeface-serif);
+  @extend %font-serif;
 }
 .font-sans {
-  font-family: var(--theme-typeface-sans-serif);
+  @extend %font-sans;
 }
 .font-mono {
-  font-family: var(--theme-typeface-monospace);
+  @extend %font-mono;
 }
 .\!font-serif {
-  font-family: var(--theme-typeface-serif) !important;
+  @extend %\!font-serif;
 }
 .\!font-sans {
-  font-family: var(--theme-typeface-sans-serif) !important;
+  @extend %\!font-sans;
 }
 .\!font-mono {
-  font-family: var(--theme-typeface-monospace) !important;
+  @extend %\!font-mono;
 }

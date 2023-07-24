@@ -1,5 +1,7 @@
 The `Theme` component wraps your page content and uses [CSS variables](../?path=/docs/scss-css-variables--page) to set major colour and typography styles for your page. All of the components in this library will use those CSS variables for styling by default.
 
+Use our [theme builder](../?path=/docs/theming-theme-builder--docs) to customise your page's theme.
+
 ```svelte
 <script>
   import { Theme } from '@reuters-graphics/graphics-components';

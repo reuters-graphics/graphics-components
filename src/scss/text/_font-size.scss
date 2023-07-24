@@ -1,0 +1,68 @@
+@use 'tokens/font-size';
+
+.text-xxs {
+  @extend %text-xxs;
+}
+.text-xs {
+  @extend %text-xs;
+}
+.text-sm {
+  @extend %text-sm;
+}
+.text-base {
+  @extend %text-base;
+}
+.text-lg {
+  @extend %text-lg;
+}
+.text-xl {
+  @extend %text-xl;
+}
+.text-2xl {
+  @extend %text-2xl;
+}
+.text-3xl {
+  @extend %text-3xl;
+}
+.text-4xl {
+  @extend %text-4xl;
+}
+.text-5xl {
+  @extend %text-5xl;
+}
+.text-6xl {
+  @extend %text-6xl;
+}
+.\!text-xxs {
+  @extend %\!text-xxs;
+}
+.\!text-xs {
+  @extend %\!text-xs;
+}
+.\!text-sm {
+  @extend %\!text-sm;
+}
+.\!text-base {
+  @extend %\!text-base;
+}
+.\!text-lg {
+  @extend %\!text-lg;
+}
+.\!text-xl {
+  @extend %\!text-xl;
+}
+.\!text-2xl {
+  @extend %\!text-2xl;
+}
+.\!text-3xl {
+  @extend %\!text-3xl;
+}
+.\!text-4xl {
+  @extend %\!text-4xl;
+}
+.\!text-5xl {
+  @extend %\!text-5xl;
+}
+.\!text-6xl {
+  @extend %\!text-6xl;
+}

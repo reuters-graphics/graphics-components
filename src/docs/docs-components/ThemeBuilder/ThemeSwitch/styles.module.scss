@@ -29,7 +29,8 @@
     }
     &.active {
       background-color: #fff;
-      color: blue;
+      color: rgb(0, 119, 170);
+      font-weight: bold;
     }
 
     &:first-child {

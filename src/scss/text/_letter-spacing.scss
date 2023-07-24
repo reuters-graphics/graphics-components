@@ -1,36 +1,38 @@
+@use 'tokens/letter-spacing';
+
 .tracking-tighter {
-  letter-spacing: -0.05em;
+  @extend %tracking-tighter;
 }
 .tracking-tight {
-  letter-spacing: -0.025em;
+  @extend %tracking-tight;
 }
 .tracking-normal {
-  letter-spacing: 0em;
+  @extend %tracking-normal;
 }
 .tracking-wide {
-  letter-spacing: 0.025em;
+  @extend %tracking-wide;
 }
 .tracking-wider {
-  letter-spacing: 0.05em;
+  @extend %tracking-wider;
 }
 .tracking-widest {
-  letter-spacing: 0.1em;
+  @extend %tracking-widest;
 }
 .\!tracking-tighter {
-  letter-spacing: -0.05em !important;
+  @extend %\!tracking-tighter;
 }
 .\!tracking-tight {
-  letter-spacing: -0.025em !important;
+  @extend %\!tracking-tight;
 }
 .\!tracking-normal {
-  letter-spacing: 0em !important;
+  @extend %\!tracking-normal;
 }
 .\!tracking-wide {
-  letter-spacing: 0.025em !important;
+  @extend %\!tracking-wide;
 }
 .\!tracking-wider {
-  letter-spacing: 0.05em !important;
+  @extend %\!tracking-wider;
 }
 .\!tracking-widest {
-  letter-spacing: 0.1em !important;
+  @extend %\!tracking-widest;
 }

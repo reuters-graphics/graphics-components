@@ -1,0 +1,38 @@
+@use 'tokens/line-height';
+
+.leading-none {
+  @extend %leading-none;
+}
+.leading-tighter {
+  @extend %leading-tighter;
+}
+.leading-tight {
+  @extend %leading-tight;
+}
+.leading-normal {
+  @extend %leading-normal;
+}
+.leading-loose {
+  @extend %leading-loose;
+}
+.leading-looser {
+  @extend %leading-looser;
+}
+.\!leading-none {
+  @extend %\!leading-none;
+}
+.\!leading-tighter {
+  @extend %\!leading-tighter;
+}
+.\!leading-tight {
+  @extend %\!leading-tight;
+}
+.\!leading-normal {
+  @extend %\!leading-normal;
+}
+.\!leading-loose {
+  @extend %\!leading-loose;
+}
+.\!leading-looser {
+  @extend %\!leading-looser;
+}

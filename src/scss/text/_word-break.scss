@@ -1,14 +1,14 @@
+@use 'tokens/word-break';
+
 .break-normal {
-  overflow-wrap: normal;
-  word-break: normal;
+  @extend %break-normal;
 }
 .break-words {
-  overflow-wrap: break-word;
+  @extend %break-words;
 }
 .\!break-normal {
-  overflow-wrap: normal !important;
-  word-break: normal !important;
+  @extend %\!break-normal;
 }
 .\!break-words {
-  overflow-wrap: break-word !important;
+  @extend %\!break-words;
 }

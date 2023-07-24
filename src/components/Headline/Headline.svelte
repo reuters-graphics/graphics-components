@@ -69,6 +69,7 @@
 </Block>
 
 <style lang="scss">
+  @use '../../scss/tokens';
   @import '../../scss/fonts/variables';
 
   header.headline {
@@ -81,8 +82,9 @@
       h1 {
         font-size: 4rem;
         margin: 5px 0;
-        line-height: 1.1;
-        font-family: var(--theme-font-family-hed, $font-family-display);
+        line-height: 1.2;
+        // font-family: var(--theme-font-family-hed, $font-family-display);
+        @extend %font-sans;
         color: var(--theme-colour-text-primary);
       }
 

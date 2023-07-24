@@ -1,0 +1,12 @@
+%italic {
+  font-style: italic;
+}
+%not-italic {
+  font-style: normal;
+}
+%\!italic {
+  font-style: italic !important;
+}
+%\!not-italic {
+  font-style: normal !important;
+}

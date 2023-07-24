@@ -1,24 +1,26 @@
+@use 'tokens/text-decoration';
+
 .underline {
-  text-decoration-line: underline;
+  @extend %underline;
 }
 .overline {
-  text-decoration-line: overline;
+  @extend %overline;
 }
 .line-through {
-  text-decoration-line: line-through;
+  @extend %line-through;
 }
 .no-underline {
-  text-decoration-line: none;
+  @extend %no-underline;
 }
 .\!underline {
-  text-decoration-line: underline !important;
+  @extend %\!underline;
 }
 .\!overline {
-  text-decoration-line: overline !important;
+  @extend %\!overline;
 }
 .\!line-through {
-  text-decoration-line: line-through !important;
+  @extend %\!line-through;
 }
 .\!no-underline {
-  text-decoration-line: none !important;
+  @extend %\!no-underline;
 }

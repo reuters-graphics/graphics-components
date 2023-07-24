@@ -1,12 +1,14 @@
+@use 'tokens/white-space';
+
 .whitespace-normal {
-  white-space: normal;
+  @extend %whitespace-normal;
 }
 .whitespace-nowrap {
-  white-space: nowrap;
+  @extend %whitespace-nowrap;
 }
 .\!whitespace-normal {
-  white-space: normal !important;
+  @extend %\!whitespace-normal;
 }
 .\!whitespace-nowrap {
-  white-space: nowrap !important;
+  @extend %\!whitespace-nowrap;
 }

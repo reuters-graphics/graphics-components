@@ -1,54 +1,56 @@
+@use 'tokens/font-weight';
+
 .font-thin {
-  font-weight: 100;
+  @extend %font-thin;
 }
 .font-extralight {
-  font-weight: 200;
+  @extend %font-extralight;
 }
 .font-light {
-  font-weight: 300;
+  @extend %font-light;
 }
 .font-normal {
-  font-weight: 400;
+  @extend %font-normal;
 }
 .font-medium {
-  font-weight: 500;
+  @extend %font-medium;
 }
 .font-semibold {
-  font-weight: 600;
+  @extend %font-semibold;
 }
 .font-bold {
-  font-weight: 700;
+  @extend %font-bold;
 }
 .font-extrabold {
-  font-weight: 800;
+  @extend %font-extrabold;
 }
 .font-black {
-  font-weight: 900;
+  @extend %font-black;
 }
 .\!font-thin {
-  font-weight: 100 !important;
+  @extend %\!font-thin;
 }
 .\!font-extralight {
-  font-weight: 200 !important;
+  @extend %\!font-extralight;
 }
 .\!font-light {
-  font-weight: 300 !important;
+  @extend %\!font-light;
 }
 .\!font-normal {
-  font-weight: 400 !important;
+  @extend %\!font-normal;
 }
 .\!font-medium {
-  font-weight: 500 !important;
+  @extend %\!font-medium;
 }
 .\!font-semibold {
-  font-weight: 600 !important;
+  @extend %\!font-semibold;
 }
 .\!font-bold {
-  font-weight: 700 !important;
+  @extend %\!font-bold;
 }
 .\!font-extrabold {
-  font-weight: 800 !important;
+  @extend %\!font-extrabold;
 }
 .\!font-black {
-  font-weight: 900 !important;
+  @extend %\!font-black;
 }

@@ -1,48 +1,50 @@
+@use 'tokens/vertical-align';
+
 .align-baseline {
-  vertical-align: baseline;
+  @extend %align-baseline;
 }
 .align-top {
-  vertical-align: top;
+  @extend %align-top;
 }
 .align-middle {
-  vertical-align: middle;
+  @extend %align-middle;
 }
 .align-bottom {
-  vertical-align: bottom;
+  @extend %align-bottom;
 }
 .align-text-top {
-  vertical-align: text-top;
+  @extend %align-text-top;
 }
 .align-text-bottom {
-  vertical-align: text-bottom;
+  @extend %align-text-bottom;
 }
 .align-sub {
-  vertical-align: sub;
+  @extend %align-sub;
 }
 .align-super {
-  vertical-align: super;
+  @extend %align-super;
 }
 .\!align-baseline {
-  vertical-align: baseline !important;
+  @extend %\!align-baseline;
 }
 .\!align-top {
-  vertical-align: top !important;
+  @extend %\!align-top;
 }
 .\!align-middle {
-  vertical-align: middle !important;
+  @extend %\!align-middle;
 }
 .\!align-bottom {
-  vertical-align: bottom !important;
+  @extend %\!align-bottom;
 }
 .\!align-text-top {
-  vertical-align: text-top !important;
+  @extend %\!align-text-top;
 }
 .\!align-text-bottom {
-  vertical-align: text-bottom !important;
+  @extend %\!align-text-bottom;
 }
 .\!align-sub {
-  vertical-align: sub !important;
+  @extend %\!align-sub;
 }
 .\!align-super {
-  vertical-align: super !important;
+  @extend %\!align-super;
 }

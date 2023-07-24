@@ -1,12 +1,14 @@
+@use 'tokens/text-transform';
+
 .uppercase {
-  text-transform: uppercase;
+  @extend %uppercase;
 }
 .lowercase {
-  text-transform: lowercase;
+  @extend %lowercase;
 }
 .\!uppercase {
-  text-transform: uppercase !important;
+  @extend %\!uppercase;
 }
 .\!lowercase {
-  text-transform: lowercase !important;
+  @extend %\!lowercase;
 }

@@ -1,4 +1,4 @@
-@import 'flex/rules';
-@import 'box-sizing';
-@import 'display';
-@import 'floats';
+@use 'flex/main';
+@use 'box-sizing';
+@use 'display';
+@use 'floats';

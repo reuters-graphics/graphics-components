@@ -1,12 +1,14 @@
+@use 'tokens/font-style';
+
 .italic {
-  font-style: italic;
+  @extend %italic;
 }
 .not-italic {
-  font-style: normal;
+  @extend %not-italic;
 }
 .\!italic {
-  font-style: italic !important;
+  @extend %\!italic;
 }
 .\!not-italic {
-  font-style: normal !important;
+  @extend %\!not-italic;
 }

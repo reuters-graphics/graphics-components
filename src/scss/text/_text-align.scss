@@ -1,36 +1,38 @@
+@use 'tokens/text-align';
+
 .text-left {
-  text-align: left;
+  @extend %text-left;
 }
 .text-center {
-  text-align: center;
+  @extend %text-center;
 }
 .text-right {
-  text-align: right;
+  @extend %text-right;
 }
 .text-justify {
-  text-align: justify;
+  @extend %text-justify;
 }
 .text-start {
-  text-align: start;
+  @extend %text-start;
 }
 .text-end {
-  text-align: end !important;
+  @extend %text-end;
 }
 .\!text-left {
-  text-align: left !important;
+  @extend %\!text-left;
 }
 .\!text-center {
-  text-align: center !important;
+  @extend %\!text-center;
 }
 .\!text-right {
-  text-align: right !important;
+  @extend %\!text-right;
 }
 .\!text-justify {
-  text-align: justify !important;
+  @extend %\!text-justify;
 }
 .\!text-start {
-  text-align: start !important;
+  @extend %\!text-start;
 }
 .\!text-end {
-  text-align: end !important;
+  @extend %\!text-end;
 }

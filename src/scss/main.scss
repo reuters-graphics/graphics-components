@@ -3,24 +3,16 @@
  * Custom grid system
  * Colour and typography systems using CSS variable from Theme
  * Utility classes for quick styling
- * 🄯2023 Reuters Graphics Style Guide
+ * Copyright 2023 Reuters Graphics Style Guide
  */
 
 // Reset
-@import 'reset/main';
-
-@import 'fonts/font-faces';
-
-// Variables
-@import 'variables';
-
-// Mixins
-@import 'mixins';
+@use 'reset/main' as reset;
 
 // Style rules
-@import 'colours/main';
-@import 'borders/main';
-@import 'spacers/main';
-@import 'typography/rules';
-@import 'text/main';
-@import 'layout/main';
+@use 'accessibility/main' as accessibility;
+@use 'borders/main' as borders;
+@use 'colours/main' as colours;
+@use 'layout/main' as layout;
+@use 'spacers/main' as spacers;
+@use 'text/main' as text;
