@@ -8,53 +8,53 @@ $padding-levels: (
   '6': 4rem,
   '7': 5rem,
   '8': 6rem,
-) !default;
+);
 
 @each $level, $value in $padding-levels {
-  .p-#{$level} {
+  %p-#{$level} {
     padding: $value;
   }
-  .pt-#{$level} {
+  %pt-#{$level} {
     padding-top: $value;
   }
-  .pr-#{$level} {
+  %pr-#{$level} {
     padding-right: $value;
   }
-  .pb-#{$level} {
+  %pb-#{$level} {
     padding-bottom: $value;
   }
-  .pl-#{$level} {
+  %pl-#{$level} {
     padding-left: $value;
   }
-  .px-#{$level} {
+  %px-#{$level} {
     padding-right: $value;
     padding-left: $value;
   }
-  .py-#{$level} {
+  %py-#{$level} {
     padding-top: $value;
     padding-bottom: $value;
   }
 
-  .\!p-#{$level} {
+  %\!p-#{$level} {
     padding: $value !important;
   }
-  .\!pt-#{$level} {
+  %\!pt-#{$level} {
     padding-top: $value !important;
   }
-  .\!pr-#{$level} {
+  %\!pr-#{$level} {
     padding-right: $value !important;
   }
-  .\!pb-#{$level} {
+  %\!pb-#{$level} {
     padding-bottom: $value !important;
   }
-  .\!pl-#{$level} {
+  %\!pl-#{$level} {
     padding-left: $value !important;
   }
-  .\!px-#{$level} {
+  %\!px-#{$level} {
     padding-right: $value !important;
     padding-left: $value !important;
   }
-  .\!py-#{$level} {
+  %\!py-#{$level} {
     padding-top: $value !important;
     padding-bottom: $value !important;
   }

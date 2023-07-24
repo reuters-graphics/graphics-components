@@ -8,77 +8,77 @@ $margin-levels: (
   '6': 6rem,
   '7': 7rem,
   '8': 8rem,
-) !default;
+);
 
 @each $level, $value in $margin-levels {
-  .m-#{$level} {
+  %m-#{$level} {
     margin: $value;
   }
-  .mt-#{$level} {
+  %mt-#{$level} {
     margin-top: $value;
   }
-  .mr-#{$level} {
+  %mr-#{$level} {
     margin-right: $value;
   }
-  .mb-#{$level} {
+  %mb-#{$level} {
     margin-bottom: $value;
   }
-  .ml-#{$level} {
+  %ml-#{$level} {
     margin-left: $value;
   }
-  .mx-#{$level} {
+  %mx-#{$level} {
     margin-right: $value;
     margin-left: $value;
   }
-  .my-#{$level} {
+  %my-#{$level} {
     margin-top: $value;
     margin-bottom: $value;
   }
 
-  .\!m-#{$level} {
+  %\!m-#{$level} {
     margin: $value !important;
   }
-  .\!mt-#{$level} {
+  %\!mt-#{$level} {
     margin-top: $value !important;
   }
-  .\!mr-#{$level} {
+  %\!mr-#{$level} {
     margin-right: $value !important;
   }
-  .\!mb-#{$level} {
+  %\!mb-#{$level} {
     margin-bottom: $value !important;
   }
-  .\!ml-#{$level} {
+  %\!ml-#{$level} {
     margin-left: $value !important;
   }
-  .\!mx-#{$level} {
+  %\!mx-#{$level} {
     margin-right: $value !important;
     margin-left: $value !important;
   }
-  .\!my-#{$level} {
+  %\!my-#{$level} {
     margin-top: $value !important;
     margin-bottom: $value !important;
   }
 }
 
-.m-auto {
+%m-auto {
   margin: auto;
 }
-.mx-auto {
+%mx-auto {
   margin-right: auto;
   margin-left: auto;
 }
-.my-auto {
+%my-auto {
   margin-top: auto;
   margin-bottom: auto;
 }
-.\!m-auto {
+%\!m-auto {
   margin: auto !important;
 }
-.\!mx-auto {
+%\!mx-auto {
   margin-right: auto !important;
   margin-left: auto !important;
 }
-.\!my-auto {
+%\!my-auto {
   margin-top: auto !important;
   margin-bottom: auto !important;
 }

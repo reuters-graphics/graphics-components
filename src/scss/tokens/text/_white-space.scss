@@ -1,4 +1,4 @@
-@use 'tokens/white-space';
+@use 'extenders/white-space';
 
 .whitespace-normal {
   @extend %whitespace-normal;

@@ -9,10 +9,11 @@
 // Reset
 @use 'reset/main' as reset;
 
+// Font-faces
+@use 'fonts/font-faces' as font-faces;
+
 // Style rules
 @use 'accessibility/main' as accessibility;
 @use 'borders/main' as borders;
 @use 'colours/main' as colours;
 @use 'layout/main' as layout;
-@use 'spacers/main' as spacers;
-@use 'text/main' as text;

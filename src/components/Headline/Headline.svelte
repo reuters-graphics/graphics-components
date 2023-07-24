@@ -69,7 +69,7 @@
 </Block>
 
 <style lang="scss">
-  @use '../../scss/tokens';
+  @use '../../scss/extenders';
   @import '../../scss/fonts/variables';
 
   header.headline {

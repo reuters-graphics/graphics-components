@@ -1,4 +1,4 @@
-@use 'tokens/letter-spacing';
+@use 'extenders/letter-spacing';
 
 .tracking-tighter {
   @extend %tracking-tighter;

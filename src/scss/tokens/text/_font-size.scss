@@ -1,4 +1,4 @@
-@use 'tokens/font-size';
+@use 'extenders/font-size';
 
 .text-xxs {
   @extend %text-xxs;

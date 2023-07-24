@@ -1,4 +1,4 @@
-@use 'tokens/vertical-align';
+@use 'extenders/vertical-align';
 
 .align-baseline {
   @extend %align-baseline;

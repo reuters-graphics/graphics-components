@@ -1,4 +1,4 @@
-@use 'tokens/line-height';
+@use 'extenders/line-height';
 
 .leading-none {
   @extend %leading-none;

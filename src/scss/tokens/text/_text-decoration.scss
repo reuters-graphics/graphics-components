@@ -1,4 +1,4 @@
-@use 'tokens/text-decoration';
+@use 'extenders/text-decoration';
 
 .underline {
   @extend %underline;

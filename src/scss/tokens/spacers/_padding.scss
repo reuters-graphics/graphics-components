@@ -1,0 +1,47 @@
+@use 'extenders/padding';
+
+@each $level, $value in $padding-levels {
+  .p-#{$level} {
+    @extend %p-#{$level};
+  }
+  .pt-#{$level} {
+    @extend %pt-#{$level};
+  }
+  .pr-#{$level} {
+    @extend %pr-#{$level};
+  }
+  .pb-#{$level} {
+    @extend %pb-#{$level};
+  }
+  .pl-#{$level} {
+    @extend %pl-#{$level};
+  }
+  .px-#{$level} {
+    @extend %px-#{$level};
+  }
+  .py-#{$level} {
+    @extend %py-#{$level};
+  }
+
+  .\!p-#{$level} {
+    @extend %\!p-#{$level};
+  }
+  .\!pt-#{$level} {
+    @extend %\!pt-#{$level};
+  }
+  .\!pr-#{$level} {
+    @extend %\!pr-#{$level};
+  }
+  .\!pb-#{$level} {
+    @extend %\!pb-#{$level};
+  }
+  .\!pl-#{$level} {
+    @extend %\!pl-#{$level};
+  }
+  .\!px-#{$level} {
+    @extend %\!px-#{$level};
+  }
+  .\!py-#{$level} {
+    @extend %\!py-#{$level};
+  }
+}

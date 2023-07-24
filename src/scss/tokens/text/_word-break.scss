@@ -1,4 +1,4 @@
-@use 'tokens/word-break';
+@use 'extenders/word-break';
 
 .break-normal {
   @extend %break-normal;

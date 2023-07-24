@@ -1,5 +1,3 @@
-@import "../src/scss/mixins";
-
 table.docblock-argstable {
   p {
     font-family: inherit;
@@ -39,16 +37,16 @@ div.sbdocs-content {
 }
 
 .sbdocs {
-  @include font-display;
+  font-family: 'Knowledge', sans-serif;
 
   h1 {
-    @include font-display;
+    font-family: 'Knowledge', sans-serif;
   }
 
   p, ul, li {
     font-size: 18px;
     line-height: 29px;
-    @include font-display;
+    font-family: 'Knowledge', sans-serif;
   
     .highlight {
       background-color: rgb(254, 254, 160);
@@ -60,7 +58,7 @@ div.sbdocs-content {
   }
 
   a {
-    @include font-display;
+    font-family: 'Knowledge', sans-serif;
     color: #0071a1;
     text-decoration: none;
     text-underline-offset: 2px;

@@ -1,4 +1,4 @@
-@use 'tokens/font-weight';
+@use 'extenders/font-weight';
 
 .font-thin {
   @extend %font-thin;

@@ -1,0 +1,66 @@
+@use 'extenders/margin';
+
+@each $level, $value in $margin-levels {
+  .m-#{$level} {
+    @extend %m-#{$level};
+  }
+  .mt-#{$level} {
+    @extend %mt-#{$level};
+  }
+  .mr-#{$level} {
+    @extend %mr-#{$level};
+  }
+  .mb-#{$level} {
+    @extend %mb-#{$level};
+  }
+  .ml-#{$level} {
+    @extend %ml-#{$level};
+  }
+  .mx-#{$level} {
+    @extend %mx-#{$level};
+  }
+  .my-#{$level} {
+    @extend %my-#{$level};
+  }
+
+  .\!m-#{$level} {
+    @extend %\!m-#{$level};
+  }
+  .\!mt-#{$level} {
+    @extend %\!mt-#{$level};
+  }
+  .\!mr-#{$level} {
+    @extend %\!mr-#{$level};
+  }
+  .\!mb-#{$level} {
+    @extend %\!mb-#{$level};
+  }
+  .\!ml-#{$level} {
+    @extend %\!ml-#{$level};
+  }
+  .\!mx-#{$level} {
+    @extend %\!mx-#{$level};
+  }
+  .\!my-#{$level} {
+    @extend %\!my-#{$level};
+  }
+}
+
+.m-auto {
+  @extend %m-auto;
+}
+.mx-auto {
+  @extend %mx-auto;
+}
+.my-auto {
+  @extend %my-auto;
+}
+.\!m-auto {
+  @extend %\!m-auto;
+}
+.\!mx-auto {
+  @extend %\!mx-auto;
+}
+.\!my-auto {
+  @extend %\!my-auto;
+}

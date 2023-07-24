@@ -1,4 +1,4 @@
-@use 'tokens/text-transform';
+@use 'extenders/text-transform';
 
 .uppercase {
   @extend %uppercase;
