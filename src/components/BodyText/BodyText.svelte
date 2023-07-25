@@ -28,6 +28,6 @@
   @import '../../scss/mixins';
 
   div.article-block.body-text {
-    @include body-text;
+    // @include body-text;
   }
 </style>

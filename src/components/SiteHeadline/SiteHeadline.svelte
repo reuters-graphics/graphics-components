@@ -86,7 +86,7 @@
     </div>
     <aside class="article-metadata mt-2 font-subhed">
       <div class="byline-container">
-        <div class="byline text-primary font-bold leading-tight">
+        <div class="byline text-sm text-primary font-bold leading-tight">
           By
           {#if authors.length > 0}
             {#each authors as author, i}

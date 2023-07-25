@@ -1,0 +1,102 @@
+@use '../mixins' as *;
+
+body {
+  @include font-sans;
+  @include font-normal;
+  @include leading-normal;
+}
+
+/////////////
+// HEADINGS
+/////////////
+
+h1,
+h2,
+h3,
+h5,
+h6 {
+  @include text-primary;
+  -webkit-font-smoothing: antialiased;
+}
+h1 {
+  @include font-hed;
+  @include text-3xl;
+  @include leading-none;
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include font-subhed;
+  @include leading-tighter;
+  margin-block-start: calc(var(--theme-font-size-base) * 1.5);
+}
+h2 {
+  @include text-xl;
+  margin-block-end: calc(var(--theme-font-size-base) * 0.75);
+}
+h3 {
+  @include text-lg;
+  margin-block-end: calc(var(--theme-font-size-base) * 0.625);
+}
+h4 {
+  @include text-base;
+  @include text-secondary;
+  @include tracking-wider;
+  text-transform: uppercase;
+  margin-block-end: calc(var(--theme-font-size-base) * 0.5);
+}
+h5 {
+  @include text-sm;
+  margin-block-end: calc(var(--theme-font-size-base) * 0.375);
+}
+h6 {
+  @include text-sm;
+  @include font-normal;
+  text-transform: uppercase;
+  margin-block-end: calc(var(--theme-font-size-base) * 0.375);
+}
+
+//////////////
+// Body text
+//////////////
+
+%body-type-block {
+  display: block;
+  margin-block-start: 0px;
+  margin-block-end: calc(var(--theme-font-size-base) * 1.125);
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  @include font-body;
+  @include text-base;
+  @include font-normal;
+  @include leading-normal;
+  @include text-primary;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  @extend %body-type-block;
+}
+
+ol,
+ul {
+  @extend %body-type-block;
+  padding-left: 2rem;
+  ol,
+  ul {
+    margin-block-end: 0;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-underline-offset: 8%;
+}
+
+strong {
+  @include font-bold;
+}

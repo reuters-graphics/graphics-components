@@ -1,3 +1,7 @@
+body {
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+}
+
 table.docblock-argstable {
   p {
     font-family: inherit;
@@ -7,6 +11,10 @@ table.docblock-argstable {
   ul {
     padding-inline-start: 20px;
   }
+}
+
+div.sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
+  font-size: 16px;
 }
 
 div.sbdocs-content {
