@@ -9,6 +9,18 @@
 .font-mono {
   @include font-mono;
 }
+.font-hed {
+  @include font-hed;
+}
+.font-subhed {
+  @include font-subhed;
+}
+.font-body {
+  @include font-body;
+}
+.font-note {
+  @include font-note;
+}
 .\!font-serif {
   @include \!font-serif;
 }
@@ -17,4 +29,16 @@
 }
 .\!font-mono {
   @include \!font-mono;
+}
+.\!font-hed {
+  @include \!font-hed;
+}
+.\!font-subhed {
+  @include \!font-subhed;
+}
+.\!font-body {
+  @include \!font-body;
+}
+.\!font-note {
+  @include \!font-note;
 }

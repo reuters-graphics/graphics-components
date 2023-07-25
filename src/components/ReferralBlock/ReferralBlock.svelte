@@ -128,11 +128,11 @@
 {/if}
 
 <style lang="scss">
-  @import '../../scss/fonts/mixins';
+  @import '../../scss/mixins';
 
   h4 {
-    font-family: var(--theme-font-family-subhed);
-    color: var(--theme-colour-text-primary, #404040);
+    @include font-sans;
+    @include text-primary;
     font-size: 1.1rem;
     margin: 0 0 5px;
     font-weight: bold;
@@ -194,23 +194,23 @@
           }
         }
         .kicker {
-          font-family: var(--theme-font-family-subhed);
-          color: var(--theme-colour-text-secondary, #666666);
+          @include font-sans;
+          @include text-secondary;
           font-size: 0.9rem;
           margin: 0;
           font-weight: 400;
         }
         .title {
-          font-family: var(--theme-font-family-subhed);
-          color: var(--theme-colour-text-primary, #404040);
+          @include font-sans;
+          @include text-primary;
           font-size: 0.95rem;
           line-height: 1.15rem;
           font-weight: bold;
           margin: 0;
         }
         .publish-time {
-          font-family: var(--theme-font-family-subhed);
-          color: var(--theme-colour-text-secondary, #666666);
+          @include font-sans;
+          @include text-secondary;
           font-size: 0.75rem;
           margin: 2px 0 0;
           font-weight: 400;

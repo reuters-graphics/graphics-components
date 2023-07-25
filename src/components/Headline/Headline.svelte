@@ -76,35 +76,34 @@
     text-align: center;
     margin-top: 4rem;
     margin-bottom: 0;
-    color: var(--theme-colour-text-primary);
+    @include text-primary;
 
     :global {
       h1 {
         font-size: 4rem;
         margin: 5px 0;
         line-height: 1.2;
-        // font-family: var(--theme-font-family-hed, $font-family-display);
         @include font-sans;
-        color: var(--theme-colour-text-primary);
+        @include text-primary;
       }
 
       p {
-        font-family: var(--theme-font-family-subhed);
-        color: var(--theme-colour-text-primary);
+        @include font-sans;
+        @include text-primary;
         margin: 0;
         font-weight: 200;
 
         &.section-title {
           font-size: 1rem;
           font-weight: 800;
-          color: var(--theme-colour-accent);
+          @include text-accent;
         }
       }
     }
     .article-metadata {
       padding: 40px 0;
-      font-family: var(--theme-font-family-note);
-      color: var(--theme-colour-text-primary);
+      @include font-sans;
+      @include text-primary;
 
       text-align: center;
 
@@ -115,7 +114,7 @@
       .byline {
         :global {
           a {
-            color: var(--theme-colour-text-primary);
+            @include text-primary;
             text-decoration: none;
           }
         }
@@ -124,7 +123,7 @@
       .dateline-container {
         text-transform: uppercase;
 
-        color: var(--theme-colour-text-secondary);
+        @include text-secondary;
         font-size: 0.8rem;
         line-height: 1.2rem;
         letter-spacing: 0.2px;

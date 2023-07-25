@@ -1,7 +1,8 @@
-@import '../fonts/mixins';
-@import '../fonts/variables';
-@import '../typography_old/font-size';
-@import '../colours/thematic/tr';
+// @import '../fonts/mixins';
+// @import '../fonts/variables';
+// @import '../typography_old/font-size';
+// @import '../colours/thematic/tr';
+@use '../../mixins' as *;
 
 @mixin body-text {
   h2,
@@ -12,7 +13,7 @@
   p,
   li,
   blockquote {
-    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+    @include text-primary;
   }
 
   p,
@@ -21,10 +22,9 @@
   ol li,
   ol li p {
     -webkit-font-smoothing: antialiased;
-    font-family: var(--theme-font-family-body, $font-family-serif);
-    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
-
-    @extend .paragraph-size;
+    @include font-serif;
+    @include text-primary;
+    @include text-base;
 
     a {
       color: currentColor;
@@ -53,15 +53,6 @@
     margin: 4rem 0 2rem;
     text-align: center;
     font-weight: 600;
-
-    &::after {
-      display: block;
-      content: '';
-      background: var(--theme-colour-text-secondary, var(--tr-medium-grey));
-      height: 3px;
-      width: 100px;
-      margin: 10px auto 2rem;
-    }
   }
 
   ul {

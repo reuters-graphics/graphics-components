@@ -64,29 +64,34 @@
     first.getDate() === second.getDate();
 </script>
 
-<Block id="{id}" class="headline-container {cls}" width="normal">
+<Block id="{id}" class="headline-container !my-16 {cls}" width="normal">
   <header class="headline">
     <div class="title">
       {#if section}
-        <p class="section-title">
+        <p
+          class="section-title mb-2 font-subhed text-sm text-secondary font-bold"
+        >
           {#if sectionUrl}
-            <a href="{sectionUrl}">{section}</a>
+            <a class="no-underline !text-secondary" href="{sectionUrl}"
+              >{section}</a
+            >
           {:else}
             {section}
           {/if}
         </p>
       {/if}
       {#if hed}
-        <h1>{hed}</h1>
+        <h1 class="my-0 font-hed text-primary leading-none text-3xl">{hed}</h1>
       {/if}
     </div>
-    <aside class="article-metadata">
+    <aside class="article-metadata mt-2 font-subhed">
       <div class="byline-container">
-        <div class="byline">
+        <div class="byline text-primary font-bold leading-tight">
           By
           {#if authors.length > 0}
             {#each authors as author, i}
               <a
+                class="no-underline"
                 href="https://www.reuters.com/authors/{slugify(author.trim(), {
                   lower: true,
                 })}/"
@@ -101,7 +106,9 @@
           {/if}
         </div>
       </div>
-      <div class="dateline-container">
+      <div
+        class="dateline-container mt-1.5 text-secondary text-xxs uppercase leading-normal tracking-normal"
+      >
         {#if isValidDate(publishTime)}
           <div>
             Published
@@ -136,96 +143,10 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-
-  :global(div.article-block.headline-container) {
-    margin: 4rem auto;
-  }
-
-  // Official styles
-  header.headline {
-    text-align: center;
-    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
-
-    h1 {
-      text-align: left;
-      font-size: 3rem;
-      line-height: 1.14;
-      margin: 0.6rem 0;
-      font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
-      @media (max-width: 900px) {
-        font-size: 2.6rem;
-      }
-      @media (max-width: 600px) {
-        font-size: 2.1rem;
-        font-weight: 500;
-      }
-    }
-
-    p {
-      font-family: var(--theme-font-family-subhed, $font-family-display);
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
-      margin: 0;
-      font-weight: 200;
-
-      &.section-title {
-        font-weight: 800;
-        color: var(--theme-colour-text-secondary, var(--tr-light-grey));
-        text-align: left;
-        font-size: 1.2rem;
-        opacity: 0.8;
-        @media (max-width: 600px) {
-          font-size: 1rem;
-        }
-        a {
-          color: var(--theme-colour-text-secondary, var(--tr-light-grey));
-          text-decoration: none;
-        }
-      }
-    }
-    .article-metadata {
-      padding: 40px 0 0;
-      padding-top: 0;
-      font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
-      text-align: left;
-
-      .byline-container {
-        margin-bottom: 0px;
-      }
-
-      .byline {
-        font-weight: bold;
-        font-weight: 600;
-        font-size: 1rem;
-        line-height: 1.4rem;
-        @media (max-width: 600px) {
-          font-size: 0.9rem;
-          line-height: 1.2rem;
-        }
-        a {
-          color: var(--theme-colour-text-primary, var(--tr-dark-grey));
-          text-decoration: none;
-          white-space: nowrap;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-
-      .dateline-container {
-        text-transform: uppercase;
-        color: var(--theme-colour-text-secondary, var(--tr-medium-grey));
-        font-size: 0.8rem;
-        line-height: 1.1rem;
-        letter-spacing: 0.3px;
-        margin-top: 0.5rem;
-        @media (max-width: 600px) {
-          font-size: 0.75rem;
-          line-height: 1.05rem;
-        }
-      }
+  .byline a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
     }
   }
 </style>

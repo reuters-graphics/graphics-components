@@ -38,7 +38,7 @@
   args="{{
     section: 'Graphics',
     sectionUrl: 'https://graphics.reuters.com',
-    hed: 'Ukraine makes surprising gains in swift counteroffensive',
+    hed: 'Ukraine makes surprising gains in counteroffensive',
     authors: [
       'Dea Bankova',
       'Michael Ovaska',
@@ -59,6 +59,3 @@
     publishTime="{content.Published}"
   />
 </Story>
-
-<style lang="scss">
-</style>

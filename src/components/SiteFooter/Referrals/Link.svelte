@@ -25,7 +25,7 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   a {
     text-decoration: none;
@@ -53,7 +53,7 @@
     }
 
     p {
-      @include font-display;
+      @include font-sans;
 
       color: var(--nav-primary, #666);
       font-size: 0.9rem;

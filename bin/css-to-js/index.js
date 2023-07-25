@@ -131,7 +131,15 @@ const capitalize = function capitalize(str) {
 };
 
 const sanitize = function sanitize(name) {
-  return name.replace(/\*/g, 'all-children').replace(/#/g, '$').replace(/\s\s+/g, ' ').replace(/[^a-zA-Z0-9$]/g, '_').replace(/^_+/g, '').replace(/_+$/g, '');
+  return name
+    .replace(/\*/g, 'all-children')
+    .replace(/#/g, '$')
+    .replace(/\s\s+/g, ' ')
+    .replace(/(\d)\\\.(\d)/g, '$1|$2') // Added for escaped dots like ".mb-0\.5"
+    .replace(/[^a-zA-Z0-9$|]/g, '_')
+    .replace(/^_+/g, '')
+    .replace(/_+$/g, '')
+    .replace('|', '.');
 };
 
 const fontface = function fontface(rule, result) {

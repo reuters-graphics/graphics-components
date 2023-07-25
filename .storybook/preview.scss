@@ -10,6 +10,9 @@ table.docblock-argstable {
 }
 
 div.sbdocs-content {
+  h1 {
+    font-family: 'Knowledge', sans-serif;
+  }
   & > h2, & > div > div > h2 {
     margin-top: 4rem;
     margin-bottom: 2rem;
@@ -34,15 +37,38 @@ div.sbdocs-content {
       line-height: 22px;
     }
   }
+
+  & > div > :where(p, ul, ol),
+  .sb-anchor > div > :where(p, ul, ol) {
+    font-size: 18px;
+    line-height: 29px;
+    font-family: 'Knowledge', sans-serif;
+  
+    .highlight {
+      background-color: rgb(254, 254, 160);
+      padding: 0 4px;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    a {
+      font-family: 'Knowledge', sans-serif;
+      color: #0071a1;
+      text-decoration: none;
+      text-underline-offset: 2px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
-.sbdocs {
+.sbdocs-content div.sbdocs:not(.sb-unstyled) {
   font-family: 'Knowledge', sans-serif;
 
   h1 {
     font-family: 'Knowledge', sans-serif;
   }
-
   p, ul, li {
     font-size: 18px;
     line-height: 29px;
@@ -56,7 +82,6 @@ div.sbdocs-content {
       font-weight: bold;
     }
   }
-
   a {
     font-family: 'Knowledge', sans-serif;
     color: #0071a1;

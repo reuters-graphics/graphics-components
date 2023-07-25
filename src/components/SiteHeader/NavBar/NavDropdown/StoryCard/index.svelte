@@ -35,7 +35,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../../../../scss/fonts/mixins';
+  @import '../../../../../scss/mixins';
 
   .story-card a {
     display: flex;
@@ -66,7 +66,7 @@
         color: var(--nav-primary, var(--tr-dark-grey));
         font-size: 16px;
         font-weight: 500;
-        @include font-display;
+        @include font-sans;
         @media (min-width: 1300px) {
           font-size: 18px;
         }
@@ -81,7 +81,7 @@
       }
 
       time {
-        @include font-display;
+        @include font-sans;
         margin-top: 8px;
         display: block;
         font-size: 12px;

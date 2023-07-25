@@ -6,6 +6,10 @@ export default {
       'sans-serif': 'Knowledge, sans-serif',
       monospace:
         'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+      hed: 'var(--theme-font-family-sans-serif)',
+      subhed: 'var(--theme-font-family-sans-serif)',
+      body: 'var(--theme-font-family-serif)',
+      note: 'var(--theme-font-family-sans-serif)',
     },
     size: {
       xxs: 'clamp(0.79rem, -0.2vw + 0.83rem, 0.67rem)',

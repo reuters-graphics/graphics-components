@@ -50,7 +50,7 @@
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
 
-  @import '../../scss/fonts/mixins';
+  @import '../../scss/mixins';
   .content-container {
     @include max-width;
 
@@ -149,7 +149,7 @@
       }
     }
     p {
-      @include font-display;
+      @include font-sans;
       line-height: 1.43;
       font-size: 14px;
       color: var(--nav-primary);

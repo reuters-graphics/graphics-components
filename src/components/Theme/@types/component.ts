@@ -12,6 +12,10 @@ interface FontFamily {
   'serif': string,
   'sans-serif': string,
   'monospace': string,
+  hed: string,
+  subhed: string,
+  body: string,
+  note: string,
 }
 
 interface FontSize {

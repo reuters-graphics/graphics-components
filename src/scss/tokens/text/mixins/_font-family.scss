@@ -7,6 +7,18 @@
 @mixin font-mono {
   font-family: var(--theme-font-family-monospace);
 }
+@mixin font-hed {
+  font-family: var(--theme-font-family-hed);
+}
+@mixin font-subhed {
+  font-family: var(--theme-font-family-subhed);
+}
+@mixin font-body {
+  font-family: var(--theme-font-family-body);
+}
+@mixin font-note {
+  font-family: var(--theme-font-family-note);
+}
 @mixin \!font-serif {
   font-family: var(--theme-font-family-serif) !important;
 }
@@ -15,4 +27,16 @@
 }
 @mixin \!font-mono {
   font-family: var(--theme-font-family-monospace) !important;
+}
+@mixin \!font-hed {
+  font-family: var(--theme-font-family-hed) !important;
+}
+@mixin \!font-subhed {
+  font-family: var(--theme-font-family-subhed) !important;
+}
+@mixin \!font-body {
+  font-family: var(--theme-font-family-body) !important;
+}
+@mixin \!font-note {
+  font-family: var(--theme-font-family-note) !important;
 }

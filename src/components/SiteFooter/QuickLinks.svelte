@@ -121,7 +121,7 @@
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
 
-  @import '../../scss/fonts/mixins';
+  @import '../../scss/mixins';
 
   .content-container {
     @include max-width;
@@ -147,7 +147,7 @@
         display: flex;
         align-items: center;
         margin: 8px 0;
-        @include font-display;
+        @include font-sans;
         a {
           color: var(--nav-primary);
           font-weight: 500;

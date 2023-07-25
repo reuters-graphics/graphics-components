@@ -58,7 +58,7 @@
   @import '../scss/_grids.scss';
   @import '../scss/_colors.scss';
   @import '../scss/_z-indexes.scss';
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   $mobile-nav-height: 56px;
 
@@ -157,7 +157,7 @@
 
     .section-link,
     .subsection-link {
-      @include font-display;
+      @include font-sans;
       text-decoration: none;
       line-height: 1.2;
       color: var(--nav-primary);

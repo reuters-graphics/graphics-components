@@ -47,6 +47,7 @@
     --nav-background: var(--theme-colour-background, #fff);
     --nav-primary: var(--theme-colour-text-primary, #404040);
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
+    --theme-font-family-sans-serif: Knowledge, sans-serif;
   `}"
 >
   <div>

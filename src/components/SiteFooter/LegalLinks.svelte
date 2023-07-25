@@ -47,7 +47,7 @@
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
 
-  @import '../../scss/fonts/mixins';
+  @import '../../scss/mixins';
 
   .content-container {
     @include max-width;
@@ -140,7 +140,7 @@
       list-style: none;
       align-items: center;
       a {
-        @include font-display;
+        @include font-sans;
         color: var(--nav-primary);
         font-size: 14px;
         font-weight: 500;
@@ -156,7 +156,7 @@
   p.copyright,
   p.disclaimer {
     margin: 0;
-    @include font-display;
+    @include font-sans;
     font-size: 14px;
     color: var(--nav-primary);
     a {

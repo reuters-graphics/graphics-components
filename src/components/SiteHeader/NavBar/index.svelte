@@ -124,7 +124,7 @@
   @import './../scss/_colors.scss';
   @import './../scss/_breakpoints.scss';
   @import './../scss/_z-indexes.scss';
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;
@@ -146,7 +146,7 @@
   .nav-item {
     display: inline-flex;
     padding: 0 10px;
-    @include font-display;
+    @include font-sans;
     font-weight: 500;
     font-size: 16px;
 
@@ -219,7 +219,7 @@
     background-color: unset;
     appearance: none;
     cursor: pointer;
-    @include font-display;
+    @include font-sans;
     font-weight: 500;
     font-size: 16px;
     color: var(--nav-primary, var(--tr-dark-grey));

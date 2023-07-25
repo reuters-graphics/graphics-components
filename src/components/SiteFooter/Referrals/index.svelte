@@ -19,7 +19,6 @@
 </IntersectionObserver>
 
 <style lang="scss">
-  @import '../../../scss/fonts/mixins';
   @import '../../SiteHeader/scss/_breakpoints.scss';
   @import '../../SiteHeader/scss/_grids.scss';
 
