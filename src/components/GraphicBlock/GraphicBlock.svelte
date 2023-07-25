@@ -135,11 +135,11 @@
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
   @import '../../scss/mixins';
-  div {
-    :global {
-      @include graphic-text;
-    }
-  }
+  // div {
+  //   :global {
+  //     @include graphic-text;
+  //   }
+  // }
 
   .visually-hidden {
     @include visually-hidden;

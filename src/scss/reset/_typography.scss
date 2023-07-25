@@ -22,6 +22,8 @@ h1 {
   @include font-hed;
   @include text-3xl;
   @include leading-none;
+  margin-block-start: calc(var(--theme-font-size-base) * 1.5);
+  margin-block-end: calc(var(--theme-font-size-base) * 0.75);
 }
 h2,
 h3,
