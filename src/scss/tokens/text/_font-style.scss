@@ -1,14 +1,12 @@
-@use 'extenders/font-style';
-
 .italic {
-  @extend %italic;
+  font-style: italic;
 }
 .not-italic {
-  @extend %not-italic;
+  font-style: normal;
 }
 .\!italic {
-  @extend %\!italic;
+  font-style: italic !important;
 }
 .\!not-italic {
-  @extend %\!not-italic;
+  font-style: normal !important;
 }

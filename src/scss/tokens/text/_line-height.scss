@@ -1,38 +1,38 @@
-@use 'extenders/line-height';
+@use 'mixins/line-height' as *;
 
 .leading-none {
-  @extend %leading-none;
+  @include leading-none;
 }
 .leading-tighter {
-  @extend %leading-tighter;
+  @include leading-tighter;
 }
 .leading-tight {
-  @extend %leading-tight;
+  @include leading-tight;
 }
 .leading-normal {
-  @extend %leading-normal;
+  @include leading-normal;
 }
 .leading-loose {
-  @extend %leading-loose;
+  @include leading-loose;
 }
 .leading-looser {
-  @extend %leading-looser;
+  @include leading-looser;
 }
 .\!leading-none {
-  @extend %\!leading-none;
+  @include \!leading-none;
 }
 .\!leading-tighter {
-  @extend %\!leading-tighter;
+  @include \!leading-tighter;
 }
 .\!leading-tight {
-  @extend %\!leading-tight;
+  @include \!leading-tight;
 }
 .\!leading-normal {
-  @extend %\!leading-normal;
+  @include \!leading-normal;
 }
 .\!leading-loose {
-  @extend %\!leading-loose;
+  @include \!leading-loose;
 }
 .\!leading-looser {
-  @extend %\!leading-looser;
+  @include \!leading-looser;
 }

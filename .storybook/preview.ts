@@ -53,25 +53,23 @@ export const parameters = {
         'Styles',
         [
           'Intro',
-          'Typography', [
-            'Main',
-            'Intro',
-            'Using the type system',
-            '*',
-          ],
-          'Layout', [
-            'Main',
-            'Spacers',
-            'Flexbox',
-            '*',
-          ],
-          'Borders',
           'Colours', [
             'Intro',
             'Primary',
             'Thematic',
             '*',
-          ]
+          ],
+          'Tokens', [
+            'Intro',
+            'Typography',
+            '*',
+            'Layout', [
+              'Main',
+              'Spacers',
+              'Flexbox',
+              '*',
+            ],
+          ],
         ],
         'Actions',
         ['Intro', '*'],

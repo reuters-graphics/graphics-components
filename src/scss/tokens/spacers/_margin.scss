@@ -1,66 +1,84 @@
-@use 'extenders/margin';
+$margin-levels: (
+  '0': 0,
+  '1': 1rem,
+  '2': 2rem,
+  '3': 3rem,
+  '4': 4rem,
+  '5': 5rem,
+  '6': 6rem,
+  '7': 7rem,
+  '8': 8rem,
+);
 
 @each $level, $value in $margin-levels {
   .m-#{$level} {
-    @extend %m-#{$level};
+    margin: $value;
   }
   .mt-#{$level} {
-    @extend %mt-#{$level};
+    margin-top: $value;
   }
   .mr-#{$level} {
-    @extend %mr-#{$level};
+    margin-right: $value;
   }
   .mb-#{$level} {
-    @extend %mb-#{$level};
+    margin-bottom: $value;
   }
   .ml-#{$level} {
-    @extend %ml-#{$level};
+    margin-left: $value;
   }
   .mx-#{$level} {
-    @extend %mx-#{$level};
+    margin-right: $value;
+    margin-left: $value;
   }
   .my-#{$level} {
-    @extend %my-#{$level};
+    margin-top: $value;
+    margin-bottom: $value;
   }
 
-  .\!m-#{$level} {
-    @extend %\!m-#{$level};
+  .\!m-#{$level}\! {
+    margin: $value !important;
   }
   .\!mt-#{$level} {
-    @extend %\!mt-#{$level};
+    margin-top: $value !important;
   }
   .\!mr-#{$level} {
-    @extend %\!mr-#{$level};
+    margin-right: $value !important;
   }
   .\!mb-#{$level} {
-    @extend %\!mb-#{$level};
+    margin-bottom: $value !important;
   }
   .\!ml-#{$level} {
-    @extend %\!ml-#{$level};
+    margin-left: $value !important;
   }
   .\!mx-#{$level} {
-    @extend %\!mx-#{$level};
+    margin-right: $value !important;
+    margin-left: $value !important;
   }
   .\!my-#{$level} {
-    @extend %\!my-#{$level};
+    margin-top: $value !important;
+    margin-bottom: $value !important;
   }
 }
 
 .m-auto {
-  @extend %m-auto;
+  margin: auto;
 }
 .mx-auto {
-  @extend %mx-auto;
+  margin-right: auto;
+  margin-left: auto;
 }
 .my-auto {
-  @extend %my-auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .\!m-auto {
-  @extend %\!m-auto;
+  margin: auto !important;
 }
 .\!mx-auto {
-  @extend %\!mx-auto;
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
 .\!my-auto {
-  @extend %\!my-auto;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
 }

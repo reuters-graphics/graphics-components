@@ -1,68 +1,68 @@
-@use 'extenders/font-size';
+@use 'mixins/font-size' as *;
 
 .text-xxs {
-  @extend %text-xxs;
+  @include text-xxs;
 }
 .text-xs {
-  @extend %text-xs;
+  @include text-xs;
 }
 .text-sm {
-  @extend %text-sm;
+  @include text-sm;
 }
 .text-base {
-  @extend %text-base;
+  @include text-base;
 }
 .text-lg {
-  @extend %text-lg;
+  @include text-lg;
 }
 .text-xl {
-  @extend %text-xl;
+  @include text-xl;
 }
 .text-2xl {
-  @extend %text-2xl;
+  @include text-2xl;
 }
 .text-3xl {
-  @extend %text-3xl;
+  @include text-3xl;
 }
 .text-4xl {
-  @extend %text-4xl;
+  @include text-4xl;
 }
 .text-5xl {
-  @extend %text-5xl;
+  @include text-5xl;
 }
 .text-6xl {
-  @extend %text-6xl;
+  @include text-6xl;
 }
 .\!text-xxs {
-  @extend %\!text-xxs;
+  @include \!text-xxs;
 }
 .\!text-xs {
-  @extend %\!text-xs;
+  @include \!text-xs;
 }
 .\!text-sm {
-  @extend %\!text-sm;
+  @include \!text-sm;
 }
 .\!text-base {
-  @extend %\!text-base;
+  @include \!text-base;
 }
 .\!text-lg {
-  @extend %\!text-lg;
+  @include \!text-lg;
 }
 .\!text-xl {
-  @extend %\!text-xl;
+  @include \!text-xl;
 }
 .\!text-2xl {
-  @extend %\!text-2xl;
+  @include \!text-2xl;
 }
 .\!text-3xl {
-  @extend %\!text-3xl;
+  @include \!text-3xl;
 }
 .\!text-4xl {
-  @extend %\!text-4xl;
+  @include \!text-4xl;
 }
 .\!text-5xl {
-  @extend %\!text-5xl;
+  @include \!text-5xl;
 }
 .\!text-6xl {
-  @extend %\!text-6xl;
+  @include \!text-6xl;
 }

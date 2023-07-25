@@ -1,0 +1,18 @@
+@mixin font-serif {
+  font-family: var(--theme-font-family-serif);
+}
+@mixin font-sans {
+  font-family: var(--theme-font-family-sans-serif);
+}
+@mixin font-mono {
+  font-family: var(--theme-font-family-monospace);
+}
+@mixin \!font-serif {
+  font-family: var(--theme-font-family-serif) !important;
+}
+@mixin \!font-sans {
+  font-family: var(--theme-font-family-sans-serif) !important;
+}
+@mixin \!font-mono {
+  font-family: var(--theme-font-family-monospace) !important;
+}

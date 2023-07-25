@@ -2,7 +2,7 @@ import { compileString } from 'sass';
 import { convert } from '../../../bin/css-to-js/index.js';
 import { kebabCase } from 'lodash-es';
 
-export const cssStringToTableArray = (cssString) => {
+export const cssStringToTableArray = (cssString, withInclude = false) => {
   const cssObj = convert(compileString(cssString).css);
   return Object.entries(cssObj).map(([key, value]) => {
     const className = key.replace(/_/g, '-');
@@ -14,7 +14,9 @@ export const cssStringToTableArray = (cssString) => {
         )};`;
       })
       .join('\n');
-    return [className, properties];
+    return withInclude
+      ? [className, className, properties]
+      : [className, properties];
   });
 };
 

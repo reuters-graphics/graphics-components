@@ -1,56 +1,56 @@
-@use 'extenders/font-weight';
+@use 'mixins/font-weight' as *;
 
 .font-thin {
-  @extend %font-thin;
+  @include font-thin;
 }
 .font-extralight {
-  @extend %font-extralight;
+  @include font-extralight;
 }
 .font-light {
-  @extend %font-light;
+  @include font-light;
 }
 .font-normal {
-  @extend %font-normal;
+  @include font-normal;
 }
 .font-medium {
-  @extend %font-medium;
+  @include font-medium;
 }
 .font-semibold {
-  @extend %font-semibold;
+  @include font-semibold;
 }
 .font-bold {
-  @extend %font-bold;
+  @include font-bold;
 }
 .font-extrabold {
-  @extend %font-extrabold;
+  @include font-extrabold;
 }
 .font-black {
-  @extend %font-black;
+  @include font-black;
 }
 .\!font-thin {
-  @extend %\!font-thin;
+  @include \!font-thin;
 }
 .\!font-extralight {
-  @extend %\!font-extralight;
+  @include \!font-extralight;
 }
 .\!font-light {
-  @extend %\!font-light;
+  @include \!font-light;
 }
 .\!font-normal {
-  @extend %\!font-normal;
+  @include \!font-normal;
 }
 .\!font-medium {
-  @extend %\!font-medium;
+  @include \!font-medium;
 }
 .\!font-semibold {
-  @extend %\!font-semibold;
+  @include \!font-semibold;
 }
 .\!font-bold {
-  @extend %\!font-bold;
+  @include \!font-bold;
 }
 .\!font-extrabold {
-  @extend %\!font-extrabold;
+  @include \!font-extrabold;
 }
 .\!font-black {
-  @extend %\!font-black;
+  @include \!font-black;
 }

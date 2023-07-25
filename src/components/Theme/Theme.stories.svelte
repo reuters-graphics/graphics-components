@@ -106,7 +106,6 @@
 </Story>
 
 <style lang="scss">
-  @import '../../scss/fonts/mixins';
   div.themed {
     background-color: var(--theme-colour-background);
     padding: 2rem;

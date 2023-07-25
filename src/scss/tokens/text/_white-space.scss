@@ -1,14 +1,12 @@
-@use 'extenders/white-space';
-
 .whitespace-normal {
-  @extend %whitespace-normal;
+  white-space: normal;
 }
 .whitespace-nowrap {
-  @extend %whitespace-nowrap;
+  white-space: nowrap;
 }
 .\!whitespace-normal {
-  @extend %\!whitespace-normal;
+  white-space: normal !important;
 }
 .\!whitespace-nowrap {
-  @extend %\!whitespace-nowrap;
+  white-space: nowrap !important;
 }

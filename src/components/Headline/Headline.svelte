@@ -69,8 +69,8 @@
 </Block>
 
 <style lang="scss">
-  @use '../../scss/extenders';
-  @import '../../scss/fonts/variables';
+  @use '../../scss/mixins' as *;
+  // @import '../../scss/fonts/variables';
 
   header.headline {
     text-align: center;
@@ -84,12 +84,12 @@
         margin: 5px 0;
         line-height: 1.2;
         // font-family: var(--theme-font-family-hed, $font-family-display);
-        @extend %font-sans;
+        @include font-sans;
         color: var(--theme-colour-text-primary);
       }
 
       p {
-        font-family: var(--theme-font-family-subhed, $font-family-display);
+        font-family: var(--theme-font-family-subhed);
         color: var(--theme-colour-text-primary);
         margin: 0;
         font-weight: 200;
@@ -103,7 +103,7 @@
     }
     .article-metadata {
       padding: 40px 0;
-      font-family: var(--theme-font-family-note, $font-family-display);
+      font-family: var(--theme-font-family-note);
       color: var(--theme-colour-text-primary);
 
       text-align: center;

@@ -1,0 +1,5 @@
+@use 'mixins/visibility' as *;
+
+.visually-hidden {
+  @include visually-hidden;
+}

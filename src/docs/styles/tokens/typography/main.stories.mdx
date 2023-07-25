@@ -1,0 +1,155 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../../utils/parseCss';
+
+{/* @ts-ignore */}
+import color from '$lib/scss/tokens/text/\_color.scss?inline';
+
+{/* @ts-ignore */}
+import fontFamily from '$lib/scss/tokens/text/\_font-family.scss?inline';
+
+{/* @ts-ignore */}
+import fontSize from '$lib/scss/tokens/text/\_font-size.scss?inline';
+
+{/* @ts-ignore */}
+import fontStyle from '$lib/scss/tokens/text/\_font-style.scss?inline';
+
+{/* @ts-ignore */}
+import fontWeight from '$lib/scss/tokens/text/\_font-weight.scss?inline';
+
+{/* @ts-ignore */}
+import letterSpacing from '$lib/scss/tokens/text/\_letter-spacing.scss?inline';
+
+{/* @ts-ignore */}
+import lineHeight from '$lib/scss/tokens/text/\_line-height.scss?inline';
+
+{/* @ts-ignore */}
+import textAlign from '$lib/scss/tokens/text/\_text-align.scss?inline';
+
+{/* @ts-ignore */}
+import textDecoration from '$lib/scss/tokens/text/\_text-decoration.scss?inline';
+
+{/* @ts-ignore */}
+import textTransform from '$lib/scss/tokens/text/\_text-transform.scss?inline';
+
+{/* @ts-ignore */}
+import verticalAlign from '$lib/scss/tokens/text/\_vertical-align.scss?inline';
+
+{/* @ts-ignore */}
+import whiteSpace from '$lib/scss/tokens/text/\_white-space.scss?inline';
+
+{/* @ts-ignore */}
+import wordBreak from '$lib/scss/tokens/text/\_word-break.scss?inline';
+
+import './styles.scss';
+
+<Meta title="Styles/Tokens/Typography" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Typography tokens
+
+<CopyTable
+  title="Colour"
+  mdnLink="color"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(color, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Font family"
+  mdnLink="font-family"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(fontFamily, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Font size"
+  mdnLink="font-size"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(fontSize, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Font style"
+  mdnLink="font-style"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(fontStyle)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Font weight"
+  mdnLink="font-weight"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(fontWeight, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Letter spacing"
+  mdnLink="letter-spacing"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(letterSpacing, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Line height"
+  mdnLink="line-height"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(lineHeight, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Text align"
+  mdnLink="text-align"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(textAlign)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Text decoration"
+  mdnLink="text-decoration"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(textDecoration)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Text transform"
+  mdnLink="text-transform"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(textTransform)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Vertical align"
+  mdnLink="vertical-align"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(verticalAlign)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="White space"
+  mdnLink="white-space"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(whiteSpace)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Word break"
+  mdnLink="word-break"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(wordBreak)}
+  copyable={[true, false]}
+/>

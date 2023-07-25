@@ -1,0 +1,36 @@
+@mixin leading-none {
+  line-height: 1;
+}
+@mixin leading-tighter {
+  line-height: 1.125;
+}
+@mixin leading-tight {
+  line-height: 1.25;
+}
+@mixin leading-normal {
+  line-height: 1.5;
+}
+@mixin leading-loose {
+  line-height: 1.75;
+}
+@mixin leading-looser {
+  line-height: 1.875;
+}
+@mixin \!leading-none {
+  line-height: 1 !important;
+}
+@mixin \!leading-tighter {
+  line-height: 1.125 !important;
+}
+@mixin \!leading-tight {
+  line-height: 1.25 !important;
+}
+@mixin \!leading-normal {
+  line-height: 1.5 !important;
+}
+@mixin \!leading-loose {
+  line-height: 1.75 !important;
+}
+@mixin \!leading-looser {
+  line-height: 1.875 !important;
+}

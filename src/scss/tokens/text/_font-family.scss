@@ -1,20 +1,20 @@
-@import 'extenders/font-family';
+@use 'mixins/font-family' as *;
 
 .font-serif {
-  @extend %font-serif;
+  @include font-serif;
 }
 .font-sans {
-  @extend %font-sans;
+  @include font-sans;
 }
 .font-mono {
-  @extend %font-mono;
+  @include font-mono;
 }
 .\!font-serif {
-  @extend %\!font-serif;
+  @include \!font-serif;
 }
 .\!font-sans {
-  @extend %\!font-sans;
+  @include \!font-sans;
 }
 .\!font-mono {
-  @extend %\!font-mono;
+  @include \!font-mono;
 }

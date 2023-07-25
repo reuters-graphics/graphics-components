@@ -42,11 +42,3 @@
     <slot />
   </div>
 </div>
-
-<style lang="scss">
-  @media (max-width: 510px) {
-    div.theme {
-      --theme-scale-size-base: var(--theme-scale-size-base-mobile);
-    }
-  }
-</style>

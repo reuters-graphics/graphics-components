@@ -1,38 +1,38 @@
-@use 'extenders/letter-spacing';
+@use 'mixins/letter-spacing' as *;
 
 .tracking-tighter {
-  @extend %tracking-tighter;
+  @include tracking-tighter;
 }
 .tracking-tight {
-  @extend %tracking-tight;
+  @include tracking-tight;
 }
 .tracking-normal {
-  @extend %tracking-normal;
+  @include tracking-normal;
 }
 .tracking-wide {
-  @extend %tracking-wide;
+  @include tracking-wide;
 }
 .tracking-wider {
-  @extend %tracking-wider;
+  @include tracking-wider;
 }
 .tracking-widest {
-  @extend %tracking-widest;
+  @include tracking-widest;
 }
 .\!tracking-tighter {
-  @extend %\!tracking-tighter;
+  @include \!tracking-tighter;
 }
 .\!tracking-tight {
-  @extend %\!tracking-tight;
+  @include \!tracking-tight;
 }
 .\!tracking-normal {
-  @extend %\!tracking-normal;
+  @include \!tracking-normal;
 }
 .\!tracking-wide {
-  @extend %\!tracking-wide;
+  @include \!tracking-wide;
 }
 .\!tracking-wider {
-  @extend %\!tracking-wider;
+  @include \!tracking-wider;
 }
 .\!tracking-widest {
-  @extend %\!tracking-widest;
+  @include \!tracking-widest;
 }

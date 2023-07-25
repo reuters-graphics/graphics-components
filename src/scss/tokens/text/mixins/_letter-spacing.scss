@@ -1,0 +1,36 @@
+@mixin tracking-tighter {
+  letter-spacing: -0.05em;
+}
+@mixin tracking-tight {
+  letter-spacing: -0.025em;
+}
+@mixin tracking-normal {
+  letter-spacing: 0em;
+}
+@mixin tracking-wide {
+  letter-spacing: 0.025em;
+}
+@mixin tracking-wider {
+  letter-spacing: 0.05em;
+}
+@mixin tracking-widest {
+  letter-spacing: 0.1em;
+}
+@mixin \!tracking-tighter {
+  letter-spacing: -0.05em !important;
+}
+@mixin \!tracking-tight {
+  letter-spacing: -0.025em !important;
+}
+@mixin \!tracking-normal {
+  letter-spacing: 0em !important;
+}
+@mixin \!tracking-wide {
+  letter-spacing: 0.025em !important;
+}
+@mixin \!tracking-wider {
+  letter-spacing: 0.05em !important;
+}
+@mixin \!tracking-widest {
+  letter-spacing: 0.1em !important;
+}

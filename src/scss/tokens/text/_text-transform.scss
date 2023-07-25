@@ -1,14 +1,12 @@
-@use 'extenders/text-transform';
-
 .uppercase {
-  @extend %uppercase;
+  text-transform: uppercase;
 }
 .lowercase {
-  @extend %lowercase;
+  text-transform: lowercase;
 }
 .\!uppercase {
-  @extend %\!uppercase;
+  text-transform: uppercase !important;
 }
 .\!lowercase {
-  @extend %\!lowercase;
+  text-transform: lowercase !important;
 }

@@ -6,14 +6,10 @@
  * Copyright 2023 Reuters Graphics Style Guide
  */
 
-// Reset
+// Base style rules
 @use 'reset/main' as reset;
-
-// Font-faces
 @use 'fonts/font-faces' as font-faces;
-
-// Style rules
-@use 'accessibility/main' as accessibility;
-@use 'borders/main' as borders;
 @use 'colours/main' as colours;
-@use 'layout/main' as layout;
+
+// Token classes
+@use 'token-classes' as *;
