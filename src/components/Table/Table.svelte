@@ -204,7 +204,7 @@
 
   /** Boot it up. */
   onMount(() => {
-    data.forEach((d) => {
+    data.forEach((d: any) => {
       // Compose the string we will allow users to search
       d.searchStr = includedFields
         .map((field) => d[field])
@@ -340,26 +340,26 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   .table-wrapper {
     font-size: 1rem;
-    font-family: var(--theme-font-family-hed, $font-family-display);
-    color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+    @include font-sans;
+    @include text-primary;
   }
 
   .table--header {
     width: 100%;
     h2.table--header--title {
       font-weight: 500;
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+      @include text-primary;
       font-size: 1.33rem;
       padding: 0;
       margin: 0.5rem 0;
     }
     p.table--header--dek {
-      font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+      @include font-sans;
+      @include text-primary;
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.4;
@@ -379,10 +379,9 @@
     thead {
       tr {
         th {
-          border-bottom: 1px solid
-            var(--theme-colour-text-primary, var(--tr-medium-grey));
-          color: var(--theme-colour-text-primary, var(--tr-medium-grey));
-          background-color: var(--theme-colour-background, #fff);
+          border-bottom: 1px solid var(--theme-colour-text-primary);
+          @include text-primary;
+          @include bg;
           font-size: 0.85rem;
           font-weight: 500;
           text-align: inherit;
@@ -409,7 +408,7 @@
         border-bottom: 1px solid
           var(--theme-colour-brand-rules, var(--tr-muted-grey));
         &.no-results {
-          color: var(--theme-colour-text-secondary, var(--tr-muted-grey));
+          @include text-secondary;
         }
       }
     }
@@ -420,7 +419,7 @@
       }
       td {
         font-weight: 300;
-        color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+        @include text-primary;
         font-size: 0.8rem;
         padding: 0.5rem 0 0 0;
       }
@@ -465,14 +464,14 @@
     margin-top: 1rem;
     button {
       font-size: 0.8rem;
-      font-family: var(--theme-font-family-hed, $font-family-display);
+      @include font-sans;
       font-weight: 500;
       min-width: 175px;
       padding: 0.33rem 0.5rem;
       border: 1px solid var(--theme-colour-brand-rules, var(--tr-muted-grey));
       border-radius: 4px;
-      background: var(--theme-colour-background);
-      color: var(--theme-colour-text-primary, var(--tr-medium-grey));
+      @include bg;
+      @include text-primary;
       cursor: pointer;
     }
   }

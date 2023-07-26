@@ -130,7 +130,7 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   div.photopack-container {
     display: block;
@@ -151,7 +151,7 @@
           object-fit: cover;
         }
         div.alt-warning {
-          font-family: $font-family-display;
+          @include font-sans;
           padding: 5px 10px;
           background-color: red;
           color: white;
@@ -174,8 +174,8 @@
       :global(p) {
         font-size: 0.85rem;
         line-height: 1.1rem;
-        font-family: var(--theme-font-family-note, $font-family-display);
-        color: var(--theme-colour-text-secondary);
+        @include font-sans;
+        @include text-secondary;
         margin: 0;
         font-weight: 300;
       }

@@ -39,16 +39,16 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   .select {
     width: 256px;
-    font-family: var(--theme-font-family-hed, $font-family-display);
+    @include font-sans;
     label {
       display: block;
       font-size: 0.8rem;
       font-weight: 300;
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+      @include text-primary;
       padding: 0 0 0.125rem 0;
     }
     .select--input {
@@ -58,7 +58,7 @@
       line-height: 1;
       height: 33px;
       border: 1px solid var(--theme-colour-brand-rules, var(--tr-muted-grey));
-      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
+      @include text-primary;
       border-radius: 6px;
       width: 100%;
       padding: 0.5rem;

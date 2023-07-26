@@ -47,7 +47,7 @@ const Cell = (props) => {
 }
 
   const TD = (props) => <td><Cell {...props}>{props.children}</Cell></td>
-const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i}>{c}</TD>))}</tr>
+const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i} key={i}>{c}</TD>))}</tr>
 const TH = (props) => <th>{props.children}</th>;
 
 const CopyTable = ({ title = null, body, copyable, mdnLink = null, included = false, partial }) => {
@@ -61,11 +61,11 @@ const CopyTable = ({ title = null, body, copyable, mdnLink = null, included = fa
       <table className={classes.table}>
         <thead>
           <tr>
-            {header.map(h => (<TH>{h}</TH>))}
+            {header.map(h => (<TH key={h}>{h}</TH>))}
           </tr>
         </thead>
         <tbody>
-          {body.map(b => (<TR {...{ title, header, body, copyable, mdnLink}}>{b}</TR>))}
+          {body.map((b, i) => (<TR {...{ title, header, body, copyable, mdnLink}} key={i}>{b}</TR>))}
         </tbody>
       </table>
     </Unstyled>

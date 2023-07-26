@@ -65,7 +65,7 @@
 </nav>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   nav.pagination {
     display: flex;
@@ -75,8 +75,8 @@
     button {
       border: 1px solid var(--theme-colour-text-secondary, var(--tr-light-grey));
       border-radius: 50%;
-      background: var(--theme-color-background);
-      color: var(--theme-colour-text-secondary, var(--tr-light-grey));
+      @include bg;
+      @include text-secondary;
       cursor: pointer;
       width: 35px;
       height: 35px;
@@ -95,7 +95,7 @@
         justify-content: center;
         white-space: nowrap;
         &:hover {
-          color: var(--theme-colour-text-primary, var(--tr-medium-grey));
+          @include text-primary;
           border-color: var(--theme-colour-text-primary, var(--tr-medium-grey));
         }
       }
@@ -109,10 +109,10 @@
       margin: 0 0.5rem;
       .records {
         font-size: 0.8rem;
-        font-family: var(--theme-font-family-hed, $font-family-display);
+        @include font-sans;
         font-weight: 300;
         margin: 0 1rem;
-        color: var(--theme-colour-text-primary, var(--tr-medium-grey));
+        @include text-primary;
       }
     }
   }

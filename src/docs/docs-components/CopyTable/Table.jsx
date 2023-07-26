@@ -4,7 +4,7 @@ import { Unstyled } from '@storybook/blocks';
 // @ts-ignore
 import classes from './styles.module.scss';
 
-const MultiLine = (props) => props.children.split('\n').map(t => (<div>{t}</div>))
+const MultiLine = (props) => props.children.split('\n').map(t => (<div key={t}>{t}</div>))
 
 const Copyable = (props) => {
   const handleClick = async(props) => {
@@ -32,7 +32,7 @@ const Copyable = (props) => {
 }
 
   const TD = (props) => <td><Copyable {...props}>{props.children}</Copyable></td>
-const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i}>{c}</TD>))}</tr>
+const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i} key={i}>{c}</TD>))}</tr>
 const TH = (props) => <th>{props.children}</th>;
 
 const CopyTable = ({ title = null, header, body, copyable, mdnLink = null }) => {
@@ -49,11 +49,11 @@ const CopyTable = ({ title = null, header, body, copyable, mdnLink = null }) => 
       <table className={classes.table}>
         <thead>
           <tr>
-            {header.map(h => (<TH>{h}</TH>))}
+            {header.map(h => (<TH key={h}>{h}</TH>))}
           </tr>
         </thead>
         <tbody>
-          {body.map(b => (<TR {...{ title, header, body, copyable, mdnLink}}>{b}</TR>))}
+          {body.map((b, i) => (<TR {...{ title, header, body, copyable, mdnLink}} key={i}>{b}</TR>))}
         </tbody>
       </table>
     </Unstyled>

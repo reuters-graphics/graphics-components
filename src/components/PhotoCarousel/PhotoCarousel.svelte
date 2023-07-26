@@ -175,7 +175,7 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   .carousel-container {
     margin-bottom: 10px;
@@ -201,7 +201,7 @@
           letter-spacing: 0.75px;
           text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333,
             1px 1px 0 #333;
-          font-family: var(--theme-font-family-note);
+          @include font-note;
           &.contain-fit {
             left: 50%;
             transform: translate(-50%, 0%);
@@ -232,12 +232,12 @@
           border: 1px solid transparent;
           border-radius: 50%;
           background-color: transparent;
-          color: var(--theme-colour-text-secondary);
+          @include text-secondary;
           opacity: 0.4;
           &:hover {
             opacity: 1;
             border-color: var(--theme-colour-text-secondary);
-            color: var(--theme-colour-text-secondary);
+            @include text-secondary;
           }
           &:disabled {
             opacity: 0.4;
@@ -274,8 +274,8 @@
     }
     p.caption {
       margin: 5px 0 0;
-      font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-secondary);
+      @include font-note;
+      @include text-secondary;
       font-size: 0.85rem;
       line-height: 1.1rem;
       font-weight: 300;

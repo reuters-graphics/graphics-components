@@ -70,7 +70,6 @@
 
 <style lang="scss">
   @use '../../scss/mixins' as *;
-  // @import '../../scss/fonts/variables';
 
   header.headline {
     text-align: center;

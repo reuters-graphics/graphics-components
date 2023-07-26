@@ -20,6 +20,14 @@ export const cssStringToTableArray = (cssString, withInclude = false) => {
   });
 };
 
+export const scssVariablesToTableArray = (scssString) => {
+  const regExp = /^(\$[a-zA-Z0-9-_]+):\s*(.+)$/gm;
+  const matches = scssString.matchAll(regExp);
+  return Array.from(matches).map((match) => {
+    return [match[1], match[2]];
+  });
+};
+
 export const extractCssColourVariables = (cssString) => {
   const variableRegexp = /(--[a-zA-Z][a-zA-Z0-9-]+):\s*(.+);/g;
   const cssVariables = [...cssString.matchAll(variableRegexp)].map(

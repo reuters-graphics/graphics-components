@@ -27,9 +27,9 @@ Spacers include tokens that control static and fluid margins and paddings.
 
 **Static** margin/padding tokens set values that don't change with the size of the viewport. These tokens are best for creating space between block-like elements — divs, pictures, videos, graphics, etc. The tables below contain dozens of levels so you can finely tune spacing, but their values also are at intervals that help you maintain consistent balance on your page.
 
-**Fluid** token values _do change_ depending on the size of the device and are specifically designed to pair with our fluid font sizes. These tokes have fewer available levels to help make sure our typography is consistent.
+**Fluid** token values _do change_ depending on the size of the device and are specifically designed to pair with our fluid font sizes. These tokens have fewer available levels to help make sure our typography is consistent.
 
-As a rule of thumb, if you're setting space between or adjacent to _text elements_, you'll likely want to use **fluid tokens** (`Fluid margin`/`Fluid padding` tables). If you're setting space between _block-like elements_, you probably want **static tokens** (`Margin`/`Padding` tables).
+As a rule of thumb, if you're setting space between or adjacent to _text elements_, you'll likely want to use **fluid tokens** (`Fluid margin`/`Fluid padding` tables). If you're setting space between _block-like elements_, you probably want **static tokens** (`Margin`/`Padding`).
 
 ---
 
@@ -54,7 +54,7 @@ As a rule of thumb, if you're setting space between or adjacent to _text element
   mdnLink="margin"
   header={['Class', 'Include', 'Properties']}
   body={cssStringToTableArray(fluidMargin, true)}
-  copyable={[true, (t) => `@include ${t};`, false]}
+  copyable={[true, (t) => `@include %${t};`, false]}
 />
 
 <CopyTable
@@ -62,5 +62,5 @@ As a rule of thumb, if you're setting space between or adjacent to _text element
   mdnLink="margin"
   header={['Class', 'Include', 'Properties']}
   body={cssStringToTableArray(fluidPadding, true)}
-  copyable={[true, (t) => `@include ${t};`, false]}
+  copyable={[true, (t) => `@include %${t};`, false]}
 />
