@@ -92,7 +92,7 @@
     {:else if title}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
-          <h3>{title}</h3>
+          <h3 class="mt-0 mb-2.5">{title}</h3>
           {#if description}
             {@html marked(description)}
           {/if}
@@ -133,15 +133,28 @@
 </Block>
 
 <!-- svelte-ignore css-unused-selector -->
-<style lang="scss">
+<style lang="scss" global>
   @import '../../scss/mixins';
-  // div {
-  //   :global {
-  //     @include graphic-text;
-  //   }
-  // }
 
-  .visually-hidden {
-    @include visually-hidden;
+  div.article-block.graphic {
+    p {
+      @include font-note;
+      @include text-sm;
+      &:last-of-type {
+        margin-block-end: calc(var(--theme-font-size-sm) * 0.875);
+      }
+    }
+    aside {
+      p {
+        @include font-note;
+        @include text-secondary;
+        @include text-xs;
+        margin-block-end: 0;
+        line-height: 1.375;
+      }
+    }
+    .visually-hidden {
+      @include visually-hidden;
+    }
   }
 </style>

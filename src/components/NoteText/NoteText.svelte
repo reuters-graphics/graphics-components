@@ -11,7 +11,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block class="notes mb-6">
+<Block class="notes mb-24">
   {#if text}
     {@html marked.parse(text)}
   {/if}
@@ -19,11 +19,27 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss" global>
-  // Same as body text... we probably should unbind these styles from the component
-  // and import them in the app through a separate scss file.
   @import '../../scss/mixins';
 
   div.article-block.notes {
-    @include note-text;
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: var(--theme-font-size-base) 0 0;
+      @include text-sm;
+      @include text-primary;
+      @include leading-tight;
+      @include tracking-normal;
+      @include font-bold;
+      text-transform: none;
+    }
+
+    p {
+      @include font-note;
+      @include font-light;
+      @include text-sm;
+    }
   }
 </style>

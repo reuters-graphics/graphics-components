@@ -55,6 +55,9 @@
       :global(p:last-child) {
         margin-bottom: 0;
       }
+      :global(*:first-child) {
+        margin-top: 0;
+      }
     }
   }
 

@@ -44,7 +44,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   .search {
     position: relative;
@@ -61,8 +61,8 @@
       fill: var(--theme-colour-brand-rules);
     }
     .search--input {
-      font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary);
+      @include font-sans;
+      @include text-primary;
       padding: 0 0 0 2rem;
       font-size: 0.8rem;
       height: 33px;

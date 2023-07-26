@@ -41,9 +41,6 @@
 <style lang="scss">
   @import './../../../scss/mixins';
   div.embedded-foreground {
-    :global {
-      @include body-text;
-    }
     :global(p:last-child) {
       margin-bottom: 0;
     }

@@ -18,6 +18,17 @@
    */
   export let altText: string;
   /**
+   * Add an id to target with custom CSS.
+   * @type {string}
+   */
+  export let id: string = '';
+  /**
+   * Add extra classes to target with custom CSS.
+   * @type {string}
+   */
+  let cls: string = '';
+  export { cls as class };
+  /**
    * Caption below the photo
    * @type {string}
    */
@@ -70,34 +81,37 @@
   });
 </script>
 
-<Block width="{width}" class="photo">
-  <figure bind:this="{container}" aria-label="media">
+<Block width="{width}" class="photo {cls}" id="{id}">
+  <figure
+    bind:this="{container}"
+    aria-label="media"
+    class="mt-0 mx-0 mb-6 flex flex-col"
+  >
     {#if !lazy || (intersectable && intersecting)}
-      <img src="{src}" alt="{altText}" />
+      <img class="m-0" src="{src}" alt="{altText}" />
     {:else}
       <div class="placeholder" height="{`${height}px`}"></div>
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <figcaption>{caption}</figcaption>
+        <figcaption class="font-note my-0 text-xs leading-tight">
+          {caption}
+        </figcaption>
       </PaddingReset>
     {/if}
     {#if !altText}
-      <div class="alt-warning">altText</div>
+      <div class="alt-warning text-xxs py-1 px-2">altText</div>
     {/if}
   </figure>
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-
   figure {
     width: 100%;
     position: relative;
 
     img {
       width: 100%;
-      margin: 0;
     }
 
     .placeholder {
@@ -106,22 +120,11 @@
     }
 
     div.alt-warning {
-      font-family: $font-family-display;
-      padding: 5px 10px;
       background-color: red;
       color: white;
       position: absolute;
       top: 0;
       right: 0;
-      font-size: 14px;
-      line-height: 16px;
-    }
-
-    figcaption {
-      font-weight: 400;
-      font-size: 0.8rem;
-      font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-secondary);
     }
   }
 </style>

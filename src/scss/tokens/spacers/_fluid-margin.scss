@@ -1,0 +1,68 @@
+@use 'mixins/fluid-margin' as *;
+
+$fluid-margin-placeholder-levels: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+
+@each $level, $value in $fluid-margin-placeholder-levels {
+  .fm-#{$level} {
+    @extend %fm-#{$level};
+  }
+  .fmt-#{$level} {
+    @extend %fmt-#{$level};
+  }
+  .fmr-#{$level} {
+    @extend %fmr-#{$level};
+  }
+  .fmb-#{$level} {
+    @extend %fmb-#{$level};
+  }
+  .fml-#{$level} {
+    @extend %fml-#{$level};
+  }
+  .fmx-#{$level} {
+    @extend %fmx-#{$level};
+  }
+  .fmy-#{$level} {
+    @extend %fmy-#{$level};
+  }
+
+  .\!fm-#{$level} {
+    @extend %\!fm-#{$level};
+  }
+  .\!fmt-#{$level} {
+    @extend %\!fmt-#{$level};
+  }
+  .\!fmr-#{$level} {
+    @extend %\!fmr-#{$level};
+  }
+  .\!fmb-#{$level} {
+    @extend %\!fmb-#{$level};
+  }
+  .\!fml-#{$level} {
+    @extend %\!fml-#{$level};
+  }
+  .\!fmx-#{$level} {
+    @extend %\!fmx-#{$level};
+  }
+  .\!fmy-#{$level} {
+    @extend %\!fmy-#{$level};
+  }
+}
+
+.fm-auto {
+  @extend %fm-auto;
+}
+.fmx-auto {
+  @extend %fmx-auto;
+}
+.fmy-auto {
+  @extend %fmy-auto;
+}
+.\!fm-auto {
+  @extend %\!fm-auto;
+}
+.\!fmx-auto {
+  @extend %\!fmx-auto;
+}
+.\!fmy-auto {
+  @extend %\!fmy-auto;
+}

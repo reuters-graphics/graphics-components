@@ -1,9 +1,11 @@
 @use '../mixins' as *;
 
 body {
+  font-size: 1rem;
   @include font-sans;
   @include font-normal;
   @include leading-normal;
+  -webkit-font-smoothing: antialiased;
 }
 
 /////////////
@@ -93,12 +95,21 @@ ul {
 }
 
 a {
-  color: inherit;
+  color: currentColor;
   text-decoration: underline;
   text-underline-offset: 2px;
   text-underline-offset: 8%;
+  text-decoration-thickness: from-font;
 }
 
 strong {
   @include font-bold;
+}
+
+figcaption {
+  @include text-sm;
+  @include font-normal;
+  @include leading-normal;
+  @include text-secondary;
+  @include font-note;
 }
