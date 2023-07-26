@@ -1,4 +1,3 @@
-import trackTiming from './trackTiming';
 import getParameterByName from './getParameterByName';
 import Ias from './ias';
 
@@ -17,9 +16,8 @@ export default () => {
       freestar.newAdSlots(freestar.config.enabled_slots);
   };
 
+  // Ask Rachel
   freestar.config.channel = '/4735792/reuters.com/home';
-
-  trackTiming('onetrust_start');
 
   (<any>window).initBootstrap(
     {
@@ -29,33 +27,11 @@ export default () => {
       onetrust_script_id: ONETRUST_SCRIPT_ID,
     },
     (onetrustResponse) => {
-      trackTiming('onetrust_completion');
-      // Never used...
-      // const {
-      //   require_consent, // eslint-disable-line camelcase
-      //   consent,
-      //   require_gdpr_consent, // eslint-disable-line camelcase
-      //   gdpr_consent_data, // eslint-disable-line camelcase
-      //   require_ccpa_consent, // eslint-disable-line camelcase
-      //   ccpa_consent_data, // eslint-disable-line camelcase
-      // } = onetrustResponse;
-
-      // Trigger data layer events to GTM
-      (<any>window).dataLayer = (<any>window).dataLayer || [];
-      (<any>window).dataLayer.push({
-        event: 'bootstrap_results',
-        ...onetrustResponse,
-      });
-
-      // Never used...
-      // const opt_in = require_consent ? consent : true; // eslint-disable-line camelcase
-      // const token =
-      //   (require_gdpr_consent ? gdpr_consent_data : undefined) || // eslint-disable-line camelcase
-      //   (require_ccpa_consent ? ccpa_consent_data : undefined); // eslint-disable-line camelcase
-      // const consent_given = require_consent && consent; // eslint-disable-line camelcase
-
       const iasPromise = Ias();
 
+      // Ask Thea about Permutive implementation (considering there are no logged in users on Graphics)
+      // Should we use Permutive at all?
+      // Should we import ArcP SDK to graphics to get the same user as logged in on RCom?
       return Promise.all([iasPromise]).then((responses) => {
         const [iasResponse] = responses;
 
@@ -81,6 +57,7 @@ export default () => {
         (<any>window).googletag.pubads().setTargeting('adstest', adstest);
       }
 
+      // Ask Rachel about targeting
       const template = (<any>document.querySelector('meta[name="ad:template"]'))?.content;
       if (template) {
         (<any>window).googletag.pubads().setTargeting('template', template);
