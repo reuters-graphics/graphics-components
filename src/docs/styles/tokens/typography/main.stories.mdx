@@ -31,6 +31,9 @@ import textAlign from '$lib/scss/tokens/text/\_text-align.scss?inline';
 import textDecoration from '$lib/scss/tokens/text/\_text-decoration.scss?inline';
 
 {/* @ts-ignore */}
+import textStroke from '$lib/scss/tokens/text/\_text-stroke.scss?inline';
+
+{/* @ts-ignore */}
 import textTransform from '$lib/scss/tokens/text/\_text-transform.scss?inline';
 
 {/* @ts-ignore */}
@@ -119,6 +122,14 @@ import './styles.scss';
   mdnLink="text-decoration"
   header={['Class', 'Properties']}
   body={cssStringToTableArray(textDecoration)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Text stroke"
+  mdnLink="text-stroke"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(textStroke)}
   copyable={[true, false]}
 />
 

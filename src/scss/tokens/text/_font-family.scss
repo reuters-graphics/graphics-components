@@ -21,6 +21,18 @@
 .font-note {
   @include font-note;
 }
+.font-source-sans-pro {
+  @include font-source-sans-pro;
+}
+.font-knowledge {
+  @include font-knowledge;
+}
+.font-freight-book {
+  @include font-freight-book;
+}
+.font-noto-sans-jp {
+  @include font-noto-sans-jp;
+}
 .\!font-serif {
   @include \!font-serif;
 }
@@ -41,4 +53,16 @@
 }
 .\!font-note {
   @include \!font-note;
+}
+.\!font-source-sans-pro {
+  @include \!font-source-sans-pro;
+}
+.\!font-knowledge {
+  @include \!font-knowledge;
+}
+.\!font-freight-book {
+  @include \!font-freight-book;
+}
+.\!font-noto-sans-jp {
+  @include \!font-noto-sans-jp;
 }

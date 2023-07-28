@@ -4,13 +4,16 @@ import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
 import { cssStringToTableArray } from '../../../utils/parseCss';
 
 {/* @ts-ignore */}
-import boxSizine from '$lib/scss/tokens/layout/\_box-sizing.scss?raw';
+import boxSizing from '$lib/scss/tokens/layout/\_box-sizing.scss?raw';
 
 {/* @ts-ignore */}
 import display from '$lib/scss/tokens/layout/\_display.scss?raw';
 
 {/* @ts-ignore */}
 import floats from '$lib/scss/tokens/layout/\_floats.scss?raw';
+
+{/* @ts-ignore */}
+import position from '$lib/scss/tokens/layout/\_position.scss?raw';
 
 <Meta title="Styles/Tokens/Layout/Main" parameters={{ ...parameters }} />
 
@@ -27,6 +30,14 @@ import floats from '$lib/scss/tokens/layout/\_floats.scss?raw';
 />
 
 <CopyTable
+  title="Position"
+  mdnLink="position"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(position)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
   title="Float"
   mdnLink="float"
   header={['Class', 'Properties']}
@@ -38,6 +49,6 @@ import floats from '$lib/scss/tokens/layout/\_floats.scss?raw';
   title="Box sizing"
   mdnLink="box-sizing"
   header={['Class', 'Properties']}
-  body={cssStringToTableArray(boxSizine)}
+  body={cssStringToTableArray(boxSizing)}
   copyable={[true, false]}
 />

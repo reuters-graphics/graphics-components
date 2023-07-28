@@ -2,7 +2,7 @@
 export default {
   font: {
     family: {
-      serif: 'freight-book, serif',
+      serif: 'FreightText, serif',
       'sans-serif': 'Knowledge, sans-serif',
       monospace:
         'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',

@@ -19,6 +19,18 @@
 @mixin font-note {
   font-family: var(--theme-font-family-note);
 }
+@mixin font-source-sans-pro {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+@mixin font-knowledge {
+  font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+@mixin font-freight-book {
+  font-family: 'FreightText', serif;
+}
+@mixin font-noto-sans-jp {
+  font-family: 'Noto Sans JP';
+}
 @mixin \!font-serif {
   font-family: var(--theme-font-family-serif) !important;
 }
@@ -39,4 +51,16 @@
 }
 @mixin \!font-note {
   font-family: var(--theme-font-family-note) !important;
+}
+@mixin \!font-source-sans-pro {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
+}
+@mixin \!font-knowledge {
+  font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
+}
+@mixin \!font-freight-book {
+  font-family: 'FreightText', serif !important;
+}
+@mixin \!font-noto-sans-jp {
+  font-family: 'Noto Sans JP' !important;
 }

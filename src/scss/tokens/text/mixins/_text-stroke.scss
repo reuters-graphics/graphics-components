@@ -1,0 +1,8 @@
+@mixin text-stroke($size: 1px, $colour: #ffffff) {
+  -webkit-text-stroke: $size $colour;
+  text-stroke: $size $colour;
+}
+@mixin \!text-stroke($size: 1px, $colour: #ffffff) {
+  -webkit-text-stroke: $size $colour !important;
+  text-stroke: $size $colour !important;
+}
