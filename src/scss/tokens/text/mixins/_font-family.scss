@@ -25,7 +25,7 @@
 @mixin font-knowledge {
   font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif;
 }
-@mixin font-freight-book {
+@mixin font-freight-text {
   font-family: 'FreightText', serif;
 }
 @mixin font-noto-sans-jp {
@@ -58,7 +58,7 @@
 @mixin \!font-knowledge {
   font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
 }
-@mixin \!font-freight-book {
+@mixin \!font-freight-text {
   font-family: 'FreightText', serif !important;
 }
 @mixin \!font-noto-sans-jp {

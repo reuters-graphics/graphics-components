@@ -27,8 +27,8 @@
 .font-knowledge {
   @include font-knowledge;
 }
-.font-freight-book {
-  @include font-freight-book;
+.font-freight-text {
+  @include font-freight-text;
 }
 .font-noto-sans-jp {
   @include font-noto-sans-jp;
@@ -60,8 +60,8 @@
 .\!font-knowledge {
   @include \!font-knowledge;
 }
-.\!font-freight-book {
-  @include \!font-freight-book;
+.\!font-freight-text {
+  @include \!font-freight-text;
 }
 .\!font-noto-sans-jp {
   @include \!font-noto-sans-jp;

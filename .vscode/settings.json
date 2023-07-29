@@ -6,11 +6,16 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "emmet.excludeLanguages": [
+    "markdown",
+    "scss"
+  ],
   "files.associations": {
     "*.svx": "mdx"
   },
   "[mdx]": {
     "editor.wordWrap": "on"
   },
+  
   "typescript.tsdk": "node_modules/typescript/lib"
 }

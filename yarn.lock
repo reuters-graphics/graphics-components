@@ -2565,10 +2565,10 @@
     "@storybook/types" "7.1.0"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-svelte-csf@3.0.5--canary.113.02ce02a.0":
-  version "3.0.5--canary.113.02ce02a.0"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-svelte-csf/-/addon-svelte-csf-3.0.5--canary.113.02ce02a.0.tgz#0ceedfd46445658c72d639bf99763af3807a6442"
-  integrity sha512-rIVyzB6bbfsmK+iokmiQMHwPNTanIh3wbhwDNpbIDy7jN1QytIvdCIhRwNuYqt+U63JgDIWMnasqe9FOicVuNA==
+"@storybook/addon-svelte-csf@3.0.5--canary.113.529e422.0":
+  version "3.0.5--canary.113.529e422.0"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-svelte-csf/-/addon-svelte-csf-3.0.5--canary.113.529e422.0.tgz#f0780e5f7f63a54ab9ea9b343c3d39ab704bf775"
+  integrity sha512-kvxPs/i93ogAyp9oJj8jwe/48hSAEVBDtiVfvmnQ8rjA0HCt4ZsfuDRUvpaHfAdYskhhi+mk4WT2c4kwNxwmXw==
   dependencies:
     "@babel/runtime" "^7.22.6"
     dedent "^1.2.0"

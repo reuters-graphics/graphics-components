@@ -5,7 +5,9 @@ body {
   @include font-sans;
   @include font-normal;
   @include leading-normal;
+  // Font-smoothing
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /////////////
@@ -18,7 +20,6 @@ h3,
 h5,
 h6 {
   @include text-primary;
-  -webkit-font-smoothing: antialiased;
 }
 h1 {
   @include font-hed;
@@ -77,7 +78,6 @@ h6 {
   @include font-normal;
   @include leading-normal;
   @include text-primary;
-  -webkit-font-smoothing: antialiased;
 }
 
 p {
