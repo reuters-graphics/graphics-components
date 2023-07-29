@@ -85,12 +85,12 @@
   <figure
     bind:this="{container}"
     aria-label="media"
-    class="mt-0 mx-0 mb-6 flex flex-col relative"
+    class="w-full mt-0 mx-0 mb-6 flex flex-col relative"
   >
     {#if !lazy || (intersectable && intersecting)}
-      <img class="m-0" src="{src}" alt="{altText}" />
+      <img class="w-full m-0" src="{src}" alt="{altText}" />
     {:else}
-      <div class="placeholder" style="{`height: ${height}px;`}"></div>
+      <div class="placeholder w-full" style="{`height: ${height}px;`}"></div>
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
@@ -106,23 +106,14 @@
 </Block>
 
 <style lang="scss">
-  figure {
-    width: 100%;
+  .placeholder {
+    background-color: #ccc;
+  }
 
-    img {
-      width: 100%;
-    }
-
-    .placeholder {
-      background-color: #ccc;
-      width: 100%;
-    }
-
-    div.alt-warning {
-      background-color: red;
-      color: white;
-      top: 0;
-      right: 0;
-    }
+  div.alt-warning {
+    background-color: red;
+    color: white;
+    top: 0;
+    right: 0;
   }
 </style>
