@@ -85,12 +85,12 @@
   <figure
     bind:this="{container}"
     aria-label="media"
-    class="mt-0 mx-0 mb-6 flex flex-col"
+    class="mt-0 mx-0 mb-6 flex flex-col relative"
   >
     {#if !lazy || (intersectable && intersecting)}
       <img class="m-0" src="{src}" alt="{altText}" />
     {:else}
-      <div class="placeholder" height="{`${height}px`}"></div>
+      <div class="placeholder" style="{`height: ${height}px;`}"></div>
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
@@ -100,7 +100,7 @@
       </PaddingReset>
     {/if}
     {#if !altText}
-      <div class="alt-warning text-xxs py-1 px-2">altText</div>
+      <div class="alt-warning absolute text-xxs py-1 px-2">altText</div>
     {/if}
   </figure>
 </Block>
@@ -108,7 +108,6 @@
 <style lang="scss">
   figure {
     width: 100%;
-    position: relative;
 
     img {
       width: 100%;
@@ -122,7 +121,6 @@
     div.alt-warning {
       background-color: red;
       color: white;
-      position: absolute;
       top: 0;
       right: 0;
     }

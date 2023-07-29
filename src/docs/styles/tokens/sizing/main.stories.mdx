@@ -1,0 +1,76 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../../utils/parseCss';
+
+{/* @ts-ignore */}
+import height from '$lib/scss/tokens/sizing/\_height.scss?inline';
+
+{/* @ts-ignore */}
+import maxHeight from '$lib/scss/tokens/sizing/\_max-height.scss?inline';
+
+{/* @ts-ignore */}
+import maxWidth from '$lib/scss/tokens/sizing/\_max-width.scss?inline';
+
+{/* @ts-ignore */}
+import minHeight from '$lib/scss/tokens/sizing/\_min-height.scss?inline';
+
+{/* @ts-ignore */}
+import minWidth from '$lib/scss/tokens/sizing/\_min-width.scss?inline';
+
+{/* @ts-ignore */}
+import width from '$lib/scss/tokens/sizing/\_width.scss?inline';
+
+<Meta title="Styles/Tokens/Sizing" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Sizing tokens
+
+<CopyTable
+  title="Width"
+  mdnLink="width"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(width)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Max-width"
+  mdnLink="max-width"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(maxWidth)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Min-width"
+  mdnLink="min-width"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(minWidth)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Height"
+  mdnLink="height"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(height)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Max-height"
+  mdnLink="max-height"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(maxHeight)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Min-height"
+  mdnLink="min-height"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(minHeight)}
+  copyable={[true, false]}
+/>

@@ -135,11 +135,13 @@ const sanitize = function sanitize(name) {
     .replace(/\*/g, 'all-children')
     .replace(/#/g, '$')
     .replace(/\s\s+/g, ' ')
+    .replace(/(\d)\\\/(\d)/g, '$1~$2') // Added for escaped slashes like ".w-1/2"
     .replace(/(\d)\\\.(\d)/g, '$1|$2') // Added for escaped dots like ".mb-0\.5"
-    .replace(/[^a-zA-Z0-9$|]/g, '_')
+    .replace(/[^a-zA-Z0-9$|~]/g, '_')
     .replace(/^_+/g, '')
     .replace(/_+$/g, '')
-    .replace('|', '.');
+    .replace('|', '.') // Replace placeholder
+    .replace('~', '/'); // Replace placeholder
 };
 
 const fontface = function fontface(rule, result) {
