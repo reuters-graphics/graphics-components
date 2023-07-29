@@ -153,7 +153,7 @@
         >
           <div
             bind:this="{element}"
-            class="video-wrapper"
+            class="video-wrapper relative"
             aria-hidden="{ariaHidden}"
             bind:clientWidth="{widthVideoContainer}"
             bind:clientHeight="{heightVideoContainer}"
@@ -177,16 +177,18 @@
                 />
               {:else}
                 <button
+                  class="border-0 m-0 p-0 bg-transparent absolute"
                   on:click="{() => {
                     paused === true ? (paused = false) : (paused = true);
                   }}"
-                  style="position: absolute; top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
+                  style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
                 ></button>
               {/if}
             {/if}
             <video
               bind:this="{videoElement}"
               src="{src}"
+              class="pointer-events-none relative"
               width="100%"
               muted="{muteVideo}"
               playsinline
@@ -197,9 +199,6 @@
               bind:paused="{paused}"
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
-              style="{showControls
-                ? 'position: relative'
-                : 'position: relative'}"
             >
               <track kind="captions" />
             </video>
@@ -208,7 +207,7 @@
       {:else}
         <!-- Video element without Intersection observer -->
         <div
-          class="video-wrapper"
+          class="video-wrapper relative"
           aria-hidden="{ariaHidden}"
           bind:clientWidth="{widthVideoContainer}"
           bind:clientHeight="{heightVideoContainer}"
@@ -230,16 +229,18 @@
               />
             {:else}
               <button
+                class="border-0 m-0 p-0 bg-transparent absolute"
                 on:click="{() => {
                   paused === true ? (paused = false) : (paused = true);
                 }}"
-                style="position: absolute; top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
+                style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
               ></button>
             {/if}
           {/if}
           <video
             bind:this="{videoElement}"
             src="{src}"
+            class="pointer-events-none relative"
             width="100%"
             muted="{muteVideo}"
             playsinline
@@ -251,48 +252,14 @@
             autoplay
             bind:clientWidth="{widthVideo}"
             bind:clientHeight="{heightVideo}"
-            style="{showControls ? 'position: relative' : 'position: relative'}"
           >
             <track kind="captions" />
           </video>
         </div>
       {/if}
       {#if caption}
-        <div class="caption">{caption}</div>
+        <div class="caption text-secondary text-xs">{caption}</div>
       {/if}
     {/if}
   </div>
 </Block>
-
-<style lang="scss">
-  .video-wrapper {
-    position: relative;
-    video {
-      pointer-events: none;
-    }
-  }
-  .visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-    clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
-  div.caption {
-    font-size: 0.8rem;
-    color: var(--theme-colour-text-secondary, var(--tr-medium-grey));
-  }
-
-  button {
-    border: none;
-    margin: 0;
-    padding: 0;
-    background: none;
-  }
-</style>
