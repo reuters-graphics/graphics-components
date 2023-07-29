@@ -113,3 +113,26 @@ figcaption {
   @include text-secondary;
   @include font-note;
 }
+
+blockquote {
+  margin-inline: 0;
+  padding-left: 1rem;
+  border-left: 1px solid $theme-colour-brand-rules;
+  @extend %fmy-6;
+  p {
+    @include font-body;
+    @include text-lg;
+    &:last-of-type {
+      @extend %fmb-2;
+    }
+  }
+  blockquote {
+    margin-block: 0;
+    border: 0;
+    padding-left: 0;
+    p {
+      @include text-sm;
+      @include font-note;
+    }
+  }
+}

@@ -17,7 +17,7 @@ div.sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
   font-size: 16px;
 }
 
-div.sbdocs-content {
+div.sbdocs-content  {
   h1 {
     font-family: 'Knowledge', sans-serif;
   }
@@ -32,18 +32,6 @@ div.sbdocs-content {
 
   .docblock-source {
     margin: 1rem 0;
-  }
-
- blockquote {
-    background-color: #ededed;
-    padding: 15px 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: 2rem auto;
-    p {
-      font-size: 16px;
-      line-height: 22px;
-    }
   }
 
   & > div > :where(p, ul, ol),
@@ -67,6 +55,20 @@ div.sbdocs-content {
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+}
+
+.sbdocs-content  {
+  blockquote:not(.sb-unstyled *) {
+    background-color: #ededed;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 2rem auto;
+    p {
+      font-size: 16px;
+      line-height: 22px;
     }
   }
 }

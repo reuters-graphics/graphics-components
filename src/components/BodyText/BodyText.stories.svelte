@@ -67,6 +67,9 @@ Sirloin beef flank labore cillum venison pariatur cow nulla ut irure in consequa
 
 Biltong enim consequat pork chop, flank ea.
 
+> Officia ball tip sed tenderloin dolore. Est magna enim, turkey in turducken flank jowl ad lorem buffalo ground
+> > Ronald McDonald
+
 Flank bacon sint dolore porchetta strip steak. Tail capicola flank nostrud meatball consequat pastrami lorem cupidatat chuck drumstick ham hock bresaola sint.
 
 ##### Venison pork chop
@@ -100,11 +103,12 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
     padding: 2px 5px;
     border-radius: 4px;
     font-weight: 800;
+    line-height: 1;
     &:hover {
       color: #999;
     }
     @media (max-width: 800px) {
-      color: white;
+      color: white !important;
     }
   }
   .body-text-typography-example-story {
@@ -146,6 +150,18 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
         content: 'H6';
         @extend %heading-tag;
         font-size: 12px;
+      }
+    }
+    blockquote {
+      position: relative;
+      &:before {
+        @extend %heading-tag;
+        content: '“';
+        font-size: 3rem;
+        line-height: 3rem;
+      }
+      blockquote:before {
+        display: none;
       }
     }
   }
