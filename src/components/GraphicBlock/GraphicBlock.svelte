@@ -92,7 +92,7 @@
     {:else if title}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
-          <h3 class="mt-0 mb-2.5">{title}</h3>
+          <h3 class="mt-0 fmb-1">{title}</h3>
           {#if description}
             {@html marked(description)}
           {/if}
@@ -140,21 +140,20 @@
     p {
       @include font-note;
       @include text-sm;
+      @include text-primary;
       &:last-of-type {
-        margin-block-end: calc(var(--theme-font-size-sm) * 0.875);
+        @extend %fmb-1;
       }
     }
+    // Notes text...
     aside {
       p {
         @include font-note;
         @include text-secondary;
         @include text-xs;
+        @include leading-tight;
         margin-block-end: 0;
-        line-height: 1.375;
       }
-    }
-    .visually-hidden {
-      @include visually-hidden;
     }
   }
 </style>
