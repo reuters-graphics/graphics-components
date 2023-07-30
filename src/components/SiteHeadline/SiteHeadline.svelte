@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { HeadlineSize } from '../@types/global';
+
   /**
    * Headline
    * @type {string}
    * @required
    */
   export let hed: string = 'Reuters Graphics Interactive';
+  /**
+   * Headline size
+   * @type {string}
+   */
+  export let hedSize: HeadlineSize = 'normal';
   /**
    * Section title.
    * @type {string}
@@ -62,6 +69,26 @@
     first.getFullYear() === second.getFullYear() &&
     first.getMonth() === second.getMonth() &&
     first.getDate() === second.getDate();
+
+  let hedClass;
+  $: {
+    switch (hedSize) {
+      case 'biggest':
+        hedClass = 'text-6xl';
+        break;
+      case 'bigger':
+        hedClass = 'text-5xl';
+        break;
+      case 'big':
+        hedClass = 'text-4xl';
+        break;
+      case 'small':
+        hedClass = 'text-2xl';
+        break;
+      default:
+        hedClass = 'text-3xl';
+    }
+  }
 </script>
 
 <Block id="{id}" class="headline-container !my-16 {cls}" width="normal">
@@ -81,7 +108,9 @@
         </p>
       {/if}
       {#if hed}
-        <h1 class="my-0 font-hed text-primary leading-none text-3xl">{hed}</h1>
+        <h1 class="my-0 font-hed text-primary leading-none {hedClass}">
+          {hed}
+        </h1>
       {/if}
     </div>
     <aside class="article-metadata mt-2 font-subhed">

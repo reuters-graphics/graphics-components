@@ -21,12 +21,23 @@
     Published: '2022-09-12T08:30:00.000Z',
     Updated: '',
   };
+
+  const metaProps = {
+    ...withComponentDocs(componentDocs),
+    // https://storybook.js.org/docs/svelte/essentials/controls
+    argTypes: {
+      hedSize: {
+        control: 'select',
+        options: ['small', 'normal', 'big', 'bigger', 'biggest'],
+      },
+    },
+  };
 </script>
 
 <Meta
   title="Components/SiteHeadline"
   component="{SiteHeadline}"
-  {...withComponentDocs(componentDocs)}
+  {...metaProps}
 />
 
 <Template let:args>
