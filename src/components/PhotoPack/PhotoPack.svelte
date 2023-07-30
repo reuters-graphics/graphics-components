@@ -90,22 +90,29 @@
 </script>
 
 <Block width="{width}" id="{id}" class="photopack {cls}">
-  <div class="photopack-container" bind:clientWidth="{containerWidth}">
+  <div
+    class="photopack-container w-full mb-2"
+    bind:clientWidth="{containerWidth}"
+  >
     {#each rows as row, ri}
       <div
-        class="photopack-row"
+        class="photopack-row flex justify-between"
         style:gap="0 {gap}px"
         style:margin-bottom="{gap + 'px'}"
       >
         {#each row as img, i}
-          <figure aria-labelledby="{id}-figure-{ri}-{i}">
+          <figure
+            class="relative m-0 p-0 flex-1"
+            aria-labelledby="{id}-figure-{ri}-{i}"
+          >
             <img
+              class="m-0 w-full h-full"
               src="{img.src}"
               alt="{img.altText}"
               style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
             />
             {#if !img.altText}
-              <div class="alt-warning">altText</div>
+              <div class="alt-warning absolute text-xxs py-1 px-2">altText</div>
             {/if}
           </figure>
         {/each}
@@ -118,7 +125,7 @@
         {#each rows as row, ri}
           {#each row as img, i}
             {#if img.caption}
-              <div id="{id}-figure-{ri}-{i}" class="caption">
+              <div id="{id}-figure-{ri}-{i}" class="caption mt-0 mx-0 fmb-2">
                 {@html marked(img.caption)}
               </div>
             {/if}
@@ -133,33 +140,16 @@
   @import '../../scss/mixins';
 
   div.photopack-container {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
     div.photopack-row {
-      display: flex;
-      justify-content: space-between;
       figure {
-        flex: 1;
-        margin: 0;
-        padding: 0;
-        position: relative;
         img {
-          margin: 0;
-          width: 100%;
-          height: 100%;
           object-fit: cover;
         }
         div.alt-warning {
-          @include font-sans;
-          padding: 5px 10px;
           background-color: red;
           color: white;
-          position: absolute;
           top: 0;
           right: 0;
-          font-size: 14px;
-          line-height: 16px;
         }
       }
     }
@@ -167,17 +157,15 @@
 
   div.captions-container {
     div.caption {
-      margin: 0 0 0.6rem;
       &:last-of-type {
         margin-bottom: 0;
       }
       :global(p) {
-        font-size: 0.85rem;
-        line-height: 1.1rem;
-        @include font-sans;
+        @include text-xs;
+        @include leading-tight;
+        @include font-note;
         @include text-secondary;
         margin: 0;
-        font-weight: 300;
       }
     }
   }
