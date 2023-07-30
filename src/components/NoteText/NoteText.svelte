@@ -35,11 +35,11 @@
       @include font-bold;
       text-transform: none;
     }
-
     p {
       @include font-note;
       @include font-light;
       @include text-sm;
+      @include leading-tight;
     }
   }
 </style>
