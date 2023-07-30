@@ -78,10 +78,15 @@
 {#if $referrals.length === number}
   <Block width="{width}" id="{id}" class="referrals-block {cls}">
     {#if heading}
-      <h4 class:stacked="{clientWidth && clientWidth < 750}">{heading}</h4>
+      <div
+        class="heading font-subhed text-secondary underline text-xs font-bold"
+        class:stacked="{clientWidth && clientWidth < 750}"
+      >
+        {heading}
+      </div>
     {/if}
     <div
-      class="referral-container"
+      class="referral-container inline-flex flex-wrap w-full justify-center"
       class:stacked="{clientWidth && clientWidth < 750}"
       class:xs="{clientWidth && clientWidth < 450}"
       bind:clientWidth="{clientWidth}"
@@ -93,26 +98,36 @@
             target="{linkTarget}"
             rel="{linkTarget === '_blank' ? 'noreferrer' : null}"
           >
-            <div class="referral-pack">
+            <div class="referral-pack flex justify-around my-0 mx-auto">
               <div
                 class="headline"
                 class:xs="{clientWidth && clientWidth < 450}"
               >
-                <div class="kicker" data-chromatic="ignore">
+                <div
+                  class="kicker m-0 font-note text-secondary"
+                  data-chromatic="ignore"
+                >
                   {referral.kicker.name}
                 </div>
-                <div class="title" data-chromatic="ignore">
+                <div
+                  class="title m-0 font-subhed font-bold text-primary"
+                  data-chromatic="ignore"
+                >
                   {referral.title}
                 </div>
-                <div class="publish-time" data-chromatic="ignore">
+                <div
+                  class="publish-time font-note text-secondary"
+                  data-chromatic="ignore"
+                >
                   {getTime(new Date(referral.display_time))}
                 </div>
               </div>
               <div
-                class="image-container"
+                class="image-container block m-0 overflow-hidden relative"
                 class:xs="{clientWidth && clientWidth < 450}"
               >
                 <img
+                  class="block object-cover m-0 w-full"
                   data-chromatic="ignore"
                   src="{referral.thumbnail.renditions.landscape['240w']}"
                   alt="{referral.thumbnail.caption ||
@@ -128,14 +143,10 @@
 {/if}
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
 
-  h4 {
-    @include font-sans;
-    @include text-primary;
-    font-size: 1.1rem;
+  div.heading {
     margin: 0 0 5px;
-    font-weight: bold;
     &.stacked {
       max-width: 450px;
       margin: 0 auto 5px;
@@ -143,10 +154,6 @@
   }
 
   .referral-container {
-    width: 100%;
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 10px 40px;
     a {
       text-decoration: none;
@@ -173,12 +180,6 @@
         }
       }
 
-      div.referral-pack {
-        display: flex;
-        justify-content: space-around;
-        max-width: 450px;
-        margin: 0 auto;
-      }
       .headline {
         display: inline-block;
         width: calc(100% - 140px);
@@ -194,35 +195,20 @@
           }
         }
         .kicker {
-          @include font-sans;
-          @include text-secondary;
           font-size: 0.9rem;
-          margin: 0;
-          font-weight: 400;
         }
         .title {
-          @include font-sans;
-          @include text-primary;
           font-size: 0.95rem;
           line-height: 1.15rem;
-          font-weight: bold;
-          margin: 0;
         }
         .publish-time {
-          @include font-sans;
-          @include text-secondary;
           font-size: 0.75rem;
           margin: 2px 0 0;
-          font-weight: 400;
         }
       }
       .image-container {
-        margin: 0;
-        overflow: hidden;
         border-radius: 10px;
-        border: 1px solid var(--theme-colour-brand-rules, #d0d0d0);
-        display: block;
-        position: relative;
+        border: 1px solid $theme-colour-brand-rules;
         width: 140px;
         height: 90px;
         &.xs {
@@ -231,11 +217,7 @@
         }
         img {
           transition: filter 0.1s;
-          display: block;
-          width: 100%;
           height: inherit;
-          object-fit: cover;
-          margin: 0;
         }
       }
     }

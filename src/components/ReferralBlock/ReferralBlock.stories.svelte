@@ -51,5 +51,6 @@
     section: '/lifestyle/sports/',
     number: 4,
     cls: 'my-3',
+    heading: 'More World Cup coverage',
   }}"
 />
