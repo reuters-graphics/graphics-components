@@ -14,11 +14,13 @@ import color from '$lib/scss/tokens/text/\_color.scss?inline';
 
 # Style tokens
 
-The heart of the design system used to style all the components in this library is our style token system.
+The heart of the design system used to style all the components in this library is our style token system. Style tokens give us an extremely flexible set of designs that can be easily customised or overwritten and make for the most concise, smallest CSS stylesheets possible.
+
+While the token system is designed for our pre-made components, you can also use them to help shortcut the time you spend writing CSS.
 
 ## What's a "token"?
 
-A token represents the value for an individual style rule, like `font-weight`. Each token sets just one style rule so they can be combined together to style an element.
+A token represents the value for an individual style rule, like `font-weight`. Each token sets just one style rule, and multiple tokens can be combined together to style an element.
 
 <Mermaid
   name="token-graph"
