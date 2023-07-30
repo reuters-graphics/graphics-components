@@ -19,13 +19,20 @@
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
+
+  const metaProps = {
+    ...withComponentDocs(componentDocs),
+    // https://storybook.js.org/docs/svelte/essentials/controls
+    argTypes: {
+      hedSize: {
+        control: 'select',
+        options: ['small', 'normal', 'big', 'bigger', 'biggest'],
+      },
+    },
+  };
 </script>
 
-<Meta
-  title="Components/Headline"
-  component="{Headline}"
-  {...withComponentDocs(componentDocs)}
-/>
+<Meta title="Components/Headline" component="{Headline}" {...metaProps} />
 
 <Template let:args>
   <Headline {...args} />
@@ -36,6 +43,7 @@
   args="{{
     section: 'World News',
     hed: 'Reuters Graphics interactive',
+    hedSize: 'normal',
   }}"
 />
 
@@ -75,7 +83,7 @@
     <!-- Add a crown -->
     <img slot="crown" src="{crownImgSrc}" alt="Illustration of Europe" />
     <!-- Override the hed with a named slot -->
-    <h1 slot="hed" class="spaced font-serif">Europa</h1>
+    <h1 slot="hed" class="!font-serif !tracking-wide">Europa</h1>
     <span slot="dateline"
       >Published <time datetime="{new Date('2020-01-01').toISOString()}"
         >Jan. 1, 2020</time

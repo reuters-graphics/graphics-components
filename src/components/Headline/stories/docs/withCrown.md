@@ -10,7 +10,7 @@ Add a crown image in the `crown` named slot and override the headline in the `he
   <!-- Add a crown -->
   <img slot="crown" src="{`${assets}/images/crown.png`}" />
   <!-- Override the hed with a named slot -->
-  <h2 slot="hed" class="spaced font-serif">Europa</h2>
+  <h1 slot="hed" class="font-serif tracking-wide">Europa</h1>
   <span slot="dateline">Published Jan. 1, 2020</span>
 </Headline>
 ```
