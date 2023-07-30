@@ -40,12 +40,12 @@ Each token has several levels that represent the different variations of a style
   name="individual-graph"
   code={`
 graph LR;
-  TD[Text align tokens]-->TA;
+  TD(Text align tokens)-->TA;
   TD-->TB;
   TD-->TC;
-  TA(text-left)-->TX["text-align: left;"];
-  TB(text-center)-->TY["text-align: center;"];
-  TC(text-right)-->TZ["text-align: right;"];
+  TA(text-left)-->TX("text-align: left;");
+  TB(text-center)-->TY("text-align: center;");
+  TC(text-right)-->TZ("text-align: right;");
 `}
 />
 
