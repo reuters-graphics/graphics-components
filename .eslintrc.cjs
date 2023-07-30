@@ -20,7 +20,7 @@ module.exports = {
     'svelte3/typescript': require('typescript'),
   },
   rules: {
-    indent: ['error', 2],
+    indent: ['error', 2, { 'SwitchCase': 1 }],
     semi: ['error', 'always'],
     'comma-dangle': [
       'error',
