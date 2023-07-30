@@ -1,6 +1,10 @@
 .w-full {
   width: 100%;
 }
+.w-full-fluid {
+  width: calc(100% + 30px);
+  margin-left: -15px !important;
+}
 .w-screen {
   width: 100vw;
 }
@@ -84,6 +88,10 @@
 }
 .\!w-full {
   width: 100% !important;
+}
+.\!w-full-fluid {
+  width: calc(100% + 30px) !important;
+  margin-left: -15px !important;
 }
 .\!w-screen {
   width: 100vw !important;

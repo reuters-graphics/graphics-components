@@ -39,14 +39,9 @@
 {/if}
 
 <style lang="scss">
-  @import './../../../scss/mixins';
   div.embedded-foreground {
     :global(p:last-child) {
       margin-bottom: 0;
     }
-  }
-
-  .visually-hidden {
-    @include visually-hidden;
   }
 </style>

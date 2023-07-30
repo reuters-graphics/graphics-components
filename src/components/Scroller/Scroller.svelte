@@ -114,15 +114,16 @@
     >
       <div
         slot="background"
-        class="background"
+        class="background min-h-screen relative p-0 flex justify-center"
         class:right="{foregroundPosition === 'left opposite'}"
         class:left="{foregroundPosition === 'right opposite'}"
         aria-hidden="true"
       >
-        <div class="scroller-graphic-well">
+        <div class="scroller-graphic-well w-full">
           <Block
             width="{backgroundWidth}"
-            class="background-container step-{index + 1}"
+            class="background-container step-{index +
+              1} my-0 min-h-screen flex justify-center items-center relative"
           >
             <Background
               index="{index}"
@@ -134,7 +135,7 @@
         </div>
       </div>
 
-      <div slot="foreground" class="foreground {foregroundPosition}">
+      <div slot="foreground" class="foreground {foregroundPosition} w-full">
         <Foreground steps="{steps}" />
       </div>
     </SvelteScroller>
@@ -150,23 +151,7 @@
 {/if}
 
 <style lang="scss">
-  .scroller-container {
-    width: calc(100% + 30px);
-    margin-left: -15px;
-    max-width: initial;
-    &.embedded {
-      width: 100%;
-      padding: 0 15px;
-    }
-  }
-
   div.background {
-    min-height: 100vh;
-    position: relative;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-
     &.left {
       width: 50%;
       float: left;
@@ -188,27 +173,10 @@
 
     div.scroller-graphic-well {
       padding: 0 15px;
-      width: 100%;
-      :global {
-        div.background-container {
-          margin-top: 0;
-          margin-bottom: 0;
-          min-height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          &.fluid {
-            margin: 0 0 0 -15px;
-          }
-        }
-      }
     }
   }
 
   div.foreground {
-    width: 100%;
-
     &.right {
       width: 50%;
       float: right;
