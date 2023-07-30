@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import mermaid from 'mermaid';
 
-const { mermaidAPI } = mermaid;
-
-mermaidAPI.initialize({
-  startOnLoad: false,
-});
+mermaid.initialize({ startOnLoad: false });
 
 export default function Mermaid(props) {
   const { code, name } = props;
@@ -16,7 +12,7 @@ export default function Mermaid(props) {
     if (!code) return;
     const parseMermaid = async (code) => {
       try {
-        const { svg } = await mermaidAPI.render(name, code || '');
+        const { svg } = await mermaid.render(name, code.trim() || '');
         setGraphSvg(svg);
       } catch (err) {
         setGraphSvg('');
