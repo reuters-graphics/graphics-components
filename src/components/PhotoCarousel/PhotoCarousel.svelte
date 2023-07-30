@@ -98,7 +98,7 @@
 </script>
 
 <Block width="{width}" id="{id}" class="photo-carousel {cls}">
-  <div class="carousel-container" bind:clientWidth="{containerWidth}">
+  <div class="carousel-container mb-2" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"
       options="{{
@@ -114,9 +114,13 @@
         <SplideTrack>
           {#each photos as photo, i}
             <SplideSlide>
-              <div class="photo-slide">
-                <figure style="height: {carouselHeight}px;">
+              <div class="photo-slide w-full h-full relative">
+                <figure
+                  class="m-0 w-full relative"
+                  style="height: {carouselHeight}px;"
+                >
                   <img
+                    class="w-full h-full"
                     data-splide-lazy="{photo.src}"
                     alt="{photo.altText}"
                     style:object-fit="{photo.objectFit ||
@@ -128,7 +132,7 @@
                     <slot name="credit" credit="{photo.credit}" />
                   {:else}
                     <span
-                      class="credit"
+                      class="credit absolute m-0 leading-tighter font-note text-xxs"
                       class:contain-fit="{photo.objectFit === 'contain' ||
                         defaultImageObjectFit === 'contain'}"
                       >{photo.credit}</span
@@ -149,7 +153,10 @@
               />
             {:else}
               {#key activeImageIndex}
-                <p class="caption" in:fly|local="{{ x: 20, duration: 175 }}">
+                <p
+                  class="caption font-note text-secondary text-xs mb-0 mx-0 mt-0.5"
+                  in:fly|local="{{ x: 20, duration: 175 }}"
+                >
                   {photos[activeImageIndex].caption}
                 </p>
               {/key}
@@ -178,30 +185,14 @@
   @import '../../scss/mixins';
 
   .carousel-container {
-    margin-bottom: 10px;
     .photo-slide {
-      height: 100%;
-      width: 100%;
-      position: relative;
       figure {
-        margin: 0;
-        width: 100%;
-        position: relative;
-        img {
-          height: 100%;
-          width: 100%;
-        }
         span.credit {
-          position: absolute;
           bottom: 4px;
           left: 10px;
-          margin: 0;
-          font-size: 0.7rem;
           color: white;
-          letter-spacing: 0.75px;
           text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333,
             1px 1px 0 #333;
-          @include font-note;
           &.contain-fit {
             left: 50%;
             transform: translate(-50%, 0%);
@@ -223,7 +214,7 @@
         padding-top: 4px;
         button {
           display: flex;
-          font-size: 12px;
+          font-size: 14px;
           height: 30px;
           width: 30px;
           padding: 0;
@@ -232,11 +223,12 @@
           border: 1px solid transparent;
           border-radius: 50%;
           background-color: transparent;
+          cursor: pointer;
           @include text-secondary;
           opacity: 0.4;
           &:hover {
             opacity: 1;
-            border-color: var(--theme-colour-text-secondary);
+            border-color: $theme-colour-text-secondary;
             @include text-secondary;
           }
           &:disabled {
@@ -262,8 +254,8 @@
             border-radius: 0;
             margin: 0 0px;
             padding: 0;
-            border: 1px solid var(--theme-colour-background);
-            background: var(--theme-colour-text-secondary);
+            border: 1px solid $theme-colour-background;
+            background: $theme-colour-text-secondary;
             opacity: 0.4;
             &.is-active {
               opacity: 1;
@@ -271,14 +263,6 @@
           }
         }
       }
-    }
-    p.caption {
-      margin: 5px 0 0;
-      @include font-note;
-      @include text-secondary;
-      font-size: 0.85rem;
-      line-height: 1.1rem;
-      font-weight: 300;
     }
   }
 </style>
