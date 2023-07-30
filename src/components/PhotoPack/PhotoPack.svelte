@@ -106,7 +106,7 @@
             aria-labelledby="{id}-figure-{ri}-{i}"
           >
             <img
-              class="m-0 w-full h-full"
+              class="m-0 w-full h-full object-cover"
               src="{img.src}"
               alt="{img.altText}"
               style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
@@ -142,9 +142,6 @@
   div.photopack-container {
     div.photopack-row {
       figure {
-        img {
-          object-fit: cover;
-        }
         div.alt-warning {
           background-color: red;
           color: white;

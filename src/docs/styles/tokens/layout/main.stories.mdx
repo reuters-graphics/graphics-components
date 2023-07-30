@@ -13,6 +13,12 @@ import display from '$lib/scss/tokens/layout/\_display.scss?raw';
 import floats from '$lib/scss/tokens/layout/\_floats.scss?raw';
 
 {/* @ts-ignore */}
+import objectFit from '$lib/scss/tokens/layout/\_object-fit.scss?raw';
+
+{/* @ts-ignore */}
+import objectPosition from '$lib/scss/tokens/layout/\_object-position.scss?raw';
+
+{/* @ts-ignore */}
 import position from '$lib/scss/tokens/layout/\_position.scss?raw';
 
 <Meta title="Styles/Tokens/Layout/Main" parameters={{ ...parameters }} />
@@ -50,5 +56,21 @@ import position from '$lib/scss/tokens/layout/\_position.scss?raw';
   mdnLink="box-sizing"
   header={['Class', 'Properties']}
   body={cssStringToTableArray(boxSizing)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Object fit"
+  mdnLink="object-fit"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(objectFit)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Object position"
+  mdnLink="object-position"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(objectPosition)}
   copyable={[true, false]}
 />
