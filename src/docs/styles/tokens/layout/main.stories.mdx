@@ -19,6 +19,9 @@ import objectFit from '$lib/scss/tokens/layout/\_object-fit.scss?raw';
 import objectPosition from '$lib/scss/tokens/layout/\_object-position.scss?raw';
 
 {/* @ts-ignore */}
+import overflow from '$lib/scss/tokens/layout/\_overflow.scss?raw';
+
+{/* @ts-ignore */}
 import position from '$lib/scss/tokens/layout/\_position.scss?raw';
 
 <Meta title="Styles/Tokens/Layout/Main" parameters={{ ...parameters }} />
@@ -40,6 +43,14 @@ import position from '$lib/scss/tokens/layout/\_position.scss?raw';
   mdnLink="position"
   header={['Class', 'Properties']}
   body={cssStringToTableArray(position)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Overflow"
+  mdnLink="overflow"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(overflow)}
   copyable={[true, false]}
 />
 
