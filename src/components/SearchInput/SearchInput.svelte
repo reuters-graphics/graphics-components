@@ -38,13 +38,18 @@
     on:input="{input}"
     bind:value="{value}"
   />
-  <div class="search--x" class:invisible="{!active}" on:click="{clear}">
+  <div
+    class="search--x"
+    class:invisible="{!active}"
+    on:click="{clear}"
+    on:keyup="{clear}"
+  >
     <X />
   </div>
 </div>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
 
   .search {
     position: relative;
@@ -58,7 +63,7 @@
       top: 0.15rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: var(--theme-colour-brand-rules);
+      fill: $theme-colour-brand-rules;
     }
     .search--input {
       @include font-sans;
@@ -66,7 +71,7 @@
       padding: 0 0 0 2rem;
       font-size: 0.8rem;
       height: 33px;
-      border: 1px solid var(--theme-colour-brand-rules);
+      border: 1px solid $theme-colour-brand-rules;
       background: transparent;
       border-radius: 6px;
       width: 100%;
@@ -77,7 +82,7 @@
       top: 0.15rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: var(--theme-colour-text-primary);
+      fill: $theme-colour-text-primary;
       cursor: pointer;
       &.invisible {
         display: none;
