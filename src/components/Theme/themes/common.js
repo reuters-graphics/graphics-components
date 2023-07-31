@@ -5,7 +5,7 @@ export default {
       serif: 'FreightText, serif',
       'sans-serif': 'Knowledge, sans-serif',
       monospace:
-        'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+        '"Fragment Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
       hed: 'var(--theme-font-family-sans-serif)',
       subhed: 'var(--theme-font-family-sans-serif)',
       body: 'var(--theme-font-family-serif)',

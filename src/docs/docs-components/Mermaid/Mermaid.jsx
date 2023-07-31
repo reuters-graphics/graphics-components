@@ -12,7 +12,7 @@ export default function Mermaid(props) {
     if (!code) return;
     const parseMermaid = async (code) => {
       try {
-        const { svg } = await mermaid.render(name, code.trim() || '');
+        const { svg } = await mermaid.render(name, code || '');
         setGraphSvg(svg);
       } catch (err) {
         setGraphSvg('');

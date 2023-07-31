@@ -188,6 +188,29 @@
   font-display: swap;
 }
 
+/* FRAGMENT MONOSPACE */
+@font-face {
+  font-family: 'Fragment Mono';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FragmentMono-Regular.woff2')
+      format('woff2'),
+    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FragmentMono-Regular.woff')
+      format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fragment Mono';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FragmentMono-Italic.woff2')
+      format('woff2'),
+    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FragmentMono-Italic.woff')
+      format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* NOTO SANS JAPANESE */
 @font-face {
   font-family: 'Noto Sans JP';
