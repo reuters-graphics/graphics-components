@@ -49,6 +49,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
           yarn install --frozen-lockfile
           yarn build:package
+          git add .
+          git commit -m "built package"
           yarn auto canary
