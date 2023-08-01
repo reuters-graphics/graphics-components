@@ -5,6 +5,7 @@ on:
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
     # Restricts to:
     #   1) the base repository
@@ -50,4 +51,4 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn build:package
-          npx auto canary --dry-run
+          yarn auto canary
