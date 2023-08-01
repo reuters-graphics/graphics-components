@@ -14,13 +14,13 @@ import color from '$lib/scss/tokens/text/\_color.scss?inline';
 
 # Style tokens
 
-The heart of the design system used to style all the components in this library is our style token system. Style tokens give us an extremely flexible set of designs that can be easily customised or overwritten and make for the most concise, smallest CSS stylesheets possible.
+All of the components in this library have been styled using a system of tokens. The style tokens give us a lot of flexibility to easily customise components' look, overwrite with more specific styles easily and ultimately make for the most concise CSS definitions possible.
 
-While the token system is designed for our pre-made components, you can also use them to help shortcut the time you spend writing CSS.
+You can also use our style tokens to help shortcut the time you spend writing CSS and reinventing solid design conventions.
 
 ## What's a "token"?
 
-A token represents the value for an individual style rule, like `font-size` or `color`. Each token sets just one style rule, and multiple tokens are combined together to style an element, like a `<div/>` below:
+A token represents the value for an individual style rule, like `font-size` or `color`. Each token sets just one style rule, and multiple tokens are combined together to style an element, like a `<div/>`.
 
 <Mermaid
   name="token-graph"
@@ -42,9 +42,9 @@ Each set of tokens has several levels that represent the different values a styl
   name="individual-graph"
   code={`
 graph LR;
-  TD(Text align tokens)-->TA;
-  TD-->TB;
-  TD-->TC;
+  TD("\`**Text align tokens**\`")---TA;
+  TD---TB;
+  TD---TC;
   TA(text-left)-->TX("text-align: left;");
   TB(text-center)-->TY("text-align: center;");
   TC(text-right)-->TZ("text-align: right;");
@@ -111,3 +111,19 @@ p {
 ```
 
 It's normal that not every style is accounted for by our tokens, so even if you use them expect you'll still have to write your own SCSS at times. But using the pre-made tokens will shortcut a lot of time spent tweaking styles to make designs consistent across your page. The styles set by our tokens have been pre-harmonised for you!
+
+### `!important` modifier
+
+Most of our tokens can be used with an `!important` modifier simply by adding an `!`. So for the class token that controls `font-weight`, you'd make it important like:
+
+```svelte
+<p class="!font-bold">Lorem ipsum...</p>
+```
+
+For SCSS includes, the concept is the same, but you need to escape the `!` by adding an extra `\` to make it valid syntax:
+
+```scss
+p {
+  @include \!font-bold;
+}
+```
