@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
+          scope: '@reuters-graphics'
 
       - id: cache
         name: Cache node modules
@@ -53,4 +54,4 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn install --frozen-lockfile
-          yarn auto canary
+          npx auto canary
