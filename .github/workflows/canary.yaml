@@ -1,21 +1,18 @@
 name: Canary
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
     # Restricts to:
-    #   1) push event on a PR
-    #   2) the base repository
-    #   3) NOT the default branch ("main")
-    #   4) NOT "ci skip" in commit message
-    #   5) NOT "skip ci" in commit message
+    #   1) the base repository
+    #   2) NOT the default branch ("main")
+    #   3) NOT "ci skip" in commit message
+    #   4) NOT "skip ci" in commit message
     if: |
-      github.event_name == 'push' &&
       github.repository == 'reuters-graphics/graphics-components' &&
       endsWith(github.event.base_ref, github.event.repository.default_branch) != true &&
       contains(github.event.head_commit.message, 'ci skip') != true &&
