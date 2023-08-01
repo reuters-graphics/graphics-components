@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/reuters-graphics/graphics-components.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "storybook dev -p 3000",
     "new": "node ./bin/newComponent/index.cjs",
