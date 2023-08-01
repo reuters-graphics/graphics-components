@@ -2,7 +2,7 @@ name: Canary
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   release:
