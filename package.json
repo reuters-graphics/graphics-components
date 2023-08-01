@@ -9,6 +9,7 @@
     "url": "git+https://github.com/reuters-graphics/graphics-components.git"
   },
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "scripts": {

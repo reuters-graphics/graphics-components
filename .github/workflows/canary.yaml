@@ -32,7 +32,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
-          scope: '@reuters-graphics'
 
       - id: cache
         name: Cache node modules
@@ -43,15 +42,17 @@ jobs:
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
 
+      - id: install-deps
+        name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - id: build-package
         name: Build package
         run: npm run build:package
 
-      - id: release
-        name: Create Release
+      - id: canary-release
+        name: Create Canary Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          yarn install --frozen-lockfile
-          npx auto canary
+        run: npx auto canary
