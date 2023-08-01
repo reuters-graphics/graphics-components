@@ -32,7 +32,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
-          scope: '@reuters-graphics'
 
       - id: cache
         name: Cache node modules
@@ -42,6 +41,10 @@ jobs:
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - id: build-package
+        name: Build package
+        run: npm run build:package
 
       - id: release
         name: Create Release
