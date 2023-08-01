@@ -20,7 +20,7 @@ While the token system is designed for our pre-made components, you can also use
 
 ## What's a "token"?
 
-A token represents the value for an individual style rule, like `font-weight`. Each token sets just one style rule, and multiple tokens can be combined together to style an element.
+A token represents the value for an individual style rule, like `font-size` or `color`. Each token sets just one style rule, and multiple tokens are combined together to style an element, like a `<div/>` below:
 
 <Mermaid
   name="token-graph"
@@ -36,7 +36,7 @@ graph LR;
 `}
 />
 
-Each token has several levels that represent the different variations of a style rule in our design system.
+Each set of tokens has several levels that represent the different values a style rule can take in our design system and are grouped in how they're named to make them easier to remember.
 
 <Mermaid
   name="individual-graph"
