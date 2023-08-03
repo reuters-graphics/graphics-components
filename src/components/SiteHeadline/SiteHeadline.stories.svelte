@@ -28,7 +28,7 @@
     argTypes: {
       hedSize: {
         control: 'select',
-        options: ['small', 'normal', 'big', 'bigger', 'biggest'],
+        options: ['small', 'normal', 'big'],
       },
     },
   };

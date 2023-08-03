@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { HeadlineSize } from '../@types/global';
+  /**
+   * Used to set headline class fluid size from text-2xl to text-4xl
+   */
+  type HeadlineSize = 'small' | 'normal' | 'big';
 
   /**
    * Headline
@@ -10,6 +13,7 @@
   /**
    * Headline size
    * @type {string}
+   * @
    */
   export let hedSize: HeadlineSize = 'normal';
   /**
@@ -73,12 +77,12 @@
   let hedClass;
   $: {
     switch (hedSize) {
-      case 'biggest':
-        hedClass = 'text-6xl';
-        break;
-      case 'bigger':
-        hedClass = 'text-5xl';
-        break;
+      // case 'biggest':
+      //   hedClass = 'text-6xl';
+      //   break;
+      // case 'bigger':
+      //   hedClass = 'text-5xl';
+      //   break;
       case 'big':
         hedClass = 'text-4xl';
         break;
