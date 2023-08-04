@@ -109,8 +109,8 @@
   header.headline {
     :global {
       h1 {
-        @extend %fmy-1;
-        @extend %fmx-auto;
+        @include fmy-1;
+        @include fmx-auto;
       }
 
       p {
@@ -129,7 +129,7 @@
     }
     .article-metadata {
       .byline-container {
-        @extend %fmb-1;
+        @include fmb-1;
       }
 
       .byline {

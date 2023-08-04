@@ -121,7 +121,7 @@
         }
       }
       :global(p) {
-        @extend %fmb-2;
+        @include fmb-2;
         @include leading-normal;
         @include font-light;
         @include text-sm;

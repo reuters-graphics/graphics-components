@@ -9,8 +9,8 @@
 .font-light {
   @include font-light;
 }
-.font-normal {
-  @include font-normal;
+.font-regular {
+  @include font-regular;
 }
 .font-medium {
   @include font-medium;
@@ -36,8 +36,8 @@
 .\!font-light {
   @include \!font-light;
 }
-.\!font-normal {
-  @include \!font-normal;
+.\!font-regular {
+  @include \!font-regular;
 }
 .\!font-medium {
   @include \!font-medium;

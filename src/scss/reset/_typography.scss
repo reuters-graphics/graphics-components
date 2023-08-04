@@ -3,12 +3,25 @@
 body {
   font-size: 1rem;
   @include font-sans;
-  @include font-normal;
+  @include font-regular;
   @include leading-normal;
   // Font-smoothing
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// SIZE RANGE REFERENCE //
+// xxs: 12.64px
+// xs: 14.22px
+// sm: 16.00px → 17.60px
+// base: 18.00px → 22.00px
+// lg: 20.25px → 27.50px
+// xl: 22.78px → 34.38px
+// 2xl: 25.63px → 42.97px
+// 3xl: 28.83px → 53.71px
+// 4xl: 32.44px → 67.14px
+// 5xl: 36.49px → 83.92px
+// 6xl: 41.05px → 104.90px
 
 /////////////
 // HEADINGS
@@ -25,6 +38,7 @@ h1 {
   @include font-hed;
   @include text-3xl;
   @include leading-none;
+
   margin-block-start: calc(var(--theme-font-size-base) * 1.5);
   margin-block-end: calc(var(--theme-font-size-base) * 0.75);
 }
@@ -58,7 +72,7 @@ h5 {
 }
 h6 {
   @include text-sm;
-  @include font-normal;
+  @include font-regular;
   text-transform: uppercase;
   margin-block-end: calc(var(--theme-font-size-base) * 0.375);
 }
@@ -75,7 +89,7 @@ h6 {
   margin-inline-end: 0px;
   @include font-body;
   @include text-base;
-  @include font-normal;
+  @include font-regular;
   @include leading-normal;
   @include text-primary;
 }
@@ -108,7 +122,7 @@ strong {
 
 figcaption {
   @include text-sm;
-  @include font-normal;
+  @include font-regular;
   @include leading-normal;
   @include text-secondary;
   @include font-note;
@@ -118,12 +132,12 @@ blockquote {
   margin-inline: 0;
   padding-left: 1rem;
   border-left: 1px solid $theme-colour-brand-rules;
-  @extend %fmy-6;
+  @include fmy-6;
   p {
     @include font-body;
     @include text-lg;
     &:last-of-type {
-      @extend %fmb-2;
+      @include fmb-2;
     }
   }
   blockquote {

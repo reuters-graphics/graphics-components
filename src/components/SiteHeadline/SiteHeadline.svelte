@@ -77,12 +77,6 @@
   let hedClass;
   $: {
     switch (hedSize) {
-      // case 'biggest':
-      //   hedClass = 'text-6xl';
-      //   break;
-      // case 'bigger':
-      //   hedClass = 'text-5xl';
-      //   break;
       case 'big':
         hedClass = 'text-4xl';
         break;
@@ -100,7 +94,7 @@
     <div class="title">
       {#if section}
         <p
-          class="section-title mb-2 font-subhed text-sm text-secondary font-bold"
+          class="section-title mb-0 font-subhed text-xxs text-secondary font-bold uppercase whitespace-nowrap tracking-wider"
         >
           {#if sectionUrl}
             <a class="no-underline !text-secondary" href="{sectionUrl}"
@@ -112,14 +106,18 @@
         </p>
       {/if}
       {#if hed}
-        <h1 class="my-0 font-hed text-primary leading-none {hedClass}">
+        <h1
+          class="font-hed text-primary leading-none font-medium fmt-1 fmb-3 {hedClass}"
+        >
           {hed}
         </h1>
       {/if}
     </div>
     <aside class="article-metadata mt-2 font-subhed">
       <div class="byline-container">
-        <div class="byline text-sm text-primary font-bold leading-tight">
+        <div
+          class="byline text-xs text-primary font-bold leading-tighter fmb-1"
+        >
           By
           {#if authors.length > 0}
             {#each authors as author, i}
@@ -140,7 +138,7 @@
         </div>
       </div>
       <div
-        class="dateline-container mt-1.5 text-secondary text-xxs uppercase leading-normal tracking-normal"
+        class="dateline-container fmt-0 text-secondary text-xs leading-tighter"
       >
         {#if isValidDate(publishTime)}
           <div>
@@ -176,10 +174,32 @@
 </Block>
 
 <style lang="scss">
+  @use '../../scss/mixins' as *;
   .byline a {
     text-decoration: none;
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: $column-width-narrow) {
+    h1 {
+      @include font-semibold;
+    }
+  }
+
+  @media (min-width: $column-width-narrower) {
+    .dateline-container {
+      display: flex;
+      flex-flow: wrap;
+      div {
+        &:not(:last-child) {
+          &:after {
+            content: '·';
+            @include fmx-1;
+          }
+        }
+      }
     }
   }
 </style>

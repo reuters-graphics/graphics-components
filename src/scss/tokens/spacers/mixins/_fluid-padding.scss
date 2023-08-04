@@ -1,64 +1,235 @@
+// Generated from https://utopia.fyi/space/calculator?c=320,18,1.125,1280,22,1.25,7,3,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l&g=s,l,xl,12
 $fluid-padding-levels: (
   '0': 0,
-  '1': clamp(0.31rem, calc(0.31rem + 0vw), 0.31rem),
+  '1': clamp(0.31rem, calc(0.29rem + 0.1vw), 0.38rem),
   '2': clamp(0.56rem, calc(0.52rem + 0.21vw), 0.69rem),
-  '3': clamp(0.88rem, calc(0.83rem + 0.21vw), 1rem),
-  '4': clamp(1.13rem, calc(1.06rem + 0.31vw), 1.31rem),
-  '5': clamp(1.69rem, calc(1.58rem + 0.52vw), 2rem),
-  '6': clamp(2.25rem, calc(2.13rem + 0.63vw), 2.63rem),
-  '7': clamp(3.38rem, calc(3.19rem + 0.94vw), 3.94rem),
-  '8': clamp(4.5rem, calc(4.25rem + 1.25vw), 5.25rem),
-  '9': clamp(6.75rem, calc(6.38rem + 1.88vw), 7.88rem),
+  '3': clamp(0.88rem, calc(0.81rem + 0.31vw), 1.06rem),
+  '4': clamp(1.13rem, calc(1.04rem + 0.42vw), 1.38rem),
+  '5': clamp(1.69rem, calc(1.56rem + 0.63vw), 2.06rem),
+  '6': clamp(2.25rem, calc(2.08rem + 0.83vw), 2.75rem),
+  '7': clamp(3.38rem, calc(3.13rem + 1.25vw), 4.13rem),
+  '8': clamp(4.5rem, calc(4.17rem + 1.67vw), 5.5rem),
+  '9': clamp(6.75rem, calc(6.25rem + 2.5vw), 8.25rem),
 );
 
-@each $level, $value in $fluid-padding-levels {
-  %fp-#{$level} {
-    padding: $value;
-  }
-  %fpt-#{$level} {
-    padding-top: $value;
-  }
-  %fpr-#{$level} {
-    padding-right: $value;
-  }
-  %fpb-#{$level} {
-    padding-bottom: $value;
-  }
-  %fpl-#{$level} {
-    padding-left: $value;
-  }
-  %fpx-#{$level} {
-    padding-right: $value;
-    padding-left: $value;
-  }
-  %fpy-#{$level} {
-    padding-top: $value;
-    padding-bottom: $value;
-  }
+@mixin fp-0 {
+  padding: map.get($fluid-padding-levels, '0');
+}
+@mixin fpx-0 {
+  padding-inline: map.get($fluid-padding-levels, '0');
+}
+@mixin fpy-0 {
+  padding-block: map.get($fluid-padding-levels, '0');
+}
+@mixin fpt-0 {
+  padding-top: map.get($fluid-padding-levels, '0');
+}
+@mixin fpb-0 {
+  padding-bottom: map.get($fluid-padding-levels, '0');
+}
+@mixin fpl-0 {
+  padding-left: map.get($fluid-padding-levels, '0');
+}
+@mixin fpr-0 {
+  padding-right: map.get($fluid-padding-levels, '0');
+}
 
-  %\!fp-#{$level} {
-    padding: $value !important;
-  }
-  %\!fpt-#{$level} {
-    padding-top: $value !important;
-  }
-  %\!fpr-#{$level} {
-    padding-right: $value !important;
-  }
-  %\!fpb-#{$level} {
-    padding-bottom: $value !important;
-  }
-  %\!fpl-#{$level} {
-    padding-left: $value !important;
-  }
-  %\!fpx-#{$level} {
-    padding-right: $value !important;
-    padding-left: $value !important;
-  }
-  %\!fpy-#{$level} {
-    padding-top: $value !important;
-    padding-bottom: $value !important;
-  }
+@mixin fp-1 {
+  padding: map.get($fluid-padding-levels, '1');
+}
+@mixin fpx-1 {
+  padding-inline: map.get($fluid-padding-levels, '1');
+}
+@mixin fpy-1 {
+  padding-block: map.get($fluid-padding-levels, '1');
+}
+@mixin fpt-1 {
+  padding-top: map.get($fluid-padding-levels, '1');
+}
+@mixin fpb-1 {
+  padding-bottom: map.get($fluid-padding-levels, '1');
+}
+@mixin fpl-1 {
+  padding-left: map.get($fluid-padding-levels, '1');
+}
+@mixin fpr-1 {
+  padding-right: map.get($fluid-padding-levels, '1');
+}
+
+@mixin fp-2 {
+  padding: map.get($fluid-padding-levels, '2');
+}
+@mixin fpx-2 {
+  padding-inline: map.get($fluid-padding-levels, '2');
+}
+@mixin fpy-2 {
+  padding-block: map.get($fluid-padding-levels, '2');
+}
+@mixin fpt-2 {
+  padding-top: map.get($fluid-padding-levels, '2');
+}
+@mixin fpb-2 {
+  padding-bottom: map.get($fluid-padding-levels, '2');
+}
+@mixin fpl-2 {
+  padding-left: map.get($fluid-padding-levels, '2');
+}
+@mixin fpr-2 {
+  padding-right: map.get($fluid-padding-levels, '2');
+}
+
+@mixin fp-3 {
+  padding: map.get($fluid-padding-levels, '3');
+}
+@mixin fpx-3 {
+  padding-inline: map.get($fluid-padding-levels, '3');
+}
+@mixin fpy-3 {
+  padding-block: map.get($fluid-padding-levels, '3');
+}
+@mixin fpt-3 {
+  padding-top: map.get($fluid-padding-levels, '3');
+}
+@mixin fpb-3 {
+  padding-bottom: map.get($fluid-padding-levels, '3');
+}
+@mixin fpl-3 {
+  padding-left: map.get($fluid-padding-levels, '3');
+}
+@mixin fpr-3 {
+  padding-right: map.get($fluid-padding-levels, '3');
+}
+
+@mixin fp-4 {
+  padding: map.get($fluid-padding-levels, '4');
+}
+@mixin fpx-4 {
+  padding-inline: map.get($fluid-padding-levels, '4');
+}
+@mixin fpy-4 {
+  padding-block: map.get($fluid-padding-levels, '4');
+}
+@mixin fpt-4 {
+  padding-top: map.get($fluid-padding-levels, '4');
+}
+@mixin fpb-4 {
+  padding-bottom: map.get($fluid-padding-levels, '4');
+}
+@mixin fpl-4 {
+  padding-left: map.get($fluid-padding-levels, '4');
+}
+@mixin fpr-4 {
+  padding-right: map.get($fluid-padding-levels, '4');
+}
+
+@mixin fp-5 {
+  padding: map.get($fluid-padding-levels, '5');
+}
+@mixin fpx-5 {
+  padding-inline: map.get($fluid-padding-levels, '5');
+}
+@mixin fpy-5 {
+  padding-block: map.get($fluid-padding-levels, '5');
+}
+@mixin fpt-5 {
+  padding-top: map.get($fluid-padding-levels, '5');
+}
+@mixin fpb-5 {
+  padding-bottom: map.get($fluid-padding-levels, '5');
+}
+@mixin fpl-5 {
+  padding-left: map.get($fluid-padding-levels, '5');
+}
+@mixin fpr-5 {
+  padding-right: map.get($fluid-padding-levels, '5');
+}
+
+@mixin fp-6 {
+  padding: map.get($fluid-padding-levels, '6');
+}
+@mixin fpx-6 {
+  padding-inline: map.get($fluid-padding-levels, '6');
+}
+@mixin fpy-6 {
+  padding-block: map.get($fluid-padding-levels, '6');
+}
+@mixin fpt-6 {
+  padding-top: map.get($fluid-padding-levels, '6');
+}
+@mixin fpb-6 {
+  padding-bottom: map.get($fluid-padding-levels, '6');
+}
+@mixin fpl-6 {
+  padding-left: map.get($fluid-padding-levels, '6');
+}
+@mixin fpr-6 {
+  padding-right: map.get($fluid-padding-levels, '6');
+}
+
+@mixin fp-7 {
+  padding: map.get($fluid-padding-levels, '7');
+}
+@mixin fpx-7 {
+  padding-inline: map.get($fluid-padding-levels, '7');
+}
+@mixin fpy-7 {
+  padding-block: map.get($fluid-padding-levels, '7');
+}
+@mixin fpt-7 {
+  padding-top: map.get($fluid-padding-levels, '7');
+}
+@mixin fpb-7 {
+  padding-bottom: map.get($fluid-padding-levels, '7');
+}
+@mixin fpl-7 {
+  padding-left: map.get($fluid-padding-levels, '7');
+}
+@mixin fpr-7 {
+  padding-right: map.get($fluid-padding-levels, '7');
+}
+
+@mixin fp-8 {
+  padding: map.get($fluid-padding-levels, '8');
+}
+@mixin fpx-8 {
+  padding-inline: map.get($fluid-padding-levels, '8');
+}
+@mixin fpy-8 {
+  padding-block: map.get($fluid-padding-levels, '8');
+}
+@mixin fpt-8 {
+  padding-top: map.get($fluid-padding-levels, '8');
+}
+@mixin fpb-8 {
+  padding-bottom: map.get($fluid-padding-levels, '8');
+}
+@mixin fpl-8 {
+  padding-left: map.get($fluid-padding-levels, '8');
+}
+@mixin fpr-8 {
+  padding-right: map.get($fluid-padding-levels, '8');
+}
+
+@mixin fp-9 {
+  padding: map.get($fluid-padding-levels, '9');
+}
+@mixin fpx-9 {
+  padding-inline: map.get($fluid-padding-levels, '9');
+}
+@mixin fpy-9 {
+  padding-block: map.get($fluid-padding-levels, '9');
+}
+@mixin fpt-9 {
+  padding-top: map.get($fluid-padding-levels, '9');
+}
+@mixin fpb-9 {
+  padding-bottom: map.get($fluid-padding-levels, '9');
+}
+@mixin fpl-9 {
+  padding-left: map.get($fluid-padding-levels, '9');
+}
+@mixin fpr-9 {
+  padding-right: map.get($fluid-padding-levels, '9');
 }
 
 %fp-auto {

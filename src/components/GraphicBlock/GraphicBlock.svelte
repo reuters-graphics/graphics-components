@@ -142,7 +142,7 @@
       @include text-sm;
       @include text-primary;
       &:last-of-type {
-        @extend %fmb-1;
+        @include fmb-1;
       }
     }
     // Notes text...

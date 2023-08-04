@@ -7,7 +7,7 @@
 @mixin font-light {
   font-weight: 300;
 }
-@mixin font-normal {
+@mixin font-regular {
   font-weight: 400;
 }
 @mixin font-medium {
@@ -34,7 +34,7 @@
 @mixin \!font-light {
   font-weight: 300 !important;
 }
-@mixin \!font-normal {
+@mixin \!font-regular {
   font-weight: 400 !important;
 }
 @mixin \!font-medium {
