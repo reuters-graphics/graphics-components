@@ -2,12 +2,24 @@
 
 body {
   font-size: 1rem;
+  color: #404040;
   @include font-sans;
   @include font-regular;
-  @include leading-normal;
+  @include leading-tight;
+
   // Font-smoothing
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  .theme {
+    font-size: calc(0.95 * var(--theme-font-size-base));
+    color: var(--theme-colour-text-primary);
+
+    ::selection {
+      background-color: $theme-colour-text-secondary;
+      color: $theme-colour-background;
+    }
+  }
 }
 
 // SIZE RANGE REFERENCE //
@@ -27,54 +39,22 @@ body {
 // HEADINGS
 /////////////
 
-h1,
-h2,
-h3,
-h5,
-h6 {
-  @include text-primary;
-}
 h1 {
-  @include font-hed;
-  @include text-3xl;
-  @include leading-none;
-
-  margin-block-start: calc(var(--theme-font-size-base) * 1.5);
-  margin-block-end: calc(var(--theme-font-size-base) * 0.75);
+  @include h1;
 }
-h2,
-h3,
+
+h2 {
+  @include h2;
+}
+
+h3 {
+  @include h3;
+}
+
 h4,
 h5,
 h6 {
-  @include font-subhed;
-  @include leading-tighter;
-  margin-block-start: calc(var(--theme-font-size-base) * 1.5);
-}
-h2 {
-  @include text-xl;
-  margin-block-end: calc(var(--theme-font-size-base) * 0.75);
-}
-h3 {
-  @include text-lg;
-  margin-block-end: calc(var(--theme-font-size-base) * 0.625);
-}
-h4 {
-  @include text-base;
-  @include text-secondary;
-  @include tracking-wider;
-  text-transform: uppercase;
-  margin-block-end: calc(var(--theme-font-size-base) * 0.5);
-}
-h5 {
-  @include text-sm;
-  margin-block-end: calc(var(--theme-font-size-base) * 0.375);
-}
-h6 {
-  @include text-sm;
-  @include font-regular;
-  text-transform: uppercase;
-  margin-block-end: calc(var(--theme-font-size-base) * 0.375);
+  @include h4;
 }
 
 //////////////
@@ -83,15 +63,7 @@ h6 {
 
 %body-type-block {
   display: block;
-  margin-block-start: 0px;
-  margin-block-end: calc(var(--theme-font-size-base) * 1.125);
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  @include font-body;
-  @include text-base;
-  @include font-regular;
-  @include leading-normal;
-  @include text-primary;
+  @include body-text;
 }
 
 p {
@@ -109,15 +81,34 @@ ul {
 }
 
 a {
-  color: currentColor;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  text-underline-offset: 8%;
-  text-decoration-thickness: from-font;
+  @include body-link;
+}
+
+em {
+  font-style: italic;
 }
 
 strong {
   @include font-bold;
+}
+
+pre,
+code,
+kbd {
+  @include font-mono;
+  @include text-sm;
+  @include text-secondary;
+  @include fmx-0;
+  @include fmt-0;
+  @include fmb-3;
+}
+
+kbd {
+  background-color: $theme-colour-text-primary;
+  color: $theme-colour-background;
+  border-radius: 0.3rem;
+  @include fpx-2;
+  @include fpy-1;
 }
 
 figcaption {
@@ -129,24 +120,30 @@ figcaption {
 }
 
 blockquote {
-  margin-inline: 0;
-  padding-left: 1rem;
-  border-left: 1px solid $theme-colour-brand-rules;
-  @include fmy-6;
+  @include fmx-0;
+  @include fpl-3;
+  @include fpy-3;
+  @include fpr-1;
+  border-left: 2px solid $theme-colour-brand-rules;
+  @include fmy-3;
   p {
     @include font-body;
     @include text-lg;
-    &:last-of-type {
-      @include fmb-2;
-    }
+    @include leading-tight;
+    @include fmb-1;
+    font-style: italic;
   }
   blockquote {
-    margin-block: 0;
+    @include fmb-0;
+    @include fmt-3;
     border: 0;
-    padding-left: 0;
+    @include fpy-0;
+    @include fpl-0;
     p {
       @include text-sm;
       @include font-note;
+      @include fm-0;
+      font-style: normal;
     }
   }
 }

@@ -2,13 +2,13 @@
   letter-spacing: -0.05em;
 }
 @mixin tracking-tight {
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 @mixin tracking-normal {
   letter-spacing: 0em;
 }
 @mixin tracking-wide {
-  letter-spacing: 0.025em;
+  letter-spacing: 0.03em;
 }
 @mixin tracking-wider {
   letter-spacing: 0.05em;
@@ -20,13 +20,13 @@
   letter-spacing: -0.05em !important;
 }
 @mixin \!tracking-tight {
-  letter-spacing: -0.025em !important;
+  letter-spacing: -0.03em !important;
 }
 @mixin \!tracking-normal {
   letter-spacing: 0em !important;
 }
 @mixin \!tracking-wide {
-  letter-spacing: 0.025em !important;
+  letter-spacing: 0.03em !important;
 }
 @mixin \!tracking-wider {
   letter-spacing: 0.05em !important;

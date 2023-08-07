@@ -176,9 +176,9 @@
 <style lang="scss">
   @use '../../scss/mixins' as *;
   .byline a {
-    text-decoration: none;
+    text-decoration-line: none;
     &:hover {
-      text-decoration: underline;
+      text-decoration-line: underline;
     }
   }
 

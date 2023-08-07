@@ -1,0 +1,86 @@
+@use 'color' as *;
+@use 'font-family' as *;
+@use 'font-size' as *;
+@use 'font-weight' as *;
+@use 'letter-spacing' as *;
+@use 'line-height' as *;
+@use '../../spacers/mixins/main' as *;
+
+@mixin h1 {
+  @include text-primary;
+  @include font-bold;
+  @include font-hed;
+  @include text-3xl;
+  @include leading-none;
+  @include fmt-1;
+  @include fmb-3;
+}
+
+@mixin h2 {
+  @include text-primary;
+  @include font-bold;
+  @include font-subhed;
+  @include leading-tighter;
+  @include text-xl;
+  @include fmt-7;
+  @include fmb-3;
+}
+
+@mixin h3 {
+  @include text-primary;
+  @include font-semibold;
+  @include font-subhed;
+  @include leading-tighter;
+  @include text-base;
+  @include fmt-5;
+  @include fmb-1;
+}
+
+@mixin h4 {
+  @include text-primary;
+  @include font-subhed;
+  @include leading-tight;
+  @include text-sm;
+  @include text-secondary;
+  @include tracking-wide;
+  text-transform: uppercase;
+  @include fmt-4;
+  @include fmb-1;
+}
+
+@mixin body-text {
+  @include fmt-0;
+  @include fmb-3;
+  @include fmx-0;
+  @include font-body;
+  @include text-base;
+  @include font-regular;
+  @include leading-normal;
+  @include text-primary;
+}
+
+@mixin body-note {
+  @include fmt-0;
+  @include fmb-1;
+  @include fmx-0;
+  @include font-note;
+  @include text-base;
+  @include font-light;
+  @include text-primary;
+  @include leading-tight;
+}
+
+@mixin body-link {
+  color: currentColor;
+  text-decoration: underline;
+  text-underline-offset: 5%;
+  text-underline-position: under;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--theme-colour-text-secondary);
+}
+
+// @mixin \!h1 {
+//   @include \!text-primary;
+//   @include \!font-bold;
+// }
