@@ -1,3 +1,4 @@
+@use '../mixins' as *;
 @import 'normalize.css';
 @import 'typography';
 
@@ -9,4 +10,24 @@
 
 body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  ::selection {
+    background-color: $theme-colour-text-secondary;
+    color: $theme-colour-background;
+  }
+}
+
+img {
+  max-width: 100%;
+  @include fmy-5;
+}
+
+figure {
+  @include fmy-5;
+  @include fmx-auto;
+}
+
+iframe {
+  border: 0;
+  width: 100%;
 }

@@ -98,7 +98,7 @@
 </script>
 
 <Block width="{width}" id="{id}" class="photo-carousel {cls}">
-  <div class="carousel-container mb-2" bind:clientWidth="{containerWidth}">
+  <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"
       options="{{
@@ -120,7 +120,7 @@
                   style="height: {carouselHeight}px;"
                 >
                   <img
-                    class="w-full h-full"
+                    class="w-full h-full my-0"
                     data-splide-lazy="{photo.src}"
                     alt="{photo.altText}"
                     style:object-fit="{photo.objectFit ||
@@ -154,7 +154,7 @@
             {:else}
               {#key activeImageIndex}
                 <p
-                  class="caption font-note text-secondary text-xs mb-0 mx-0 mt-0.5"
+                  class="caption body-caption fmt-2"
                   in:fly|local="{{ x: 20, duration: 175 }}"
                 >
                   {photos[activeImageIndex].caption}

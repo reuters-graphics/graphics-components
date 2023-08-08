@@ -14,11 +14,6 @@ body {
   .theme {
     font-size: calc(0.95 * var(--theme-font-size-base));
     color: var(--theme-colour-text-primary);
-
-    ::selection {
-      background-color: $theme-colour-text-secondary;
-      color: $theme-colour-background;
-    }
   }
 }
 
@@ -112,11 +107,8 @@ kbd {
 }
 
 figcaption {
-  @include text-sm;
-  @include font-regular;
-  @include leading-normal;
-  @include text-secondary;
-  @include font-note;
+  @include fmt-2;
+  @include body-caption;
 }
 
 blockquote {

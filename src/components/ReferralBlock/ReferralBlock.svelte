@@ -79,14 +79,14 @@
   <Block width="{width}" id="{id}" class="referrals-block {cls}">
     {#if heading}
       <div
-        class="heading font-subhed text-secondary underline text-xs font-bold"
+        class="heading h4 font-bold"
         class:stacked="{clientWidth && clientWidth < 750}"
       >
         {heading}
       </div>
     {/if}
     <div
-      class="referral-container inline-flex flex-wrap w-full justify-center"
+      class="referral-container inline-flex flex-wrap w-full justify-between"
       class:stacked="{clientWidth && clientWidth < 750}"
       class:xs="{clientWidth && clientWidth < 450}"
       bind:clientWidth="{clientWidth}"
@@ -103,22 +103,13 @@
                 class="headline"
                 class:xs="{clientWidth && clientWidth < 450}"
               >
-                <div
-                  class="kicker m-0 font-note text-secondary"
-                  data-chromatic="ignore"
-                >
+                <div class="kicker m-0 body-caption" data-chromatic="ignore">
                   {referral.kicker.name}
                 </div>
-                <div
-                  class="title m-0 font-subhed font-bold text-primary"
-                  data-chromatic="ignore"
-                >
+                <div class="title m-0 body-caption" data-chromatic="ignore">
                   {referral.title}
                 </div>
-                <div
-                  class="publish-time font-note text-secondary"
-                  data-chromatic="ignore"
-                >
+                <div class="publish-time body-caption" data-chromatic="ignore">
                   {getTime(new Date(referral.display_time))}
                 </div>
               </div>
@@ -146,15 +137,12 @@
   @use '../../scss/mixins' as *;
 
   div.heading {
-    margin: 0 0 5px;
     &.stacked {
       max-width: 450px;
-      margin: 0 auto 5px;
     }
   }
 
   .referral-container {
-    gap: 10px 40px;
     a {
       text-decoration: none;
     }
@@ -162,14 +150,15 @@
       .referral {
         width: 100%;
         .headline {
-          padding: 0 10px 0 0;
+          width: calc(100% - 7rem);
         }
       }
     }
     .referral {
       display: block;
-      width: calc(50% - 20px);
+      width: calc(50% - 30px);
       max-width: 450px;
+      @include fmy-1;
 
       &:hover {
         .title {
@@ -182,42 +171,34 @@
 
       .headline {
         display: inline-block;
-        width: calc(100% - 140px);
-        padding: 0 10px 0 0;
+        width: calc(100% - 9rem);
+        @include fpr-2;
         &.xs {
-          width: calc(100% - 80px);
-          .kicker {
-            font-size: 0.85rem;
-          }
-          .title {
-            font-size: 0.9rem;
-            line-height: 1.1rem;
-          }
         }
         .kicker {
-          font-size: 0.9rem;
+          @include text-xxs;
         }
         .title {
-          font-size: 0.95rem;
-          line-height: 1.15rem;
+          @include font-medium;
+          @include text-sm;
+          @include text-primary;
         }
         .publish-time {
-          font-size: 0.75rem;
-          margin: 2px 0 0;
+          @include text-xxs;
         }
       }
       .image-container {
-        border-radius: 10px;
+        border-radius: 0.25rem;
         border: 1px solid $theme-colour-brand-rules;
-        width: 140px;
-        height: 90px;
+        width: 9rem;
         &.xs {
-          width: 80px;
-          height: 60px;
+          width: 7rem;
         }
         img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
           transition: filter 0.1s;
-          height: inherit;
         }
       }
     }

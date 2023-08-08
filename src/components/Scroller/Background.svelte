@@ -26,7 +26,7 @@
 
 <style lang="scss">
   .step-background {
-    transition: 0.5s opacity ease;
+    transition: 0.35s opacity ease;
 
     &.hidden {
       opacity: 0;

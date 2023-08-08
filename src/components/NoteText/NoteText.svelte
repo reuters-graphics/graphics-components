@@ -22,24 +22,21 @@
   @import '../../scss/mixins';
 
   .article-block.notes {
+    @include fmb-9;
+    @include fmt-7;
+
     h2,
     h3,
     h4,
     h5,
     h6 {
-      margin: var(--theme-font-size-base) 0 0;
-      @include text-sm;
-      @include text-primary;
-      @include leading-tight;
-      @include tracking-normal;
-      @include font-bold;
+      @include h3;
       text-transform: none;
     }
+
     p {
-      @include font-note;
-      @include font-light;
+      @include body-note;
       @include text-sm;
-      @include leading-tight;
     }
   }
 </style>

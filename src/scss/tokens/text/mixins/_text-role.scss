@@ -31,6 +31,7 @@
   @include font-semibold;
   @include font-subhed;
   @include leading-tighter;
+  @include tracking-normal;
   @include text-base;
   @include fmt-5;
   @include fmb-1;
@@ -82,7 +83,6 @@
 @mixin body-link {
   color: currentColor;
   text-decoration: underline;
-  text-underline-offset: 5%;
   text-underline-position: under;
   text-decoration-style: dotted;
   text-decoration-thickness: 1px;

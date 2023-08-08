@@ -115,7 +115,7 @@
     </div>
     <aside class="article-metadata mt-2 font-subhed">
       <div class="byline-container">
-        <div class="byline body-caption !font-bold">
+        <div class="byline body-caption">
           By
           {#if authors.length > 0}
             {#each authors as author, i}
@@ -171,10 +171,14 @@
 
 <style lang="scss">
   @use '../../scss/mixins' as *;
-  .byline a {
-    text-decoration-line: none;
-    &:hover {
-      text-decoration-line: underline;
+
+  .byline {
+    @include font-bold;
+    a {
+      text-decoration-line: none;
+      &:hover {
+        text-decoration-line: underline;
+      }
     }
   }
 

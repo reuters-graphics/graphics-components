@@ -66,7 +66,7 @@
     Class: 'mb-2',
     Width: 'wide',
     CaptionWidth: 'normal',
-    Gap: '10',
+    Gap: '15',
     Images: [
       {
         Src: 'https://via.placeholder.com/1024x768.jpg',

@@ -85,16 +85,16 @@
   <figure
     bind:this="{container}"
     aria-label="media"
-    class="w-full mt-0 mx-0 mb-6 flex flex-col relative"
+    class="w-full flex flex-col relative"
   >
     {#if !lazy || (intersectable && intersecting)}
-      <img class="w-full m-0" src="{src}" alt="{altText}" />
+      <img class="w-full my-0" src="{src}" alt="{altText}" />
     {:else}
       <div class="placeholder w-full" style="{`height: ${height}px;`}"></div>
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <figcaption class="font-note my-0 text-xs leading-tight">
+        <figcaption>
           {caption}
         </figcaption>
       </PaddingReset>

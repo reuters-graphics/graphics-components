@@ -92,7 +92,7 @@
     {:else if title}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
-          <h3 class="mt-0 fmb-1">{title}</h3>
+          <h3>{title}</h3>
           {#if description}
             {@html marked(description)}
           {/if}

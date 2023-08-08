@@ -34,6 +34,27 @@ $fluid-margin-levels: (
 @mixin fmr-0 {
   margin-right: map.get($fluid-margin-levels, '0');
 }
+@mixin \!fm-0 {
+  margin: map.get($fluid-margin-levels, '0') !important;
+}
+@mixin \!fmx-0 {
+  margin-inline: map.get($fluid-margin-levels, '0') !important;
+}
+@mixin \!fmy-0 {
+  margin-block: map.get($fluid-margin-levels, '0') !important;
+}
+@mixin \!fmt-0 {
+  margin-top: map.get($fluid-margin-levels, '0') !important;
+}
+@mixin \!fmb-0 {
+  margin-bottom: map.get($fluid-margin-levels, '0') !important;
+}
+@mixin \!fml-0 {
+  margin-left: map.get($fluid-margin-levels, '0') !important;
+}
+@mixin \!fmr-0 {
+  margin-right: map.get($fluid-margin-levels, '0') !important;
+}
 
 @mixin fm-1 {
   margin: map.get($fluid-margin-levels, '1');
@@ -53,8 +74,29 @@ $fluid-margin-levels: (
 @mixin fml-1 {
   margin-left: map.get($fluid-margin-levels, '1');
 }
-@mixin fmr-1 {
-  margin-right: map.get($fluid-margin-levels, '1');
+@mixin \!fmr-1 {
+  margin-right: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fm-1 {
+  margin: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fmx-1 {
+  margin-inline: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fmy-1 {
+  margin-block: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fmt-1 {
+  margin-top: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fmb-1 {
+  margin-bottom: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fml-1 {
+  margin-left: map.get($fluid-margin-levels, '1') !important;
+}
+@mixin \!fmr-1 {
+  margin-right: map.get($fluid-margin-levels, '1') !important;
 }
 
 @mixin fm-2 {
@@ -78,6 +120,27 @@ $fluid-margin-levels: (
 @mixin fmr-2 {
   margin-right: map.get($fluid-margin-levels, '2');
 }
+@mixin \!fm-2 {
+  margin: map.get($fluid-margin-levels, '2') !important;
+}
+@mixin \!fmx-2 {
+  margin-inline: map.get($fluid-margin-levels, '2') !important;
+}
+@mixin \!fmy-2 {
+  margin-block: map.get($fluid-margin-levels, '2') !important;
+}
+@mixin \!fmt-2 {
+  margin-top: map.get($fluid-margin-levels, '2') !important;
+}
+@mixin \!fmb-2 {
+  margin-bottom: map.get($fluid-margin-levels, '2') !important;
+}
+@mixin \!fml-2 {
+  margin-left: map.get($fluid-margin-levels, '2') !important;
+}
+@mixin \!fmr-2 {
+  margin-right: map.get($fluid-margin-levels, '2') !important;
+}
 
 @mixin fm-3 {
   margin: map.get($fluid-margin-levels, '3');
@@ -99,6 +162,27 @@ $fluid-margin-levels: (
 }
 @mixin fmr-3 {
   margin-right: map.get($fluid-margin-levels, '3');
+}
+@mixin \!fm-3 {
+  margin: map.get($fluid-margin-levels, '3') !important;
+}
+@mixin \!fmx-3 {
+  margin-inline: map.get($fluid-margin-levels, '3') !important;
+}
+@mixin \!fmy-3 {
+  margin-block: map.get($fluid-margin-levels, '3') !important;
+}
+@mixin \!fmt-3 {
+  margin-top: map.get($fluid-margin-levels, '3') !important;
+}
+@mixin \!fmb-3 {
+  margin-bottom: map.get($fluid-margin-levels, '3') !important;
+}
+@mixin \!fml-3 {
+  margin-left: map.get($fluid-margin-levels, '3') !important;
+}
+@mixin \!fmr-3 {
+  margin-right: map.get($fluid-margin-levels, '3') !important;
 }
 
 @mixin fm-4 {
@@ -122,6 +206,27 @@ $fluid-margin-levels: (
 @mixin fmr-4 {
   margin-right: map.get($fluid-margin-levels, '4');
 }
+@mixin \!fm-4 {
+  margin: map.get($fluid-margin-levels, '4') !important;
+}
+@mixin \!fmx-4 {
+  margin-inline: map.get($fluid-margin-levels, '4') !important;
+}
+@mixin \!fmy-4 {
+  margin-block: map.get($fluid-margin-levels, '4') !important;
+}
+@mixin \!fmt-4 {
+  margin-top: map.get($fluid-margin-levels, '4') !important;
+}
+@mixin \!fmb-4 {
+  margin-bottom: map.get($fluid-margin-levels, '4') !important;
+}
+@mixin \!fml-4 {
+  margin-left: map.get($fluid-margin-levels, '4') !important;
+}
+@mixin \!fmr-4 {
+  margin-right: map.get($fluid-margin-levels, '4') !important;
+}
 
 @mixin fm-5 {
   margin: map.get($fluid-margin-levels, '5');
@@ -143,6 +248,27 @@ $fluid-margin-levels: (
 }
 @mixin fmr-5 {
   margin-right: map.get($fluid-margin-levels, '5');
+}
+@mixin \!fm-5 {
+  margin: map.get($fluid-margin-levels, '5') !important;
+}
+@mixin \!fmx-5 {
+  margin-inline: map.get($fluid-margin-levels, '5') !important;
+}
+@mixin \!fmy-5 {
+  margin-block: map.get($fluid-margin-levels, '5') !important;
+}
+@mixin \!fmt-5 {
+  margin-top: map.get($fluid-margin-levels, '5') !important;
+}
+@mixin \!fmb-5 {
+  margin-bottom: map.get($fluid-margin-levels, '5') !important;
+}
+@mixin \!fml-5 {
+  margin-left: map.get($fluid-margin-levels, '5') !important;
+}
+@mixin \!fmr-5 {
+  margin-right: map.get($fluid-margin-levels, '5') !important;
 }
 
 @mixin fm-6 {
@@ -166,6 +292,27 @@ $fluid-margin-levels: (
 @mixin fmr-6 {
   margin-right: map.get($fluid-margin-levels, '6');
 }
+@mixin \!fm-6 {
+  margin: map.get($fluid-margin-levels, '6') !important;
+}
+@mixin \!fmx-6 {
+  margin-inline: map.get($fluid-margin-levels, '6') !important;
+}
+@mixin \!fmy-6 {
+  margin-block: map.get($fluid-margin-levels, '6') !important;
+}
+@mixin \!fmt-6 {
+  margin-top: map.get($fluid-margin-levels, '6') !important;
+}
+@mixin \!fmb-6 {
+  margin-bottom: map.get($fluid-margin-levels, '6') !important;
+}
+@mixin \!fml-6 {
+  margin-left: map.get($fluid-margin-levels, '6') !important;
+}
+@mixin \!fmr-6 {
+  margin-right: map.get($fluid-margin-levels, '6') !important;
+}
 
 @mixin fm-7 {
   margin: map.get($fluid-margin-levels, '7');
@@ -187,6 +334,27 @@ $fluid-margin-levels: (
 }
 @mixin fmr-7 {
   margin-right: map.get($fluid-margin-levels, '7');
+}
+@mixin \!fm-7 {
+  margin: map.get($fluid-margin-levels, '7') !important;
+}
+@mixin \!fmx-7 {
+  margin-inline: map.get($fluid-margin-levels, '7') !important;
+}
+@mixin \!fmy-7 {
+  margin-block: map.get($fluid-margin-levels, '7') !important;
+}
+@mixin \!fmt-7 {
+  margin-top: map.get($fluid-margin-levels, '7') !important;
+}
+@mixin \!fmb-7 {
+  margin-bottom: map.get($fluid-margin-levels, '7') !important;
+}
+@mixin \!fml-7 {
+  margin-left: map.get($fluid-margin-levels, '7') !important;
+}
+@mixin \!fmr-7 {
+  margin-right: map.get($fluid-margin-levels, '7') !important;
 }
 
 @mixin fm-8 {
@@ -210,6 +378,27 @@ $fluid-margin-levels: (
 @mixin fmr-8 {
   margin-right: map.get($fluid-margin-levels, '8');
 }
+@mixin \!fm-8 {
+  margin: map.get($fluid-margin-levels, '8') !important;
+}
+@mixin \!fmx-8 {
+  margin-inline: map.get($fluid-margin-levels, '8') !important;
+}
+@mixin \!fmy-8 {
+  margin-block: map.get($fluid-margin-levels, '8') !important;
+}
+@mixin \!fmt-8 {
+  margin-top: map.get($fluid-margin-levels, '8') !important;
+}
+@mixin \!fmb-8 {
+  margin-bottom: map.get($fluid-margin-levels, '8') !important;
+}
+@mixin \!fml-8 {
+  margin-left: map.get($fluid-margin-levels, '8') !important;
+}
+@mixin \!fmr-8 {
+  margin-right: map.get($fluid-margin-levels, '8') !important;
+}
 
 @mixin fm-9 {
   margin: map.get($fluid-margin-levels, '9');
@@ -231,6 +420,27 @@ $fluid-margin-levels: (
 }
 @mixin fmr-9 {
   margin-right: map.get($fluid-margin-levels, '9');
+}
+@mixin \!fm-9 {
+  margin: map.get($fluid-margin-levels, '9') !important;
+}
+@mixin \!fmx-9 {
+  margin-inline: map.get($fluid-margin-levels, '9') !important;
+}
+@mixin \!fmy-9 {
+  margin-block: map.get($fluid-margin-levels, '9') !important;
+}
+@mixin \!fmt-9 {
+  margin-top: map.get($fluid-margin-levels, '9') !important;
+}
+@mixin \!fmb-9 {
+  margin-bottom: map.get($fluid-margin-levels, '9') !important;
+}
+@mixin \!fml-9 {
+  margin-left: map.get($fluid-margin-levels, '9') !important;
+}
+@mixin \!fmr-9 {
+  margin-right: map.get($fluid-margin-levels, '9') !important;
 }
 
 @mixin fm-auto {

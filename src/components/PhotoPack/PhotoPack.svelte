@@ -25,7 +25,7 @@
    * Gap between images.
    * @type {number}
    */
-  export let gap = 10;
+  export let gap = 15;
 
   const random4 = () =>
     Math.floor((1 + Math.random()) * 0x10000)
@@ -120,18 +120,16 @@
     {/each}
   </div>
   <PaddingReset containerIsFluid="{width === 'fluid'}">
-    <Block width="{captionWidth}">
-      <div class="captions-container">
-        {#each rows as row, ri}
-          {#each row as img, i}
-            {#if img.caption}
-              <div id="{id}-figure-{ri}-{i}" class="caption mt-0 mx-0 fmb-2">
-                {@html marked(img.caption)}
-              </div>
-            {/if}
-          {/each}
+    <Block width="{captionWidth}" class="photopack-captions-container">
+      {#each rows as row, ri}
+        {#each row as img, i}
+          {#if img.caption}
+            <div id="{id}-figure-{ri}-{i}" class="caption">
+              {@html marked(img.caption)}
+            </div>
+          {/if}
         {/each}
-      </div>
+      {/each}
     </Block>
   </PaddingReset>
 </Block>
@@ -152,17 +150,13 @@
     }
   }
 
-  div.captions-container {
-    div.caption {
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-      :global(p) {
-        @include text-xs;
-        @include leading-tight;
-        @include font-note;
-        @include text-secondary;
-        margin: 0;
+  :global {
+    .photopack-captions-container {
+      @include \!fmy-2;
+      div.caption {
+        p {
+          @include body-caption;
+        }
       }
     }
   }

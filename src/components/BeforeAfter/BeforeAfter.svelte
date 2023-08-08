@@ -41,7 +41,7 @@
   /** Drag handle colour */
   export let handleColour = 'white';
   /** Drag handle opacity */
-  export let handleInactiveOpacity = 0.6;
+  export let handleInactiveOpacity = 0.9;
   /** Margin at the edge of the image to stop dragging */
   export let handleMargin = 20;
   /** Percentage of the component width the handle will travel ona key press */
@@ -225,7 +225,7 @@
     </div>
     {#if $$slots.caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <aside class="before-after-caption my-0 mx-auto" id="{`${id}-caption`}">
+        <aside class="before-after-caption mx-auto" id="{`${id}-caption`}">
           <!-- Caption for image credits -->
           <slot name="caption" />
         </aside>
@@ -236,6 +236,7 @@
 
 <style lang="scss">
   @use '../../scss/mixins' as *;
+
   figure.before-after-container {
     box-sizing: content-box;
 
@@ -261,9 +262,8 @@
           margin-bottom: 0;
         }
         p {
-          @include font-note;
-          @include text-sm;
-          @include leading-tight;
+          @include body-caption;
+          color: #ffffff;
         }
       }
       &.before {
@@ -289,14 +289,17 @@
     top: calc(50% - 20px);
     border: 4px solid var(--before-after-handle-colour);
     opacity: var(--before-after-handle-inactive-opacity, 0.6);
+    box-shadow: 1px 1px 3px #333;
     &:hover,
     &:active,
     &:focus {
       opacity: 1;
     }
+
     &:before,
     &:after {
       content: '';
+      box-shadow: 0 0 3px #333;
       height: 9999px;
       position: absolute;
       left: calc(50% - 2px);
@@ -328,18 +331,12 @@
       border-right: 10px solid var(--before-after-handle-colour);
     }
   }
+
   aside.before-after-caption {
-    @include font-note;
-    @include text-secondary;
+    @include fmt-2;
     :global {
       p {
-        @include font-note;
-        @include text-secondary;
-        @include text-xs;
-        @include leading-tight;
-        &:last-of-type {
-          margin-bottom: 0;
-        }
+        @include body-caption;
       }
     }
   }

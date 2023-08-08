@@ -46,9 +46,11 @@
     width: initial;
     max-width: initial;
     .step-foreground {
-      max-width: 550px;
-      padding: 1.2rem 30px;
-      background: rgba(255, 255, 255, 0.8);
+      max-width: calc($column-width-normal * 0.9);
+      @include fpy-5;
+      @include fpx-4;
+      background: rgba(255, 255, 255, 0.9);
+
       :global(p:last-child) {
         margin-bottom: 0;
       }

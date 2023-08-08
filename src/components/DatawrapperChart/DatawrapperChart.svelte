@@ -111,9 +111,3 @@
     <slot name="notes" />
   {/if}
 </GraphicBlock>
-
-<style lang="scss">
-  .datawrapper-chart {
-    margin: auto;
-  }
-</style>
