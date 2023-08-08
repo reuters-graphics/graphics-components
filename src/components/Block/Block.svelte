@@ -35,14 +35,10 @@
 <style lang="scss">
   @import '../../scss/mixins';
 
-  div.article-block {
+  .article-block {
     max-width: var(--normal-column-width, 660px);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    &:not(:last-child) {
-      margin-bottom: 3rem;
-    }
+    @include fmx-auto;
+    @include fmy-5;
 
     &.narrower {
       max-width: var(--narrower-column-width, 330px);

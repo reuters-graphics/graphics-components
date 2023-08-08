@@ -115,9 +115,7 @@
     </div>
     <aside class="article-metadata mt-2 font-subhed">
       <div class="byline-container">
-        <div
-          class="byline text-xs text-primary font-bold leading-tighter fmb-1"
-        >
+        <div class="byline body-caption !font-bold">
           By
           {#if authors.length > 0}
             {#each authors as author, i}
@@ -137,9 +135,7 @@
           {/if}
         </div>
       </div>
-      <div
-        class="dateline-container fmt-0 text-secondary text-xs leading-tighter"
-      >
+      <div class="dateline-container fmt-0 body-caption">
         {#if isValidDate(publishTime)}
           <div>
             Published

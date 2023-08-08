@@ -61,13 +61,22 @@
 
 @mixin body-note {
   @include fmt-0;
-  @include fmb-1;
+  @include fmb-2;
   @include fmx-0;
   @include font-note;
-  @include text-base;
+  font-size: calc(0.95 * var(--theme-font-size-base));
   @include font-light;
   @include text-primary;
   @include leading-tight;
+}
+
+@mixin body-caption {
+  @include font-note;
+  @include text-secondary;
+  @include text-xs;
+  @include leading-tighter;
+  @include font-regular;
+  @include fmb-1;
 }
 
 @mixin body-link {

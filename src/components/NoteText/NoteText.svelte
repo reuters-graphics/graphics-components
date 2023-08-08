@@ -21,7 +21,7 @@
 <style lang="scss" global>
   @import '../../scss/mixins';
 
-  div.article-block.notes {
+  .article-block.notes {
     h2,
     h3,
     h4,

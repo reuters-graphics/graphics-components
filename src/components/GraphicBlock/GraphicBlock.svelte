@@ -136,23 +136,16 @@
 <style lang="scss" global>
   @import '../../scss/mixins';
 
-  div.article-block.graphic {
+  .article-block.graphic {
+    // Dek
     p {
-      @include font-note;
-      @include text-sm;
-      @include text-primary;
-      &:last-of-type {
-        @include fmb-1;
-      }
+      @include body-note;
     }
-    // Notes text...
+    // Caption and Sources
     aside {
+      @include fmt-2;
       p {
-        @include font-note;
-        @include text-secondary;
-        @include text-xs;
-        @include leading-tight;
-        margin-block-end: 0;
+        @include body-caption;
       }
     }
   }
