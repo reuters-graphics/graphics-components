@@ -14,9 +14,9 @@ import color from '$lib/scss/tokens/text/\_color.scss?inline';
 
 # Style tokens
 
-All of the components in this library have been styled using a system of tokens. The style tokens give us a lot of flexibility to easily customise components' look, overwrite with more specific styles easily and ultimately make for the most concise CSS definitions possible.
+All of the components in this library have been styled using a system of tokens. The style tokens give us a lot of flexibility and ultimately make for the most concise CSS possible.
 
-You can also use our style tokens to help shortcut the time you spend writing CSS and reinventing solid design conventions.
+You can use the style tokens to help shortcut the time you spend writing CSS and reinventing solid design conventions.
 
 ## What's a "token"?
 
@@ -55,15 +55,15 @@ graph LR;
 
 > Whether you use style tokens or write your own custom CSS in your project is **entirely up to you**.
 >
-> There are hundreds of tokens, so they can be a little daunting at first. But learning the tokens for the styles you have to write most often will absolutely save you time, so we recommend giving them a try.
+> There are hundreds of tokens, so they can be a little daunting at first. But learning the tokens for the styles you have to write most often **will absolutely save you time**, so we recommend giving them a try.
 >
-> **That said**, we _do recommend_ using tokens for styling typography, especially `font-size`. Our typography size tokens responsively size the text on your page using a fluid scale so it will look great whether a reader is on a mobile phone or giant desktop.
+> **That said**, we _do recommend_ using tokens for styling typography, especially `font-size`. (Our typography size tokens use a fluid scale so your text will look great whether a reader is on a mobile phone or giant desktop.)
 
 All of our style tokens can be used through either a class name, an SCSS mixin or both. Use the tables throughout this section of the docs to see what's available for each token.
 
 ### For example...
 
-Here's our table of text colour tokens, which has a few preset tokens for setting `text-color`.
+Here's our table of text colour tokens, which set the `text-color` style.
 
 <CopyTable
   title="Colour"
@@ -73,9 +73,9 @@ Here's our table of text colour tokens, which has a few preset tokens for settin
   copyable={[true, (t) => `@include ${t};`, false]}
 />
 
-This table's tokens can be used through either a class or an SCSS mixin. (The table lets you click to copy for either.)
+This table's tokens can be used through either a class or an SCSS mixin. (The table lets you click-to-copy for either.)
 
-To use the token that sets the text colour to our "primary text colour" (i.e., black), you'd use the `Class` token like this:
+To use the token that sets the `color` style to our "primary" text colour (i.e., black), you'd use the `Class` token like this:
 
 ```svelte
 <p class="text-primary">Lorem ipsum...</p>

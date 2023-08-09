@@ -35,7 +35,7 @@ const Copyable = (props) => {
 const TR = (props) => <tr>{props.children.map((c, i) => (<TD {...props} column={i} key={i}>{c}</TD>))}</tr>
 const TH = (props) => <th>{props.children}</th>;
 
-const CopyTable = ({ title = null, header, body, copyable, mdnLink = null }) => {
+const CopyTable = ({ title = null, note = null, header, body, copyable, mdnLink = null }) => {
   return (
     <Unstyled>
       <div className={classes.title}>
@@ -44,6 +44,9 @@ const CopyTable = ({ title = null, header, body, copyable, mdnLink = null }) => 
           <a href={`https://developer.mozilla.org/en-US/docs/Web/CSS/${mdnLink}`} target="_blank">
             <span className="material-symbols-outlined">link</span>
           </a>
+        )}
+        {(note) && (
+          <p>{note}</p>
         )}
       </div>
       <table className={classes.table}>

@@ -2,6 +2,7 @@ $copyable: #0071a1;
 $header: #5e81ac;
 
 .title {
+  max-width: 600px;
   font-size: 18px;
   color: #666;
   margin-bottom: 5px;
@@ -17,6 +18,16 @@ $header: #5e81ac;
     &:hover {
       opacity: 1;
     }
+  }
+  p {
+    font-size: 0.85rem;
+    line-height: 1.25;
+    background-color: #f7fafc;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 5px;
+    color: #333;
+    border: 1px solid hsla(203, 50%, 30%, 0.15);
   }
 }
 
