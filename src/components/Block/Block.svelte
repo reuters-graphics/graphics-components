@@ -38,7 +38,10 @@
   .article-block {
     max-width: var(--normal-column-width, 660px);
     @include fmx-auto;
-    @include fmy-5;
+    // Note to P: Don't want any default top-bottom margin by default here b/c
+    // it's too hard to get rid of. Let's add default within components
+    // with class tokens...
+    // @include fmy-5;
 
     &.narrower {
       max-width: var(--narrower-column-width, 330px);
