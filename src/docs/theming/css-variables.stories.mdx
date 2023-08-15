@@ -32,64 +32,6 @@ You can use any of the CSS variables the `Theme` component sets in your own code
 </style>
 ```
 
-## Theme variables
-
-### Colours
-
-| CSS variable                    | Role                            | Default values (light) | Default values (dark)  |
-| ------------------------------- | ------------------------------- | ---------------------- | ---------------------- |
-| `--theme-colour-background`     | Background colour               | #ffffff                | #2e3440                |
-| `--theme-colour-text-primary`   | Primary text colour body text   | #404040                | #ffffff                |
-| `--theme-colour-text-secondary` | Secondary text colour for notes | #666666                | rgb(255 255 255 / 60%) |
-| `--theme-colour-accent`         | A single accent colour          | #fa6400                | #ef3c2a                |
-| `--theme-colour-brand-logo`     | Reuters logo kinesis colour     | #fa6400                | #ffffff                |
-| `--theme-colour-brand-rules`    | Rules in header and footer      | #d0d0d0                | rgb(255 255 255 / 25%) |
-| `--theme-colour-brand-shadow`   | Box shadow on header            | rgb(64 64 64 / 80%)    | rgb(255 255 255 / 10%) |
-
-### Typefaces
-
-| CSS variable                  | Role                        | Default values                                                       |
-| ----------------------------- | --------------------------- | -------------------------------------------------------------------- |
-| `--theme-typeface-display`    | Base display font family    | Knowledge, sans-serif                                                |
-| `--theme-typeface-serif`      | Base serif font family      | freight-book, serif                                                  |
-| `--theme-typeface-sans-serif` | Base sans-serif font family | Knowledge, sans-serif                                                |
-| `--theme-typeface-monospace`  | Base monospace font family  | Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace |
-
-### Font families
-
-| CSS variable                 | Role                                                                   | Default values                   |
-| ---------------------------- | ---------------------------------------------------------------------- | -------------------------------- |
-| `--theme-font-family-hed`    | Headline (`h1`) font family                                            | var(--theme-typeface-display)    |
-| `--theme-font-family-subhed` | Subhead (`h2`-`h6`) font family                                        | var(--theme-typeface-sans-serif) |
-| `--theme-font-family-body`   | Body (`.body-text > p`) font family                                    | var(--theme-typeface-serif)      |
-| `--theme-font-family-note`   | Note (`.note-text > p`, `.end-note > p`, `.foot-note > p`) font family | var(--theme-typeface-sans-serif) |
-
-### Font sizes
-
-| CSS variable                 | Role                                          | Default values            |
-| ---------------------------- | --------------------------------------------- | ------------------------- |
-| `--theme-font-size-hed`      | Headline (`h1`) font size                     | var(--theme-scale-size-1) |
-| `--theme-font-size-subhed-1` | Subhead (`h2`) font size                      | var(--theme-scale-size-2) |
-| `--theme-font-size-subhed-2` | Subhead (`h3`) font size                      | var(--theme-scale-size-3) |
-| `--theme-font-size-subhed-3` | Subhead (`h4`-`h6`) font size                 | var(--theme-scale-size-6) |
-| `--theme-font-size-body`     | Body (`.body-text > p`) font size             | var(--theme-scale-size-3) |
-| `--theme-font-size-note-1`   | Body description (`.note-text > p`) font size | var(--theme-scale-size-4) |
-| `--theme-font-size-note-2`   | Endnotes (`.end-note > p`) font size          | var(--theme-scale-size-5) |
-| `--theme-font-size-note-3`   | Dateline/Caption (`.foot-note > p`) font size | var(--theme-scale-size-6) |
-
-### Size scale (fonts, margin, padding)
-
-| CSS variable                     | Role                             | Default values                                |
-| -------------------------------- | -------------------------------- | --------------------------------------------- |
-| `--theme-scale-size-base`        | Scale factor for base body size  | 1.375                                         |
-| `--theme-scale-size-base-mobile` | Scale factor for smaller screens | 1.125                                         |
-| `--theme-scale-size-1`           | Size level 1                     | calc(var(--theme-scale-size-base) \* 2.25rem) |
-| `--theme-scale-size-2`           | Size level 2                     | calc(var(--theme-scale-size-base) \* 1.5rem)  |
-| `--theme-scale-size-3`           | Size level 3                     | calc(var(--theme-scale-size-base) \* 1rem)    |
-| `--theme-scale-size-4`           | Size level 4                     | calc(var(--theme-scale-size-base) \* 0.9rem)  |
-| `--theme-scale-size-5`           | Size level 5                     | calc(var(--theme-scale-size-base) \* 0.72rem) |
-| `--theme-scale-size-6`           | Size level 6                     | calc(var(--theme-scale-size-base) \* 0.66rem) |
-
 ## Customising variables
 
 You can redefine any of the above CSS variables in the `<Theme>` component. Read more in [the docs](/docs/theming-theme--custom-theme).
