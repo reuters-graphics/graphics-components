@@ -44,6 +44,7 @@
     section: 'World News',
     hed: 'Reuters Graphics interactive',
     hedSize: 'normal',
+    authors: ['Dea Bankova', 'Aditi Bhandari'],
   }}"
 />
 
@@ -52,16 +53,9 @@
     hed="{'Reuters Graphics Interactive'}"
     dek="{'The beginning of a beautiful page'}"
     section="{'Global news'}"
-  >
-    <!-- Use named slots to add a byline... -->
-    <span slot="byline">By <strong>Peppa Pig</strong></span>
-    <!-- ...and a dateline. -->
-    <span slot="dateline"
-      >Published <time datetime="{new Date('2020-01-01').toISOString()}"
-        >Jan. 1, 2020</time
-      ></span
-    >
-  </Headline>
+    authors="{['Dea Bankova', 'Aditi Bhandari']}"
+    publishTime="{new Date('2020-01-01').toISOString()}"
+  />
 </Story>
 
 <Story name="Custom hed" {...withStoryDocs(customHedDocs)}>
@@ -79,16 +73,16 @@
 </Story>
 
 <Story name="With crown" {...withStoryDocs(withCrownDocs)}>
-  <Headline>
+  <Headline publishTime="{new Date('2020-01-01').toISOString()}">
     <!-- Add a crown -->
     <img slot="crown" src="{crownImgSrc}" alt="Illustration of Europe" />
     <!-- Override the hed with a named slot -->
     <h1 slot="hed" class="!font-serif !tracking-wide">Europa</h1>
-    <span slot="dateline"
+    <!-- <span slot="dateline"
       >Published <time datetime="{new Date('2020-01-01').toISOString()}"
         >Jan. 1, 2020</time
       ></span
-    >
+    > -->
   </Headline>
 </Story>
 

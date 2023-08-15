@@ -24,8 +24,23 @@
    * @type {string}
    */
   export let section: string | null = null;
+  /**
+   * Array of author names, which will be slugified to create links to Reuters author pages
+   */
+  export let authors: string[] = [];
+  /**
+   * Publish time as a datetime string.
+   * @type {string}
+   */
+  export let publishTime: string = '';
+  /**
+   * Update time as a datetime string.
+   * @type {string}
+   */
+  export let updateTime: string = '';
 
   import Block from '../Block/Block.svelte';
+  import Byline from '../Byline/Byline.svelte';
   import { marked } from 'marked';
 
   let hedClass;
@@ -57,7 +72,7 @@
         <slot name="crown" />
       </div>
     {/if}
-    <div class="title">
+    <div class="title mb-3">
       {#if section}
         <p class="section-title">{section}</p>
       {/if}
@@ -74,31 +89,16 @@
         {@html marked(dek)}
       {/if}
     </div>
-    {#if $$slots.byline || $$slots.dateline}
-      <aside
-        class="article-metadata pb-0 font-not text-primary text-center leading-none"
-        class:pt-2="{!dek}"
-        class:pt-8="{dek}"
-      >
-        {#if $$slots.byline}
-          <div class="byline-container">
-            <div class="byline">
-              <!-- Byline named slot -->
-              <slot name="byline" />
-            </div>
-          </div>
-        {/if}
-        {#if $$slots.dateline}
-          <div
-            class="dateline-container text-xxs tracking-wide text-secondary uppercase"
-          >
-            <div class="published">
-              <!-- Dateline named slot -->
-              <slot name="dateline" />
-            </div>
-          </div>
-        {/if}
-      </aside>
+    {#if $$slots.byline}
+      <!-- Custom byline/dateline -->
+      <slot name="byline" />
+    {:else if authors.length > 0 || publishTime}
+      <Byline
+        authors="{authors}"
+        publishTime="{publishTime}"
+        updateTime="{updateTime}"
+        align="center"
+      />
     {/if}
   </header>
 </Block>
