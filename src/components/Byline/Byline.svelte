@@ -1,4 +1,8 @@
 <script lang="ts">
+  import Block from '../Block/Block.svelte';
+  import slugify from 'slugify';
+  import { apdate } from 'journalize';
+
   /**
    * Array of author names, which will be slugified to create links to Reuters author pages
    */
@@ -14,6 +18,11 @@
    */
   export let updateTime: string = '';
   /**
+   * Alignment of the byline.
+   * @type {string}
+   */
+  export let align: 'left' | 'center' = 'left';
+  /**
    * Add an id to to target with custom CSS.
    * @type {string}
    */
@@ -25,9 +34,16 @@
   let cls: string = '';
   export { cls as class };
 
-  import Block from '../Block/Block.svelte';
-  import slugify from 'slugify';
-  import { apdate } from 'journalize';
+  /**
+   * Custom function that returns an author page URL.
+   * @param author
+   */
+  export let getAuthorPage = (author: string): string => {
+    const authorSlug = slugify(author.trim(), { lower: true });
+    return `https://www.reuters.com/authors/${authorSlug}/`;
+  };
+
+  $: alignmentClass = align === 'left' ? 'text-left' : 'text-center';
 
   const isValidDate = (datetime) => {
     if (!datetime) return false;
@@ -48,18 +64,19 @@
     first.getDate() === second.getDate();
 </script>
 
-<Block id="{id}" class="byline-container {cls} " width="normal">
+<Block id="{id}" class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
-    <div class="byline-container">
-      <div class="byline body-caption">
+    <div class="byline-container body-caption">
+      {#if $$slots.byline}
+        <!-- Custom byline -->
+        <slot name="byline" />
+      {:else}
         By
         {#if authors.length > 0}
           {#each authors as author, i}
             <a
-              class="no-underline"
-              href="https://www.reuters.com/authors/{slugify(author.trim(), {
-                lower: true,
-              })}/"
+              class="no-underline whitespace-nowrap text-primary"
+              href="{getAuthorPage(author)}"
               rel="author"
             >
               {author.trim()}</a
@@ -67,13 +84,21 @@
             {#if authors.length > 1 && i === authors.length - 2}and&nbsp;{/if}
           {/each}
         {:else}
-          Reuters
+          <a
+            href="https://www.reuters.com"
+            class="no-underline whitespace-nowrap text-primary">Reuters</a
+          >
         {/if}
-      </div>
+      {/if}
     </div>
     <div class="dateline-container fmt-0 body-caption">
-      {#if isValidDate(publishTime)}
-        <div>
+      {#if $$slots.published}
+        <div class="whitespace-nowrap">
+          <!-- Custom published dateline -->
+          <slot name="published" />
+        </div>
+      {:else if isValidDate(publishTime)}
+        <div class="whitespace-nowrap">
           Published
           <time datetime="{publishTime}">
             {#if isValidDate(updateTime)}
@@ -86,8 +111,13 @@
           </time>
         </div>
       {/if}
-      {#if isValidDate(publishTime) && isValidDate(updateTime)}
-        <div>
+      {#if $$slots.updated}
+        <div class="whitespace-nowrap">
+          <!-- Custom updated dateline -->
+          <slot name="updated" />
+        </div>
+      {:else if isValidDate(publishTime) && isValidDate(updateTime)}
+        <div class="whitespace-nowrap">
           Last updated
           <time datetime="{updateTime}">
             {#if areSameDay(new Date(publishTime), new Date(updateTime))}
@@ -105,7 +135,7 @@
 <style lang="scss">
   @use '../../scss/mixins' as *;
 
-  .byline {
+  .byline-container {
     @include font-regular;
     a {
       @include font-bold;

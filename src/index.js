@@ -8,6 +8,7 @@ export { default as Article } from './components/Article/Article.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
+export { default as Byline } from './components/Byline/Byline.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';
 export { default as DocumentCloud } from './components/DocumentCloud/DocumentCloud.svelte';
 export { default as EmbedPreviewerLink } from './components/EmbedPreviewerLink/EmbedPreviewerLink.svelte';

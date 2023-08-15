@@ -12,9 +12,9 @@
     ...withComponentDocs(componentDocs),
     // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
-      hedSize: {
+      align: {
         control: 'select',
-        options: ['small', 'normal', 'big'],
+        options: ['left', 'center'],
       },
     },
   };
@@ -29,11 +29,13 @@
 <Story
   name="Default"
   args="{{
+    align: 'left',
     authors: [
       'Dea Bankova',
-      'Michael Ovaska',
-      'Samuel Granados',
+      'Aditi Bhandari',
       'Prasanta Kumar Dutta',
+      'Anurag Rao',
+      'Mariano Zafra',
     ],
     publishTime: new Date('2021-09-12').toISOString(),
     updateTime: new Date('2021-09-12T13:57:00').toISOString(),
