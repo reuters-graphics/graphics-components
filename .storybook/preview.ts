@@ -63,12 +63,6 @@ export const parameters = {
             'Intro',
             'Typography',
             '*',
-            'Layout', [
-              'Main',
-              'Spacers',
-              'Flexbox',
-              '*',
-            ],
           ],
         ],
         'Actions',

@@ -10,7 +10,7 @@
 </script>
 
 <Meta
-  title="Utilities/EmbedPreviewerLink"
+  title="Components/EmbedPreviewerLink"
   component="{EmbedPreviewerLink}"
   {...withComponentDocs(componentDocs)}
 />

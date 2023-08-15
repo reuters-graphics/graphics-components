@@ -15,7 +15,7 @@
 </script>
 
 <Meta
-  title="Utilities/Analytics"
+  title="Components/Analytics"
   component="{Analytics}"
   {...withComponentDocs(componentDocs)}
 />

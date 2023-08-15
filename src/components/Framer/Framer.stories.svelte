@@ -10,7 +10,7 @@
 </script>
 
 <Meta
-  title="Utilities/Framer"
+  title="Components/Framer"
   component="{Framer}"
   {...withComponentDocs(componentDocs)}
 />

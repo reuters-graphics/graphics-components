@@ -10,7 +10,7 @@
 </script>
 
 <Meta
-  title="Utilities/Sharer"
+  title="Components/Sharer"
   component="{Sharer}"
   {...withComponentDocs(componentDocs)}
 />

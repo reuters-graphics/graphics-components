@@ -1,3 +1,7 @@
+// Actions
+export { default as cssVariables } from './actions/cssVariables/index.js';
+export { default as resizeObserver } from './actions/resizeObserver/index.js';
+
 // Components
 export { default as Analytics, registerPageview } from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
