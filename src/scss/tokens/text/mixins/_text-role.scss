@@ -10,10 +10,9 @@
   @include text-primary;
   @include font-bold;
   @include font-hed;
-  @include text-3xl;
+  @include text-5xl;
   @include leading-none;
-  @include fmt-1;
-  @include fmb-3;
+  @include fmy-1;
 }
 
 @mixin h2 {
@@ -21,7 +20,7 @@
   @include font-bold;
   @include font-subhed;
   @include leading-tighter;
-  @include text-xl;
+  @include text-2xl;
   @include fmt-7;
   @include fmb-3;
 }
@@ -31,7 +30,6 @@
   @include font-semibold;
   @include font-subhed;
   @include leading-tighter;
-  @include tracking-normal;
   @include text-base;
   @include fmt-5;
   @include fmb-1;
@@ -52,7 +50,6 @@
 @mixin body-text {
   @include fmt-0;
   @include fmb-3;
-  @include fmx-0;
   @include font-body;
   @include text-base;
   @include font-regular;
@@ -63,9 +60,8 @@
 @mixin body-note {
   @include fmt-0;
   @include fmb-2;
-  @include fmx-0;
   @include font-note;
-  font-size: calc(0.95 * var(--theme-font-size-base));
+  font-size: calc(0.85 * var(--theme-font-size-base));
   @include font-light;
   @include text-primary;
   @include leading-tight;

@@ -447,21 +447,17 @@ $fluid-margin-levels: (
   margin: auto;
 }
 @mixin fmx-auto {
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline: auto;
 }
 @mixin fmy-auto {
-  margin-top: auto;
-  margin-bottom: auto;
+  margin-block: auto;
 }
 @mixin \!fm-auto {
   margin: auto !important;
 }
 @mixin \!fmx-auto {
-  margin-right: auto !important;
-  margin-left: auto !important;
+  margin-inline: auto !important;
 }
 @mixin \!fmy-auto {
-  margin-top: auto !important;
-  margin-bottom: auto !important;
+  margin-block: auto !important;
 }

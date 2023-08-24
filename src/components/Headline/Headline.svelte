@@ -8,6 +8,10 @@
    */
   export let hed: string = 'Reuters Graphics Interactive';
 
+  /** Add extra classes to the block tag to target it with custom CSS. */
+  let cls: string = '';
+  export { cls as class };
+
   /**
    * Headline size
    * @type {string}
@@ -39,6 +43,11 @@
    */
   export let updateTime: string = '';
 
+  /**
+   * Width of the headline.
+   */
+  export let width: 'normal' | 'wide' | 'wider' | 'widest' = 'normal';
+
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
   import { marked } from 'marked';
@@ -64,17 +73,21 @@
   }
 </script>
 
-<Block class="mb-1">
-  <header class="headline text-center mb-0 my-16 text-primary">
+<Block width="{width}" class="headline text-center fmt-9 fmb-5 {cls}">
+  <header>
     {#if $$slots.crown}
-      <div class="crown-container flex justify-center items-center">
+      <div class="crown-container">
         <!-- Crown named slot -->
         <slot name="crown" />
       </div>
     {/if}
-    <div class="title mb-3">
+    <div class="title">
       {#if section}
-        <p class="section-title">{section}</p>
+        <p
+          class="section-title mb-0 font-subhed text-xxs text-secondary font-bold uppercase whitespace-nowrap tracking-wider"
+        >
+          {section}
+        </p>
       {/if}
       {#if $$slots.hed}
         <!-- Headline named slot -->
@@ -84,9 +97,13 @@
       {/if}
       {#if $$slots.dek}
         <!-- Dek named slot-->
-        <slot name="dek" />
+        <div class="dek fmx-auto">
+          <slot name="dek" />
+        </div>
       {:else if dek}
-        {@html marked(dek)}
+        <div class="dek fmx-auto">
+          {@html marked(dek)}
+        </div>
       {/if}
     </div>
     {#if $$slots.byline}
@@ -106,39 +123,24 @@
 <style lang="scss">
   @use '../../scss/mixins' as *;
 
-  header.headline {
-    :global {
-      h1 {
-        @include fmy-1;
-        @include fmx-auto;
-      }
-
-      p {
-        @include font-sans;
-        @include text-primary;
-        @include leading-tighter;
-        margin: 0;
-        font-weight: 300;
-
-        &.section-title {
-          font-size: 1rem;
-          font-weight: 800;
-          @include text-accent;
+  :global {
+    header {
+      .dek {
+        max-width: $column-width-normal;
+        p {
+          @include fmt-0;
+          @include fmb-3;
+          @include font-note;
+          @include text-base;
+          @include font-regular;
+          @include leading-tight;
+          @include text-primary;
+          @include font-light;
         }
       }
-    }
-    .article-metadata {
+
       .byline-container {
-        @include fmb-1;
-      }
-
-      .byline {
-        :global {
-          a {
-            @include text-primary;
-            text-decoration: none;
-          }
-        }
+        @include fmy-3;
       }
     }
   }

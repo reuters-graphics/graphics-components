@@ -7,6 +7,7 @@
 
   /** Add an id to the block tag to target it with custom CSS. */
   export let id: string = '';
+
   /** Add extra classes to the block tag to target it with custom CSS. */
   let cls: string = '';
   export { cls as class };
@@ -23,7 +24,7 @@
 
 <div
   id="{id}"
-  class="article-block {width} {cls}"
+  class="article-block fmx-auto {width} {cls}"
   class:snap="{snap && width !== 'fluid' && width !== 'widest'}"
   role="{role}"
   aria-label="{ariaLabel}"
@@ -37,11 +38,6 @@
 
   .article-block {
     max-width: var(--normal-column-width, 660px);
-    @include fmx-auto;
-    // Note to P: Don't want any default top-bottom margin by default here b/c
-    // it's too hard to get rid of. Let's add default within components
-    // with class tokens...
-    // @include fmy-5;
 
     &.narrower {
       max-width: var(--narrower-column-width, 330px);

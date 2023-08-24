@@ -66,7 +66,7 @@
 
 <Block id="{id}" class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
-    <div class="byline-container body-caption">
+    <div class="byline body-caption">
       {#if $$slots.byline}
         <!-- Custom byline -->
         <slot name="byline" />
@@ -75,7 +75,7 @@
         {#if authors.length > 0}
           {#each authors as author, i}
             <a
-              class="no-underline whitespace-nowrap text-primary"
+              class="no-underline whitespace-nowrap text-primary font-medium"
               href="{getAuthorPage(author)}"
               rel="author"
             >
@@ -86,19 +86,20 @@
         {:else}
           <a
             href="https://www.reuters.com"
-            class="no-underline whitespace-nowrap text-primary">Reuters</a
+            class="no-underline whitespace-nowrap text-primary font-medium"
+            >Reuters</a
           >
         {/if}
       {/if}
     </div>
-    <div class="dateline-container fmt-0 body-caption">
+    <div class="dateline fmt-0 body-caption">
       {#if $$slots.published}
-        <div class="whitespace-nowrap">
+        <div class="whitespace-nowrap inline-block">
           <!-- Custom published dateline -->
           <slot name="published" />
         </div>
       {:else if isValidDate(publishTime)}
-        <div class="whitespace-nowrap">
+        <div class="whitespace-nowrap inline-block">
           Published
           <time datetime="{publishTime}">
             {#if isValidDate(updateTime)}
@@ -112,12 +113,12 @@
         </div>
       {/if}
       {#if $$slots.updated}
-        <div class="whitespace-nowrap">
+        <div class="whitespace-nowrap inline-block">
           <!-- Custom updated dateline -->
           <slot name="updated" />
         </div>
       {:else if isValidDate(publishTime) && isValidDate(updateTime)}
-        <div class="whitespace-nowrap">
+        <div class="whitespace-nowrap inline-block">
           Last updated
           <time datetime="{updateTime}">
             {#if areSameDay(new Date(publishTime), new Date(updateTime))}
@@ -138,8 +139,6 @@
   .byline-container {
     @include font-regular;
     a {
-      @include font-bold;
-      text-decoration-line: none;
       &:hover {
         text-decoration-line: underline;
       }
@@ -147,10 +146,8 @@
   }
 
   @media (min-width: $column-width-narrower) {
-    .dateline-container {
+    .dateline {
       div {
-        white-space: nowrap;
-        display: inline-block;
         &:not(:last-child) {
           &:after {
             content: '·';

@@ -15,7 +15,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block class="body-text {cls}">
+<Block class="body-text fmy-5 {cls}">
   {#if text}
     {@html marked.parse(text)}
   {/if}

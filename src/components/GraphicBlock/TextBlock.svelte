@@ -7,7 +7,7 @@
 </script>
 
 {#if width}
-  <Block width="{width}" class="m-0">
+  <Block width="{width}" class="mx-auto my-0">
     <slot />
   </Block>
 {:else}

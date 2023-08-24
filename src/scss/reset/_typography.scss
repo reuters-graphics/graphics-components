@@ -12,7 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   .theme {
-    font-size: calc(0.95 * var(--theme-font-size-base));
+    font-size: calc(0.85 * var(--theme-font-size-base));
     color: var(--theme-colour-text-primary);
   }
 }

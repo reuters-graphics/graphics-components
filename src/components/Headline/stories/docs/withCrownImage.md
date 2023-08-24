@@ -6,11 +6,16 @@ Add a crown image in the `crown` named slot and override the headline in the `he
   import { assets } from '$app/paths';
 </script>
 
-<Headline>
+<Headline class="!fmt-3" publishTime="{new Date('2020-01-01').toISOString()}">
   <!-- Add a crown -->
-  <img slot="crown" src="{`${assets}/images/crown.png`}" />
+  <img
+    slot="crown"
+    src="{crownImgSrc}"
+    width="100"
+    class="mb-0"
+    alt="Illustration of Europe"
+  />
   <!-- Override the hed with a named slot -->
-  <h1 slot="hed" class="font-serif tracking-wide">Europa</h1>
-  <span slot="dateline">Published Jan. 1, 2020</span>
+  <h1 slot="hed" class="!font-serif !tracking-wide">Europa</h1>
 </Headline>
 ```

@@ -225,7 +225,10 @@
     </div>
     {#if $$slots.caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <aside class="before-after-caption mx-auto" id="{`${id}-caption`}">
+        <aside
+          class="before-after-caption mx-auto fmt-2"
+          id="{`${id}-caption`}"
+        >
           <!-- Caption for image credits -->
           <slot name="caption" />
         </aside>
@@ -260,10 +263,6 @@
         }
         &:last-child {
           margin-bottom: 0;
-        }
-        p {
-          @include body-caption;
-          color: #ffffff;
         }
       }
       &.before {
@@ -333,7 +332,6 @@
   }
 
   aside.before-after-caption {
-    @include fmt-2;
     :global {
       p {
         @include body-caption;

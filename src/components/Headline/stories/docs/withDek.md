@@ -1,5 +1,3 @@
-Reuters Graphics headline
-
 ```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
@@ -8,6 +6,6 @@ Reuters Graphics headline
 <Headline
   hed="{'Reuters Graphics Interactive'}"
   dek="{'The beginning of a beautiful page'}"
-  section="{'World News'}"
+  section="{'Global news'}"
 />
 ```

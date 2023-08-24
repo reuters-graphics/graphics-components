@@ -79,7 +79,7 @@
   role="{role}"
   width="{width}"
   ariaLabel="{ariaLabel}"
-  class="graphic {cls}"
+  class="graphic fmy-5 {cls}"
 >
   <div>
     {#if $$slots.title}
