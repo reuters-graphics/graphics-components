@@ -111,6 +111,7 @@
       <slot name="byline" />
     {:else if authors.length > 0 || publishTime}
       <Byline
+        class="fmy-3"
         authors="{authors}"
         publishTime="{publishTime}"
         updateTime="{updateTime}"
@@ -137,10 +138,6 @@
           @include text-primary;
           @include font-light;
         }
-      }
-
-      .byline-container {
-        @include fmy-3;
       }
     }
   }

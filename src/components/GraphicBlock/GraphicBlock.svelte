@@ -123,7 +123,7 @@
     {:else if notes}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
         <TextBlock width="{textWidth}">
-          <aside>
+          <aside class="fmt-2">
             {@html marked(notes)}
           </aside>
         </TextBlock>
@@ -143,7 +143,6 @@
     }
     // Caption and Sources
     aside {
-      @include fmt-2;
       p {
         @include body-caption;
       }

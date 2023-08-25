@@ -17,10 +17,12 @@
     margin-left: $value;
   }
   %fmx-#{$level} {
-    margin-inline: $value;
+    margin-left: $value;
+    margin-right: $value;
   }
   %fmy-#{$level} {
-    margin-block: $value;
+    margin-top: $value;
+    margin-bottom: $value;
   }
 
   %\!fm-#{$level} {
@@ -39,10 +41,12 @@
     margin-left: $value !important;
   }
   %\!fmx-#{$level} {
-    margin-inline: $value !important;
+    margin-left: $value !important;
+    margin-right: $value !important;
   }
   %\!fmy-#{$level} {
-    margin-block: $value !important;
+    margin-top: $value !important;
+    margin-bottom: $value !important;
   }
 }
 

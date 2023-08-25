@@ -3,7 +3,10 @@ export { default as cssVariables } from './actions/cssVariables/index.js';
 export { default as resizeObserver } from './actions/resizeObserver/index.js';
 
 // Components
-export { default as Analytics, registerPageview } from './components/Analytics/Analytics.svelte';
+export {
+  default as Analytics,
+  registerPageview,
+} from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
@@ -16,7 +19,7 @@ export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.
 export { default as Framer } from './components/Framer/Framer.svelte';
 export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.svelte';
 export { default as Headline } from './components/Headline/Headline.svelte';
-export { default as Hero } from './components/Hero/Hero.svelte';
+export { default as HeroHeadline } from './components/HeroHeadline/Hero.svelte';
 export { default as NoteText } from './components/NoteText/NoteText.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoCarousel } from './components/PhotoCarousel/PhotoCarousel.svelte';
@@ -39,7 +42,7 @@ export { default as Table } from './components/Table/Table.svelte';
 export {
   default as Theme,
   // @ts-ignore
-  themes
+  themes,
 } from './components/Theme/Theme.svelte';
 export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.svelte';
 export { default as Video } from './components/Video/Video.svelte';
