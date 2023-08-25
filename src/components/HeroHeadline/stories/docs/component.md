@@ -1,16 +1,17 @@
-> 🔨 **Under construction**: We're working on this component to make it better. Pardon our mess.
-
-Reuters Graphics headline
+Reuters Graphics headline with a Hero media
 
 ```svelte
 <script>
-  import { Headline } from '@reuters-graphics/graphics-components';
+  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
 </script>
 
-<Headline
+<HeroHeadline
+  img="{`${assets}/images/myImage.jpg`}"
   hed="{'Reuters Graphics Interactive'}"
   dek="{'The beginning of a beautiful page'}"
-  section="{'Global news'}"
-  sectionColour="{'orange'}"
+  section="{'World News'}"
+  authors="{['Simon Scarr', 'Vijdan Mohammad Kawoosa']}"
+  publishTime="{new Date('2022-03-04').toISOString()}"
 />
 ```
