@@ -77,7 +77,7 @@
 </Story>
 
 <Story name="With custom hed" {...withStoryDocs(customHedDocs)}>
-  <Headline>
+  <Headline width="wide">
     <h1 class="custom-hed" slot="hed">
       <span class="small block text-base">The secret to</span>
       “The Nutcracker's”

@@ -108,119 +108,159 @@
   }
 </script>
 
-<div class="hero-wrapper">
-  <!-- Background media hero-->
-  {#if $$slots.background || img}
-    <Block width="fluid" class="hero-headline background-hero fmt-0">
-      <Headline
-        class="{cls} !text-{hedAlign}"
-        width="{hedWidth}"
-        section="{section}"
-        hedSize="{hedSize}"
-        hed="{hed}"
-        dek="{dek}"
-      />
-      <div class="background-container">
-        {#if $$slots.background}
-          <!-- Hero graphic named slot -->
-          <slot name="background" />
-        {:else}
-          <GraphicBlock
-            width="{width}"
-            role="img"
-            class="my-0"
-            textWidth="normal"
-            ariaDescription="{ariaDescription}"
+<div style="--heroHeight: {embedded ? '850px' : '100svh'}; display:contents;">
+  <div class="hero-wrapper fmb-7" class:embedded="{embedded}">
+    <!-- Background media hero-->
+    {#if $$slots.background || img}
+      <Block width="fluid" class="hero-headline background-hero fmt-0">
+        {#if $$slots.hed}
+          <Headline
+            class="{cls} !text-{hedAlign}"
+            width="{hedWidth}"
+            section="{section}"
+            hedSize="{hedSize}"
+            hed="{hed}"
+            dek="{dek}"
           >
-            <div
-              class="background-image"
-              style="background-image: url({img})"
-            ></div>
-          </GraphicBlock>
+            <!-- Headline named slot -->
+            <div slot="hed">
+              <slot name="hed" />
+            </div>
+          </Headline>
+        {:else}
+          <Headline
+            class="{cls} !text-{hedAlign}"
+            width="{hedWidth}"
+            section="{section}"
+            hedSize="{hedSize}"
+            hed="{hed}"
+            dek="{dek}"
+          />
         {/if}
-      </div>
-    </Block>
-    {#if notes}
-      <TextBlock width="normal">
-        <aside class="fmt-2">
-          {@html marked(notes)}
-        </aside>
-      </TextBlock>
+        <div class="background-container">
+          {#if $$slots.background}
+            <!-- Hero graphic named slot -->
+            <slot name="background" />
+          {:else}
+            <GraphicBlock
+              width="{width}"
+              role="img"
+              class="my-0"
+              textWidth="normal"
+              ariaDescription="{ariaDescription}"
+            >
+              <div
+                class="background-image"
+                style="background-image: url({img})"
+              ></div>
+            </GraphicBlock>
+          {/if}
+        </div>
+      </Block>
+      {#if notes}
+        <TextBlock width="normal">
+          <aside class="fmt-2">
+            {@html marked(notes)}
+          </aside>
+        </TextBlock>
+      {/if}
     {/if}
-  {/if}
 
-  <!-- Inline hero -->
-  {#if $$slots.inline}
-    <Block width="fluid" class="hero-headline inline-hero">
-      <Headline
-        class="{cls} !text-{hedAlign}"
-        width="{hedWidth}"
-        section="{section}"
-        hedSize="{hedSize}"
-        hed="{hed}"
-        dek="{dek}"
-      />
-      <div class="graphic-container">
-        <!-- Hero named slot -->
-        <slot name="inline" />
-      </div>
-    </Block>
-  {/if}
+    <!-- Inline hero -->
+    {#if $$slots.inline}
+      <Block width="fluid" class="hero-headline inline-hero">
+        {#if $$slots.hed}
+          <Headline
+            class="{cls} !text-{hedAlign}"
+            width="{hedWidth}"
+            section="{section}"
+            hedSize="{hedSize}"
+            hed="{hed}"
+            dek="{dek}"
+          >
+            <!-- Headline named slot -->
+            <div slot="hed">
+              <slot name="hed" />
+            </div>
+          </Headline>
+        {:else}
+          <Headline
+            class="{cls} !text-{hedAlign}"
+            width="{hedWidth}"
+            section="{section}"
+            hedSize="{hedSize}"
+            hed="{hed}"
+            dek="{dek}"
+          />
+        {/if}
+        <div class="graphic-container">
+          <!-- Hero named slot -->
+          <slot name="inline" />
+        </div>
+      </Block>
+    {/if}
+  </div>
 </div>
 
-{#if $$slots.byline}
-  <!-- Custom byline/dateline -->
-  <slot name="byline" />
-{:else if authors.length > 0 || publishTime}
-  <Byline
-    class="fmt-7 fmb-5"
-    authors="{authors}"
-    publishTime="{publishTime}"
-    updateTime="{updateTime}"
-    align="left"
-  />
-{/if}
+<div class="hero-byline fmb-5">
+  {#if $$slots.byline}
+    <!-- Custom byline/dateline -->
+    <slot name="byline" />
+  {:else if authors.length > 0 || publishTime}
+    <Byline
+      authors="{authors}"
+      publishTime="{publishTime}"
+      updateTime="{updateTime}"
+      align="left"
+    />
+  {/if}
+</div>
 
 <style lang="scss">
   @import '../../scss/mixins';
 
-  :global {
-    .background-hero {
+  .hero-wrapper {
+    :global(.background-hero) {
       height: var(--heroHeight, 100svh);
       max-height: 1800px;
-      width: 100%;
       position: relative;
-
-      .headline {
-        @include fmt-0;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 50%;
-        height: var(--heroHeight, 100svh);
-        max-height: 1800px;
-        transform: translateX(-50%);
-      }
     }
 
-    .byline-container {
+    :global(.background-hero .headline) {
+      @include fmt-0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 50%;
+      height: var(--heroHeight, 100svh);
+      max-height: 1800px;
+      transform: translateX(-50%);
+    }
+
+    :global(aside p) {
+      @include body-caption;
+    }
+
+    :global(video) {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: var(--heroHeight);
+      object-fit: cover;
+    }
+  }
+
+  .hero-byline {
+    :global(.byline-container) {
       z-index: 1;
       position: relative;
     }
-
-    .hero-wrapper {
-      // Caption and Sources
-      aside {
-        p {
-          @include body-caption;
-        }
-      }
-    }
   }
+
   .background-image {
     width: auto;
     height: var(--heroHeight, 100svh);

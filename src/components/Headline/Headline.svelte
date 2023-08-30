@@ -74,7 +74,7 @@
 </script>
 
 <Block width="{width}" class="headline text-center fmt-9 fmb-5 {cls}">
-  <header>
+  <header class="relative">
     {#if $$slots.crown}
       <div class="crown-container">
         <!-- Crown named slot -->

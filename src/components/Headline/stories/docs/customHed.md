@@ -5,7 +5,7 @@ Use the `hed` and/or `dek` named slots to override those elements with completel
   import { Headline } from '@reuters-graphics/graphics-components';
 </script>
 
-<Headline>
+<Headline width="wide">
   <h1 class="custom-hed" slot="hed">
     <span class="small block text-base">The secret to</span>
     “The Nutcracker's”

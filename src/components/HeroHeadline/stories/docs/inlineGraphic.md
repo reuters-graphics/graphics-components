@@ -2,7 +2,7 @@ Reuters Graphics headline followed by a graphic or any media block.
 
 ```svelte
 <script>
-  import { Headline } from '@reuters-graphics/graphics-components';
+  import { HeroHeadline } from '@reuters-graphics/graphics-components';
   import Map from './ai2svelte/graphic.svelte';
   import { assets } from '$app/paths';
 </script>
