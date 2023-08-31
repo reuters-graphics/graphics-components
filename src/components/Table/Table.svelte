@@ -361,7 +361,6 @@
       tr {
         th {
           border-bottom: 1px solid var(--theme-colour-text-primary);
-
           @include bg;
           text-align: inherit;
           &.sortable {
@@ -378,6 +377,7 @@
     }
     tbody {
       td {
+        @include text-sm;
         vertical-align: top;
         border-bottom: 1px solid
           var(--theme-colour-brand-rules, var(--tr-muted-grey));
