@@ -15,7 +15,7 @@
   svg {
     vertical-align: middle;
     path {
-      fill: $theme-colour-text-secondary;
+      fill: $theme-colour-brand-rules;
     }
   }
 </style>

@@ -4,7 +4,7 @@
   import Controls from './Controls.svelte';
   import Block from '../Block/Block.svelte';
   import type { ContainerWidth } from '../@types/global';
-
+  import { marked } from 'marked';
   /// //////////////////////////////////
   /// /////////// Props ////////////////
   /// //////////////////////////////////
@@ -123,7 +123,7 @@
   on:touchstart="{setInteractedWithDom}"
 />
 
-<Block width="{width}" class="video-container">
+<Block width="{width}" class="video-container fmy-5">
   <div
     on:mouseover="{() => {
       interactiveControlsOpacity = controlsOpacity;
@@ -153,7 +153,7 @@
         >
           <div
             bind:this="{element}"
-            class="video-wrapper relative"
+            class="video-wrapper relative block"
             aria-hidden="{ariaHidden}"
             bind:clientWidth="{widthVideoContainer}"
             bind:clientHeight="{heightVideoContainer}"
@@ -258,8 +258,20 @@
         </div>
       {/if}
       {#if caption}
-        <div class="caption text-secondary text-xs">{caption}</div>
+        <aside class="fmt-2">
+          {@html marked(caption)}
+        </aside>
       {/if}
     {/if}
   </div>
 </Block>
+
+<style lang="scss">
+  @import '../../scss/mixins';
+  // Caption and Sources
+  aside {
+    :global(p) {
+      @include body-caption;
+    }
+  }
+</style>

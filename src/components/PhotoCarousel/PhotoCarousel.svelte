@@ -97,7 +97,7 @@
   };
 </script>
 
-<Block width="{width}" id="{id}" class="photo-carousel {cls}">
+<Block width="{width}" id="{id}" class="photo-carousel fmy-5 {cls}">
   <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"
@@ -116,11 +116,11 @@
             <SplideSlide>
               <div class="photo-slide w-full h-full relative">
                 <figure
-                  class="m-0 w-full relative"
+                  class="fm-0 w-full relative"
                   style="height: {carouselHeight}px;"
                 >
                   <img
-                    class="w-full h-full my-0"
+                    class="w-full h-full fmy-0"
                     data-splide-lazy="{photo.src}"
                     alt="{photo.altText}"
                     style:object-fit="{photo.objectFit ||
@@ -132,7 +132,7 @@
                     <slot name="credit" credit="{photo.credit}" />
                   {:else}
                     <span
-                      class="credit absolute m-0 leading-tighter font-note text-xxs"
+                      class="credit absolute fmb-1 fml-1 leading-tighter font-note text-xxs"
                       class:contain-fit="{photo.objectFit === 'contain' ||
                         defaultImageObjectFit === 'contain'}"
                       >{photo.credit}</span
@@ -168,7 +168,7 @@
           <div class="splide__progress__bar"></div>
         </div>
 
-        <div class="splide__arrows">
+        <div class="splide__arrows fp-1">
           <button class="splide__arrow splide__arrow--prev">
             <Fa icon="{faChevronLeft}" fw />
           </button>
@@ -188,8 +188,8 @@
     .photo-slide {
       figure {
         span.credit {
-          bottom: 4px;
-          left: 10px;
+          bottom: 0;
+          left: 0;
           color: white;
           text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333,
             1px 1px 0 #333;
@@ -210,8 +210,7 @@
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
-        padding: 0px;
-        padding-top: 4px;
+
         button {
           display: flex;
           font-size: 14px;
@@ -248,11 +247,11 @@
         flex-wrap: nowrap;
         li {
           flex-grow: 1;
+          margin-top: -9px;
           button {
             width: 100%;
             height: 7px;
             border-radius: 0;
-            margin: 0 0px;
             padding: 0;
             border: 1px solid $theme-colour-background;
             background: $theme-colour-text-secondary;

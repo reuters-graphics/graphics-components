@@ -47,6 +47,7 @@
     max-width: initial;
     .step-foreground {
       max-width: calc($column-width-normal * 0.9);
+      border-radius: 0.25rem;
       @include fpy-5;
       @include fpx-4;
       background: rgba(255, 255, 255, 0.9);

@@ -89,11 +89,8 @@
   $: rows = groupRows(images, layout);
 </script>
 
-<Block width="{width}" id="{id}" class="photopack {cls}">
-  <div
-    class="photopack-container w-full mb-2"
-    bind:clientWidth="{containerWidth}"
-  >
+<Block width="{width}" id="{id}" class="photopack fmy-5 {cls}">
+  <div class="photopack-container w-full" bind:clientWidth="{containerWidth}">
     {#each rows as row, ri}
       <div
         class="photopack-row flex justify-between"
@@ -120,17 +117,19 @@
     {/each}
   </div>
   <PaddingReset containerIsFluid="{width === 'fluid'}">
-    <Block width="{captionWidth}" class="photopack-captions-container">
-      {#each rows as row, ri}
-        {#each row as img, i}
-          {#if img.caption}
-            <div id="{id}-figure-{ri}-{i}" class="caption">
-              {@html marked(img.caption)}
-            </div>
-          {/if}
+    <div class="notes contents">
+      <Block width="{captionWidth}" class="photopack-captions-container">
+        {#each rows as row, ri}
+          {#each row as img, i}
+            {#if img.caption}
+              <div id="{id}-figure-{ri}-{i}" class="caption">
+                {@html marked(img.caption)}
+              </div>
+            {/if}
+          {/each}
         {/each}
-      {/each}
-    </Block>
+      </Block>
+    </div>
   </PaddingReset>
 </Block>
 
@@ -150,14 +149,24 @@
     }
   }
 
-  :global {
-    .photopack-captions-container {
-      @include \!fmy-2;
-      div.caption {
-        p {
-          @include body-caption;
-        }
-      }
+  .notes {
+    :global(.photopack-captions-container) {
+      @include fmy-2;
+    }
+
+    :global(.photopack-captions-container .caption p) {
+      @include body-caption;
     }
   }
+
+  // :global {
+  //   .photopack-captions-container {
+  //     @include \!fmy-2;
+  //     div.caption {
+  //       p {
+  //         @include body-caption;
+  //       }
+  //     }
+  //   }
+  // }
 </style>

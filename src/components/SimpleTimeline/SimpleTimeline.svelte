@@ -18,7 +18,7 @@
    * Set a colour for the timeline bullet symbols and line.
    * @type {string}
    */
-  export let symbolColour: string = '#ccc';
+  export let symbolColour: string = 'var(--theme-colour-brand-rules)';
   /**
    * Set a colour for the date headings in the timeline.
    * @type {string}
@@ -44,11 +44,11 @@
 
 <Block width="normal" id="{id}" class="simple-timeline-container {cls}">
   <div
-    class="timeline mt-8 pl-2 pr-3.5"
+    class="timeline fmy-5 pl-2 pr-3.5"
     style="--symbol-colour:{symbolColour};"
   >
     {#each dates as date}
-      <div class="date relative m-0 pl-5 pb-4">
+      <div class="date relative pt-0.5 pl-5 pb-4">
         <svg class="absolute bg" height="25" width="20">
           <circle
             cx="10"
@@ -59,7 +59,7 @@
             fill="transparent"></circle>
         </svg>
         <div
-          class="timeline-date font-subhed font-bold mt-0 text-sm fmb-1"
+          class="timeline-date font-note text-xs uppercase font-black tracking-wide fmb-0"
           style:color="{dateColour}"
         >
           {date.date}
@@ -68,17 +68,13 @@
           <div class="event pb-2">
             {#if event.titleLink}
               <a href="{event.titleLink}" target="_blank">
-                <div
-                  class="title font-subhed text-base font-bold text-primary leading-tighter fmb-1"
-                >
+                <div class="title h3">
                   {event.title}
                   <span class="text-sm"><Fa fw icon="{faLink}" /></span>
                 </div>
               </a>
             {:else}
-              <div
-                class="title font-subhed text-base font-bold text-primary leading-tighter fmb-1"
-              >
+              <div class="title h3">
                 {event.title}
               </div>
             {/if}
@@ -105,6 +101,12 @@
       top: -1px;
       left: -10px;
     }
+    div.title {
+      @include fmt-2;
+      @include fmb-1;
+      @include font-medium;
+    }
+
     div.event {
       a {
         text-decoration: none;
@@ -121,12 +123,13 @@
         }
       }
       :global(p) {
-        @include fmb-2;
-        @include leading-normal;
-        @include font-light;
-        @include text-sm;
-        @include font-note;
-        @include text-primary;
+        @include body-note;
+        // @include fmb-2;
+        // @include leading-normal;
+        // @include font-light;
+        // @include text-sm;
+        // @include font-note;
+        // @include text-primary;
       }
     }
   }

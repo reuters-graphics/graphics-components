@@ -85,6 +85,7 @@
     display: inline-block;
     padding: 4px 0;
     margin-bottom: 2px;
+    font-family: var(--theme-font-family-sans-serif);
     &:hover {
       text-decoration: underline;
     }

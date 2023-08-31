@@ -26,20 +26,22 @@
   }
 </script>
 
-<div class="search" class:active="{active}">
-  <div class="search--icon">
+<div class="search relative inline-flex items-center" class:active="{active}">
+  <div class="search--icon absolute ml-2 mt-1.5">
     <MagnifyingGlass />
   </div>
   <input
     id="search--input"
-    class="search--input"
+    class="search--input body-caption pl-8"
     type="text"
     placeholder="{searchPlaceholder}"
     on:input="{input}"
     bind:value="{value}"
   />
   <div
-    class="search--x"
+    class="search--x absolute mt-1"
+    role="button"
+    tabindex="0"
     class:invisible="{!active}"
     on:click="{clear}"
     on:keyup="{clear}"
@@ -52,34 +54,24 @@
   @use '../../scss/mixins' as *;
 
   .search {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    width: 256px;
-    padding: 0 0 0 0.1rem;
+    width: 250px;
     .search--icon {
-      position: absolute;
-      left: 0.5rem;
-      top: 0.15rem;
+      left: 0;
+      top: 0;
       width: 1.5rem;
       height: 1.5rem;
       fill: $theme-colour-brand-rules;
     }
     .search--input {
-      @include font-sans;
-      @include text-primary;
-      padding: 0 0 0 2rem;
-      font-size: 0.8rem;
-      height: 33px;
+      height: 2.15rem;
       border: 1px solid $theme-colour-brand-rules;
       background: transparent;
-      border-radius: 6px;
+      border-radius: 0.25rem;
       width: 100%;
     }
     .search--x {
-      position: absolute;
       right: 0;
-      top: 0.15rem;
+      top: 0;
       width: 1.5rem;
       height: 1.5rem;
       fill: $theme-colour-text-primary;

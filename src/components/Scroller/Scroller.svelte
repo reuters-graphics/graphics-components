@@ -101,7 +101,7 @@
 </script>
 
 {#if !embedded}
-  <Block width="fluid" class="scroller-container" id="{id}">
+  <Block width="fluid" class="scroller-container fmy-5" id="{id}">
     <SvelteScroller
       bind:index="{index}"
       bind:offset="{offset}"

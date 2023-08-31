@@ -36,7 +36,6 @@
 }
 
 @mixin h4 {
-  @include text-primary;
   @include font-subhed;
   @include leading-tight;
   @include text-sm;
