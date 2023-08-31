@@ -44,15 +44,17 @@
   }
 </script>
 
-<nav aria-label="pagination" class="pagination">
+<nav aria-label="pagination" class="pagination fmt-2">
   <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
     ><div class="icon-wrapper">
       <LeftArrow />
       <span class="visually-hidden">Previous page</span>
     </div></button
   >
-  <div class="label" aria-label="page {pageNumber}" aria-current="page">
-    <div class="records">{minRow}-{maxRow} of {intcomma(n)}</div>
+  <div class="label fmx-2" aria-label="page {pageNumber}" aria-current="page">
+    <div class="records body-caption mt-1.5">
+      {minRow}-{maxRow} of {intcomma(n)}
+    </div>
   </div>
   <button
     on:click="{goToNextPage}"
@@ -71,7 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+
     button {
       border: 1px solid var(--theme-colour-text-secondary, var(--tr-light-grey));
       border-radius: 50%;
@@ -105,15 +107,7 @@
       align-items: center;
       flex-direction: column;
       width: auto;
-      min-width: 110px;
-      margin: 0 0.5rem;
-      .records {
-        font-size: 0.8rem;
-        @include font-sans;
-        font-weight: 300;
-        margin: 0 1rem;
-        @include text-primary;
-      }
+      min-width: 7rem;
     }
   }
 
