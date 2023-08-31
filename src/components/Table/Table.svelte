@@ -378,6 +378,7 @@
     tbody {
       td {
         @include text-sm;
+        @include font-regular;
         vertical-align: top;
         border-bottom: 1px solid
           var(--theme-colour-brand-rules, var(--tr-muted-grey));
