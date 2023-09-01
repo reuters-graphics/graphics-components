@@ -30,7 +30,11 @@
     h4,
     h5,
     h6 {
-      @include h3;
+      @include body-note;
+      @include tracking-wide;
+      @include text-primary;
+      @include font-semibold;
+      @include fmt-3;
       text-transform: none;
     }
 

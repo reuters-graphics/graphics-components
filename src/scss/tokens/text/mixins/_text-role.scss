@@ -58,7 +58,7 @@
 
 @mixin body-note {
   @include fmt-0;
-  @include fmb-2;
+  @include fmb-1;
   @include font-note;
   font-size: calc(0.85 * var(--theme-font-size-base));
   @include font-light;

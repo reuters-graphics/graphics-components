@@ -70,7 +70,7 @@
   }
 </script>
 
-<Block id="{id}" class="headline-container !my-16 {cls}" width="normal">
+<Block id="{id}" class="headline-container fmt-9 fmb-5 {cls}" width="normal">
   <header class="headline">
     <div class="title">
       {#if section}
@@ -87,9 +87,7 @@
         </p>
       {/if}
       {#if hed}
-        <h1
-          class="font-hed text-primary leading-none font-medium fmt-1 fmb-3 {hedClass}"
-        >
+        <h1 class="fmt-1 fmb-3 {hedClass}">
           {hed}
         </h1>
       {/if}

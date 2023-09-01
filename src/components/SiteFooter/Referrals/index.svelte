@@ -8,7 +8,7 @@
 <IntersectionObserver let:intersecting top="{2400}" once="{true}">
   {#if intersecting}
     <section class="referrals px-0 py-5">
-      <h2 class="text-base font-medium">
+      <h2 class="fmt-0 text-base font-medium">
         <a href="https://graphics.reuters.com/">More from Reuters Graphics</a>
       </h2>
       {#if typeof window !== 'undefined'}
