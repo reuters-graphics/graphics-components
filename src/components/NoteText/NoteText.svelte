@@ -35,6 +35,7 @@
       @include text-primary;
       @include font-semibold;
       @include fmt-3;
+      @include fmb-0;
       text-transform: none;
     }
 

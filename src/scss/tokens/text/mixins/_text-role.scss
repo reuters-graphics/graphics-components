@@ -5,6 +5,7 @@
 @use 'letter-spacing' as *;
 @use 'line-height' as *;
 @use '../../spacers/mixins/main' as *;
+@use '../../../mixins/block' as *;
 
 @mixin h1 {
   @include text-primary;
@@ -20,9 +21,13 @@
   @include font-bold;
   @include font-subhed;
   @include leading-tighter;
-  @include text-2xl;
+  @include text-xl;
   @include fmt-7;
   @include fmb-3;
+
+  @media (max-width: $column-width-normal) {
+    @include text-2xl;
+  }
 }
 
 @mixin h3 {
@@ -58,7 +63,7 @@
 
 @mixin body-note {
   @include fmt-0;
-  @include fmb-1;
+  @include fmb-2;
   @include font-note;
   font-size: calc(0.85 * var(--theme-font-size-base));
   @include font-light;
