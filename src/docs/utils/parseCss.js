@@ -8,6 +8,8 @@ export const cssStringToTableArray = (cssString, withInclude = false) => {
     const className = key.replace(/_/g, '-');
     const properties = Object.entries(value)
       .map(([propName, propValue]) => {
+        // Excludes any media query-ied stuff...
+        if (typeof propValue !== 'string') return '';
         return `${kebabCase(propName)}: ${propValue.replace(
           /\s?!important/g,
           ''
