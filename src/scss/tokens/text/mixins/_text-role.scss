@@ -5,7 +5,6 @@
 @use 'letter-spacing' as *;
 @use 'line-height' as *;
 @use '../../spacers/mixins/main' as *;
-@use '../../../mixins/block' as *;
 
 @mixin h1 {
   @include text-primary;
@@ -25,7 +24,7 @@
   @include fmt-7;
   @include fmb-3;
 
-  @media (max-width: $column-width-normal) {
+  @media (max-width: 768px) {
     @include text-2xl;
   }
 }

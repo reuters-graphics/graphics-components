@@ -97,11 +97,11 @@
       {/if}
       {#if $$slots.dek}
         <!-- Dek named slot-->
-        <div class="dek fmx-auto">
+        <div class="dek fmx-auto fmb-5">
           <slot name="dek" />
         </div>
       {:else if dek}
-        <div class="dek fmx-auto">
+        <div class="dek fmx-auto fmb-5">
           {@html marked(dek)}
         </div>
       {/if}
