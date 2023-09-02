@@ -44,6 +44,7 @@
   @include leading-tight;
   @include text-sm;
   @include text-secondary;
+  @include font-semibold;
   @include tracking-wide;
   text-transform: uppercase;
   @include fmt-4;
@@ -64,8 +65,7 @@
   @include fmt-0;
   @include fmb-2;
   @include font-note;
-  font-size: calc(0.85 * var(--theme-font-size-base));
-  @include font-light;
+  font-size: calc(0.9 * var(--theme-font-size-base));
   @include text-primary;
   @include leading-tight;
 }
@@ -87,8 +87,3 @@
   text-decoration-thickness: 1px;
   text-decoration-color: var(--theme-colour-text-secondary);
 }
-
-// @mixin \!h1 {
-//   @include \!text-primary;
-//   @include \!font-bold;
-// }

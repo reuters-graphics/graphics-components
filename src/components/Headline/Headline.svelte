@@ -73,7 +73,7 @@
   }
 </script>
 
-<Block width="{width}" class="headline text-center fmt-9 fmb-5 {cls}">
+<Block width="{width}" class="headline text-center fmt-7 fmb-5 {cls}">
   <header class="relative">
     {#if $$slots.crown}
       <div class="crown-container">

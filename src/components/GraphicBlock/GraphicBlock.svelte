@@ -41,7 +41,7 @@
    * of the text well. Can't ever be wider than `width`.
    * @type {string}
    */
-  export let textWidth: ContainerWidth | null = null;
+  export let textWidth: ContainerWidth | null = 'normal';
 
   /**
    * Title of the graphic
@@ -81,55 +81,53 @@
   ariaLabel="{ariaLabel}"
   class="graphic fmy-5 {cls}"
 >
-  <div>
-    {#if $$slots.title}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <!-- Custom title content -->
-          <slot name="title" />
-        </TextBlock>
-      </PaddingReset>
-    {:else if title}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <h3>{title}</h3>
-          {#if description}
-            {@html marked(description)}
-          {/if}
-        </TextBlock>
-      </PaddingReset>
-    {/if}
-    <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
-      <!-- Graphic content -->
-      <slot />
-    </AriaHidden>
-    {#if $$slots.aria || ariaDescription}
-      <div class="visually-hidden">
-        {#if $$slots.aria}
-          <!-- Custom ARIA markup -->
-          <slot name="aria" />
-        {:else}
-          {@html marked(ariaDescription)}
+  {#if $$slots.title}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <!-- Custom title content -->
+        <slot name="title" />
+      </TextBlock>
+    </PaddingReset>
+  {:else if title}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <h3>{title}</h3>
+        {#if description}
+          {@html marked(description)}
         {/if}
-      </div>
-    {/if}
-    {#if $$slots.notes}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <!-- Custom notes content -->
-          <slot name="notes" />
-        </TextBlock>
-      </PaddingReset>
-    {:else if notes}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <aside class="fmt-2">
-            {@html marked(notes)}
-          </aside>
-        </TextBlock>
-      </PaddingReset>
-    {/if}
-  </div>
+      </TextBlock>
+    </PaddingReset>
+  {/if}
+  <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
+    <!-- Graphic content -->
+    <slot />
+  </AriaHidden>
+  {#if $$slots.aria || ariaDescription}
+    <div class="visually-hidden">
+      {#if $$slots.aria}
+        <!-- Custom ARIA markup -->
+        <slot name="aria" />
+      {:else}
+        {@html marked(ariaDescription)}
+      {/if}
+    </div>
+  {/if}
+  {#if $$slots.notes}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <!-- Custom notes content -->
+        <slot name="notes" />
+      </TextBlock>
+    </PaddingReset>
+  {:else if notes}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <aside class="fmt-2">
+          {@html marked(notes)}
+        </aside>
+      </TextBlock>
+    </PaddingReset>
+  {/if}
 </Block>
 
 <!-- svelte-ignore css-unused-selector -->
@@ -140,6 +138,7 @@
     // Dek
     p {
       @include body-note;
+      @include font-light;
     }
     // Caption and Sources
     aside {

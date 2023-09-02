@@ -12,7 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   .theme {
-    font-size: calc(0.85 * var(--theme-font-size-base));
+    font-size: calc(0.9 * var(--theme-font-size-base));
     color: var(--theme-colour-text-primary);
   }
 }
@@ -56,26 +56,34 @@ h6 {
 // Body text
 //////////////
 
-%body-type-block {
-  display: block;
-  @include body-text;
-}
-
 text {
   @include body-note;
 }
 
 p {
-  @extend %body-type-block;
+  display: block;
+  @include body-text;
 }
 
 ol,
 ul {
-  @extend %body-type-block;
-  padding-left: 2rem;
-  ol,
-  ul {
-    margin-bottom: 0;
+  display: block;
+  @include body-note;
+  @include fmb-5;
+  li {
+    @include fpl-1;
+    @include fmy-2;
+    @include font-regular;
+  }
+}
+
+ul {
+  @include fpl-2;
+
+  li::marker {
+    content: '–';
+    @include font-light;
+    @include text-secondary;
   }
 }
 

@@ -11,7 +11,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block class="notes">
+<Block class="notes fmt-5 fmb-7">
   {#if text}
     {@html marked.parse(text)}
   {/if}
@@ -22,9 +22,6 @@
   @import '../../scss/mixins';
 
   .article-block.notes {
-    @include fmb-9;
-    @include fmt-7;
-
     h2,
     h3,
     h4,

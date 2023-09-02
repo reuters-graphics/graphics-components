@@ -70,7 +70,7 @@
   }
 </script>
 
-<Block id="{id}" class="headline-container fmt-9 fmb-5 {cls}" width="normal">
+<Block id="{id}" class="headline-container fmt-7 fmb-5 {cls}" width="normal">
   <header class="headline">
     <div class="title">
       {#if section}
