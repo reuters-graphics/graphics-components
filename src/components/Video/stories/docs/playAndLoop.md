@@ -18,10 +18,11 @@ Here is an example of what the same video would look like with a visibility thre
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<video
+<Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"
   loopVideo="{false}"
-  playVideoThreshold="{0.9}"></video>
+  playVideoThreshold="{0.9}"
+/>
 ```

@@ -6,9 +6,10 @@ General-purpose video component. Can play on load or when the video comes into v
   import { assets } from '$app/paths'; // If using local video in the Graphics Kit
 </script>
 
-<video
+<Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{`${assets}/videos/myVideo.mp4`}"
   width="{'wide'}"
-  caption="{'Optional caption for your video.'}"></video>
+  caption="{'Optional caption for your video.'}"
+/>
 ```

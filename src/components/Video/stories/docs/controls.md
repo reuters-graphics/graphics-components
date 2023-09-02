@@ -22,7 +22,7 @@ Here is an example with bottom right corner white opaque controls, with a replay
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<video
+<Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"
@@ -33,5 +33,6 @@ Here is an example with bottom right corner white opaque controls, with a replay
   controlsPosition="{'bottom right'}"
   separateReplayIcon="{true}"
   loopVideo="{false}"
-  hoverToSeeControls="{true}"></video>
+  hoverToSeeControls="{true}"
+/>
 ```

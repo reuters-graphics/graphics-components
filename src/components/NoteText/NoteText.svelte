@@ -39,6 +39,7 @@
     p {
       @include body-note;
       @include text-sm;
+      @include font-light;
     }
   }
 </style>

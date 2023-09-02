@@ -2,9 +2,9 @@
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import Controls from './Controls.svelte';
-  import Block from '../Block/Block.svelte';
+  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
-  import { marked } from 'marked';
+
   /// //////////////////////////////////
   /// /////////// Props ////////////////
   /// //////////////////////////////////
@@ -15,7 +15,24 @@
   export let src = '';
   export let ariaHidden = true;
   export let ariaDescription = null;
-  export let caption = '';
+
+  /**
+   * Title of the graphic
+   * @type {string}
+   */
+  export let title: string | null = null;
+
+  /**
+   * Notes to the graphic, passed in as a markdown string.
+   * @type {string}
+   */
+  export let notes: string | null = null;
+
+  /**
+   * Description of the graphic, passed in as a markdown string.
+   * @type {string}
+   */
+  export let description: string | null = null;
 
   /**
    * Width of the block within the article well.
@@ -24,6 +41,14 @@
   export let width: ContainerWidth = 'normal';
 
   type PreloadOptions = 'auto' | 'none' | 'metadata';
+
+  /**
+   * Set a different width for the text within the text well, for example,
+   * "normal" to keep the title, description and notes inline with the rest
+   * of the text well. Can't ever be wider than `width`.
+   * @type {string}
+   */
+  export let textWidth: ContainerWidth | null = 'normal';
 
   /**
    * Preload options. `auto` is ignored if `autoplay` is true. Can also be `none` or `metadata`.
@@ -123,8 +148,16 @@
   on:touchstart="{setInteractedWithDom}"
 />
 
-<Block width="{width}" class="video-container fmy-5">
+<GraphicBlock
+  textWidth="{textWidth}"
+  title="{title}"
+  description="{description}"
+  notes="{notes}"
+  width="{width}"
+  class="video-container fmy-5"
+>
   <div
+    role="figure"
     on:mouseover="{() => {
       interactiveControlsOpacity = controlsOpacity;
     }}"
@@ -257,21 +290,10 @@
           </video>
         </div>
       {/if}
-      {#if caption}
-        <aside class="fmt-2">
-          {@html marked(caption)}
-        </aside>
-      {/if}
     {/if}
   </div>
-</Block>
-
-<style lang="scss">
-  @import '../../scss/mixins';
-  // Caption and Sources
-  aside {
-    :global(p) {
-      @include body-caption;
-    }
-  }
-</style>
+  {#if $$slots.notes}
+    <!-- Custom notes and source slot -->
+    <slot name="notes" />
+  {/if}
+</GraphicBlock>
