@@ -68,12 +68,11 @@ p {
 ol,
 ul {
   display: block;
-  @include body-note;
-  @include fmb-5;
+  @include body-text;
+  @include fmb-6;
   li {
     @include fpl-1;
-    @include fmy-2;
-    @include font-regular;
+    @include fmy-1;
   }
 }
 

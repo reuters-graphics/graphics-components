@@ -42,11 +42,8 @@
   import { marked } from 'marked';
 </script>
 
-<Block width="normal" id="{id}" class="simple-timeline-container {cls}">
-  <div
-    class="timeline fmy-5 pl-2 pr-3.5"
-    style="--symbol-colour:{symbolColour};"
-  >
+<Block width="normal" id="{id}" class="simple-timeline-container fmy-6 {cls}">
+  <div class="timeline pl-2 pr-3.5" style="--symbol-colour:{symbolColour};">
     {#each dates as date}
       <div class="date relative pt-0.5 pl-5 pb-4">
         <svg class="absolute bg" height="25" width="20">
@@ -125,6 +122,7 @@
       }
       :global(p) {
         @include body-note;
+        @include font-light;
       }
     }
   }
