@@ -66,7 +66,7 @@
 
 <Block id="{id}" class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
-    <div class="byline body-caption">
+    <div class="byline">
       {#if $$slots.byline}
         <!-- Custom byline -->
         <slot name="byline" />
@@ -92,7 +92,7 @@
         {/if}
       {/if}
     </div>
-    <div class="dateline fmt-0 body-caption">
+    <div class="dateline fmt-0">
       {#if $$slots.published}
         <div class="whitespace-nowrap inline-block">
           <!-- Custom published dateline -->
@@ -137,12 +137,17 @@
   @use '../../scss/mixins' as *;
 
   .byline-container {
-    @include font-regular;
     a {
       &:hover {
         text-decoration-line: underline;
       }
     }
+  }
+
+  .byline,
+  .dateline {
+    @include body-caption;
+    @include fmb-1;
   }
 
   @media (min-width: $column-width-narrower) {
