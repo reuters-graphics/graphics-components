@@ -127,7 +127,7 @@ blockquote {
   @include fpy-3;
   @include fpr-1;
   border-left: 2px solid $theme-colour-brand-rules;
-  @include fmy-3;
+  @include fmy-4;
   p {
     @include font-body;
     @include text-lg;
