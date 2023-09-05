@@ -225,7 +225,7 @@
           <p class="table--header--dek body-note">{@html dek}</p>
         {/if}
         {#if searchable || filterList}
-          <nav class="input">
+          <nav class="input fmx-0 fmy-2">
             {#if filterList}
               <div class="table--header--filter">
                 <Select
@@ -418,7 +418,6 @@
   }
 
   nav.input {
-    margin: 0.5rem 0;
     padding: 0;
     width: 100%;
     display: flex;
@@ -426,7 +425,7 @@
     align-items: flex-end;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: clamp(0.31rem, calc(0.29rem + 0.1vw), 0.38rem);
   }
 
   nav.show-all {

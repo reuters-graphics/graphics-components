@@ -27,7 +27,7 @@
 </script>
 
 <div class="search relative inline-flex items-center" class:active="{active}">
-  <div class="search--icon absolute ml-2 mt-1.5">
+  <div class="search--icon absolute ml-2 mt-1">
     <MagnifyingGlass />
   </div>
   <input

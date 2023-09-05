@@ -205,6 +205,10 @@
         max-height: 100%;
       }
 
+      li {
+        padding: 0;
+      }
+
       .splide__arrows {
         width: 275px;
         margin: 0 auto;

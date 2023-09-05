@@ -11,11 +11,14 @@
   let cls: string = '';
   export { cls as class };
 
+  /** Add an id to the block tag to target it with custom CSS. */
+  export let id: string = '';
+
   import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block class="body-text fmy-5 {cls}">
+<Block id="{id}" class="fmy-5 {cls}">
   {#if text}
     {@html marked.parse(text)}
   {/if}

@@ -41,6 +41,15 @@
    * Width of the container, one of: normal, wide, wider, widest or fluid
    */
   export let width: ContainerWidth = 'normal';
+
+  /**
+   * Set a different width for the text within the text well, for example,
+   * "normal" to keep the title, description and notes inline with the rest
+   * of the text well. Can't ever be wider than `width`.
+   * @type {string}
+   */
+  export let textWidth: ContainerWidth | null = 'normal';
+
   /**
    * Whether to lazy load the photo using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
    */
@@ -94,9 +103,11 @@
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <figcaption>
-          {caption}
-        </figcaption>
+        <Block width="{textWidth}" class="fmx-auto fmy-0">
+          <figcaption>
+            {caption}
+          </figcaption>
+        </Block>
       </PaddingReset>
     {/if}
     {#if !altText}

@@ -95,6 +95,7 @@
       border-left: 1px solid var(--symbol-colour);
       &:last-child {
         border-left: 1px solid $theme-colour-background;
+        @include fpb-0;
       }
     }
     svg {
@@ -124,12 +125,6 @@
       }
       :global(p) {
         @include body-note;
-        // @include fmb-2;
-        // @include leading-normal;
-        // @include font-light;
-        // @include text-sm;
-        // @include font-note;
-        // @include text-primary;
       }
     }
   }
