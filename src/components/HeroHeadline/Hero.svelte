@@ -109,7 +109,7 @@
 </script>
 
 <div style="--heroHeight: {embedded ? '850px' : '100svh'}; display:contents;">
-  <div class="hero-wrapper fmb-7" class:embedded="{embedded}">
+  <div class="hero-wrapper fmb-6" class:embedded="{embedded}">
     <!-- Background media hero-->
     {#if $$slots.background || img}
       <Block width="fluid" class="hero-headline background-hero fmt-0">
@@ -202,7 +202,7 @@
   </div>
 </div>
 
-<div class="hero-byline fmb-5">
+<div class="hero-byline fmb-6">
   {#if $$slots.byline}
     <!-- Custom byline/dateline -->
     <slot name="byline" />

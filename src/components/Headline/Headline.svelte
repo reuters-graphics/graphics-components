@@ -98,11 +98,11 @@
         {/if}
         {#if $$slots.dek}
           <!-- Dek named slot-->
-          <div class="dek fmx-auto fmb-5">
+          <div class="dek fmx-auto fmb-6">
             <slot name="dek" />
           </div>
         {:else if dek}
-          <div class="dek fmx-auto fmb-5">
+          <div class="dek fmx-auto fmb-6">
             {@html marked(dek)}
           </div>
         {/if}
@@ -112,7 +112,7 @@
         <slot name="byline" />
       {:else if authors.length > 0 || publishTime}
         <Byline
-          class="fmy-3"
+          class="fmy-4"
           authors="{authors}"
           publishTime="{publishTime}"
           updateTime="{updateTime}"
