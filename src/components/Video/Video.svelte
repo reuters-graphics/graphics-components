@@ -154,7 +154,7 @@
   description="{description}"
   notes="{notes}"
   width="{width}"
-  class="video-container fmy-5"
+  class="video-container"
 >
   <div
     role="figure"

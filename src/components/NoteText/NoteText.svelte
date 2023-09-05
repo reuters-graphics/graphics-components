@@ -30,6 +30,7 @@
       @include body-caption;
       @include text-primary;
       @include font-medium;
+      @include tracking-normal;
       @include fmt-3;
       @include fmb-0;
       text-transform: none;

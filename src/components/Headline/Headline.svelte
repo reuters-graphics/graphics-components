@@ -74,7 +74,7 @@
 </script>
 
 <div class="headline-wrapper" style="display:contents;">
-  <Block width="{width}" class="headline text-center fmy-7 fmb-6 {cls}">
+  <Block width="{width}" class="headline text-center fmt-7 fmb-6 {cls}">
     <header class="relative">
       {#if $$slots.crown}
         <div class="crown-container">

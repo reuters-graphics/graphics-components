@@ -53,7 +53,7 @@
    * Can't ever be wider than `width`.
    * @type {string}
    */
-  export let captionWidth: ContainerWidth = 'normal';
+  export let textWidth: ContainerWidth = 'normal';
 
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
@@ -95,7 +95,7 @@
       <div
         class="photopack-row flex justify-between"
         style:gap="0 {gap}px"
-        style:margin-bottom="{gap + 'px'}"
+        style:margin-bottom="{ri < rows.length - 1 ? gap + 'px' : ''}"
       >
         {#each row as img, i}
           <figure
@@ -118,7 +118,7 @@
   </div>
   <PaddingReset containerIsFluid="{width === 'fluid'}">
     <div class="notes contents">
-      <Block width="{captionWidth}" class="photopack-captions-container">
+      <Block width="{textWidth}" class="photopack-captions-container">
         {#each rows as row, ri}
           {#each row as img, i}
             {#if img.caption}
@@ -150,10 +150,6 @@
   }
 
   .notes {
-    :global(.photopack-captions-container) {
-      @include fmy-2;
-    }
-
     :global(.photopack-captions-container .caption p) {
       @include body-caption;
     }

@@ -233,10 +233,7 @@
     </div>
     {#if $$slots.caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <aside
-          class="before-after-caption mx-auto fmt-2"
-          id="{`${id}-caption`}"
-        >
+        <aside class="before-after-caption mx-auto" id="{`${id}-caption`}">
           <!-- Caption for image credits -->
           <slot name="caption" />
         </aside>

@@ -5,6 +5,14 @@
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'wider';
 
+  /**
+   * Set a different width for captions within the text well, for example,
+   * "normal" to keep captions inline with the rest of the text well.
+   * Can't ever be wider than `width`.
+   * @type {string}
+   */
+  export let textWidth: ContainerWidth = 'normal';
+
   /** Add an ID to target with SCSS. */
   export let id: string = '';
 
@@ -146,21 +154,23 @@
 
         {#if photos[activeImageIndex].caption}
           <PaddingReset containerIsFluid="{width === 'fluid'}">
-            {#if $$slots.caption}
-              <slot
-                name="caption"
-                caption="{photos[activeImageIndex].caption}"
-              />
-            {:else}
-              {#key activeImageIndex}
-                <p
-                  class="caption body-caption fmt-2"
-                  in:fly|local="{{ x: 20, duration: 175 }}"
-                >
-                  {photos[activeImageIndex].caption}
-                </p>
-              {/key}
-            {/if}
+            <Block width="{textWidth}">
+              {#if $$slots.caption}
+                <slot
+                  name="caption"
+                  caption="{photos[activeImageIndex].caption}"
+                />
+              {:else}
+                {#key activeImageIndex}
+                  <p
+                    class="caption body-caption text-center"
+                    in:fly|local="{{ x: 20, duration: 175 }}"
+                  >
+                    {photos[activeImageIndex].caption}
+                  </p>
+                {/key}
+              {/if}
+            </Block>
           </PaddingReset>
         {/if}
 
@@ -216,11 +226,17 @@
         justify-content: space-between;
 
         button {
+          &.splide__arrow--prev {
+            padding-right: 7px;
+          }
+          &.splide__arrow--next {
+            padding-left: 7px;
+          }
+
           display: flex;
           font-size: 14px;
           height: 30px;
           width: 30px;
-          padding: 0;
           justify-content: center;
           align-items: center;
           border: 1px solid transparent;
