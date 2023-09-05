@@ -27,19 +27,16 @@
     h4,
     h5,
     h6 {
-      @include body-note;
-      @include tracking-wide;
+      @include body-caption;
       @include text-primary;
-      @include font-semibold;
+      @include font-medium;
       @include fmt-3;
       @include fmb-0;
       text-transform: none;
     }
 
     p {
-      @include body-note;
-      @include text-sm;
-      @include font-light;
+      @include body-caption;
     }
   }
 </style>
