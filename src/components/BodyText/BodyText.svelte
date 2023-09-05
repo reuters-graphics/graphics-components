@@ -18,7 +18,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block id="{id}" class="fmy-5 {cls}">
+<Block id="{id}" class="fmy-6 {cls}">
   {#if text}
     {@html marked.parse(text)}
   {/if}

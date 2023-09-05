@@ -214,7 +214,7 @@
   });
 </script>
 
-<Block width="{width}" id="{id}" class="fmy-5 {cls}">
+<Block width="{width}" id="{id}" class="fmy-6 {cls}">
   <article class="table-wrapper">
     {#if title || dek || searchable || filterList}
       <header class="table--header w-full">

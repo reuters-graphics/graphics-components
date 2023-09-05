@@ -89,7 +89,7 @@
   $: rows = groupRows(images, layout);
 </script>
 
-<Block width="{width}" id="{id}" class="photopack fmy-5 {cls}">
+<Block width="{width}" id="{id}" class="photopack fmy-6 {cls}">
   <div class="photopack-container w-full" bind:clientWidth="{containerWidth}">
     {#each rows as row, ri}
       <div
@@ -158,15 +158,4 @@
       @include body-caption;
     }
   }
-
-  // :global {
-  //   .photopack-captions-container {
-  //     @include \!fmy-2;
-  //     div.caption {
-  //       p {
-  //         @include body-caption;
-  //       }
-  //     }
-  //   }
-  // }
 </style>

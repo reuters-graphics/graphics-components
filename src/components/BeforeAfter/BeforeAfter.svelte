@@ -38,6 +38,13 @@
    */
   export let afterAlt: string | null = null;
 
+  /**
+   * Set a class to target with SCSS.
+   * @type {string}
+   */
+  let cls: string = '';
+  export { cls as class };
+
   /** Drag handle colour */
   export let handleColour = 'white';
   /** Drag handle opacity */
@@ -153,11 +160,12 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <Block width="{width}" id="{id}" class="photo before-after">
+  <Block width="{width}" id="{id}" class="photo before-after fmy-6 {cls}">
     <div
       style="height: {containerHeight}px;"
       bind:clientWidth="{containerWidth}"
     >
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <figure
         style="{figStyle}"
         class="before-after-container relative overflow-hidden my-0 mx-auto"

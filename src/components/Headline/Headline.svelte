@@ -73,72 +73,68 @@
   }
 </script>
 
-<Block width="{width}" class="headline text-center fmt-7 fmb-5 {cls}">
-  <header class="relative">
-    {#if $$slots.crown}
-      <div class="crown-container">
-        <!-- Crown named slot -->
-        <slot name="crown" />
+<div class="headline-wrapper" style="display:contents;">
+  <Block width="{width}" class="headline text-center fmy-7 fmb-6 {cls}">
+    <header class="relative">
+      {#if $$slots.crown}
+        <div class="crown-container">
+          <!-- Crown named slot -->
+          <slot name="crown" />
+        </div>
+      {/if}
+      <div class="title">
+        {#if section}
+          <p
+            class="section-title mb-0 font-subhed text-xxs text-secondary font-bold uppercase whitespace-nowrap tracking-wider"
+          >
+            {section}
+          </p>
+        {/if}
+        {#if $$slots.hed}
+          <!-- Headline named slot -->
+          <slot name="hed" />
+        {:else}
+          <h1 class="{hedClass}">{@html marked.parseInline(hed)}</h1>
+        {/if}
+        {#if $$slots.dek}
+          <!-- Dek named slot-->
+          <div class="dek fmx-auto fmb-5">
+            <slot name="dek" />
+          </div>
+        {:else if dek}
+          <div class="dek fmx-auto fmb-5">
+            {@html marked(dek)}
+          </div>
+        {/if}
       </div>
-    {/if}
-    <div class="title">
-      {#if section}
-        <p
-          class="section-title mb-0 font-subhed text-xxs text-secondary font-bold uppercase whitespace-nowrap tracking-wider"
-        >
-          {section}
-        </p>
+      {#if $$slots.byline}
+        <!-- Custom byline/dateline -->
+        <slot name="byline" />
+      {:else if authors.length > 0 || publishTime}
+        <Byline
+          class="fmy-3"
+          authors="{authors}"
+          publishTime="{publishTime}"
+          updateTime="{updateTime}"
+          align="center"
+        />
       {/if}
-      {#if $$slots.hed}
-        <!-- Headline named slot -->
-        <slot name="hed" />
-      {:else}
-        <h1 class="{hedClass}">{@html marked.parseInline(hed)}</h1>
-      {/if}
-      {#if $$slots.dek}
-        <!-- Dek named slot-->
-        <div class="dek fmx-auto fmb-5">
-          <slot name="dek" />
-        </div>
-      {:else if dek}
-        <div class="dek fmx-auto fmb-5">
-          {@html marked(dek)}
-        </div>
-      {/if}
-    </div>
-    {#if $$slots.byline}
-      <!-- Custom byline/dateline -->
-      <slot name="byline" />
-    {:else if authors.length > 0 || publishTime}
-      <Byline
-        class="fmy-3"
-        authors="{authors}"
-        publishTime="{publishTime}"
-        updateTime="{updateTime}"
-        align="center"
-      />
-    {/if}
-  </header>
-</Block>
+    </header>
+  </Block>
+</div>
 
 <style lang="scss">
   @use '../../scss/mixins' as *;
-
-  :global {
-    header {
-      .dek {
-        max-width: $column-width-normal;
-        p {
-          @include fmt-0;
-          @include fmb-3;
-          @include font-note;
-          @include text-base;
-          @include font-regular;
-          @include leading-tight;
-          @include text-primary;
-          @include font-light;
-        }
-      }
+  .headline-wrapper {
+    :global(.dek) {
+      max-width: $column-width-normal;
+    }
+    :global(.dek p) {
+      @include fmt-0;
+      @include font-note;
+      @include leading-tight;
+      @include font-light;
+      @include fmb-3;
     }
   }
 </style>

@@ -97,7 +97,7 @@
   };
 </script>
 
-<Block width="{width}" id="{id}" class="photo-carousel fmy-5 {cls}">
+<Block width="{width}" id="{id}" class="photo-carousel fmy-6 {cls}">
   <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"

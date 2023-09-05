@@ -90,7 +90,7 @@
   });
 </script>
 
-<Block width="{width}" class="photo fmy-5 {cls}" id="{id}">
+<Block width="{width}" class="photo fmy-6 {cls}" id="{id}">
   <figure
     bind:this="{container}"
     aria-label="media"

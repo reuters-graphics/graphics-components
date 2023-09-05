@@ -76,7 +76,7 @@
 </script>
 
 {#if $referrals.length === number}
-  <Block width="{width}" id="{id}" class="referrals-block fmy-5 {cls}">
+  <Block width="{width}" id="{id}" class="referrals-block fmy-8 {cls}">
     {#if heading}
       <div
         class="heading h4 font-bold"

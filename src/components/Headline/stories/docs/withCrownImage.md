@@ -12,7 +12,7 @@ Add a crown image in the `crown` named slot and override the headline in the `he
     slot="crown"
     src="{crownImgSrc}"
     width="100"
-    class="mb-0"
+    class="mx-auto mb-0"
     alt="Illustration of Europe"
   />
   <!-- Override the hed with a named slot -->

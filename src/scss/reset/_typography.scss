@@ -118,7 +118,6 @@ kbd {
 }
 
 figcaption {
-  @include fmt-2;
   @include body-caption;
 }
 

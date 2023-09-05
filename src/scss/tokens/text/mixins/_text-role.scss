@@ -22,7 +22,7 @@
   @include leading-tighter;
   @include text-xl;
   @include fmt-7;
-  @include fmb-3;
+  @include fmb-4;
 
   @media (max-width: 768px) {
     @include text-2xl;
@@ -53,7 +53,7 @@
 
 @mixin body-text {
   @include fmt-0;
-  @include fmb-3;
+  @include fmb-4;
   @include font-body;
   @include text-base;
   @include font-regular;
@@ -76,7 +76,7 @@
   @include text-xs;
   @include leading-tighter;
   @include font-regular;
-  @include fmb-1;
+  @include fmy-1;
 }
 
 @mixin body-link {

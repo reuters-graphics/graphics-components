@@ -87,6 +87,13 @@
    */
   export let parallax: boolean = false;
 
+  /**
+   * Set a class to target with SCSS.
+   * @type {string}
+   */
+  let cls: string = '';
+  export { cls as class };
+
   // @ts-ignore
   import SvelteScroller from '@sveltejs/svelte-scroller';
   import Background from './Background.svelte';
@@ -101,7 +108,7 @@
 </script>
 
 {#if !embedded}
-  <Block width="fluid" class="scroller-container fmy-5" id="{id}">
+  <Block width="fluid" class="scroller-container fmy-6 {cls}" id="{id}">
     <SvelteScroller
       bind:index="{index}"
       bind:offset="{offset}"

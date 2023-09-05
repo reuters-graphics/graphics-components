@@ -159,7 +159,7 @@
       </Block>
       {#if notes}
         <TextBlock width="normal">
-          <aside class="fmt-2">
+          <aside>
             {@html marked(notes)}
           </aside>
         </TextBlock>
@@ -224,6 +224,10 @@
       height: var(--heroHeight, 100svh);
       max-height: 1800px;
       position: relative;
+    }
+
+    :global(.hero-headline) {
+      overflow-x: hidden;
     }
 
     :global(.background-hero .headline) {

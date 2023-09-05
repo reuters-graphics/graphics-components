@@ -79,7 +79,7 @@
   role="{role}"
   width="{width}"
   ariaLabel="{ariaLabel}"
-  class="graphic fmy-5 {cls}"
+  class="graphic fmy-6 {cls}"
 >
   {#if $$slots.title}
     <PaddingReset containerIsFluid="{width === 'fluid'}">

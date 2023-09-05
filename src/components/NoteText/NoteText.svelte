@@ -11,7 +11,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block class="notes fmt-5 fmb-7">
+<Block class="notes fmt-6 fmb-8">
   {#if text}
     {@html marked.parse(text)}
   {/if}
@@ -37,6 +37,7 @@
 
     p {
       @include body-caption;
+      @include fmt-0;
     }
   }
 </style>
