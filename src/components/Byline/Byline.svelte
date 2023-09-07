@@ -75,7 +75,7 @@
         {#if authors.length > 0}
           {#each authors as author, i}
             <a
-              class="no-underline whitespace-nowrap text-primary font-medium"
+              class="no-underline whitespace-nowrap text-primary font-bold"
               href="{getAuthorPage(author)}"
               rel="author"
             >
@@ -86,7 +86,7 @@
         {:else}
           <a
             href="https://www.reuters.com"
-            class="no-underline whitespace-nowrap text-primary font-medium"
+            class="no-underline whitespace-nowrap text-primary font-bold"
             >Reuters</a
           >
         {/if}

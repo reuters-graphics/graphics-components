@@ -83,8 +83,16 @@
 @mixin body-link {
   color: currentColor;
   text-decoration: underline;
-  text-underline-position: under;
+  text-underline-position: from-font;
   text-decoration-style: dotted;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--theme-colour-text-secondary);
+}
+
+@mixin drop-cap {
+  float: left;
+  @include text-5xl;
+  line-height: 0.9;
+  @include fmr-1;
+  @include font-light;
 }

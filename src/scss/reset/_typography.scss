@@ -123,29 +123,18 @@ figcaption {
 
 blockquote {
   @include fmx-0;
-  @include fpl-3;
-  @include fpy-3;
-  @include fpr-1;
-  border-left: 2px solid $theme-colour-brand-rules;
-  @include fmy-4;
+  @include fmy-6;
   p {
-    @include font-body;
+    @include body-note;
+    @include font-light;
     @include text-lg;
-    @include leading-tight;
-    @include fmb-1;
-    font-style: italic;
   }
   blockquote {
-    @include fmb-0;
     @include fmt-3;
-    border: 0;
-    @include fpy-0;
-    @include fpl-0;
     p {
+      @include body-caption;
       @include text-sm;
-      @include font-note;
-      @include fm-0;
-      font-style: normal;
+      @include fmb-0;
     }
   }
 }

@@ -31,3 +31,7 @@
 .body-link {
   @include body-link;
 }
+
+.drop-cap {
+  @include drop-cap;
+}

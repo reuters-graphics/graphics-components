@@ -75,7 +75,7 @@
     <div class="title">
       {#if section}
         <p
-          class="section-title mb-0 font-subhed text-xxs text-secondary font-bold uppercase whitespace-nowrap tracking-wider"
+          class="section-title mb-0 font-subhed text-xs text-secondary font-bold uppercase whitespace-nowrap tracking-wider"
         >
           {#if sectionUrl}
             <a class="no-underline !text-secondary" href="{sectionUrl}"

@@ -80,7 +80,7 @@ $fluid-margin-levels: (
 @mixin fml-1 {
   margin-left: map.get($fluid-margin-levels, '1');
 }
-@mixin \!fmr-1 {
+@mixin fmr-1 {
   margin-right: map.get($fluid-margin-levels, '1') !important;
 }
 @mixin \!fm-1 {
