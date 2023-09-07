@@ -44,7 +44,7 @@
   }
 </script>
 
-<nav aria-label="pagination" class="pagination fmt-2">
+<nav aria-label="pagination" class="pagination fmt-4">
   <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
     ><div class="icon-wrapper">
       <LeftArrow />
@@ -107,7 +107,7 @@
       align-items: center;
       flex-direction: column;
       width: auto;
-      min-width: 7rem;
+      min-width: 5rem;
     }
   }
 

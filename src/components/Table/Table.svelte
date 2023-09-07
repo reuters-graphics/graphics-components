@@ -308,18 +308,23 @@
           {/if}
         </tbody>
         {#if notes || source}
-          <tfoot class="table--tfoot block fmt-2">
+          <tfoot class="table--tfoot">
             {#if notes}
               <tr>
-                <td class="" colspan="{includedFields.length}">{@html notes}</td
-                >
+                <td class="" colspan="{includedFields.length}">
+                  <div class="fmt-2">
+                    {@html notes}
+                  </div>
+                </td>
               </tr>
             {/if}
             {#if source}
               <tr>
-                <td class="" colspan="{includedFields.length}"
-                  >{@html source}</td
-                >
+                <td class="" colspan="{includedFields.length}">
+                  <div class="fmt-1">
+                    {@html source}
+                  </div>
+                </td>
               </tr>
             {/if}
           </tfoot>
@@ -388,7 +393,6 @@
       }
     }
     tfoot.table--tfoot {
-      border-spacing: 0 clamp(0.31rem, calc(0.29rem + 0.1vw), 0.38rem);
       tr {
         border-bottom: 0;
       }

@@ -66,7 +66,7 @@
 
 <Block id="{id}" class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
-    <div class="byline">
+    <div class="byline body-caption">
       {#if $$slots.byline}
         <!-- Custom byline -->
         <slot name="byline" />
@@ -92,7 +92,7 @@
         {/if}
       {/if}
     </div>
-    <div class="dateline fmt-0">
+    <div class="dateline body-caption fmt-0">
       {#if $$slots.published}
         <div class="whitespace-nowrap inline-block">
           <!-- Custom published dateline -->
@@ -144,11 +144,11 @@
     }
   }
 
-  .byline,
-  .dateline {
-    @include body-caption;
-    @include fmb-1;
-  }
+  // .byline,
+  // .dateline {
+  //   @include body-caption;
+  //   @include fmb-1;
+  // }
 
   @media (min-width: $column-width-narrower) {
     .dateline {

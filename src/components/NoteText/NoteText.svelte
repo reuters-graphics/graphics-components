@@ -32,13 +32,14 @@
       @include font-medium;
       @include tracking-normal;
       @include fmt-3;
-      @include fmb-0;
+      margin-bottom: 0.125rem;
       text-transform: none;
     }
 
     p {
       @include body-caption;
       @include fmt-0;
+      @include fmb-2;
     }
   }
 </style>

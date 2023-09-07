@@ -244,7 +244,7 @@
   >
     <div slot="inline">
       <GraphicBlock
-        width="fluid"
+        width="widest"
         role="figure"
         class="my-0"
         textWidth="normal"

@@ -139,6 +139,7 @@
     sortDirection: 'descending',
     paginated: true,
     title: 'Press Freedom Index',
+    notes: 'Note: data as of 2018',
     source: 'Source: Reporters Without Borders',
   }}"
 />

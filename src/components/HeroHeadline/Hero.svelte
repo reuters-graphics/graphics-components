@@ -82,10 +82,9 @@
 
   import Headline from '../Headline/Headline.svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
-  import TextBlock from '../GraphicBlock/TextBlock.svelte';
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
-  import { marked } from 'marked';
+  import PaddingReset from '../PaddingReset/PaddingReset.svelte';
 
   let hedClass;
   $: {
@@ -137,7 +136,8 @@
             dek="{dek}"
           />
         {/if}
-        <div class="background-container">
+
+        <div class="graphic-container">
           {#if $$slots.background}
             <!-- Hero graphic named slot -->
             <slot name="background" />
@@ -147,6 +147,7 @@
               role="img"
               class="my-0"
               textWidth="normal"
+              notes="{notes}"
               ariaDescription="{ariaDescription}"
             >
               <div
@@ -157,42 +158,37 @@
           {/if}
         </div>
       </Block>
-      {#if notes}
-        <TextBlock width="normal">
-          <aside>
-            {@html marked(notes)}
-          </aside>
-        </TextBlock>
-      {/if}
     {/if}
 
     <!-- Inline hero -->
     {#if $$slots.inline}
       <Block width="fluid" class="hero-headline inline-hero">
-        {#if $$slots.hed}
-          <Headline
-            class="{cls} !text-{hedAlign}"
-            width="{hedWidth}"
-            section="{section}"
-            hedSize="{hedSize}"
-            hed="{hed}"
-            dek="{dek}"
-          >
-            <!-- Headline named slot -->
-            <div slot="hed">
-              <slot name="hed" />
-            </div>
-          </Headline>
-        {:else}
-          <Headline
-            class="{cls} !text-{hedAlign}"
-            width="{hedWidth}"
-            section="{section}"
-            hedSize="{hedSize}"
-            hed="{hed}"
-            dek="{dek}"
-          />
-        {/if}
+        <PaddingReset containerIsFluid="{true}">
+          {#if $$slots.hed}
+            <Headline
+              class="{cls} !text-{hedAlign}"
+              width="{hedWidth}"
+              section="{section}"
+              hedSize="{hedSize}"
+              hed="{hed}"
+              dek="{dek}"
+            >
+              <!-- Headline named slot -->
+              <div slot="hed">
+                <slot name="hed" />
+              </div>
+            </Headline>
+          {:else}
+            <Headline
+              class="{cls} !text-{hedAlign}"
+              width="{hedWidth}"
+              section="{section}"
+              hedSize="{hedSize}"
+              hed="{hed}"
+              dek="{dek}"
+            />
+          {/if}
+        </PaddingReset>
         <div class="graphic-container">
           <!-- Hero named slot -->
           <slot name="inline" />
@@ -200,20 +196,20 @@
       </Block>
     {/if}
   </div>
-</div>
 
-<div class="hero-byline fmb-6">
-  {#if $$slots.byline}
-    <!-- Custom byline/dateline -->
-    <slot name="byline" />
-  {:else if authors.length > 0 || publishTime}
-    <Byline
-      authors="{authors}"
-      publishTime="{publishTime}"
-      updateTime="{updateTime}"
-      align="left"
-    />
-  {/if}
+  <div class="hero-byline fmb-6">
+    {#if $$slots.byline}
+      <!-- Custom byline/dateline -->
+      <slot name="byline" />
+    {:else if authors.length > 0 || publishTime}
+      <Byline
+        authors="{authors}"
+        publishTime="{publishTime}"
+        updateTime="{updateTime}"
+        align="left"
+      />
+    {/if}
+  </div>
 </div>
 
 <style lang="scss">
@@ -221,13 +217,9 @@
 
   .hero-wrapper {
     :global(.background-hero) {
-      height: var(--heroHeight, 100svh);
+      min-height: var(--heroHeight, 100svh);
       max-height: 1800px;
       position: relative;
-    }
-
-    :global(.hero-headline) {
-      overflow-x: hidden;
     }
 
     :global(.background-hero .headline) {
@@ -243,6 +235,10 @@
       height: var(--heroHeight, 100svh);
       max-height: 1800px;
       transform: translateX(-50%);
+
+      @media (max-width: 690px) {
+        padding: 0 15px;
+      }
     }
 
     :global(aside p) {
@@ -255,6 +251,14 @@
       width: 100%;
       height: var(--heroHeight);
       object-fit: cover;
+    }
+
+    :global(.graphic-container .article-block:not(.graphic)) {
+      @media (max-width: 690px) {
+        width: 100%;
+        padding: 0 15px;
+        margin-left: 0;
+      }
     }
   }
 

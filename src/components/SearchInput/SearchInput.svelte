@@ -27,7 +27,7 @@
 </script>
 
 <div class="search relative inline-flex items-center" class:active="{active}">
-  <div class="search--icon absolute ml-2 mt-1">
+  <div class="search--icon absolute">
     <MagnifyingGlass />
   </div>
   <input
@@ -39,7 +39,7 @@
     bind:value="{value}"
   />
   <div
-    class="search--x absolute mt-1"
+    class="search--x absolute"
     role="button"
     tabindex="0"
     class:invisible="{!active}"
@@ -56,8 +56,8 @@
   .search {
     width: 250px;
     .search--icon {
-      left: 0;
-      top: 0;
+      left: 0.5rem;
+      top: 0.55rem;
       width: 1.5rem;
       height: 1.5rem;
       fill: $theme-colour-brand-rules;
@@ -71,7 +71,7 @@
     }
     .search--x {
       right: 0;
-      top: 0;
+      top: 0.55rem;
       width: 1.5rem;
       height: 1.5rem;
       fill: $theme-colour-text-primary;
