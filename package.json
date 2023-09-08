@@ -144,7 +144,7 @@
     "./components/DocumentCloud/DocumentCloud.svelte": "./dist/components/DocumentCloud/DocumentCloud.svelte",
     "./components/EmbedPreviewerLink/EmbedPreviewerLink.svelte": "./dist/components/EmbedPreviewerLink/EmbedPreviewerLink.svelte",
     "./components/EndNotes/EndNotes.svelte": "./dist/components/EndNotes/EndNotes.svelte",
-    "./components/EndNotes/getEndNotesPropsFromDoc.ts": "./dist/components/EndNotes/getEndNotesPropsFromDoc.ts",
+    "./components/EndNotes/docProps.ts": "./dist/components/EndNotes/docProps.ts",
     "./components/FeaturePhoto/FeaturePhoto.svelte": "./dist/components/FeaturePhoto/FeaturePhoto.svelte",
     "./components/Framer/Framer.svelte": "./dist/components/Framer/Framer.svelte",
     "./components/Framer/Resizer/index.svelte": "./dist/components/Framer/Resizer/index.svelte",

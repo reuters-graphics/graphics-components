@@ -5,7 +5,7 @@
   import componentDocs from './stories/docs/component.md?raw';
 
   import EndNotes from './EndNotes.svelte';
-  import { getEndNotesPropsFromDoc } from './getEndNotesPropsFromDoc';
+  import { getEndNotesPropsFromDoc } from './docProps';
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   const notes = [
