@@ -5,21 +5,21 @@
   import componentDocs from './stories/docs/component.md?raw';
 
   import EndNotes from './EndNotes.svelte';
-
+  import { getEndNotesPropsFromDoc } from './getEndNotesPropsFromDoc';
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   const notes = [
     {
-      title: 'Note',
-      text: 'Data is current as of today.',
+      Title: 'Note',
+      Text: 'Data is current as of today.',
     },
     {
-      title: 'Sources',
-      text: 'Data, Inc.',
+      Title: 'Sources',
+      Text: 'Data, Inc.',
     },
     {
-      title: 'Edited by',
-      text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
+      Title: 'Edited by',
+      Text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
     },
   ];
 </script>
@@ -34,9 +34,4 @@
   <EndNotes {...args} />
 </Template>
 
-<Story
-  name="Default"
-  args="{{
-    notes,
-  }}"
-/>
+<Story name="Default" args="{{ notes: getEndNotesPropsFromDoc(notes) }}" />
