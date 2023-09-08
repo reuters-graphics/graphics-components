@@ -6,14 +6,21 @@ Note text can be fed a markdown string, but text styling is intentionally restri
 <script>
   import { NoteText } from '@reuters-graphics/graphics-components';
 
-  const markdownText = `### Source
-
-Reuters research.
-
-### Credits
-
-People.`;
+  const notes = [
+    {
+      title: 'Note',
+      text: 'Data is current as of today.',
+    },
+    {
+      title: 'Sources',
+      text: 'Data, Inc.',
+    },
+    {
+      title: 'Edited by',
+      text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
+    },
+  ];
 </script>
 
-<NoteText text="{markdownText}" />
+<NoteText notes="{notes}" />
 ```
