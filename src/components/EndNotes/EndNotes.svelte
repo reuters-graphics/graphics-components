@@ -3,7 +3,6 @@
   interface EndNote {
     /**
      * Title of the note item
-     * @required
      */
     title: String;
     /**

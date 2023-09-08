@@ -38,7 +38,7 @@
   name="Typography sample"
   args="{{
     class: 'body-text-typography-example-story',
-    text: `Reprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock [tempor meatball](https://baconipsum.com/) alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.
+    text: `<span class='drop-cap'>R</span>eprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock [tempor meatball](https://baconipsum.com/) alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.
 
 ## Biltong turducken ground round kevin
 
@@ -87,6 +87,8 @@ Consectetur ribeye consequat pork capicola. T-bone ad laborum beef ribs picanha.
 Tempor tail doner chicken incididunt beef ribs. Ad ullamco in cupim venison. Leberkas rump ullamco adipisicing, laboris excepteur voluptate.
 
 Ham hock id porchetta elit. Sint spare ribs aute buffalo.
+
+<p class='body-correction'>Correction: Lorem ispsum dolor sit amet ameno dorime.</p>
 `,
   }}"
 />
