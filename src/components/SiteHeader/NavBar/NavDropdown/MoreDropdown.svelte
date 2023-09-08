@@ -42,6 +42,7 @@
 
   a {
     text-decoration: none;
+    font-family: var(--theme-font-family-sans-serif);
     &:hover {
       color: inherit;
       text-decoration: underline !important;
@@ -70,6 +71,10 @@
       padding: 0;
       margin: 0;
       list-style: none;
+
+      li {
+        margin: 0;
+      }
 
       .subsection-link {
         font-size: 16px;

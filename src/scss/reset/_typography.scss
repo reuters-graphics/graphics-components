@@ -1,9 +1,13 @@
 @use '../mixins' as *;
 
+html {
+  font-size: 100%;
+}
+
 body {
   font-size: 1rem;
   color: #404040;
-  @include font-sans;
+  @include font-knowledge;
   @include font-regular;
   @include leading-tight;
 
@@ -14,6 +18,7 @@ body {
   .theme {
     font-size: calc(0.9 * var(--theme-font-size-base));
     color: var(--theme-colour-text-primary);
+    @include font-sans;
   }
 }
 
@@ -70,20 +75,29 @@ ul {
   display: block;
   @include body-text;
   @include fmb-6;
+  @include fpl-4;
+  list-style-position: outside;
+
+  ol,
+  ul {
+    @include fpl-4;
+    @include fmb-2;
+  }
+
   li {
-    @include fpl-1;
     @include fmy-1;
+  }
+
+  li::marker {
+    @include font-light;
+    @include font-note;
+    @include text-sm;
+    @include text-secondary;
   }
 }
 
 ul {
-  @include fpl-2;
-
-  li::marker {
-    content: '–';
-    @include font-light;
-    @include text-secondary;
-  }
+  list-style-type: disc;
 }
 
 a {

@@ -67,6 +67,16 @@
       padding: 0;
       margin: 12px 0 0 0;
 
+      font-family: var(--theme-font-family-sans-serif);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 18px;
+      color: var(--nav-primary, #404040);
+
+      li {
+        margin: 0;
+      }
+
       &:first-child {
         margin-right: 16px;
       }

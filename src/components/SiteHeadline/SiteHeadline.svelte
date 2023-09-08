@@ -99,13 +99,3 @@
     />
   </header>
 </Block>
-
-<style lang="scss">
-  @use '../../scss/mixins' as *;
-
-  @media (max-width: $column-width-narrow) {
-    h1 {
-      @include font-semibold;
-    }
-  }
-</style>

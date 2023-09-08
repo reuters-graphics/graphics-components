@@ -28,9 +28,11 @@
 
 <div class="nav-bar">
   <nav aria-label="Main navigation">
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <ul class="nav-list">
       {#each displaySections as section}
         {#if section.children}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
           <li
             class="nav-item category link"
             on:mouseenter="{() => {
@@ -83,6 +85,7 @@
           </li>
         {/if}
       {/each}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <li
         class="nav-item"
         on:mouseenter="{() => {
@@ -138,13 +141,20 @@
   }
 
   .nav-list {
+    display: block;
     list-style: none;
     margin: 0;
     padding: 0;
+
+    font-family: var(--theme-font-family-sans-serif);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .nav-item {
     display: inline-flex;
+    margin: 0;
     padding: 0 10px;
     @include font-sans;
     font-weight: 500;

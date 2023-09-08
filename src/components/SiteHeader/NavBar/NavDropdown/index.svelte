@@ -166,6 +166,12 @@
     padding: 0;
     margin: 20px 0 0 0;
 
+    font-family: var(--theme-font-family-sans-serif);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--nav-primary, #404040);
+
     @include at-4-columns {
       grid-template-columns: repeat(1, 1fr);
     }
@@ -173,6 +179,7 @@
 
   .story-item {
     padding-bottom: 20px;
+    margin: 0;
     animation: fadein 0.5s both $easeOutExpo;
 
     &:nth-child(1),
