@@ -1,16 +1,16 @@
-// Generated from https://utopia.fyi/space/calculator?c=320,18,1.125,1280,22,1.25,7,3,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l&g=s,l,xl,12
+// Generated from https://utopia.fyi/space/calculator/?c=320,18,1.125,1280,21,1.25,7,3,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
 @use 'sass:map';
 $fluid-margin-levels: (
   '0': 0,
-  '1': clamp(0.31rem, calc(0.29rem + 0.1vw), 0.38rem),
+  '1': clamp(0.31rem, calc(0.31rem + 0vw), 0.31rem),
   '2': clamp(0.56rem, calc(0.52rem + 0.21vw), 0.69rem),
-  '3': clamp(0.88rem, calc(0.81rem + 0.31vw), 1.06rem),
-  '4': clamp(1.13rem, calc(1.04rem + 0.42vw), 1.38rem),
-  '5': clamp(1.69rem, calc(1.56rem + 0.63vw), 2.06rem),
-  '6': clamp(2.25rem, calc(2.08rem + 0.83vw), 2.75rem),
-  '7': clamp(3.38rem, calc(3.13rem + 1.25vw), 4.13rem),
-  '8': clamp(4.5rem, calc(4.17rem + 1.67vw), 5.5rem),
-  '9': clamp(6.75rem, calc(6.25rem + 2.5vw), 8.25rem),
+  '3': clamp(0.88rem, calc(0.83rem + 0.21vw), 1rem),
+  '4': clamp(1.13rem, calc(1.06rem + 0.31vw), 1.31rem),
+  '5': clamp(1.69rem, calc(1.58rem + 0.52vw), 2rem),
+  '6': clamp(2.25rem, calc(2.13rem + 0.63vw), 2.63rem),
+  '7': clamp(3.38rem, calc(3.19rem + 0.94vw), 3.94rem),
+  '8': clamp(4.5rem, calc(4.25rem + 1.25vw), 5.25rem),
+  '9': clamp(6.75rem, calc(6.38rem + 1.88vw), 7.88rem),
 );
 
 @mixin fm-0 {

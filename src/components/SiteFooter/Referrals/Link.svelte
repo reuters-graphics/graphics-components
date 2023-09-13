@@ -19,7 +19,7 @@
         <div class="image"></div>
       {/if}
     </IntersectionObserver>
-    <p class="body-caption" data-chromatic="ignore">{title}</p>
+    <p class="body-caption font-bold" data-chromatic="ignore">{title}</p>
   </a>
 </div>
 

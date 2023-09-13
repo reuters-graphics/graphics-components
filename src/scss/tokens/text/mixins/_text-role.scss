@@ -92,12 +92,6 @@
   float: left;
   @include fmr-1;
   @include font-light;
-  font-size: calc(3.44 * var(--theme-font-size-base));
+  font-size: calc(3.33 * var(--theme-font-size-base));
   line-height: 0.9;
-}
-
-@mixin body-correction {
-  @include body-note;
-  @include text-secondary;
-  font-style: italic;
 }
