@@ -76,7 +76,8 @@
   @include text-xs;
   @include leading-tight;
   @include font-regular;
-  @include fmy-2;
+  @include fmt-1;
+  @include fmb-2;
 }
 
 @mixin body-link {

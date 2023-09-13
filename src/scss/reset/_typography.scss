@@ -133,6 +133,7 @@ kbd {
 
 figcaption {
   @include body-caption;
+  @include fmb-0;
 }
 
 blockquote {
