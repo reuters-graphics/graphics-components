@@ -51,7 +51,6 @@
     :global(p) {
       @include body-caption;
       @include fmt-0;
-      @include fmb-2;
     }
   }
 </style>

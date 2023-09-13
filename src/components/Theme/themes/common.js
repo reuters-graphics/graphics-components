@@ -1,5 +1,7 @@
 /** @type {Omit<import('../@types/component').Theme, "colour">} */
-// Generated from https://www.fluid-type-scale.com/calculate?minFontSize=18&minWidth=320&minRatio=1.125&maxFontSize=21&maxWidth=1280&maxRatio=1.25&steps=xxs%2Cxs%2Csm%2Cbase%2Clg%2Cxl%2C2xl%2C3xl%2C4xl%2C5xl%2C6xl&baseStep=base&prefix=&decimals=2&useRems=on&remValue=16&previewFont=Noto+Sans&previewText=Almost+before+we+knew+it%2C+we+had+left+the+ground&previewWidth=0
+/* Generated from
+https://www.fluid-type-scale.com/calculate?minFontSize=18&minWidth=320&minRatio=1.125&maxFontSize=21&maxWidth=1280&maxRatio=1.25&steps=xxs%2Cxs%2Csm%2Cbase%2Clg%2Cxl%2C2xl%2C3xl%2C4xl%2C5xl%2C6xl&baseStep=base&prefix=&decimals=2&useRems=on&remValue=16&previewFont=Noto+Sans&previewText=Almost+before+we+knew+it%2C+we+had+left+the+ground&previewWidth=0
+*/
 
 export default {
   font: {

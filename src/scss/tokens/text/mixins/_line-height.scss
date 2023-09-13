@@ -1,8 +1,10 @@
+/* Scales by 1.125 */
+
 @mixin leading-none {
   line-height: 1;
 }
 @mixin leading-tighter {
-  line-height: 1.1;
+  line-height: 1.15;
 }
 @mixin leading-tight {
   line-height: 1.3;

@@ -66,7 +66,7 @@
 
 <Block id="{id}" class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
-    <div class="byline body-caption">
+    <div class="byline body-caption fmb-1">
       {#if $$slots.byline}
         <!-- Custom byline -->
         <slot name="byline" />
@@ -143,12 +143,6 @@
       }
     }
   }
-
-  // .byline,
-  // .dateline {
-  //   @include body-caption;
-  //   @include fmb-1;
-  // }
 
   @media (min-width: $column-width-narrower) {
     .dateline {
