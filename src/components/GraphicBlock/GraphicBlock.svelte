@@ -144,6 +144,7 @@
     aside {
       p {
         @include body-caption;
+        @include fmy-1;
       }
     }
   }
