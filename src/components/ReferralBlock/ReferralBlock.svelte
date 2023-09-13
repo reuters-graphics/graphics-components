@@ -103,13 +103,22 @@
                 class="headline"
                 class:xs="{clientWidth && clientWidth < 450}"
               >
-                <div class="kicker m-0 body-caption" data-chromatic="ignore">
+                <div
+                  class="kicker m-0 body-caption leading-tighter"
+                  data-chromatic="ignore"
+                >
                   {referral.kicker.name}
                 </div>
-                <div class="title m-0 body-caption" data-chromatic="ignore">
+                <div
+                  class="title m-0 body-caption leading-tighter"
+                  data-chromatic="ignore"
+                >
                   {referral.title}
                 </div>
-                <div class="publish-time body-caption" data-chromatic="ignore">
+                <div
+                  class="publish-time body-caption leading-tighter"
+                  data-chromatic="ignore"
+                >
                   {getTime(new Date(referral.display_time))}
                 </div>
               </div>
