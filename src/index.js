@@ -21,6 +21,7 @@ export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as HeroHeadline } from './components/HeroHeadline/Hero.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
+export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoCarousel } from './components/PhotoCarousel/PhotoCarousel.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
