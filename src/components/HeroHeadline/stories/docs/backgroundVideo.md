@@ -2,11 +2,14 @@ Add a cover video and position the title with ease.
 
 ```svelte
 <script>
-  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
+
+  export let embedded = false;
 </script>
 
 <HeroHeadline
+  embedded="{embedded}"
   class="custom-hero"
   hed="The conflict in Ethiopia"
   hedSize="bigger"
@@ -15,27 +18,17 @@ Add a cover video and position the title with ease.
   publishTime="{new Date('2020-12-18').toISOString()}"
 >
   <div slot="background">
-    <GraphicBlock
+    <Video
       width="widest"
-      role="figure"
       class="my-0"
-      textWidth="normal"
+      showControls="{false}"
+      preloadVideo="auto"
+      playVideoWhenInView="{false}"
+      src="{assets}/videos/intro.mp4"
+      poster="{assets}/images/video-poster-intro.jpg"
       notes="Drone footage from the Village 8 refugee camp in Sudan."
       ariaDescription="Aerial footage of people houses in refugee camp"
-    >
-      <!-- svelte-ignore a11y-media-has-caption -->
-      <video
-        autoplay
-        muted
-        playsinline
-        loop
-        preload="true"
-        width="100%"
-        poster="video-poster.png"
-        src="{assets}/videos/intro.mp4"
-      >
-      </video>
-    </GraphicBlock>
+    />
   </div>
 </HeroHeadline>
 

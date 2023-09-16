@@ -103,7 +103,7 @@
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <Block width="{textWidth}" class="fmx-auto fmy-0">
+        <Block width="{textWidth}" class="notes w-full fmy-0">
           <figcaption>
             {caption}
           </figcaption>

@@ -2,12 +2,18 @@ Reuters Graphics headline followed by a graphic or any media block.
 
 ```svelte
 <script>
-  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import {
+    HeroHeadline,
+    GraphicBlock,
+  } from '@reuters-graphics/graphics-components';
   import Map from './ai2svelte/graphic.svelte';
   import { assets } from '$app/paths';
+
+  export let embedded = false;
 </script>
 
 <HeroHeadline
+  embedded="{embedded}"
   hed="{'The plunge from 29,000 feet'}"
   hedWidth="wide"
   class="mb-0"
@@ -19,7 +25,7 @@ Reuters Graphics headline followed by a graphic or any media block.
   <div slot="inline">
     <GraphicBlock
       width="widest"
-      role="figure"
+      role="img"
       class="my-0"
       textWidth="normal"
       notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"

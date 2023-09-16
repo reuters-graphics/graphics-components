@@ -4,9 +4,12 @@ Add a custom styled headline.
 <script>
   import { HeroHeadline } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+
+  export let embedded = false;
 </script>
 
 <HeroHeadline
+  embedded="{embedded}"
   class="custom-hed"
   authors="{[
     'Prasanta Kumar Dutta',

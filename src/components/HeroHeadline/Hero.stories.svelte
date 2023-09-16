@@ -8,6 +8,8 @@
   // @ts-ignore
   import inlineGraphicDocs from './stories/docs/inlineGraphic.md?raw';
   // @ts-ignore
+  import inlinePhotoDocs from './stories/docs/inlinePhoto.md?raw';
+  // @ts-ignore
   import transparentHeaderDocs from './stories/docs/transparentHeader.md?raw';
   // @ts-ignore
   import videoDocs from './stories/docs/backgroundVideo.md?raw';
@@ -23,6 +25,8 @@
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
   import HeroHeadline from './Hero.svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+  import FeaturePhoto from '../FeaturePhoto/FeaturePhoto.svelte';
+  import Video from '../Video/Video.svelte';
 
   import CrashMap from './stories/graphics/crash.svelte';
   import QuakeMap from './stories/graphics/quakemap.svelte';
@@ -187,27 +191,17 @@
     publishTime="{new Date('2020-12-18').toISOString()}"
   >
     <div slot="background">
-      <GraphicBlock
+      <Video
         width="widest"
-        role="figure"
         class="my-0"
-        textWidth="normal"
+        showControls="{false}"
+        preloadVideo="auto"
+        playVideoWhenInView="{false}"
+        src="https://vm.reuters.tv/9c72e/titlef2ac(425954_R21MP41500).mp4"
+        poster="https://www.reuters.com/resizer/vexYmtEuXKmfnsCbfS6jSMVbHms=/1080x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/VKJHKJEENVO4DASDND3VLHPV5Y.jpg"
         notes="Drone footage from the Village 8 refugee camp in Sudan."
         ariaDescription="Aerial footage of people houses in refugee camp"
-      >
-        <!-- svelte-ignore a11y-media-has-caption -->
-        <video
-          autoplay
-          muted
-          playsinline
-          loop
-          preload="true"
-          width="100%"
-          poster="video-poster.png"
-          src="https://vm.reuters.tv/9c72e/titlef2ac(425954_R21MP41500).mp4"
-        >
-        </video>
-      </GraphicBlock>
+      />
     </div>
   </HeroHeadline>
   <style lang="scss">
@@ -228,6 +222,32 @@
   </style>
 </Story>
 
+<Story name="With inline photo" {...withStoryDocs(inlinePhotoDocs)}>
+  <Block width="fluid">
+    <SiteHeader />
+  </Block>
+
+  <HeroHeadline
+    hed="{'Buried under the bricks'}"
+    hedWidth="wide"
+    class="mb-0"
+    dek="{'How mud-brick housing made the Morocco earthquake so deadly'}"
+    section="{'Global news'}"
+    authors="{['Mariano Zafra']}"
+    publishTime="{new Date('2020-01-01').toISOString()}"
+  >
+    <div slot="inline">
+      <FeaturePhoto
+        width="widest"
+        class="my-0"
+        src="https://www.reuters.com/graphics/MOROCCO-QUAKE/CONSTRUCTION/xmpjlblojpr/cdn/images/opening.jpg"
+        caption="Photo by REUTERS/Nacho Doce."
+        altText="A photo of the town of Adassil, Morocco, showing severe damage to many houses, which have collapsed after the earthquake. The houses are all made of mud brick."
+      />
+    </div>
+  </HeroHeadline>
+</Story>
+
 <Story name="With inline graphic" {...withStoryDocs(inlineGraphicDocs)}>
   <Block width="fluid">
     <SiteHeader />
@@ -245,7 +265,7 @@
     <div slot="inline">
       <GraphicBlock
         width="widest"
-        role="figure"
+        role="img"
         class="my-0"
         textWidth="normal"
         notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
@@ -253,6 +273,35 @@
       >
         <svelte:component this="{CrashMap}" />
       </GraphicBlock>
+    </div>
+  </HeroHeadline>
+</Story>
+
+<Story name="With inline video" {...withStoryDocs(inlinePhotoDocs)}>
+  <Block width="fluid">
+    <SiteHeader />
+  </Block>
+
+  <HeroHeadline
+    hed="{'Devastation in Derna'}"
+    hedWidth="wide"
+    class="mb-0"
+    dek="{'How raging floods burst dams, destroyed neighbourhoods and killed thousands in Libya'}"
+    section="{'Global news'}"
+    authors="{['Simon Scarr']}"
+    publishTime="{new Date('2020-01-01').toISOString()}"
+  >
+    <div slot="inline">
+      <Video
+        width="widest"
+        class="my-0"
+        showControls="{false}"
+        preloadVideo="auto"
+        playVideoWhenInView="{false}"
+        src="https://www.reuters.com/graphics/LIBYA-STORM/EXPLAINER/klvyzqebzpg/cdn/video/drone.mp4"
+        notes="Drone shots of Derna, Libya. September 14, 2023. REUTERS"
+        ariaDescription="alttext fot video"
+      />
     </div>
   </HeroHeadline>
 </Story>

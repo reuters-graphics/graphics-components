@@ -245,7 +245,7 @@
       @include body-caption;
     }
 
-    :global(video) {
+    :global(.background-hero video) {
       position: relative;
       display: block;
       width: 100%;
@@ -253,7 +253,7 @@
       object-fit: cover;
     }
 
-    :global(.graphic-container .article-block:not(.graphic)) {
+    :global(.graphic-container .article-block.notes) {
       @media (max-width: 690px) {
         width: 100%;
         padding: 0 15px;

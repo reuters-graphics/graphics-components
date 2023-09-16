@@ -2,12 +2,18 @@ Reuters Graphics headline with ai2svelte graphic as background.
 
 ```svelte
 <script>
-  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import {
+    HeroHeadline,
+    GraphicBlock,
+  } from '@reuters-graphics/graphics-components';
   import QuakeMap from './ai2svelte/graphic.svelte';
   import { assets } from '$app/paths';
+
+  export let embedded = false;
 </script>
 
 <HeroHeadline
+  embedded="{embedded}"
   hed="{'Earthquake devastates Afghanistan'}"
   hedSize="{'big'}"
   hedWidth="wide"

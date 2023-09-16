@@ -10,11 +10,31 @@
   /// //////////////////////////////////
 
   /**
-   * Video src.
+   * Video src
+   * @type {string}
+   * @required
    */
-  export let src = '';
-  export let ariaHidden = true;
-  export let ariaDescription = null;
+  export let src: string;
+
+  /**
+   * Image to be shown while the video is downloading
+   */
+  export let poster: string = '';
+
+  /**
+   * Whether to wrap the graphic with an aria hidden tag.
+   */
+  export let hidden: boolean = true;
+
+  /**
+   * ARIA description, passed in as a markdown string.
+   * @type {string}
+   */
+  export let ariaDescription: string | null = null;
+
+  /** Add extra classes to the block tag to target it with custom CSS. */
+  let cls: string = '';
+  export { cls as class };
 
   /**
    * Title of the graphic
@@ -136,9 +156,9 @@
   };
 
   // Warning to missing aria attributes
-  if (ariaHidden && !ariaDescription) {
+  if (hidden && !ariaDescription) {
     console.warn(
-      'Must provide aria description for video components if ariaHidden is true.'
+      'Must provide aria description for video components if hidden is true.'
     );
   }
 </script>
@@ -154,7 +174,7 @@
   description="{description}"
   notes="{notes}"
   width="{width}"
-  class="video-container"
+  class="video {cls}"
 >
   <div
     role="figure"
@@ -171,7 +191,7 @@
       interactiveControlsOpacity = 0;
     }}"
   >
-    {#if (ariaHidden && ariaDescription) || !ariaHidden}
+    {#if (hidden && ariaDescription) || !hidden}
       {#if ariaDescription}
         <p class="visually-hidden">{ariaDescription}</p>
       {/if}
@@ -187,7 +207,7 @@
           <div
             bind:this="{element}"
             class="video-wrapper relative block"
-            aria-hidden="{ariaHidden}"
+            aria-hidden="{hidden}"
             bind:clientWidth="{widthVideoContainer}"
             bind:clientHeight="{heightVideoContainer}"
           >
@@ -221,6 +241,7 @@
             <video
               bind:this="{videoElement}"
               src="{src}"
+              poster="{poster}"
               class="pointer-events-none relative"
               width="100%"
               muted="{muteVideo}"
@@ -241,7 +262,7 @@
         <!-- Video element without Intersection observer -->
         <div
           class="video-wrapper relative"
-          aria-hidden="{ariaHidden}"
+          aria-hidden="{hidden}"
           bind:clientWidth="{widthVideoContainer}"
           bind:clientHeight="{heightVideoContainer}"
         >
@@ -273,6 +294,7 @@
           <video
             bind:this="{videoElement}"
             src="{src}"
+            poster="{poster}"
             class="pointer-events-none relative"
             width="100%"
             muted="{muteVideo}"
