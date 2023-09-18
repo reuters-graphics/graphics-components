@@ -67,7 +67,7 @@
 />
 
 <Template let:args>
-  <Block width="fluid">
+  <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
@@ -88,7 +88,7 @@
 
 <Story name="With transparent header" {...withStoryDocs(transparentHeaderDocs)}>
   <div class="transparent-header">
-    <Block width="fluid">
+    <Block width="fluid" class="chromatic-ignore">
       <SiteHeader />
     </Block>
 
@@ -104,7 +104,7 @@
 </Story>
 
 <Story name="With backdrop graphic" {...withStoryDocs(backgroundGraphicDocs)}>
-  <Block width="fluid">
+  <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
@@ -178,7 +178,7 @@
 </Story>
 
 <Story name="With backdrop video" {...withStoryDocs(videoDocs)}>
-  <Block width="fluid">
+  <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
@@ -223,7 +223,7 @@
 </Story>
 
 <Story name="With inline photo" {...withStoryDocs(inlinePhotoDocs)}>
-  <Block width="fluid">
+  <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
@@ -249,7 +249,7 @@
 </Story>
 
 <Story name="With inline graphic" {...withStoryDocs(inlineGraphicDocs)}>
-  <Block width="fluid">
+  <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
@@ -278,7 +278,7 @@
 </Story>
 
 <Story name="With inline video" {...withStoryDocs(inlinePhotoDocs)}>
-  <Block width="fluid">
+  <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 

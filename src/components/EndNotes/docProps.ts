@@ -3,10 +3,10 @@ interface EndNote {
   Text: String;
 }
 
-type Block = EndNote[];
+type EndNotes = EndNote[];
 
-export const getEndNotesPropsFromDoc = (docBlock: Block) => {
-  return docBlock.map((d) => {
+export const getEndNotesPropsFromDoc = (endNotes: EndNotes) => {
+  return endNotes.map((d) => {
     return {
       title: d.Title,
       text: d.Text,
