@@ -1,0 +1,23 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+
+<Meta title="Styles/Intro" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Styles
+
+This library also includes our main SCSS stylesheets with pre-defined classes you can use to style your page.
+
+### Importing our main stylesheet
+
+Import the SCSS directly in your top-level component. (This is done for you in the Graphics Kit.)
+
+```svelte
+<!-- pages/index.svelte -->
+<script>
+  // other imports and stuffs ...
+
+  import '@reuters-graphics/graphics-components/dist/scss/main.scss';
+</script>
+```

@@ -1,6 +1,6 @@
 Simple loading spinner. Use it to help hide long loading times for components that may be loading expensive media files or crunching through lots of data.
 
-```html
+```svelte
 <script>
   import { Spinner } from '@reuters-graphics/graphics-components';
 
@@ -8,8 +8,8 @@ Simple loading spinner. Use it to help hide long loading times for components th
 </script>
 
 {#if somethingsLoading}
-<Spinner />
+  <Spinner />
 {:else}
-<p>The real deal is here.</p>
+  <p>The real deal is here.</p>
 {/if}
 ```

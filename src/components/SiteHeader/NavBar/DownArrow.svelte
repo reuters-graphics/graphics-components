@@ -20,7 +20,7 @@
   svg {
     margin-left: 4px;
     width: 10px;
-    fill: var(--nav-primary, $tr-dark-grey);
+    fill: var(--nav-primary, var(--tr-dark-grey));
     transition: transform 0.15s ease;
     &.rotated {
       transform: rotate(180deg);

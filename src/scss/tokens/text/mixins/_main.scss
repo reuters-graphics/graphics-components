@@ -1,0 +1,11 @@
+// Text mixins at the top
+@forward 'text-role';
+
+// Other imports
+@forward 'color';
+@forward 'font-family';
+@forward 'font-size';
+@forward 'font-weight';
+@forward 'letter-spacing';
+@forward 'line-height';
+@forward 'text-stroke';

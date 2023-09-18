@@ -2,7 +2,7 @@ Instead of just text, you can use any component in the foreground, too, and pass
 
 If you're making your own custom foreground component, remember to add alt text describing the background graphic.
 
-```html
+```svelte
 <script>
   // ...
   import MyCounter from './MyCounter.svelte';

@@ -25,7 +25,7 @@
    * Gap between images.
    * @type {number}
    */
-  export let gap = 10;
+  export let gap = 15;
 
   const random4 = () =>
     Math.floor((1 + Math.random()) * 0x10000)
@@ -40,7 +40,8 @@
    * Add a class to target with SCSS.
    * @type {string}
    */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
@@ -52,7 +53,7 @@
    * Can't ever be wider than `width`.
    * @type {string}
    */
-  export let captionWidth: ContainerWidth = 'normal';
+  export let textWidth: ContainerWidth = 'normal';
 
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
@@ -88,23 +89,27 @@
   $: rows = groupRows(images, layout);
 </script>
 
-<Block width="{width}" id="{id}" cls="photopack {cls}">
-  <div class="photopack-container" bind:clientWidth="{containerWidth}">
+<Block width="{width}" id="{id}" class="photopack fmy-6 {cls}">
+  <div class="photopack-container w-full" bind:clientWidth="{containerWidth}">
     {#each rows as row, ri}
       <div
-        class="photopack-row"
+        class="photopack-row flex justify-between"
         style:gap="0 {gap}px"
-        style:margin-bottom="{gap + 'px'}"
+        style:margin-bottom="{ri < rows.length - 1 ? gap + 'px' : ''}"
       >
         {#each row as img, i}
-          <figure aria-labelledby="{id}-figure-{ri}-{i}">
+          <figure
+            class="relative m-0 p-0 flex-1"
+            aria-labelledby="{id}-figure-{ri}-{i}"
+          >
             <img
+              class="m-0 w-full h-full object-cover"
               src="{img.src}"
               alt="{img.altText}"
               style:max-height="{img.maxHeight ? img.maxHeight + 'px' : ''}"
             />
             {#if !img.altText}
-              <div class="alt-warning">altText</div>
+              <div class="alt-warning absolute text-xxs py-1 px-2">altText</div>
             {/if}
           </figure>
         {/each}
@@ -112,8 +117,8 @@
     {/each}
   </div>
   <PaddingReset containerIsFluid="{width === 'fluid'}">
-    <Block width="{captionWidth}">
-      <div class="captions-container">
+    <div class="notes contents">
+      <Block width="{textWidth}" class="photopack-captions-container">
         {#each rows as row, ri}
           {#each row as img, i}
             {#if img.caption}
@@ -123,62 +128,30 @@
             {/if}
           {/each}
         {/each}
-      </div>
-    </Block>
+      </Block>
+    </div>
   </PaddingReset>
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
+  @import '../../scss/mixins';
 
   div.photopack-container {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
     div.photopack-row {
-      display: flex;
-      justify-content: space-between;
       figure {
-        flex: 1;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        img {
-          margin: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
         div.alt-warning {
-          font-family: $font-family-display;
-          padding: 5px 10px;
           background-color: red;
           color: white;
-          position: absolute;
           top: 0;
           right: 0;
-          font-size: 14px;
-          line-height: 16px;
         }
       }
     }
   }
 
-  div.captions-container {
-    div.caption {
-      margin: 0 0 0.6rem;
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-      :global(p) {
-        font-size: 0.85rem;
-        line-height: 1.1rem;
-        font-family: var(--theme-font-family-note, $font-family-display);
-        color: var(--theme-colour-text-secondary, $tr-medium-grey);
-        margin: 0;
-        font-weight: 300;
-      }
+  .notes {
+    :global(.photopack-captions-container .caption p) {
+      @include body-caption;
     }
   }
 </style>

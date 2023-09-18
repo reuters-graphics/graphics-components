@@ -1,0 +1,74 @@
+@use 'mixins/text-stroke' as *;
+
+.text-stroke-black {
+  @include text-stroke(1px, #000);
+}
+.text-stroke-black-2 {
+  @include text-stroke(2px, #000);
+}
+.text-stroke-black-3 {
+  @include text-stroke(3px, #000);
+}
+.text-stroke-black-4 {
+  @include text-stroke(4px, #000);
+}
+.text-stroke-black-6 {
+  @include text-stroke(6px, #000);
+}
+.text-stroke-black-8 {
+  @include text-stroke(8px, #000);
+}
+.\!text-stroke-black {
+  @include text-stroke(1px, #000);
+}
+.\!text-stroke-black-2 {
+  @include \!text-stroke(2px, #000);
+}
+.\!text-stroke-black-3 {
+  @include \!text-stroke(3px, #000);
+}
+.\!text-stroke-black-4 {
+  @include \!text-stroke(4px, #000);
+}
+.\!text-stroke-black-6 {
+  @include \!text-stroke(6px, #000);
+}
+.\!text-stroke-black-8 {
+  @include \!text-stroke(8px, #000);
+}
+.text-stroke-white {
+  @include text-stroke(1px, #fff);
+}
+.text-stroke-white-2 {
+  @include text-stroke(2px, #fff);
+}
+.text-stroke-white-3 {
+  @include text-stroke(3px, #fff);
+}
+.text-stroke-white-4 {
+  @include text-stroke(4px, #fff);
+}
+.text-stroke-white-6 {
+  @include text-stroke(6px, #fff);
+}
+.text-stroke-white-8 {
+  @include text-stroke(8px, #fff);
+}
+.\!text-stroke-white {
+  @include text-stroke(1px, #fff);
+}
+.\!text-stroke-white-2 {
+  @include \!text-stroke(2px, #fff);
+}
+.\!text-stroke-white-3 {
+  @include \!text-stroke(3px, #fff);
+}
+.\!text-stroke-white-4 {
+  @include \!text-stroke(4px, #fff);
+}
+.\!text-stroke-white-6 {
+  @include \!text-stroke(6px, #fff);
+}
+.\!text-stroke-white-8 {
+  @include \!text-stroke(8px, #fff);
+}

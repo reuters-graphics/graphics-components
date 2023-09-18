@@ -2,7 +2,7 @@ Format column values by supplying functions keyed to field names with the `field
 
 Among other things, this feature can be used to provide a unit of measurement with numeric fields.
 
-```html
+```svelte
 <script lang="ts">
   const fieldFormatters = {
     'Net worth (in billions)': (v) => '$' + v.toFixed(1),
@@ -17,5 +17,5 @@ Among other things, this feature can be used to provide a unit of measurement wi
   sortDirection="{'descending'}"
   title="{'The Richest Women in the World'}"
   source="{'Source: Forbes'}"
-/>
+></table>
 ```

@@ -44,15 +44,17 @@
   }
 </script>
 
-<nav aria-label="pagination" class="pagination">
+<nav aria-label="pagination" class="pagination fmt-4">
   <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
     ><div class="icon-wrapper">
       <LeftArrow />
       <span class="visually-hidden">Previous page</span>
     </div></button
   >
-  <div class="label" aria-label="page {pageNumber}" aria-current="page">
-    <div class="records">{minRow}-{maxRow} of {intcomma(n)}</div>
+  <div class="label fmx-2" aria-label="page {pageNumber}" aria-current="page">
+    <div class="records body-caption mt-1.5">
+      {minRow}-{maxRow} of {intcomma(n)}
+    </div>
   </div>
   <button
     on:click="{goToNextPage}"
@@ -65,19 +67,18 @@
 </nav>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   nav.pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+
     button {
-      border: 1px solid var(--theme-colour-text-secondary, $tr-light-grey);
+      border: 1px solid var(--theme-colour-text-secondary, var(--tr-light-grey));
       border-radius: 50%;
-      background: var(--theme-color-background);
-      color: var(--theme-colour-text-secondary, $tr-light-grey);
+      @include bg;
+      @include text-secondary;
       cursor: pointer;
       width: 35px;
       height: 35px;
@@ -96,8 +97,8 @@
         justify-content: center;
         white-space: nowrap;
         &:hover {
-          color: var(--theme-colour-text-primary, $tr-medium-grey);
-          border-color: var(--theme-colour-text-primary, $tr-medium-grey);
+          @include text-primary;
+          border-color: var(--theme-colour-text-primary, var(--tr-medium-grey));
         }
       }
     }
@@ -106,15 +107,7 @@
       align-items: center;
       flex-direction: column;
       width: auto;
-      min-width: 110px;
-      margin: 0 0.5rem;
-      .records {
-        font-size: 0.8rem;
-        font-family: var(--theme-font-family-hed, $font-family-display);
-        font-weight: 300;
-        margin: 0 1rem;
-        color: var(--theme-colour-text-primary, $tr-medium-grey);
-      }
+      min-width: 5rem;
     }
   }
 

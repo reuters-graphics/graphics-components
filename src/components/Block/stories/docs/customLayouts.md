@@ -2,7 +2,7 @@ Our article well is designed to provide a basic responsive layout for you, but i
 
 If you need to get really radical, the easiest way is to create a `Block` with a `fluid` width -- which basically cancels out the article well dimensions -- and then code whatever you need from scratch or with another framework.
 
-```html
+```svelte
 <Block width="fluid">
   <div class="my-radical-container">
     <!-- Now, you have full control! -->
@@ -10,4 +10,4 @@ If you need to get really radical, the easiest way is to create a `Block` with a
 </Block>
 ```
 
-The demo below does exactly that to create an edge-to-edge grid with [bootstrap](https://getbootstrap.com/docs/5.2/layout/grid/).
+The demo below does exactly that to create an edge-to-edge grid with [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/).

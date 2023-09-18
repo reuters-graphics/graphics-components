@@ -1,0 +1,68 @@
+@use 'mixins/font-family' as *;
+
+.font-serif {
+  @include font-serif;
+}
+.font-sans {
+  @include font-sans;
+}
+.font-mono {
+  @include font-mono;
+}
+.font-hed {
+  @include font-hed;
+}
+.font-subhed {
+  @include font-subhed;
+}
+.font-body {
+  @include font-body;
+}
+.font-note {
+  @include font-note;
+}
+.font-source-sans-pro {
+  @include font-source-sans-pro;
+}
+.font-knowledge {
+  @include font-knowledge;
+}
+.font-freight-text {
+  @include font-freight-text;
+}
+.font-noto-sans-jp {
+  @include font-noto-sans-jp;
+}
+.\!font-serif {
+  @include \!font-serif;
+}
+.\!font-sans {
+  @include \!font-sans;
+}
+.\!font-mono {
+  @include \!font-mono;
+}
+.\!font-hed {
+  @include \!font-hed;
+}
+.\!font-subhed {
+  @include \!font-subhed;
+}
+.\!font-body {
+  @include \!font-body;
+}
+.\!font-note {
+  @include \!font-note;
+}
+.\!font-source-sans-pro {
+  @include \!font-source-sans-pro;
+}
+.\!font-knowledge {
+  @include \!font-knowledge;
+}
+.\!font-freight-text {
+  @include \!font-freight-text;
+}
+.\!font-noto-sans-jp {
+  @include \!font-noto-sans-jp;
+}

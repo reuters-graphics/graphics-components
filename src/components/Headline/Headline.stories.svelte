@@ -6,12 +6,17 @@
   // @ts-ignore
   import withBylineDocs from './stories/docs/withByline.md?raw';
   // @ts-ignore
+  import withDekDocs from './stories/docs/withDek.md?raw';
+  // @ts-ignore
   import customHedDocs from './stories/docs/customHed.md?raw';
   // @ts-ignore
-  import withCrownDocs from './stories/docs/withCrown.md?raw';
+  import withCrownImgDocs from './stories/docs/withCrownImage.md?raw';
+  // @ts-ignore
+  import withCrownGraphicDocs from './stories/docs/withCrownGraphic.md?raw';
 
   // @ts-ignore
   import crownImgSrc from './stories/crown.png';
+  import Map from './stories/graphic.svelte';
 
   import Headline from './Headline.svelte';
 
@@ -19,13 +24,24 @@
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
+
+  const metaProps = {
+    ...withComponentDocs(componentDocs),
+    // https://storybook.js.org/docs/svelte/essentials/controls
+    argTypes: {
+      hedSize: {
+        control: 'select',
+        options: ['small', 'normal', 'big', 'bigger', 'biggest'],
+      },
+      width: {
+        control: 'select',
+        options: ['normal', 'wide', 'wider', 'widest'],
+      },
+    },
+  };
 </script>
 
-<Meta
-  title="Components/Headline"
-  component="{Headline}"
-  {...withComponentDocs(componentDocs)}
-/>
+<Meta title="Components/Headline" component="{Headline}" {...metaProps} />
 
 <Template let:args>
   <Headline {...args} />
@@ -36,69 +52,83 @@
   args="{{
     section: 'World News',
     hed: 'Reuters Graphics interactive',
+    hedSize: 'normal',
+    dek: '',
+    authors: [],
   }}"
 />
+
+<Story name="With dek" {...withStoryDocs(withDekDocs)}>
+  <Headline
+    hed="{'Reuters Graphics Interactive'}"
+    dek="{'The beginning of a beautiful page'}"
+    section="{'Global news'}"
+  />
+</Story>
 
 <Story name="With byline" {...withStoryDocs(withBylineDocs)}>
   <Headline
     hed="{'Reuters Graphics Interactive'}"
     dek="{'The beginning of a beautiful page'}"
     section="{'Global news'}"
-  >
-    <!-- Use named slots to add a byline... -->
-    <span slot="byline">By <strong>Peppa Pig</strong></span>
-    <!-- ...and a dateline. -->
-    <span slot="dateline"
-      >Published <time datetime="{new Date('2020-01-01').toISOString()}"
-        >Jan. 1, 2020</time
-      ></span
-    >
-  </Headline>
+    authors="{['Dea Bankova', 'Aditi Bhandari']}"
+    publishTime="{new Date('2020-01-01').toISOString()}"
+  />
 </Story>
 
-<Story name="Custom hed" {...withStoryDocs(customHedDocs)}>
-  <Headline>
+<Story name="With custom hed" {...withStoryDocs(customHedDocs)}>
+  <Headline width="wide">
     <h1 class="custom-hed" slot="hed">
-      <span class="small">The secret to</span>
+      <span class="small block text-base">The secret to</span>
       “The Nutcracker's”
-      <span class="small">success</span>
+      <span class="small block text-base fpt-1">success</span>
     </h1>
-    <p class="custom-dek" slot="dek">
-      How “The Nutcracker” ballet became an <span>American holday staple</span
+    <p class="custom-dek !fmt-3" slot="dek">
+      How “The Nutcracker” ballet became an<span
+        class="font-medium mx-1 px-1.5 py-1">American holday staple</span
       >and a financial pillar of ballet companies across the country
     </p>
   </Headline>
+  <style lang="scss">
+    .custom-hed {
+      line-height: 0.9;
+    }
+    .custom-dek {
+      span {
+        background-color: #fde68a;
+      }
+    }
+  </style>
 </Story>
 
-<Story name="With crown" {...withStoryDocs(withCrownDocs)}>
-  <Headline>
+<Story name="With crown image" {...withStoryDocs(withCrownImgDocs)}>
+  <Headline class="!fmt-3" publishTime="{new Date('2020-01-01').toISOString()}">
     <!-- Add a crown -->
-    <img slot="crown" src="{crownImgSrc}" alt="Illustration of Europe" />
+    <img
+      slot="crown"
+      src="{crownImgSrc}"
+      width="100"
+      class="mx-auto mb-0"
+      alt="Illustration of Europe"
+    />
     <!-- Override the hed with a named slot -->
-    <h1 slot="hed" class="spaced font-serif">Europa</h1>
-    <span slot="dateline"
-      >Published <time datetime="{new Date('2020-01-01').toISOString()}"
-        >Jan. 1, 2020</time
-      ></span
-    >
+    <h1 slot="hed" class="!font-serif !tracking-wide">Europa</h1>
   </Headline>
 </Story>
 
-<style lang="scss">
-  h1.custom-hed {
-    span {
-      display: block;
-      &.small {
-        font-size: 1.4rem;
-      }
-    }
-  }
-  p.custom-dek {
-    span {
-      background-color: rgb(255, 255, 154);
-      padding: 2px 4px;
-      margin: 0 4px;
-      font-weight: 600;
-    }
-  }
-</style>
+<Story name="With crown graphic" {...withStoryDocs(withCrownGraphicDocs)}>
+  <Headline
+    width="wider"
+    class="!fmt-1"
+    hed="{'Unfriendly skies'}"
+    dek="{'How Russia’s invasion of Ukraine is redrawing air routes'}"
+    section="{'Ukraine Crisis'}"
+    authors="{['Simon Scarr', 'Vijdan Mohammad Kawoosa']}"
+    publishTime="{new Date('2022-03-04').toISOString()}"
+  >
+    <!-- Add a crown graphic -->
+    <div slot="crown">
+      <Map />
+    </div>
+  </Headline>
+</Story>

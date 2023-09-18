@@ -20,15 +20,14 @@
 </svg>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
-
+  @use '../../scss/mixins' as *;
   svg {
     vertical-align: middle;
     path {
-      fill: var(--theme-colour-text-secondary, $tr-medium-grey);
+      fill: $theme-colour-brand-rules;
     }
     rect {
-      fill: var(--theme-colour-background, white);
+      fill: $theme-colour-background;
     }
   }
 </style>

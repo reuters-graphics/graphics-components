@@ -45,6 +45,10 @@ jobs:
         name: Build docs
         run: npm run build:docs
 
+      - id: build-package
+        name: Build package
+        run: npm run build:package
+
       - id: version
         name: Version
         run: npm version ${{ github.ref_name }} --no-git-tag-version

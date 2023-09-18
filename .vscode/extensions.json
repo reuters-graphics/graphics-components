@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "unifiedjs.vscode-mdx"
+    "unifiedjs.vscode-mdx",
+    "somewhatstationery.some-sass"
   ]
 }

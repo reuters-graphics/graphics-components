@@ -1,7 +1,7 @@
 import '../src/scss/main.scss';
 import './preview.scss';
 
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { SyntaxHighlighter } from '@storybook/components';
 import Wrapper from './Wrapper.svelte';
 import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
@@ -42,7 +42,7 @@ export const parameters = {
         'Layout',
         ['Intro', '*'],
         'Theming',
-        ['*'],
+        ['Theme', '*'],
         'Components',
         ['Intro', '*'],
         '*',
@@ -50,6 +50,21 @@ export const parameters = {
         ['Intro', '*'],
         'SCSS',
         ['Intro', '*'],
+        'Styles',
+        [
+          'Intro',
+          'Colours', [
+            'Intro',
+            'Primary',
+            'Thematic',
+            '*',
+          ],
+          'Tokens', [
+            'Intro',
+            'Typography',
+            '*',
+          ],
+        ],
         'Actions',
         ['Intro', '*'],
         'Contributing',

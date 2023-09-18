@@ -45,7 +45,7 @@
 <main>
   <article
     id="{id}"
-    class:embedded
+    class:embedded="{embedded}"
     role="{role}"
     use:cssVariables="{columnWidthVars}"
   >

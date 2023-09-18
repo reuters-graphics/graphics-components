@@ -8,19 +8,19 @@ Check out the "Control" column for `theme` in the properties table above to see 
 
 > **Pro tip:** The `Theme` component only styles child components or elements, so if you're changing the background colour of your page, it's still a good idea to set a `background-color` on your `body` element in global SCSS.
 >
-> ```css
+> ```scss
 > // global.scss
 > body {
 >   background-color: #333;
 > }
 > ```
 
-```html
+```svelte
 <Theme
   base="dark"
   theme="{{
     colour: { accent: 'yellow' },
-    font: { 'family-hed': 'freight-book' },
+    font: { family: { hed: 'freight-book' } },
   }}"
 >
   <!-- Page content -->

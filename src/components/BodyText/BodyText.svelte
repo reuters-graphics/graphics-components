@@ -7,23 +7,19 @@
    */
   export let text: string;
 
+  /** Add a class to target with SCSS. */
+  let cls: string = '';
+  export { cls as class };
+
+  /** Add an id to the block tag to target it with custom CSS. */
+  export let id: string = '';
+
   import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block cls="body-text">
+<Block id="{id}" class="fmy-6 {cls}">
   {#if text}
     {@html marked.parse(text)}
   {/if}
 </Block>
-
-<!-- svelte-ignore css-unused-selector -->
-<style lang="scss" global>
-  // Technically... we probably should unbind these styles from the component
-  // and import them in the app through a separate scss file.
-  @import '../../scss/mixins';
-
-  div.article-block.body-text {
-    @include body-text;
-  }
-</style>

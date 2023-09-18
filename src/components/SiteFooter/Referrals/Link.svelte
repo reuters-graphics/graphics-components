@@ -6,7 +6,7 @@
   export let description;
 </script>
 
-<div class="referral" title="{description}">
+<div class="referral py-0 px-3" title="{description}">
   <a href="{url.replace('index.html', '')}">
     <IntersectionObserver let:intersecting top="{600}" once="{true}">
       {#if intersecting}
@@ -19,13 +19,15 @@
         <div class="image"></div>
       {/if}
     </IntersectionObserver>
-    <p data-chromatic="ignore">{title}</p>
+    <p class="body-caption font-bold leading-tighter" data-chromatic="ignore">
+      {title}
+    </p>
   </a>
 </div>
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   a {
     text-decoration: none;
@@ -40,9 +42,9 @@
 
   .referral {
     div.image {
-      margin-bottom: 5px;
+      @include fmb-1;
       border: 1px solid var(--nav-rules, #efefef);
-      border-radius: 8px;
+      border-radius: 0.25rem;
     }
 
     a:hover {
@@ -53,18 +55,13 @@
     }
 
     p {
-      @include font-display;
-
       color: var(--nav-primary, #666);
-      font-size: 0.9rem;
-      line-height: 1.2rem;
       text-transform: none;
       margin: 0;
-      font-weight: 400;
     }
 
     width: 25%;
-    padding: 0 10px;
+    // padding: 0 10px;
 
     @media (max-width: 768px) {
       width: 33.33333%;

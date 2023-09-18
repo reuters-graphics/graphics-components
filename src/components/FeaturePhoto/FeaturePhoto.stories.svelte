@@ -25,6 +25,10 @@
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
+      textWidth: {
+        control: 'select',
+        options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
+      },
     },
   };
 </script>

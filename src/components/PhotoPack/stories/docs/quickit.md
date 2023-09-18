@@ -6,7 +6,7 @@ Type: photo-pack
 ID: my-photo-pack
 Class: mb-2 # adjust margin class as needed
 Width: wide
-CaptionWidth: normal
+TextWidth: normal
 Gap: 10
 [.Images]
   Src: images/my-img-1.jpg
@@ -41,7 +41,7 @@ Gap: 10
 
 In your project, you can use the `getPhotoPackPropsFromDoc` utilty to easily convert the GoogleDoc format above into the props the `PhotoPack` component expects.
 
-```html
+```svelte
 <!-- App.svelte -->
 <script>
   import {
@@ -54,12 +54,14 @@ In your project, you can use the `getPhotoPackPropsFromDoc` utilty to easily con
   import { assets } from '$app/paths';
 </script>
 
-{#each content.blocks as block} {#if block.Type === 'text'}
-<!-- ... other blocks -->
+{#each content.blocks as block}
+  {#if block.Type === 'text'}
+    <!-- ... other blocks -->
 
-<!-- Copy/paste into your blocks loop! -->
-{:else if block.Type === 'photo-pack'}
-<PhotoPack {...getPhotoPackPropsFromDoc(block, assets)} />
-<!-- END copy/paste -->
-{/if} {/each}
+    <!-- Copy/paste into your blocks loop! -->
+  {:else if block.Type === 'photo-pack'}
+    <PhotoPack {...getPhotoPackPropsFromDoc(block, assets)} />
+    <!-- END copy/paste -->
+  {/if}
+{/each}
 ```

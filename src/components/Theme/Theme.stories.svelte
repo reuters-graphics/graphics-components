@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore
@@ -55,7 +55,7 @@
     base="dark"
     theme="{{
       colour: { accent: 'yellow' },
-      font: { 'family-hed': 'freight-book' },
+      font: { family: { hed: 'freight-book' } },
     }}"
   >
     <ThemedPage />
@@ -91,7 +91,7 @@
           <Theme
             theme="{{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
-              font: { 'family-note': 'freight-book' },
+              font: { family: { note: 'freight-book' } },
             }}"
             base="dark"
           >
@@ -106,7 +106,6 @@
 </Story>
 
 <style lang="scss">
-  @import '../../scss/fonts/mixins';
   div.themed {
     background-color: var(--theme-colour-background);
     padding: 2rem;

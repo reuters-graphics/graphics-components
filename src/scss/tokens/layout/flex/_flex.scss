@@ -1,0 +1,24 @@
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-auto {
+  flex: 1 1 auto;
+}
+.flex-initial {
+  flex: 0 1 auto;
+}
+.flex-none {
+  flex: none;
+}
+.\!flex-1 {
+  flex: 1 1 0% !important;
+}
+.\!flex-auto {
+  flex: 1 1 auto !important;
+}
+.\!flex-initial {
+  flex: 0 1 auto !important;
+}
+.\!flex-none {
+  flex: none !important;
+}

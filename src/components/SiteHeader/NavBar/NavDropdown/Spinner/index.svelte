@@ -17,7 +17,7 @@
     position: relative;
     height: 0;
     padding-bottom: 100%;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
   }
 
   .spinner {

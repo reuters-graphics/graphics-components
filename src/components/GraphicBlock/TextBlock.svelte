@@ -7,7 +7,7 @@
 </script>
 
 {#if width}
-  <Block width="{width}" cls="m-0">
+  <Block width="{width}" class="notes fmy-0">
     <slot />
   </Block>
 {:else}

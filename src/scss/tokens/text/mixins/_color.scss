@@ -1,0 +1,18 @@
+@mixin text-primary {
+  color: var(--theme-colour-text-primary);
+}
+@mixin text-secondary {
+  color: var(--theme-colour-text-secondary);
+}
+@mixin text-accent {
+  color: var(--theme-colour-accent);
+}
+@mixin \!text-primary {
+  color: var(--theme-colour-text-primary) !important;
+}
+@mixin \!text-secondary {
+  color: var(--theme-colour-text-secondary) !important;
+}
+@mixin \!text-accent {
+  color: var(--theme-colour-accent) !important;
+}

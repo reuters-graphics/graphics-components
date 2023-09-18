@@ -13,12 +13,12 @@
 
 Here is an example of what the same video would look like with a visibility threshold of 0.9 and not looping. Scroll down slowly to observe the behaviour.
 
-```html
+```svelte
 <script>
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<video
+<Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"

@@ -1,6 +1,6 @@
 Use named slots to style your own custom credits and/or captions.
 
-```html
+```svelte
 <PhotoCarousel photos="{photos}">
   <p slot="credit" class="custom-credit" let:credit>{credit}</p>
   <p slot="caption" class="custom-caption" let:caption>{caption}</p>

@@ -58,7 +58,7 @@
   @import '../scss/_grids.scss';
   @import '../scss/_colors.scss';
   @import '../scss/_z-indexes.scss';
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   $mobile-nav-height: 56px;
 
@@ -130,14 +130,14 @@
 
   .header {
     @include spacing-single(padding-left padding-right);
-    border-bottom: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
   }
 
   .section {
     @include spacing-single(padding-left padding-right);
     padding-top: 16px;
     padding-bottom: 16px;
-    border-bottom: 1px solid $tr-muted-grey;
+    border-bottom: 1px solid var(--tr-muted-grey);
     width: 100%;
     max-width: 100%;
 
@@ -157,7 +157,7 @@
 
     .section-link,
     .subsection-link {
-      @include font-display;
+      @include font-sans;
       text-decoration: none;
       line-height: 1.2;
       color: var(--nav-primary);

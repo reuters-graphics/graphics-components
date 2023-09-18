@@ -188,7 +188,7 @@
     results.length > 0
       ? `${id}-result-${selectedIndex}`
       : null}"
-    bind:value
+    bind:value="{value}"
     on:type
     on:input
     on:change
@@ -265,7 +265,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   [data-svelte-typeahead] {
     position: relative;
@@ -292,7 +292,7 @@
   li,
   li.no-results {
     padding: 0.25rem 1rem;
-    @include font-display;
+    @include font-sans;
     color: #333;
   }
   li.no-results {
@@ -335,7 +335,7 @@
     display: inline-flex;
     font-size: 0.75rem;
     color: #aaa;
-    @include font-display;
+    @include font-sans;
   }
 
   :global([data-svelte-search] input) {

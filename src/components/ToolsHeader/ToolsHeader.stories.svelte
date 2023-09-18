@@ -11,7 +11,7 @@
 </script>
 
 <Meta
-  title="Utilities/ToolsHeader"
+  title="Components/ToolsHeader"
   component="{ToolsHeader}"
   {...withComponentDocs(componentDocs)}
 />

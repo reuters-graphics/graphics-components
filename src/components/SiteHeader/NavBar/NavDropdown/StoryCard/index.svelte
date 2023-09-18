@@ -35,14 +35,13 @@
 </div>
 
 <style lang="scss">
-  @import '../../../../../scss/fonts/mixins';
-  @import '../../../../../scss/colours/thematic/tr';
+  @import '../../../../../scss/mixins';
 
   .story-card a {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
     text-decoration: none;
 
     &:hover,
@@ -64,10 +63,10 @@
       }
 
       span {
-        color: var(--nav-primary, $tr-dark-grey);
+        color: var(--nav-primary, var(--tr-dark-grey));
         font-size: 16px;
         font-weight: 500;
-        @include font-display;
+        @include font-sans;
         @media (min-width: 1300px) {
           font-size: 18px;
         }
@@ -82,7 +81,7 @@
       }
 
       time {
-        @include font-display;
+        @include font-sans;
         margin-top: 8px;
         display: block;
         font-size: 12px;
@@ -102,6 +101,7 @@
         object-fit: cover;
         width: 100%;
         height: 100%;
+        margin: 0;
       }
     }
   }

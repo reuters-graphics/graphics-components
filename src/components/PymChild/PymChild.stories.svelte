@@ -10,7 +10,7 @@
 </script>
 
 <Meta
-  title="Utilities/PymChild"
+  title="Components/PymChild"
   component="{PymChild}"
   {...withComponentDocs(componentDocs)}
 />

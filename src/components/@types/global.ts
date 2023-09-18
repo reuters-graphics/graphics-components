@@ -14,6 +14,10 @@ export type Option = {
 export type ContainerWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
 /**
+ * Used to set headline class fluid size from text-2xl to text-6xl
+ */
+export type HeadlineSize = 'small' | 'normal' | 'big' | 'bigger' | 'biggest';
+/**
  * A step in the Scroller component.
  */
 export interface ScrollerStep {

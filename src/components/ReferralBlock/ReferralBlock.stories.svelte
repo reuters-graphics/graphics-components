@@ -50,6 +50,7 @@
   args="{{
     section: '/lifestyle/sports/',
     number: 4,
-    cls: 'my-3',
+    class: 'fmy-5',
+    heading: 'More World Cup coverage',
   }}"
 />

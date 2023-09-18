@@ -1,0 +1,24 @@
+@mixin bg {
+  background-color: var(--theme-colour-background);
+}
+@mixin bg-inherit {
+  background-color: inherit;
+}
+@mixin bg-current {
+  background-color: currentColor;
+}
+@mixin bg-transparent {
+  background-color: transparent;
+}
+@mixin \!bg {
+  background-color: var(--theme-colour-background) !important;
+}
+@mixin \!bg-inherit {
+  background-color: inherit !important;
+}
+@mixin \!bg-current {
+  background-color: currentColor !important;
+}
+@mixin \!bg-transparent {
+  background-color: transparent !important;
+}

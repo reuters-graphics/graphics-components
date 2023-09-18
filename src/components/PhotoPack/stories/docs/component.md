@@ -1,6 +1,6 @@
 The `PhotoPack` component makes simple photo grids with custom layouts at whatever breakpoint you need.
 
-```html
+```svelte
 <script>
   import { PhotoPack } from '@reuters-graphics/graphics-components';
 

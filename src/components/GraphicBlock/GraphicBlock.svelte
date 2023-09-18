@@ -17,7 +17,8 @@
    * Add extra classes to the block tag to target it with custom CSS.
    * @type {string}
    */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   /** Snap block to column widths, rather than fluidly resizing them. */
   export let snap: boolean = false;
@@ -40,7 +41,7 @@
    * of the text well. Can't ever be wider than `width`.
    * @type {string}
    */
-  export let textWidth: ContainerWidth | null = null;
+  export let textWidth: ContainerWidth | null = 'normal';
 
   /**
    * Title of the graphic
@@ -78,69 +79,73 @@
   role="{role}"
   width="{width}"
   ariaLabel="{ariaLabel}"
-  cls="graphic {cls}"
+  class="graphic fmy-6 {cls}"
 >
-  <div>
-    {#if $$slots.title}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <!-- Custom title content -->
-          <slot name="title" />
-        </TextBlock>
-      </PaddingReset>
-    {:else if title}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <h3>{title}</h3>
-          {#if description}
-            {@html marked(description)}
-          {/if}
-        </TextBlock>
-      </PaddingReset>
-    {/if}
-    <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
-      <!-- Graphic content -->
-      <slot />
-    </AriaHidden>
-    {#if $$slots.aria || ariaDescription}
-      <div class="visually-hidden">
-        {#if $$slots.aria}
-          <!-- Custom ARIA markup -->
-          <slot name="aria" />
-        {:else}
-          {@html marked(ariaDescription)}
+  {#if $$slots.title}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <!-- Custom title content -->
+        <slot name="title" />
+      </TextBlock>
+    </PaddingReset>
+  {:else if title}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <h3>{title}</h3>
+        {#if description}
+          {@html marked(description)}
         {/if}
-      </div>
-    {/if}
-    {#if $$slots.notes}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <!-- Custom notes content -->
-          <slot name="notes" />
-        </TextBlock>
-      </PaddingReset>
-    {:else if notes}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <TextBlock width="{textWidth}">
-          <aside>
-            {@html marked(notes)}
-          </aside>
-        </TextBlock>
-      </PaddingReset>
-    {/if}
-  </div>
+      </TextBlock>
+    </PaddingReset>
+  {/if}
+  <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
+    <!-- Graphic content -->
+    <slot />
+  </AriaHidden>
+  {#if $$slots.aria || ariaDescription}
+    <div class="visually-hidden">
+      {#if $$slots.aria}
+        <!-- Custom ARIA markup -->
+        <slot name="aria" />
+      {:else}
+        {@html marked(ariaDescription)}
+      {/if}
+    </div>
+  {/if}
+  {#if $$slots.notes}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <!-- Custom notes content -->
+        <slot name="notes" />
+      </TextBlock>
+    </PaddingReset>
+  {:else if notes}
+    <PaddingReset containerIsFluid="{width === 'fluid'}">
+      <TextBlock width="{textWidth}">
+        <aside>
+          {@html marked(notes)}
+        </aside>
+      </TextBlock>
+    </PaddingReset>
+  {/if}
 </Block>
 
 <!-- svelte-ignore css-unused-selector -->
-<style lang="scss">
+<style lang="scss" global>
   @import '../../scss/mixins';
-  div {
-    :global {
-      @include graphic-text;
-    }
-  }
 
-  .visually-hidden {
-    @include visually-hidden;
+  .article-block.graphic {
+    // Dek
+    p {
+      @include body-note;
+      @include font-light;
+    }
+    // Caption and Sources
+    aside {
+      p {
+        @include body-caption;
+        @include fmy-1;
+      }
+    }
   }
 </style>

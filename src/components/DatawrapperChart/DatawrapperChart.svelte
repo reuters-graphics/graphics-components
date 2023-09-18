@@ -51,7 +51,7 @@
    * of the text well. Can't ever be wider than `width`.
    * @type {string}
    */
-  export let textWidth: ContainerWidth | null = null;
+  export let textWidth: ContainerWidth | null = 'normal';
 
   let frameElement;
 
@@ -111,9 +111,3 @@
     <slot name="notes" />
   {/if}
 </GraphicBlock>
-
-<style lang="scss">
-  .datawrapper-chart {
-    margin: auto;
-  }
-</style>

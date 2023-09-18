@@ -17,12 +17,12 @@ If you do want to leave the controls, you have a couple of options to style them
 
 Here is an example with bottom right corner white opaque controls, with a replay button, where you have to hover on the video to see the controls.
 
-```html
+```svelte
 <script>
   import { Video } from '@reuters-graphics/graphics-components';
 </script>
 
-<video
+<Video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"

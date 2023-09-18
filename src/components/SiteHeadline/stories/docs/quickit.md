@@ -10,7 +10,7 @@ Published: 2022-09-12T08:30:00.000Z
 Updated:
 ```
 
-```html
+```svelte
 <!-- App.svelte -->
 <script>
   import { SiteHeadline } from '@reuters-graphics/graphics-components';

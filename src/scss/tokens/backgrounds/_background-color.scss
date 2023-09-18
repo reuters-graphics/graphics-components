@@ -1,0 +1,26 @@
+@use 'mixins/background-color' as *;
+
+.bg {
+  @include bg;
+}
+.bg-inherit {
+  @include bg-inherit;
+}
+.bg-current {
+  @include bg-current;
+}
+.bg-transparent {
+  @include bg-transparent;
+}
+.\!bg {
+  @include \!bg;
+}
+.\!bg-inherit {
+  @include \!bg-inherit;
+}
+.\!bg-current {
+  @include \!bg-current;
+}
+.\!bg-transparent {
+  @include \!bg-transparent;
+}

@@ -106,7 +106,5 @@
   name="Default"
   args="{{
     dates,
-    symbolColour: '#999',
-    dateColour: '#e05a39',
   }}"
 />
