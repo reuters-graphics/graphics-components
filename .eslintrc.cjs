@@ -44,6 +44,7 @@ module.exports = {
         'import/no-duplicates': 'off',
         'import/no-mutable-exports': 'off',
         'import/no-unresolved': 'off',
+        'svelte/no-at-html-tags': 'off',
         indent: ['error', 2],
       },
     },

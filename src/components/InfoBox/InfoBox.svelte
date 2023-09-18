@@ -1,7 +1,6 @@
 <!-- @component `EndNotes` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InfoBox--default) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
-  /* eslint svelte/no-at-html-tags: "off" */
 
   type Theme = 'light' | 'dark';
 
