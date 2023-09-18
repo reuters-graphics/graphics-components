@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -274,6 +274,7 @@
     "./scss/mixins/block": "./dist/scss/mixins/_block.scss",
     "./scss/mixins/main": "./dist/scss/mixins/_main.scss",
     "./scss/reset/main": "./dist/scss/reset/_main.scss",
+    "./scss/reset/normalize": "./dist/scss/reset/_normalize.scss",
     "./scss/reset/typography": "./dist/scss/reset/_typography.scss",
     "./scss/token-classes": "./dist/scss/token-classes.scss",
     "./scss/tokens/accessibility/main": "./dist/scss/tokens/accessibility/_main.scss",
