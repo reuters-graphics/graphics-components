@@ -2,8 +2,8 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   ignorePatterns: ['node_modules', 'docs/**'],
-  extends: ['standard'],
-  plugins: ['svelte3', '@typescript-eslint'],
+  extends: ['standard', 'plugin:svelte/recommended'],
+  plugins: ['@typescript-eslint'],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -14,10 +14,6 @@ module.exports = {
   env: {
     browser: true,
     es2022: true,
-  },
-  settings: {
-    'svelte3/ignore-styles': () => true,
-    'svelte3/typescript': require('typescript'),
   },
   rules: {
     indent: ['error', 2, { 'SwitchCase': 1 }],
@@ -38,7 +34,10 @@ module.exports = {
   overrides: [
     {
       files: ['*.svelte'],
-      processor: 'svelte3/svelte3',
+      parser: 'svelte-eslint-parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser'
+      },
       rules: {
         'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 2 }],
         'import/first': 'off',

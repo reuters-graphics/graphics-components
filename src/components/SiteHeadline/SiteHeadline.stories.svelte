@@ -1,30 +1,13 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module">
+  import SiteHeadline from './SiteHeadline.svelte';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
-  import quickitDocs from './stories/docs/quickit.md?raw';
 
-  import SiteHeadline from './SiteHeadline.svelte';
-
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  const content = {
-    Section: 'Global News',
-    SectionUrl: '',
-    Hed: 'A beautiful page',
-    Authors: 'Samuel Granados, Dea Bankova',
-    Published: '2022-09-12T08:30:00.000Z',
-    Updated: '',
-  };
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/SiteHeadline',
+    component: SiteHeadline,
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       hedSize: {
         control: 'select',
@@ -34,11 +17,23 @@
   };
 </script>
 
-<Meta
-  title="Components/SiteHeadline"
-  component="{SiteHeadline}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore
+  import quickitDocs from './stories/docs/quickit.md?raw';
+
+  import { withStoryDocs } from '$lib/docs/utils/withParams.js';
+
+  const content = {
+    Section: 'Global News',
+    SectionUrl: '',
+    Hed: 'A beautiful page',
+    Authors: 'Samuel Granados, Dea Bankova',
+    Published: '2022-09-12T08:30:00.000Z',
+    Updated: '',
+  };
+</script>
 
 <Template let:args>
   <SiteHeadline {...args} />
