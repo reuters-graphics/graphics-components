@@ -1,10 +1,8 @@
-Note text includes notes to the main article — usually things like sources, clarifiying notes and minor corrections at the end of a story.
-
-Note text can be fed a markdown string, but text styling is intentionally restricted in this component. For example, all heading tags are forced to a single font size and weight.
+End notes includes notes to the main article — usually things like sources, clarifiying notes and minor corrections at the end of a story.
 
 ```svelte
 <script>
-  import { NoteText } from '@reuters-graphics/graphics-components';
+  import { EndNotes } from '@reuters-graphics/graphics-components';
 
   const notes = [
     {
@@ -22,5 +20,5 @@ Note text can be fed a markdown string, but text styling is intentionally restri
   ];
 </script>
 
-<NoteText notes="{notes}" />
+<EndNotes notes="{notes}" />
 ```
