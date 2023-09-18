@@ -15,7 +15,6 @@ SyntaxHighlighter.registerLanguage('svelte', svelteSyntax);
 SyntaxHighlighter.registerLanguage('scss', scss);
 
 const NewTheme = ({ theme, themeName }) => {
-  console.log('rerenders NewTheme');
   const originalTheme = themeName === 'light' ? lightTheme : darkTheme;
   const updates = updatedDiff(originalTheme, theme);
 

@@ -24,6 +24,8 @@ const Value = ({ value, name, map, themeName, theme, setTheme }) => {
     setTheme(mutableTheme);
   };
 
+  const isColour = !/var\(.*\)/i.test(value) && CSS.supports('color', value);
+
   return (
     <div className="value">
       <label>
@@ -31,7 +33,7 @@ const Value = ({ value, name, map, themeName, theme, setTheme }) => {
           <button className={isOpen ? 'open' : ''} onClick={() => setIsOpen(o => !o)}>
             <div>
               <span className="material-symbols-outlined">{isOpen ? 'expand_less' : 'expand_more'}</span>
-            </div> {name}
+            </div> {isColour && (<div style={{ background: value }}></div>)} {name}
           </button>
         </div>
       </label>
