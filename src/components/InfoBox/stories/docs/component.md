@@ -1,5 +1,7 @@
 InfoBox is used to provide additional information that needs to be visually set aside from the main content flow. e.g. Methodology, Detailed notes about data, Extra context as text stories.
 
+Switch the theme prop to `dark` for a dark page infobox.
+
 Use the slots to customize the content as needed, e.g. adding icons and thumbnail images etc.
 
 ```svelte

@@ -16,7 +16,7 @@ module.exports = {
     es2022: true,
   },
   rules: {
-    indent: ['error', 2, { 'SwitchCase': 1 }],
+    indent: ['error', 2, { SwitchCase: 1 }],
     semi: ['error', 'always'],
     'comma-dangle': [
       'error',
@@ -36,7 +36,7 @@ module.exports = {
       files: ['*.svelte'],
       parser: 'svelte-eslint-parser',
       parserOptions: {
-        parser: '@typescript-eslint/parser'
+        parser: '@typescript-eslint/parser',
       },
       rules: {
         'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 2 }],

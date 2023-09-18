@@ -1,6 +1,10 @@
 <!-- @component `EndNotes` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InfoBox--default) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
+  /* eslint svelte/no-at-html-tags: "off" */
+
+  type Theme = 'light' | 'dark';
+
   /**
    * Title of the box
    */
@@ -34,11 +38,16 @@
    */
   export let id: string = '';
 
+  /**
+   * Page theme
+   */
+  export let theme: Theme = 'light';
+
   import Block from '../Block/Block.svelte';
   import { marked } from 'marked';
 </script>
 
-<aside class="infobox">
+<aside class="infobox {theme}">
   <Block
     width="{width}"
     id="{id}"
@@ -79,7 +88,17 @@
   .infobox {
     :global(.article-block) {
       border-color: var(--theme-colour-brand-rules);
-      background-color: #fafafa;
+    }
+
+    &.light {
+      :global(.article-block) {
+        background-color: rgb(250 250 250 / 100%);
+      }
+    }
+    &.dark {
+      :global(.article-block) {
+        background-color: rgb(250 250 250 / 10%);
+      }
     }
 
     :global(.header p) {

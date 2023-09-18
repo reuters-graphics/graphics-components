@@ -11,6 +11,10 @@
   const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
+      theme: {
+        control: 'select',
+        options: ['light', 'dark'],
+      },
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
