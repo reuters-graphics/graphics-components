@@ -64,7 +64,7 @@
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "change-case": "^4.1.2",
-    "chromatic": "^6.19.9",
+    "chromatic": "^7.1.0",
     "colord": "^2.9.3",
     "css-color-converter": "^2.0.0",
     "deep-object-diff": "^1.1.9",
