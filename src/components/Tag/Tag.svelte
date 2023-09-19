@@ -33,32 +33,32 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
-  @import '../../scss/fonts/variables';
+  @import '../../scss/mixins';
 
   .tag {
     .tag--label {
-      font-family: var(--theme-font-family-hed, $font-family-display);
-      font-weight: 500;
-      font-size: 1rem;
+      @include font-hed;
+      @include font-medium;
+      @include tracking-normal;
+      @include fmt-3;
       text-transform: uppercase;
-      background-color: $tr-medium-yellow;
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      background-color: var(--tr-medium-yellow);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       width: auto;
       margin: 0;
       padding: 6px 4px;
-      border: 1px solid var(--nav-background, $white);
+      border: 1px solid var(--nav-background, var(--tr-white));
     }
     a {
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       text-decoration: none;
     }
     a:hover {
       cursor: pointer;
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
+      color: var(--theme-colour-text-primary, var(--tr-dark-grey));
       text-decoration: underline;
       .tag--label {
-        border: 1px solid var(--theme-colour-text-primary, $tr-dark-grey);
+        border: 1px solid var(--theme-colour-text-primary, var(--tr-dark-grey));
       }
     }
     &[data-size='big'] {
