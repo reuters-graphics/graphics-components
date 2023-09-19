@@ -17,6 +17,10 @@
   let isMobileMenuOpen = false;
 
   onMount(async () => {
+    // Only fire on prod...
+    if (new URL(document.location.href).origin !== 'https://www.reuters.com') {
+      return;
+    }
     try {
       const response = await fetch(
         'https://www.reuters.com/site-api/header/?' +
