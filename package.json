@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -266,7 +266,6 @@
     "./scss/colours/primary/violet": "./dist/scss/colours/primary/_violet.scss",
     "./scss/colours/primary/yellow": "./dist/scss/colours/primary/_yellow.scss",
     "./scss/colours/primary/zinc": "./dist/scss/colours/primary/_zinc.scss",
-    "./scss/colours/thematic/grey": "./dist/scss/colours/thematic/_grey.scss",
     "./scss/colours/thematic/nord": "./dist/scss/colours/thematic/_nord.scss",
     "./scss/colours/thematic/tr": "./dist/scss/colours/thematic/_tr.scss",
     "./scss/fonts/font-faces": "./dist/scss/fonts/_font-faces.scss",
