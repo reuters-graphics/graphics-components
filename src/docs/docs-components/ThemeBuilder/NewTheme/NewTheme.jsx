@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { Unstyled } from '@storybook/blocks';
+import VariableTable from '../CSSVariables/VariableTable';
 import classes from './styles.module.scss';
 import darkTheme from '../../../../components/Theme/themes/dark';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -40,6 +41,7 @@ body {
 }`}
       </SyntaxHighlighter>
     )}
+      <VariableTable theme={theme} />
     </div>
   );
 }
