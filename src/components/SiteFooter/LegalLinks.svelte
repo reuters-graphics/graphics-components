@@ -46,9 +46,8 @@
 <style lang="scss">
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
-  @import '../SiteHeader/scss/_colors.scss';
 
-  @import '../../scss/fonts/mixins';
+  @import '../../scss/mixins';
 
   .content-container {
     @include max-width;
@@ -68,7 +67,7 @@
   }
 
   .legal {
-    border-top: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-top: 1px solid var(--nav-rules);
 
     .content-container {
       @include spacing-single(padding-left padding-right);
@@ -141,8 +140,8 @@
       list-style: none;
       align-items: center;
       a {
-        @include font-display;
-        color: var(--nav-primary, $tr-dark-grey);
+        @include font-sans;
+        color: var(--nav-primary);
         font-size: 14px;
         font-weight: 500;
       }
@@ -157,9 +156,9 @@
   p.copyright,
   p.disclaimer {
     margin: 0;
-    @include font-display;
+    @include font-sans;
     font-size: 14px;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary);
     a {
       color: inherit;
     }

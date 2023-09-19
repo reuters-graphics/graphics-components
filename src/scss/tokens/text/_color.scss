@@ -1,0 +1,20 @@
+@use 'mixins/color' as *;
+
+.text-primary {
+  @include text-primary;
+}
+.text-secondary {
+  @include text-secondary;
+}
+.text-accent {
+  @include text-accent;
+}
+.\!text-primary {
+  @include \!text-primary;
+}
+.\!text-secondary {
+  @include \!text-secondary;
+}
+.\!text-accent {
+  @include \!text-accent;
+}

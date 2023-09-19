@@ -1,0 +1,93 @@
+.customiser :global {
+  p {
+    font-size: 14px;
+    color: #666;
+  }
+  div.key > button,
+  div.value > label > div > button {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    vertical-align: middle;
+    display: inline-flex;
+    div {
+      margin-right: 4px;
+      background-color: #fff;
+      border: 1px solid #bbb;
+      color: #777;
+      font-size: 1rem;
+      line-height: 1rem;
+      transition: all 0.2s;
+      width: 1.2rem;
+      height: 1.2rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      span {
+        display: inline-block;
+        font-size: 1rem;
+      }
+    }
+    &.open {
+      div {
+        // background-color: #666;
+        // border: 1px solid #bbb;
+        color: #333;
+        font-weight: bold;
+      }
+    }
+  }
+  div.key {
+    div.key {
+      padding-left: 10px;
+    }
+  }
+  div.value {
+    padding-left: 10px;
+    div.input-container {
+      padding-left: 0px;
+    }
+    input {
+      width: 100%;
+      outline: 0 !important;
+      margin: 5px 0 5px;
+      padding: 2px 5px;
+      background-color: rgb(245, 242, 240);
+      padding: 5px 5px !important;
+      border: 1px solid #ccc !important;
+      border-radius: 4px;
+    }
+    input[type='color'] {
+      width: 40px;
+    }
+  }
+}
+
+.colourpicker :global {
+  width: 160px;
+  margin-bottom: 10px;
+  .react-colorful {
+    height: 120px;
+    width: 160px;
+    border: 1px solid #666;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .react-colorful__saturation {
+    border-radius: 0;
+  }
+  .react-colorful__hue {
+    height: 20px;
+    border-radius: 0;
+  }
+  .react-colorful__pointer {
+    width: 20px;
+    height: 20px;
+  }
+  input {
+    width: 100%;
+    margin-bottom: 5px !important;
+  }
+}

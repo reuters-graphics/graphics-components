@@ -1,0 +1,66 @@
+@mixin font-serif {
+  font-family: var(--theme-font-family-serif);
+}
+@mixin font-sans {
+  font-family: var(--theme-font-family-sans-serif);
+}
+@mixin font-mono {
+  font-family: var(--theme-font-family-monospace);
+}
+@mixin font-hed {
+  font-family: var(--theme-font-family-hed);
+}
+@mixin font-subhed {
+  font-family: var(--theme-font-family-subhed);
+}
+@mixin font-body {
+  font-family: var(--theme-font-family-body);
+}
+@mixin font-note {
+  font-family: var(--theme-font-family-note);
+}
+@mixin font-source-sans-pro {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+@mixin font-knowledge {
+  font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+@mixin font-freight-text {
+  font-family: 'FreightText', serif;
+}
+@mixin font-noto-sans-jp {
+  font-family: 'Noto Sans JP';
+}
+@mixin \!font-serif {
+  font-family: var(--theme-font-family-serif) !important;
+}
+@mixin \!font-sans {
+  font-family: var(--theme-font-family-sans-serif) !important;
+}
+@mixin \!font-mono {
+  font-family: var(--theme-font-family-monospace) !important;
+}
+@mixin \!font-hed {
+  font-family: var(--theme-font-family-hed) !important;
+}
+@mixin \!font-subhed {
+  font-family: var(--theme-font-family-subhed) !important;
+}
+@mixin \!font-body {
+  font-family: var(--theme-font-family-body) !important;
+}
+@mixin \!font-note {
+  font-family: var(--theme-font-family-note) !important;
+}
+@mixin \!font-source-sans-pro {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
+}
+@mixin \!font-knowledge {
+  font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
+}
+@mixin \!font-freight-text {
+  font-family: 'FreightText', serif !important;
+}
+@mixin \!font-noto-sans-jp {
+  font-family: 'Noto Sans JP' !important;
+}

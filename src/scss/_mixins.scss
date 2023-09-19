@@ -1,6 +1,6 @@
-@import 'mixins/block';
-@import 'mixins/body-text';
-@import 'fonts/mixins';
-@import 'mixins/graphic';
-@import 'mixins/note-text';
-@import 'mixins/visually-hidden';
+@forward 'mixins/block';
+@forward 'tokens/accessibility/mixins/main';
+@forward 'tokens/backgrounds/mixins/main';
+@forward 'tokens/spacers/mixins/main';
+@forward 'tokens/text/mixins/main';
+@forward 'tokens/variables/main';

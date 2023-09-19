@@ -1,6 +1,6 @@
 Add share tools to a page.
 
-```html
+```svelte
 <script>
   import { Sharer } from '@reuters-graphics/graphics-components';
 </script>

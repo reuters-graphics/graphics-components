@@ -4,7 +4,7 @@ Many other components use this one to wrap graphics with styled text. When you u
 
 ---
 
-```html
+```svelte
 <script>
   import { GraphicBlock } from '@reuters-graphics/graphics-components';
 </script>

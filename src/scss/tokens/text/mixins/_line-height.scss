@@ -1,0 +1,38 @@
+/* Scales by 1.125 */
+
+@mixin leading-none {
+  line-height: 1;
+}
+@mixin leading-tighter {
+  line-height: 1.15;
+}
+@mixin leading-tight {
+  line-height: 1.3;
+}
+@mixin leading-normal {
+  line-height: 1.5;
+}
+@mixin leading-loose {
+  line-height: 1.7;
+}
+@mixin leading-looser {
+  line-height: 1.9;
+}
+@mixin \!leading-none {
+  line-height: 1 !important;
+}
+@mixin \!leading-tighter {
+  line-height: 1.1 !important;
+}
+@mixin \!leading-tight {
+  line-height: 1.3 !important;
+}
+@mixin \!leading-normal {
+  line-height: 1.5 !important;
+}
+@mixin \!leading-loose {
+  line-height: 1.7 !important;
+}
+@mixin \!leading-looser {
+  line-height: 1.9 !important;
+}

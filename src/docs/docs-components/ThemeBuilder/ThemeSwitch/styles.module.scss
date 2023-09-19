@@ -1,0 +1,40 @@
+.switch :global {
+  margin-bottom: 12px;
+  p {
+    font-size: 14px;
+    color: #666;
+  }
+  div {
+    border: 1px solid #999;
+    display: inline-block;
+    border-radius: 50px;
+    overflow: hidden;
+    padding: 0;
+  }
+  button {
+    padding: 5px 22px;
+    background-color: #efefef;
+    color: #999;
+    cursor: pointer;
+    border: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      color: #333;
+    }
+    span {
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+    }
+    &.active {
+      background-color: #fff;
+      color: rgb(0, 119, 170);
+      font-weight: bold;
+    }
+
+    &:first-child {
+      border-right: 1px solid #999;
+    }
+  }
+}

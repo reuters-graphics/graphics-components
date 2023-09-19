@@ -4,7 +4,7 @@ Blocks are stacked vertically within the well created by the [`Article`](./?path
 
 > 📌 Many of our other components already use the `Block` component, internally. You'll usually only need to use it yourself if you're making something custom.
 
-```html
+```svelte
 <script>
   import { Block } from '@reuters-graphics/graphics-components';
 </script>

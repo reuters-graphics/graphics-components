@@ -120,9 +120,8 @@
 <style lang="scss">
   @import '../SiteHeader/scss/_breakpoints.scss';
   @import '../SiteHeader/scss/_grids.scss';
-  @import '../SiteHeader/scss/_colors.scss';
 
-  @import '../../scss/fonts/mixins';
+  @import '../../scss/mixins';
 
   .content-container {
     @include max-width;
@@ -148,9 +147,9 @@
         display: flex;
         align-items: center;
         margin: 8px 0;
-        @include font-display;
+        @include font-sans;
         a {
-          color: var(--nav-primary, $tr-dark-grey);
+          color: var(--nav-primary);
           font-weight: 500;
           font-size: 16px;
         }
@@ -159,7 +158,7 @@
   }
 
   section.quick-links {
-    border-top: 1px solid var(--nav-rules, $tr-muted-grey);
+    border-top: 1px solid var(--nav-rules);
     max-width: 100%;
 
     .content-container {
@@ -169,7 +168,7 @@
     }
 
     h3 {
-      color: var(--nav-primary, $tr-dark-grey);
+      color: var(--nav-primary);
       font-size: 16px;
       font-weight: 400;
       margin: 0;

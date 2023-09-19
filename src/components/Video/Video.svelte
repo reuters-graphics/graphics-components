@@ -2,7 +2,7 @@
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import Controls from './Controls.svelte';
-  import Block from '../Block/Block.svelte';
+  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
 
   /// //////////////////////////////////
@@ -10,12 +10,49 @@
   /// //////////////////////////////////
 
   /**
-   * Video src.
+   * Video src
+   * @type {string}
+   * @required
    */
-  export let src = '';
-  export let ariaHidden = true;
-  export let ariaDescription = null;
-  export let caption = '';
+  export let src: string;
+
+  /**
+   * Image to be shown while the video is downloading
+   */
+  export let poster: string = '';
+
+  /**
+   * Whether to wrap the graphic with an aria hidden tag.
+   */
+  export let hidden: boolean = true;
+
+  /**
+   * ARIA description, passed in as a markdown string.
+   * @type {string}
+   */
+  export let ariaDescription: string | null = null;
+
+  /** Add extra classes to the block tag to target it with custom CSS. */
+  let cls: string = '';
+  export { cls as class };
+
+  /**
+   * Title of the graphic
+   * @type {string}
+   */
+  export let title: string | null = null;
+
+  /**
+   * Notes to the graphic, passed in as a markdown string.
+   * @type {string}
+   */
+  export let notes: string | null = null;
+
+  /**
+   * Description of the graphic, passed in as a markdown string.
+   * @type {string}
+   */
+  export let description: string | null = null;
 
   /**
    * Width of the block within the article well.
@@ -24,6 +61,14 @@
   export let width: ContainerWidth = 'normal';
 
   type PreloadOptions = 'auto' | 'none' | 'metadata';
+
+  /**
+   * Set a different width for the text within the text well, for example,
+   * "normal" to keep the title, description and notes inline with the rest
+   * of the text well. Can't ever be wider than `width`.
+   * @type {string}
+   */
+  export let textWidth: ContainerWidth | null = 'normal';
 
   /**
    * Preload options. `auto` is ignored if `autoplay` is true. Can also be `none` or `metadata`.
@@ -111,9 +156,9 @@
   };
 
   // Warning to missing aria attributes
-  if (ariaHidden && !ariaDescription) {
+  if (hidden && !ariaDescription) {
     console.warn(
-      'Must provide aria description for video components if ariaHidden is true.'
+      'Must provide aria description for video components if hidden is true.'
     );
   }
 </script>
@@ -123,8 +168,16 @@
   on:touchstart="{setInteractedWithDom}"
 />
 
-<Block width="{width}" cls="video-container">
+<GraphicBlock
+  textWidth="{textWidth}"
+  title="{title}"
+  description="{description}"
+  notes="{notes}"
+  width="{width}"
+  class="video {cls}"
+>
   <div
+    role="figure"
     on:mouseover="{() => {
       interactiveControlsOpacity = controlsOpacity;
     }}"
@@ -138,7 +191,7 @@
       interactiveControlsOpacity = 0;
     }}"
   >
-    {#if (ariaHidden && ariaDescription) || !ariaHidden}
+    {#if (hidden && ariaDescription) || !hidden}
       {#if ariaDescription}
         <p class="visually-hidden">{ariaDescription}</p>
       {/if}
@@ -147,14 +200,14 @@
         <!-- Video element with Intersection Observer -->
         <IntersectionObserver
           element="{element}"
-          bind:intersecting
+          bind:intersecting="{intersecting}"
           threshold="{playVideoThreshold}"
           once="{false}"
         >
           <div
             bind:this="{element}"
-            class="video-wrapper"
-            aria-hidden="{ariaHidden}"
+            class="video-wrapper relative block"
+            aria-hidden="{hidden}"
             bind:clientWidth="{widthVideoContainer}"
             bind:clientHeight="{heightVideoContainer}"
           >
@@ -177,29 +230,29 @@
                 />
               {:else}
                 <button
+                  class="border-0 m-0 p-0 bg-transparent absolute"
                   on:click="{() => {
                     paused === true ? (paused = false) : (paused = true);
                   }}"
-                  style="position: absolute; top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
+                  style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
                 ></button>
               {/if}
             {/if}
             <video
               bind:this="{videoElement}"
               src="{src}"
+              poster="{poster}"
+              class="pointer-events-none relative"
               width="100%"
               muted="{muteVideo}"
               playsinline
               preload="{preloadVideo}"
               loop="{loopVideo}"
               bind:currentTime="{time}"
-              bind:duration
-              bind:paused
+              bind:duration="{duration}"
+              bind:paused="{paused}"
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
-              style="{showControls
-                ? 'position: relative'
-                : 'position: relative'}"
             >
               <track kind="captions" />
             </video>
@@ -208,8 +261,8 @@
       {:else}
         <!-- Video element without Intersection observer -->
         <div
-          class="video-wrapper"
-          aria-hidden="{ariaHidden}"
+          class="video-wrapper relative"
+          aria-hidden="{hidden}"
           bind:clientWidth="{widthVideoContainer}"
           bind:clientHeight="{heightVideoContainer}"
         >
@@ -230,70 +283,39 @@
               />
             {:else}
               <button
+                class="border-0 m-0 p-0 bg-transparent absolute"
                 on:click="{() => {
                   paused === true ? (paused = false) : (paused = true);
                 }}"
-                style="position: absolute; top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
+                style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
               ></button>
             {/if}
           {/if}
           <video
             bind:this="{videoElement}"
             src="{src}"
+            poster="{poster}"
+            class="pointer-events-none relative"
             width="100%"
             muted="{muteVideo}"
             playsinline
             preload="{preloadVideo}"
             loop="{loopVideo}"
             bind:currentTime="{time}"
-            bind:duration
-            bind:paused
+            bind:duration="{duration}"
+            bind:paused="{paused}"
             autoplay
             bind:clientWidth="{widthVideo}"
             bind:clientHeight="{heightVideo}"
-            style="{showControls ? 'position: relative' : 'position: relative'}"
           >
             <track kind="captions" />
           </video>
         </div>
       {/if}
-      {#if caption}
-        <div class="caption">{caption}</div>
-      {/if}
     {/if}
   </div>
-</Block>
-
-<style lang="scss">
-  @import '../../scss/colours/thematic/tr';
-  .video-wrapper {
-    position: relative;
-    video {
-      pointer-events: none;
-    }
-  }
-  .visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-    clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
-  div.caption {
-    font-size: 0.8rem;
-    color: var(--theme-colour-text-secondary, $tr-medium-grey);
-  }
-
-  button {
-    border: none;
-    margin: 0;
-    padding: 0;
-    background: none;
-  }
-</style>
+  {#if $$slots.notes}
+    <!-- Custom notes and source slot -->
+    <slot name="notes" />
+  {/if}
+</GraphicBlock>

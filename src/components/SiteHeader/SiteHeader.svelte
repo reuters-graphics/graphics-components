@@ -17,6 +17,10 @@
   let isMobileMenuOpen = false;
 
   onMount(async () => {
+    // Only fire on prod...
+    if (new URL(document.location.href).origin !== 'https://www.reuters.com') {
+      return;
+    }
     try {
       const response = await fetch(
         'https://www.reuters.com/site-api/header/?' +
@@ -42,6 +46,7 @@
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
     --nav-accent: var(--theme-colour-brand-logo, #fa6400);
     --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
+    --theme-font-family-sans-serif: Knowledge, sans-serif;
   `}"
 >
   <div class="nav-container show-nav">
@@ -131,7 +136,7 @@
       top: 0;
       background: var(--nav-background, $white);
       pointer-events: auto;
-      border-bottom: 1px solid var(--nav-rules, $tr-muted-grey);
+      border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
 
       // @include for-tablet-down {
       //   border-bottom: none;

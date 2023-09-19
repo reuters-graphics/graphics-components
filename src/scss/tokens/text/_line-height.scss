@@ -1,0 +1,38 @@
+@use 'mixins/line-height' as *;
+
+.leading-none {
+  @include leading-none;
+}
+.leading-tighter {
+  @include leading-tighter;
+}
+.leading-tight {
+  @include leading-tight;
+}
+.leading-normal {
+  @include leading-normal;
+}
+.leading-loose {
+  @include leading-loose;
+}
+.leading-looser {
+  @include leading-looser;
+}
+.\!leading-none {
+  @include \!leading-none;
+}
+.\!leading-tighter {
+  @include \!leading-tighter;
+}
+.\!leading-tight {
+  @include \!leading-tight;
+}
+.\!leading-normal {
+  @include \!leading-normal;
+}
+.\!leading-loose {
+  @include \!leading-loose;
+}
+.\!leading-looser {
+  @include \!leading-looser;
+}

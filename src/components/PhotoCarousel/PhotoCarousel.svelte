@@ -5,11 +5,20 @@
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'wider';
 
+  /**
+   * Set a different width for captions within the text well, for example,
+   * "normal" to keep captions inline with the rest of the text well.
+   * Can't ever be wider than `width`.
+   * @type {string}
+   */
+  export let textWidth: ContainerWidth = 'normal';
+
   /** Add an ID to target with SCSS. */
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   interface Image {
     /**
@@ -96,7 +105,7 @@
   };
 </script>
 
-<Block width="{width}" id="{id}" cls="photo-carousel {cls}">
+<Block width="{width}" id="{id}" class="photo-carousel fmy-6 {cls}">
   <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"
@@ -113,9 +122,13 @@
         <SplideTrack>
           {#each photos as photo, i}
             <SplideSlide>
-              <div class="photo-slide">
-                <figure style="height: {carouselHeight}px;">
+              <div class="photo-slide w-full h-full relative">
+                <figure
+                  class="fm-0 w-full relative"
+                  style="height: {carouselHeight}px;"
+                >
                   <img
+                    class="w-full h-full fmy-0"
                     data-splide-lazy="{photo.src}"
                     alt="{photo.altText}"
                     style:object-fit="{photo.objectFit ||
@@ -127,7 +140,7 @@
                     <slot name="credit" credit="{photo.credit}" />
                   {:else}
                     <span
-                      class="credit"
+                      class="credit absolute fmb-1 fml-1 leading-tighter font-note text-xxs"
                       class:contain-fit="{photo.objectFit === 'contain' ||
                         defaultImageObjectFit === 'contain'}"
                       >{photo.credit}</span
@@ -141,18 +154,23 @@
 
         {#if photos[activeImageIndex].caption}
           <PaddingReset containerIsFluid="{width === 'fluid'}">
-            {#if $$slots.caption}
-              <slot
-                name="caption"
-                caption="{photos[activeImageIndex].caption}"
-              />
-            {:else}
-              {#key activeImageIndex}
-                <p class="caption" in:fly|local="{{ x: 20, duration: 175 }}">
-                  {photos[activeImageIndex].caption}
-                </p>
-              {/key}
-            {/if}
+            <Block width="{textWidth}">
+              {#if $$slots.caption}
+                <slot
+                  name="caption"
+                  caption="{photos[activeImageIndex].caption}"
+                />
+              {:else}
+                {#key activeImageIndex}
+                  <p
+                    class="caption body-caption text-center"
+                    in:fly|local="{{ x: 20, duration: 175 }}"
+                  >
+                    {photos[activeImageIndex].caption}
+                  </p>
+                {/key}
+              {/if}
+            </Block>
           </PaddingReset>
         {/if}
 
@@ -160,7 +178,7 @@
           <div class="splide__progress__bar"></div>
         </div>
 
-        <div class="splide__arrows">
+        <div class="splide__arrows fp-1">
           <button class="splide__arrow splide__arrow--prev">
             <Fa icon="{faChevronLeft}" fw />
           </button>
@@ -174,34 +192,17 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
+  @import '../../scss/mixins';
 
   .carousel-container {
-    margin-bottom: 10px;
     .photo-slide {
-      height: 100%;
-      width: 100%;
-      position: relative;
       figure {
-        margin: 0;
-        width: 100%;
-        position: relative;
-        img {
-          height: 100%;
-          width: 100%;
-        }
         span.credit {
-          position: absolute;
-          bottom: 4px;
-          left: 10px;
-          margin: 0;
-          font-size: 0.7rem;
+          bottom: 0;
+          left: 0;
           color: white;
-          letter-spacing: 0.75px;
           text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333,
             1px 1px 0 #333;
-          font-family: var(--theme-font-family-note);
           &.contain-fit {
             left: 50%;
             transform: translate(-50%, 0%);
@@ -214,30 +215,40 @@
         max-height: 100%;
       }
 
+      li {
+        padding: 0;
+      }
+
       .splide__arrows {
         width: 275px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
-        padding: 0px;
-        padding-top: 4px;
+
         button {
+          &.splide__arrow--prev {
+            padding-right: 7px;
+          }
+          &.splide__arrow--next {
+            padding-left: 7px;
+          }
+
           display: flex;
-          font-size: 12px;
+          font-size: 14px;
           height: 30px;
           width: 30px;
-          padding: 0;
           justify-content: center;
           align-items: center;
           border: 1px solid transparent;
           border-radius: 50%;
           background-color: transparent;
-          color: var(--theme-colour-text-secondary);
+          cursor: pointer;
+          @include text-secondary;
           opacity: 0.4;
           &:hover {
             opacity: 1;
-            border-color: var(--theme-colour-text-secondary);
-            color: var(--theme-colour-text-secondary);
+            border-color: $theme-colour-text-secondary;
+            @include text-secondary;
           }
           &:disabled {
             opacity: 0.4;
@@ -256,14 +267,14 @@
         flex-wrap: nowrap;
         li {
           flex-grow: 1;
+          margin-top: -9px;
           button {
             width: 100%;
             height: 7px;
             border-radius: 0;
-            margin: 0 0px;
             padding: 0;
-            border: 1px solid var(--theme-colour-background);
-            background: var(--theme-colour-text-secondary);
+            border: 1px solid $theme-colour-background;
+            background: $theme-colour-text-secondary;
             opacity: 0.4;
             &.is-active {
               opacity: 1;
@@ -271,14 +282,6 @@
           }
         }
       }
-    }
-    p.caption {
-      margin: 5px 0 0;
-      font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-secondary, $tr-medium-grey);
-      font-size: 0.85rem;
-      line-height: 1.1rem;
-      font-weight: 300;
     }
   }
 </style>

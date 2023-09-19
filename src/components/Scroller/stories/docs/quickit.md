@@ -2,7 +2,7 @@ For Graphics Kit users, the `Scroller` component is built-in for scrollytelling 
 
 First, import your ai2svelte graphics in `App.svelte` and add them to the `aiCharts` object;
 
-```html
+```svelte
 <!-- App.svelte -->
 <script>
   // Other stuff...

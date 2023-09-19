@@ -1,0 +1,48 @@
+.justify-normal {
+  justify-content: normal;
+}
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-evenly {
+  justify-content: space-evenly;
+}
+.justify-stretch {
+  justify-content: stretch;
+}
+.\!justify-normal {
+  justify-content: normal !important;
+}
+.\!justify-start {
+  justify-content: flex-start !important;
+}
+.\!justify-end {
+  justify-content: flex-end !important;
+}
+.\!justify-center {
+  justify-content: center !important;
+}
+.\!justify-between {
+  justify-content: space-between !important;
+}
+.\!justify-around {
+  justify-content: space-around !important;
+}
+.\!justify-evenly {
+  justify-content: space-evenly !important;
+}
+.\!justify-stretch {
+  justify-content: stretch !important;
+}

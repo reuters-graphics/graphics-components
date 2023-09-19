@@ -4,11 +4,11 @@ When it is enabled, readers can leaf through the data using a set of buttons bel
 
 This is a good option when publishing large tables for readers to explore. It works well with interactive features like searching and filters.
 
-```html
+```svelte
 <table
   data="{yourData}"
   paginated="{true}"
   title="{'Press Freedom Index'}"
   source="{'Reporters Without Borders'}"
-/>
+></table>
 ```

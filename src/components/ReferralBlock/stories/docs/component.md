@@ -4,7 +4,7 @@ The `ReferralBlock` component creates a set of referral links from recent dotcom
 >
 > You can get the section ID from the section page on dotcom. For example, the section ID for World - Europe stories at `www.reuters.com/world/europe/` would be `/world/europe/`. (The leading and trailing slashes are required!)
 
-```html
+```svelte
 <script>
   import { ReferralBlock } from '@reuters-graphics/graphics-components';
 </script>

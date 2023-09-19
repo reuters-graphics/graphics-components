@@ -17,7 +17,7 @@ slug: video
 
 </section>
 
-```html
+```svelte
 <script>
   import { assets } from '$app/paths'; // helper if importing video from 'statics'
   import { Video } from '@reuters-graphics/graphics-svelte-components';
@@ -59,7 +59,7 @@ Here is an example of what the same video would look like with a visibility thre
 
 </section>
 
-```html
+```svelte
 <script>
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
@@ -69,8 +69,7 @@ Here is an example of what the same video would look like with a visibility thre
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"
   loopVideo="{false}"
-  playVideoThreshold="{0.9}"
-/>
+  playVideoThreshold="{0.9}"></video>
 ```
 
 <DemoContainer>
@@ -109,7 +108,7 @@ Here is an example with bottom right corner white opaque controls, with a replay
 
 </section>
 
-```html
+```svelte
 <script>
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
@@ -165,7 +164,7 @@ and go to the top. Click anywhere on the page before scrolling down to the video
 
 </section>
 
-```html
+```svelte
 <script>
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
@@ -177,8 +176,7 @@ and go to the top. Click anywhere on the page before scrolling down to the video
   controlsOpacity="{1}"
   loopVideo="{false}"
   muteVideo="{false}"
-  allowSoundToAutoplay="{true}"
-/>
+  allowSoundToAutoplay="{true}"></video>
 ```
 
 <DemoContainer>

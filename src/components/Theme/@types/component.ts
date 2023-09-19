@@ -8,23 +8,46 @@ interface Colour {
   'brand-shadow': string;
 };
 
+interface FontFamily {
+  'serif': string,
+  'sans-serif': string,
+  'monospace': string,
+  hed: string,
+  subhed: string,
+  body: string,
+  note: string,
+}
+
+interface FontSize {
+  'xxs': string;
+  'xs': string;
+  'sm': string;
+  'base': string;
+  'lg': string;
+  'xl': string;
+  '2xl': string;
+  '3xl': string;
+  '4xl': string;
+  '5xl': string;
+  '6xl': string;
+}
+
 interface Font {
-  'size-base': string;
-  'family-serif': string,
-  'family-sans-serif': string,
-  'family-monospace': string,
-  'family-hed': string;
-  'family-subhed': string;
-  'family-body': string;
-  'family-note': string;
+  family: FontFamily;
+  size: FontSize;
+}
+
+interface CustomFont {
+  family?: Partial<FontFamily>;
+  size?: Partial<FontSize>;
 }
 
 export interface Theme {
-  colour: Colour,
+  colour: Colour;
   font: Font;
 };
 
 export interface CustomTheme {
-  colour?: Partial<Colour>,
-  font?: Partial<Font>
+  colour?: Partial<Colour>;
+  font?: Partial<CustomFont>;
 }

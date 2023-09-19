@@ -11,7 +11,7 @@
 </script>
 
 <Meta
-  title="Utilities/PaddingReset"
+  title="Components/PaddingReset"
   component="{PaddingReset}"
   {...withComponentDocs(componentDocs)}
 />

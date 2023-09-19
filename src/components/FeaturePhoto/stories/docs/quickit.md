@@ -9,7 +9,7 @@ AltText: The king of the sea
 Caption: Carcharodon carcharias - REUTERS
 ```
 
-```html
+```svelte
 <!-- App.svelte -->
 <script>
   // Add FeaturePhoto to imports from graphics-components
@@ -20,17 +20,19 @@ Caption: Carcharodon carcharias - REUTERS
   import { assets } from '$app/paths';
 </script>
 
-{#each content.blocks as block} {#if block.Type === 'text'}
-<!-- ... other blocks -->
+{#each content.blocks as block}
+  {#if block.Type === 'text'}
+    <!-- ... other blocks -->
 
-<!-- Copy/paste into your blocks loop! -->
-{:else if block.Type === 'photo'}
-<FeaturePhoto
-  width="{block.Width}"
-  src="{`${assets}/${block.Src}`}"
-  altText="{block.AltText}"
-  caption="{block.Caption}"
-/>
-<!-- END copy/paste -->
-{/if} {/each}
+    <!-- Copy/paste into your blocks loop! -->
+  {:else if block.Type === 'photo'}
+    <FeaturePhoto
+      width="{block.Width}"
+      src="{`${assets}/${block.Src}`}"
+      altText="{block.AltText}"
+      caption="{block.Caption}"
+    />
+    <!-- END copy/paste -->
+  {/if}
+{/each}
 ```

@@ -1,0 +1,118 @@
+@use 'mixins/fluid-margin' as *;
+
+@each $level, $value in $fluid-margin-levels {
+  %fm-#{$level} {
+    margin: $value;
+  }
+  %fmt-#{$level} {
+    margin-top: $value;
+  }
+  %fmr-#{$level} {
+    margin-right: $value;
+  }
+  %fmb-#{$level} {
+    margin-bottom: $value;
+  }
+  %fml-#{$level} {
+    margin-left: $value;
+  }
+  %fmx-#{$level} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+  %fmy-#{$level} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  %\!fm-#{$level} {
+    margin: $value !important;
+  }
+  %\!fmt-#{$level} {
+    margin-top: $value !important;
+  }
+  %\!fmr-#{$level} {
+    margin-right: $value !important;
+  }
+  %\!fmb-#{$level} {
+    margin-bottom: $value !important;
+  }
+  %\!fml-#{$level} {
+    margin-left: $value !important;
+  }
+  %\!fmx-#{$level} {
+    margin-left: $value !important;
+    margin-right: $value !important;
+  }
+  %\!fmy-#{$level} {
+    margin-top: $value !important;
+    margin-bottom: $value !important;
+  }
+}
+
+$fluid-margin-placeholder-levels: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+
+@each $level, $value in $fluid-margin-placeholder-levels {
+  .fm-#{$level} {
+    @extend %fm-#{$level};
+  }
+  .fmt-#{$level} {
+    @extend %fmt-#{$level};
+  }
+  .fmr-#{$level} {
+    @extend %fmr-#{$level};
+  }
+  .fmb-#{$level} {
+    @extend %fmb-#{$level};
+  }
+  .fml-#{$level} {
+    @extend %fml-#{$level};
+  }
+  .fmx-#{$level} {
+    @extend %fmx-#{$level};
+  }
+  .fmy-#{$level} {
+    @extend %fmy-#{$level};
+  }
+
+  .\!fm-#{$level} {
+    @extend %\!fm-#{$level};
+  }
+  .\!fmt-#{$level} {
+    @extend %\!fmt-#{$level};
+  }
+  .\!fmr-#{$level} {
+    @extend %\!fmr-#{$level};
+  }
+  .\!fmb-#{$level} {
+    @extend %\!fmb-#{$level};
+  }
+  .\!fml-#{$level} {
+    @extend %\!fml-#{$level};
+  }
+  .\!fmx-#{$level} {
+    @extend %\!fmx-#{$level};
+  }
+  .\!fmy-#{$level} {
+    @extend %\!fmy-#{$level};
+  }
+}
+
+.fm-auto {
+  @include fm-auto;
+}
+.fmx-auto {
+  @include fmx-auto;
+}
+.fmy-auto {
+  @include fmy-auto;
+}
+.\!fm-auto {
+  @include \!fm-auto;
+}
+.\!fmx-auto {
+  @include \!fmx-auto;
+}
+.\!fmy-auto {
+  @include \!fmy-auto;
+}

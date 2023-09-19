@@ -28,9 +28,11 @@
 
 <div class="nav-bar">
   <nav aria-label="Main navigation">
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <ul class="nav-list">
       {#each displaySections as section}
         {#if section.children}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
           <li
             class="nav-item category link"
             on:mouseenter="{() => {
@@ -83,6 +85,7 @@
           </li>
         {/if}
       {/each}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <li
         class="nav-item"
         on:mouseenter="{() => {
@@ -124,7 +127,7 @@
   @import './../scss/_colors.scss';
   @import './../scss/_breakpoints.scss';
   @import './../scss/_z-indexes.scss';
-  @import '../../../scss/fonts/mixins';
+  @import '../../../scss/mixins';
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;
@@ -138,15 +141,22 @@
   }
 
   .nav-list {
+    display: block;
     list-style: none;
     margin: 0;
     padding: 0;
+
+    font-family: var(--theme-font-family-sans-serif);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .nav-item {
     display: inline-flex;
+    margin: 0;
     padding: 0 10px;
-    @include font-display;
+    @include font-sans;
     font-weight: 500;
     font-size: 16px;
 
@@ -159,7 +169,7 @@
 
       a,
       span {
-        color: var(--nav-primary, $tr-dark-grey);
+        color: var(--nav-primary, var(--tr-dark-grey));
         text-decoration: none;
         &:hover,
         &:active {
@@ -172,7 +182,7 @@
           //   bottom: 0;
           //   display: block;
           //   height: 4px;
-          //   background: var(--nav-accent, $tr-orange);
+          //   background: var(--nav-accent, var(--tr-orange));
           //   opacity: 0.5;
           // }
         }
@@ -190,7 +200,7 @@
         bottom: 0;
         display: block;
         height: 4px;
-        background: var(--nav-accent, $tr-orange);
+        background: var(--nav-accent, var(--tr-orange));
         opacity: 1 !important;
       }
     }
@@ -207,7 +217,7 @@
         bottom: 0;
         display: block;
         height: 4px;
-        background: var(--nav-accent, $tr-orange);
+        background: var(--nav-accent, var(--tr-orange));
       }
     }
   }
@@ -219,10 +229,10 @@
     background-color: unset;
     appearance: none;
     cursor: pointer;
-    @include font-display;
+    @include font-sans;
     font-weight: 500;
     font-size: 16px;
-    color: var(--nav-primary, $tr-dark-grey);
+    color: var(--nav-primary, var(--tr-dark-grey));
 
     &:not(.focused) {
       outline: none;

@@ -32,14 +32,13 @@
 </svg>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
   .avoid-clicks {
     pointer-events: none;
   }
   path {
-    fill: var(--theme-colour-brand-rules, $tr-muted-grey);
+    fill: var(--theme-colour-brand-rules, var(--tr-muted-grey));
     &.active {
-      fill: var(--theme-colour-text-primary, $tr-dark-grey);
+      fill: var(--theme-colour-text-primary, var(--tr-dark-grey));
     }
   }
 </style>

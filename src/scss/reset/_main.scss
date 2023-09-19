@@ -1,0 +1,40 @@
+@use '../mixins' as *;
+@import 'normalize';
+@import 'typography';
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  .theme {
+    ::selection {
+      background-color: $theme-colour-text-secondary;
+      color: $theme-colour-background;
+    }
+  }
+}
+
+img,
+video {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  @include fmy-6;
+}
+
+figure {
+  @include fmy-6;
+  @include fmx-auto;
+}
+
+iframe {
+  border: 0;
+  width: 100%;
+}

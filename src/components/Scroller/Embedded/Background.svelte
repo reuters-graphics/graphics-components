@@ -8,7 +8,7 @@
   import Block from '../../Block/Block.svelte';
 </script>
 
-<Block width="{backgroundWidth}" cls="background-container step-{index + 1}">
+<Block width="{backgroundWidth}" class="background-container step-{index + 1}">
   <div class="embedded-background step-{index + 1}" aria-hidden="true">
     <svelte:component
       this="{step.background}"

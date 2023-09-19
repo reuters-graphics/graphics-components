@@ -40,10 +40,14 @@ jobs:
       - id: install-deps
         name: Install dependencies
         run: yarn install --frozen-lockfile
-      
+
       - id: build-docs
         name: Build docs
         run: npm run build:docs
+
+      - id: build-package
+        name: Build package
+        run: npm run build:package
 
       - id: version
         name: Version

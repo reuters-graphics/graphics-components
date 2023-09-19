@@ -1,6 +1,4 @@
-Add a byline and dateline with `byline` and `dateline` named slots.
-
-```html
+```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
 </script>
@@ -9,10 +7,7 @@ Add a byline and dateline with `byline` and `dateline` named slots.
   hed="{'Reuters Graphics Interactive'}"
   dek="{'The beginning of a beautiful page'}"
   section="{'Global news'}"
->
-  <!-- Use named slots to add a byline... -->
-  <span slot="byline">By <strong>Peppa Pig</strong></span>
-  <!-- ...and a dateline. -->
-  <span slot="dateline">Published Jan. 1, 2020</span>
-</Headline>
+  authors="{['Dea Bankova', 'Aditi Bhandari']}"
+  publishTime="{new Date('2020-01-01').toISOString()}"
+/>
 ```

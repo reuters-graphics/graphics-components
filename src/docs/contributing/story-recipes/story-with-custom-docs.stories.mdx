@@ -30,7 +30,7 @@ YourComponent/
 
 Now, import your markdown file in your story page component and attach it to either the `Meta` (for the top docs that introduce your component) or any individual `Story` using one of our handy docs utils.
 
-```html
+```svelte
 <!-- YourComponent.stories.svelte -->
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
@@ -49,7 +49,7 @@ Now, import your markdown file in your story page component and attach it to eit
   };
 </script>
 
-<Meta title="Components/YourComponent" component="{YourComponent}" {...meta}></Meta>
+<Meta title="Components/YourComponent" component="{YourComponent}" {...meta} />
 
 <template let:args>
   <YourComponent {...args} />
@@ -85,7 +85,7 @@ YourComponent/
 
 Now, import your snippet file in your story page component and attach it to any individual `Story` using our docs utils.
 
-```html
+```svelte
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
@@ -110,17 +110,23 @@ Now, import your snippet file in your story page component and attach it to any 
 </template>
 
 <!-- Pass source in inside an object keyed by your snippet's language, e.g., svelte, scss, etc. -->
-<Story name="Basic" args="{{ width: 'normal' }}" {...withSource({ svelte:
-defaultSnippet })} />
+<Story
+  name="Basic"
+  args="{{ width: 'normal' }}"
+  {...withSource({ svelte: defaultSnippet })}
+/>
 ```
 
 > **Pro tip:** If you pass your source code in directly, the code won't change prop values when users play with Storybook's built-in [controls panel](https://storybook.js.org/docs/svelte/essentials/controls), so it's best to start with a default example using the generated source code.
 
 If you're adding source code AND custom docs to a story, you can chain `withSource` and `withComponentDocs` like this:
 
-```html
+```svelte
 <!-- ... -->
 
-<Story name="Extra wide" args="{{ width: 'wider' }}"
-{...withComponentDocs(componentDocs, withSource({ svelte: defaultSnippet }))} />
+<Story
+  name="Extra wide"
+  args="{{ width: 'wider' }}"
+  {...withComponentDocs(componentDocs, withSource({ svelte: defaultSnippet }))}
+/>
 ```

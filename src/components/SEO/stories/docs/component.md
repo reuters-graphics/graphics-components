@@ -1,6 +1,6 @@
 The `SEO` component adds essential metadata to published pages.
 
-```html
+```svelte
 <script>
   import { SEO } from '@reuters-graphics/graphics-components';
 </script>

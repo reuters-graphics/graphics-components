@@ -1,0 +1,180 @@
+$copyable: #0071a1;
+$header: #5e81ac;
+
+.title {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 0;
+  font-weight: 400;
+  margin-top: 2rem;
+  a span {
+    font-size: 18px;
+    line-height: 18px;
+    margin-left: 2px;
+    vertical-align: middle;
+    font-weight: bold;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.table :global {
+  min-height: 100px;
+  margin: 0 0 3rem;
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  border-radius: 4px;
+  overflow: hidden;
+  th,
+  td {
+    padding: 6px 13px;
+    font-family: 'Nunito Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  thead tr {
+    // background-color: #5e81ac;
+    color: #333;
+    text-align: left;
+    th {
+      font-weight: bold;
+      color: #2e3438;
+      border: 1px solid hsla(203, 50%, 30%, 0.15);
+      margin: 0;
+
+      border-collapse: collapse;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+  thead {
+    display: block;
+    width: 100%;
+    tr {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+    }
+  }
+  tbody {
+    display: block;
+    max-height: 605px;
+    overflow-y: scroll;
+    border-bottom: 1px solid hsla(203, 50%, 30%, 0.15);
+  }
+  tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border: 1px solid hsla(203, 50%, 30%, 0.15);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #404040;
+    td {
+      border-right: 1px solid #eee;
+      vertical-align: middle;
+      color: #2e3438;
+      position: relative;
+      button {
+        text-align: left;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+        color: $copyable;
+
+        span {
+          font-size: 1rem;
+          color: inherit;
+          margin-right: 5px;
+          vertical-align: bottom;
+        }
+        div.copy-tag {
+          position: absolute;
+          right: 4px;
+          top: 50%;
+          transform: translate(0, -50%);
+          background-color: #333;
+          pointer-events: none;
+          color: white;
+          padding: 4px 6px;
+          border-radius: 4px;
+          font-size: 12px;
+        }
+        &:active {
+          transform: translate(1px, 1px);
+        }
+      }
+    }
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: #f7fafc;
+  }
+
+  div.swatch-container {
+    display: flex;
+    align-items: center;
+  }
+
+  div.swatch {
+    width: 40px;
+    height: 40px;
+    border: 1px solid hsla(203, 50%, 30%, 0.15);
+    border-radius: 10px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+.importsnippet :global {
+  max-width: 600px;
+  position: relative;
+  p {
+    font-size: 0.8rem;
+    line-height: 1;
+    background-color: #0071a1;
+    padding: 5px 10px;
+    color: white;
+    display: inline-block;
+    margin-bottom: 5px;
+    border-radius: 2px;
+  }
+
+  pre {
+    margin-top: 0 !important;
+    border-radius: 4px;
+    border: 1px solid hsla(203, 50%, 30%, 0.15);
+    padding: 0.5rem 1rem !important;
+    & * {
+      font-size: 0.8rem;
+    }
+  }
+  .copy-btn {
+    position: absolute;
+    background-color: #0071a1;
+    color: white;
+    font-size: 0.8rem;
+    border: 0;
+    padding: 5px 10px;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    .material-symbols-outlined {
+      font-size: 1.1rem;
+    }
+    span.copy-tag {
+      margin-left: 5px;
+    }
+  }
+}

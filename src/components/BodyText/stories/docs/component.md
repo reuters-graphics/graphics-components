@@ -2,7 +2,7 @@ The `BodyText` creates the main text of your page. You can pass the `text` prop 
 
 Use it like this:
 
-```html
+```svelte
 <script>
   import { BodyText } from '@reuters-graphics/graphics-components';
 
@@ -18,14 +18,16 @@ Use it like this:
 
 ... or more commonly, you'll use it with a Google doc in the Graphics Kit like this:
 
-```html
+```svelte
 <script>
   import { BodyText } from '@reuters-graphics/graphics-components';
 
   import content from '$locales/en/content.json';
 </script>
 
-{#each content.blocks as block} {#if block.Type === 'text'}
-<BodyText text="{block.Text}" />
-{/if} {/each}
+{#each content.blocks as block}
+  {#if block.Type === 'text'}
+    <BodyText text="{block.Text}" />
+  {/if}
+{/each}
 ```

@@ -51,7 +51,7 @@
    * of the text well. Can't ever be wider than `width`.
    * @type {string}
    */
-  export let textWidth: ContainerWidth | null = null;
+  export let textWidth: ContainerWidth | null = 'normal';
 
   let frameElement;
 
@@ -103,6 +103,7 @@
       src="{src}"
       scrolling="{scrolling}"
       frameborder="0"
+      data-chromatic="ignore"
       style="width: 0; min-width: 100% !important; border: none;"></iframe>
   </div>
 
@@ -111,9 +112,3 @@
     <slot name="notes" />
   {/if}
 </GraphicBlock>
-
-<style lang="scss">
-  .datawrapper-chart {
-    margin: auto;
-  }
-</style>
