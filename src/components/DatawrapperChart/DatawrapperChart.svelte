@@ -103,6 +103,7 @@
       src="{src}"
       scrolling="{scrolling}"
       frameborder="0"
+      data-chromatic="ignore"
       style="width: 0; min-width: 100% !important; border: none;"></iframe>
   </div>
 
