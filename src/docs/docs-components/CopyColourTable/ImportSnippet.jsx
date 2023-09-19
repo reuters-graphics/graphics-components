@@ -8,6 +8,10 @@ import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 
 SyntaxHighlighter.registerLanguage('scss', scss);
 
+const formatPartial = (partial) => {
+  return partial.replace(/\/_/, '/').replace(/\.scss$/, '');
+};
+
 const Copyable = (props) => {
   const [copied, setCopied] = useState(false);
 
@@ -19,7 +23,7 @@ const Copyable = (props) => {
   }, [copied]);
 
   const handleClick = async({ partial }) => {
-    const copyText = `@import "@reuters-graphics/graphics-components/dist/scss/colours/${partial}";`
+    const copyText = `@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`
     await navigator.clipboard.writeText(copyText);
     setCopied(true);
   }
@@ -40,7 +44,7 @@ const ImportSnippet = ({ included = false, partial = 'thematic/_tr.scss' }) => {
   ) : (
     <div className={classes.importsnippet}>
       <SyntaxHighlighter language="scss" style={prism}>
-        {`// global.scss \n@import "@reuters-graphics/graphics-components/dist/scss/colours/${partial}";`}
+        {`// global.scss \n@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
       </SyntaxHighlighter>
       <Copyable partial={partial} />
     </div>
