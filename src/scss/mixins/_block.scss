@@ -1,8 +1,4 @@
-$column-width-narrower: 330px !default;
-$column-width-narrow: 510px !default;
-$column-width-normal: 660px !default;
-$column-width-wide: 930px !default;
-$column-width-wider: 1200px !default;
+@use '../tokens/variables/block' as *;
 
 @mixin block-snap-widths($article-padding: 30px) {
   width: $column-width-narrower;
@@ -52,10 +48,11 @@ $column-width-wider: 1200px !default;
     }
   }
 
-  &.widest, &.fluid {
+  &.widest,
+  &.fluid {
     width: inherit;
   }
-  
+
   &.fluid {
     width: calc(100% + $article-padding);
   }
