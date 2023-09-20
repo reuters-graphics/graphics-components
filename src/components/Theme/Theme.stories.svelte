@@ -6,6 +6,8 @@
   // @ts-ignore
   import customiseDocs from './stories/docs/customise.md?raw';
   // @ts-ignore
+  import customiseFontDocs from './stories/docs/customise-font.md?raw';
+  // @ts-ignore
   import patternDocs from './stories/docs/pattern.md?raw';
   // @ts-ignore
   import inheritanceDocs from './stories/docs/inheritance.md?raw';
@@ -14,6 +16,8 @@
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
 
   import Theme, { themes } from './Theme.svelte';
+
+  import Headline from '../Headline/Headline.svelte';
 
   import {
     withComponentDocs,
@@ -54,11 +58,28 @@
   <Theme
     base="dark"
     theme="{{
-      colour: { accent: 'yellow' },
-      font: { family: { hed: 'freight-book' } },
+      colour: { accent: 'var(--tr-light-orange)' },
+      font: { family: { hed: 'FreightText, serif' } },
     }}"
   >
     <ThemedPage />
+  </Theme>
+</Story>
+
+<Story name="Custom Google font" {...withStoryDocs(customiseFontDocs)}>
+  <Theme
+    base="light"
+    theme="{{
+      font: { family: { hed: 'Bebas Neue, sans-serif' } },
+    }}"
+  >
+    <div class="gfont">
+      <Headline
+        hed="{'Reuters Graphics Interactive'}"
+        dek="{'The beginning of a beautiful page'}"
+        section="{'Global news'}"
+      />
+    </div>
   </Theme>
 </Story>
 
@@ -91,7 +112,7 @@
           <Theme
             theme="{{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
-              font: { family: { note: 'freight-book' } },
+              font: { family: { note: 'FreightText, serif' } },
             }}"
             base="dark"
           >
@@ -106,6 +127,8 @@
 </Story>
 
 <style lang="scss">
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
   div.themed {
     background-color: var(--theme-colour-background);
     padding: 2rem;

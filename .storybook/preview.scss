@@ -1,5 +1,5 @@
 body {
-  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+  font-family: 'Nunito Sans', Helvetica, Arial, sans-serif;
 }
 
 table.docblock-argstable {
@@ -17,11 +17,12 @@ div.sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
   font-size: 16px;
 }
 
-div.sbdocs-content  {
-  h1 {
+div.sbdocs-content {
+  h1:not(.sbdocs-preview *) {
     font-family: 'Knowledge', sans-serif;
   }
-  & > h2, & > div > div > h2 {
+  & > h2,
+  & > div > div > h2 {
     margin-top: 4rem;
     margin-bottom: 2rem;
     &:first-of-type {
@@ -39,7 +40,7 @@ div.sbdocs-content  {
     font-size: 18px;
     line-height: 29px;
     font-family: 'Knowledge', sans-serif;
-  
+
     .highlight {
       background-color: rgb(254, 254, 160);
       padding: 0 4px;
@@ -59,7 +60,7 @@ div.sbdocs-content  {
   }
 }
 
-.sbdocs-content  {
+.sbdocs-content {
   blockquote:not(.sb-unstyled *) {
     background-color: #ededed;
     padding: 15px 20px;
@@ -79,11 +80,13 @@ div.sbdocs-content  {
   h1 {
     font-family: 'Knowledge', sans-serif;
   }
-  p, ul, li {
+  p,
+  ul,
+  li {
     font-size: 18px;
     line-height: 29px;
     font-family: 'Knowledge', sans-serif;
-  
+
     .highlight {
       background-color: rgb(254, 254, 160);
       padding: 0 4px;
@@ -110,7 +113,7 @@ div.sbdocs-content  {
       background-color: #efefef;
       padding: 2px 4px;
     }
-  
+
     img {
       display: block;
       margin-top: 1rem;

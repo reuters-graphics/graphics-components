@@ -10,16 +10,9 @@
     hed="{'Reuters Graphics Interactive'}"
     dek="{'The beginning of a beautiful page'}"
     section="{'Global news'}"
-  >
-    <!-- Use named slots to add a byline... -->
-    <span slot="byline">By <strong>Peppa Pig</strong></span>
-    <!-- ...and a dateline. -->
-    <span slot="dateline"
-      >Published <time datetime="{new Date('2020-01-01').toISOString()}"
-        >Jan. 1, 2020</time
-      ></span
-    >
-  </Headline>
+    authors="{['Jon McClure', 'Prasanta Kumar Dutta']}"
+    publishTime="{new Date('2021-09-12').toISOString()}"
+  />
   <BodyText
     text="{`Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.
 
@@ -45,6 +38,6 @@ Shank strip steak turkey shoulder shankle leberkas pork chop, t-bone picanha buf
 <style>
   div.fake-graphic {
     height: 200px;
-    border: 1px solid var(--theme-colour-text-primary);
+    border: 1px solid var(--theme-colour-accent);
   }
 </style>
