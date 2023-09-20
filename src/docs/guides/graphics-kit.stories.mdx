@@ -14,11 +14,11 @@ import quickitImg from './imgs/quickit.png';
 
 If you haven't, check out ["Using Reuters Graphics Components" in the Graphics Kit docs](https://reuters-graphics.github.io/docs_graphics-kit/for_developers/graphics-components/) to get a general idea of how to use components.
 
+## Quickit
+
 Look <span class="highlight">for <strong>🚀 QUICKIT</strong> stories</span> (Quick Kit 🤣🙄) for some of our most commonly used components. These stories
 include easy copy/paste snippets as well as Google Doc block examples that should
 shortcut getting a component working in the Graphics Kit.
-
-<img src={quickitImg} width="200" />
 
 (Want a QUICKIT story for another component? [Just ask us!](https://github.com/reuters-graphics/graphics-components/issues/new?labels=%F0%9F%93%9A%20documentation&assignees=hobbes7878))
 
@@ -44,19 +44,13 @@ In most cases, that means you'll need to prefix relative paths with the special 
 
 ```svelte
 <script>
-  import content from '$locales/en/content.json';
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
 
   // This is already imported for you in App.svelte
   import { assets } from '$app/paths';
 </script>
 
-{#each content.blocks as block}
-<!-- ... other blocks -->
-
-<!-- Use assets to prefix the path to the image. -->
-{:else if block.Type === 'photo'} <FeautrePhoto
-src={`${assets}/${block.PathToImage}`} /> {/each}
+<FeautrePhoto src="{`${assets}/imgs/myImage.jpg`}" />
 ```
 
 ### How do I change this component's styles?
