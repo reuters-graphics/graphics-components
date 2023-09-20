@@ -137,10 +137,8 @@ In rare cases, you can use the SCSS `:global` operator to style child elements i
 
 <style lang="scss">
   svg {
-    :global {
-      path {
-        stroke: black;
-      }
+    :global(path) {
+      stroke: black;
     }
   }
 </style>
