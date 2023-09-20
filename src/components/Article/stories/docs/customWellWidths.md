@@ -8,8 +8,6 @@ The `Article` component also creates several column dimensions inside our articl
 - `widest` Edge-to-edge, but _excluding_ the left and right padding on `Article`
 - `fluid` Fully edge-to-edge
 
-(Check out the below demo in the "Canvas" tab to better see the wider differences.)
-
 When combined with the `Block` component, you can set custom column widths by passing an object to the `columnWidths` prop with pixel values for the `narrower`, `narrow`, `normal`, `wide` and `wider` column widths.
 
 > **For most pages, you shouldn't customise the column widths.** Other tools, like our AI templates, use our default column widths, so customising those widths here has downstream consequences for graphics made outside your code. The main exception is SREP stories.

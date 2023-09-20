@@ -7,11 +7,11 @@ import { parameters } from '$docs/utils/docsPage.js';
 
 # Using with Google docs
 
-Most of the default examples in these docs show how to use components by passing data into them directly through props. In the Kit, though, you likely won't be hard-coding things like text strings in your code and instead will get them from a Google doc.
+Most of the default examples in these docs show how to use components by passing data into them directly through props. In the Kit, though, you likely won't be hard-coding things like text strings in your code and instead will get them from a Google Doc.
 
 It's usually easy to use a Google Doc to fill in the props for our components, but it may mean you need to write a tiny bit of code to translate strings from a doc into the data type our component's props expect.
 
-Let's look at a basic component, `ProfileCard`, with a demo that looks like this in the docs:
+Let's look at a basic component, a `ProfileCard`, with a demo that looks like this in the docs:
 
 ```svelte
 <script>
@@ -20,7 +20,7 @@ Let's look at a basic component, `ProfileCard`, with a demo that looks like this
 
 <ProfileCard
   name="Tom"
-  img="{'https://cats.com/cat1.jpg'}"
+  img="https://cats.com/cat1.jpg"
   birthday="{new Date('2020-09-25')}"
   bio="Some notes.\n\nWith multiple paragraphs."
   isStaff="{true}"
@@ -55,13 +55,18 @@ Now we can tie that data into your blocks loop like this:
 </script>
 
 {#each content.blocks as block}
-<!-- ... other blocks -->
+  <!-- ... -->
 
-{:else if block.Type === 'profile-card'} <ProfileCard name="{block.Name}"
-img={`${assets}/${block.Image}`} birthday={new Date(block.Birthday)}
-bio="{block.Bio}" isStaff={block.Staff === 'true'} />
+  {:else if block.Type === 'profile-card'}
+    <ProfileCard
+      name="{block.Name}"
+      img={`${assets}/${block.Image}`}
+      birthday={new Date(block.Birthday)}
+      bio="{block.Bio}"
+      isStaff={block.Staff === 'true'}
+    />
 
-<!-- ... other blocks -->
+  <!-- ... -->
 {/each}
 ```
 

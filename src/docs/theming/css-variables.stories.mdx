@@ -27,14 +27,14 @@ You can use any of the CSS variables the `Theme` component sets in your own code
 <style lang="scss">
   p {
     color: var(--theme-colour-text-primary);
-    font-family: var(--theme-typeface-monospace);
+    font-family: var(--theme-font-family-sans-serif);
   }
 </style>
 ```
 
 ## Customising variables
 
-You can redefine any of the above CSS variables in the `<Theme>` component. Read more in [the docs](/docs/theming-theme--custom-theme).
+You can redefine any of the above CSS variables in the `<Theme>` component. Read more in [the docs](/docs/theming-theme--custom-theme) and **use the [Theme builder](/docs/theming-theme-builder--docs)**.
 
 ```svelte
 <Theme
@@ -52,7 +52,7 @@ You can redefine any of the above CSS variables in the `<Theme>` component. Read
 
 ## Adding extra variables
 
-You can obviously add your own CSS variables to any page. While you could set your custom variables in, for example, a global SCSS stylesheet like `global.scss`, we generally recommend setting them directly through the `Theme` component.
+You can even add custom variables through the `Theme` component.
 
 For example, let's say you want to define a border radius for some card elements on your page. You can add a custom property to the `theme` prop like this:
 
@@ -81,9 +81,9 @@ For example, let's say you want to define a border radius for some card elements
 </style>
 ```
 
-Using the `Theme` component for your own CSS variables lets clients customise them the same as any of our default theme values.
+Using the `Theme` component for your own CSS variables helps unify important style values across a project. It also lets clients more easily customise those values for whatever matches their brand.
 
-You can also easily change a variable's value based on some condition. For example, to set a smaller border radius on mobile screens, you might:
+You can also change a variable's value based on some condition. For example, to set a smaller border radius on mobile screens, you might:
 
 ```svelte
 <script>

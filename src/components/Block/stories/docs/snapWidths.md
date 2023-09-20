@@ -17,7 +17,7 @@ If you want to skip certain block widths entirely, you can add one or more class
 </Block>
 ```
 
-This is probably easier to see in action than explain in words, so check out the "Canvas" tab for the demo below and resize the window to get a better picture of how it all works.
+This is probably easier to see in action than explain in words, so resize the window to get a better picture of how it all works.
 
 > **NOTE:** The snap width breakpoints only work on `Block` components with widths `wider` and below. `widest` and `fluid` are both **always** fluid, since they go edge-to-edge.
 

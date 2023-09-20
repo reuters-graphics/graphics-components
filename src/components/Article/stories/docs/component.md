@@ -7,7 +7,7 @@ The `Article` component contains all the content of our story and also establish
   import { Article } from '@reuters-graphics/graphics-components';
 </script>
 
-<article>
+<Article>
   <!-- The story stuff goes in here! -->
-</article>
+</Article>
 ```

@@ -3,13 +3,11 @@ import { parameters } from '$docs/utils/docsPage.js';
 
 import storiesImg from './imgs/stories.png';
 import introImg from './imgs/intro.png';
-import tabsImg from './imgs/tabs.png';
 import argsImg from './imgs/argstable.png';
 import frameImg from './imgs/frame.png';
 import copyImg from './imgs/copy-code.png';
 import propImg from './imgs/prop.png';
 import moreStoriesImg from './imgs/more-stories.png';
-import otherDocsImg from './imgs/other-docs.png';
 
 <Meta title="Guides/Using these docs" parameters={{ ...parameters }} />
 
@@ -23,13 +21,16 @@ The docs in this site include interactive examples of how to use our components,
 
 Component docs are written using a framework called [Storybook](https://storybook.js.org/docs/svelte/get-started/introduction), which creates a page for each component. You can find those pages in left-hand nav on the site.
 
-Each component page then has one or more "stories" or demos of how the component works:
+Each component has a Docs page and one or more "stories" or demos that show how the component works:
 
-<img src={storiesImg} width="150" style={{ margin: '0 0 2rem' }} />
+<img
+  src={storiesImg}
+  style={{ maxWidth: '300px', width: '100%', margin: '0 0 2rem' }}
+/>
 
 ### Parts of a component page
 
-Each component page starts with an **intro** that includes a little documentation and a code snippet showing the simplest way to import and use a component.
+Each component page starts with an intro that includes a little documentation and a code snippet. The intro always shows the simplest way to import and use a component.
 
 <img src={introImg} width="650" style={{ margin: '0 0 2rem' }} />
 
@@ -37,36 +38,22 @@ Next is a **frame** that shows how the component looks. Each story will have its
 
 <img src={frameImg} width="650" style={{ margin: '0 0 2rem' }} />
 
-Below the `Default` story frame is an **args table**. <span class="highlight bold">This is the most important part of every component's page.</span> The args table documents all the props and slots a component has, i.e., all the ways you can customise it.
+Below the story frame is an **args table**. <span class="highlight bold">This is the most important part of every component's page.</span> The args table documents all the [props](https://learn.svelte.dev/tutorial/declaring-props) and [slots](https://learn.svelte.dev/tutorial/slots) a component has, i.e., all the ways you can customise it.
 
 <img src={argsImg} width="100%" style={{ margin: '0 0 2rem', maxWidth: 800 }} />
 
 Each prop includes its name and a description with the data type that prop expects as well as the default value, if there is one.
 
-The `Control` column gives you a way to play with the value of that prop in the live demo. Make changes here, and for most components, they'll update the demo frame to reflect your changes.
+The `Control` column in the table gives you a way to play with the value of that prop in the live demo. Make changes here, and for most components, they'll update the demo frame to reflect your changes.
 
 Click the "Show code" button in the frame to see how your component looks with the props you set.
 
 <img src={copyImg} width="100%" style={{ margin: '2rem 0', maxWidth: 800 }} />
 
-You can also go to the `Canvas` tab at the top left of the page to get a better view of the component while you're playing with its controls.
-
-<img src={tabsImg} width="200" style={{ margin: '0 0 2rem' }} />
-
 From there, more stories show other ways you might use a component, also with a snippet you can copy into your own page.
 
 <img
   src={moreStoriesImg}
-  width="100%"
-  style={{ margin: '2rem 0', maxWidth: 800 }}
-/>
-
-## Other docs pages
-
-Other docs pages are simple markdown documents that include useful snippets you can copy/paste into your code.
-
-<img
-  src={otherDocsImg}
   width="100%"
   style={{ margin: '2rem 0', maxWidth: 800 }}
 />
