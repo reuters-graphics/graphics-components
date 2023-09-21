@@ -32,8 +32,50 @@
   {/if}
 </div>
 
+<p>
+  Here is some running <span class="body-tag">long text tag</span> text and some
+  more...
+</p>
+
+<div>
+  Just a <span class="body-tag !text-xs">smolpill</span>
+</div>
+
+<p class="mt-5">
+  Here is some hyperlinked <span class="body-tag"
+    ><a href="#home">long text tag</a></span
+  > text and some more...
+</p>
+
 <style lang="scss">
   @import '../../scss/mixins';
+
+  .body-tag {
+    @include text-sm;
+    @include font-bold;
+    @include font-sans;
+    text-transform: uppercase;
+    @include tracking-wide;
+    @include fpx-2;
+    @include fpy-1;
+    white-space: nowrap;
+    border: 1px solid var(--theme-colour-background, #ffffff);
+    background-color: var(--theme-colour-accent, #fafafa);
+    border-radius: 0.125rem;
+
+    a {
+      // text-decoration-line: none;
+      @include fpx-2;
+      @include fpy-1;
+      margin-top: calc(-1 * clamp(0.31rem, calc(0.31rem + 0vw), 0.31rem));
+      margin-bottom: calc(-1 * clamp(0.31rem, calc(0.31rem + 0vw), 0.31rem));
+      margin-left: calc(-1 * clamp(0.56rem, calc(0.52rem + 0.21vw), 0.69rem));
+      margin-right: calc(-1 * clamp(0.56rem, calc(0.52rem + 0.21vw), 0.69rem));
+      &:hover {
+        outline: 1px solid var(--theme-colour-text-secondary, #404040);
+      }
+    }
+  }
 
   .tag {
     .tag--label {
