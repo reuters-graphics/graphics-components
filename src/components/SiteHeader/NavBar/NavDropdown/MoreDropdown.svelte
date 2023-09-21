@@ -1,11 +1,19 @@
 <script>
   import NavDropdown from './index.svelte';
-  import { normalizeUrl } from '../utils';
+  import { normalizeUrl, normalizeUrlJp } from '../utils';
 
   export let sections = [];
+  export let lang = 'en';
+  const normaliseUrl = lang === 'ja' ? normalizeUrlJp : normalizeUrl;
+  const labels = {
+    'Trending Stories': {
+      default: 'Trending Stories',
+      ja: '人気の記事',
+    },
+  };
 </script>
 
-<NavDropdown>
+<NavDropdown lang="{lang}" headingText="{labels['Trending Stories'][lang]}">
   <div class="more-sections">
     <div class="groupContainer">
       {#each sections as section}
@@ -13,14 +21,14 @@
           class="more-section-group"
           class:has-children="{section.children}"
         >
-          <a href="{normalizeUrl(section.url)}" class="section-link">
+          <a href="{normaliseUrl(section.url)}" class="section-link">
             {section.name}
           </a>
           {#if section.children}
             <ul class="subsections">
               {#each section.children as sub}
                 <li>
-                  <a class="subsection-link" href="{normalizeUrl(sub.url)}"
+                  <a class="subsection-link" href="{normaliseUrl(sub.url)}"
                     >{sub.name}</a
                   >
                 </li>

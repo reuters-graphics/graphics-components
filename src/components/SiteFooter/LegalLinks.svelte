@@ -1,17 +1,19 @@
 <script>
-  import { normalizeUrl } from '../SiteHeader/NavBar/utils';
+  import { normalizeUrl, normalizeUrlJp } from '../SiteHeader/NavBar/utils';
 
   export let links = {};
+  export let lang = 'en';
+  const normaliseUrl = lang === 'ja' ? normalizeUrlJp : normalizeUrl;
 </script>
 
 {#if links.ad_links}
-  <section class="legal">
+  <section class="legal" lang="{lang}">
     <div class="content-container">
       <section class="ad-links">
         <ul class="link-group">
           {#each links.ad_links as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">
+              <a href="{normaliseUrl(link.url)}">
                 {link.text}
               </a>
             </li>
@@ -19,16 +21,23 @@
         </ul>
       </section>
       <p class="disclaimer">
-        All quotes delayed a minimum of 15 minutes. <a
-          href="{normalizeUrl(links.disclaimer_link)}"
-          >See here for a complete list of exchanges and delays</a
-        >.
+        {#if lang === 'ja'}
+          掲載の情報は15分以上の遅れで表示しています。<a
+            href="{normalizeUrl(links.disclaimer_link)}"
+            >詳しくはこちらをご確認ください</a
+          >。
+        {:else}
+          All quotes delayed a minimum of 15 minutes. <a
+            href="{normalizeUrl(links.disclaimer_link)}"
+            >See here for a complete list of exchanges and delays</a
+          >.
+        {/if}
       </p>
       <section class="misc-links">
         <ul class="link-group">
           {#each links.misc_links.filter((d) => !d.self) as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">
+              <a href="{normaliseUrl(link.url)}">
                 {link.text}
               </a>
             </li>
@@ -37,7 +46,7 @@
       </section>
       <p class="copyright">
         © {links.copyright_year} Reuters.
-        <a href="{normalizeUrl(links.copyright_link)}">All rights reserved</a>
+        <a href="{normaliseUrl(links.copyright_link)}">All rights reserved</a>
       </p>
     </div>
   </section>
@@ -161,6 +170,15 @@
     color: var(--nav-primary);
     a {
       color: inherit;
+    }
+  }
+  .legal {
+    &[lang='ja'] {
+      .link-group {
+        a {
+          font-weight: 600;
+        }
+      }
     }
   }
 </style>

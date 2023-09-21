@@ -1,0 +1,186 @@
+[
+    {
+        "company_description": "ロイターは、トムソン・ロイターのニュース・メディア部門で、毎日世界各地の数十億人にリーチする世界最大級の国際マルチメディア通信社です。デスクトップ端末、世界の報道メディア、業界イベント、そしてダイレクトにビジネス、金融、国内・国際ニュースをプロフェッショナルにお届けします。",
+        "disclaimer_link": "/info-pages/disclaimer/",
+        "copyright_link": "https://www.thomsonreuters.com/en/policies/copyright.html",
+        "copyright_year": "2023",
+        "latest_links": [
+            {
+                "text": "ホーム",
+                "url": "/",
+                "self": true
+            }
+        ],
+        "browse_links": [
+            {
+                "text": "ワールド",
+                "url": "/world/",
+                "self": true
+            },
+            {
+                "text": "マーケット",
+                "url": "/markets/",
+                "self": true
+            },
+            {
+                "text": "経済",
+                "url": "/economy/",
+                "self": true
+            },
+            {
+                "text": "ビジネス",
+                "url": "/business/",
+                "self": true
+            },
+            {
+                "text": "オピニオン",
+                "url": "/opinion/",
+                "self": true
+            },
+            {
+                "text": "ライフ",
+                "url": "/life/",
+                "self": true
+            },
+            {
+                "text": "スポーツ",
+                "url": "/life/sports/",
+                "self": true
+            }
+        ],
+        "key_topics_links": [
+            {
+                "text": "The Great Reboot",
+                "url": "/world/the-great-reboot/",
+                "self": true
+            }
+        ],
+        "media_links": [
+            {
+                "text": "ビデオ",
+                "url": "/video/",
+                "symbol": "videos"
+            },
+            {
+                "text": "写真",
+                "url": "/pictures",
+                "symbol": "pictures",
+                "self": true
+            }
+        ],
+        "about_links": [
+            {
+                "text": "ロイターについて",
+                "url": "https://www.reutersagency.com/ja/about/about-us/"
+            },
+            {
+                "text": "採用情報",
+                "url": "https://thomsonreuters.com/en/careers.html"
+            },
+            {
+                "text": "ロイター・ニュース・エージェンシー",
+                "url": "https://www.reutersagency.com/ja"
+            },
+            {
+                "text": "ブランド・ガイドライン",
+                "url": "https://www.reutersagency.com/ja/about/brand-attribution-guidelines/"
+            },
+            {
+                "text": "リーダーシップチーム",
+                "url": "https://www.reutersagency.com/ja/about/leadership-team/"
+            }
+        ],
+        "stay_informed_links": [
+            {
+                "text": "ニュースメール",
+                "url": "https://newslink.jp.reuters.com/join/subscribe"
+            }
+        ],
+        "social_links": [
+            {
+                "type": "twitter",
+                "url": "https://twitter.com/ReutersJapan"
+            },
+            {
+                "type": "facebook",
+                "url": "https://www.facebook.com/ReutersJapan"
+            },
+            {
+                "type": "instagram",
+                "url": "https://www.instagram.com/reutersjapan/"
+            },
+            {
+                "type": "youtube",
+                "url": "https://www.youtube.com/c/ReutersJapan/videos"
+            },
+            {
+                "type": "linkedin",
+                "url": "https://www.linkedin.com/company/10256858/"
+            }
+        ],
+        "tr_products": [
+            {
+                "name": "ONESOURCE Global Trade",
+                "description": "安全保障貿易管理をはじめとする輸出管理、EPA/FTAを活用した関税削減の自動化、日々複雑化する規制及び貿易コンプライアンスに関する最新情報の提供、またそれらを一元管理する包括的ソリューションです。",
+                "url": "https://www.thomsonreuters.co.jp/ja/products-services/global-trade.html"
+            },
+            {
+                "name": "ONESOURCE Global Tax",
+                "description": "国際税務のコンプライアンスを確保しリスクを低減、また業務効率化をサポートするグローバル企業のための税務自動化ソリューションです。",
+                "url": "https://www.thomsonreuters.co.jp/ja/products-services/tax-accounting.html"
+            },
+            {
+                "name": "Legal Tracker",
+                "description": "法律事務所からの請求の電子化（eBilling）、APとの連携による作業、ならびにリアルタイムの弁護士費用管理で効果的な案件管理とコスト低減を支援する企業法務に最適なDXソリューションです。",
+                "url": "https://www.thomsonreuters.co.jp/ja/products-services/legal/legal-tracker.html"
+            }
+        ],
+        "ad_links": [
+            {
+                "text": "広告掲載について",
+                "url": "https://www.reutersagency.com/ja/services/advertising-solutions/"
+            },
+            {
+                "text": "広告掲載ポリシー",
+                "url": "/info-pages/advertising-guidelines/"
+            }
+        ],
+        "misc_links": [
+            {
+                "text": "クッキー",
+                "url": "https://www.thomsonreuters.com/ja/privacy-statement.html#cookies"
+            },
+            {
+                "text": "ロイター利用規約（英語）",
+                "url": "/info-pages/terms-of-use/"
+            },
+            {
+                "text": "個人情報保護方針",
+                "url": "https://www.thomsonreuters.com/jp/privacy-statement.html"
+            },
+            {
+                "text": "ウェブアクセシビリティ（英語）",
+                "url": "https://www.thomsonreuters.com/en/policies/digital-accessibility-policy.html"
+            },
+            {
+                "text": "お問い合わせ先",
+                "url": "/info-pages/contact-us/"
+            },
+            {
+                "text": "フィードバック",
+                "url": "https://trdigital.iad1.qualtrics.com/jfe/form/SV_8kte8gArGyCGVhz"
+            },
+            {
+                "url": "javascript:window.OneTrust.ToggleInfoDisplay();",
+                "self": "true",
+                "text": "私の個人情報を販売または共有せず、機密性の高い個人情報の使用を制限する。"
+            }
+        ],
+        "do_not_sell_info": {
+            "ccpa": "私の個人情報を販売または共有せず、機密性の高い個人情報の使用を制限する。",
+            "vcdpa": "ターゲット広告をオプトアウト（無効化）する。",
+            "cpa": "私の個人情報を販売または共有せず、機密性の高い個人情報の使用を制限する。",
+            "ctdpa": "私の個人情報を販売または共有せず、機密性の高い個人情報の使用を制限する。"
+        }
+    }
+]

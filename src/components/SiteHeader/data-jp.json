@@ -1,0 +1,304 @@
+[
+    {
+        "sections": [
+            {
+                "id": "/world/",
+                "url": "/world/",
+                "name": "ワールド",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/world/japan/",
+                        "url": "/world/japan/",
+                        "name": "国内"
+                    },
+                    {
+                        "id": "/world/us/",
+                        "url": "/world/us/",
+                        "name": "米国"
+                    },
+                    {
+                        "id": "/world/china/",
+                        "url": "/world/china/",
+                        "name": "中国"
+                    },
+                    {
+                        "id": "/world/europe/",
+                        "url": "/world/europe/",
+                        "name": "欧州"
+                    },
+                    {
+                        "id": "/world/ukraine/",
+                        "url": "/world/ukraine/",
+                        "name": "ウクライナ情勢"
+                    },
+                    {
+                        "id": "/world/russia/",
+                        "url": "/world/russia/",
+                        "name": "ロシア"
+                    },
+                    {
+                        "id": "/world/north-korea/",
+                        "url": "/world/north-korea/",
+                        "name": "北朝鮮"
+                    },
+                    {
+                        "id": "/world/korea/",
+                        "url": "/world/korea/",
+                        "name": "韓国"
+                    },
+                    {
+                        "id": "/world/mideast/",
+                        "url": "/world/mideast/",
+                        "name": "中東・アフリカ"
+                    },
+                    {
+                        "id": "/world/security/",
+                        "url": "/world/security/",
+                        "name": "特集 安全保障問題"
+                    },
+                    {
+                        "id": "/world/us-politics/",
+                        "url": "/world/us-politics/",
+                        "name": "バイデン政権特集"
+                    },
+                    {
+                        "id": "/world/environment/",
+                        "url": "/world/environment/",
+                        "name": "自然災害"
+                    },
+                    {
+                        "id": "/world/interview/",
+                        "url": "/world/interview/",
+                        "name": "インタビュー"
+                    }
+                ]
+            },
+            {
+                "id": "/markets/",
+                "url": "/markets/",
+                "name": "マーケット",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/markets/currencies/",
+                        "url": "/markets/currencies/",
+                        "name": "外国為替"
+                    },
+                    {
+                        "id": "/markets/bonds/",
+                        "url": "/markets/bonds/",
+                        "name": "金利・国債"
+                    },
+                    {
+                        "id": "/markets/global-markets/",
+                        "url": "/markets/global-markets/",
+                        "name": "株式市場"
+                    },
+                    {
+                        "id": "/markets/oil/",
+                        "url": "/markets/oil/",
+                        "name": "原油・エネルギー"
+                    },
+                    {
+                        "id": "/markets/commodities/",
+                        "url": "/markets/commodities/",
+                        "name": "商品先物"
+                    },
+                    {
+                        "id": "/markets/cryptocurrency/",
+                        "url": "/markets/cryptocurrency/",
+                        "name": "特集 仮想通貨"
+                    },
+                    {
+                        "id": "/markets/world-indices/",
+                        "url": "/markets/world-indices/",
+                        "name": "各国の株式指数"
+                    },
+                    {
+                        "id": "/markets/europe/",
+                        "url": "/markets/europe/",
+                        "name": "欧州マーケット"
+                    },
+                    {
+                        "id": "/markets/us/",
+                        "url": "/markets/us/",
+                        "name": "アメリカマーケット"
+                    },
+                    {
+                        "id": "/markets/asia/",
+                        "url": "/markets/asia/",
+                        "name": "アジアマーケット"
+                    },
+                    {
+                        "id": "/markets/japan/",
+                        "url": "/markets/japan/",
+                        "name": "国内マーケット"
+                    }
+                ]
+            },
+            {
+                "id": "/economy/",
+                "url": "/economy/",
+                "name": "経済",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/economy/federal-reserve-board/",
+                        "url": "/economy/federal-reserve-board/",
+                        "name": "米ＦＲＢ特集"
+                    },
+                    {
+                        "id": "/economy/bank-of-japan/",
+                        "url": "/economy/bank-of-japan/",
+                        "name": "日銀特集"
+                    },
+                    {
+                        "id": "/economy/japan-politics/",
+                        "url": "/economy/japan-politics/",
+                        "name": "政局の行方"
+                    },
+                    {
+                        "id": "/economy/industry/",
+                        "url": "/economy/industry/",
+                        "name": "企業・産業"
+                    }
+                ]
+            },
+            {
+                "id": "/business/",
+                "url": "/business/",
+                "name": "ビジネス",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/business/technology/",
+                        "url": "/business/technology/",
+                        "name": "テクノロジー"
+                    },
+                    {
+                        "id": "/business/autos/",
+                        "url": "/business/autos/",
+                        "name": "自動車産業の未来"
+                    },
+                    {
+                        "id": "/business/sdgs/",
+                        "url": "/business/sdgs/",
+                        "name": "SDGsとビジネス"
+                    },
+                    {
+                        "id": "/business/ma/",
+                        "url": "/business/ma/",
+                        "name": "金融・Ｍ＆Ａ"
+                    }
+                ]
+            },
+            {
+                "id": "/opinion/",
+                "url": "/opinion/",
+                "name": "オピニオン",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/opinion/forex-forum/",
+                        "url": "/opinion/forex-forum/",
+                        "name": "外国為替フォーラム"
+                    },
+                    {
+                        "id": "/opinion/breakingviews/",
+                        "url": "/opinion/breakingviews/",
+                        "name": "Breakingviews"
+                    }
+                ]
+            },
+            {
+                "id": "/life/",
+                "url": "/life/",
+                "name": "ライフ",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/life/sports/",
+                        "url": "/life/sports/",
+                        "name": "スポーツ"
+                    },
+                    {
+                        "id": "/life/entertainment/",
+                        "url": "/life/entertainment/",
+                        "name": "エンタテインメント"
+                    }
+                ]
+            },
+            {
+                "id": "/pictures/",
+                "url": "/pictures/",
+                "name": "写真",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/pictures/wider-image/",
+                        "url": "/pictures/wider-image/",
+                        "name": "Wider Image"
+                    }
+                ]
+            },
+            {
+                "id": "/video/",
+                "url": "/video/",
+                "name": "ビデオ",
+                "type": "section",
+                "children": [
+                    {
+                        "id": "/video/in-depth/",
+                        "url": "/video/in-depth/",
+                        "name": "日本語のビデオ"
+                    },
+                    {
+                        "id": "/video/entertainment/",
+                        "url": "/video/entertainment/",
+                        "name": "エンタテインメント"
+                    },
+                    {
+                        "id": "/video/oddly-enough/",
+                        "url": "/video/oddly-enough/",
+                        "name": "ライフ"
+                    },
+                    {
+                        "id": "/video/business/",
+                        "url": "/video/business/",
+                        "name": "ビジネス"
+                    },
+                    {
+                        "id": "/video/most-popular/",
+                        "url": "/video/most-popular/",
+                        "name": "最も見られているビデオ"
+                    },
+                    {
+                        "id": "/video/sports/",
+                        "url": "/video/sports/",
+                        "name": "スポーツ"
+                    },
+                    {
+                        "id": "/video/technology/",
+                        "url": "/video/technology/",
+                        "name": "テクノロジー"
+                    },
+                    {
+                        "id": "/video/environment/",
+                        "url": "/video/environment/",
+                        "name": "自然災害"
+                    }
+                ]
+            }
+        ],
+        "home_url": "/",
+        "search_url": "/site-search/",
+        "sign_in_url": "",
+        "sign_up_url": "",
+        "subscribe_url": "",
+        "my_account_url": "",
+        "my_view_url": "/myview/all",
+        "following_url": "/myview/following-feed",
+        "saved_url": "/myview/saved"
+    }
+]

@@ -6,6 +6,7 @@
   export let data = [];
   export let isMobileMenuOpen = false;
   export let releaseMobileMenu = () => {};
+  export let lang = 'en';
 </script>
 
 {#if isMobileMenuOpen}
@@ -20,7 +21,7 @@
       --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
     `}"
   >
-    <header class="header">
+    <header class="header" lang="{lang}">
       <div class="logo">
         <ReutersLogo
           logoColour="var(--nav-accent)"
@@ -95,18 +96,20 @@
   .close-button {
     width: 40px;
     height: 40px;
-    margin-left: auto;
     display: inline-block;
     vertical-align: top;
     outline: none;
     border: none;
-    margin: 0;
+    margin: 0 0 0 auto;
     padding: 0;
     overflow: visible;
     background: transparent;
     color: inherit;
     font: inherit;
     line-height: normal;
+    &:enabled {
+      cursor: pointer;
+    }
 
     .button-container {
       border-radius: 8px;
@@ -149,10 +152,14 @@
       grid-template-columns: repeat(2, 1fr);
       grid-row-gap: 16px;
       @include spacing-single(grid-column-gap);
+      li {
+        margin: 0;
+      }
     }
 
     .section-link {
       font-size: 14px;
+      font-weight: 500;
     }
 
     .section-link,
@@ -165,6 +172,14 @@
       &:hover {
         text-decoration: underline;
       }
+    }
+    .subsection-link {
+      font-size: 16px;
+    }
+  }
+  .header[lang='ja'] ~ .section {
+    .section-link {
+      font-weight: 600;
     }
   }
 </style>

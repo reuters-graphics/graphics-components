@@ -2,12 +2,21 @@
   import DownArrow from './DownArrow.svelte';
   import SectionDropdown from './NavDropdown/SectionDropdown.svelte';
   import MoreDropdown from './NavDropdown/MoreDropdown.svelte';
-  import { normalizeUrl } from './utils/index';
+  import { normalizeUrl, normalizeUrlJp } from './utils/index';
   import { getContext } from 'svelte';
 
   export let sections = [];
+  export let lang = 'en';
 
   const activeSection = getContext('nav-active-section');
+  const normaliseUrl = lang === 'ja' ? normalizeUrlJp : normalizeUrl;
+  const labels = {
+    More: { default: 'More ', ja: 'さらに見る' },
+    'Latest in': {
+      default: (name) => `Latest in ${name}`,
+      ja: (name) => `${name}の記事を見る`,
+    },
+  };
 
   let windowWidth = 1200;
 
@@ -26,7 +35,7 @@
 
 <svelte:window bind:innerWidth="{windowWidth}" />
 
-<div class="nav-bar">
+<div class="nav-bar" lang="{lang}">
   <nav aria-label="Main navigation">
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <ul class="nav-list">
@@ -61,7 +70,7 @@
               class="nav-button link"
               class:open="{section.id === $activeSection}"
             >
-              <a href="{normalizeUrl(section.url)}">
+              <a href="{normaliseUrl(section.url)}">
                 {section.name}
               </a>
               <button class="button">
@@ -71,14 +80,17 @@
             {#if $activeSection === section.id}
               <SectionDropdown
                 section="{section}"
-                headingText="{`Latest in ${section.name}`}"
+                headingText="{labels['Latest in'][lang]
+                  ? labels['Latest in'][lang](section.name)
+                  : labels['Latest in'].default(section.name)}"
+                lang="{lang}"
               />
             {/if}
           </li>
         {:else}
           <li class="nav-item category link">
             <div class="nav-button link">
-              <a href="{normalizeUrl(section.url)}">
+              <a href="{normaliseUrl(section.url)}">
                 {section.name}
               </a>
             </div>
@@ -112,11 +124,15 @@
           class:open="{$activeSection === 'more'}"
         >
           <button class="button">
-            <span>More <DownArrow rotate="{$activeSection === 'more'}" /></span>
+            <span
+              >{labels.More[lang] || labels.More.default}<DownArrow
+                rotate="{$activeSection === 'more'}"
+              /></span
+            >
           </button>
         </div>
         {#if $activeSection === 'more'}
-          <MoreDropdown sections="{hiddenSections}" />
+          <MoreDropdown sections="{hiddenSections}" lang="{lang}" />
         {/if}
       </li>
     </ul>
@@ -261,6 +277,17 @@
       &:nth-child(-n + 7) {
         display: inline-flex;
       }
+    }
+  }
+
+  .nav-bar[lang='ja'] {
+    .nav-item,
+    .button {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .button {
+      font-size: 14px;
     }
   }
 </style>
