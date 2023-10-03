@@ -80,7 +80,6 @@
         .filter((a) => !a?.content?.third_party)
         .slice(0, number);
       referrals = articles;
-      console.log('articles', data, articles);
     } catch (e) {
       console.warn('Unable to fetch referral links.');
     }
