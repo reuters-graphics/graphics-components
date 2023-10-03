@@ -3,10 +3,12 @@
 
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
+  // @ts-ignore
+  import collectionDocs from './stories/docs/collection.md?raw';
 
   import ReferralBlock from './ReferralBlock.svelte';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   const metaProps = {
     ...withComponentDocs(componentDocs),
@@ -50,7 +52,18 @@
   args="{{
     section: '/lifestyle/sports/',
     number: 4,
-    class: 'fmy-5',
+    class: 'fmy-0',
     heading: 'More World Cup coverage',
   }}"
+/>
+
+<Story
+  name="By collection"
+  args="{{
+    collection: 'x-trump',
+    number: 6,
+    class: 'fmy-8',
+    heading: 'The latest Trump coverage',
+  }}"
+  {...withStoryDocs(collectionDocs)}
 />
