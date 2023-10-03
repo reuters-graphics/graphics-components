@@ -61,12 +61,14 @@
             }),
           })
       );
-      const articles = (await response.json()).result.articles
-        .filter((a) => a?.kicker?.name)
+      const data = await response.json();
+      const articles = data.result.articles
+        .filter((a) => a?.headline_category)
         .filter((a) => a?.thumbnail?.renditions?.landscape?.['240w'])
         .filter((a) => !a?.content?.third_party)
         .slice(0, number);
       referrals.set(articles);
+      console.log('articles', data, articles);
     } catch (e) {
       console.warn('Unable to fetch referral links.');
     }
@@ -107,7 +109,7 @@
                   class="kicker m-0 body-caption leading-tighter"
                   data-chromatic="ignore"
                 >
-                  {referral.kicker.name}
+                  {referral.headline_category}
                 </div>
                 <div
                   class="title m-0 body-caption leading-tighter"
