@@ -6,9 +6,13 @@
    * Section ID, which is often the URL path to the section page on reuters.com.
    *
    * Note that not all section pages will be available in the recent stories by section API.
-   * @required
    */
-  export let section: string = '/world/';
+  export let section: string | undefined = '/world/';
+
+  /**
+   * Collection alias, as defined in Arc Collections editor.
+   */
+  export let collection: string | undefined;
 
   /**
    * Number of referrals to show.
@@ -38,24 +42,32 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  let cls: string = '';
+  let cls: string = 'fmy-8';
   export { cls as class };
 
   import Block from '../Block/Block.svelte';
-  import { referrals } from './stores.js';
+  // import { referrals } from './stores.js';
 
   import { onMount } from 'svelte';
   import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
 
   let clientWidth;
 
+  const SECTION_API = 'recent-stories-by-sections-v1';
+  const COLLECTION_API = 'articles-by-collection-alias-or-id-v1';
+
+  let referrals = [];
+
   onMount(async () => {
+    const isCollection = Boolean(collection);
+    const API = isCollection ? COLLECTION_API : SECTION_API;
     try {
       const response = await fetch(
-        'https://www.reuters.com/pf/api/v3/content/fetch/recent-stories-by-sections-v1?' +
+        `https://www.reuters.com/pf/api/v3/content/fetch/${API}?` +
           new URLSearchParams({
             query: JSON.stringify({
-              section_ids: section,
+              section_ids: isCollection ? undefined : section,
+              collection_alias: isCollection ? collection : undefined,
               size: 20,
               website: 'reuters',
             }),
@@ -63,11 +75,11 @@
       );
       const data = await response.json();
       const articles = data.result.articles
-        .filter((a) => a?.headline_category)
+        .filter((a) => a?.headline_category || a?.kicker?.name)
         .filter((a) => a?.thumbnail?.renditions?.landscape?.['240w'])
         .filter((a) => !a?.content?.third_party)
         .slice(0, number);
-      referrals.set(articles);
+      referrals = articles;
       console.log('articles', data, articles);
     } catch (e) {
       console.warn('Unable to fetch referral links.');
@@ -77,8 +89,8 @@
   getTime();
 </script>
 
-{#if $referrals.length === number}
-  <Block width="{width}" id="{id}" class="referrals-block fmy-8 {cls}">
+{#if referrals.length === number}
+  <Block width="{width}" id="{id}" class="referrals-block {cls}">
     {#if heading}
       <div
         class="heading h4 font-bold"
@@ -93,7 +105,7 @@
       class:xs="{clientWidth && clientWidth < 450}"
       bind:clientWidth="{clientWidth}"
     >
-      {#each $referrals as referral}
+      {#each referrals as referral}
         <div class="referral">
           <a
             href="https://www.reuters.com{referral.canonical_url}"
@@ -109,7 +121,7 @@
                   class="kicker m-0 body-caption leading-tighter"
                   data-chromatic="ignore"
                 >
-                  {referral.headline_category}
+                  {referral.headline_category || referral.kicker.name}
                 </div>
                 <div
                   class="title m-0 body-caption leading-tighter"
