@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -165,7 +165,6 @@
     "./components/PymChild/PymChild.svelte": "./dist/components/PymChild/PymChild.svelte",
     "./components/PymChild/stores": "./dist/components/PymChild/stores.js",
     "./components/ReferralBlock/ReferralBlock.svelte": "./dist/components/ReferralBlock/ReferralBlock.svelte",
-    "./components/ReferralBlock/stores": "./dist/components/ReferralBlock/stores.js",
     "./components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte": "./dist/components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte",
     "./components/ReutersLogo/ReutersLogo.svelte": "./dist/components/ReutersLogo/ReutersLogo.svelte",
     "./components/SEO/SEO.svelte": "./dist/components/SEO/SEO.svelte",
@@ -352,6 +351,7 @@
     "./scss/tokens/text/mixins/main": "./dist/scss/tokens/text/mixins/_main.scss",
     "./scss/tokens/text/mixins/text-role": "./dist/scss/tokens/text/mixins/_text-role.scss",
     "./scss/tokens/text/mixins/text-stroke": "./dist/scss/tokens/text/mixins/_text-stroke.scss",
+    "./scss/tokens/variables/block": "./dist/scss/tokens/variables/_block.scss",
     "./scss/tokens/variables/main": "./dist/scss/tokens/variables/_main.scss",
     "./scss/tokens/variables/theme": "./dist/scss/tokens/variables/_theme.scss",
     ".": "./dist/index.js"
