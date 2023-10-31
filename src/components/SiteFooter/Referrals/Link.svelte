@@ -41,6 +41,7 @@
   }
 
   .referral {
+    padding: 0 0.75rem;
     div.image {
       @include fmb-1;
       border: 1px solid var(--nav-rules, #efefef);
