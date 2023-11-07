@@ -14,7 +14,7 @@
     <div
       class="step-background step-{i + 1} w-full absolute"
       class:visible="{stackBackground ? i <= index : i === index}"
-      class:hidden="{stackBackground ? i > index : i !== index}"
+      class:invisible="{stackBackground ? i > index : i !== index}"
     >
       <svelte:component
         this="{step.background}"
@@ -26,9 +26,15 @@
 
 <style lang="scss">
   .step-background {
+    opacity: 0;
+    will-change: opacity;
     transition: 0.35s opacity ease;
 
-    &.hidden {
+    &.visible {
+      opacity: 1;
+    }
+
+    &.invisible {
       opacity: 0;
     }
   }
