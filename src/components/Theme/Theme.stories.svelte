@@ -1,10 +1,12 @@
-<script>
+<script lang="ts">
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore
   import customiseDocs from './stories/docs/customise.md?raw';
+  // @ts-ignore
+  import customiseFontDocs from './stories/docs/customise-font.md?raw';
   // @ts-ignore
   import patternDocs from './stories/docs/pattern.md?raw';
   // @ts-ignore
@@ -15,14 +17,14 @@
 
   import Theme, { themes } from './Theme.svelte';
 
+  import Headline from '../Headline/Headline.svelte';
+
   import {
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Theming/Theme',
-    component: Theme,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       base: {
@@ -34,7 +36,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Theming/Theme" component="{Theme}" {...metaProps} />
 
 <Template let:args>
   <div class="reset-article">
@@ -56,11 +58,28 @@
   <Theme
     base="dark"
     theme="{{
-      colour: { accent: 'yellow' },
-      font: { 'family-hed': 'freight-book' },
+      colour: { accent: 'var(--tr-light-orange)' },
+      font: { family: { hed: 'FreightText, serif' } },
     }}"
   >
     <ThemedPage />
+  </Theme>
+</Story>
+
+<Story name="Custom Google font" {...withStoryDocs(customiseFontDocs)}>
+  <Theme
+    base="light"
+    theme="{{
+      font: { family: { hed: 'Bebas Neue, sans-serif' } },
+    }}"
+  >
+    <div class="gfont">
+      <Headline
+        hed="{'Reuters Graphics Interactive'}"
+        dek="{'The beginning of a beautiful page'}"
+        section="{'Global news'}"
+      />
+    </div>
   </Theme>
 </Story>
 
@@ -93,7 +112,7 @@
           <Theme
             theme="{{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
-              font: { 'family-note': 'freight-book' },
+              font: { family: { note: 'FreightText, serif' } },
             }}"
             base="dark"
           >
@@ -108,7 +127,8 @@
 </Story>
 
 <style lang="scss">
-  @import '../../scss/fonts/mixins';
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
   div.themed {
     background-color: var(--theme-colour-background);
     padding: 2rem;

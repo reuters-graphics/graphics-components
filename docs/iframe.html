@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <!--suppress HtmlUnknownTarget -->
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Storybook</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      window.CONFIG_TYPE = 'PRODUCTION';
-      window.LOGLEVEL = 'info';
-      window.FRAMEWORK_OPTIONS = {"preprocess":{"defaultLanguages":{"markup":"html","style":"css","script":"javascript"}}};
-      window.CHANNEL_OPTIONS = {};
-      window.FEATURES = {"postcss":true,"emotionAlias":false,"warnOnLegacyHierarchySeparator":true,"buildStoriesJson":false,"storyStoreV7":false,"modernInlineRender":false,"breakingChangesV7":false,"interactionsDebugger":false,"babelModeV7":false,"argTypeTargetsV7":false,"previewMdx2":false};
-      window.STORIES = [{"titlePrefix":"","directory":"./src","files":"**/*.stories.mdx","importPathMatcher":"^\\.[\\\\/](?:src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.mdx)$"},{"titlePrefix":"","directory":"./src","files":"**/*.stories.svelte","importPathMatcher":"^\\.[\\\\/](?:src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.svelte)$"}];
-      window.SERVER_CHANNEL_URL = undefined;
 
-      // We do this so that "module && module.hot" etc. in Storybook source code
-      // doesn't fail (it will simply be disabled)
-      window.module = undefined;
-    </script>
-    <base target="_parent" />
+<head>
+  <meta charset="utf-8" />
+  <title>Storybook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="prefetch" href="./sb-common-assets/nunito-sans-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="prefetch" href="./sb-common-assets/nunito-sans-italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="prefetch" href="./sb-common-assets/nunito-sans-bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="prefetch" href="./sb-common-assets/nunito-sans-bold-italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./sb-common-assets/fonts.css" />
+
+  <script>
+    window.CONFIG_TYPE = 'PRODUCTION';
+    window.LOGLEVEL = 'info';
+    window.FRAMEWORK_OPTIONS = {};
+    window.CHANNEL_OPTIONS = {};
+    window.FEATURES = {"warnOnLegacyHierarchySeparator":true,"buildStoriesJson":false,"storyStoreV7":true,"argTypeTargetsV7":true,"legacyDecoratorFileOrder":false};
+    window.STORIES = [{"titlePrefix":"","directory":"./src","files":"**/*.mdx","importPathMatcher":"^\\.[\\\\/](?:src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.mdx)$"},{"titlePrefix":"","directory":"./src","files":"**/*.stories.@(js|jsx|ts|tsx|svelte)","importPathMatcher":"^\\.[\\\\/](?:src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(js|jsx|ts|tsx|svelte))$"}];
+    window.DOCS_OPTIONS = {"defaultName":"Docs","autodocs":true};
+
+    // We do this so that "module && module.hot" etc. in Storybook source code
+    // doesn't fail (it will simply be disabled)
+    window.module = undefined;
+    window.global = window;
+  </script>
+  <base target="_parent" />
 
 <style>
   /* While we aren't showing the main block yet, but still preparing, we want everything the user
-     has rendered, which may or may not be in #root, to be display none */
+     has rendered, which may or may not be in #storybook-root, to be display none */
   .sb-show-preparing-story:not(.sb-show-main) > :not(.sb-preparing-story) {
     display: none;
   }
@@ -46,7 +55,7 @@
     min-height: 100vh;
   }
 
-  .sb-show-main.sb-main-centered #root {
+  .sb-show-main.sb-main-centered #storybook-root {
     box-sizing: border-box;
     margin: auto;
     padding: 1rem;
@@ -257,8 +266,8 @@
   .sb-argstableBlock td:nth-of-type(3) {
     width: 15%;
   }
-  .sb-argstableBlock th:laste-of-type,
-  .sb-argstableBlock td:laste-of-type {
+  .sb-argstableBlock th:last-of-type,
+  .sb-argstableBlock td:last-of-type {
     width: 25%;
     padding-right: 20px;
   }
@@ -346,53 +355,19 @@
     // eslint-disable-next-line no-console
     console.warn('unable to connect to top frame for connecting dev tools');
   }
-
-  window.onerror = function onerror(message, source, line, column, err) {
-    if (window.CONFIG_TYPE !== 'DEVELOPMENT') return;
-    // eslint-disable-next-line no-var, vars-on-top
-    var xhr = new window.XMLHttpRequest();
-    xhr.open('POST', '/runtime-error');
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(
-      JSON.stringify({
-        /* eslint-disable object-shorthand */
-        message: message,
-        source: source,
-        line: line,
-        column: column,
-        error: err && { message: err.message, name: err.name, stack: err.stack },
-        origin: 'preview',
-        /* eslint-enable object-shorthand */
-      })
-    );
-  };
 </script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter+Tight:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script>
   window.global = window;
 </script>
-    <script type="module" crossorigin src="https://reuters-graphics.github.io/graphics-components/assets/iframe.78305a3c.js"></script>
-    <link rel="stylesheet" href="https://reuters-graphics.github.io/graphics-components/assets/iframe.34c2716a.css">
-  <style>
-    .sb-show-preparing-story:not(.sb-show-main) > :not(.sb-preparing-story) {
-      display: none;
-    }
-    .sb-show-preparing-docs:not(.sb-show-main) > :not(.sb-preparing-docs) {
-      display: none;
-    }
-    :not(.sb-show-preparing-story) > .sb-preparing-story,
-    :not(.sb-show-preparing-docs) > .sb-preparing-docs,
-    :not(.sb-show-nopreview) > .sb-nopreview,
-    :not(.sb-show-errordisplay) > .sb-errordisplay {
-      display: none;
-    }
-    #root[hidden],
-    #docs-root[hidden] {
-      display: none !important;
-    }
-  </style>
+  <script type="module" crossorigin src="./assets/iframe-ab5b5943.js"></script>
 </head>
-  <body>
-    <div class="sb-preparing-story sb-wrapper">
+
+<body>
+  <div class="sb-preparing-story sb-wrapper">
   <div class="sb-loader"></div>
 </div>
 
@@ -480,8 +455,10 @@
   <pre class="sb-errordisplay_code"><code id="error-stack"></code></pre>
 </div>
 
-    <div id="root"></div>
-    <div id="docs-root"></div>
-    
-  </body>
+  <div id="storybook-root"></div>
+  <div id="storybook-docs"></div>
+  
+  
+</body>
+
 </html>

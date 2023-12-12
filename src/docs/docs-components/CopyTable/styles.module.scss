@@ -1,0 +1,129 @@
+$copyable: #0071a1;
+$header: #5e81ac;
+
+.title {
+  max-width: 600px;
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 5px;
+  margin-top: 2rem;
+  font-weight: 400;
+  a span {
+    font-size: 18px;
+    line-height: 18px;
+    margin-left: 2px;
+    vertical-align: middle;
+    font-weight: bold;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  p {
+    font-size: 0.85rem;
+    line-height: 1.25;
+    background-color: #f7fafc;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 5px;
+    color: #333;
+    border: 1px solid hsla(203, 50%, 30%, 0.15);
+  }
+}
+
+.table :global {
+  min-height: 100px;
+  margin: 0 0 3rem;
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+  border-radius: 4px;
+  overflow: hidden;
+  th,
+  td {
+    padding: 6px 13px;
+    font-family: 'Nunito Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  thead tr {
+    // background-color: #5e81ac;
+    color: #333;
+    text-align: left;
+    th {
+      font-weight: bold;
+      color: #2e3438;
+      border: 1px solid hsla(203, 50%, 30%, 0.15);
+      margin: 0;
+
+      border-collapse: collapse;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+  thead {
+    display: block;
+    width: 100%;
+    tr {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+    }
+  }
+  tbody {
+    display: block;
+    max-height: 305px;
+    overflow-y: scroll;
+    border-bottom: 1px solid hsla(203, 50%, 30%, 0.15);
+  }
+  tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border: 1px solid hsla(203, 50%, 30%, 0.15);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #404040;
+    td {
+      border-right: 1px solid #eee;
+      vertical-align: text-top;
+      color: #2e3438;
+      position: relative;
+      button {
+        text-align: left;
+        padding: 0;
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+        color: $copyable;
+
+        span {
+          font-size: 1rem;
+          color: inherit;
+          margin-right: 5px;
+          vertical-align: bottom;
+        }
+        div.copy-tag {
+          position: absolute;
+          right: 4px;
+          top: 50%;
+          transform: translate(0, -50%);
+          background-color: #333;
+          pointer-events: none;
+          color: white;
+          padding: 4px 6px;
+          border-radius: 4px;
+          font-size: 12px;
+        }
+        &:active {
+          transform: translate(1px, 1px);
+        }
+      }
+    }
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: #f7fafc;
+  }
+}

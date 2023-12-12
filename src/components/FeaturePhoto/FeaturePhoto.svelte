@@ -18,6 +18,17 @@
    */
   export let altText: string;
   /**
+   * Add an id to target with custom CSS.
+   * @type {string}
+   */
+  export let id: string = '';
+  /**
+   * Add extra classes to target with custom CSS.
+   * @type {string}
+   */
+  let cls: string = '';
+  export { cls as class };
+  /**
    * Caption below the photo
    * @type {string}
    */
@@ -30,6 +41,15 @@
    * Width of the container, one of: normal, wide, wider, widest or fluid
    */
   export let width: ContainerWidth = 'normal';
+
+  /**
+   * Set a different width for the text within the text well, for example,
+   * "normal" to keep the title, description and notes inline with the rest
+   * of the text well. Can't ever be wider than `width`.
+   * @type {string}
+   */
+  export let textWidth: ContainerWidth | null = 'normal';
+
   /**
    * Whether to lazy load the photo using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
    */
@@ -70,59 +90,41 @@
   });
 </script>
 
-<Block width="{width}" cls="photo">
-  <figure bind:this="{container}" aria-label="media">
+<Block width="{width}" class="photo fmy-6 {cls}" id="{id}">
+  <figure
+    bind:this="{container}"
+    aria-label="media"
+    class="w-full flex flex-col relative"
+  >
     {#if !lazy || (intersectable && intersecting)}
-      <img src="{src}" alt="{altText}" />
+      <img class="w-full my-0" src="{src}" alt="{altText}" />
     {:else}
-      <div class="placeholder" height="{`${height}px`}"></div>
+      <div class="placeholder w-full" style="{`height: ${height}px;`}"></div>
     {/if}
     {#if caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <figcaption>{caption}</figcaption>
+        <Block width="{textWidth}" class="notes w-full fmy-0">
+          <figcaption>
+            {caption}
+          </figcaption>
+        </Block>
       </PaddingReset>
     {/if}
     {#if !altText}
-      <div class="alt-warning">altText</div>
+      <div class="alt-warning absolute text-xxs py-1 px-2">altText</div>
     {/if}
   </figure>
 </Block>
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
+  .placeholder {
+    background-color: #ccc;
+  }
 
-  figure {
-    width: 100%;
-    position: relative;
-
-    img {
-      width: 100%;
-      margin: 0;
-    }
-
-    .placeholder {
-      background-color: #ccc;
-      width: 100%;
-    }
-
-    div.alt-warning {
-      font-family: $font-family-display;
-      padding: 5px 10px;
-      background-color: red;
-      color: white;
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 14px;
-      line-height: 16px;
-    }
-
-    figcaption {
-      font-weight: 400;
-      font-size: 0.8rem;
-      font-family: var(--theme-font-family-note, $font-family-display);
-      color: var(--theme-colour-text-secondary, $tr-medium-grey);
-    }
+  div.alt-warning {
+    background-color: red;
+    color: white;
+    top: 0;
+    right: 0;
   }
 </style>

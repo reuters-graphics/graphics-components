@@ -12,12 +12,12 @@ If you want to skip certain block widths entirely, you can add one or more class
 
 ```svelte
 <!-- Will skip wide and go straight to normal column width on resize. -->
-<Block width="wider" snap="{true}" cls="skip-wide">
+<Block width="wider" snap="{true}" class="skip-wide">
   <!-- Your stuff for this block -->
 </Block>
 ```
 
-This is probably easier to see in action than explain in words, so check out the "Canvas" tab for the demo below and resize the window to get a better picture of how it all works.
+This is probably easier to see in action than explain in words, so resize the window to get a better picture of how it all works.
 
 > **NOTE:** The snap width breakpoints only work on `Block` components with widths `wider` and below. `widest` and `fluid` are both **always** fluid, since they go edge-to-edge.
 
@@ -28,7 +28,7 @@ Snap width breakpoints are hard-coded to the default article well column widths,
 Luckily, it's still pretty easy. Just add a `cls` or `id` to your `Block` so you can target it with some custom SCSS. Now, defined a few SCSS variables corresponding to your custom column widths and use the `block-snap-widths` SCSS mixin to get the same functionality at your custom breakpoints.
 
 ```svelte
-<Block width="wider" snap="{true}" cls="custom-blocks">
+<Block width="wider" snap="{true}" class="custom-blocks">
   <!-- Your stuff for this block -->
 </Block>
 

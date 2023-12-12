@@ -23,12 +23,10 @@ slug: video
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
 
-<Video
-  ariaDescription={"Compulsory description of your video for screen readers."}
-  src={`${assets}/videos/myVideo.mp4`} // or a URL to an external video
-  width={'wide'} // normal, wide, wider, widest or fluid
-  caption={'Optional caption for your video.'}
-/>
+<Video ariaDescription={"Compulsory description of your video for screen
+readers."} src={`${assets}/videos/myVideo.mp4`} // or a URL to an external video
+width={'wide'} // normal, wide, wider, widest or fluid caption={'Optional
+caption for your video.'} />
 ```
 
 <DemoContainer>
@@ -66,13 +64,12 @@ Here is an example of what the same video would look like with a visibility thre
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
 
-<Video
+<video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"
   loopVideo="{false}"
-  playVideoThreshold="{0.9}"
-/>
+  playVideoThreshold="{0.9}"></video>
 ```
 
 <DemoContainer>
@@ -116,19 +113,12 @@ Here is an example with bottom right corner white opaque controls, with a replay
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
 
-<Video
-  ariaDescription={"Compulsory description of your video for screen readers."}
-  src={'path-to-video-or-external-url'}
-  size={'normal'}
-  caption={'Optional caption for your video.'}
-  playVideoThreshold={0.1}
-  controlsColour={'white'}
-  controlsOpacity={1}
-  controlsPosition={'bottom right'}
-  separateReplayIcon={true}
-  loopVideo={false} // If you don't set loopVideo to false, you won't see the loop button
-  hoverToSeeControls={true}
-/>
+<Video ariaDescription={"Compulsory description of your video for screen
+readers."} src={'path-to-video-or-external-url'} size={'normal'}
+caption={'Optional caption for your video.'} playVideoThreshold={0.1}
+controlsColour={'white'} controlsOpacity={1} controlsPosition={'bottom right'}
+separateReplayIcon={true} loopVideo={false} // If you don't set loopVideo to
+false, you won't see the loop button hoverToSeeControls={true} />
 ```
 
 <DemoContainer>
@@ -179,15 +169,14 @@ and go to the top. Click anywhere on the page before scrolling down to the video
   import { Video } from '@reuters-graphics/graphics-svelte-components';
 </script>
 
-<Video
+<video
   ariaDescription="{'Compulsory description of your video for screen readers.'}"
   src="{'path-to-video-or-external-url'}"
   width="{'normal'}"
   controlsOpacity="{1}"
   loopVideo="{false}"
   muteVideo="{false}"
-  allowSoundToAutoplay="{true}"
-/>
+  allowSoundToAutoplay="{true}"></video>
 ```
 
 <DemoContainer>

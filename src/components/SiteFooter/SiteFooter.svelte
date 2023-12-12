@@ -23,6 +23,9 @@
   let data = starterData;
 
   onMount(async () => {
+    if (new URL(document.location.href).origin !== 'https://www.reuters.com') {
+      return;
+    }
     try {
       const response = await fetch(
         'https://www.reuters.com/site-api/footer/?' +
@@ -47,6 +50,7 @@
     --nav-background: var(--theme-colour-background, #fff);
     --nav-primary: var(--theme-colour-text-primary, #404040);
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
+    --theme-font-family-sans-serif: Knowledge, sans-serif;
   `}"
 >
   <div>
@@ -57,7 +61,6 @@
   </div>
 </footer>
 
-<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
   footer {
     margin-top: 0;
@@ -66,13 +69,11 @@
       max-width: 1400px;
       margin: 0 auto;
     }
-    :global {
-      a {
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
+    :global(a) {
+      text-decoration: none;
+    }
+    :global(a:hover) {
+      text-decoration: underline;
     }
   }
 </style>

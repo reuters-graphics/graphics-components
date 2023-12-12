@@ -20,8 +20,8 @@
     paused = !paused;
     clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
     dispatch('pausePlayEvent', {
-      paused: paused,
-      clickedOnPauseBtn: clickedOnPauseBtn,
+      paused,
+      clickedOnPauseBtn,
     });
   }
 </script>
@@ -29,12 +29,17 @@
 <button
   on:click="{forwardBtnClick}"
   style="
-    opacity: {controlsOpacity}; 
+    opacity: {controlsOpacity};
     top: {controlsPosition === 'top left' || controlsPosition === 'top right'
     ? `${10}px`
+    : controlsPosition === 'center'
+    ? `${(heightVideoContainer - controlsBorderOffset) / 2}px`
     : `${heightVideoContainer - controlsBorderOffset}px`};
+
     left: {controlsPosition === 'top left' || controlsPosition === 'bottom left'
     ? `${10}px`
+    : controlsPosition === 'center'
+    ? `${(widthVideoContainer - controlsBorderOffset) / 2}px`
     : `${widthVideoContainer - controlsBorderOffset}px`};
     "
 >

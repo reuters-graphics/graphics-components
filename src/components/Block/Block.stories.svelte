@@ -13,11 +13,8 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Layout/Block',
-    component: Block,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -35,7 +32,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Layout/Block" component="{Block}" {...metaProps} />
 
 <Template let:args>
   <Article id="block-demo-article">
@@ -58,7 +55,7 @@
 <Story name="Custom layouts" {...withStoryDocs(customLayoutsDocs)}>
   <Block width="fluid">
     <!-- Enter bootstrap grid! -->
-    <div class="container-fluid text-center">
+    <div id="block-flex-example">
       <div class="row">
         <div class="col">Column</div>
         <div class="col-6">Column</div>
@@ -76,41 +73,43 @@
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
-      <Block width="narrower" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="narrower" snap="{true}" class="block-snap-widths-demo"
         >narrower</Block
       >
-      <Block width="narrow" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="narrow" snap="{true}" class="block-snap-widths-demo"
         >narrow</Block
       >
-      <Block width="normal" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="normal" snap="{true}" class="block-snap-widths-demo"
         >normal</Block
       >
-      <Block width="wide" snap="{true}" cls="block-snap-widths-demo">wide</Block
+      <Block width="wide" snap="{true}" class="block-snap-widths-demo"
+        >wide</Block
       >
-      <Block width="wider" snap="{true}" cls="block-snap-widths-demo"
+      <Block width="wider" snap="{true}" class="block-snap-widths-demo"
         >wider</Block
       >
-      <Block width="narrower" snap="{true}" cls="block-snap-widths-demo even"
+      <Block width="narrower" snap="{true}" class="block-snap-widths-demo even"
         >narrower</Block
       >
-      <Block width="narrow" snap="{true}" cls="block-snap-widths-demo even"
+      <Block width="narrow" snap="{true}" class="block-snap-widths-demo even"
         >narrow</Block
       >
       <Block
         width="normal"
         snap="{true}"
-        cls="block-snap-widths-demo even skip-narrow">normal.skip-narrow</Block
+        class="block-snap-widths-demo even skip-narrow"
+        >normal.skip-narrow</Block
       >
       <Block
         width="wide"
         snap="{true}"
-        cls="block-snap-widths-demo even skip-normal skip-narrow"
+        class="block-snap-widths-demo even skip-normal skip-narrow"
         >wide.skip-normal.skip-narrow</Block
       >
       <Block
         width="wider"
         snap="{true}"
-        cls="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
+        class="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
       >
     </div>
   </Article>
@@ -151,8 +150,11 @@
     }
   }
 
-  div.container-fluid {
+  div#block-flex-example {
     padding: 25px 0;
+    div.row {
+      display: flex;
+    }
     div.row > div {
       background-color: rgb(211, 132, 123);
       border: 1px solid white;
@@ -160,6 +162,7 @@
       padding: 20px;
       color: white;
       text-align: center;
+      flex-grow: 1;
     }
     div.row:first-child {
       div {

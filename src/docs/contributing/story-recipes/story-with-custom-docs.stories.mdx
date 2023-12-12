@@ -45,17 +45,15 @@ Now, import your markdown file in your story page component and attach it to eit
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams';
 
   const meta = {
-    title: 'Components/YourComponent',
-    component: YourComponent,
     ...withComponentDocs(componentDocs),
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/YourComponent" component="{YourComponent}" {...meta} />
 
-<Template let:args>
+<template let:args>
   <YourComponent {...args} />
-</Template>
+</template>
 
 <!-- The first story will use the component docs in Meta... -->
 <Story name="Basic" args="{{ width: 'normal' }}" />
@@ -105,11 +103,11 @@ Now, import your snippet file in your story page component and attach it to any 
   };
 </script>
 
-<Meta {...meta} />
+<meta {...meta} />
 
-<Template let:args>
+<template let:args>
   <YourComponent {...args} />
-</Template>
+</template>
 
 <!-- Pass source in inside an object keyed by your snippet's language, e.g., svelte, scss, etc. -->
 <Story

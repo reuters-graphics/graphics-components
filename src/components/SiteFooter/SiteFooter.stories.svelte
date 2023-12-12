@@ -16,12 +16,6 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/SiteFooter',
-    component: SiteFooter,
-    ...withComponentDocs(componentDocs),
-  };
-
   const customReferrals = [
     {
       url: 'https://graphics.reuters.com/world-coronavirus-tracker-and-maps/',
@@ -40,7 +34,11 @@
   ];
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/SiteFooter"
+  component="{SiteFooter}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <div>

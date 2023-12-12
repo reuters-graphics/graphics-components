@@ -1,23 +1,29 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module">
+  import SiteHeadline from './SiteHeadline.svelte';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
-  import quickitDocs from './stories/docs/quickit.md?raw';
 
-  import SiteHeadline from './SiteHeadline.svelte';
-
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
+  export const meta = {
     title: 'Components/SiteHeadline',
     component: SiteHeadline,
     ...withComponentDocs(componentDocs),
+    argTypes: {
+      hedSize: {
+        control: 'select',
+        options: ['small', 'normal', 'big'],
+      },
+    },
   };
+</script>
+
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore
+  import quickitDocs from './stories/docs/quickit.md?raw';
+
+  import { withStoryDocs } from '$lib/docs/utils/withParams.js';
 
   const content = {
     Section: 'Global News',
@@ -29,8 +35,6 @@
   };
 </script>
 
-<Meta {...meta} />
-
 <Template let:args>
   <SiteHeadline {...args} />
 </Template>
@@ -40,7 +44,7 @@
   args="{{
     section: 'Graphics',
     sectionUrl: 'https://graphics.reuters.com',
-    hed: 'Ukraine makes surprising gains in swift counteroffensive',
+    hed: 'Ukraine makes surprising gains in counteroffensive',
     authors: [
       'Dea Bankova',
       'Michael Ovaska',
@@ -61,6 +65,3 @@
     publishTime="{content.Published}"
   />
 </Story>
-
-<style lang="scss">
-</style>

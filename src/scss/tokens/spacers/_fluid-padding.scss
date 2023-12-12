@@ -1,0 +1,99 @@
+@use 'mixins/fluid-padding' as *;
+
+@each $level, $value in $fluid-padding-levels {
+  %fp-#{$level} {
+    padding: $value;
+  }
+  %fpt-#{$level} {
+    padding-top: $value;
+  }
+  %fpr-#{$level} {
+    padding-right: $value;
+  }
+  %fpb-#{$level} {
+    padding-bottom: $value;
+  }
+  %fpl-#{$level} {
+    padding-left: $value;
+  }
+  %fpx-#{$level} {
+    padding-right: $value;
+    padding-left: $value;
+  }
+  %fpy-#{$level} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+
+  %\!fp-#{$level} {
+    padding: $value !important;
+  }
+  %\!fpt-#{$level} {
+    padding-top: $value !important;
+  }
+  %\!fpr-#{$level} {
+    padding-right: $value !important;
+  }
+  %\!fpb-#{$level} {
+    padding-bottom: $value !important;
+  }
+  %\!fpl-#{$level} {
+    padding-left: $value !important;
+  }
+  %\!fpx-#{$level} {
+    padding-right: $value !important;
+    padding-left: $value !important;
+  }
+  %\!fpy-#{$level} {
+    padding-top: $value !important;
+    padding-bottom: $value !important;
+  }
+}
+
+$fluid-padding-placeholder-levels: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+
+@each $level, $value in $fluid-padding-placeholder-levels {
+  .fp-#{$level} {
+    @extend %fp-#{$level};
+  }
+  .fpt-#{$level} {
+    @extend %fpt-#{$level};
+  }
+  .fpr-#{$level} {
+    @extend %fpr-#{$level};
+  }
+  .fpb-#{$level} {
+    @extend %fpb-#{$level};
+  }
+  .fpl-#{$level} {
+    @extend %fpl-#{$level};
+  }
+  .fpx-#{$level} {
+    @extend %fpx-#{$level};
+  }
+  .fpy-#{$level} {
+    @extend %fpy-#{$level};
+  }
+
+  .\!fp-#{$level} {
+    @extend %\!fp-#{$level};
+  }
+  .\!fpt-#{$level} {
+    @extend %\!fpt-#{$level};
+  }
+  .\!fpr-#{$level} {
+    @extend %\!fpr-#{$level};
+  }
+  .\!fpb-#{$level} {
+    @extend %\!fpb-#{$level};
+  }
+  .\!fpl-#{$level} {
+    @extend %\!fpl-#{$level};
+  }
+  .\!fpx-#{$level} {
+    @extend %\!fpx-#{$level};
+  }
+  .\!fpy-#{$level} {
+    @extend %\!fpy-#{$level};
+  }
+}

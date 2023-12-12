@@ -23,7 +23,7 @@
 <div
   style:width="100%"
   style:height="{`${width + containerPadding * 2}px`}"
-  class="component-container"
+  class="component-container flex items-center justify-center"
 >
   <div
     style="
@@ -36,8 +36,8 @@
       margin: 0 auto;
     "
   >
-    <div class="spinner-container">
-      <div class="spinner"></div>
+    <div class="spinner-container relative">
+      <div class="spinner absolute"></div>
     </div>
   </div>
 </div>
@@ -48,21 +48,14 @@
       transform: rotate(360deg);
     }
   }
-  .component-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
   .spinner-container {
-    position: relative;
     height: 0;
     padding-bottom: 100%;
     color: var(--spinner-colour, #666);
   }
 
   .spinner {
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -71,7 +64,6 @@
     border: var(--spinner-ring-width, 6px) solid transparent;
     border-top-color: currentColor;
     animation: spinner var(--spinner-speed, 0.8s) linear infinite;
-    box-sizing: border-box;
 
     &::before {
       content: '';

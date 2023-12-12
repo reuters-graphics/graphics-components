@@ -1,0 +1,54 @@
+@mixin font-thin {
+  font-weight: 100;
+}
+@mixin font-extralight {
+  font-weight: 200;
+}
+@mixin font-light {
+  font-weight: 300;
+}
+@mixin font-regular {
+  font-weight: 400;
+}
+@mixin font-medium {
+  font-weight: 500;
+}
+@mixin font-semibold {
+  font-weight: 600;
+}
+@mixin font-bold {
+  font-weight: 700;
+}
+@mixin font-extrabold {
+  font-weight: 800;
+}
+@mixin font-black {
+  font-weight: 900;
+}
+@mixin \!font-thin {
+  font-weight: 100 !important;
+}
+@mixin \!font-extralight {
+  font-weight: 200 !important;
+}
+@mixin \!font-light {
+  font-weight: 300 !important;
+}
+@mixin \!font-regular {
+  font-weight: 400 !important;
+}
+@mixin \!font-medium {
+  font-weight: 500 !important;
+}
+@mixin \!font-semibold {
+  font-weight: 600 !important;
+}
+@mixin \!font-bold {
+  font-weight: 700 !important;
+}
+@mixin \!font-extrabold {
+  font-weight: 800 !important;
+}
+@mixin \!font-black {
+  font-weight: 900 !important;
+}

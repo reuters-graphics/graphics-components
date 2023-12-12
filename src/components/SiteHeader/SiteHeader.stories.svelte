@@ -14,9 +14,7 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/SiteHeader',
-    component: SiteHeader,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argsTypes: {
       themes: { control: { disable: true } },
@@ -24,7 +22,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/SiteHeader" component="{SiteHeader}" {...metaProps} />
 
 <Template let:args>
   <div>

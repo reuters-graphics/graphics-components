@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../../utils/parseCss';
+
+{/* @ts-ignore */}
+import margin from '$lib/scss/tokens/spacers/\_margin.scss?inline';
+
+{/* @ts-ignore */}
+import padding from '$lib/scss/tokens/spacers/\_padding.scss?inline';
+
+{/* @ts-ignore */}
+import fluidMargin from '$lib/scss/tokens/spacers/\_fluid-margin.scss?inline';
+
+{/* @ts-ignore */}
+import fluidPadding from '$lib/scss/tokens/spacers/\_fluid-padding.scss?inline';
+
+<Meta title="Styles/Tokens/Spacers" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Spacer tokens
+
+Spacers include tokens that control static and fluid margins and paddings.
+
+### What's the difference between "static" and "fluid"?
+
+**Static** margin/padding tokens set values that don't change with the size of the viewport. These tokens are best for creating space between block-like elements — divs, pictures, videos, graphics, etc. The tables below contain dozens of levels so you can finely tune spacing, but their values also are at intervals that help you maintain consistent balance on your page.
+
+**Fluid** token values _do change_ depending on the size of the device and are specifically designed to pair with our fluid font sizes. These tokens have fewer available levels to help make sure our typography is consistent.
+
+As a rule of thumb, if you're setting space between or adjacent to _text elements_, you'll likely want to use **fluid tokens** (`Fluid margin`/`Fluid padding` tables). If you're setting space between _block-like elements_, you probably want **static tokens** (`Margin`/`Padding`).
+
+---
+
+<CopyTable
+  title="Margin"
+  mdnLink="margin"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(margin)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Padding"
+  mdnLink="padding"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(padding)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Fluid margin"
+  mdnLink="margin"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(fluidMargin, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+<CopyTable
+  title="Fluid padding"
+  mdnLink="margin"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(fluidPadding, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>

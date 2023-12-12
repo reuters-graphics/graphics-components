@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { scssVariablesToTableArray } from '../../../utils/parseCss';
+
+{/* @ts-ignore */}
+import theme from '$lib/scss/tokens/variables/\_theme.scss?raw';
+import block from '$lib/scss/tokens/variables/\_block.scss?raw';
+
+<Meta title="Styles/Tokens/SCSS Variables" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Token variables
+
+These are SCSS mirrors of some of the default CSS variables used in the `Theme`. Use them in places where CSS variables cannot be used. e.g. You can write `media-queries` to target the block widths using the `block` vars, which is not possible using CSS variables.
+
+<CopyTable
+  title="Theme"
+  header={['Variable', 'Properties']}
+  body={scssVariablesToTableArray(theme)}
+  copyable={[true, false]}
+/>
+<CopyTable
+  title="Block"
+  header={['Variable', 'Properties']}
+  body={scssVariablesToTableArray(block)}
+  copyable={[true, false]}
+/>

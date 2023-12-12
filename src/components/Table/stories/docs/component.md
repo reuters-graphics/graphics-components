@@ -10,5 +10,5 @@ Present structured data in a table. Consider making it interactive.
   import yourData from './stories/homeRuns.json';
 </script>
 
-<Table data="{yourData}" />
+<table data="{yourData}"></table>
 ```

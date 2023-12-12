@@ -30,6 +30,4 @@ Use it like this:
     <BodyText text="{block.Text}" />
   {/if}
 {/each}
-
-
 ```

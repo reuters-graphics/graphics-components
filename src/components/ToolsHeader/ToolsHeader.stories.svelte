@@ -8,15 +8,13 @@
   import ToolsHeader from './ToolsHeader.svelte';
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Utilities/ToolsHeader',
-    component: ToolsHeader,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/ToolsHeader"
+  component="{ToolsHeader}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <div>

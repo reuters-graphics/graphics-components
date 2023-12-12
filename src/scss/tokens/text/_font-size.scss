@@ -1,0 +1,68 @@
+@use 'mixins/font-size' as *;
+
+.text-xxs {
+  @include text-xxs;
+}
+.text-xs {
+  @include text-xs;
+}
+.text-sm {
+  @include text-sm;
+}
+.text-base {
+  @include text-base;
+}
+.text-lg {
+  @include text-lg;
+}
+.text-xl {
+  @include text-xl;
+}
+.text-2xl {
+  @include text-2xl;
+}
+.text-3xl {
+  @include text-3xl;
+}
+.text-4xl {
+  @include text-4xl;
+}
+.text-5xl {
+  @include text-5xl;
+}
+.text-6xl {
+  @include text-6xl;
+}
+.\!text-xxs {
+  @include \!text-xxs;
+}
+.\!text-xs {
+  @include \!text-xs;
+}
+.\!text-sm {
+  @include \!text-sm;
+}
+.\!text-base {
+  @include \!text-base;
+}
+.\!text-lg {
+  @include \!text-lg;
+}
+.\!text-xl {
+  @include \!text-xl;
+}
+.\!text-2xl {
+  @include \!text-2xl;
+}
+.\!text-3xl {
+  @include \!text-3xl;
+}
+.\!text-4xl {
+  @include \!text-4xl;
+}
+.\!text-5xl {
+  @include \!text-5xl;
+}
+.\!text-6xl {
+  @include \!text-6xl;
+}

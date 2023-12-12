@@ -18,7 +18,7 @@
    * Set a colour for the timeline bullet symbols and line.
    * @type {string}
    */
-  export let symbolColour: string = '#ccc';
+  export let symbolColour: string = 'var(--theme-colour-brand-rules)';
   /**
    * Set a colour for the date headings in the timeline.
    * @type {string}
@@ -28,7 +28,8 @@
    * Set a class to target with SCSS.
    * @type {string}
    */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
   /**
    * Set an ID to target with SCSS.
    * @type {string}
@@ -41,11 +42,11 @@
   import { marked } from 'marked';
 </script>
 
-<Block width="normal" id="{id}" cls="simple-timeline-container {cls}">
-  <div class="timeline" style="--symbol-colour:{symbolColour};">
+<Block width="normal" id="{id}" class="simple-timeline-container fmy-6 {cls}">
+  <div class="timeline pl-2 pr-3.5" style="--symbol-colour:{symbolColour};">
     {#each dates as date}
-      <div class="date">
-        <svg height="25" width="20">
+      <div class="date relative pt-0.5 pl-5 pb-4">
+        <svg class="absolute bg" height="25" width="20">
           <circle
             cx="10"
             cy="12"
@@ -54,17 +55,25 @@
             stroke-width="2"
             fill="transparent"></circle>
         </svg>
-        <h5 style:color="{dateColour}">{date.date}</h5>
+        <div
+          class="timeline-date font-note text-xs uppercase font-black tracking-wide fmb-0"
+          style:color="{dateColour}"
+        >
+          {date.date}
+        </div>
         {#each date.events as event}
           <div class="event pb-2">
             {#if event.titleLink}
               <a href="{event.titleLink}" target="_blank">
-                <h6>
-                  {event.title} <span><Fa fw icon="{faLink}" /></span>
-                </h6>
+                <div class="title h3">
+                  {event.title}
+                  <span class="text-sm"><Fa fw icon="{faLink}" /></span>
+                </div>
               </a>
             {:else}
-              <h6>{event.title}</h6>
+              <div class="title h3">
+                {event.title}
+              </div>
             {/if}
             {#if event.context}
               {@html marked(event.context)}
@@ -77,68 +86,43 @@
 </Block>
 
 <style lang="scss">
+  @use '../../scss/mixins' as *;
   .timeline {
-    margin-top: 2rem;
-    padding-left: 8px;
-    padding-right: 15px;
     .date {
       border-left: 1px solid var(--symbol-colour);
-      padding-left: 20px;
-      padding-bottom: 1rem;
-      position: relative;
-      margin: 0;
-      display: block;
-
       &:last-child {
-        border-left: 1px solid var(--theme-colour-background, #fff);
-      }
-
-      h5 {
-        font-size: 0.95rem;
-        margin-top: 0px;
+        border-left: 1px solid $theme-colour-background;
+        @include fpb-0;
       }
     }
     svg {
-      background-color: var(--theme-colour-background, #fff);
-      position: absolute;
       top: -1px;
       left: -10px;
     }
+    div.title {
+      @include fmt-2;
+      @include fmb-1;
+      @include font-medium;
+    }
+
     div.event {
-      h6 {
-        margin: 0;
-        font-size: 1.2rem;
-        color: var(--theme-colour-text-primary, #666);
-      }
       a {
-        color: var(--theme-colour-text-primary, #666);
         text-decoration: none;
         &:hover {
           text-decoration: underline;
         }
       }
-      a h6 {
+      a div.title {
         span {
           opacity: 0.5;
-          font-size: 1rem;
         }
         &:hover span {
           opacity: 0.8;
         }
       }
       :global(p) {
-        margin-top: 0;
-        margin-bottom: 0.7rem;
-        font-size: 1rem;
-        font-weight: 300;
-        color: var(--theme-colour-text-primary, #666);
-        font-family: var(--theme-font-family-sans-serif);
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-      :global(a) {
-        color: var(--theme-colour-text-primary, #666);
+        @include body-note;
+        @include font-light;
       }
     }
   }

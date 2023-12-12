@@ -87,6 +87,13 @@
    */
   export let parallax: boolean = false;
 
+  /**
+   * Set a class to target with SCSS.
+   * @type {string}
+   */
+  let cls: string = '';
+  export { cls as class };
+
   // @ts-ignore
   import SvelteScroller from '@sveltejs/svelte-scroller';
   import Background from './Background.svelte';
@@ -101,11 +108,11 @@
 </script>
 
 {#if !embedded}
-  <Block width="fluid" cls="scroller-container" id="{id}">
+  <Block width="fluid" class="scroller-container fmy-6 {cls}" id="{id}">
     <SvelteScroller
-      bind:index
-      bind:offset
-      bind:progress
+      bind:index="{index}"
+      bind:offset="{offset}"
+      bind:progress="{progress}"
       threshold="{threshold}"
       top="{top}"
       bottom="{bottom}"
@@ -114,15 +121,16 @@
     >
       <div
         slot="background"
-        class="background"
+        class="background min-h-screen relative p-0 flex justify-center"
         class:right="{foregroundPosition === 'left opposite'}"
         class:left="{foregroundPosition === 'right opposite'}"
         aria-hidden="true"
       >
-        <div class="scroller-graphic-well">
+        <div class="scroller-graphic-well w-full">
           <Block
             width="{backgroundWidth}"
-            cls="background-container step-{index + 1}"
+            class="background-container step-{index +
+              1} my-0 min-h-screen flex justify-center items-center relative"
           >
             <Background
               index="{index}"
@@ -134,13 +142,13 @@
         </div>
       </div>
 
-      <div slot="foreground" class="foreground {foregroundPosition}">
+      <div slot="foreground" class="foreground {foregroundPosition} w-full">
         <Foreground steps="{steps}" />
       </div>
     </SvelteScroller>
   </Block>
 {:else}
-  <Block width="widest" cls="scroller-container embedded" id="{id}">
+  <Block width="widest" class="scroller-container embedded" id="{id}">
     <Embedded
       steps="{steps}"
       embeddedLayout="{embeddedLayout}"
@@ -150,23 +158,7 @@
 {/if}
 
 <style lang="scss">
-  .scroller-container {
-    width: calc(100% + 30px);
-    margin-left: -15px;
-    max-width: initial;
-    &.embedded {
-      width: 100%;
-      padding: 0 15px;
-    }
-  }
-
   div.background {
-    min-height: 100vh;
-    position: relative;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-
     &.left {
       width: 50%;
       float: left;
@@ -188,27 +180,10 @@
 
     div.scroller-graphic-well {
       padding: 0 15px;
-      width: 100%;
-      :global {
-        div.background-container {
-          margin-top: 0;
-          margin-bottom: 0;
-          min-height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          &.fluid {
-            margin: 0 0 0 -15px;
-          }
-        }
-      }
     }
   }
 
   div.foreground {
-    width: 100%;
-
     &.right {
       width: 50%;
       float: right;

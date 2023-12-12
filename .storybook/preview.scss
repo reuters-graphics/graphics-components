@@ -1,5 +1,6 @@
-@import "../src/scss/mixins";
-@import "../src/scss/colours/thematic/tr";
+body {
+  font-family: 'Nunito Sans', Helvetica, Arial, sans-serif;
+}
 
 table.docblock-argstable {
   p {
@@ -12,8 +13,16 @@ table.docblock-argstable {
   }
 }
 
+div.sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) {
+  font-size: 16px;
+}
+
 div.sbdocs-content {
-  & > h2, & > div > div > h2 {
+  h1:not(.sbdocs-preview *) {
+    font-family: 'Knowledge', sans-serif;
+  }
+  & > h2,
+  & > div > div > h2 {
     margin-top: 4rem;
     margin-bottom: 2rem;
     &:first-of-type {
@@ -26,7 +35,33 @@ div.sbdocs-content {
     margin: 1rem 0;
   }
 
- blockquote.sbdocs {
+  & > div > :where(p, ul, ol),
+  .sb-anchor > div > :where(p, ul, ol) {
+    font-size: 18px;
+    line-height: 29px;
+    font-family: 'Knowledge', sans-serif;
+
+    .highlight {
+      background-color: rgb(254, 254, 160);
+      padding: 0 4px;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    a {
+      font-family: 'Knowledge', sans-serif;
+      color: #0071a1;
+      text-decoration: none;
+      text-underline-offset: 2px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.sbdocs-content {
+  blockquote:not(.sb-unstyled *) {
     background-color: #ededed;
     padding: 15px 20px;
     border: 1px solid #ccc;
@@ -39,31 +74,36 @@ div.sbdocs-content {
   }
 }
 
-p.sbdocs-p, ul.sbdocs-ul, li.sbdocs-li {
-  font-size: 18px;
-  line-height: 29px;
-  @include font-display;
+.sbdocs-content div.sbdocs:not(.sb-unstyled) {
+  font-family: 'Knowledge', sans-serif;
 
-  .highlight {
-    background-color: rgb(254, 254, 160);
-    padding: 0 4px;
+  h1 {
+    font-family: 'Knowledge', sans-serif;
   }
-  .bold {
-    font-weight: bold;
-  }
-}
+  p,
+  ul,
+  li {
+    font-size: 18px;
+    line-height: 29px;
+    font-family: 'Knowledge', sans-serif;
 
-a.sbdocs-a {
-  @include font-display;
-  color: $tr-muted-blue;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
+    .highlight {
+      background-color: rgb(254, 254, 160);
+      padding: 0 4px;
+    }
+    .bold {
+      font-weight: bold;
+    }
   }
-}
-
-.sbdocs {
-  @include font-display;
+  a {
+    font-family: 'Knowledge', sans-serif;
+    color: #0071a1;
+    text-decoration: none;
+    text-underline-offset: 2px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   &:not(.sbdocs-preview) {
     code {
@@ -73,7 +113,7 @@ a.sbdocs-a {
       background-color: #efefef;
       padding: 2px 4px;
     }
-  
+
     img {
       display: block;
       margin-top: 1rem;
@@ -88,7 +128,9 @@ a.sbdocs-a {
   }
 }
 
-
+.sbdocs.sbdocs-wrapper {
+  padding-top: 1rem;
+}
 
 div.reset-article {
   width: calc(100% + 30px);

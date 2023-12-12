@@ -1,19 +1,17 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // Don't lose the "?raw" in markdown imports!
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
+  // @ts-ignore
+  import collectionDocs from './stories/docs/collection.md?raw';
 
   import ReferralBlock from './ReferralBlock.svelte';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/ReferralBlock',
-    component: ReferralBlock,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -39,7 +37,11 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/ReferralBlock"
+  component="{ReferralBlock}"
+  {...metaProps}
+/>
 
 <Template let:args>
   <ReferralBlock {...args} />
@@ -50,6 +52,18 @@
   args="{{
     section: '/lifestyle/sports/',
     number: 4,
-    cls: 'my-3',
+    class: 'fmy-0',
+    heading: 'More World Cup coverage',
   }}"
+/>
+
+<Story
+  name="By collection"
+  args="{{
+    collection: 'x-trump',
+    number: 6,
+    class: 'fmy-8',
+    heading: 'The latest Trump coverage',
+  }}"
+  {...withStoryDocs(collectionDocs)}
 />

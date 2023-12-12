@@ -13,16 +13,14 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const meta = {
-    title: 'Components/PhotoPack',
-    component: PhotoPack,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
-      captionWidth: {
+      textWidth: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
@@ -67,8 +65,8 @@
     ID: 'my-photo-pack',
     Class: 'mb-2',
     Width: 'wide',
-    CaptionWidth: 'normal',
-    Gap: '10',
+    textWidth: 'normal',
+    Gap: '15',
     Images: [
       {
         Src: 'https://via.placeholder.com/1024x768.jpg',
@@ -121,7 +119,7 @@
   const altTextLayouts = [{ breakpoint: 450, rows: [2] }];
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/PhotoPack" component="{PhotoPack}" {...metaProps} />
 
 <Template let:args>
   <PhotoPack {...args} />
@@ -131,7 +129,7 @@
   name="Default"
   args="{{
     width: 'wide',
-    captionWidth: 'normal',
+    textWidth: 'normal',
     images: defaultImages,
     layouts: defaultLayouts,
   }}"
@@ -147,7 +145,7 @@
   name="Missing altText"
   args="{{
     width: 'wide',
-    captionWidth: 'normal',
+    textWidth: 'normal',
     images: altTextImages,
     layouts: altTextLayouts,
   }}"

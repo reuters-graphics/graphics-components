@@ -1,7 +1,7 @@
 Feel free to both search and filter.
 
 ```svelte
-<Table
+<table
   data="{yourData}"
   searchable="{true}"
   filterField="{'Region'}"
@@ -9,5 +9,5 @@ Feel free to both search and filter.
   title="{'Press Freedom Index'}"
   dek="{'Reporters Without Borders ranks countries based on their level of press freedom using criteria such as the degree of media pluralism and violence against journalists.'}"
   source="{'Source: Reporters Without Borders'}"
-/>
+></table>
 ```

@@ -1,0 +1,61 @@
+name: Canary
+
+on:
+  push:
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    # Restricts to:
+    #   1) the base repository
+    #   2) NOT the default branch ("main") on PR
+    #   3) NOT the default branch ("main") on push
+    #   4) NOT "ci skip" in commit message
+    #   5) NOT "skip ci" in commit message
+    if: |
+      github.repository == 'reuters-graphics/graphics-components' &&
+      endsWith(github.event.base_ref, github.event.repository.default_branch) != true &&
+      endsWith(github.event.ref, github.event.repository.default_branch) != true &&
+      contains(github.event.head_commit.message, 'ci skip') != true &&
+      contains(github.event.head_commit.message, 'skip ci') != true
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v3
+
+      - id: prepare
+        name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - id: setup-node
+        name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+
+      - id: cache
+        name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - id: install-deps
+        name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - id: build-package
+        name: Build package
+        run: npm run build:package
+
+      - id: canary-release
+        name: Create Canary Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx auto canary

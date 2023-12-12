@@ -27,17 +27,13 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  // You can import JSON you need in stories directly in code!
   // @ts-ignore
   import pressFreedom from './stories/pressFreedom.json';
   import homeRuns from './stories/homeRuns.json';
   import richestWomen from './stories/richestWomen.json';
 
-  const meta = {
-    title: 'Components/Table',
-    component: Table,
+  const metaProps = {
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       width: {
         control: 'select',
@@ -47,7 +43,7 @@
   };
 </script>
 
-<Meta {...meta} />
+<Meta title="Components/Table" component="{Table}" {...metaProps} />
 
 <Template let:args>
   <Table {...args} />
@@ -143,6 +139,7 @@
     sortDirection: 'descending',
     paginated: true,
     title: 'Press Freedom Index',
+    notes: 'Note: data as of 2018',
     source: 'Source: Reporters Without Borders',
   }}"
 />

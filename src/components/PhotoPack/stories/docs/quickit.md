@@ -6,7 +6,7 @@ Type: photo-pack
 ID: my-photo-pack
 Class: mb-2 # adjust margin class as needed
 Width: wide
-CaptionWidth: normal
+TextWidth: normal
 Gap: 10
 [.Images]
   Src: images/my-img-1.jpg

@@ -1,0 +1,129 @@
+import { Meta } from '@storybook/addon-docs';
+import { parameters } from '$docs/utils/docsPage.js';
+import Mermaid from '../../docs-components/Mermaid/Mermaid.jsx';
+import CopyTable from '../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../utils/parseCss';
+import './styles.scss';
+
+{/* @ts-ignore */}
+import color from '$lib/scss/tokens/text/\_color.scss?inline';
+
+<Meta title="Styles/Tokens/Intro" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Style tokens
+
+All of the components in this library have been styled using a system of tokens. The style tokens give us a lot of flexibility and ultimately make for the most concise CSS possible.
+
+You can use the style tokens to help shortcut the time you spend writing CSS and reinventing solid design conventions.
+
+## What's a "token"?
+
+A token represents the value for an individual style rule, like `font-size` or `color`. Each token sets just one style rule, and multiple tokens are combined together to style an element, like a `<div/>`.
+
+<Mermaid
+  name="token-graph"
+  code={`
+graph LR;
+  A(Token)-->|1rem|B;
+  B(Style rule)-->|font-size|Y;
+  C(Token)-->|bold|D;
+  D(Style rule)-->|font-weight|Y;
+  E(Token)-->|serif|F;
+  F(Style rule)-->|font-family|Y;
+  Y(HTML Element)-->|"&lt;div/&gt;"|Z("&lt;Component/&gt;");
+`}
+/>
+
+Each set of tokens has several levels that represent the different values a style rule can take in our design system and are grouped in how they're named to make them easier to remember.
+
+<Mermaid
+  name="individual-graph"
+  code={`
+graph LR;
+  TD("\`**Text align tokens**\`")---TA;
+  TD---TB;
+  TD---TC;
+  TA(text-left)-->TX("text-align: left;");
+  TB(text-center)-->TY("text-align: center;");
+  TC(text-right)-->TZ("text-align: right;");
+`}
+/>
+
+## Using style tokens
+
+> Whether you use style tokens or write your own custom CSS in your project is **entirely up to you**.
+>
+> There are hundreds of tokens, so they can be a little daunting at first. But learning the tokens for the styles you have to write most often **will absolutely save you time**, so we recommend giving them a try.
+>
+> **That said**, we _do recommend_ using tokens for styling typography, especially `font-size`. (Our typography size tokens use a fluid scale so your text will look great whether a reader is on a mobile phone or giant desktop.)
+
+All of our style tokens can be used through either a class name, an SCSS mixin or both. Use the tables throughout this section of the docs to see what's available for each token.
+
+### For example...
+
+Here's our table of text colour tokens, which set the `text-color` style.
+
+<CopyTable
+  title="Colour"
+  mdnLink="color"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(color, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>
+
+This table's tokens can be used through either a class or an SCSS mixin. (The table lets you click-to-copy for either.)
+
+To use the token that sets the `color` style to our "primary" text colour (i.e., black), you'd use the `Class` token like this:
+
+```svelte
+<p class="text-primary">Lorem ipsum...</p>
+```
+
+If you'd like to set the style in SCSS, you'd use the `Include` token like this:
+
+```svelte
+<p>Lorem ipsum...</p>
+
+<style lang="scss">
+  @import '@reuters-graphics/graphics-components/scss/mixins';
+
+  p {
+    @include text-primary;
+  }
+</style>
+```
+
+> **Note:** If you're writing SCSS _inside a component_, the `@import` above is required. If you're writing in `global.scss`, this is already included for you.
+
+To use multiple tokens, you'd simply add another class or include:
+
+```svelte
+<p class="text-primary font-bold">Lorem ipsum...</p>
+```
+
+```scss
+p {
+  @include text-primary;
+  @include font-bold;
+}
+```
+
+It's normal that not every style is accounted for by our tokens, so even if you use them expect you'll still have to write your own SCSS at times. But using the pre-made tokens will shortcut a lot of time spent tweaking styles to make designs consistent across your page. The styles set by our tokens have been pre-harmonised for you!
+
+### `!important` modifier
+
+Most of our tokens can be used with an `!important` modifier simply by adding an `!`. So for the class token that controls `font-weight`, you'd make it important like:
+
+```svelte
+<p class="!font-bold">Lorem ipsum...</p>
+```
+
+For SCSS includes, the concept is the same, but you need to escape the `!` by adding an extra `\` to make it valid syntax:
+
+```scss
+p {
+  @include \!font-bold;
+}
+```

@@ -1,0 +1,2 @@
+const t=(s,c={})=>{var d;const e=Object.keys(s)[0],r=s[e];return{parameters:{docs:{...(d=c==null?void 0:c.parameters)==null?void 0:d.docs,source:{code:r,language:e}}}}},n=(s,c={})=>{var a;return{parameters:{docs:{...(a=c==null?void 0:c.parameters)==null?void 0:a.docs,description:{story:s}}}}},o=(s,c={})=>{var a;return{parameters:{docs:{...(a=c==null?void 0:c.parameters)==null?void 0:a.docs,description:{component:s}}}}};export{t as a,n as b,o as w};
+//# sourceMappingURL=withParams-47e2ab71.js.map

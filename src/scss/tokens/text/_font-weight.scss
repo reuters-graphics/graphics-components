@@ -1,0 +1,56 @@
+@use 'mixins/font-weight' as *;
+
+.font-thin {
+  @include font-thin;
+}
+.font-extralight {
+  @include font-extralight;
+}
+.font-light {
+  @include font-light;
+}
+.font-regular {
+  @include font-regular;
+}
+.font-medium {
+  @include font-medium;
+}
+.font-semibold {
+  @include font-semibold;
+}
+.font-bold {
+  @include font-bold;
+}
+.font-extrabold {
+  @include font-extrabold;
+}
+.font-black {
+  @include font-black;
+}
+.\!font-thin {
+  @include \!font-thin;
+}
+.\!font-extralight {
+  @include \!font-extralight;
+}
+.\!font-light {
+  @include \!font-light;
+}
+.\!font-regular {
+  @include \!font-regular;
+}
+.\!font-medium {
+  @include \!font-medium;
+}
+.\!font-semibold {
+  @include \!font-semibold;
+}
+.\!font-bold {
+  @include \!font-bold;
+}
+.\!font-extrabold {
+  @include \!font-extrabold;
+}
+.\!font-black {
+  @include \!font-black;
+}

@@ -6,24 +6,18 @@
 
   import PymChild from './PymChild.svelte';
 
-  import {
-    withComponentDocs
-  } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Utilities/PymChild',
-    component: PymChild,
-    ...withComponentDocs(componentDocs),
-  };
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/PymChild"
+  component="{PymChild}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <PymChild {...args} />
   <div>Nothing to see here. 😎</div>
 </Template>
 
-<Story
-  name="Default"
-/>
+<Story name="Default" />

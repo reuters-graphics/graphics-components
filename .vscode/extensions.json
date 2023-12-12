@@ -1,3 +1,6 @@
 {
-  "recommendations": ["silvenon.mdx"]
+  "recommendations": [
+    "unifiedjs.vscode-mdx",
+    "somewhatstationery.some-sass"
+  ]
 }

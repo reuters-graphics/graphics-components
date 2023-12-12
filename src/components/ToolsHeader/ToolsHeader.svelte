@@ -4,7 +4,8 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   /**
    * Make the header stick when user scrolls.
@@ -41,7 +42,7 @@
 <header
   id="{id}"
   class="{cls}"
-  class:sticky
+  class:sticky="{sticky}"
   style:background="{background}"
   style:border-bottom="{borderBottom}"
 >

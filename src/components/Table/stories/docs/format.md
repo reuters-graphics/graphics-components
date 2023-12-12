@@ -9,7 +9,7 @@ Among other things, this feature can be used to provide a unit of measurement wi
   };
 </script>
 
-<Table
+<table
   data="{yourData}"
   fieldFormatters="{fieldFormatters}"
   sortable="{true}"
@@ -17,5 +17,5 @@ Among other things, this feature can be used to provide a unit of measurement wi
   sortDirection="{'descending'}"
   title="{'The Richest Women in the World'}"
   source="{'Source: Forbes'}"
-/>
+></table>
 ```

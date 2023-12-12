@@ -1,0 +1,38 @@
+@use 'mixins/letter-spacing' as *;
+
+.tracking-tighter {
+  @include tracking-tighter;
+}
+.tracking-tight {
+  @include tracking-tight;
+}
+.tracking-normal {
+  @include tracking-normal;
+}
+.tracking-wide {
+  @include tracking-wide;
+}
+.tracking-wider {
+  @include tracking-wider;
+}
+.tracking-widest {
+  @include tracking-widest;
+}
+.\!tracking-tighter {
+  @include \!tracking-tighter;
+}
+.\!tracking-tight {
+  @include \!tracking-tight;
+}
+.\!tracking-normal {
+  @include \!tracking-normal;
+}
+.\!tracking-wide {
+  @include \!tracking-wide;
+}
+.\!tracking-wider {
+  @include \!tracking-wider;
+}
+.\!tracking-widest {
+  @include \!tracking-widest;
+}

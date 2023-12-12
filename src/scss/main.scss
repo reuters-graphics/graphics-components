@@ -1,16 +1,15 @@
-@import 'fonts/font-faces';
+/**
+ * Styles for svelte components
+ * Custom grid system
+ * Colour and typography systems using CSS variable from Theme
+ * Utility classes for quick styling
+ * Copyright 2023 Reuters Graphics Style Guide
+ */
 
-// Variables
-@import 'variables';
+// Base style rules
+@use 'reset/main' as reset;
+@use 'fonts/font-faces' as font-faces;
+@use 'colours/main' as colours;
 
-// Mixins
-@import 'mixins';
-
-// Bootstrap
-@import 'bootstrap/main';
-
-// Styles
-@import 'fonts/rules';
-@import 'typography/rules';
-@import 'typography/main';
-@import 'spacers/rules';
+// Token classes
+@use 'token-classes' as *;

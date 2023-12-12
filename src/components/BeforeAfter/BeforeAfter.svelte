@@ -38,10 +38,17 @@
    */
   export let afterAlt: string | null = null;
 
+  /**
+   * Set a class to target with SCSS.
+   * @type {string}
+   */
+  let cls: string = '';
+  export { cls as class };
+
   /** Drag handle colour */
   export let handleColour = 'white';
   /** Drag handle opacity */
-  export let handleInactiveOpacity = 0.6;
+  export let handleInactiveOpacity = 0.9;
   /** Margin at the edge of the image to stop dragging */
   export let handleMargin = 20;
   /** Percentage of the component width the handle will travel ona key press */
@@ -153,14 +160,15 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <Block width="{width}" id="{id}" cls="photo before-after">
+  <Block width="{width}" id="{id}" class="photo before-after fmy-6 {cls}">
     <div
       style="height: {containerHeight}px;"
       bind:clientWidth="{containerWidth}"
     >
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <figure
         style="{figStyle}"
-        class="before-after-container"
+        class="before-after-container relative overflow-hidden my-0 mx-auto"
         on:touchstart="{start}"
         on:mousedown="{start}"
         bind:this="{figure}"
@@ -173,7 +181,7 @@
           on:load="{measureLoadedImage}"
           on:mousedown|preventDefault
           style="{imgStyle}"
-          class="after"
+          class="after absolute block m-0 max-w-full object-cover"
           aria-describedby="{$$slots.beforeOverlay && `${id}-before`}"
         />
 
@@ -182,13 +190,13 @@
           alt="{beforeAlt}"
           on:mousedown|preventDefault
           style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
-          class="before"
+          class="before absolute block m-0 max-w-full object-cover"
           aria-describedby="{$$slots.afterOverlay && `${id}-after`}"
         />
         {#if $$slots.beforeOverlay}
           <div
             id="image-before-label"
-            class="overlay-container before"
+            class="overlay-container before absolute"
             bind:clientWidth="{beforeOverlayWidth}"
             style="clip-path: inset(0 {beforeOverlayClip}px 0 0);"
           >
@@ -200,7 +208,7 @@
           </div>
         {/if}
         {#if $$slots.afterOverlay}
-          <div id="image-after-label" class="overlay-container after">
+          <div id="image-after-label" class="overlay-container after absolute">
             <!-- Overlay for after image -->
             <slot
               name="afterOverlay"
@@ -210,6 +218,8 @@
         {/if}
         <div
           tabindex="0"
+          role="slider"
+          aria-valuenow="{Math.round(offset * 100)}"
           class="handle"
           style="left: calc({offset *
             100}% - 20px); --before-after-handle-colour: {handleColour}; --before-after-handle-inactive-opacity: {handleInactiveOpacity};"
@@ -223,7 +233,7 @@
     </div>
     {#if $$slots.caption}
       <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <aside class="before-after-caption" id="{`${id}-caption`}">
+        <aside class="before-after-caption mx-auto" id="{`${id}-caption`}">
           <!-- Caption for image credits -->
           <slot name="caption" />
         </aside>
@@ -233,41 +243,31 @@
 {/if}
 
 <style lang="scss">
-  @import '../../scss/fonts/variables';
-  @import '../../scss/colours/thematic/tr';
+  @use '../../scss/mixins' as *;
+
   figure.before-after-container {
-    overflow: hidden;
-    position: relative;
     box-sizing: content-box;
-    margin: 0 auto;
 
     img {
       top: 0;
       left: 0;
       z-index: 20;
-      margin: 0;
       &.after {
         z-index: 21;
       }
       &.before {
         z-index: 22;
       }
-      display: block;
-      max-width: 100%;
       user-select: none;
-      object-fit: cover;
-      position: absolute;
     }
     .overlay-container {
       position: absolute;
       :global {
-        p {
-          font-family: var(--theme-font-family-note, $font-family-display);
-          font-size: 1rem;
-          line-height: 1.2rem;
-          &:last-child {
-            margin-bottom: 0;
-          }
+        &:first-child {
+          margin-top: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
         }
       }
       &.before {
@@ -293,14 +293,17 @@
     top: calc(50% - 20px);
     border: 4px solid var(--before-after-handle-colour);
     opacity: var(--before-after-handle-inactive-opacity, 0.6);
+    box-shadow: 1px 1px 3px #333;
     &:hover,
     &:active,
     &:focus {
       opacity: 1;
     }
+
     &:before,
     &:after {
       content: '';
+      box-shadow: 0 0 3px #333;
       height: 9999px;
       position: absolute;
       left: calc(50% - 2px);
@@ -332,32 +335,11 @@
       border-right: 10px solid var(--before-after-handle-colour);
     }
   }
+
   aside.before-after-caption {
-    margin: 0 auto;
-    font-family: var(--theme-font-family-note, $font-family-display);
-    color: var(--theme-colour-text-secondary, $tr-medium-grey);
     :global {
       p {
-        font-family: var(--theme-font-family-note, $font-family-display);
-        color: var(--theme-colour-text-secondary, $tr-medium-grey);
-        font-size: 0.9rem;
-        line-height: 1.2rem;
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-
-        @media (max-width: 540px) {
-          font-size: 0.8rem;
-          line-height: 1.1rem;
-        }
-
-        a {
-          color: currentColor;
-          text-decoration: underline;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+        @include body-caption;
       }
     }
   }

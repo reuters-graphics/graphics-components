@@ -7,8 +7,10 @@
 
   /** Add an id to the block tag to target it with custom CSS. */
   export let id: string = '';
+
   /** Add extra classes to the block tag to target it with custom CSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   /** Snap block to column widths, rather than fluidly resizing them. */
   export let snap: boolean = false;
@@ -22,7 +24,7 @@
 
 <div
   id="{id}"
-  class="article-block {width} {cls}"
+  class="article-block fmx-auto {width} {cls}"
   class:snap="{snap && width !== 'fluid' && width !== 'widest'}"
   role="{role}"
   aria-label="{ariaLabel}"
@@ -34,14 +36,8 @@
 <style lang="scss">
   @import '../../scss/mixins';
 
-  div.article-block {
+  .article-block {
     max-width: var(--normal-column-width, 660px);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    &:not(:last-child) {
-      margin-bottom: 3rem;
-    }
 
     &.narrower {
       max-width: var(--narrower-column-width, 330px);

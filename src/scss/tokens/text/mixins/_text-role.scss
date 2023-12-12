@@ -1,0 +1,98 @@
+@use 'color' as *;
+@use 'font-family' as *;
+@use 'font-size' as *;
+@use 'font-weight' as *;
+@use 'letter-spacing' as *;
+@use 'line-height' as *;
+@use '../../spacers/mixins/main' as *;
+
+@mixin h1 {
+  @include text-primary;
+  @include font-bold;
+  @include font-hed;
+  @include text-5xl;
+  @include leading-none;
+  @include fmy-1;
+}
+
+@mixin h2 {
+  @include text-primary;
+  @include font-bold;
+  @include font-subhed;
+  @include leading-tighter;
+  @include text-xl;
+  @include fmt-7;
+  @include fmb-2;
+
+  @media (max-width: 768px) {
+    @include text-2xl;
+  }
+}
+
+@mixin h3 {
+  @include text-primary;
+  @include font-semibold;
+  @include font-subhed;
+  @include leading-tighter;
+  @include text-base;
+  @include fmt-5;
+  @include fmb-1;
+}
+
+@mixin h4 {
+  @include font-subhed;
+  @include leading-tight;
+  @include text-sm;
+  @include text-secondary;
+  @include font-semibold;
+  @include tracking-wide;
+  text-transform: uppercase;
+  @include fmt-4;
+  @include fmb-1;
+}
+
+@mixin body-text {
+  @include fmt-0;
+  @include fmb-4;
+  @include font-body;
+  @include text-base;
+  @include font-regular;
+  @include leading-normal;
+  @include text-primary;
+}
+
+@mixin body-note {
+  @include fmt-0;
+  @include fmb-2;
+  @include font-note;
+  font-size: calc(0.9 * var(--theme-font-size-base));
+  @include text-primary;
+  @include leading-tight;
+}
+
+@mixin body-caption {
+  @include font-note;
+  @include text-secondary;
+  @include text-xs;
+  @include leading-tight;
+  @include font-regular;
+  @include fmt-1;
+  @include fmb-2;
+}
+
+@mixin body-link {
+  color: currentColor;
+  text-decoration: underline;
+  text-underline-position: from-font;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--theme-colour-text-secondary);
+}
+
+@mixin drop-cap {
+  float: left;
+  @include fmr-1;
+  @include font-light;
+  font-size: calc(3.33 * var(--theme-font-size-base));
+  line-height: 0.9;
+}

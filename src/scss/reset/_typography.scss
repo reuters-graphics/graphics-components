@@ -1,0 +1,155 @@
+@use '../mixins' as *;
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1rem;
+  color: #404040;
+  @include font-knowledge;
+  @include font-regular;
+  @include leading-tight;
+
+  // Font-smoothing
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .theme {
+    font-size: calc(0.9 * var(--theme-font-size-base));
+    color: var(--theme-colour-text-primary);
+    @include font-sans;
+  }
+}
+
+// SIZE RANGE REFERENCE //
+// xxs: 12.64px
+// xs: 14.22px
+// sm: 16.00px → 16.80px
+// base: 18.00px → 21.00px
+// lg: 20.25px → 26.25px
+// xl: 22.78px → 32.81px
+// 2xl: 25.63px → 41.02px
+// 3xl: 28.83px → 51.27px
+// 4xl: 32.44px → 64.09px
+// 5xl: 36.49px → 80.11px
+// 6xl: 41.05px → 100.14px
+
+/////////////
+// HEADINGS
+/////////////
+
+h1 {
+  @include h1;
+}
+
+h2 {
+  @include h2;
+}
+
+h3 {
+  @include h3;
+}
+
+h4,
+h5,
+h6 {
+  @include h4;
+}
+
+//////////////
+// Body text
+//////////////
+
+text {
+  @include body-note;
+}
+
+p {
+  display: block;
+  @include body-text;
+}
+
+ol,
+ul {
+  display: block;
+  @include body-text;
+  @include fmb-6;
+  @include fpl-4;
+  list-style-position: outside;
+
+  ol,
+  ul {
+    @include fpl-4;
+    @include fmb-2;
+  }
+
+  li {
+    @include fmy-1;
+  }
+
+  li::marker {
+    @include font-light;
+    @include font-note;
+    @include text-sm;
+    @include text-secondary;
+  }
+}
+
+ul {
+  list-style-type: disc;
+}
+
+a {
+  @include body-link;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  @include font-bold;
+}
+
+pre,
+code,
+kbd {
+  @include font-mono;
+  @include text-sm;
+  @include text-secondary;
+  @include fmx-0;
+  @include fmt-0;
+  @include fmb-3;
+}
+
+kbd {
+  background-color: $theme-colour-text-primary;
+  color: $theme-colour-background;
+  border-radius: 0.3rem;
+  @include fpx-2;
+  @include fpy-1;
+}
+
+figcaption {
+  @include body-caption;
+  @include fmb-0;
+}
+
+blockquote {
+  @include fmx-0;
+  @include fmy-6;
+  p {
+    @include body-note;
+    @include font-light;
+    @include text-lg;
+  }
+  blockquote {
+    @include fmt-3;
+    p {
+      @include body-caption;
+      @include text-sm;
+      @include fmb-0;
+    }
+  }
+}

@@ -130,12 +130,13 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
-  import Search from './Search.svelte';
+  import SearchInput from '../SearchInput/SearchInput.svelte';
   import Select from './Select.svelte';
   import SortArrow from './SortArrow.svelte';
   import { filterArray, paginateArray, getOptions } from './utils.js';
@@ -203,7 +204,7 @@
 
   /** Boot it up. */
   onMount(() => {
-    data.forEach((d) => {
+    data.forEach((d: any) => {
       // Compose the string we will allow users to search
       d.searchStr = includedFields
         .map((field) => d[field])
@@ -213,18 +214,18 @@
   });
 </script>
 
-<Block width="{width}" id="{id}" cls="{cls}">
+<Block width="{width}" id="{id}" class="fmy-6 {cls}">
   <article class="table-wrapper">
     {#if title || dek || searchable || filterList}
-      <header class="table--header">
+      <header class="table--header w-full">
         {#if title}
-          <h2 class="table--header--title">{@html title}</h2>
+          <h3 class="table--header--title">{@html title}</h3>
         {/if}
         {#if dek}
-          <p class="table--header--dek">{@html dek}</p>
+          <p class="table--header--dek body-note">{@html dek}</p>
         {/if}
         {#if searchable || filterList}
-          <nav class="input">
+          <nav class="input fmx-0 fmy-2">
             {#if filterList}
               <div class="table--header--filter">
                 <Select
@@ -236,8 +237,8 @@
             {/if}
             {#if searchable}
               <div class="table--header--search">
-                <Search
-                  bind:searchPlaceholder
+                <SearchInput
+                  bind:searchPlaceholder="{searchPlaceholder}"
                   on:search="{handleSearchInput}"
                 />
               </div>
@@ -246,9 +247,10 @@
         {/if}
       </header>
     {/if}
-    <section class="table">
+    <section class="table w-full">
       <table
-        class:paginated
+        class="w-full"
+        class:paginated="{paginated}"
         class:truncated="{truncated &&
           !showAll &&
           data.length > truncateLength}"
@@ -258,7 +260,7 @@
             {#each includedFields as field}
               <th
                 scope="col"
-                class="table--thead--th"
+                class="table--thead--th h4 pl-0 py-2 pr-2"
                 class:sortable="{sortable && sortableFields.includes(field)}"
                 class:sort-ascending="{sortable &&
                   sortField === field &&
@@ -271,9 +273,9 @@
               >
                 {field}
                 {#if sortable && sortableFields.includes(field)}
-                  <div class="table--thead--sortarrow avoid-clicks">
+                  <div class="table--thead--sortarrow fml-1 avoid-clicks">
                     <SortArrow
-                      bind:sortDirection
+                      bind:sortDirection="{sortDirection}"
                       active="{sortField === field}"
                     />
                   </div>
@@ -287,6 +289,7 @@
             <tr data-row-index="{idx}">
               {#each includedFields as field}
                 <td
+                  class="body-note pl-0 py-2 pr-2"
                   data-row-index="{idx}"
                   data-field="{field}"
                   data-value="{item[field]}"
@@ -308,12 +311,20 @@
           <tfoot class="table--tfoot">
             {#if notes}
               <tr>
-                <td colspan="{includedFields.length}">{@html notes}</td>
+                <td class="" colspan="{includedFields.length}">
+                  <div class="fmt-2">
+                    {@html notes}
+                  </div>
+                </td>
               </tr>
             {/if}
             {#if source}
               <tr>
-                <td colspan="{includedFields.length}">{@html source}</td>
+                <td class="" colspan="{includedFields.length}">
+                  <div class="fmt-1">
+                    {@html source}
+                  </div>
+                </td>
               </tr>
             {/if}
           </tfoot>
@@ -321,8 +332,11 @@
       </table>
     </section>
     {#if truncated && data.length > truncateLength}
-      <nav aria-label="Show all button" class="show-all">
-        <button on:click="{toggleTruncate}"
+      <nav
+        aria-label="Show all button"
+        class="show-all flex items-center justify-center fmt-2"
+      >
+        <button class="body-caption" on:click="{toggleTruncate}"
           >{#if showAll}Show fewer rows{:else}Show {data.length -
               truncateLength} more rows{/if}</button
         >
@@ -330,8 +344,8 @@
     {/if}
     {#if paginated}
       <Pagination
-        bind:pageNumber
-        bind:pageSize
+        bind:pageNumber="{pageNumber}"
+        bind:pageSize="{pageSize}"
         bind:pageLength="{currentPageData.length}"
         bind:n="{sortedData.length}"
       />{/if}
@@ -339,34 +353,7 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/colours/thematic/tr';
-  @import '../../scss/fonts/variables';
-
-  .table-wrapper {
-    font-size: 1rem;
-    font-family: var(--theme-font-family-hed, $font-family-display);
-    color: var(--theme-colour-text-primary, $tr-dark-grey);
-  }
-
-  .table--header {
-    width: 100%;
-    h2.table--header--title {
-      font-weight: 500;
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
-      font-size: 1.33rem;
-      padding: 0;
-      margin: 0.5rem 0;
-    }
-    p.table--header--dek {
-      font-family: var(--theme-font-family-hed, $font-family-display);
-      color: var(--theme-colour-text-primary, $tr-dark-grey);
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.4;
-      padding: 0;
-      margin: 0.5rem 0;
-    }
-  }
+  @import '../../scss/mixins';
 
   section.table {
     overflow-x: auto;
@@ -375,53 +362,42 @@
     background-color: transparent;
     border-collapse: separate;
     border-spacing: 0;
-    width: 100%;
     thead {
       tr {
         th {
-          border-bottom: 1px solid
-            var(--theme-colour-text-primary, $tr-medium-grey);
-          color: var(--theme-colour-text-primary, $tr-medium-grey);
-          background-color: var(--theme-colour-background, #fff);
-          font-size: 0.85rem;
-          font-weight: 500;
+          border-bottom: 1px solid var(--theme-colour-text-primary);
+          @include bg;
           text-align: inherit;
-          text-transform: uppercase;
-          letter-spacing: 0.06rem;
-          line-height: 1.4;
-          padding: 0.5rem 0.25rem 0.5rem 0;
           &.sortable {
             cursor: pointer;
+            white-space: nowrap;
           }
           .table--thead--sortarrow {
             display: inline-block;
-            margin: 0 0 0 0.125rem;
+            position: relative;
+            top: 5px;
           }
         }
       }
     }
     tbody {
       td {
-        font-size: 1rem;
-        font-weight: 300;
-        padding: 0.5rem 0.75rem 0.5rem 0;
+        @include text-sm;
+        @include font-regular;
         vertical-align: top;
-        border-bottom: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
+        border-bottom: 1px solid
+          var(--theme-colour-brand-rules, var(--tr-muted-grey));
         &.no-results {
-          color: var(--theme-colour-text-secondary, $tr-muted-grey);
+          @include text-secondary;
         }
       }
     }
     tfoot.table--tfoot {
-      display: table-row;
       tr {
         border-bottom: 0;
       }
       td {
-        font-weight: 300;
-        color: var(--theme-colour-text-primary, $tr-dark-grey);
-        font-size: 0.8rem;
-        padding: 0.5rem 0 0 0;
+        @include body-caption;
       }
     }
     &.truncated {
@@ -446,7 +422,6 @@
   }
 
   nav.input {
-    margin: 0.5rem 0;
     padding: 0;
     width: 100%;
     display: flex;
@@ -454,24 +429,16 @@
     align-items: flex-end;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: clamp(0.31rem, calc(0.29rem + 0.1vw), 0.38rem);
   }
 
   nav.show-all {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
     button {
-      font-size: 0.8rem;
-      font-family: var(--theme-font-family-hed, $font-family-display);
-      font-weight: 500;
-      min-width: 175px;
-      padding: 0.33rem 0.5rem;
-      border: 1px solid var(--theme-colour-brand-rules, $tr-muted-grey);
-      border-radius: 4px;
-      background: var(--theme-colour-background);
-      color: var(--theme-colour-text-primary, $tr-medium-grey);
+      min-width: 13rem;
+      height: 2.15rem;
+      border: 1px solid var(--theme-colour-brand-rules, var(--tr-muted-grey));
+      border-radius: 0.25rem;
+      @include bg;
       cursor: pointer;
     }
   }

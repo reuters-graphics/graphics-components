@@ -21,15 +21,13 @@
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
-
-  const meta = {
-    title: 'Components/Video',
-    component: Video,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<Meta {...meta} />
+<Meta
+  title="Components/Video"
+  component="{Video}"
+  {...withComponentDocs(componentDocs)}
+/>
 
 <Template let:args>
   <Video {...args} />
@@ -41,7 +39,7 @@
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SilentVideo,
     width: 'wide',
-    caption: 'Optional caption for your video.',
+    notes: 'Optional caption for your video.',
   }}"
 />
 
@@ -52,7 +50,7 @@
     src: SilentVideo,
     width: 'normal',
     loopVideo: true,
-    caption:
+    notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
   }}"
@@ -65,7 +63,7 @@
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SilentVideo,
     width: 'normal',
-    caption:
+    notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
     controlsColour: 'white',
@@ -84,7 +82,7 @@
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SoundVideo,
     width: 'normal',
-    caption:
+    notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
     showControls: true,
