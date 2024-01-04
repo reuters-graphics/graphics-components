@@ -28,7 +28,7 @@
   $: embedTitles = getUniqNames(embeds);
 
   // @ts-ignore
-  let pymParent;
+  let pymParent; // eslint-disable-line no-unused-vars
 
   const reframe = (embed) => {
     // Bit of hack for handling adding query strings dynamically to embeds.

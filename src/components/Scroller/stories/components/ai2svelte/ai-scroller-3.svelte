@@ -23,7 +23,6 @@
       <div
         id="g-step-3-xl-img"
         class="g-aiImg"
-        alt=""
         style="background-image: url({stepXl});"
       ></div>
       <div
@@ -43,7 +42,6 @@
       <div
         id="g-step-3-lg-img"
         class="g-aiImg"
-        alt=""
         style="background-image: url({stepLg});"
       ></div>
       <div
@@ -63,7 +61,6 @@
       <div
         id="g-step-3-md-img"
         class="g-aiImg"
-        alt=""
         style="background-image: url({stepMd});"
       ></div>
       <div
@@ -83,7 +80,6 @@
       <div
         id="g-step-3-sm-img"
         class="g-aiImg"
-        alt=""
         style="background-image: url({stepSm});"
       ></div>
       <div
@@ -103,7 +99,6 @@
       <div
         id="g-step-3-xs-img"
         class="g-aiImg"
-        alt=""
         style="background-image: url({stepXs});"
       ></div>
       <div
@@ -117,11 +112,11 @@
     </div>
   {/if}
 </div>
+
 <!-- End ai2html - 2021-09-30 14:28 -->
 
 <!-- ai file: step-3.ai -->
 
-<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
   #g-step-3-box,
   #g-step-3-box .g-artboard {

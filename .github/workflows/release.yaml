@@ -6,6 +6,38 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v3
+
+      - id: setup-node
+        name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - id: cache
+        name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - id: install-deps
+        name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - id: lint
+        name: Lint code
+        run: yarn run eslint --fix --ext .ts,.js,.svelte src/components
+
   release:
     name: Release
     runs-on: ubuntu-latest

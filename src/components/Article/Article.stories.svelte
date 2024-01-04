@@ -75,8 +75,9 @@
   </Article>
 </Story>
 
+<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  :global {
+  :global(html) {
     #article-story-basic,
     #article-column-widths-demo {
       width: calc(100% + 30px);

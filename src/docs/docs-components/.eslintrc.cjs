@@ -31,6 +31,6 @@ module.exports = {
     ],
     'operator-linebreak': ['error', 'after'],
     'space-before-function-paren': ['error', 'never'],
-    'react/prop-types': 'never',
+    'react/prop-types': 0,
   },
 };

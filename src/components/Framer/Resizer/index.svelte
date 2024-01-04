@@ -106,6 +106,7 @@
       <div
         class="handle"
         tabindex="0"
+        role="button"
         style="left: calc({offset * 100}% - 5px);"
         on:mousedown="{start}"
         on:focus="{onFocus}"
