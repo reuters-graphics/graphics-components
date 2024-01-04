@@ -29,7 +29,7 @@
 <button
   on:click="{forwardBtnClick}"
   style="
-    opacity: {controlsOpacity}; 
+    opacity: {controlsOpacity};
     top: {controlsPosition === 'top left' || controlsPosition === 'top right'
     ? `${10}px`
     : controlsPosition === 'center'

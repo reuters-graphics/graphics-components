@@ -4,7 +4,7 @@
   "eslint.validate": ["javascript", "svelte", "jsx"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "emmet.excludeLanguages": [
     "markdown",

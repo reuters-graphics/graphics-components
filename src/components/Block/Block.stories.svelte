@@ -115,8 +115,9 @@
   </Article>
 </Story>
 
+<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  :global {
+  :global(html) {
     #block-demo-article {
       background-color: #ddd;
       position: relative;

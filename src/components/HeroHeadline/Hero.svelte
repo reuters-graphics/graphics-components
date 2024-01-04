@@ -85,26 +85,6 @@
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
-
-  let hedClass;
-  $: {
-    switch (hedSize) {
-      case 'biggest':
-        hedClass = 'text-6xl';
-        break;
-      case 'bigger':
-        hedClass = 'text-5xl';
-        break;
-      case 'big':
-        hedClass = 'text-4xl';
-        break;
-      case 'small':
-        hedClass = 'text-2xl';
-        break;
-      default:
-        hedClass = 'text-3xl';
-    }
-  }
 </script>
 
 <div style="--heroHeight: {embedded ? '850px' : '100svh'}; display:contents;">

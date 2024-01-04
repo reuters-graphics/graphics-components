@@ -1,5 +1,5 @@
 <script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+  import { Template, Story } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
@@ -7,13 +7,19 @@
   import BodyText from './BodyText.svelte';
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/BodyText',
+    component: BodyText,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
+<!-- <Meta
   title="Components/BodyText"
   component="{BodyText}"
   {...withComponentDocs(componentDocs)}
-/>
+/> -->
 
 <Template let:args>
   <BodyText {...args} />
@@ -93,8 +99,9 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
   }}"
 />
 
+<!-- svelte-ignore css-unused-selector -->
 <style lang="scss" global>
-  %heading-tag {
+  @mixin heading-tag {
     position: absolute;
     top: 0;
     left: -50px;
@@ -118,7 +125,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H2';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 22px;
       }
     }
@@ -126,7 +133,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H3';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 19px;
       }
     }
@@ -134,7 +141,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H4';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 16px;
       }
     }
@@ -142,7 +149,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H5';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 15px;
       }
     }
@@ -150,14 +157,14 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H6';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 12px;
       }
     }
     blockquote {
       position: relative;
       &:before {
-        @extend %heading-tag;
+        @include heading-tag;
         content: '“';
         font-size: 3rem;
         line-height: 3rem;
