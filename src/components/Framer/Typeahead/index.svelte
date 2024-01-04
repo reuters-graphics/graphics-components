@@ -57,6 +57,23 @@
   let prevResults = '';
   let isFocused = false;
 
+  $: options = { pre: '<mark>', post: '</mark>', extract };
+  $: results =
+    value !== ''
+      ? fuzzy
+          .filter(value, data, options)
+          .filter(({ score }) => score > 0)
+          .slice(0, limit)
+          .filter((result) => !filter(result.original))
+          .map((result) => ({ ...result, disabled: disable(result.original) }))
+      : data.map((d) => ({ string: extract(d), original: d }));
+
+  $: resultsId = results.map((result) => extract(result.original)).join('');
+  $: showResults = !hideDropdown && results.length > 0 && isFocused;
+  $: if (showDropdownOnFocus) {
+    showResults = showResults && isFocused;
+  }
+
   afterUpdate(() => {
     if (prevResults !== resultsId && autoselect) {
       selectedIndex = getNextNonDisabledIndex();
@@ -137,23 +154,6 @@
 
   const open = () => (hideDropdown = false);
   const close = () => (hideDropdown = true);
-
-  $: options = { pre: '<mark>', post: '</mark>', extract };
-  $: results =
-    value !== ''
-      ? fuzzy
-          .filter(value, data, options)
-          .filter(({ score }) => score > 0)
-          .slice(0, limit)
-          .filter((result) => !filter(result.original))
-          .map((result) => ({ ...result, disabled: disable(result.original) }))
-      : data.map((d) => ({ string: extract(d), original: d }));
-
-  $: resultsId = results.map((result) => extract(result.original)).join('');
-  $: showResults = !hideDropdown && results.length > 0 && isFocused;
-  $: if (showDropdownOnFocus) {
-    showResults = showResults && isFocused;
-  }
 </script>
 
 <svelte:window
@@ -171,6 +171,7 @@
   aria-haspopup="listbox"
   aria-owns="{id}-listbox"
   class:dropdown="{results.length > 0}"
+  aria-controls="{id}-listbox"
   aria-expanded="{showResults ||
     (isFocused && value.length > 0 && results.length === 0)}"
   id="{id}-typeahead"
@@ -243,6 +244,12 @@
           class:disabled="{result.disabled}"
           aria-selected="{selectedIndex === index}"
           on:click="{() => {
+            if (result.disabled) return;
+            selectedIndex = index;
+            select();
+          }}"
+          on:keyup="{(e) => {
+            if (e.key !== 'Enter') return;
             if (result.disabled) return;
             selectedIndex = index;
             select();

@@ -5,7 +5,7 @@ export { default as resizeObserver } from './actions/resizeObserver/index.js';
 // Components
 export {
   default as Analytics,
-  registerPageview,
+  registerPageview
 } from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as AdScripts } from './components/AdSlot/AdScripts.svelte';
@@ -45,7 +45,7 @@ export { default as Table } from './components/Table/Table.svelte';
 export {
   default as Theme,
   // @ts-ignore
-  themes,
+  themes
 } from './components/Theme/Theme.svelte';
 export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.svelte';
 export { default as Video } from './components/Video/Video.svelte';

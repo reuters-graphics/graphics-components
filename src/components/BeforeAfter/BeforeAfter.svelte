@@ -79,6 +79,13 @@
   $: containerHeight =
     containerWidth && heightRatio ? containerWidth * heightRatio : height;
 
+  $: w = (imgOffset && imgOffset.width) || 0;
+  $: x = w * offset;
+  $: figStyle = `width:100%;height:${containerHeight}px;`;
+  $: imgStyle = 'width:100%;height:100%;';
+  $: beforeOverlayClip =
+    x < beforeOverlayWidth ? Math.abs(x - beforeOverlayWidth) : 0;
+
   const onFocus = () => (isFocused = true);
   const onBlur = () => (isFocused = false);
   const handleKeyDown = (e) => {
@@ -129,13 +136,6 @@
   const end = () => {
     sliding = false;
   };
-
-  $: w = (imgOffset && imgOffset.width) || 0;
-  $: x = w * offset;
-  $: figStyle = `width:100%;height:${containerHeight}px;`;
-  $: imgStyle = 'width:100%;height:100%;';
-  $: beforeOverlayClip =
-    x < beforeOverlayWidth ? Math.abs(x - beforeOverlayWidth) : 0;
 
   if (!(beforeSrc && beforeAlt && afterSrc && afterAlt)) {
     console.warn('Missing required src or alt props for BeforeAfter component');

@@ -1,41 +1,41 @@
 {
-	"compilerOptions": {
-		"module": "ESNext",
-		"target": "ESNext",
-		"declaration": true,
-		"isolatedModules": true,
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"allowJs": true,
-		"checkJs": true,
-		"emitDeclarationOnly": true,
-		"jsx": "react",
-		"baseUrl": ".",
-		"rootDir": ".",
-		"rootDirs": [".", "docs/docs-components"],
-		"outDir": "dist",
-		"paths": {
-			"$lib": ["src"],
-  		"$lib/*": ["src/*"],
-			"$docs": ["src/docs"],
-			"$docs/*": ["src/docs/*"]
-		},
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "declaration": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "emitDeclarationOnly": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "rootDir": ".",
+    "rootDirs": [".", "docs/docs-components"],
+    "outDir": "dist",
+    "paths": {
+      "$lib": ["src"],
+      "$lib/*": ["src/*"],
+      "$docs": ["src/docs"],
+      "$docs/*": ["src/docs/*"]
+    },
     "sourceMap": true,
     "strict": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-	},
-	"include": [
-		"src/**/*.js",
-		"src/**/*.ts",
-		"src/**/*.svelte",
-		"src/**/*.jsx",
-		"bin/**/*.{js,cjs}",
-		"*.ts",
-		"*.js",
-		"*.cjs",
-		"src/docs/**/*.css"
-	],
-	"exclude": ["dist"]
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.svelte",
+    "src/**/*.jsx",
+    "bin/**/*.{js,cjs}",
+    "*.ts",
+    "*.js",
+    "*.cjs",
+    "src/docs/**/*.css"
+  ],
+  "exclude": ["dist"]
 }

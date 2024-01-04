@@ -2,7 +2,7 @@
   import type { ContainerWidth, ScrollerStep } from '../../@types/global';
 
   export let steps: ScrollerStep[] = [];
-  
+
   type EmbeddedLayout = 'fb' | 'bf';
   export let embeddedLayout: EmbeddedLayout = 'fb';
 
@@ -15,11 +15,19 @@
 {#each steps as step, index}
   <!-- Background first -->
   {#if embeddedLayout === 'bf'}
-    <Background {step} {index} {backgroundWidth} />
-    <Foreground {step} {index} />
-  <!-- Foreground first, default -->
+    <Background
+      step="{step}"
+      index="{index}"
+      backgroundWidth="{backgroundWidth}"
+    />
+    <Foreground step="{step}" index="{index}" />
+    <!-- Foreground first, default -->
   {:else}
-    <Foreground {step} {index} />
-    <Background {step} {index} {backgroundWidth} />
+    <Foreground step="{step}" index="{index}" />
+    <Background
+      step="{step}"
+      index="{index}"
+      backgroundWidth="{backgroundWidth}"
+    />
   {/if}
 {/each}

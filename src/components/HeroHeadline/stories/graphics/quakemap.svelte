@@ -1,5 +1,4 @@
 <script>
-  export let assetsPath = './';
   let width = null;
 
   // @ts-ignore
@@ -22,7 +21,6 @@
       <div
         id="g-quake-map-top-xs-img"
         class="g-aiImg"
-        alt=""
         style="{`background-image: url(${chartXs});`}"
       ></div>
       <div
@@ -104,7 +102,6 @@
       <div
         id="g-quake-map-top-sm-img"
         class="g-aiImg"
-        alt=""
         style="{`background-image: url(${chartSm});`}"
       ></div>
       <div
@@ -186,7 +183,6 @@
       <div
         id="g-quake-map-top-md-img"
         class="g-aiImg"
-        alt=""
         style="{`background-image: url(${chartMd});`}"
       ></div>
       <div
@@ -275,7 +271,6 @@
       <div
         id="g-quake-map-top-lg-img"
         class="g-aiImg"
-        alt=""
         style="{`background-image: url(${chartLg});`}"
       ></div>
       <div
@@ -364,7 +359,6 @@
       <div
         id="g-quake-map-top-xl-img"
         class="g-aiImg"
-        alt=""
         style="{`background-image: url(${chartXl});`}"
       ></div>
       <div

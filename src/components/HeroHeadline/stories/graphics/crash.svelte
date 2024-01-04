@@ -1,5 +1,5 @@
 <script>
-  export let assetsPath = './';
+  // export let assetsPath = './';
   let width = null;
 
   // @ts-ignore

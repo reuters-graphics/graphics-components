@@ -52,6 +52,14 @@ jobs:
         name: Build package
         run: npm run build:package
 
+      - id: commit
+        name: Commit
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          git add .
+          git commit --allow-empty -m "built package"
+
       - id: canary-release
         name: Create Canary Release
         env:

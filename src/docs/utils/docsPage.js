@@ -8,6 +8,6 @@ export const parameters = {
     eject: { hidden: true },
     fullscreen: { hidden: true },
     'storybook/background': { hidden: true },
-    'storybook/outline': {hidden: true}
+    'storybook/outline': { hidden: true },
   },
 };

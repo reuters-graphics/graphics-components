@@ -93,8 +93,9 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
   }}"
 />
 
+<!-- svelte-ignore css-unused-selector -->
 <style lang="scss" global>
-  %heading-tag {
+  @mixin heading-tag {
     position: absolute;
     top: 0;
     left: -50px;
@@ -118,7 +119,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H2';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 22px;
       }
     }
@@ -126,7 +127,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H3';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 19px;
       }
     }
@@ -134,7 +135,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H4';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 16px;
       }
     }
@@ -142,7 +143,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H5';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 15px;
       }
     }
@@ -150,14 +151,14 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       position: relative;
       &:before {
         content: 'H6';
-        @extend %heading-tag;
+        @include heading-tag;
         font-size: 12px;
       }
     }
     blockquote {
       position: relative;
       &:before {
-        @extend %heading-tag;
+        @include heading-tag;
         content: '“';
         font-size: 3rem;
         line-height: 3rem;
