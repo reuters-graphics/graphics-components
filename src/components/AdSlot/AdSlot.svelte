@@ -23,8 +23,8 @@
   import Block from '../Block/Block.svelte';
 
   onMount(() => {
-    (<any>window).graphicsAdQueue = (<any>window).graphicsAdQueue || [];
-    (<any>window).graphicsAdQueue.push({
+    window.graphicsAdQueue = window.graphicsAdQueue || [];
+    window.graphicsAdQueue.push({
       placementName,
       slotId: placementName,
     });

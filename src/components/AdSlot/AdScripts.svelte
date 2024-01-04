@@ -3,7 +3,7 @@
   import bootstrapLoad from './scripts/bootstrapLoad';
 
   onMount(() => {
-    (<any>window).graphicsAdQueue = (<any>window).graphicsAdQueue || [];
+    window.graphicsAdQueue = window.graphicsAdQueue || [];
   });
 </script>
 
@@ -25,10 +25,12 @@
 
   <script
     src="https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js"
-    on:load="{bootstrapLoad}"></script>
+    on:load="{bootstrapLoad}"
+  ></script>
 
   <script
     src="https://a.pub.network/reuters-com/pubfig.min.js"
     data-cfasync="false"
-    async></script>
+    async
+  ></script>
 </svelte:head>
