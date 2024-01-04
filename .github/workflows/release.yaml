@@ -39,7 +39,7 @@ jobs:
 
       - id: lint
         name: Lint code
-        run: yarn run eslint --ext .ts,.js,.svelte src
+        run: yarn run eslint --fix --ext .ts,.js,.svelte src
 
   release:
     name: Release
