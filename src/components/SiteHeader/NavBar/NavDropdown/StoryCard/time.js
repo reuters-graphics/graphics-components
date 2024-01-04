@@ -57,14 +57,15 @@ const isSameDay = (dateFrom, dateTo) => {
   );
 };
 
-export const getTime = (datetime) => {
+export const getTime = (datetime, options) => {
   const publishTime = dayjs(datetime, { utc: true });
   const showRelativeTime = !olderThanHour(publishTime, Date.now());
   const showTime = isSameDay(publishTime, Date.now());
-  const timezone = getTimeZone(false);
+  const timezone = getTimeZone(options.timeZone);
   if (showRelativeTime) {
     return dayjs().to(publishTime);
   }
-  if (showTime) return dayjs(datetime).tz(timezone).format('h:mm A z');
-  return publishTime.format('MMMM D, YYYY');
+  if (showTime) return dayjs(datetime).tz(timezone).format(options.formatTime);
+  return publishTime.format(options.formatDay);
 };
+export { dayjs };

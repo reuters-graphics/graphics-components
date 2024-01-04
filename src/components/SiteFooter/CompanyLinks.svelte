@@ -15,17 +15,32 @@
   };
 
   export let links = {};
+  export let lang = 'en';
+
+  const labels = {
+    'Information you can trust': {
+      default: 'Information you can trust',
+      ja: '信頼されるメディアとして',
+    },
+    'Follow Us': {
+      default: 'Follow Us',
+      ja: 'ロイターをフォロー',
+    },
+  };
 </script>
 
 {#if links.social_links}
   <section class="company">
     <div class="content-container">
       <article class="company-info">
-        <h2>Information you can trust</h2>
+        <h2>
+          {labels['Information you can trust'][lang] ||
+            labels['Information you can trust'].default}
+        </h2>
         <p>{links.company_description}</p>
       </article>
       <div class="social">
-        <h2>Follow Us</h2>
+        <h2>{labels['Follow Us'][lang] || labels['Follow Us'].default}</h2>
         <div>
           <ul class="links">
             {#each links.social_links as link}

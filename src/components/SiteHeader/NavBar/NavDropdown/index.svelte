@@ -7,19 +7,24 @@
   const activeSection = getContext('nav-active-section');
 
   export let headingText = 'Trending Stories';
+  export let lang = 'en';
+  export let hideHeadlines = false;
 
   let stories = [];
   let lastFetched = null;
+
+  const domain = lang === 'ja' ? 'jp' : 'www';
+  const website = lang === 'ja' ? 'reuters-japan' : 'reuters';
 
   afterUpdate(async () => {
     if (lastFetched === $activeSection) return;
     if ($activeSection === 'more') {
       await fetch(
-        'https://www.reuters.com/pf/api/v3/content/fetch/articles-by-trends-v1?' +
+        `https://${domain}.reuters.com/pf/api/v3/content/fetch/articles-by-trends-v1?` +
           new URLSearchParams({
             query: JSON.stringify({
               size: 4,
-              website: 'reuters',
+              website,
             }),
           })
       )
@@ -30,12 +35,12 @@
         });
     } else {
       await fetch(
-        'https://www.reuters.com/pf/api/v3/content/fetch/recent-stories-by-sections-v1?' +
+        `https://${domain}.reuters.com/pf/api/v3/content/fetch/recent-stories-by-sections-v1?` +
           new URLSearchParams({
             query: JSON.stringify({
               section_ids: $activeSection,
               size: 4,
-              website: 'reuters',
+              website,
             }),
           })
       )
@@ -56,27 +61,30 @@
           <slot />
         </div>
       </div>
-      <div class="stories-container">
-        <div class="inner">
-          {#if stories.length > 0}
-            <span class="latest">{headingText}</span>
-            <ul class="story-list">
-              {#each stories as story}
-                <li class="story-item">
-                  <StoryCard
-                    story="{story}"
-                    withSection="{$activeSection === 'more'}"
-                  />
-                </li>
-              {/each}
-            </ul>
-          {:else}
-            <div class="spinner">
-              <Spinner />
-            </div>
-          {/if}
+      {#if stories && !hideHeadlines}
+        <div class="stories-container">
+          <div class="inner">
+            {#if stories.length > 0}
+              <span class="latest">{headingText}</span>
+              <ul class="story-list">
+                {#each stories as story}
+                  <li class="story-item">
+                    <StoryCard
+                      story="{story}"
+                      withSection="{$activeSection === 'more'}"
+                      lang="{lang}"
+                    />
+                  </li>
+                {/each}
+              </ul>
+            {:else}
+              <div class="spinner">
+                <Spinner />
+              </div>
+            {/if}
+          </div>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
 </div>

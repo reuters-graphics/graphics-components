@@ -1,4 +1,6 @@
 <script>
+  // @ts-nocheck
+
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore
@@ -7,6 +9,8 @@
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
   // @ts-ignore
   import customReferralsDocs from './stories/docs/customReferrals.md?raw';
+  // @ts-ignore
+  import japanese from './stories/docs/japanese.md?raw';
 
   import SiteFooter from './SiteFooter.svelte';
   import Theme from '../Theme/Theme.svelte';
@@ -63,6 +67,12 @@
   }}"
   {...withStoryDocs(customReferralsDocs)}
 />
+
+<Story name="Japanese" {...withStoryDocs(japanese)}>
+  <div>
+    <SiteFooter lang="ja" />
+  </div>
+</Story>
 
 <style>
   div {
