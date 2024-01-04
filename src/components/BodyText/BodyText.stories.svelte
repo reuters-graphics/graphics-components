@@ -1,5 +1,5 @@
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore
   import componentDocs from './stories/docs/component.md?raw';
@@ -7,19 +7,13 @@
   import BodyText from './BodyText.svelte';
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
-    title: 'Components/BodyText',
-    component: BodyText,
-    ...withComponentDocs(componentDocs),
-  };
 </script>
 
-<!-- <Meta
+<Meta
   title="Components/BodyText"
   component="{BodyText}"
   {...withComponentDocs(componentDocs)}
-/> -->
+/>
 
 <Template let:args>
   <BodyText {...args} />
