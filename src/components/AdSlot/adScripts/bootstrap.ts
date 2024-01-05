@@ -5,7 +5,7 @@ const ONETRUST_LOGS = 'ot_logs';
 const ONETRUST_GEOLOCATION_MOCK = 'ot_geolocation_mock';
 const ONETRUST_SCRIPT_ID = '38cb75bd-fbe1-4ac8-b4af-e531ab368caf-test';
 
-export default () => {
+export const loadBootstrap = () => {
   const freestar = (<any>window).freestar || {};
   freestar.queue = freestar.queue || [];
   freestar.config = freestar.config || {};

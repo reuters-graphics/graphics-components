@@ -34,9 +34,11 @@
 <Meta {...meta} />
 
 <Template let:args>
-  <AdScripts />
-  <AdSlot {...args} />
-  <AdSlot placementName="reuters_desktop_canvas" dataFreestarAd="__970x250" />
+  <div>
+    <AdScripts />
+    <AdSlot {...args} />
+    <AdSlot placementName="reuters_desktop_canvas" dataFreestarAd="__970x250" />
+  </div>
 </Template>
 
 <Story

@@ -1,6 +1,6 @@
-<script lang="ts">
+<script>
   import { onMount } from 'svelte';
-  import bootstrapLoad from './scripts/bootstrapLoad';
+  import { loadBootstrap } from './adScripts/bootstrap';
 
   onMount(() => {
     window.graphicsAdQueue = window.graphicsAdQueue || [];
@@ -25,7 +25,7 @@
 
   <script
     src="https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js"
-    on:load="{bootstrapLoad}"
+    on:load="{loadBootstrap}"
   ></script>
 
   <script
