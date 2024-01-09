@@ -76,7 +76,11 @@ const build = async () => {
     if (file === 'index.js') continue; // Always add root index last to exports...
     pkgExports[`./${prettifyImport(file)}`] = `./dist/${file}`;
   }
-  pkgExports['.'] = './dist/index.js';
+  pkgExports['.'] = {
+    types: './dist/@types/index.d.ts',
+    svelte: './dist/index.js',
+    default: './dist/index.js',
+  };
   const pkg = fs.readJSONSync(PACKAGE);
   pkg.type = 'module';
   pkg.types = './dist/@types/index.d.ts',
