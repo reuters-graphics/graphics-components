@@ -355,7 +355,11 @@
     "./scss/tokens/variables/block": "./dist/scss/tokens/variables/_block.scss",
     "./scss/tokens/variables/main": "./dist/scss/tokens/variables/_main.scss",
     "./scss/tokens/variables/theme": "./dist/scss/tokens/variables/_theme.scss",
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/@types/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
   },
   "svelte": "./dist/index.js",
   "bugs": {
