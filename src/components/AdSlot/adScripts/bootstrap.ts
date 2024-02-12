@@ -6,7 +6,9 @@ const ONETRUST_GEOLOCATION_MOCK = 'ot_geolocation_mock';
 const ONETRUST_SCRIPT_ID = '38cb75bd-fbe1-4ac8-b4af-e531ab368caf-test';
 
 export const loadBootstrap = () => {
+  (<any>window).freestar = (<any>window).freestar || {};
   const freestar = (<any>window).freestar || {};
+  freestar.debug = true;
   freestar.queue = freestar.queue || [];
   freestar.config = freestar.config || {};
   freestar.config.enabled_slots = [];

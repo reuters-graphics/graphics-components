@@ -6,7 +6,8 @@
     | 'reuters_mobile_leaderboard'
     | 'reuters_desktop_native_1'
     | 'reuters_mobile_mpu_1'
-    | 'reuters_sponsorlogo';
+    | 'reuters_sponsorlogo'
+    | 'reuters_desktop_canvas';
 
   /**
    * The unique placement name from FreeStar dashboard.
