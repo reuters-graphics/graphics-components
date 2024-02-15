@@ -70,3 +70,12 @@
 <Block id="{id}" class="freestar-adslot {cls}">
   <div data-freestar-ad="{dataFreestarAd || null}" id="{randomAdId}"></div>
 </Block>
+
+<style>
+  div {
+    min-height: 415px;
+    @media (max-width: 767.9px) {
+      min-height: 320px;
+    }
+  }
+</style>
