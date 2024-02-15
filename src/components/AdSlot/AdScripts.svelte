@@ -1,9 +1,14 @@
 <script>
   import { onMount } from 'svelte';
   import { loadBootstrap } from './adScripts/bootstrap';
+  import { loadScript } from './adScripts/loadScript';
 
   onMount(() => {
     window.graphicsAdQueue = window.graphicsAdQueue || [];
+    loadScript(
+      'https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js',
+      loadBootstrap
+    );
   });
 </script>
 
@@ -22,15 +27,4 @@
     crossorigin=""
   />
   <link rel="stylesheet" href="https://a.pub.network/reuters-com/cls.css" />
-
-  <script
-    src="https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js"
-    on:load="{loadBootstrap}"
-  ></script>
-
-  <script
-    src="https://a.pub.network/reuters-com/pubfig.min.js"
-    data-cfasync="false"
-    async
-  ></script>
 </svelte:head>
