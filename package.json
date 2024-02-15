@@ -138,6 +138,7 @@
     "./components/AdSlot/adScripts/bootstrap.ts": "./dist/components/AdSlot/adScripts/bootstrap.ts",
     "./components/AdSlot/adScripts/getParameterByName.ts": "./dist/components/AdSlot/adScripts/getParameterByName.ts",
     "./components/AdSlot/adScripts/ias.ts": "./dist/components/AdSlot/adScripts/ias.ts",
+    "./components/AdSlot/adScripts/loadScript.ts": "./dist/components/AdSlot/adScripts/loadScript.ts",
     "./components/Analytics/Analytics.svelte": "./dist/components/Analytics/Analytics.svelte",
     "./components/Analytics/providers/chartbeat.ts": "./dist/components/Analytics/providers/chartbeat.ts",
     "./components/Analytics/providers/ga.ts": "./dist/components/Analytics/providers/ga.ts",
