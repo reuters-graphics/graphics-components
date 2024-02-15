@@ -31,19 +31,12 @@
 
   import Block from '../Block/Block.svelte';
 
-  function getRandomAdId(): string {
-    const prefix = 'ad-';
-    const idLength = 10;
+  const random4 = () =>
+    Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
 
-    const randomChars = Array.from({ length: idLength }, () => {
-      const randomCharCode = Math.floor(Math.random() * 36) + 48; // ASCII codes for '0' to '9' and 'a' to 'z'
-      return String.fromCharCode(randomCharCode);
-    }).join('');
-
-    return prefix + randomChars;
-  }
-
-  const randomAdId = getRandomAdId();
+  const randomAdId = 'ad-' + random4() + random4();
 
   const getAdType = (placementName: PlacementName) => {
     switch (placementName) {
