@@ -31,6 +31,20 @@
 
   import Block from '../Block/Block.svelte';
 
+  function getRandomAdId(): string {
+    const prefix = 'ad-';
+    const idLength = 10;
+
+    const randomChars = Array.from({ length: idLength }, () => {
+      const randomCharCode = Math.floor(Math.random() * 36) + 48; // ASCII codes for '0' to '9' and 'a' to 'z'
+      return String.fromCharCode(randomCharCode);
+    }).join('');
+
+    return prefix + randomChars;
+  }
+
+  const randomAdId = getRandomAdId();
+
   const getAdType = (placementName: PlacementName) => {
     switch (placementName) {
       case 'reuters_desktop_leaderboard_atf':
@@ -51,7 +65,7 @@
     window.graphicsAdQueue = window.graphicsAdQueue || [];
     window.graphicsAdQueue.push({
       placementName,
-      slotId: placementName,
+      slotId: randomAdId,
       type: getAdType(placementName),
       graphicId: window.location.pathname,
       adstest,
@@ -61,5 +75,5 @@
 
 <!-- @component `AdSlot` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-AdSlot--default) -->
 <Block id="{id}" class="freestar-adslot {cls}">
-  <div data-freestar-ad="{dataFreestarAd || null}" id="{placementName}"></div>
+  <div data-freestar-ad="{dataFreestarAd || null}" id="{randomAdId}"></div>
 </Block>
