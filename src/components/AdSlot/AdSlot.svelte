@@ -113,6 +113,12 @@
         flex: unset;
         & > div {
           display: block;
+          div[data-freestar-ad] {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
     }
