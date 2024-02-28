@@ -24,7 +24,7 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  let cls: string = '';
+  let cls: string = 'my-12';
   export { cls as class };
 
   import { onMount } from 'svelte';
@@ -68,14 +68,38 @@
 
 <!-- @component `AdSlot` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-AdSlot--default) -->
 <Block id="{id}" class="freestar-adslot {cls}">
-  <div data-freestar-ad="{dataFreestarAd || null}" id="{randomAdId}"></div>
+  <div class="ad-block">
+    <div class="ad-label">Advertisement · Scroll to continue</div>
+    <div class="ad-container">
+      <div data-freestar-ad="{dataFreestarAd || null}" id="{randomAdId}"></div>
+    </div>
+  </div>
 </Block>
 
-<style>
-  div {
-    min-height: 415px;
-    @media (max-width: 767.9px) {
-      min-height: 320px;
+<style lang="scss">
+  div.ad-block {
+    border-bottom: 1px solid var(--theme-colour-brand-rules);
+    border-top: 1px solid var(--theme-colour-brand-rules);
+    div.ad-label {
+      font-family: Knowledge, 'Source Sans Pro', Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      margin: 6px 0;
+      line-height: 1.333;
+      color: var(--theme-colour-text-secondary);
+      width: 100%;
+      text-align: center;
+    }
+    div.ad-container {
+      min-height: 415px;
+      @media (max-width: 767.9px) {
+        min-height: 320px;
+      }
+      & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 </style>
