@@ -72,7 +72,14 @@
   <div class="ad-block">
     <div class="ad-label">Advertisement · Scroll to continue</div>
     <div class="ad-container">
-      <div data-freestar-ad="{dataFreestarAd || null}" id="{randomAdId}"></div>
+      <div class="ad-slot__inner">
+        <div>
+          <div
+            data-freestar-ad="{dataFreestarAd || null}"
+            id="{randomAdId}"
+          ></div>
+        </div>
+      </div>
     </div>
   </div>
 </Block>
@@ -91,15 +98,22 @@
       text-align: center;
     }
     div.ad-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       min-height: 415px;
       @media (max-width: 767.9px) {
         min-height: 320px;
       }
-      & > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+      div.ad-slot__inner {
+        margin: auto 0;
+        width: 100%;
+        max-width: 100%;
+        flex: unset;
+        & > div {
+          display: block;
+        }
       }
     }
   }
