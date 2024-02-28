@@ -44,7 +44,7 @@
 <Story
   name="Default"
   args="{{
-    placementName: 'reuters_desktop_leaderboard_atf',
+    placementName: 'reuters_desktop_native_1',
     dataFreestarAd: '__970x250',
   }}"
 />

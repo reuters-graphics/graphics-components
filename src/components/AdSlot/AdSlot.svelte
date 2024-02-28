@@ -2,8 +2,9 @@
   /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
 
   type PlacementName =
-    | 'reuters_desktop_leaderboard_atf'
-    | 'reuters_mobile_leaderboard'
+    // Disabling leaderboard for now...
+    // | 'reuters_desktop_leaderboard_atf'
+    // | 'reuters_mobile_leaderboard'
     | 'reuters_desktop_native_1'
     | 'reuters_mobile_mpu_1'
     | 'reuters_sponsorlogo'
@@ -40,9 +41,9 @@
 
   const getAdType = (placementName: PlacementName) => {
     switch (placementName) {
-      case 'reuters_desktop_leaderboard_atf':
-      case 'reuters_mobile_leaderboard':
-        return 'leaderboard';
+      // case 'reuters_desktop_leaderboard_atf':
+      // case 'reuters_mobile_leaderboard':
+      //   return 'leaderboard';
       case 'reuters_sponsorlogo':
         return 'Sponsorlogo';
       case 'reuters_mobile_mpu_1':
