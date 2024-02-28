@@ -1,29 +1,28 @@
-Display a FreeStar Ad Slot
+Add programmatic ads to your page.
 
-Note: You must use this domain to access the story book:
-`http://localhost.arcpublishing.com:3000`
-
-This domain has been whitelisted on the Ad server. To setup the domain locally, add the following line to `/etc/hosts`:
-
-```
-127.0.0.1 localhost localhost.arcpublishing.com
-```
+> **IMPORTANT!** Make sure ads are only used on dotcom pages, never on embeds.
 
 ```svelte
 <script>
   import { AdSlot, AdScripts } from '@reuters-graphics/graphics-components';
 </script>
 
-<!-- Include only ONCE per page -->
-<AdScripts />
+<!-- ALWAYS check if in an embed context! -->
+{#if !embedded}
+  <!-- Include AdScripts only ONCE per page -->
+  <AdScripts />
+{/if}
 
-<AdSlot
-  placementName="reuters_desktop_native"
-  slotId="reuters_desktop_native"
-/>
+<!-- ... -->
 
-<AdSlot
-  placementName="reuters_desktop_native"
-  slotId="reuters_desktop_native"
-/>
+{#if !embedded}
+  <AdSlot />
+{/if}
+
+<!-- ... -->
+
+{#if !embedded}
+  <!-- Can add multiple ads to your page -->
+  <AdSlot />
+{/if}
 ```

@@ -17,11 +17,7 @@
     argTypes: {
       placementName: {
         control: 'select',
-        options: [
-          'reuters_desktop_leaderboard_atf',
-          'reuters_desktop_native',
-          'reuters_desktop_canvas',
-        ],
+        options: ['reuters_desktop_native_1', 'reuters_desktop_canvas'],
       },
       dataFreestarAd: {
         control: 'select',

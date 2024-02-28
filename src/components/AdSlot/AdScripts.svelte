@@ -5,14 +5,16 @@
   import { throttle } from 'lodash-es';
 
   let lastScroll = 0;
-  let showManagePreferences = false;
+  let showManagePreferences = true;
 
   const togglePrefs = (on = true) => {
     const btn = document.getElementById('ot-sdk-btn-floating');
     if (!btn) return;
     if (on) {
+      showManagePreferences = true;
       btn.style.bottom = '';
     } else {
+      showManagePreferences = false;
       btn.style.bottom = '-5rem';
     }
   };
@@ -20,12 +22,10 @@
   const handleScroll = () => {
     if (lastScroll > window.scrollY) {
       if (!showManagePreferences) {
-        showManagePreferences = true;
         togglePrefs(true);
       }
     } else {
       if (showManagePreferences && window.scrollY > 250) {
-        showManagePreferences = false;
         togglePrefs(false);
       }
     }
