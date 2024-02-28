@@ -60,7 +60,9 @@
     lastScroll = window.scrollY;
   }
   onMount(() => {
-    window.addEventListener('scroll', throttle(handleScroll, 250));
+    window.addEventListener('scroll', throttle(handleScroll, 250), {
+      passive: true,
+    });
   });
 </script>
 
@@ -91,7 +93,7 @@
     position: fixed;
     bottom: -5rem;
     right: 10px;
-    transition: all 0.2s;
+    transition: all 300ms ease;
     z-index: 9999;
   }
   .sharetool button {
