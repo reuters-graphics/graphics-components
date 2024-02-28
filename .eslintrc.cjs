@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['node_modules', 'docs/**'],
+  ignorePatterns: ['node_modules', 'docs/**', '.eslintrc.cjs'],
   extends: ['standard', 'plugin:svelte/recommended'],
   plugins: ['@typescript-eslint'],
   parserOptions: {
