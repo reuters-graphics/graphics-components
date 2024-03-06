@@ -62,11 +62,7 @@ export const loadBootstrap = () => {
         (<any>window).googletag.pubads().setTargeting('adstest', adstest);
       }
 
-      // Ask Rachel about targeting
-      const template = (<any>document.querySelector('meta[name="ad:template"]'))?.content;
-      if (template) {
-        (<any>window).googletag.pubads().setTargeting('template', template);
-      }
+      (<any>window).googletag.pubads().setTargeting('template', 'graphics');
     });
 
     if (!Array.isArray((<any>window).graphicsAdQueue)) {
