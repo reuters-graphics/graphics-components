@@ -30,10 +30,6 @@ export const loadBootstrap = () => {
     },
     (onetrustResponse) => {
       const iasPromise = Ias();
-
-      // Ask Thea about Permutive implementation (considering there are no logged in users on Graphics)
-      // Should we use Permutive at all?
-      // Should we import ArcP SDK to graphics to get the same user as logged in on RCom?
       return Promise.all([iasPromise]).then((responses) => {
         const [iasResponse] = responses;
 
