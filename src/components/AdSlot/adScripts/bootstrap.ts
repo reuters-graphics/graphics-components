@@ -19,8 +19,7 @@ export const loadBootstrap = () => {
       freestar.newAdSlots(freestar.config.enabled_slots);
   };
 
-  // Ask Rachel
-  freestar.config.channel = '/4735792/reuters.com/home';
+  freestar.config.channel = '/4735792/reuters.com/graphics';
 
   (<any>window).initBootstrap(
     {
