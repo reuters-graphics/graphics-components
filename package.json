@@ -55,6 +55,7 @@
     "@storybook/theming": "^7.4.2",
     "@sveltejs/vite-plugin-svelte": "^2.4.1",
     "@tsconfig/svelte": "^4.0.1",
+    "@types/google-publisher-tag": "^1.20240219.0",
     "@types/gtag.js": "^0.0.12",
     "@types/mdx": "^2.0.5",
     "@types/proper-url-join": "^2.1.1",

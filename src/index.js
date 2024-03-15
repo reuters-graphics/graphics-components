@@ -9,7 +9,7 @@ export {
 } from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as AdScripts } from './components/AdSlot/AdScripts.svelte';
-export { default as AdSlot } from './components/AdSlot/AdSlot.svelte';
+export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
