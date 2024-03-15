@@ -57,14 +57,6 @@ export const loadBootstrap = () => {
       window.googletag.pubads().collapseEmptyDivs(true);
     });
 
-    if (!Array.isArray((<any>window).graphicsAdQueue)) {
-      console.error('Ad queue not initialized!');
-    }
-
-    freestar.queue.push(function() {
-      freestar.newAdSlots((<any>window).graphicsAdQueue || [], freestar.config.channel);
-    });
-
     // Set page-level key-values
     // cf: https://help.freestar.com/help/using-key-values
     freestar.queue.push(function() {
@@ -80,6 +72,14 @@ export const loadBootstrap = () => {
         .replaceAll('/', '-');
       window.googletag.pubads().setTargeting('template', 'graphics');
       window.googletag.pubads().setTargeting('graphicId', graphicId);
+    });
+
+    if (!Array.isArray((<any>window).graphicsAdQueue)) {
+      console.error('Ad queue not initialized!');
+    }
+
+    freestar.queue.push(function() {
+      freestar.newAdSlots((<any>window).graphicsAdQueue || [], freestar.config.channel);
     });
   });
 };

@@ -14,15 +14,26 @@
   const adId = getRandomAdId();
 
   onMount(() => {
-    window.graphicsAdQueue = window.graphicsAdQueue || [];
-    window.graphicsAdQueue.push({
+    const adSlot = {
       placementName,
       slotId: adId,
       targeting: {
         div_id: adId,
         type: adType,
       },
-    });
+    };
+    // @ts-ignore
+    const freestar = window?.freestar;
+    // Add adSlot to freestar queue directly if already initialised
+    if (freestar) {
+      freestar.queue.push(function () {
+        freestar.newAdSlots([adSlot], freestar.config.channel);
+      });
+      // ... otherwise add to the graphicsAdQueue queue.
+    } else {
+      window.graphicsAdQueue = window.graphicsAdQueue || [];
+      window.graphicsAdQueue.push(adSlot);
+    }
   });
 </script>
 
