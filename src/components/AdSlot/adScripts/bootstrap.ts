@@ -46,19 +46,15 @@ export const loadBootstrap = () => {
     loadScript('https://a.pub.network/reuters-com/pubfig.min.js');
 
     // Set GAM
-    (<any>window).googletag = (<any>window).googletag || { cmd: [] };
-    (<any>window).googletag.cmd.push(() => {
-      (<any>window).googletag.pubads().enableSingleRequest();
-      (<any>window).googletag.pubads().enableAsyncRendering();
-      (<any>window).googletag.pubads().collapseEmptyDivs(true);
-
-      // Global Ads test targeting
-      const adstest = new URL(document.location.href).searchParams.get('adstest');
-      if (adstest) {
-        (<any>window).googletag.pubads().setTargeting('adstest', adstest);
-      }
-
-      (<any>window).googletag.pubads().setTargeting('template', 'graphics');
+    window.googletag = (<any>window).googletag || { cmd: [] };
+    window.googletag.cmd.push(() => {
+      window.googletag.pubads().enableSingleRequest();
+      /**
+       * @TODO Property 'enableAsyncRendering' does not exist on type 'PubAdsService'.
+       */
+      // @ts-ignore
+      window.googletag.pubads().enableAsyncRendering();
+      window.googletag.pubads().collapseEmptyDivs(true);
     });
 
     if (!Array.isArray((<any>window).graphicsAdQueue)) {
@@ -66,11 +62,24 @@ export const loadBootstrap = () => {
     }
 
     freestar.queue.push(function() {
-      freestar.newAdSlots((<any>window).graphicsAdQueue || [], 'foobar');
+      freestar.newAdSlots((<any>window).graphicsAdQueue || [], freestar.config.channel);
     });
 
+    // Set page-level key-values
+    // cf: https://help.freestar.com/help/using-key-values
     freestar.queue.push(function() {
-      (<any>window).googletag.pubads().set('page_url', 'https://www.reuters.com/'); // This line should only be used for testing
+      // Global Ads test targeting
+      const adstest = new URL(document.location.href).searchParams.get('adstest');
+      if (adstest) {
+        window.googletag.pubads().setTargeting('adstest', adstest);
+      }
+
+      // Use the URL path to create a unique ID for the page.
+      const graphicId = window.location.pathname
+        .replace(/^\/(.*)\/$/, '$1')
+        .replaceAll('/', '-');
+      window.googletag.pubads().setTargeting('template', 'graphics');
+      window.googletag.pubads().setTargeting('graphicId', graphicId);
     });
   });
 };
