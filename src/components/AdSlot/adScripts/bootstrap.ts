@@ -67,9 +67,9 @@ export const loadBootstrap = () => {
       }
 
       // Use the URL path to create a unique ID for the page.
-      const graphicId = window.location.pathname
-        .replace(/^\/(.*)\/$/, '$1')
-        .replaceAll('/', '-');
+      const graphicId = window.location.pathname.split('/')
+        // Get the first lowercase slug in the pathname, which is the graphic UID.
+        .filter(d => d.match(/[a-z0-1]+/) && d !== 'graphics')[0] || 'unknown-graphic';
       window.googletag.pubads().setTargeting('template', 'graphics');
       window.googletag.pubads().setTargeting('graphicId', graphicId);
     });
