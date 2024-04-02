@@ -8,8 +8,10 @@
     window.graphicsAdQueue = window.graphicsAdQueue || [];
     loadScript(
       'https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js',
-      loadBootstrap
+      { onload: loadBootstrap, async: false }
     );
+    // Load Freestar script
+    loadScript('https://a.pub.network/reuters-com/pubfig.min.js');
   });
 </script>
 
