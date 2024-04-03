@@ -5,6 +5,8 @@
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
+  // @ts-ignore
+  import japanese from './stories/docs/japanese.md?raw';
 
   import SiteHeader from './SiteHeader.svelte';
   import Theme from '../Theme/Theme.svelte';
@@ -37,6 +39,12 @@
     <Theme base="dark">
       <SiteHeader />
     </Theme>
+  </div>
+</Story>
+
+<Story name="Japanese" {...withStoryDocs(japanese)}>
+  <div>
+    <SiteHeader lang="ja" />
   </div>
 </Story>
 

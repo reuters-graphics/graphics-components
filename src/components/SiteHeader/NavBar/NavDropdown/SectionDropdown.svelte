@@ -1,10 +1,18 @@
 <script>
-  import { normalizeUrl } from '../utils';
+  import { normalizeUrl, normalizeUrlJp } from '../utils';
 
   import NavDropdown from './index.svelte';
 
   export let section = {};
   export let headingText;
+  export let lang = 'en';
+  const labels = {
+    Browse: {
+      default: (name) => `Browse ${name}`,
+      ja: (name) => `${name}を閲覧する`,
+    },
+  };
+  const normaliseUrl = lang === 'ja' ? normalizeUrlJp : normalizeUrl;
 
   $: splitCount =
     section.children && section.children.length > 7
@@ -12,10 +20,16 @@
       : 0;
 </script>
 
-<NavDropdown headingText="{headingText}">
-  <a href="{normalizeUrl(section.url)}">
-    <span class="heading">
-      Browse {section.name}
+<NavDropdown
+  headingText="{headingText}"
+  lang="{lang}"
+  hideHeadlines="{lang === 'ja' && section.id === '/pictures/'}"
+>
+  <a href="{normaliseUrl(section.url)}">
+    <span class="heading" lang="{lang}">
+      {labels.Browse[lang]
+        ? labels.Browse[lang](section.name)
+        : labels.Browse.default(section.name)}
     </span>
   </a>
   <div class="sections">
@@ -23,7 +37,7 @@
       <ul class="sections-group">
         {#each section.children.slice(0, splitCount) as sub}
           <li>
-            <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+            <a class="subsection-link" href="{normaliseUrl(sub.url)}">
               {sub.name}
             </a>
           </li>
@@ -33,7 +47,7 @@
     <ul class="sections-group">
       {#each section.children.slice(splitCount) as sub}
         <li>
-          <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+          <a class="subsection-link" href="{normaliseUrl(sub.url)}">
             {sub.name}
           </a>
         </li>
@@ -119,6 +133,9 @@
     &:hover {
       color: inherit;
       text-decoration: underline !important;
+    }
+    &[lang='ja'] {
+      font-weight: 600;
     }
   }
 

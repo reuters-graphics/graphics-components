@@ -3,6 +3,7 @@
   import ReutersLogo from '../ReutersLogo/ReutersLogo.svelte';
   import NavBar from './NavBar/index.svelte';
   import starterData from './data.json';
+  import starterDataJp from './data-jp.json';
   import { onMount, setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import MenuIcon from './svgs/Menu.svelte';
@@ -10,7 +11,15 @@
 
   setContext('nav-active-section', writable(null));
 
-  let data = starterData;
+  export let lang = 'en';
+
+  let data = lang === 'ja' ? starterDataJp : starterData;
+  const domain = lang === 'ja' ? 'jp' : 'www';
+  const website = lang === 'ja' ? 'reuters-japan' : 'reuters';
+  const font =
+    lang === 'ja'
+      ? '-apple-system, "Hiragino Kaku Gothic Pro", "Meiryo", "MS Pgothic", helvetica, arial, sans-serif'
+      : 'Knowledge';
 
   $: sections = data[0].sections;
 
@@ -23,9 +32,9 @@
     }
     try {
       const response = await fetch(
-        'https://www.reuters.com/site-api/header/?' +
+        `https://${domain}.reuters.com/site-api/header/?` +
           new URLSearchParams({
-            _website: 'reuters',
+            _website: website,
             outputType: 'json',
           })
       );
@@ -46,8 +55,9 @@
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
     --nav-accent: var(--theme-colour-brand-logo, #fa6400);
     --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
-    --theme-font-family-sans-serif: Knowledge, sans-serif;
+    --theme-font-family-sans-serif: ${font}, sans-serif;
   `}"
+  lang="{lang}"
 >
   <div class="nav-container show-nav">
     <div class="scroll-container">
@@ -55,7 +65,7 @@
         <div class="main-bar">
           <div class="logo-container">
             <div class="logo">
-              <a href="https://www.reuters.com">
+              <a href="https://{domain}.reuters.com">
                 <ReutersLogo
                   logoColour="var(--nav-accent)"
                   textColour="var(--nav-primary)"
@@ -63,7 +73,7 @@
               </a>
             </div>
           </div>
-          <NavBar sections="{sections}" />
+          <NavBar sections="{sections}" lang="{lang}" />
           <!-- Space takes the place of the MyViewMenu, NavSearchBar & Account components... -->
           <div class="spacer-container">
             <div class="spacer"></div>
@@ -98,6 +108,7 @@
     isMobileMenuOpen = false;
   }}"
   data="{data[0]}"
+  lang="{lang}"
 />
 
 <style lang="scss">
@@ -233,6 +244,9 @@
       color: inherit;
       font: inherit;
       line-height: normal;
+      &:enabled {
+        cursor: pointer;
+      }
 
       .button-container {
         border-radius: 8px;

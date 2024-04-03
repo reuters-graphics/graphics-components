@@ -1,5 +1,5 @@
 <script>
-  import { normalizeUrl } from '../SiteHeader/NavBar/utils';
+  import { normalizeUrl, normalizeUrlJp } from '../SiteHeader/NavBar/utils';
 
   import Graphics from './svgs/Graphics.svelte';
   import Pictures from './svgs/Pictures.svelte';
@@ -12,38 +12,51 @@
   };
 
   export let links = {};
+  export let lang = 'en';
+  const normaliseUrl = lang === 'ja' ? normalizeUrlJp : normalizeUrl;
 
   let windowWidth = 1200;
   const mobileBreakpoint = 745;
+
+  const labels = {
+    'Site Index': { default: 'Site Index', ja: 'サイトインデックス' },
+    Latest: { default: 'Latest', ja: '最新' },
+    Media: { default: 'Media', ja: 'メディア' },
+    Browse: { default: 'Browse', ja: 'ブラウズ' },
+    'About Reuters': { default: 'About Reuters', ja: 'ロイターについて' },
+    'Stay Informed': { default: 'Stay Informed', ja: '最新情報を入手' },
+  };
 </script>
 
 <svelte:window bind:innerWidth="{windowWidth}" />
 
 {#if links.latest_links}
-  <section class="quick-links">
-    <h2 class="visually-hidden">Site Index</h2>
+  <section class="quick-links" lang="{lang}">
+    <h2 class="visually-hidden">
+      {labels['Site Index'][lang] || labels['Site Index'].default}
+    </h2>
     <div class="content-container">
       {#if windowWidth < mobileBreakpoint}
         <div class="latest-and-media">
           <section class="link-group">
-            <h3>Latest</h3>
+            <h3>{labels.Latest[lang] || labels.Latest.default}</h3>
             <ul>
               {#each links.latest_links as link}
                 <li>
-                  <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                  <a href="{normaliseUrl(link.url)}">{link.text}</a>
                 </li>
               {/each}
             </ul>
           </section>
           <section class="link-group media">
-            <h3>Media</h3>
+            <h3>{labels.Media[lang] || labels.Media.default}</h3>
             <ul>
               {#each links.media_links as link}
                 <li>
                   <div class="symbol">
                     <svelte:component this="{symbols[link.symbol]}" />
                   </div>
-                  <a href="{normalizeUrl(link.url)}">
+                  <a href="{normaliseUrl(link.url)}">
                     {link.text}
                   </a>
                 </li>
@@ -53,11 +66,11 @@
         </div>
       {:else}
         <section class="link-group">
-          <h3>Latest</h3>
+          <h3>{labels.Latest[lang] || labels.Latest.default}</h3>
           <ul>
             {#each links.latest_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href="{normaliseUrl(link.url)}">{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -65,25 +78,25 @@
       {/if}
 
       <section class="link-group">
-        <h3>Browse</h3>
+        <h3>{labels.Browse[lang] || labels.Browse.default}</h3>
         <ul>
           {#each links.browse_links as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">{link.text}</a>
+              <a href="{normaliseUrl(link.url)}">{link.text}</a>
             </li>
           {/each}
         </ul>
       </section>
       {#if windowWidth >= mobileBreakpoint}
         <section class="link-group media">
-          <h3>Media</h3>
+          <h3>{labels.Media[lang] || labels.Media.default}</h3>
           <ul>
             {#each links.media_links as link}
               <li>
                 <div class="symbol">
                   <svelte:component this="{symbols[link.symbol]}" />
                 </div>
-                <a href="{normalizeUrl(link.url)}">
+                <a href="{normaliseUrl(link.url)}">
                   {link.text}
                 </a>
               </li>
@@ -93,21 +106,25 @@
       {/if}
       <div class="about-and-stay-informed">
         <section class="about">
-          <h3>About Reuters</h3>
+          <h3>
+            {labels['About Reuters'][lang] || labels['About Reuters'].default}
+          </h3>
           <ul>
             {#each links.about_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href="{normaliseUrl(link.url)}">{link.text}</a>
               </li>
             {/each}
           </ul>
         </section>
         <section class="stay-informed">
-          <h3>Stay Informed</h3>
+          <h3>
+            {labels['Stay Informed'][lang] || labels['Stay Informed'].default}
+          </h3>
           <ul>
             {#each links.stay_informed_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href="{normaliseUrl(link.url)}">{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -133,6 +150,11 @@
     padding-top: 24px;
     padding-bottom: 24px;
     box-sizing: border-box;
+    &[lang='ja'] {
+      a {
+        font-weight: 600;
+      }
+    }
 
     .content-container {
       @include responsive-columns(12);
