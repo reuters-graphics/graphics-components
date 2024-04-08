@@ -4,8 +4,8 @@
   export let step: ScrollerStep;
   export let index: number;
 
-  import { marked } from 'marked';
   import Block from '../../Block/Block.svelte';
+  import Markdown from '../../Markdown/Markdown.svelte';
 </script>
 
 {#if step.foreground === '' || !step.foreground}
@@ -14,18 +14,18 @@
 
   {#if typeof step.altText === 'string'}
     <div class="background-alt-text visually-hidden">
-      {@html marked.parse(step.altText)}
+      <Markdown source="{step.altText}" />
     </div>
   {/if}
 {:else if typeof step.foreground === 'string'}
   <Block class="body-text step-{index + 1}">
     <div class="embedded-foreground step-{index + 1}">
-      {@html marked.parse(step.foreground)}
+      <Markdown source="{step.foreground}" />
     </div>
 
     {#if typeof step.altText === 'string'}
       <div class="background-alt-text visually-hidden">
-        {@html marked.parse(step.altText)}
+        <Markdown source="{step.altText}" />
       </div>
     {/if}
   </Block>

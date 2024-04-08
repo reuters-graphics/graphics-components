@@ -70,7 +70,7 @@
   import TextBlock from './TextBlock.svelte';
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
-  import { marked } from 'marked';
+  import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
 <Block
@@ -93,7 +93,7 @@
       <TextBlock width="{textWidth}">
         <h3>{title}</h3>
         {#if description}
-          {@html marked(description)}
+          <Markdown source="{description}" />
         {/if}
       </TextBlock>
     </PaddingReset>
@@ -108,7 +108,7 @@
         <!-- Custom ARIA markup -->
         <slot name="aria" />
       {:else}
-        {@html marked(ariaDescription)}
+        <Markdown source="{ariaDescription}" />
       {/if}
     </div>
   {/if}
@@ -123,7 +123,7 @@
     <PaddingReset containerIsFluid="{width === 'fluid'}">
       <TextBlock width="{textWidth}">
         <aside>
-          {@html marked(notes)}
+          <Markdown source="{notes}" />
         </aside>
       </TextBlock>
     </PaddingReset>

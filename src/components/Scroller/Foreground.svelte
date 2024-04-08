@@ -3,7 +3,7 @@
 
   export let steps: ScrollerStep[] = [];
 
-  import { marked } from 'marked';
+  import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
 {#each steps as step, i}
@@ -16,13 +16,13 @@
       <div class="empty-step-foreground"></div>
       {#if typeof step.altText === 'string'}
         <div class="background-alt-text visually-hidden">
-          {@html marked.parse(step.altText)}
+          <Markdown source="{step.altText}" />
         </div>
       {/if}
     {:else}
       <div class="step-foreground w-full">
         {#if typeof step.foreground === 'string'}
-          {@html marked.parse(step.foreground)}
+          <Markdown source="{step.foreground}" />
         {:else}
           <svelte:component
             this="{step.foreground}"
@@ -32,7 +32,7 @@
       </div>
       {#if typeof step.altText === 'string'}
         <div class="background-alt-text visually-hidden">
-          {@html marked.parse(step.altText)}
+          <Markdown source="{step.altText}" />
         </div>
       {/if}
     {/if}

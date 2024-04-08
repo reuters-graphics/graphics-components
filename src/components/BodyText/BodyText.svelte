@@ -1,5 +1,6 @@
 <!-- @component `BodyText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-bodytext--default) -->
 <script lang="ts">
+  import Markdown from '../Markdown/Markdown.svelte';
   /**
    * A markdown text string.
    * @type {string}
@@ -14,12 +15,9 @@
   /** Add an id to the block tag to target it with custom CSS. */
   export let id: string = '';
 
-  import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
 </script>
 
 <Block id="{id}" class="fmy-6 {cls}">
-  {#if text}
-    {@html marked.parse(text)}
-  {/if}
+  <Markdown source="{text}" />
 </Block>

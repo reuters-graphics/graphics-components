@@ -4,12 +4,12 @@
     /**
      * Title of the note item
      */
-    title: String;
+    title: string;
     /**
      * Contents of the note as a markdown string
      * @required
      */
-    text: String;
+    text: string;
   }
 
   /**
@@ -18,15 +18,19 @@
    */
   export let notes: EndNote[] = [];
 
-  import { marked } from 'marked';
   import Block from '../Block/Block.svelte';
+  import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
 <Block class="notes fmt-6 fmb-8">
   {#if notes}
     {#each notes as note}
-      <div class="note-title">{@html marked.parse(note.title)}</div>
-      <div class="note-content">{@html marked.parse(note.text)}</div>
+      <div class="note-title">
+        <Markdown source="{note.title}" />
+      </div>
+      <div class="note-content">
+        <Markdown source="{note.text}" />
+      </div>
     {/each}
   {/if}
 </Block>
