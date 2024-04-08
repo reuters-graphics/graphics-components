@@ -1,4 +1,4 @@
-Add programmatic ads to your page.
+Add programmatic ads inline on your page.
 
 > **IMPORTANT!** Make sure ads are only used on dotcom pages, never on embeds.
 
