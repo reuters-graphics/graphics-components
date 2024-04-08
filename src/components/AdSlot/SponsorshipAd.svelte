@@ -38,7 +38,7 @@
     gap: 10px;
     div.ad-label {
       font-family: Knowledge, 'Source Sans Pro', Arial, Helvetica, sans-serif;
-      font-size: 14px;
+      font-size: 12px;
       margin: 0;
       line-height: 1.333;
       color: var(--theme-colour-text-secondary);
@@ -53,8 +53,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 290px;
-      min-height: 20px;
+      width: 195px;
+      min-height: 24px;
       div.ad-slot__inner {
         margin: auto 0;
         width: 100%;
