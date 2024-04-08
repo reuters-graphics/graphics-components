@@ -50,7 +50,7 @@
 
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
-  import { marked } from 'marked';
+  import Markdown from '../Markdown/Markdown.svelte';
 
   let hedClass;
   $: {
@@ -94,7 +94,9 @@
           <!-- Headline named slot -->
           <slot name="hed" />
         {:else}
-          <h1 class="{hedClass}">{@html marked.parseInline(hed)}</h1>
+          <h1 class="{hedClass}">
+            <Markdown source="{hed}" parseInline />
+          </h1>
         {/if}
         {#if $$slots.dek}
           <!-- Dek named slot-->
@@ -103,7 +105,7 @@
           </div>
         {:else if dek}
           <div class="dek fmx-auto fmb-6">
-            {@html marked(dek)}
+            <Markdown source="{dek}" />
           </div>
         {/if}
       </div>

@@ -43,7 +43,7 @@
   export let theme: Theme = 'light';
 
   import Block from '../Block/Block.svelte';
-  import { marked } from 'marked';
+  import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
 <aside class="infobox {theme}">
@@ -58,7 +58,9 @@
         <slot name="header" />
       </div>
     {:else if title}
-      <div class="header fmb-2">{@html marked(title)}</div>
+      <div class="header fmb-2">
+        <Markdown source="{title}" />
+      </div>
     {/if}
 
     {#if $$slots.body}
@@ -67,7 +69,9 @@
         <slot name="body" />
       </div>
     {:else}
-      <div class="body">{@html marked(text)}</div>
+      <div class="body">
+        <Markdown source="{text}" />
+      </div>
     {/if}
 
     {#if $$slots.footer}
@@ -76,7 +80,9 @@
         <slot name="footer" />
       </div>
     {:else if notes}
-      <div class="footer fmt-2">{@html marked(notes)}</div>
+      <div class="footer fmt-2">
+        <Markdown source="{notes}" />
+      </div>
     {/if}
   </Block>
 </aside>

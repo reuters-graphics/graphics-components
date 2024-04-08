@@ -57,7 +57,7 @@
 
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
-  import { marked } from 'marked';
+  import Markdown from '../Markdown/Markdown.svelte';
 
   let containerWidth;
 
@@ -123,7 +123,7 @@
           {#each row as img, i}
             {#if img.caption}
               <div id="{id}-figure-{ri}-{i}" class="caption">
-                {@html marked(img.caption)}
+                <Markdown source="{img.caption}" />
               </div>
             {/if}
           {/each}

@@ -39,7 +39,7 @@
   import Block from '../Block/Block.svelte';
   import Fa from 'svelte-fa/src/fa.svelte';
   import { faLink } from '@fortawesome/free-solid-svg-icons';
-  import { marked } from 'marked';
+  import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
 <Block width="normal" id="{id}" class="simple-timeline-container fmy-6 {cls}">
@@ -76,7 +76,7 @@
               </div>
             {/if}
             {#if event.context}
-              {@html marked(event.context)}
+              <Markdown source="{event.context}" />
             {/if}
           </div>
         {/each}
