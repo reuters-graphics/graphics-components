@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -173,6 +173,8 @@
     "./components/Headline/Headline.svelte": "./dist/components/Headline/Headline.svelte",
     "./components/HeroHeadline/Hero.svelte": "./dist/components/HeroHeadline/Hero.svelte",
     "./components/InfoBox/InfoBox.svelte": "./dist/components/InfoBox/InfoBox.svelte",
+    "./components/Markdown/Markdown.svelte": "./dist/components/Markdown/Markdown.svelte",
+    "./components/Markdown/stores.ts": "./dist/components/Markdown/stores.ts",
     "./components/PaddingReset/PaddingReset.svelte": "./dist/components/PaddingReset/PaddingReset.svelte",
     "./components/PhotoCarousel/PhotoCarousel.svelte": "./dist/components/PhotoCarousel/PhotoCarousel.svelte",
     "./components/PhotoPack/PhotoPack.svelte": "./dist/components/PhotoPack/PhotoPack.svelte",
