@@ -1,6 +1,5 @@
 import getParameterByName from './getParameterByName';
 import Ias from './ias';
-import { loadScript } from './loadScript';
 
 const ONETRUST_LOGS = 'ot_logs';
 const ONETRUST_GEOLOCATION_MOCK = 'ot_geolocation_mock';
@@ -42,9 +41,6 @@ export const loadBootstrap = () => {
   );
 
   (<any>window).bootstrap.getResults((result) => {
-    // Load Freestar script
-    loadScript('https://a.pub.network/reuters-com/pubfig.min.js');
-
     // Set GAM
     window.googletag = (<any>window).googletag || { cmd: [] };
     window.googletag.cmd.push(() => {
