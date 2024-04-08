@@ -9,7 +9,6 @@ export {
 } from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as AdScripts } from './components/AdSlot/AdScripts.svelte';
-export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
@@ -24,6 +23,7 @@ export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as HeroHeadline } from './components/HeroHeadline/Hero.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
+export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoCarousel } from './components/PhotoCarousel/PhotoCarousel.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
@@ -40,6 +40,7 @@ export { default as SiteFooter } from './components/SiteFooter/SiteFooter.svelte
 export { default as SiteHeader } from './components/SiteHeader/SiteHeader.svelte';
 export { default as SiteHeadline } from './components/SiteHeadline/SiteHeadline.svelte';
 export { default as Spinner } from './components/Spinner/Spinner.svelte';
+export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svelte';
 export { default as Table } from './components/Table/Table.svelte';
 export {
   default as Theme,
