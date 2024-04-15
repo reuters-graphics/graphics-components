@@ -24,6 +24,7 @@ export { default as HeroHeadline } from './components/HeroHeadline/Hero.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
 export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
+export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as Markdown } from './components/Markdown/Markdown.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoCarousel } from './components/PhotoCarousel/PhotoCarousel.svelte';
