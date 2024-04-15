@@ -10,15 +10,22 @@
   let cls: string = 'my-12';
   export { cls as class };
 
+  /**
+   * Label placed directly above the sponsorship ad
+   */
+  export let adLabel = '';
+
   const desktopPlacementName: DesktopPlacementName = 'reuters_sponsorlogo';
 </script>
 
-<!-- @component `SponsorshipeAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
+<!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
 <Block id="{id}" class="freestar-adslot {cls}">
   <div class="ad-block">
-    <div class="ad-label">
-      <div>Today's Sponsor</div>
-    </div>
+    {#if adLabel}
+      <div class="ad-label">
+        <div>{adLabel}</div>
+      </div>
+    {/if}
     <div class="ad-container">
       <div class="ad-slot__inner">
         <div>
