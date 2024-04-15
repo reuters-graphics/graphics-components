@@ -46,14 +46,14 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    min-height: var(--height);
+    height: var(--height);
     .ad-slot__container {
+      height: 0px;
       min-height: var(--height);
       align-items: center;
       display: flex;
       justify-content: center;
       .ad-slot__inner {
-        height: 100%;
         max-width: 100%;
       }
     }
