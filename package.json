@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -138,6 +138,7 @@
     "./components/AdSlot/AdScripts.svelte": "./dist/components/AdSlot/AdScripts.svelte",
     "./components/AdSlot/AdSlot.svelte": "./dist/components/AdSlot/AdSlot.svelte",
     "./components/AdSlot/InlineAd.svelte": "./dist/components/AdSlot/InlineAd.svelte",
+    "./components/AdSlot/LeaderboardAd.svelte": "./dist/components/AdSlot/LeaderboardAd.svelte",
     "./components/AdSlot/OneTrust.svelte": "./dist/components/AdSlot/OneTrust.svelte",
     "./components/AdSlot/ResponsiveAd.svelte": "./dist/components/AdSlot/ResponsiveAd.svelte",
     "./components/AdSlot/SponsorshipAd.svelte": "./dist/components/AdSlot/SponsorshipAd.svelte",
