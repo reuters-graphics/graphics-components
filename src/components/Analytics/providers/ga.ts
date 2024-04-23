@@ -1,5 +1,5 @@
 // Reuters Google Tag ID
-const GOOGLE_TAG_ID = 'G-W3Q2X6NTNM';
+const GOOGLE_TAG_ID = 'G-WBSR7WLTGD';
 
 const URL = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`;
 
