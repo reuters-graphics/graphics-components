@@ -61,7 +61,7 @@
       justify-content: center;
       align-items: center;
       width: 195px;
-      min-height: 24px;
+      height: 32px;
       div.ad-slot__inner {
         margin: auto 0;
         width: 100%;
