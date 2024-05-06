@@ -26,3 +26,12 @@
 </Template>
 
 <Story name="Default" />
+
+<style>
+  div {
+    min-height: 200vh;
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, lightgrey 1px, transparent 1px),
+      linear-gradient(to bottom, lightgrey 1px, transparent 1px);
+  }
+</style>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { DesktopPlacementName } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
+  import { onMount } from 'svelte';
 
   /** Add an ID to target with SCSS. */
   export let id: string = '';
@@ -14,12 +15,44 @@
 
   const desktopPlacementName: DesktopPlacementName =
     'reuters_desktop_leaderboard_atf';
+
+  let sticky = false;
+  // Handles transition out... somewhat dumb, but here we are...
+  let unstick = false;
+
+  onMount(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop >= adSize * 1.1) {
+        sticky = true;
+        setTimeout(() => {
+          unstick = true;
+          setTimeout(() => {
+            sticky = false;
+          }, 800);
+        }, 3000);
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
 </script>
 
 <svelte:window bind:innerWidth="{windowWidth}" />
 
 <!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-LeaderboardAd--default) -->
-<div class="leaderboard__sticky {cls}" id="{id}" style="--height: {adSize}px;">
+<div
+  class="leaderboard__sticky {cls}"
+  class:sticky="{sticky}"
+  class:unstick="{unstick}"
+  id="{id}"
+  style="--height: {adSize}px;"
+>
   <div class="ad-block">
     <div class="ad-slot__container">
       <div class="ad-slot__inner">
@@ -33,11 +66,17 @@
 
 <style lang="scss">
   .leaderboard__sticky {
-    position: sticky;
     position: initial;
-    top: 0;
+    top: -275px;
     transition: top 0.8s ease-in-out;
     z-index: 1030;
+    &.sticky {
+      position: sticky;
+      top: 0px;
+    }
+    &.unstick {
+      top: -275px;
+    }
   }
   div.ad-block {
     width: 100%;
