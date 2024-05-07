@@ -29,7 +29,7 @@
           unstick = true;
           setTimeout(() => {
             sticky = false;
-          }, 800);
+          }, 400);
         }, 3000);
         window.removeEventListener('scroll', handleScroll);
       }
@@ -68,7 +68,7 @@
   .leaderboard__sticky {
     position: initial;
     top: -275px;
-    transition: top 0.8s ease-in-out;
+    transition: top 0.4s ease-in-out;
     z-index: 1030;
     &.sticky {
       position: sticky;
