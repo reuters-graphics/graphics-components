@@ -12,17 +12,10 @@ Add a leaderboard ad to your page.
   } from '@reuters-graphics/graphics-components';
 </script>
 
-<!-- ALWAYS check if in an embed context! -->
-{#if !embedded}
-  <!-- Include AdScripts only ONCE per page -->
-  <AdScripts />
-{/if}
+<!-- Include AdScripts only ONCE per page for any type of ad -->
+<AdScripts />
 
-<!-- ... -->
-
-{#if !embedded}
-  <!-- ALWAYS put the leaderboard ad directly above the SiteHeader -->
-  <SponsorshipAd />
-  <SiteHeader />
-{/if}
+<!-- ALWAYS put the leaderboard ad directly above the SiteHeader -->
+<LeaderboardAd />
+<SiteHeader />
 ```
