@@ -168,19 +168,12 @@
       display: block;
       font-size: 0;
 
-      @include for-tablet-down {
-        width: 127px;
-        min-width: 127px;
-      }
+      width: 126px;
+      min-width: 126px;
 
-      @include for-desktop {
-        width: 154px;
-        min-width: 154px;
-      }
-
-      @include for-wide-desktop {
-        width: 184px;
-        min-width: 184px;
+      @media (max-width: 768px) {
+        width: 94px;
+        min-width: 94px;
       }
     }
   }

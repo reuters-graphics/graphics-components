@@ -7,9 +7,9 @@ export default {
     background: '#ffffff',
     'text-primary': '#404040',
     'text-secondary': '#666666',
-    accent: ' #fa6400',
-    'brand-logo': '#fa6400',
+    accent: ' #d64000',
+    'brand-logo': '#d64000',
     'brand-rules': '#d0d0d0',
-    'brand-shadow': 'rgb(64 64 64 / 80%)',
+    'brand-shadow': 'rgba(64, 64, 64, .08)',
   },
 };
