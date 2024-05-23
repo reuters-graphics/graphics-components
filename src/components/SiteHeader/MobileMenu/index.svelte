@@ -17,7 +17,7 @@
       --nav-primary: var(--theme-colour-text-primary, #404040);
       --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
       --nav-accent: var(--theme-colour-brand-logo, #fa6400);
-      --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
+      --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgba(64,64,64,.08));
     `}"
   >
     <header class="header">
@@ -82,6 +82,7 @@
     z-index: 1;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: $mobile-nav-height;
     box-sizing: border-box;
     background: var(--nav-background);
@@ -89,7 +90,7 @@
 
   .logo {
     font-size: 0;
-    width: 127px;
+    width: 94px;
   }
 
   .close-button {
@@ -142,17 +143,26 @@
     max-width: 100%;
 
     .subsections {
-      margin: 20px 0 0 0;
+      margin: 20px 0 0;
       padding: 0;
       list-style: none;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 2.2222222222vw;
       grid-row-gap: 16px;
       @include spacing-single(grid-column-gap);
+      @media (max-width: 1023.9px) {
+        grid-column-gap: 4.2666666667vw;
+      }
+
+      li {
+        margin: 0;
+      }
     }
 
     .section-link {
       font-size: 14px;
+      font-weight: 500;
     }
 
     .section-link,
@@ -165,6 +175,9 @@
       &:hover {
         text-decoration: underline;
       }
+    }
+    .subsection-link {
+      font-size: 16px;
     }
   }
 </style>
