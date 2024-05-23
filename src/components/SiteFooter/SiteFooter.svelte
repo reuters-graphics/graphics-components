@@ -20,6 +20,11 @@
    */
   export let referrals: Referral[] = [];
 
+  /**
+   * Set to `false` to remove graphics referrals
+   */
+  export let includeReferrals = true;
+
   let data = starterData;
 
   onMount(async () => {
@@ -54,7 +59,9 @@
   `}"
 >
   <div>
-    <Referrals referrals="{referrals}" />
+    {#if includeReferrals}
+      <Referrals referrals="{referrals}" />
+    {/if}
     <QuickLinks links="{data[0]}" />
     <CompanyLinks links="{data[0]}" />
     <LegalLinks links="{data[0]}" />
