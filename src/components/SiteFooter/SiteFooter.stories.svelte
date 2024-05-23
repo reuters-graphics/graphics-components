@@ -7,6 +7,8 @@
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
   // @ts-ignore
   import customReferralsDocs from './stories/docs/customReferrals.md?raw';
+  // @ts-ignore
+  import removeReferralsDocs from './stories/docs/removeReferrals.md?raw';
 
   import SiteFooter from './SiteFooter.svelte';
   import Theme from '../Theme/Theme.svelte';
@@ -62,6 +64,12 @@
     referrals: customReferrals,
   }}"
   {...withStoryDocs(customReferralsDocs)}
+/>
+
+<Story
+  name="Remove referrals"
+  args="{{ includeReferrals: false }}"
+  {...withStoryDocs(removeReferralsDocs)}
 />
 
 <style>
