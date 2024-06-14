@@ -34,7 +34,7 @@ export default (authors: { name: string }[]) => {
 
 export const registerPageview = () => {
   if (typeof window === 'undefined' || !window.pSUPERFLY) return;
-  window.pSUPERFLY({
+  window.pSUPERFLY.virtualPage({
     path: window.location.pathname,
     title: document?.title,
   });

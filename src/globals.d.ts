@@ -16,7 +16,9 @@ declare global {
     /** Chartbeat config */
     _sf_async_config: ChartbeatConfig,
     /** Chartbeat method */
-    pSUPERFLY: (config: { path: string, title: string }) => void,
+    pSUPERFLY: {
+      virtualPage: (config: { path: string, title: string }) => void,
+    },
     /** Graphics ads */
     graphicsAdQueue: any[],
   }
