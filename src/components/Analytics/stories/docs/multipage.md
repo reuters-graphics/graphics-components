@@ -11,20 +11,19 @@ For example, here's how you can use SvelteKit's [`afterNavigate`](https://kit.sv
     registerPageview,
   } from '@reuters-graphics/graphics-components';
   import { afterNavigate } from '$app/navigation';
-  import { onMount } from 'svelte';
 
-  let hasMounted = false;
-
-  onMount(() => {
-    hasMounted = true;
-  });
+  let isFirstPageview = true;
 
   afterNavigate(() => {
     // We shouldn't fire on initial page load because the Analytics component
     // already registers a reader's first pageview. After this component
-    // has mounted, we can be sure that further navigation is virtual and
-    // register pageviews using this function.
-    if (hasMounted) registerPageview();
+    // has initially mounted, we can be sure that further navigation is virtual
+    // and register pageviews using this function.
+    if (!isFirstPageview) {
+      registerPageview();
+    } else {
+      isFirstPageview = false;
+    }
   });
 </script>
 
