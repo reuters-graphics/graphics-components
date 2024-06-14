@@ -30,7 +30,7 @@
           setTimeout(() => {
             sticky = false;
           }, 400);
-        }, 3000);
+        }, 1500);
         window.removeEventListener('scroll', handleScroll);
       }
     };
