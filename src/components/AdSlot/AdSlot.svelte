@@ -18,7 +18,7 @@
       placementName,
       slotId: adId,
       targeting: {
-        div_id: adId,
+        div_id: placementName,
         type: adType,
       },
     };
