@@ -1,6 +1,7 @@
+<!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import { DesktopPlacementName } from './@types/ads';
+  import { SponsorshipAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   /** Add an ID to target with SCSS. */
@@ -15,10 +16,10 @@
    */
   export let adLabel = '';
 
-  const desktopPlacementName: DesktopPlacementName = 'reuters_sponsorlogo';
+  const desktopPlacementName: SponsorshipAd['desktop']['placementName'] =
+    'reuters_sponsorlogo';
 </script>
 
-<!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
 <Block id="{id}" class="freestar-adslot {cls}">
   <div class="ad-block">
     {#if adLabel}

@@ -1,5 +1,6 @@
+<!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-LeaderboardAd--default) -->
 <script lang="ts">
-  import { DesktopPlacementName } from './@types/ads';
+  import { LeaderboardAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
   import { onMount } from 'svelte';
 
@@ -13,7 +14,7 @@
   let windowWidth = 1200;
   $: adSize = windowWidth < 1024 ? 110 : 275;
 
-  const desktopPlacementName: DesktopPlacementName =
+  const desktopPlacementName: LeaderboardAd['desktop']['placementName'] =
     'reuters_desktop_leaderboard_atf';
 
   let sticky = false;
@@ -45,7 +46,6 @@
 
 <svelte:window bind:innerWidth="{windowWidth}" />
 
-<!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-LeaderboardAd--default) -->
 <div
   class="leaderboard__sticky {cls}"
   class:sticky="{sticky}"
