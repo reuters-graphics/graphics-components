@@ -1,19 +1,22 @@
+<!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InlineAd--default) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import { DesktopPlacementName } from './@types/ads';
+  import { InlineAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   /** Add an ID to target with SCSS. */
   export let id: string = '';
 
+  /** Number of the inline ad in sequence. Use to add multiple inline ads to a page. */
+  export let n: 1 | 2 | 3 | '1' | '2' | '3' = 1;
+
   /** Add a class to target with SCSS. */
   let cls: string = 'my-12';
   export { cls as class };
 
-  const desktopPlacementName: DesktopPlacementName = 'reuters_desktop_native_1';
+  const desktopPlacementName: InlineAd['desktop']['placementName'] = `reuters_desktop_native_${n}`;
 </script>
 
-<!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InlineAd--default) -->
 <Block id="{id}" class="freestar-adslot {cls}">
   <div class="ad-block">
     <div class="ad-label">Advertisement · Scroll to continue</div>

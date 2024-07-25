@@ -1,10 +1,15 @@
 <script lang="ts">
-  import type { PlacementName, AdType } from './@types/ads';
+  import type {
+    DesktopAdType,
+    DesktopPlacementName,
+    MobileAdType,
+    MobilePlacementName,
+  } from './@types/ads';
   import { onMount } from 'svelte';
   import { getRandomAdId } from './utils';
 
-  export let placementName: PlacementName;
-  export let adType: AdType;
+  export let placementName: DesktopPlacementName | MobilePlacementName;
+  export let adType: DesktopAdType | MobileAdType;
 
   /**
    * @TODO Unclear at what level this bit of config is used with placements...
