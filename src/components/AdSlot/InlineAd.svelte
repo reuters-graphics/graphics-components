@@ -7,7 +7,7 @@
   /** Add an ID to target with SCSS. */
   export let id: string = '';
 
-  /** Update to add multiple inline ads to a page. */
+  /** Number of the inline ad in sequence. Use to add multiple inline ads to a page. */
   export let n: 1 | 2 | 3 | '1' | '2' | '3' = 1;
 
   /** Add a class to target with SCSS. */

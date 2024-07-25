@@ -34,10 +34,13 @@ Add programmatic ads inline on your page.
 {/each}
 ```
 
-You may add **up to three** inline ads per page, but must set the `n` prop on multiple ads.
+You may add **up to three** inline ads per page, but must set the `n` prop on multiple ads in sequential order, 1 - 3.
 
 ```svelte
+<!-- First inline ad on the page -->
 <InlineAd n="{1}" />
+<!-- ... second ... -->
 <InlineAd n="{2}" />
+<!-- ... third and final. -->
 <InlineAd n="{3}" />
 ```
