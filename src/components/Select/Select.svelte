@@ -2,11 +2,32 @@
   import { createEventDispatcher } from 'svelte';
   import type { Option } from '../@types/global';
 
+  /** Add an ID to target with SCSS.
+   * @type {string}
+   */
+  export let id: string = '';
+
+  /** Add a class to target with SCSS.
+   * @type {string}
+   */
+  export let cls: string = '';
+
+  /** Add a name to the <select> element.
+   * @type {string}
+   */
+  export let name: string = 'select--input';
+
   /**
    * The label that appears above the select input.
    * @type {string}
    */
   export let label: string = '';
+
+  /**
+   * The selected value
+   * @type {string}
+   */
+  export let selected: string | null = null;
 
   /**
    * The label that appears above the select input.
@@ -22,15 +43,16 @@
   }
 </script>
 
-<div class="select">
+<div id="{id}" class="select {cls}">
   {#if label}
     <label class="body-caption block" for="select--input">{label}</label>
   {/if}
   <select
     class="select--input body-caption fpx-2"
-    name="select--input"
+    name="{name}"
     id="select--input"
     on:input="{input}"
+    bind:value="{selected}"
   >
     {#each options as obj}
       <option value="{obj.value}">{obj.text}</option>
