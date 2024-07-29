@@ -52,9 +52,11 @@ export {
 } from './components/Theme/Theme.svelte';
 export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.svelte';
 export { default as Video } from './components/Video/Video.svelte';
+export { default as VideoScroller } from './components/VideoScroller/VideoScroller.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
 
 // Utilities
 export { getEndNotesPropsFromDoc } from './components/EndNotes/docProps.js';
 export { getPhotoPackPropsFromDoc } from './components/PhotoPack/docProps.js';
 export { getScrollerPropsFromDoc } from './components/Scroller/docProps.js';
+export { getVideoScrollerPropsFromDoc } from './components/VideoScroller/docProps.js';
