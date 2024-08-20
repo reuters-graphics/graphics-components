@@ -15,9 +15,7 @@ const config = defineConfig({
       $docs: './src/docs',
     },
   },
-  plugins: [
-    svelte({}),
-  ],
+  plugins: [svelte({})],
 });
 
 export default config;

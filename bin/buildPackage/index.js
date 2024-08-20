@@ -28,13 +28,14 @@ const excludedTypeDefs = [
   '**/*.stories.svelte.d.ts',
 ];
 
-
 const prettifyImport = (filename) => {
-  return filename
-    // strip index.js
-    .replace(/\/index\.js$|(\/[^/]+)\.js$/, '$1')
-    // normalize SCSS partials
-    .replace(/\/_?([^/]+)\.scss$/, '/$1');
+  return (
+    filename
+      // strip index.js
+      .replace(/\/index\.js$|(\/[^/]+)\.js$/, '$1')
+      // normalize SCSS partials
+      .replace(/\/_?([^/]+)\.scss$/, '/$1')
+  );
 };
 
 /**
@@ -47,28 +48,32 @@ const build = async () => {
 
   // Extract types
   await emitDts({
-		libRoot: LIB,
-		svelteShimsPath: require.resolve('svelte2tsx/svelte-shims.d.ts'),
-		declarationDir: TYPES,
-	});
+    libRoot: LIB,
+    svelteShimsPath: require.resolve('svelte2tsx/svelte-shims.d.ts'),
+    declarationDir: TYPES,
+  });
 
   // Cleanup unwanted types
   fs.rmSync(path.join(TYPES, 'docs'), { recursive: true, force: true });
   const types = await glob('**/*', { cwd: TYPES, filesOnly: true });
   for (const t of types) {
-    if(picomatch.isMatch(t, excludedTypeDefs)) fs.unlinkSync(path.join(TYPES, t));
+    if (picomatch.isMatch(t, excludedTypeDefs))
+      fs.unlinkSync(path.join(TYPES, t));
   }
 
   const pkgExports = {
-    './package.json': './package.json'
+    './package.json': './package.json',
   };
 
-  const files = await glob('**/*.{js,json,ts,svelte,css,scss}', { cwd: LIB, filesOnly: true });
+  const files = await glob('**/*.{js,json,ts,svelte,css,scss}', {
+    cwd: LIB,
+    filesOnly: true,
+  });
   for (const file of files) {
-    if(picomatch.isMatch(file, excludePatterns)) continue;
+    if (picomatch.isMatch(file, excludePatterns)) continue;
     if (file.endsWith('.svelte')) {
       await processSvelte(file);
-    } else if(file.endsWith('.ts') && !file.endsWith('.d.ts')) {
+    } else if (file.endsWith('.ts') && !file.endsWith('.d.ts')) {
       await processTypescript(file);
     } else {
       await processOther(file);
@@ -83,12 +88,12 @@ const build = async () => {
   };
   const pkg = fs.readJSONSync(PACKAGE);
   pkg.type = 'module';
-  pkg.types = './dist/@types/index.d.ts',
+  pkg.types = './dist/@types/index.d.ts';
   pkg.files = ['dist'];
   pkg.private = false;
   pkg.exports = pkgExports;
   pkg.svelte = './dist/index.js';
   fs.writeFileSync(PACKAGE, JSON.stringify(pkg, null, 2));
-}
+};
 
 build();

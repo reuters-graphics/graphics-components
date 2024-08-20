@@ -16,10 +16,10 @@ export default function Mermaid(props) {
         setGraphSvg(svg);
       } catch (err) {
         setGraphSvg('');
-        /* eslint-disable-next-line no-console */
+
         console.error('Invalid mermaid syntax: %o', err);
       }
-    }
+    };
 
     parseMermaid(code);
   }, [code]);
@@ -29,4 +29,4 @@ export default function Mermaid(props) {
       dangerouslySetInnerHTML={{ __html: graphSvg || '' }}
     />
   );
-};
+}

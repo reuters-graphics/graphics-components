@@ -11,7 +11,14 @@ export type Option = {
 /**
  * Used for any props that restrict width of a container to one of pre-fab widths.
  */
-export type ContainerWidth = 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+export type ContainerWidth =
+  | 'narrower'
+  | 'narrow'
+  | 'normal'
+  | 'wide'
+  | 'wider'
+  | 'widest'
+  | 'fluid';
 
 /**
  * Used to set headline class fluid size from text-2xl to text-6xl
@@ -30,7 +37,7 @@ export interface ScrollerStep {
   /**
    * Optional props for background component
    */
-  backgroundProps?: Object;
+  backgroundProps?: object;
   /**
    * Foreground can either be a component or markdown-formatted string.
    * @required
@@ -39,5 +46,5 @@ export interface ScrollerStep {
   /**
    * Optional props for foreground component
    */
-  foregroundProps?: Object;
+  foregroundProps?: object;
 }

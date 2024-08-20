@@ -1,7 +1,5 @@
 {
-  "i18n-ally.localesPaths": ["locales"],
-  "i18n-ally.keystyle": "nested",
-  "eslint.validate": ["javascript", "svelte", "jsx"],
+  "eslint.validate": ["javascript", "javascriptreact", "svelte", "jsx"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"

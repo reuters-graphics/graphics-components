@@ -16,6 +16,6 @@ const VariableTable = (props) => {
       copyable={[(v) => `var(${v})`]}
     />
   );
-}
+};
 
 export default VariableTable;

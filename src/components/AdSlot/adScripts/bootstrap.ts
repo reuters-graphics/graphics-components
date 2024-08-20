@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import getParameterByName from './getParameterByName';
 import Ias from './ias';
 
@@ -12,10 +13,12 @@ export const loadBootstrap = () => {
   freestar.queue = freestar.queue || [];
   freestar.config = freestar.config || {};
   freestar.config.enabled_slots = [];
-  freestar.initCallback = function() {
-    freestar.config.enabled_slots.length === 0 ?
-      (freestar.initCallbackCalled = false) :
+  freestar.initCallback = function () {
+    if (freestar.config.enabled_slots.length === 0) {
+      freestar.initCallbackCalled = false;
+    } else {
       freestar.newAdSlots(freestar.config.enabled_slots);
+    }
   };
 
   freestar.config.channel = '/4735792/reuters.com/graphics';
@@ -40,7 +43,7 @@ export const loadBootstrap = () => {
     }
   );
 
-  (<any>window).bootstrap.getResults((result) => {
+  (<any>window).bootstrap.getResults(() => {
     // Set GAM
     window.googletag = (<any>window).googletag || { cmd: [] };
     window.googletag.cmd.push(() => {
@@ -48,24 +51,29 @@ export const loadBootstrap = () => {
       /**
        * @TODO Property 'enableAsyncRendering' does not exist on type 'PubAdsService'.
        */
-      // @ts-ignore
+      // @ts-ignore window global
       window.googletag.pubads().enableAsyncRendering();
       window.googletag.pubads().collapseEmptyDivs(true);
     });
 
     // Set page-level key-values
     // cf: https://help.freestar.com/help/using-key-values
-    freestar.queue.push(function() {
+    freestar.queue.push(function () {
       // Global Ads test targeting
-      const adstest = new URL(document.location.href).searchParams.get('adstest');
+      const adstest = new URL(document.location.href).searchParams.get(
+        'adstest'
+      );
       if (adstest) {
         window.googletag.pubads().setTargeting('adstest', adstest);
       }
 
       // Use the URL path to create a unique ID for the page.
-      const graphicId = window.location.pathname.split('/')
-        // Get the first lowercase slug in the pathname, which is the graphic UID.
-        .filter(d => d.match(/[a-z0-9]+/) && d !== 'graphics')[0] || 'unknown-graphic';
+      const graphicId =
+        window.location.pathname
+          .split('/')
+          // Get the first lowercase slug in the pathname, which is the graphic UID.
+          .filter((d) => d.match(/[a-z0-9]+/) && d !== 'graphics')[0] ||
+        'unknown-graphic';
       window.googletag.pubads().setTargeting('template', 'graphics');
       window.googletag.pubads().setTargeting('graphicId', graphicId);
     });
@@ -74,8 +82,11 @@ export const loadBootstrap = () => {
       console.error('Ad queue not initialized!');
     }
 
-    freestar.queue.push(function() {
-      freestar.newAdSlots((<any>window).graphicsAdQueue || [], freestar.config.channel);
+    freestar.queue.push(function () {
+      freestar.newAdSlots(
+        (<any>window).graphicsAdQueue || [],
+        freestar.config.channel
+      );
     });
   });
 };

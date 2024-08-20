@@ -5,7 +5,7 @@
     "declaration": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,

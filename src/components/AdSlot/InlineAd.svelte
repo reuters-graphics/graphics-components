@@ -17,13 +17,13 @@
   const desktopPlacementName: InlineAd['desktop']['placementName'] = `reuters_desktop_native_${n}`;
 </script>
 
-<Block id="{id}" class="freestar-adslot {cls}">
+<Block {id} class="freestar-adslot {cls}">
   <div class="ad-block">
     <div class="ad-label">Advertisement · Scroll to continue</div>
     <div class="ad-container">
       <div class="ad-slot__inner">
         <div>
-          <ResponsiveAd desktopPlacementName="{desktopPlacementName}" />
+          <ResponsiveAd {desktopPlacementName} />
         </div>
       </div>
     </div>

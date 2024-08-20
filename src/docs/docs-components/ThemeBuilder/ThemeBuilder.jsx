@@ -4,12 +4,13 @@ import Customiser from './Customiser/Customiser';
 import NewTheme from './NewTheme/NewTheme.jsx';
 import ThemeSwitch from './ThemeSwitch/Switch';
 import { Unstyled } from '@storybook/blocks';
+// @ts-ignore scss
 import classes from './styles.module.scss';
 import { cloneDeep } from 'lodash-es';
 import darkTheme from '../../../components/Theme/themes/dark';
 import lightTheme from '../../../components/Theme/themes/light';
 
-const ThemeBuilder = (props) => {
+const ThemeBuilder = (_props) => {
   const [themeName, setThemeName] = useState('light');
   const [theme, setTheme] = useState(cloneDeep(lightTheme));
 
@@ -23,7 +24,12 @@ const ThemeBuilder = (props) => {
       <div className={classes.themebuilder}>
         <div className="column">
           <ThemeSwitch setThemeName={setThemeName} themeName={themeName} />
-          <Customiser theme={theme} setTheme={setTheme} themeName={themeName} key={themeName} />
+          <Customiser
+            theme={theme}
+            setTheme={setTheme}
+            themeName={themeName}
+            key={themeName}
+          />
         </div>
         <div className="column">
           <NewTheme theme={theme} themeName={themeName} />
@@ -31,6 +37,6 @@ const ThemeBuilder = (props) => {
       </div>
     </Unstyled>
   );
-}
+};
 
 export default ThemeBuilder;

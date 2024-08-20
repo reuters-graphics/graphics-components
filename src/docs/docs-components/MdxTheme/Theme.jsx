@@ -12,7 +12,7 @@ import lightTheme from '../../../components/Theme/themes/light';
 const ThemeWrapper = (props) => {
   const theme = flatten(lightTheme);
   const styleObj = {};
-  Object.keys(theme).forEach(key => {
+  Object.keys(theme).forEach((key) => {
     styleObj[`--theme-${key}`] = theme[key];
   });
   return (

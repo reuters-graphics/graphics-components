@@ -1,6 +1,6 @@
 interface attributesInterface {
-  onload?: () => void,
-  async?: boolean
+  onload?: () => void;
+  async?: boolean;
 }
 
 export const loadScript = (src: string, attributes?: attributesInterface) => {

@@ -36,7 +36,7 @@ function ownKeys(object, enumerableOnly) {
   if (Object.getOwnPropertySymbols) {
     let symbols = Object.getOwnPropertySymbols(object);
     if (enumerableOnly) {
-      symbols = symbols.filter(function(sym) {
+      symbols = symbols.filter(function (sym) {
         return Object.getOwnPropertyDescriptor(object, sym).enumerable;
       });
     }
@@ -51,14 +51,18 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(Object(source), true).forEach(function(key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(Object(source)).forEach(function(key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(
+          target,
+          key,
+          Object.getOwnPropertyDescriptor(source, key)
+        );
       });
     }
   }
@@ -67,7 +71,9 @@ function _objectSpread2(target) {
 }
 
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return (
+    _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest()
+  );
 }
 
 function _arrayWithHoles(arr) {
@@ -75,7 +81,12 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === '[object Arguments]')) {
+  if (
+    !(
+      Symbol.iterator in Object(arr) ||
+      Object.prototype.toString.call(arr) === '[object Arguments]'
+    )
+  ) {
     return;
   }
 
@@ -85,7 +96,11 @@ function _iterableToArrayLimit(arr, i) {
   let _e;
 
   try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+    for (
+      var _i = arr[Symbol.iterator](), _s;
+      !(_n = (_s = _i.next()).done);
+      _n = true
+    ) {
       _arr.push(_s.value);
 
       if (i && _arr.length === i) break;
@@ -121,7 +136,7 @@ const addProperty = function addProperty(obj, key, value) {
 };
 
 const camelize = function camelize(str) {
-  return str.replace(/-([a-z])/g, function(g) {
+  return str.replace(/-([a-z])/g, function (g) {
     return g[1].toUpperCase();
   });
 };
@@ -148,7 +163,7 @@ const fontface = function fontface(rule, result) {
   let name = '';
   let obj = {};
   const fontObj = {};
-  rule.declarations.forEach(function(declaration) {
+  rule.declarations.forEach(function (declaration) {
     const cssProperty = camelize(declaration.property);
     fontObj[cssProperty] = declaration.value;
     name = capitalize(camelize(fontObj.fontFamily).replace(/"/g, ''));
@@ -157,7 +172,7 @@ const fontface = function fontface(rule, result) {
     };
   });
   let dupeFlag = false;
-  Object.keys(result).forEach(function(key) {
+  Object.keys(result).forEach(function (key) {
     if (key.split('_')[0] === name) {
       if (JSON.stringify(result[key]) === JSON.stringify(obj)) {
         dupeFlag = true;
@@ -166,7 +181,7 @@ const fontface = function fontface(rule, result) {
   });
 
   if (!dupeFlag) {
-    const numVar = Object.entries(result).filter(function(resObj) {
+    const numVar = Object.entries(result).filter(function (resObj) {
       return resObj[0].split('_')[0] === name;
     }).length;
 
@@ -183,9 +198,13 @@ const fontface = function fontface(rule, result) {
 
 const keyframes = function keyframes(rule) {
   const keyFrameObj = {};
-  rule.keyframes.forEach(function(keyframe) {
-    keyframe.declarations.forEach(function(decl) {
-      keyFrameObj[keyframe.values[0]] = _objectSpread2({}, keyFrameObj[keyframe.values[0]], _defineProperty({}, decl.property, decl.value));
+  rule.keyframes.forEach(function (keyframe) {
+    keyframe.declarations.forEach(function (decl) {
+      keyFrameObj[keyframe.values[0]] = _objectSpread2(
+        {},
+        keyFrameObj[keyframe.values[0]],
+        _defineProperty({}, decl.property, decl.value)
+      );
     });
   });
   let name = camelize('keyframes-'.concat(rule.name));
@@ -198,11 +217,11 @@ const keyframes = function keyframes(rule) {
 const standard = function standard(rule, result) {
   const obj = {};
   let retObj = {};
-  rule.declarations.forEach(function(declaration) {
+  rule.declarations.forEach(function (declaration) {
     const cssProperty = camelize(declaration.property);
     obj[cssProperty] = declaration.value;
   });
-  rule.selectors.forEach(function(selector) {
+  rule.selectors.forEach(function (selector) {
     let name; // Check if selector contains a pseudo selector
 
     const pseudoSelectorIndex = selector.indexOf(':');
@@ -210,11 +229,18 @@ const standard = function standard(rule, result) {
     if (pseudoSelectorIndex !== -1) {
       // Find end of pseudo selector
       let endPseudoSelectorIndex = selector.indexOf(' ', pseudoSelectorIndex);
-      if (endPseudoSelectorIndex === -1) endPseudoSelectorIndex = selector.length; // Split selector
+      if (endPseudoSelectorIndex === -1)
+        endPseudoSelectorIndex = selector.length; // Split selector
 
       const primarySelector = selector.slice(0, pseudoSelectorIndex);
-      const pseudoSelector = selector.slice(pseudoSelectorIndex, endPseudoSelectorIndex);
-      const secondarySelector = selector.slice(endPseudoSelectorIndex, selector.length);
+      const pseudoSelector = selector.slice(
+        pseudoSelectorIndex,
+        endPseudoSelectorIndex
+      );
+      const secondarySelector = selector.slice(
+        endPseudoSelectorIndex,
+        selector.length
+      );
       const pseudoObj = {};
       pseudoObj['&'.concat(pseudoSelector).concat(secondarySelector)] = obj;
       name = sanitize(primarySelector.trim());
@@ -228,9 +254,10 @@ const standard = function standard(rule, result) {
 };
 
 const convertRules = function convertRules(rules) {
-  const res = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  const res =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   let result = res;
-  rules.forEach(function(rule) {
+  rules.forEach(function (rule) {
     if (rule.type === 'media') {
       // Convert @media rules
       const name = '@media '.concat(rule.media);
@@ -248,7 +275,7 @@ const convertRules = function convertRules(rules) {
     } else if (rule.type === 'rule') {
       // Convert standard CSS rules
       const standardProp = standard(rule, result);
-      Object.entries(standardProp).forEach(function(_ref) {
+      Object.entries(standardProp).forEach(function (_ref) {
         const _ref2 = _slicedToArray(_ref, 2);
         const key = _ref2[0];
         const value = _ref2[1];
@@ -275,8 +302,9 @@ const reverseMediaQueries = function reverseMediaQueries(inputData) {
   const exportObject = {};
 
   const moveMediaInsideClass = function moveMediaInsideClass(object) {
-    const media = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    Object.entries(object).forEach(function(_ref) {
+    const media =
+      arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    Object.entries(object).forEach(function (_ref) {
       const _ref2 = _slicedToArray(_ref, 2);
       const key = _ref2[0];
       const value = _ref2[1];
@@ -288,7 +316,12 @@ const reverseMediaQueries = function reverseMediaQueries(inputData) {
         tempObj[media] = value;
 
         if (exportObject[key]) {
-          exportObject[key] = _objectSpread2({}, exportObject[key], {}, tempObj);
+          exportObject[key] = _objectSpread2(
+            {},
+            exportObject[key],
+            {},
+            tempObj
+          );
         } else {
           exportObject[key] = tempObj;
         }
@@ -317,7 +350,8 @@ const convertStringToJson = function convertStringToJson(input, mediaReverse) {
 };
 
 const convert = function convert(input) {
-  const config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  const config =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   const outputType = config.outputType;
   const outputPath = config.outputPath;
   let mediaReverse = config.mediaReverse;
@@ -331,7 +365,7 @@ const convert = function convert(input) {
 
   if (!outputType) {
     if (Array.isArray(convertedCss)) {
-      return convertedCss.map(function(obj) {
+      return convertedCss.map(function (obj) {
         return obj.contents;
       });
     } else {
@@ -340,7 +374,7 @@ const convert = function convert(input) {
   } else {
     const writeRecur = function writeRecur(input) {
       if (Array.isArray(input)) {
-        input.forEach(function(obj) {
+        input.forEach(function (obj) {
           writeRecur(obj);
         });
       }

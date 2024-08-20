@@ -12,7 +12,7 @@ SyntaxHighlighter.registerLanguage('svelte', svelte);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   viewMode: 'docs',
   previewTabs: { 'storybook/docs/panel': { index: -1 } },
   controls: {
@@ -53,23 +53,19 @@ export const parameters = {
         'Styles',
         [
           'Intro',
-          'Colours', [
-            'Intro',
-            'Primary',
-            'Thematic',
-            '*',
-          ],
-          'Tokens', [
-            'Intro',
-            'Typography',
-            '*',
-          ],
+          'Colours',
+          ['Intro', 'Primary', 'Thematic', '*'],
+          'Tokens',
+          ['Intro', 'Typography', '*'],
         ],
         'Actions',
         ['Intro', '*'],
         'Contributing',
         [
-          'Quickstart', 'Component Basics', '*', 'Writing Stories',
+          'Quickstart',
+          'Component Basics',
+          '*',
+          'Writing Stories',
           'Recipes: Basic story',
           'Recipes: Story with custom docs',
           'Recipes: Story with custom controls',
@@ -79,7 +75,7 @@ export const parameters = {
         ],
       ],
     },
-  }
+  },
 };
 
 export const decorators = [() => Wrapper];

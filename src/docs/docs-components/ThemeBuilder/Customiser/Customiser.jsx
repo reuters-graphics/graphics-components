@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Key from './Key.jsx';
-import { Unstyled } from '@storybook/blocks';
-import Value from './Value.jsx';
+// @ts-ignore scss
 import classes from './styles.module.scss';
 
 const Customiser = ({ theme, themeName, setTheme }) => {
@@ -19,10 +18,10 @@ const Customiser = ({ theme, themeName, setTheme }) => {
           value,
           key: themeName + key,
         };
-        return <Key {...props} />;
+        return <Key {...props} key={props.key} />;
       })}
     </div>
   );
-}
+};
 
 export default Customiser;

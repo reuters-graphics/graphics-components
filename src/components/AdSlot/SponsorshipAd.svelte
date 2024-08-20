@@ -20,7 +20,7 @@
     'reuters_sponsorlogo';
 </script>
 
-<Block id="{id}" class="freestar-adslot {cls}">
+<Block {id} class="freestar-adslot {cls}">
   <div class="ad-block">
     {#if adLabel}
       <div class="ad-label">
@@ -30,7 +30,7 @@
     <div class="ad-container">
       <div class="ad-slot__inner">
         <div>
-          <ResponsiveAd desktopPlacementName="{desktopPlacementName}" />
+          <ResponsiveAd {desktopPlacementName} />
         </div>
       </div>
     </div>

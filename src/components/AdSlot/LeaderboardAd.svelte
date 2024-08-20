@@ -48,16 +48,16 @@
 
 <div
   class="leaderboard__sticky {cls}"
-  class:sticky="{sticky}"
-  class:unstick="{unstick}"
-  id="{id}"
+  class:sticky
+  class:unstick
+  {id}
   style="--height: {adSize}px;"
 >
   <div class="ad-block">
     <div class="ad-slot__container">
       <div class="ad-slot__inner">
         <div>
-          <ResponsiveAd desktopPlacementName="{desktopPlacementName}" />
+          <ResponsiveAd {desktopPlacementName} />
         </div>
       </div>
     </div>

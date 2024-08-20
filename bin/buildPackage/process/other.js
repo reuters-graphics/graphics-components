@@ -8,4 +8,4 @@ export default async (file) => {
   const writePath = path.join(DIST, file);
   fs.ensureDirSync(path.dirname(writePath));
   fs.copyFileSync(filename, writePath);
-}
+};

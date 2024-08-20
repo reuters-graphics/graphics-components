@@ -19,7 +19,7 @@
 
   // You can declare custom types to help users implement your component.
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
-  
+
   /** Width of the component within the text well. */
   export let width: ContainerWidth = 'normal';
 
@@ -34,9 +34,9 @@
 
 <Block {width} {id} cls="photo {cls}">
   <div
-    style:background-image={`url(${src})`}
-    style:height={`${height}px`}
-  />
+    style:background-image="{`url(${src})`}"
+    style:height="{`${height}px`}"
+  ></div>
   <p class="visually-hidden">{altText}</p>
 </Block>
 

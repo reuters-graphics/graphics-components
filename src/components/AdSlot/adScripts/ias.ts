@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const IAS_REQUEST_TIMEOUT = 600;
 
 export default () => {

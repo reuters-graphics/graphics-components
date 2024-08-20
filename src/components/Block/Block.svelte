@@ -23,10 +23,10 @@
 </script>
 
 <div
-  id="{id}"
+  {id}
   class="article-block fmx-auto {width} {cls}"
   class:snap="{snap && width !== 'fluid' && width !== 'widest'}"
-  role="{role}"
+  {role}
   aria-label="{ariaLabel}"
 >
   <!-- block content -->

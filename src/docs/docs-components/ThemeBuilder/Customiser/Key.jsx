@@ -6,12 +6,18 @@ const Key = ({ value, name, map, themeName, setTheme, theme }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="key">
-      <button className={isOpen ? 'open' : ''} onClick={() => setIsOpen(o => !o)}>
+      <button
+        className={isOpen ? 'open' : ''}
+        onClick={() => setIsOpen((o) => !o)}
+      >
         <div>
-          <span className="material-symbols-outlined">{isOpen ? 'expand_less' : 'expand_more'}</span>
-        </div> {name}
+          <span className="material-symbols-outlined">
+            {isOpen ? 'expand_less' : 'expand_more'}
+          </span>
+        </div>{' '}
+        {name}
       </button>
-      
+
       {Object.entries(value).map(([key, value]) => {
         const props = {
           theme,
@@ -23,11 +29,12 @@ const Key = ({ value, name, map, themeName, setTheme, theme }) => {
           key: themeName + map + key,
         };
         if (!isOpen) return null;
-        if (typeof value === 'object') return <Key {...props} />;
-        return <Value {...props} />;
+        if (typeof value === 'object')
+          return <Key {...props} key={props.key} />;
+        return <Value {...props} key={props.key} />;
       })}
     </div>
   );
-}
+};
 
 export default Key;

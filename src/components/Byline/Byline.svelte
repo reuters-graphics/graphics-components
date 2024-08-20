@@ -64,7 +64,7 @@
     first.getDate() === second.getDate();
 </script>
 
-<Block id="{id}" class="byline-container {alignmentClass} {cls}" width="normal">
+<Block {id} class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
     <div class="byline body-caption fmb-1">
       {#if $$slots.byline}

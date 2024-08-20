@@ -116,16 +116,15 @@
   const move = (e) => {
     if (sliding && imgOffset) {
       const el = e.touches ? e.touches[0] : e;
-      const figureOffset = figure
-        ? parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
+      const figureOffset =
+        figure ?
+          parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
         : 0;
       let x = el.pageX - figureOffset - imgOffset.left;
       x =
-        x < handleMargin
-          ? handleMargin
-          : x > w - handleMargin
-          ? w - handleMargin
-          : x;
+        x < handleMargin ? handleMargin
+        : x > w - handleMargin ? w - handleMargin
+        : x;
       offset = x / w;
     }
   };
@@ -160,7 +159,7 @@
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
-  <Block width="{width}" id="{id}" class="photo before-after fmy-6 {cls}">
+  <Block {width} {id} class="photo before-after fmy-6 {cls}">
     <div
       style="height: {containerHeight}px;"
       bind:clientWidth="{containerWidth}"

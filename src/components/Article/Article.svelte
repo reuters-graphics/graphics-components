@@ -43,12 +43,7 @@
 </script>
 
 <main>
-  <article
-    id="{id}"
-    class:embedded
-    role="{role}"
-    use:cssVariables="{columnWidthVars}"
-  >
+  <article {id} class:embedded {role} use:cssVariables="{columnWidthVars}">
     <!-- Article content -->
     <slot />
   </article>

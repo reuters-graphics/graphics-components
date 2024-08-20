@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { Unstyled } from '@storybook/blocks';
 import VariableTable from '../CSSVariables/VariableTable';
+// @ts-ignore scss
 import classes from './styles.module.scss';
 import darkTheme from '../../../../components/Theme/themes/dark';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import lightTheme from '../../../../components/Theme/themes/light';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
@@ -23,27 +22,34 @@ const NewTheme = ({ theme, themeName }) => {
 
   return (
     <div className={classes.newtheme}>
-      <p>Use the code below to adapt the <code>Theme</code> component for your new design:</p>
-    <SyntaxHighlighter language="svelte" style={prism}>
-      {`<Theme
+      <p>
+        Use the code below to adapt the <code>Theme</code> component for your
+        new design:
+      </p>
+      <SyntaxHighlighter language="svelte" style={prism}>
+        {`<Theme
   base="${themeName}"
-  theme={${JSON.stringify(updates, null, 2).replaceAll('"', '\'')}}
+  theme={${JSON.stringify(updates, null, 2).replaceAll('"', "'")}}
 >
   <!-- ... -->
 </Theme>
       `}
-    </SyntaxHighlighter>
-    {bgChanged && (
-      <SyntaxHighlighter language="scss" style={prism} customStyle={{ maxHeight: '140px' }}>
-        {`// global.scss
+      </SyntaxHighlighter>
+      {bgChanged && (
+        <SyntaxHighlighter
+          language="scss"
+          style={prism}
+          customStyle={{ maxHeight: '140px' }}
+        >
+          {`// global.scss
 body {
   background-color: ${theme.colour.background};
 }`}
-      </SyntaxHighlighter>
-    )}
+        </SyntaxHighlighter>
+      )}
       <VariableTable theme={theme} />
     </div>
   );
-}
+};
 
 export default NewTheme;

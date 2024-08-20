@@ -6,10 +6,10 @@ import ts from 'typescript';
 
 async function transpileTypeScript(filename, source) {
   const { compilerOptions } = fs.readJSONSync(path.join(ROOT, 'tsconfig.json'));
-	return ts.transpileModule(source, {
-		compilerOptions,
-		fileName: filename
-	}).outputText;
+  return ts.transpileModule(source, {
+    compilerOptions,
+    fileName: filename,
+  }).outputText;
 }
 
 export default async (file) => {
@@ -19,4 +19,4 @@ export default async (file) => {
   const writePath = path.join(DIST, file).replace(/\.ts$/, '.js');
   fs.ensureDirSync(path.dirname(writePath));
   fs.writeFileSync(writePath, source);
-}
+};

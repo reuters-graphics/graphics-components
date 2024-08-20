@@ -1,11 +1,11 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customLayoutsDocs from './stories/docs/customLayouts.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import snapWidthsDocs from './stories/docs/snapWidths.md?raw';
 
   import Block from './Block.svelte';

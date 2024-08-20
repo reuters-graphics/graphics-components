@@ -18,6 +18,6 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block id="{id}" class="fmy-6 {cls}">
+<Block {id} class="fmy-6 {cls}">
   <Markdown source="{text}" />
 </Block>
