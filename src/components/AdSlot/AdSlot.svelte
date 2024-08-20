@@ -39,7 +39,25 @@
       window.graphicsAdQueue = window.graphicsAdQueue || [];
       window.graphicsAdQueue.push(adSlot);
     }
+
+    return () => {
+      // @ts-ignore
+      const freestar = window?.freestar;
+      if (freestar) {
+        freestar.queue.push(function () {
+          freestar.deleteAdSlots(adId);
+        });
+      }
+    };
   });
 </script>
 
 <div data-freestar-ad="{dataFreestarAd || null}" id="{adId}"></div>
+
+<style lang="scss">
+  div {
+    :global(iframe) {
+      width: auto;
+    }
+  }
+</style>
