@@ -12,6 +12,7 @@ export default [
   ...svelte,
   reactPlugin.configs.flat.recommended,
   {
+    settings: { react: { version: '18.2' } },
     rules: {
       'react/prop-types': [
         'error',
