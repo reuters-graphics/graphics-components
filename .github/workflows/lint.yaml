@@ -43,7 +43,7 @@ jobs:
       
       - id: get_branch_name
         name: Get branch name
-        run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+        run: echo "branch_name=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
       
       - id: checkout_branch
         name: Checkout to branch
