@@ -137,6 +137,5 @@
   "types": "./dist/index.d.ts",
   "bugs": {
     "url": "https://github.com/reuters-graphics/graphics-components/issues"
-  },
-  "readme": "Svelte components for Reuters graphics pages"
+  }
 }
