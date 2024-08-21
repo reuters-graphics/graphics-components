@@ -56,7 +56,7 @@ jobs:
         run: npm run build:docs
       
       - id: commit_and_push
-        name: Commit and push changes
+        name: Commit and push docs
         if: steps.changesets.outputs.published == 'true'
         run: |
           git config --global user.name 'github-actions[bot]'
