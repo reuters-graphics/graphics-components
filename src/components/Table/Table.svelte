@@ -149,16 +149,15 @@
   let filterValue = '';
   $: filteredData = filterArray(data, searchText, filterField, filterValue);
   $: sortedData = sortArray(filteredData, sortField, sortDirection);
-  $: currentPageData = truncated
-    ? showAll
-      ? sortedData
+  $: currentPageData =
+    truncated ?
+      showAll ? sortedData
       : sortedData.slice(0, truncateLength + 1)
-    : paginated
-    ? paginateArray(sortedData, pageSize, pageNumber)
+    : paginated ? paginateArray(sortedData, pageSize, pageNumber)
     : sortedData;
 
   //* * Handle show all, search, filter, sort and pagination events */
-  function toggleTruncate(event) {
+  function toggleTruncate(_event) {
     showAll = !showAll;
   }
 
@@ -204,6 +203,7 @@
 
   /** Boot it up. */
   onMount(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data.forEach((d: any) => {
       // Compose the string we will allow users to search
       d.searchStr = includedFields
@@ -214,7 +214,7 @@
   });
 </script>
 
-<Block width="{width}" id="{id}" class="fmy-6 {cls}">
+<Block {width} {id} class="fmy-6 {cls}">
   <article class="table-wrapper">
     {#if title || dek || searchable || filterList}
       <header class="table--header w-full">
@@ -238,7 +238,7 @@
             {#if searchable}
               <div class="table--header--search">
                 <SearchInput
-                  bind:searchPlaceholder="{searchPlaceholder}"
+                  bind:searchPlaceholder
                   on:search="{handleSearchInput}"
                 />
               </div>
@@ -250,7 +250,7 @@
     <section class="table w-full">
       <table
         class="w-full"
-        class:paginated="{paginated}"
+        class:paginated
         class:truncated="{truncated &&
           !showAll &&
           data.length > truncateLength}"
@@ -275,7 +275,7 @@
                 {#if sortable && sortableFields.includes(field)}
                   <div class="table--thead--sortarrow fml-1 avoid-clicks">
                     <SortArrow
-                      bind:sortDirection="{sortDirection}"
+                      bind:sortDirection
                       active="{sortField === field}"
                     />
                   </div>
@@ -344,8 +344,8 @@
     {/if}
     {#if paginated}
       <Pagination
-        bind:pageNumber="{pageNumber}"
-        bind:pageSize="{pageSize}"
+        bind:pageNumber
+        bind:pageSize
         bind:pageLength="{currentPageData.length}"
         bind:n="{sortedData.length}"
       />{/if}

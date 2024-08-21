@@ -169,11 +169,11 @@
 />
 
 <GraphicBlock
-  textWidth="{textWidth}"
-  title="{title}"
-  description="{description}"
-  notes="{notes}"
-  width="{width}"
+  {textWidth}
+  {title}
+  {description}
+  {notes}
+  {width}
   class="video {cls}"
 >
   <div
@@ -199,8 +199,8 @@
       {#if playVideoWhenInView}
         <!-- Video element with Intersection Observer -->
         <IntersectionObserver
-          element="{element}"
-          bind:intersecting="{intersecting}"
+          {element}
+          bind:intersecting
           threshold="{playVideoThreshold}"
           once="{false}"
         >
@@ -215,24 +215,28 @@
               {#if showControls}
                 <Controls
                   on:pausePlayEvent="{pausePlayEvent}"
-                  paused="{paused}"
-                  clickedOnPauseBtn="{clickedOnPauseBtn}"
-                  controlsOpacity="{hoverToSeeControls
-                    ? interactiveControlsOpacity
-                    : controlsOpacity}"
-                  controlsPosition="{controlsPosition}"
-                  widthVideoContainer="{widthVideoContainer}"
-                  heightVideoContainer="{heightVideoContainer}"
-                  controlsBorderOffset="{controlsBorderOffset}"
-                  resetCondition="{resetCondition}"
-                  separateReplayIcon="{separateReplayIcon}"
-                  controlsColour="{controlsColour}"
+                  {paused}
+                  {clickedOnPauseBtn}
+                  controlsOpacity="{hoverToSeeControls ?
+                    interactiveControlsOpacity
+                  : controlsOpacity}"
+                  {controlsPosition}
+                  {widthVideoContainer}
+                  {heightVideoContainer}
+                  {controlsBorderOffset}
+                  {resetCondition}
+                  {separateReplayIcon}
+                  {controlsColour}
                 />
               {:else}
                 <button
                   class="border-0 m-0 p-0 bg-transparent absolute"
                   on:click="{() => {
-                    paused === true ? (paused = false) : (paused = true);
+                    if (paused === true) {
+                      paused = false;
+                    } else {
+                      paused = true;
+                    }
                   }}"
                   style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
                 ></button>
@@ -240,8 +244,8 @@
             {/if}
             <video
               bind:this="{videoElement}"
-              src="{src}"
-              poster="{poster}"
+              {src}
+              {poster}
               class="pointer-events-none relative"
               width="100%"
               muted="{muteVideo}"
@@ -249,8 +253,8 @@
               preload="{preloadVideo}"
               loop="{loopVideo}"
               bind:currentTime="{time}"
-              bind:duration="{duration}"
-              bind:paused="{paused}"
+              bind:duration
+              bind:paused
               bind:clientWidth="{widthVideo}"
               bind:clientHeight="{heightVideo}"
             >
@@ -270,22 +274,26 @@
             {#if showControls}
               <Controls
                 on:pausePlayEvent="{pausePlayEvent}"
-                paused="{paused}"
-                clickedOnPauseBtn="{clickedOnPauseBtn}"
-                controlsOpacity="{controlsOpacity}"
-                controlsPosition="{controlsPosition}"
-                widthVideoContainer="{widthVideoContainer}"
-                heightVideoContainer="{heightVideoContainer}"
-                controlsBorderOffset="{controlsBorderOffset}"
-                resetCondition="{resetCondition}"
-                separateReplayIcon="{separateReplayIcon}"
-                controlsColour="{controlsColour}"
+                {paused}
+                {clickedOnPauseBtn}
+                {controlsOpacity}
+                {controlsPosition}
+                {widthVideoContainer}
+                {heightVideoContainer}
+                {controlsBorderOffset}
+                {resetCondition}
+                {separateReplayIcon}
+                {controlsColour}
               />
             {:else}
               <button
                 class="border-0 m-0 p-0 bg-transparent absolute"
                 on:click="{() => {
-                  paused === true ? (paused = false) : (paused = true);
+                  if (paused === true) {
+                    paused = false;
+                  } else {
+                    paused = true;
+                  }
                 }}"
                 style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
               ></button>
@@ -293,8 +301,8 @@
           {/if}
           <video
             bind:this="{videoElement}"
-            src="{src}"
-            poster="{poster}"
+            {src}
+            {poster}
             class="pointer-events-none relative"
             width="100%"
             muted="{muteVideo}"
@@ -302,8 +310,8 @@
             preload="{preloadVideo}"
             loop="{loopVideo}"
             bind:currentTime="{time}"
-            bind:duration="{duration}"
-            bind:paused="{paused}"
+            bind:duration
+            bind:paused
             autoplay
             bind:clientWidth="{widthVideo}"
             bind:clientHeight="{heightVideo}"

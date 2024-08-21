@@ -1,7 +1,7 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import PaddingReset from './PaddingReset.svelte';
@@ -30,7 +30,6 @@
   args="{{
     containerIsFluid: true,
   }}"
-  let:args
 />
 
 <style lang="scss">

@@ -29,7 +29,9 @@ export default (authors: { name: string }[]) => {
 
   try {
     attachScript();
-  } catch (e) { console.warn(`Error initialising Chartbeat Analytics: ${e}`); }
+  } catch (e) {
+    console.warn(`Error initialising Chartbeat Analytics: ${e}`);
+  }
 };
 
 export const registerPageview = () => {

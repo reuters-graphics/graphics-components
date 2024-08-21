@@ -1,9 +1,9 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
 
   import SiteHeader from './SiteHeader.svelte';

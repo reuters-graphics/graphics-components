@@ -1,9 +1,9 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import defaultSnippet from './stories/snippets/default.svelte?raw';
 
   import Visible from './Visible.svelte';

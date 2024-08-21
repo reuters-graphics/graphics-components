@@ -1,6 +1,6 @@
 interface EndNote {
-  Title: String;
-  Text: String;
+  Title: string;
+  Text: string;
 }
 
 type EndNotes = EndNote[];

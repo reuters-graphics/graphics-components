@@ -74,7 +74,7 @@
 </script>
 
 <div class="headline-wrapper" style="display:contents;">
-  <Block width="{width}" class="headline text-center fmt-7 fmb-6 {cls}">
+  <Block {width} class="headline text-center fmt-7 fmb-6 {cls}">
     <header class="relative">
       {#if $$slots.crown}
         <div class="crown-container">
@@ -115,9 +115,9 @@
       {:else if authors.length > 0 || publishTime}
         <Byline
           class="fmy-4"
-          authors="{authors}"
-          publishTime="{publishTime}"
-          updateTime="{updateTime}"
+          {authors}
+          {publishTime}
+          {updateTime}
           align="center"
         />
       {/if}

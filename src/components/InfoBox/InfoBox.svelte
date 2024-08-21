@@ -48,8 +48,8 @@
 
 <aside class="infobox {theme}">
   <Block
-    width="{width}"
-    id="{id}"
+    {width}
+    {id}
     class="{cls} fmy-6 fpx-6 fpy-5 border border-solid rounded"
   >
     {#if $$slots.header}

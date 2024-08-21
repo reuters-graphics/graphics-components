@@ -46,7 +46,6 @@
   export { cls as class };
 
   import Block from '../Block/Block.svelte';
-  // import { referrals } from './stores.js';
 
   import { onMount } from 'svelte';
   import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
@@ -80,7 +79,7 @@
         .filter((a) => !a?.content?.third_party)
         .slice(0, number);
       referrals = articles;
-    } catch (e) {
+    } catch {
       console.warn('Unable to fetch referral links.');
     }
   });
@@ -89,7 +88,7 @@
 </script>
 
 {#if referrals.length === number}
-  <Block width="{width}" id="{id}" class="referrals-block {cls}">
+  <Block {width} {id} class="referrals-block {cls}">
     {#if heading}
       <div
         class="heading h4 font-bold"
@@ -102,7 +101,7 @@
       class="referral-container inline-flex flex-wrap w-full justify-between"
       class:stacked="{clientWidth && clientWidth < 750}"
       class:xs="{clientWidth && clientWidth < 450}"
-      bind:clientWidth="{clientWidth}"
+      bind:clientWidth
     >
       {#each referrals as referral}
         <div class="referral">

@@ -96,8 +96,9 @@
 
   let activeImageIndex = 0;
 
-  $: carouselHeight = containerWidth
-    ? Math.min(containerWidth * heightRatio, maxHeight)
+  $: carouselHeight =
+    containerWidth ?
+      Math.min(containerWidth * heightRatio, maxHeight)
     : maxHeight;
 
   const handleActiveChange = (e) => {
@@ -105,7 +106,7 @@
   };
 </script>
 
-<Block width="{width}" id="{id}" class="photo-carousel fmy-6 {cls}">
+<Block {width} {id} class="photo-carousel fmy-6 {cls}">
   <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"
@@ -120,7 +121,7 @@
     >
       <div class="image-container">
         <SplideTrack>
-          {#each photos as photo, i}
+          {#each photos as photo}
             <SplideSlide>
               <div class="photo-slide w-full h-full relative">
                 <figure
@@ -201,7 +202,10 @@
           bottom: 0;
           left: 0;
           color: white;
-          text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333,
+          text-shadow:
+            -1px -1px 0 #333,
+            1px -1px 0 #333,
+            -1px 1px 0 #333,
             1px 1px 0 #333;
           &.contain-fit {
             left: 50%;

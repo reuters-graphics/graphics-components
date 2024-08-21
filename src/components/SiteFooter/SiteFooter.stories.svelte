@@ -1,13 +1,13 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import darkThemeDocs from './stories/docs/darkTheme.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customReferralsDocs from './stories/docs/customReferrals.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import removeReferralsDocs from './stories/docs/removeReferrals.md?raw';
 
   import SiteFooter from './SiteFooter.svelte';

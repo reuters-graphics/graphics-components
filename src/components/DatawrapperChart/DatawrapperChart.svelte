@@ -56,7 +56,6 @@
   let frameElement;
 
   $: frameFiller = (e) => {
-    /* eslint-disable */
     if (void 0 !== e.data['datawrapper-height']) {
       const t = [frameElement];
       for (const a in e.data['datawrapper-height']) {
@@ -67,7 +66,6 @@
         }
       }
     }
-    /* eslint-enable */
   };
 
   onMount(() => {
@@ -82,13 +80,7 @@
   });
 </script>
 
-<GraphicBlock
-  width="{width}"
-  textWidth="{textWidth}"
-  title="{title}"
-  description="{description}"
-  notes="{notes}"
->
+<GraphicBlock {width} {textWidth} {title} {description} {notes}>
   {#if $$slots.title}
     <!-- Custom headline and chatter slot -->
     <slot name="title" />
@@ -99,12 +91,13 @@
       bind:this="{frameElement}"
       title="{frameTitle}"
       aria-label="{ariaLabel}"
-      id="{id}"
-      src="{src}"
-      scrolling="{scrolling}"
+      {id}
+      {src}
+      {scrolling}
       frameborder="0"
       data-chromatic="ignore"
-      style="width: 0; min-width: 100% !important; border: none;"></iframe>
+      style="width: 0; min-width: 100% !important; border: none;"
+    ></iframe>
   </div>
 
   {#if $$slots.notes}

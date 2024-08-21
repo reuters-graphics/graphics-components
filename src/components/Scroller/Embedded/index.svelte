@@ -15,19 +15,11 @@
 {#each steps as step, index}
   <!-- Background first -->
   {#if embeddedLayout === 'bf'}
-    <Background
-      step="{step}"
-      index="{index}"
-      backgroundWidth="{backgroundWidth}"
-    />
-    <Foreground step="{step}" index="{index}" />
+    <Background {step} {index} {backgroundWidth} />
+    <Foreground {step} {index} />
     <!-- Foreground first, default -->
   {:else}
-    <Foreground step="{step}" index="{index}" />
-    <Background
-      step="{step}"
-      index="{index}"
-      backgroundWidth="{backgroundWidth}"
-    />
+    <Foreground {step} {index} />
+    <Background {step} {index} {backgroundWidth} />
   {/if}
 {/each}

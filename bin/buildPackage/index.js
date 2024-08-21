@@ -38,6 +38,11 @@ const prettifyImport = (filename) => {
   );
 };
 
+const formatFileName = (filename) => {
+  if (filename.endsWith('.d.ts')) return filename;
+  return filename.replace(/\.ts$/, '.js');
+};
+
 /**
  * This is a basic port of sveltekit's own packaging method:
  * https://github.com/sveltejs/kit/tree/master/packages/kit/src/packaging
@@ -79,7 +84,7 @@ const build = async () => {
       await processOther(file);
     }
     if (file === 'index.js') continue; // Always add root index last to exports...
-    pkgExports[`./${prettifyImport(file)}`] = `./dist/${file}`;
+    pkgExports[`./${prettifyImport(file)}`] = `./dist/${formatFileName(file)}`;
   }
   pkgExports['.'] = {
     types: './dist/@types/index.d.ts',

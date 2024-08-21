@@ -33,24 +33,26 @@ export const getPhotoPackPropsFromDoc = (
     width: docBlock.Width,
     textWidth: docBlock.textWidth,
     gap:
-      docBlock.Gap && isNaN(docBlock.Gap as any) ?
-        null :
-        parseInt(docBlock.Gap),
+      docBlock.Gap && isNaN(docBlock.Gap as unknown as number) ?
+        null
+      : parseInt(docBlock.Gap),
     images: docBlock.Images.map((img) => ({
-      src: /^https?:\/\/|^\/\//i.test(img.Src) ?
-        img.Src :
-        urlJoin(assetsPath, img.Src),
+      src:
+        /^https?:\/\/|^\/\//i.test(img.Src) ?
+          img.Src
+        : urlJoin(assetsPath, img.Src),
       altText: img.AltText,
       caption: img.Caption,
       maxHeight:
-        img.MaxHeight && isNaN(img.MaxHeight as any) ?
-          null :
-          parseFloat(img.MaxHeight),
+        img.MaxHeight && isNaN(img.MaxHeight as unknown as number) ?
+          null
+        : parseFloat(img.MaxHeight),
     })),
     layouts: docBlock.Layouts.map((layout) => ({
-      breakpoint: isNaN(layout.Breakpoint as any) ?
-        null :
-        parseFloat(layout.Breakpoint),
+      breakpoint:
+        isNaN(layout.Breakpoint as unknown as number) ? null : (
+          parseFloat(layout.Breakpoint)
+        ),
       rows: layout.Rows.split(',').map((r) => parseInt(r.trim())),
     })),
   };

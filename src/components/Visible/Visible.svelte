@@ -57,5 +57,5 @@
 
 <div bind:this="{container}">
   <!-- An element or component -->
-  <slot visible="{visible}" />
+  <slot {visible} />
 </div>

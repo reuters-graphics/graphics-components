@@ -89,7 +89,7 @@
   $: rows = groupRows(images, layout);
 </script>
 
-<Block width="{width}" id="{id}" class="photopack fmy-6 {cls}">
+<Block {width} {id} class="photopack fmy-6 {cls}">
   <div class="photopack-container w-full" bind:clientWidth="{containerWidth}">
     {#each rows as row, ri}
       <div

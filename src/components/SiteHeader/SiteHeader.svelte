@@ -63,7 +63,7 @@
               </a>
             </div>
           </div>
-          <NavBar sections="{sections}" />
+          <NavBar {sections} />
           <!-- Space takes the place of the MyViewMenu, NavSearchBar & Account components... -->
           <div class="spacer-container">
             <div class="spacer"></div>
@@ -93,7 +93,7 @@
 </header>
 
 <MobileMenu
-  isMobileMenuOpen="{isMobileMenuOpen}"
+  {isMobileMenuOpen}
   releaseMobileMenu="{() => {
     isMobileMenuOpen = false;
   }}"

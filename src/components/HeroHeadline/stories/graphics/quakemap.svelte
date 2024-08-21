@@ -1,15 +1,15 @@
 <script>
   let width = null;
 
-  // @ts-ignore
+  // @ts-ignore raw
   import chartXs from './quake-map-top-xs.jpeg';
-  // @ts-ignore
+  // @ts-ignore raw
   import chartSm from './quake-map-top-sm.jpeg';
-  // @ts-ignore
+  // @ts-ignore raw
   import chartMd from '././quake-map-top-md.jpeg';
-  // @ts-ignore
+  // @ts-ignore raw
   import chartLg from '././quake-map-top-lg.jpeg';
-  // @ts-ignore
+  // @ts-ignore raw
   import chartXl from '././quake-map-top-xl.jpeg';
 </script>
 
@@ -475,8 +475,16 @@
     overflow: hidden;
   }
   #g-quake-map-top-xs p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 14px;
     height: auto;
@@ -540,8 +548,16 @@
     overflow: hidden;
   }
   #g-quake-map-top-sm p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 7px;
     height: auto;
@@ -604,8 +620,16 @@
     overflow: hidden;
   }
   #g-quake-map-top-md p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 11px;
     height: auto;
@@ -677,8 +701,16 @@
     overflow: hidden;
   }
   #g-quake-map-top-lg p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 12px;
     height: auto;
@@ -750,8 +782,16 @@
     overflow: hidden;
   }
   #g-quake-map-top-xl p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 12px;
     height: auto;

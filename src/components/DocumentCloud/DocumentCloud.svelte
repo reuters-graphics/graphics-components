@@ -30,7 +30,7 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block width="{width}" id="{id}" class="photo fmy-6 {cls}">
+<Block {width} {id} class="photo fmy-6 {cls}">
   <iframe
     class="h-screen"
     src="https://embed.documentcloud.org/documents/{slug}/?embed=1&amp;responsive=1&amp;title=1"

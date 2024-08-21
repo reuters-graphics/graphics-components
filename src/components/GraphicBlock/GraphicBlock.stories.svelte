@@ -1,15 +1,15 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import quickitDocs from './stories/docs/quickit.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customTextDocs from './stories/docs/customText.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import ariaDocs from './stories/docs/aria.md?raw';
 
   import GraphicBlock from './GraphicBlock.svelte';
@@ -18,7 +18,7 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  // @ts-ignore
+  // @ts-ignore img
   import PlaceholderImg from './stories/placeholder.png';
 
   const metaProps = {

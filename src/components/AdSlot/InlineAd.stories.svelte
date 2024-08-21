@@ -1,7 +1,7 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import adDocs from './stories/docs/inline.md?raw';
 
   import AdScripts from './AdScripts.svelte';
@@ -18,7 +18,7 @@
 
 <Meta title="Components/InlineAd" {...meta} />
 
-<Template let:args>
+<Template>
   <div>
     <AdScripts />
     <InlineAd />
