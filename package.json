@@ -19,7 +19,7 @@
     "lint:check": "eslint",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "build:package": "svelte-package -i src && publint",
+    "build:package": "rimraf ./dist && svelte-package -i src && publint",
     "build:chromatic": "storybook build -o docs",
     "build:docs": "storybook build -o docs && touch ./docs/.nojekyll",
     "build": "npm-run-all build:package build:docs",
@@ -28,7 +28,6 @@
     "knip": "knip"
   },
   "license": "MIT",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -131,11 +130,13 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./scss/*": "./dist/scss/*"
   },
   "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bugs": {
     "url": "https://github.com/reuters-graphics/graphics-components/issues"
   },
-  "readme": "ERROR: No README data found!"
+  "readme": "Svelte components for Reuters graphics pages"
 }
