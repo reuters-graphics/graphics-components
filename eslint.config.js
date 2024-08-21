@@ -7,7 +7,16 @@ import reactPlugin from 'eslint-plugin-react';
 export default [
   {
     files: ['src/**/*.{js,ts,svelte,jsx,tsx}', '.storybook/**/*'],
-    ignores: ['node_modules', 'docs/**/*'],
+  },
+  {
+    ignores: [
+      'node_modules/',
+      'docs/',
+      'dist/',
+      '.storybook/svelte-highlighting.js',
+      'bin/css-to-js/',
+      'bin/newComponent/',
+    ],
   },
   ...svelte,
   reactPlugin.configs.flat.recommended,

@@ -1,12 +1,8 @@
 {
-	"Svelte SCSS style": {
-		"scope": "svelte",
-		"prefix": "scss",
-		"body": [
-			"<style lang=\"scss\">",
-			"$1",
-			"</style>"
-		],
-		"description": "Add a Svelte SCSS style tag"
-	}
+  "Svelte SCSS style": {
+    "scope": "svelte",
+    "prefix": "scss",
+    "body": ["<style lang=\"scss\">", "$1", "</style>"],
+    "description": "Add a Svelte SCSS style tag",
+  },
 }
