@@ -17,12 +17,12 @@
 
   import Theme, { themes } from './Theme.svelte';
 
-  import Headline from '../Headline/Headline.svelte';
+  import Headline from './../Headline/Headline.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
+  } from '../../docs/utils/withParams.js';
 
   const metaProps = {
     ...withComponentDocs(componentDocs),

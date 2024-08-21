@@ -1,7 +1,7 @@
 <!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InlineAd--default) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import { InlineAd } from './@types/ads';
+  import type { InlineAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   /** Add an ID to target with SCSS. */

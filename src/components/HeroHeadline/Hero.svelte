@@ -1,6 +1,6 @@
 <!-- @component `HeroHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-HeroHeadline--default) -->
 <script lang="ts">
-  import { HeadlineSize } from '../@types/global';
+  import type { HeadlineSize } from '../@types/global';
 
   /** Set to true for embeddables. */
   export let embedded: boolean = false;

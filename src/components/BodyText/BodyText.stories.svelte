@@ -120,51 +120,63 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
       &:before {
         content: 'H2';
         @include heading-tag;
-        font-size: 22px;
+        & {
+          font-size: 22px;
+        }
       }
-    }
-    h3 {
-      position: relative;
-      &:before {
-        content: 'H3';
-        @include heading-tag;
-        font-size: 19px;
+      h3 {
+        position: relative;
+        &:before {
+          content: 'H3';
+          @include heading-tag;
+          & {
+            font-size: 19px;
+          }
+        }
       }
-    }
-    h4 {
-      position: relative;
-      &:before {
-        content: 'H4';
-        @include heading-tag;
-        font-size: 16px;
+      h4 {
+        position: relative;
+        &:before {
+          content: 'H4';
+          @include heading-tag;
+          & {
+            font-size: 16px;
+          }
+        }
       }
-    }
-    h5 {
-      position: relative;
-      &:before {
-        content: 'H5';
-        @include heading-tag;
-        font-size: 15px;
+      h5 {
+        position: relative;
+        &:before {
+          content: 'H5';
+          @include heading-tag;
+          & {
+            font-size: 15px;
+          }
+        }
       }
-    }
-    h6 {
-      position: relative;
-      &:before {
-        content: 'H6';
-        @include heading-tag;
-        font-size: 12px;
+      h6 {
+        position: relative;
+        &:before {
+          content: 'H6';
+          @include heading-tag;
+          & {
+            font-size: 12px;
+          }
+        }
       }
-    }
-    blockquote {
-      position: relative;
-      &:before {
-        @include heading-tag;
-        content: '“';
-        font-size: 3rem;
-        line-height: 3rem;
-      }
-      blockquote:before {
-        display: none;
+      blockquote {
+        position: relative;
+        &:before {
+          @include heading-tag;
+          & {
+            content: '“';
+            font-size: 3rem;
+            line-height: 3rem;
+          }
+        }
+        blockquote:before {
+          display: none;
+        }
       }
     }
   }

@@ -79,3 +79,4 @@ export const parameters = {
 };
 
 export const decorators = [() => Wrapper];
+export const tags = ['autodocs'];

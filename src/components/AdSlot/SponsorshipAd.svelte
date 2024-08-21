@@ -1,7 +1,7 @@
 <!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import { SponsorshipAd } from './@types/ads';
+  import type { SponsorshipAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   /** Add an ID to target with SCSS. */

@@ -1,6 +1,6 @@
 <!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Headline--default) -->
 <script lang="ts">
-  import { HeadlineSize } from '../@types/global';
+  import type { HeadlineSize } from './../@types/global';
 
   /**
    * Headline, parsed as an _inline_ markdown string in an `h1` element.
@@ -52,7 +52,7 @@
   import Byline from '../Byline/Byline.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
 
-  let hedClass;
+  let hedClass: string;
   $: {
     switch (hedSize) {
       case 'biggest':

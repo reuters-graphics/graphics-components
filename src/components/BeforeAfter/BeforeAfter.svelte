@@ -261,13 +261,11 @@
     }
     .overlay-container {
       position: absolute;
-      :global {
-        &:first-child {
-          margin-top: 0;
-        }
-        &:last-child {
-          margin-bottom: 0;
-        }
+      :global(:first-child) {
+        margin-top: 0;
+      }
+      :global(:last-child) {
+        margin-bottom: 0;
       }
       &.before {
         left: 0;
@@ -336,10 +334,8 @@
   }
 
   aside.before-after-caption {
-    :global {
-      p {
-        @include body-caption;
-      }
+    :global(p) {
+      @include body-caption;
     }
   }
 </style>

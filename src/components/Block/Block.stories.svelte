@@ -11,7 +11,10 @@
   import Block from './Block.svelte';
   import Article from '../Article/Article.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
+  import {
+    withComponentDocs,
+    withStoryDocs,
+  } from '../../docs/utils/withParams.js';
 
   const metaProps = {
     ...withComponentDocs(componentDocs),

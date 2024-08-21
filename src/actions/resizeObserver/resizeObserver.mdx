@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../docs/utils/docsPage.js';
+
+<Meta title="Actions/resizeObserver" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# `resizeObserver`
+
+An action you can use to easily to check when a DOM element's dimensions change using the [Resize Observer API](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver). Use it like this:
+
+```svelte
+<script>
+  import { resizeObserver } from '@reuters-graphics/graphics-components';
+
+  let elementWidth = 0;
+</script>
+
+<div use:resizeObserver="{(element) => (elementWidth = element.clientWidth)}">
+  My width is: {elementWidth}
+</div>
+```

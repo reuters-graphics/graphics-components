@@ -22,9 +22,10 @@
       "$docs/*": ["src/docs/*"]
     },
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true
   },
   "include": [
     "src/**/*.js",

@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../../utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../../utils/parseCss';
+import boxSizing from '../../../../scss/tokens/layout/_box-sizing.scss?raw';
+import display from '../../../../scss/tokens/layout/_display.scss?raw';
+import floats from '../../../../scss/tokens/layout/_floats.scss?raw';
+import objectFit from '../../../../scss/tokens/layout/_object-fit.scss?raw';
+import objectPosition from '../../../../scss/tokens/layout/_object-position.scss?raw';
+import overflow from '../../../../scss/tokens/layout/_overflow.scss?raw';
+import position from '../../../../scss/tokens/layout/_position.scss?raw';
+
+<Meta title="Styles/Tokens/Layout" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Layout tokens
+
+<CopyTable
+  title="Display"
+  mdnLink="display"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(display)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Position"
+  mdnLink="position"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(position)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Overflow"
+  mdnLink="overflow"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(overflow)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Float"
+  mdnLink="float"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(floats)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Box sizing"
+  mdnLink="box-sizing"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(boxSizing)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Object fit"
+  mdnLink="object-fit"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(objectFit)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Object position"
+  mdnLink="object-position"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(objectPosition)}
+  copyable={[true, false]}
+/>

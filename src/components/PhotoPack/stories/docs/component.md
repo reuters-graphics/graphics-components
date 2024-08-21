@@ -34,10 +34,10 @@ The `PhotoPack` component makes simple photo grids with custom layouts at whatev
 `layouts` describe how those images will be laid out in rows at different breakpoints. The default layout (mobile-first) is each photo on its own row, stacked vertically, but you can group photos into `rows` above a `breakpoint` by specifying the number of photos that should go in that row. For example:
 
 ```javascript
-{
+const layouts = [{
   breakpoint: 450,
   rows: [1,2,1],
-}
+}];
 ```
 
 ... tells the component that when the `PhotoPack` container is 450 pixels or wider, it should group the 4 photos in 3 rows, 1 in the first, 2 in the second and 1 in the last.
