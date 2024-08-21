@@ -30,11 +30,30 @@ jobs:
       - id: install-deps
         name: Install dependencies
         run: npm ci
+
+      - id: lint
+        name: Lint code
+        run: npm run lint
       
-      - id: run-linters
-        name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          auto_fix: true
-          eslint: true
-          prettier: true
+      - id: format
+        name: Format code
+        run: npm run format
+      
+      - id: get_branch_name
+        name: Get branch name
+        run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+      
+      - id: checkout_branch
+        name: Checkout to branch
+        run: git checkout ${{ env.branch_name }}
+      
+      - id: commit_and_push
+        name: Commit and push formatted code
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit --allow-empty -m "lint and format"
+          git push origin HEAD:${{ env.branch_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
