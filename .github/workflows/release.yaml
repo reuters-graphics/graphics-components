@@ -36,6 +36,10 @@ jobs:
         name: Install dependencies
         run: npm ci
 
+      - id: lint
+        name: Lint code
+        run: npm run lint:check
+
       - id: build-package
         name: Build package
         run: npm run build:package

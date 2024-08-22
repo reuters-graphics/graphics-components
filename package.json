@@ -19,7 +19,7 @@
     "lint:check": "eslint",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "build:package": "rimraf ./dist && svelte-package -i src && publint",
+    "build:package": "rimraf ./dist && svelte-package -i ./src && publint",
     "build:chromatic": "storybook build -o docs",
     "build:docs": "storybook build -o docs && touch ./docs/.nojekyll",
     "build": "npm-run-all build:package build:docs",
