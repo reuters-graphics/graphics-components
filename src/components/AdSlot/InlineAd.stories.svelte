@@ -7,15 +7,14 @@
   import AdScripts from './AdScripts.svelte';
   import InlineAd from './InlineAd.svelte';
 
-  import { withComponentDocs } from '../../docs/utils/withParams.js';
+  import { withComponentDocs } from './../../docs/utils/withParams';
 
   const meta = {
-    component: InlineAd,
     ...withComponentDocs(adDocs),
   };
 </script>
 
-<Meta title="Components/InlineAd" {...meta} />
+<Meta title="Components/InlineAd" component="{InlineAd}" {...meta} />
 
 <Template>
   <div>

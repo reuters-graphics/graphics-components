@@ -1,12 +1,12 @@
 <!-- This component manages the OneTrust prefs button, so it's not permanently fixed on page... -->
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
-  import { throttle } from 'lodash-es';
+  import throttle from 'lodash-es/throttle';
 
   let lastScroll = 0;
   let showManagePreferences = true;
 
-  const togglePrefs = (on = true) => {
+  const togglePrefs = (on: boolean = true) => {
     const btn = document.getElementById('ot-sdk-btn-floating');
     if (!btn) return;
     if (on) {
@@ -32,8 +32,13 @@
   };
 
   onMount(() => {
-    window.addEventListener('scroll', throttle(handleScroll, 250), {
+    if (typeof window === 'undefined') return;
+    const throttledHandle = throttle(handleScroll, 250);
+    window.addEventListener('scroll', throttledHandle, {
       passive: true,
     });
+    return () => {
+      window.removeEventListener('scroll', throttledHandle);
+    };
   });
 </script>

@@ -17,6 +17,7 @@ export default [
       '.storybook/svelte-highlighting.js',
       'bin/css-to-js/',
       'bin/newComponent/',
+      '.svelte-kit/',
     ],
   },
   ...svelte,

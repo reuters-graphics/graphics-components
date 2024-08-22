@@ -92,6 +92,7 @@
   } from '@fortawesome/free-solid-svg-icons';
   import { fly } from 'svelte/transition';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
+  import type { MoveEventDetail } from '@splidejs/svelte-splide/types';
 
   let containerWidth: number;
 
@@ -102,7 +103,8 @@
       Math.min(containerWidth * heightRatio, maxHeight)
     : maxHeight;
 
-  const handleActiveChange = (e) => {
+  const handleActiveChange = (e?: CustomEvent<MoveEventDetail>) => {
+    if (!e) return;
     activeImageIndex = e.detail.dest;
   };
 </script>

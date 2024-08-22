@@ -68,13 +68,13 @@
    */
   export let id: string = 'before-after-' + random4() + random4();
 
-  let img;
-  let imgOffset = null;
+  let img: HTMLImageElement;
+  let imgOffset: DOMRect | null = null;
   let sliding = false;
-  let figure;
+  let figure: HTMLElement;
   let beforeOverlayWidth = 0;
   let isFocused = false;
-  let containerWidth;
+  let containerWidth: number;
 
   $: containerHeight =
     containerWidth && heightRatio ? containerWidth * heightRatio : height;
@@ -88,7 +88,7 @@
 
   const onFocus = () => (isFocused = true);
   const onBlur = () => (isFocused = false);
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (!isFocused) return;
     const { keyCode } = e;
     const margin = handleMargin / w;
@@ -107,15 +107,16 @@
     measureImage();
   };
 
-  const measureLoadedImage = (e) => {
+  const measureLoadedImage = (e: Event) => {
     if (e.type === 'load') {
-      imgOffset = e.target.getBoundingClientRect();
+      imgOffset = (e.target as HTMLImageElement).getBoundingClientRect();
     }
   };
 
-  const move = (e) => {
+  const move = (e: MouseEvent | TouchEvent) => {
     if (sliding && imgOffset) {
-      const el = e.touches ? e.touches[0] : e;
+      const el =
+        e instanceof TouchEvent && e.touches ? e.touches[0] : (e as MouseEvent);
       const figureOffset =
         figure ?
           parseInt(window.getComputedStyle(figure).marginLeft.slice(0, -2))
@@ -128,7 +129,7 @@
       offset = x / w;
     }
   };
-  const start = (e) => {
+  const start = (e: MouseEvent | TouchEvent) => {
     sliding = true;
     move(e);
   };
@@ -171,7 +172,7 @@
         on:touchstart="{start}"
         on:mousedown="{start}"
         bind:this="{figure}"
-        aria-labelledby="{$$slots.caption && `${id}-caption`}"
+        aria-labelledby="{($$slots.caption && `${id}-caption`) || undefined}"
       >
         <img
           bind:this="{img}"
@@ -181,7 +182,8 @@
           on:mousedown|preventDefault
           style="{imgStyle}"
           class="after absolute block m-0 max-w-full object-cover"
-          aria-describedby="{$$slots.beforeOverlay && `${id}-before`}"
+          aria-describedby="{($$slots.beforeOverlay && `${id}-before`) ||
+            undefined}"
         />
 
         <img
@@ -190,7 +192,8 @@
           on:mousedown|preventDefault
           style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
           class="before absolute block m-0 max-w-full object-cover"
-          aria-describedby="{$$slots.afterOverlay && `${id}-after`}"
+          aria-describedby="{($$slots.afterOverlay && `${id}-after`) ||
+            undefined}"
         />
         {#if $$slots.beforeOverlay}
           <div

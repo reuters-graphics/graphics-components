@@ -30,7 +30,7 @@ export const loadBootstrap = () => {
         getParameterByName(ONETRUST_GEOLOCATION_MOCK) || 'default',
       onetrust_script_id: ONETRUST_SCRIPT_ID,
     },
-    (onetrustResponse) => {
+    (onetrustResponse: any) => {
       const iasPromise = Ias();
       return Promise.all([iasPromise]).then((responses) => {
         const [iasResponse] = responses;

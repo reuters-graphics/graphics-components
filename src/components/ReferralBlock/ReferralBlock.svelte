@@ -50,7 +50,7 @@
   import { onMount } from 'svelte';
   import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
 
-  let clientWidth;
+  let clientWidth: number;
 
   const SECTION_API = 'recent-stories-by-sections-v1';
   const COLLECTION_API = 'articles-by-collection-alias-or-id-v1';

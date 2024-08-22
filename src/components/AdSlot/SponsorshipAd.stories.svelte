@@ -7,15 +7,14 @@
   import AdScripts from './AdScripts.svelte';
   import SponsorshipAd from './SponsorshipAd.svelte';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs } from './../../docs/utils/withParams';
 
   const meta = {
-    component: SponsorshipAd,
     ...withComponentDocs(adDocs),
   };
 </script>
 
-<Meta title="Components/SponsorshipAd" {...meta} />
+<Meta title="Components/SponsorshipAd" component="{SponsorshipAd}" {...meta} />
 
 <Template>
   <div>

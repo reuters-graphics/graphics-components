@@ -7,15 +7,14 @@
   import AdScripts from './AdScripts.svelte';
   import LeaderboardAd from './LeaderboardAd.svelte';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs } from './../../docs/utils/withParams';
 
   const meta = {
-    component: LeaderboardAd,
     ...withComponentDocs(adDocs),
   };
 </script>
 
-<Meta title="Components/LeaderboardAd" {...meta} />
+<Meta title="Components/LeaderboardAd" component="{LeaderboardAd}" {...meta} />
 
 <Template>
   <div>

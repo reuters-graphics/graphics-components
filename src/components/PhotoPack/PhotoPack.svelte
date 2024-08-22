@@ -59,9 +59,9 @@
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
 
-  let containerWidth;
+  let containerWidth: number;
 
-  const groupRows = (images, layout) => {
+  const groupRows = (images: Image[], layout?: Layout) => {
     // Default layout, one img per row
     if (!layout) return images.map((img) => [img]);
     // Otherwise, chunk into rows according to layout scheme
