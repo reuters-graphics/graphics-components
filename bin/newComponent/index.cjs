@@ -42,7 +42,7 @@ const makeNewComponent = async () => {
   }
 
   console.log(
-    `${green('✔')} ${bold('Your component is ready at:')}\n📁 ${cyan(`src/component/${bold(componentName)}/${componentName}.svelte`)}`
+    `${green('✔')} ${bold('Your component is ready at:')}\n📁 ${cyan(`src/components/${bold(componentName)}/${componentName}.svelte`)}`
   );
 };
 
