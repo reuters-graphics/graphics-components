@@ -40,3 +40,7 @@ jobs:
       - id: format
         name: Format code
         run: npm run format:check
+
+      - id: check-deps
+        name: Check for unused scripts and dependencies
+        run: npm run knip

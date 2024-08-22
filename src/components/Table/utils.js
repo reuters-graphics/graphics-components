@@ -16,11 +16,11 @@ export function paginateArray(array, pageSize, pageNumber) {
   return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
 
-export function uniqueAttr(array, attr) {
+function uniqueAttr(array, attr) {
   return array.map((e) => e[attr]).filter(unique);
 }
 
-export function unique(value, index, array) {
+function unique(value, index, array) {
   return array.indexOf(value) === index;
 }
 

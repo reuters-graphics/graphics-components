@@ -1,7 +1,7 @@
 import type { KnipConfig } from 'knip';
 
 const config: KnipConfig = {
-  entry: ['src/index.js'],
+  entry: ['src/index.js', 'src/**/*.stories.{svelte,mdx}', 'src/docs/**'],
   project: [
     'src/**/*.{mdx,js,jsx,ts,svelte}',
     'bin/**/*.{js,cjs}',
@@ -11,9 +11,9 @@ const config: KnipConfig = {
   ignoreDependencies: [
     /@types\/.*/,
     /@storybook\/.*/,
-    /@fortawesome\/.*/,
-    'normalize.css',
-    '@mdx-js/mdx',
+    'chromatic',
+    'prop-types',
+    'postcss',
   ],
 };
 
