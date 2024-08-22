@@ -118,40 +118,37 @@
   </Article>
 </Story>
 
-<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  :global(html) {
-    #block-demo-article {
-      background-color: #ddd;
-      position: relative;
-      width: calc(100% + 30px);
-      margin-left: -15px;
-
-      .article-boundaries {
-        padding: 0 0 18px;
-        width: 100%;
-        height: 100%;
-        background-color: #bbb;
-      }
-
-      div.article-block {
-        height: 100px;
-        background: #81a1c1;
-        &.block-snap-widths-demo {
-          margin-bottom: 2px;
-          height: 40px;
-          font-size: 11px;
-          &.even {
-            background: rgb(211, 132, 123);
-          }
-        }
-      }
-      .label,
-      div.article-block.block-snap-widths-demo {
-        padding-left: 3px;
-        color: white;
-      }
-    }
+  :global(#block-demo-article) {
+    background-color: #ddd;
+    position: relative;
+    width: calc(100% + 30px);
+    margin-left: -15px;
+  }
+  :global(#block-demo-article .article-boundaries) {
+    padding: 0 0 18px;
+    width: 100%;
+    height: 100%;
+    background-color: #bbb;
+  }
+  :global(#block-demo-article div.article-block) {
+    height: 100px;
+    background: #81a1c1;
+  }
+  :global(#block-demo-article div.article-block.block-snap-widths-demo) {
+    margin-bottom: 2px;
+    height: 40px;
+    font-size: 11px;
+  }
+  :global(#block-demo-article div.article-block.block-snap-widths-demo.even) {
+    background: rgb(211, 132, 123);
+  }
+  :global(
+      #block-demo-article .label,
+      #block-demo-article div.article-block.block-snap-widths-demo
+    ) {
+    padding-left: 3px;
+    color: white;
   }
 
   div#block-flex-example {

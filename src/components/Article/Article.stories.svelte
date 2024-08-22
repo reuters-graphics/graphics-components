@@ -74,41 +74,35 @@
   </Article>
 </Story>
 
-<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  :global(html) {
-    #article-story-basic,
-    #article-column-widths-demo {
-      width: calc(100% + 30px);
-      margin-left: -15px;
-    }
-    #article-column-widths-demo {
-      background-color: #ddd;
-      position: relative;
-      margin-bottom: 10px;
-
-      .article-boundaries {
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #bbb;
-        &.custom {
-          div.article-block {
-            background: rgb(211, 132, 123);
-          }
-        }
-      }
-
-      div.article-block {
-        height: 300px;
-        background: #81a1c1;
-        margin-bottom: 2px;
-        height: 50px;
-        padding-left: 3px;
-        color: white;
-        font-size: 12px;
-      }
-    }
+  :global(#article-story-basic, #article-column-widths-demo) {
+    width: calc(100% + 30px);
+    margin-left: -15px;
+  }
+  :global(#article-column-widths-demo) {
+    background-color: #ddd;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  :global(#article-column-widths-demo .article-boundaries) {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #bbb;
+  }
+  :global(
+      #article-column-widths-demo .article-boundaries.custom div.article-block
+    ) {
+    background: rgb(211, 132, 123);
+  }
+  :global(#article-column-widths-demo div.article-block) {
+    height: 300px;
+    background: #81a1c1;
+    margin-bottom: 2px;
+    height: 50px;
+    padding-left: 3px;
+    color: white;
+    font-size: 12px;
   }
 
   div.demo-container {
