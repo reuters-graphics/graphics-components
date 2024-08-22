@@ -57,7 +57,7 @@
 <style lang="scss">
   div {
     :global(iframe) {
-      width: auto;
+      width: 100%;
     }
   }
 </style>

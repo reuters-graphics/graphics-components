@@ -41,7 +41,6 @@
     "@americanexpress/css-to-js": "^1.0.1",
     "@changesets/cli": "^2.27.7",
     "@chromatic-com/storybook": "^1.7.0",
-    "@evilmartians/lefthook": "^1.7.14",
     "@reuters-graphics/yaks-eslint": "^0.0.6",
     "@reuters-graphics/yaks-prettier": "^0.0.4",
     "@storybook/addon-actions": "^8.2.9",

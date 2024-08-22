@@ -13,7 +13,6 @@ const config: KnipConfig = {
     /@storybook\/.*/,
     /@fortawesome\/.*/,
     'normalize.css',
-    '@evilmartians/lefthook',
     '@mdx-js/mdx',
   ],
 };
