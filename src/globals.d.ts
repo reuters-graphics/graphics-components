@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface ChartbeatConfig {
   uid?: number;
   domain?: string;
@@ -9,18 +10,17 @@ interface ChartbeatConfig {
 }
 
 declare global {
-  // eslint-disable-next-line no-unused-vars
   interface Window {
     /** Google analytics dataLayer */
-    dataLayer: Record<string, any>,
+    dataLayer: Record<string, any>;
     /** Chartbeat config */
-    _sf_async_config: ChartbeatConfig,
+    _sf_async_config: ChartbeatConfig;
     /** Chartbeat method */
     pSUPERFLY: {
-      virtualPage: (config: { path: string, title: string }) => void,
-    },
+      virtualPage: (config: { path: string; title: string }) => void;
+    };
     /** Graphics ads */
-    graphicsAdQueue: any[],
+    graphicsAdQueue: any[];
   }
 }
 

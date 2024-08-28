@@ -94,7 +94,7 @@
   let cls: string = '';
   export { cls as class };
 
-  // @ts-ignore
+  // @ts-ignore no types
   import SvelteScroller from '@sveltejs/svelte-scroller';
   import Background from './Background.svelte';
   import Foreground from './Foreground.svelte';
@@ -108,15 +108,15 @@
 </script>
 
 {#if !embedded}
-  <Block width="fluid" class="scroller-container fmy-6 {cls}" id="{id}">
+  <Block width="fluid" class="scroller-container fmy-6 {cls}" {id}>
     <SvelteScroller
-      bind:index="{index}"
-      bind:offset="{offset}"
-      bind:progress="{progress}"
-      threshold="{threshold}"
-      top="{top}"
-      bottom="{bottom}"
-      parallax="{parallax}"
+      bind:index
+      bind:offset
+      bind:progress
+      {threshold}
+      {top}
+      {bottom}
+      {parallax}
       query="div.step-foreground-container"
     >
       <div
@@ -132,28 +132,19 @@
             class="background-container step-{index +
               1} my-0 min-h-screen flex justify-center items-center relative"
           >
-            <Background
-              index="{index}"
-              steps="{steps}"
-              preload="{preload}"
-              stackBackground="{stackBackground}"
-            />
+            <Background {index} {steps} {preload} {stackBackground} />
           </Block>
         </div>
       </div>
 
       <div slot="foreground" class="foreground {foregroundPosition} w-full">
-        <Foreground steps="{steps}" />
+        <Foreground {steps} />
       </div>
     </SvelteScroller>
   </Block>
 {:else}
-  <Block width="widest" class="scroller-container embedded" id="{id}">
-    <Embedded
-      steps="{steps}"
-      embeddedLayout="{embeddedLayout}"
-      backgroundWidth="{backgroundWidth}"
-    />
+  <Block width="widest" class="scroller-container embedded" {id}>
+    <Embedded {steps} {embeddedLayout} {backgroundWidth} />
   </Block>
 {/if}
 

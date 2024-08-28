@@ -32,5 +32,4 @@ Use text elements in your overlays as [ARIA descriptions](https://developer.mozi
       }
     }
   </style>
-</BeforeAfter>
 ```

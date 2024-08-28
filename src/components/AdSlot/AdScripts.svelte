@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { loadBootstrap } from './adScripts/bootstrap';
   import { loadScript } from './adScripts/loadScript';

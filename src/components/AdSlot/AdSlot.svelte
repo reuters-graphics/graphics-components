@@ -27,7 +27,7 @@
         type: adType,
       },
     };
-    // @ts-ignore
+    // @ts-ignore window global
     const freestar = window?.freestar;
     // Add adSlot to freestar queue directly if already initialised
     if (freestar) {
@@ -41,7 +41,7 @@
     }
 
     return () => {
-      // @ts-ignore
+      // @ts-ignore window global
       const freestar = window?.freestar;
       if (freestar) {
         freestar.queue.push(function () {
@@ -57,7 +57,7 @@
 <style lang="scss">
   div {
     :global(iframe) {
-      width: auto;
+      width: 100%;
     }
   }
 </style>

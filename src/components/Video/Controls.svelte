@@ -30,17 +30,19 @@
   on:click="{forwardBtnClick}"
   style="
     opacity: {controlsOpacity};
-    top: {controlsPosition === 'top left' || controlsPosition === 'top right'
-    ? `${10}px`
-    : controlsPosition === 'center'
-    ? `${(heightVideoContainer - controlsBorderOffset) / 2}px`
-    : `${heightVideoContainer - controlsBorderOffset}px`};
+    top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?
+    `${10}px`
+  : controlsPosition === 'center' ?
+    `${(heightVideoContainer - controlsBorderOffset) / 2}px`
+  : `${heightVideoContainer - controlsBorderOffset}px`};
 
-    left: {controlsPosition === 'top left' || controlsPosition === 'bottom left'
-    ? `${10}px`
-    : controlsPosition === 'center'
-    ? `${(widthVideoContainer - controlsBorderOffset) / 2}px`
-    : `${widthVideoContainer - controlsBorderOffset}px`};
+    left: {(
+    controlsPosition === 'top left' || controlsPosition === 'bottom left'
+  ) ?
+    `${10}px`
+  : controlsPosition === 'center' ?
+    `${(widthVideoContainer - controlsBorderOffset) / 2}px`
+  : `${widthVideoContainer - controlsBorderOffset}px`};
     "
 >
   {#if resetCondition}

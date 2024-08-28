@@ -1,13 +1,13 @@
 <script>
-  // @ts-ignore
+  // @ts-ignore img
   import chartXs from './graphic-xs.png';
-  // @ts-ignore
+  // @ts-ignore img
   import chartSm from './graphic-sm.png';
-  // @ts-ignore
+  // @ts-ignore img
   import chartMd from './graphic-md.png';
-  // @ts-ignore
+  // @ts-ignore img
   import chartLg from './graphic-lg.png';
-  // @ts-ignore
+  // @ts-ignore img
   import chartXl from './graphic-xl.png';
 
   // export let assetsPath = './';
@@ -681,8 +681,16 @@
     overflow: hidden;
   }
   #g-graphic-xs p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 16px;
     opacity: 1;
@@ -735,8 +743,16 @@
     overflow: hidden;
   }
   #g-graphic-sm p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 200;
     line-height: 16px;
     height: auto;
@@ -782,8 +798,16 @@
     overflow: hidden;
   }
   #g-graphic-md p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 300;
     line-height: 16px;
     opacity: 1;
@@ -836,8 +860,16 @@
     overflow: hidden;
   }
   #g-graphic-lg p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 200;
     line-height: 18px;
     height: auto;
@@ -885,8 +917,16 @@
     overflow: hidden;
   }
   #g-graphic-xl p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 200;
     line-height: 18px;
     height: auto;

@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="search relative inline-flex items-center" class:active="{active}">
+<div class="search relative inline-flex items-center" class:active>
   <div class="search--icon absolute">
     <MagnifyingGlass />
   </div>
@@ -36,7 +36,7 @@
     type="text"
     placeholder="{searchPlaceholder}"
     on:input="{input}"
-    bind:value="{value}"
+    bind:value
   />
   <div
     class="search--x absolute"

@@ -1,7 +1,7 @@
 <script context="module">
   import SiteHeadline from './SiteHeadline.svelte';
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   export const meta = {
@@ -20,7 +20,7 @@
 <script>
   import { Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import quickitDocs from './stories/docs/quickit.md?raw';
 
   import { withStoryDocs } from '$lib/docs/utils/withParams.js';

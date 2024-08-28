@@ -1,33 +1,31 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // Don't lose the "?raw" in markdown imports!
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import metadataDocs from './stories/docs/metadata.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import truncateDocs from './stories/docs/truncate.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import paginateDocs from './stories/docs/paginate.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import searchDocs from './stories/docs/search.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import filterDocs from './stories/docs/filter.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import bothDocs from './stories/docs/both.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import sortDocs from './stories/docs/sort.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import formatDocs from './stories/docs/format.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import styleDocs from './stories/docs/style.md?raw';
 
   import Table from './Table.svelte';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  // @ts-ignore
   import pressFreedom from './stories/pressFreedom.json';
   import homeRuns from './stories/homeRuns.json';
   import richestWomen from './stories/richestWomen.json';

@@ -21,9 +21,8 @@ export default function flatten(target) {
       const isbuffer = isBuffer(value);
       const isObject = type === '[object Object]' || type === '[object Array]';
 
-      const newKey = prev
-        ? prev + delimiter + transformKey(key)
-        : transformKey(key);
+      const newKey =
+        prev ? prev + delimiter + transformKey(key) : transformKey(key);
 
       if (!isArray && !isbuffer && isObject && Object.keys(value).length) {
         return step(value, newKey, currentDepth + 1);

@@ -1,23 +1,17 @@
-import { defineConfig } from 'vite';
-import { scss } from './bin/preprocess/index.js';
+import { defineConfig, type UserConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import path from 'path';
 
-/** @type {import('vite').UserConfig} */
-const config = defineConfig({
+const config: UserConfig = defineConfig({
   base: 'https://reuters-graphics.github.io/graphics-components/',
-  css: {
-    preprocessorOptions: { scss },
-  },
   resolve: {
     alias: {
-      '@reuters-graphics/graphics-components': './src',
-      $lib: './src',
-      $docs: './src/docs',
+      '@reuters-graphics/graphics-components': path.resolve('./src'),
+      $lib: path.resolve('./src'),
+      $docs: path.resolve('./src/docs'),
     },
   },
-  plugins: [
-    svelte({}),
-  ],
+  plugins: [svelte()],
 });
 
 export default config;

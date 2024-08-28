@@ -73,14 +73,7 @@
   import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
-<Block
-  id="{id}"
-  snap="{snap}"
-  role="{role}"
-  width="{width}"
-  ariaLabel="{ariaLabel}"
-  class="graphic fmy-6 {cls}"
->
+<Block {id} {snap} {role} {width} {ariaLabel} class="graphic fmy-6 {cls}">
   {#if $$slots.title}
     <PaddingReset containerIsFluid="{width === 'fluid'}">
       <TextBlock width="{textWidth}">

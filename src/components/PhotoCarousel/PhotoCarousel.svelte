@@ -84,6 +84,7 @@
   import Block from '../Block/Block.svelte';
   import { Splide, SplideSlide, SplideTrack } from '@splidejs/svelte-splide';
   import '@splidejs/svelte-splide/css/core';
+  // @ts-ignore no types
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faChevronLeft,
@@ -91,21 +92,24 @@
   } from '@fortawesome/free-solid-svg-icons';
   import { fly } from 'svelte/transition';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
+  import type { MoveEventDetail } from '@splidejs/svelte-splide/types';
 
-  let containerWidth;
+  let containerWidth: number;
 
   let activeImageIndex = 0;
 
-  $: carouselHeight = containerWidth
-    ? Math.min(containerWidth * heightRatio, maxHeight)
+  $: carouselHeight =
+    containerWidth ?
+      Math.min(containerWidth * heightRatio, maxHeight)
     : maxHeight;
 
-  const handleActiveChange = (e) => {
+  const handleActiveChange = (e?: CustomEvent<MoveEventDetail>) => {
+    if (!e) return;
     activeImageIndex = e.detail.dest;
   };
 </script>
 
-<Block width="{width}" id="{id}" class="photo-carousel fmy-6 {cls}">
+<Block {width} {id} class="photo-carousel fmy-6 {cls}">
   <div class="carousel-container" bind:clientWidth="{containerWidth}">
     <Splide
       hasTrack="{false}"
@@ -120,7 +124,7 @@
     >
       <div class="image-container">
         <SplideTrack>
-          {#each photos as photo, i}
+          {#each photos as photo}
             <SplideSlide>
               <div class="photo-slide w-full h-full relative">
                 <figure
@@ -201,7 +205,10 @@
           bottom: 0;
           left: 0;
           color: white;
-          text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333,
+          text-shadow:
+            -1px -1px 0 #333,
+            1px -1px 0 #333,
+            -1px 1px 0 #333,
             1px 1px 0 #333;
           &.contain-fit {
             left: 50%;
@@ -210,78 +217,72 @@
         }
       }
     }
-    :global {
-      .splide {
-        max-height: 100%;
-      }
-
-      li {
-        padding: 0;
-      }
-
-      .splide__arrows {
-        width: 275px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-
-        button {
-          &.splide__arrow--prev {
-            padding-right: 7px;
-          }
-          &.splide__arrow--next {
-            padding-left: 7px;
-          }
-
-          display: flex;
-          font-size: 14px;
-          height: 30px;
-          width: 30px;
-          justify-content: center;
-          align-items: center;
-          border: 1px solid transparent;
-          border-radius: 50%;
-          background-color: transparent;
-          cursor: pointer;
-          @include text-secondary;
-          opacity: 0.4;
-          &:hover {
-            opacity: 1;
-            border-color: $theme-colour-text-secondary;
-            @include text-secondary;
-          }
-          &:disabled {
-            opacity: 0.4;
-            &:hover {
-              border-color: transparent;
-            }
-          }
-        }
-      }
-      ul.splide__pagination {
-        width: 200px;
-        padding: 0;
-        text-align: center;
-        margin: -26px auto 0;
-        display: flex;
-        flex-wrap: nowrap;
-        li {
-          flex-grow: 1;
-          margin-top: -9px;
-          button {
-            width: 100%;
-            height: 7px;
-            border-radius: 0;
-            padding: 0;
-            border: 1px solid $theme-colour-background;
-            background: $theme-colour-text-secondary;
-            opacity: 0.4;
-            &.is-active {
-              opacity: 1;
-            }
-          }
-        }
-      }
+    :global(.splide) {
+      max-height: 100%;
+    }
+    :global(li) {
+      padding: 0;
+    }
+    :global(.splide__arrows) {
+      width: 275px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+    }
+    :global(.splide__arrows button) {
+      display: flex;
+      font-size: 14px;
+      height: 30px;
+      width: 30px;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background-color: transparent;
+      cursor: pointer;
+      @include text-secondary;
+      opacity: 0.4;
+    }
+    :global(.splide__arrows button.splide__arrow--prev) {
+      padding-right: 7px;
+    }
+    :global(.splide__arrows button.splide__arrow--next) {
+      padding-left: 7px;
+    }
+    :global(.splide__arrows button:hover) {
+      opacity: 1;
+      border-color: $theme-colour-text-secondary;
+      @include text-secondary;
+    }
+    :global(.splide__arrows button:disabled) {
+      opacity: 0.4;
+    }
+    :global(.splide__arrows button:disabled:hover) {
+      border-color: transparent;
+    }
+    :global(ul.splide__pagination) {
+      width: 200px;
+      padding: 0;
+      text-align: center;
+      margin: -26px auto 0;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    :global(ul.splide__pagination li) {
+      flex-grow: 1;
+      margin-top: -9px;
+    }
+    :global(ul.splide__pagination li button) {
+      width: 100%;
+      height: 7px;
+      border-radius: 0;
+      padding: 0;
+      border: 1px solid $theme-colour-background;
+      background: $theme-colour-text-secondary;
+      opacity: 0.4;
+    }
+    :global(ul.splide__pagination li button.is-active) {
+      opacity: 1;
     }
   }
 </style>

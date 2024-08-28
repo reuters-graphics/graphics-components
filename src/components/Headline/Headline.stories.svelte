@@ -1,20 +1,20 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import withBylineDocs from './stories/docs/withByline.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import withDekDocs from './stories/docs/withDek.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customHedDocs from './stories/docs/customHed.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import withCrownImgDocs from './stories/docs/withCrownImage.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import withCrownGraphicDocs from './stories/docs/withCrownGraphic.md?raw';
 
-  // @ts-ignore
+  // @ts-ignore img
   import crownImgSrc from './stories/crown.png';
   import Map from './stories/graphic.svelte';
 

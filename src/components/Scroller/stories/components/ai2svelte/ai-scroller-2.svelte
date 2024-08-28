@@ -1,14 +1,14 @@
 <script>
   // Hard-coding for demo purposes only...
-  // @ts-ignore
+  // @ts-ignore img
   import stepXl from './images/step-2-xl.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepLg from './images/step-2-lg.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepMd from './images/step-2-md.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepSm from './images/step-2-sm.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepXs from './images/step-2-xs.png';
   let width = null;
 </script>
@@ -145,8 +145,16 @@
     overflow: hidden;
   }
   #g-step-2-xl p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 20px;
     height: auto;
@@ -170,8 +178,16 @@
     overflow: hidden;
   }
   #g-step-2-lg p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 20px;
     height: auto;
@@ -195,8 +211,16 @@
     overflow: hidden;
   }
   #g-step-2-md p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 20px;
     height: auto;
@@ -220,8 +244,16 @@
     overflow: hidden;
   }
   #g-step-2-sm p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 20px;
     height: auto;
@@ -245,8 +277,16 @@
     overflow: hidden;
   }
   #g-step-2-xs p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 20px;
     height: auto;

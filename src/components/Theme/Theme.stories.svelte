@@ -1,15 +1,15 @@
 <script lang="ts">
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customiseDocs from './stories/docs/customise.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customiseFontDocs from './stories/docs/customise-font.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import patternDocs from './stories/docs/pattern.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import inheritanceDocs from './stories/docs/inheritance.md?raw';
 
   import ThemedPage from './stories/ThemedPage.svelte';
@@ -17,12 +17,12 @@
 
   import Theme, { themes } from './Theme.svelte';
 
-  import Headline from '../Headline/Headline.svelte';
+  import Headline from './../Headline/Headline.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
+  } from '../../docs/utils/withParams.js';
 
   const metaProps = {
     ...withComponentDocs(componentDocs),

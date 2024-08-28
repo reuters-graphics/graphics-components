@@ -8,12 +8,17 @@ const Input = ({ value, onChange }) => {
   // this is buggy...
   // if ((value || value === 0) && !isNaN(value)) return <input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))}/>;
   // Colour type
-  if (!/var\(.*\)/i.test(value) && CSS.supports('color', value)) return (
-    <ColourPicker colour={value} onChange={onChange} />
-  );
+  if (!/var\(.*\)/i.test(value) && CSS.supports('color', value))
+    return <ColourPicker colour={value} onChange={onChange} />;
   // Text for the rest...
-  return <input type="text" value={value} onChange={(e) => onChange(e.target.value)} />;
-}
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
+};
 
 const Value = ({ value, name, map, themeName, theme, setTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,20 +35,26 @@ const Value = ({ value, name, map, themeName, theme, setTheme }) => {
     <div className="value">
       <label>
         <div>
-          <button className={isOpen ? 'open' : ''} onClick={() => setIsOpen(o => !o)}>
+          <button
+            className={isOpen ? 'open' : ''}
+            onClick={() => setIsOpen((o) => !o)}
+          >
             <div>
-              <span className="material-symbols-outlined">{isOpen ? 'expand_less' : 'expand_more'}</span>
-            </div> {isColour && (<div style={{ background: value }}></div>)} {name}
+              <span className="material-symbols-outlined">
+                {isOpen ? 'expand_less' : 'expand_more'}
+              </span>
+            </div>{' '}
+            {isColour && <div style={{ background: value }}></div>} {name}
           </button>
         </div>
       </label>
       {isOpen && (
         <div className="input-container">
-          <Input value={value} key={themeName+map} onChange={onChange}/>
+          <Input value={value} key={themeName + map} onChange={onChange} />
         </div>
       )}
     </div>
   );
-}
+};
 
 export default Value;

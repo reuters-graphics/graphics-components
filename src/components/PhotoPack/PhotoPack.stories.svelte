@@ -1,11 +1,11 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import quickitDocs from './stories/docs/quickit.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import missingAltTextDocs from './stories/docs/missingAltText.md?raw';
 
   import PhotoPack from './PhotoPack.svelte';

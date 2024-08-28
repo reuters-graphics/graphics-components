@@ -16,8 +16,8 @@ export const cssStringToTableArray = (cssString, withInclude = false) => {
         )};`;
       })
       .join('\n');
-    return withInclude
-      ? [className, className, properties]
+    return withInclude ?
+        [className, className, properties]
       : [className, properties];
   });
 };
@@ -33,7 +33,7 @@ export const scssVariablesToTableArray = (scssString) => {
 export const extractCssColourVariables = (cssString) => {
   const variableRegexp = /(--[a-zA-Z][a-zA-Z0-9-]+):\s*(.+);/g;
   const cssVariables = [...cssString.matchAll(variableRegexp)].map(
-    ([all, g1, g2]) => [g2, g1]
+    ([_, g1, g2]) => [g2, g1]
   );
   const colours = {};
   for (const variable of cssVariables) {

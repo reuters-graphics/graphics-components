@@ -58,9 +58,9 @@
   };
 
   $: placementName =
-    windowWidth && windowWidth < mobileBreakpoint
-      ? getMobilePlacementName(desktopPlacementName)
-      : desktopPlacementName;
+    windowWidth && windowWidth < mobileBreakpoint ?
+      getMobilePlacementName(desktopPlacementName)
+    : desktopPlacementName;
   $: adType = getAdType(placementName);
 </script>
 
@@ -68,6 +68,6 @@
 
 {#if windowWidth}
   {#key placementName}
-    <AdSlot placementName="{placementName}" adType="{adType}" />
+    <AdSlot {placementName} {adType} />
   {/key}
 {/if}

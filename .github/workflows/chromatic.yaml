@@ -1,6 +1,9 @@
 name: Chromatic
 
-on: push
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   chromatic-deployment:
@@ -9,11 +12,16 @@ jobs:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
       - name: Install dependencies
-        run: yarn
+        run: npm ci
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:

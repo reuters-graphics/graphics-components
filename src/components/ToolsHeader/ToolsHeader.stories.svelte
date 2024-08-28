@@ -1,8 +1,7 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // Don't lose the "?raw" in markdown imports!
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import ToolsHeader from './ToolsHeader.svelte';

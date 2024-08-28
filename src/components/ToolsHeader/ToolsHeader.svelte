@@ -40,10 +40,10 @@
 </script>
 
 <header
-  id="{id}"
+  {id}
   class="{cls}"
-  class:sticky="{sticky}"
-  style:background="{background}"
+  class:sticky
+  style:background
   style:border-bottom="{borderBottom}"
 >
   <div class="logo-container">

@@ -39,22 +39,22 @@
 }
 
 @mixin spacing-single-34($properties, $delta: 1) {
+  @each $property in $properties {
+    #{$property}: (math.div(24, 1440) * 100vw * $delta);
+  }
+
+  @include for-tablet-down {
     @each $property in $properties {
-      #{$property}: (math.div(24, 1440) * 100vw * $delta);
-    }
-
-    @include for-tablet-down {
-      @each $property in $properties {
-        #{$property}: (math.div(12, 375) * 100vw * $delta);
-      }
-    }
-
-    @include above-max {
-      @each $property in $properties {
-        #{$property}: (24px * $delta);
-      }
+      #{$property}: (math.div(12, 375) * 100vw * $delta);
     }
   }
+
+  @include above-max {
+    @each $property in $properties {
+      #{$property}: (24px * $delta);
+    }
+  }
+}
 
 @mixin spacing-150($properties, $delta: 1) {
   @each $property in $properties {

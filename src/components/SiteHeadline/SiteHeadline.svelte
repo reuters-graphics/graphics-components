@@ -70,7 +70,7 @@
   }
 </script>
 
-<Block id="{id}" class="headline-container fmt-7 fmb-6 {cls}" width="normal">
+<Block {id} class="headline-container fmt-7 fmb-6 {cls}" width="normal">
   <header class="headline">
     <div class="title">
       {#if section}
@@ -92,10 +92,6 @@
         </h1>
       {/if}
     </div>
-    <Byline
-      authors="{authors}"
-      publishTime="{publishTime}"
-      updateTime="{updateTime}"
-    />
+    <Byline {authors} {publishTime} {updateTime} />
   </header>
 </Block>

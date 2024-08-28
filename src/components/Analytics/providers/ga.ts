@@ -21,7 +21,8 @@ export default () => {
     if (!window.gtag) {
       attachScript();
       /** @type {Gtag.Gtag} */
-      window.gtag = function() {
+      window.gtag = function () {
+        // eslint-disable-next-line prefer-rest-params
         window.dataLayer.push(arguments);
       };
       window.gtag('js', new Date());
@@ -31,7 +32,9 @@ export default () => {
       });
       registerPageview();
     }
-  } catch (e) { console.warn(`Error initialising Google Analytics: ${e}`); }
+  } catch (e) {
+    console.warn(`Error initialising Google Analytics: ${e}`);
+  }
 };
 
 export const registerPageview = () => {

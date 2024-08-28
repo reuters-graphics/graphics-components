@@ -1,24 +1,24 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import backgroundGraphicDocs from './stories/docs/backgroundGraphic.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import inlineGraphicDocs from './stories/docs/inlineGraphic.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import inlinePhotoDocs from './stories/docs/inlinePhoto.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import transparentHeaderDocs from './stories/docs/transparentHeader.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import videoDocs from './stories/docs/backgroundVideo.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import customHedDocs from './stories/docs/customHed.md?raw';
 
-  // @ts-ignore
+  // @ts-ignore img
   import polarImgSrc from './stories/polar.jpg';
-  // @ts-ignore
+  // @ts-ignore img
   import eurovisImgSrc from './stories/eurovis.jpeg';
 
   import Block from '../Block/Block.svelte';

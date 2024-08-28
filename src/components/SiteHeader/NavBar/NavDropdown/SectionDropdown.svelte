@@ -7,12 +7,12 @@
   export let headingText;
 
   $: splitCount =
-    section.children && section.children.length > 7
-      ? Math.ceil(section.children.length / 2)
-      : 0;
+    section.children && section.children.length > 7 ?
+      Math.ceil(section.children.length / 2)
+    : 0;
 </script>
 
-<NavDropdown headingText="{headingText}">
+<NavDropdown {headingText}>
   <a href="{normalizeUrl(section.url)}">
     <span class="heading">
       Browse {section.name}

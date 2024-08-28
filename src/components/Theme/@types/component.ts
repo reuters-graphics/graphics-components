@@ -6,25 +6,25 @@ interface Colour {
   'brand-logo': string;
   'brand-rules': string;
   'brand-shadow': string;
-};
+}
 
 interface FontFamily {
-  'serif': string,
-  'sans-serif': string,
-  'monospace': string,
-  hed: string,
-  subhed: string,
-  body: string,
-  note: string,
+  serif: string;
+  'sans-serif': string;
+  monospace: string;
+  hed: string;
+  subhed: string;
+  body: string;
+  note: string;
 }
 
 interface FontSize {
-  'xxs': string;
-  'xs': string;
-  'sm': string;
-  'base': string;
-  'lg': string;
-  'xl': string;
+  xxs: string;
+  xs: string;
+  sm: string;
+  base: string;
+  lg: string;
+  xl: string;
   '2xl': string;
   '3xl': string;
   '4xl': string;
@@ -45,7 +45,7 @@ interface CustomFont {
 export interface Theme {
   colour: Colour;
   font: Font;
-};
+}
 
 export interface CustomTheme {
   colour?: Partial<Colour>;

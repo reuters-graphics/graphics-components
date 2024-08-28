@@ -27,21 +27,18 @@
 
   $: embedTitles = getUniqNames(embeds);
 
-  // @ts-ignore
-  let pymParent; // eslint-disable-line no-unused-vars
-
   const reframe = (embed) => {
     // Bit of hack for handling adding query strings dynamically to embeds.
     // cf. also the value prop on the Typeahead component...
     const activeEmbed =
-      embeds.indexOf(embed) > -1
-        ? embed
-        : embeds[activeEmbedIndex] || embeds[0];
-    pymParent = new pym.Parent(
+      embeds.indexOf(embed) > -1 ?
+        embed
+      : embeds[activeEmbedIndex] || embeds[0];
+    new pym.Parent(
       'frame-parent',
-      /^http/.test(activeEmbed)
-        ? activeEmbed
-        : urljoin(window.location.origin, activeEmbed, { trailingSlash: true })
+      /^http/.test(activeEmbed) ? activeEmbed : (
+        urljoin(window.location.origin, activeEmbed, { trailingSlash: true })
+      )
     );
   };
 
@@ -107,11 +104,7 @@
   </a>
 </div>
 
-<Resizer
-  breakpoints="{breakpoints}"
-  minFrameWidth="{minFrameWidth}"
-  maxFrameWidth="{maxFrameWidth}"
-/>
+<Resizer {breakpoints} {minFrameWidth} {maxFrameWidth} />
 
 <style lang="scss">
   header {

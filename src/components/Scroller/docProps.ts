@@ -14,19 +14,24 @@ interface Block {
   StackBackground?: string;
   EmbeddedLayout?: string;
   ID?: string;
-  Steps: BlockStep[],
+  Steps: BlockStep[];
 }
 
 interface AiCharts {
-  [key: string]: ComponentType,
+  [key: string]: ComponentType;
 }
 
-export const getScrollerPropsFromDoc = (docBlock: Block, aiCharts: AiCharts, assetsPath: string = '') => {
+export const getScrollerPropsFromDoc = (
+  docBlock: Block,
+  aiCharts: AiCharts,
+  assetsPath: string = ''
+) => {
   return {
     id: docBlock.ID,
     backgroundWidth: docBlock.Width,
     foregroundPosition: docBlock.ForegroundPosition,
-    stackBackground: docBlock.StackBackground === 'true' || !docBlock.StackBackground,
+    stackBackground:
+      docBlock.StackBackground === 'true' || !docBlock.StackBackground,
     embeddedLayout: docBlock.EmbeddedLayout,
     preload: docBlock.Preload ? parseInt(docBlock.Preload) || 1 : 1,
     steps: docBlock.Steps.map((step) => ({

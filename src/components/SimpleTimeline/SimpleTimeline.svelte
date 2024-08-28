@@ -42,7 +42,7 @@
   import Markdown from '../Markdown/Markdown.svelte';
 </script>
 
-<Block width="normal" id="{id}" class="simple-timeline-container fmy-6 {cls}">
+<Block width="normal" {id} class="simple-timeline-container fmy-6 {cls}">
   <div class="timeline pl-2 pr-3.5" style="--symbol-colour:{symbolColour};">
     {#each dates as date}
       <div class="date relative pt-0.5 pl-5 pb-4">
@@ -53,7 +53,8 @@
             r="5"
             stroke="{symbolColour}"
             stroke-width="2"
-            fill="transparent"></circle>
+            fill="transparent"
+          ></circle>
         </svg>
         <div
           class="timeline-date font-note text-xs uppercase font-black tracking-wide fmb-0"

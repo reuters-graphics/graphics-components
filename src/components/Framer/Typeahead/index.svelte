@@ -15,10 +15,10 @@
   export let extract = (item) => item;
 
   /** @type {(item: TItem) => boolean} */
-  export let disable = (item) => false;
+  export let disable = (_item) => false;
 
   /** @type {(item: TItem) => boolean} */
-  export let filter = (item) => false;
+  export let filter = (_item) => false;
 
   /** Set to `false` to prevent the first result from being selected */
   export let autoselect = true;
@@ -59,14 +59,14 @@
 
   $: options = { pre: '<mark>', post: '</mark>', extract };
   $: results =
-    value !== ''
-      ? fuzzy
-          .filter(value, data, options)
-          .filter(({ score }) => score > 0)
-          .slice(0, limit)
-          .filter((result) => !filter(result.original))
-          .map((result) => ({ ...result, disabled: disable(result.original) }))
-      : data.map((d) => ({ string: extract(d), original: d }));
+    value !== '' ?
+      fuzzy
+        .filter(value, data, options)
+        .filter(({ score }) => score > 0)
+        .slice(0, limit)
+        .filter((result) => !filter(result.original))
+        .map((result) => ({ ...result, disabled: disable(result.original) }))
+    : data.map((d) => ({ string: extract(d), original: d }));
 
   $: resultsId = results.map((result) => extract(result.original)).join('');
   $: showResults = !hideDropdown && results.length > 0 && isFocused;
@@ -132,9 +132,9 @@
   /** @type {(direction: -1 | 1) => void} */
   function change(direction) {
     let index =
-      direction === 1 && selectedIndex === results.length - 1
-        ? 0
-        : selectedIndex + direction;
+      direction === 1 && selectedIndex === results.length - 1 ?
+        0
+      : selectedIndex + direction;
     if (index < 0) index = results.length - 1;
 
     let disabled = results[index].disabled;
@@ -177,19 +177,19 @@
   id="{id}-typeahead"
 >
   <Search
-    id="{id}"
+    {id}
     removeFormAriaAttributes="{true}"
     {...$$restProps}
     bind:ref="{searchRef}"
     aria-autocomplete="list"
     aria-controls="{id}-listbox"
     aria-labelledby="{id}-label"
-    aria-activedescendant="{selectedIndex >= 0 &&
-    !hideDropdown &&
-    results.length > 0
-      ? `${id}-result-${selectedIndex}`
-      : null}"
-    bind:value="{value}"
+    aria-activedescendant="{(
+      selectedIndex >= 0 && !hideDropdown && results.length > 0
+    ) ?
+      `${id}-result-${selectedIndex}`
+    : null}"
+    bind:value
     on:type
     on:input
     on:change
@@ -259,7 +259,7 @@
             selectedIndex = index;
           }}"
         >
-          <slot result="{result}" index="{index}" value="{value}">
+          <slot {result} {index} {value}>
             {@html result.string}
           </slot>
         </li>

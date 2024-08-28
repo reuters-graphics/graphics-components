@@ -1,7 +1,7 @@
 <!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import { SponsorshipAd } from './@types/ads';
+  import type { SponsorshipAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   /** Add an ID to target with SCSS. */
@@ -20,7 +20,7 @@
     'reuters_sponsorlogo';
 </script>
 
-<Block id="{id}" class="freestar-adslot {cls}">
+<Block {id} class="freestar-adslot {cls}">
   <div class="ad-block">
     {#if adLabel}
       <div class="ad-label">
@@ -30,7 +30,7 @@
     <div class="ad-container">
       <div class="ad-slot__inner">
         <div>
-          <ResponsiveAd desktopPlacementName="{desktopPlacementName}" />
+          <ResponsiveAd {desktopPlacementName} />
         </div>
       </div>
     </div>

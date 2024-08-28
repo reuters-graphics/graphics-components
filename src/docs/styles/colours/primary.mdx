@@ -1,0 +1,165 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+import greyScheme from '../../../scss/colours/primary/_grey.scss?raw';
+import slateScheme from '../../../scss/colours/primary/_slate.scss?raw';
+import zincScheme from '../../../scss/colours/primary/_zinc.scss?raw';
+import neutralScheme from '../../../scss/colours/primary/_neutral.scss?raw';
+import stoneScheme from '../../../scss/colours/primary/_stone.scss?raw';
+import redScheme from '../../../scss/colours/primary/_red.scss?raw';
+import orangeScheme from '../../../scss/colours/primary/_orange.scss?raw';
+import amberScheme from '../../../scss/colours/primary/_amber.scss?raw';
+import yellowScheme from '../../../scss/colours/primary/_yellow.scss?raw';
+import limeScheme from '../../../scss/colours/primary/_lime.scss?raw';
+import greenScheme from '../../../scss/colours/primary/_green.scss?raw';
+import emeraldScheme from '../../../scss/colours/primary/_emerald.scss?raw';
+import tealScheme from '../../../scss/colours/primary/_teal.scss?raw';
+import cyanScheme from '../../../scss/colours/primary/_cyan.scss?raw';
+import skyScheme from '../../../scss/colours/primary/_sky.scss?raw';
+import blueScheme from '../../../scss/colours/primary/_blue.scss?raw';
+import indigoScheme from '../../../scss/colours/primary/_indigo.scss?raw';
+import violetScheme from '../../../scss/colours/primary/_violet.scss?raw';
+import purpleScheme from '../../../scss/colours/primary/_purple.scss?raw';
+import fuchsiaScheme from '../../../scss/colours/primary/_fuchsia.scss?raw';
+import pinkScheme from '../../../scss/colours/primary/_pink.scss?raw';
+import roseScheme from '../../../scss/colours/primary/_rose.scss?raw';
+
+<Meta title="Styles/Colours/Primary" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Primary colours
+
+<CopyColourTable
+  title="Grey"
+  body={extractCssColourVariables(greyScheme)}
+  included
+  partial="primary/_grey.scss"
+/>
+
+<CopyColourTable
+  title="Slate"
+  body={extractCssColourVariables(slateScheme)}
+  partial="primary/_slate.scss"
+/>
+
+<CopyColourTable
+  title="Zinc"
+  body={extractCssColourVariables(zincScheme)}
+  partial="primary/_zinc.scss"
+/>
+
+<CopyColourTable
+  title="Neutral"
+  body={extractCssColourVariables(neutralScheme)}
+  partial="primary/_neutral.scss"
+/>
+
+<CopyColourTable
+  title="Stone"
+  body={extractCssColourVariables(stoneScheme)}
+  partial="primary/_stone.scss"
+/>
+
+<CopyColourTable
+  title="Red"
+  body={extractCssColourVariables(redScheme)}
+  partial="primary/_red.scss"
+/>
+
+<CopyColourTable
+  title="Orange"
+  body={extractCssColourVariables(orangeScheme)}
+  partial="primary/_orange.scss"
+/>
+
+<CopyColourTable
+  title="Amber"
+  body={extractCssColourVariables(amberScheme)}
+  partial="primary/_amber.scss"
+/>
+
+<CopyColourTable
+  title="Yellow"
+  body={extractCssColourVariables(yellowScheme)}
+  partial="primary/_yellow.scss"
+/>
+
+<CopyColourTable
+  title="Lime"
+  body={extractCssColourVariables(limeScheme)}
+  partial="primary/_lime.scss"
+/>
+
+<CopyColourTable
+  title="Green"
+  body={extractCssColourVariables(greenScheme)}
+  partial="primary/_green.scss"
+/>
+
+<CopyColourTable
+  title="Emerald"
+  body={extractCssColourVariables(emeraldScheme)}
+  partial="primary/_emerald.scss"
+/>
+
+<CopyColourTable
+  title="Teal"
+  body={extractCssColourVariables(tealScheme)}
+  partial="primary/_teal.scss"
+/>
+
+<CopyColourTable
+  title="Cyan"
+  body={extractCssColourVariables(cyanScheme)}
+  partial="primary/_cyan.scss"
+/>
+
+<CopyColourTable
+  title="Sky"
+  body={extractCssColourVariables(skyScheme)}
+  partial="primary/_sky.scss"
+/>
+
+<CopyColourTable
+  title="Blue"
+  body={extractCssColourVariables(blueScheme)}
+  partial="primary/_blue.scss"
+/>
+
+<CopyColourTable
+  title="Indigo"
+  body={extractCssColourVariables(indigoScheme)}
+  partial="primary/_indigo.scss"
+/>
+
+<CopyColourTable
+  title="Violet"
+  body={extractCssColourVariables(violetScheme)}
+  partial="primary/_violet.scss"
+/>
+
+<CopyColourTable
+  title="Purple"
+  body={extractCssColourVariables(purpleScheme)}
+  partial="primary/_purple.scss"
+/>
+
+<CopyColourTable
+  title="Fuchsia"
+  body={extractCssColourVariables(fuchsiaScheme)}
+  partial="primary/_fuchsia.scss"
+/>
+
+<CopyColourTable
+  title="Pink"
+  body={extractCssColourVariables(pinkScheme)}
+  partial="primary/_pink.scss"
+/>
+
+<CopyColourTable
+  title="Rose"
+  body={extractCssColourVariables(roseScheme)}
+  partial="primary/_rose.scss"
+/>

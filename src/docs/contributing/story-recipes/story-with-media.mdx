@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../utils/docsPage.js';
+
+<Meta
+  title="Contributing/Recipes: Story with media"
+  parameters={{ ...parameters }}
+/>
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Recipes: Story with media
+
+To use media files in your stories, import them directly.
+
+First, add a media file in a `stories` directory in your component folder like this:
+
+```
+YourComponent/
+  YourComponent.svelte
+  YourComponent.stories.svelte
+  stories/
+    imgs/
+      myImage.jpg
+```
+
+Now, import your media file directly in your code, which will resolve to the URL of the file.
+
+```svelte
+<!-- YourComponent.stories.svelte -->
+<script>
+  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+
+  import YourComponent from './YourComponent.svelte';
+
+  // 🖼️ Import media you need in stories directly in code!
+  import myImageSrc from './stories/imgs/myImage.jpg';
+</script>
+
+<Meta title="Components/YourComponent" component="{YourComponent}" />
+
+<template let:args>
+  <YourComponent {...args} />
+</template>
+
+<Story
+  name="Basic"
+  args="{{
+    src: myImageSrc,
+    altText: 'My image in the component',
+  }}"
+/>
+```

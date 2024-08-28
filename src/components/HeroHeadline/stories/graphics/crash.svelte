@@ -2,17 +2,17 @@
   // export let assetsPath = './';
   let width = null;
 
-  // @ts-ignore
+  // @ts-ignore img
   import chartXs from './CRASH_1-xs.jpeg';
-  // @ts-ignore
+  // @ts-ignore img
   import chartSm from './CRASH_1-sm.jpeg';
-  // @ts-ignore
+  // @ts-ignore img
   import chartMd from './CRASH_1-md.jpeg';
-  // @ts-ignore
+  // @ts-ignore img
   import chartLg from './CRASH_1-lg.jpeg';
-  // @ts-ignore
+  // @ts-ignore img
   import chartXl from './CRASH_1-xl.jpeg';
-  // @ts-ignore
+  // @ts-ignore img
   import chartXxl from './CRASH_1-xl_copy.jpeg';
 </script>
 
@@ -402,8 +402,16 @@
     overflow: hidden;
   }
   #g-CRASH_1-xs p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 14px;
     height: auto;
@@ -435,8 +443,16 @@
     overflow: hidden;
   }
   #g-CRASH_1-sm p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 16px;
     height: auto;
@@ -468,8 +484,16 @@
     overflow: hidden;
   }
   #g-CRASH_1-md p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 13px;
     height: auto;
@@ -501,8 +525,16 @@
     overflow: hidden;
   }
   #g-CRASH_1-lg p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 17px;
     height: auto;
@@ -538,8 +570,16 @@
     overflow: hidden;
   }
   #g-CRASH_1-xl p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 17px;
     height: auto;
@@ -576,8 +616,16 @@
     overflow: hidden;
   }
   #g-CRASH_1-xl_copy p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 18px;
     height: auto;

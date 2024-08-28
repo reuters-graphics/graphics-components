@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../../utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../../utils/parseCss';
+
+import cursor from '../../../../scss/tokens/interactivity/_cursor.scss?raw';
+import pointerEvents from '../../../../scss/tokens/interactivity/_pointer-events.scss?raw';
+
+<Meta title="Styles/Tokens/Interactivity" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Interactivity tokens
+
+<CopyTable
+  title="Cursor"
+  mdnLink="cursor"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(cursor)}
+  copyable={[true, false]}
+/>
+
+<CopyTable
+  title="Pointer events"
+  mdnLink="pointer-events"
+  header={['Class', 'Properties']}
+  body={cssStringToTableArray(pointerEvents)}
+  copyable={[true, false]}
+/>

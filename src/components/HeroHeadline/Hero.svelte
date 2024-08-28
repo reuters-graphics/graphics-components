@@ -1,6 +1,6 @@
 <!-- @component `HeroHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-HeroHeadline--default) -->
 <script lang="ts">
-  import { HeadlineSize } from '../@types/global';
+  import type { HeadlineSize } from '../@types/global';
 
   /** Set to true for embeddables. */
   export let embedded: boolean = false;
@@ -88,7 +88,7 @@
 </script>
 
 <div style="--heroHeight: {embedded ? '850px' : '100svh'}; display:contents;">
-  <div class="hero-wrapper fmb-6" class:embedded="{embedded}">
+  <div class="hero-wrapper fmb-6" class:embedded>
     <!-- Background media hero-->
     {#if $$slots.background || img}
       <Block width="fluid" class="hero-headline background-hero fmt-0">
@@ -96,10 +96,10 @@
           <Headline
             class="{cls} !text-{hedAlign}"
             width="{hedWidth}"
-            section="{section}"
-            hedSize="{hedSize}"
-            hed="{hed}"
-            dek="{dek}"
+            {section}
+            {hedSize}
+            {hed}
+            {dek}
           >
             <!-- Headline named slot -->
             <div slot="hed">
@@ -110,10 +110,10 @@
           <Headline
             class="{cls} !text-{hedAlign}"
             width="{hedWidth}"
-            section="{section}"
-            hedSize="{hedSize}"
-            hed="{hed}"
-            dek="{dek}"
+            {section}
+            {hedSize}
+            {hed}
+            {dek}
           />
         {/if}
 
@@ -123,12 +123,12 @@
             <slot name="background" />
           {:else}
             <GraphicBlock
-              width="{width}"
+              {width}
               role="img"
               class="my-0"
               textWidth="normal"
-              notes="{notes}"
-              ariaDescription="{ariaDescription}"
+              {notes}
+              {ariaDescription}
             >
               <div
                 class="background-image"
@@ -148,10 +148,10 @@
             <Headline
               class="{cls} !text-{hedAlign}"
               width="{hedWidth}"
-              section="{section}"
-              hedSize="{hedSize}"
-              hed="{hed}"
-              dek="{dek}"
+              {section}
+              {hedSize}
+              {hed}
+              {dek}
             >
               <!-- Headline named slot -->
               <div slot="hed">
@@ -162,10 +162,10 @@
             <Headline
               class="{cls} !text-{hedAlign}"
               width="{hedWidth}"
-              section="{section}"
-              hedSize="{hedSize}"
-              hed="{hed}"
-              dek="{dek}"
+              {section}
+              {hedSize}
+              {hed}
+              {dek}
             />
           {/if}
         </PaddingReset>
@@ -182,12 +182,7 @@
       <!-- Custom byline/dateline -->
       <slot name="byline" />
     {:else if authors.length > 0 || publishTime}
-      <Byline
-        authors="{authors}"
-        publishTime="{publishTime}"
-        updateTime="{updateTime}"
-        align="left"
-      />
+      <Byline {authors} {publishTime} {updateTime} align="left" />
     {/if}
   </div>
 </div>

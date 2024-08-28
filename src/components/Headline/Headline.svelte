@@ -1,6 +1,6 @@
 <!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Headline--default) -->
 <script lang="ts">
-  import { HeadlineSize } from '../@types/global';
+  import type { HeadlineSize } from './../@types/global';
 
   /**
    * Headline, parsed as an _inline_ markdown string in an `h1` element.
@@ -52,7 +52,7 @@
   import Byline from '../Byline/Byline.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
 
-  let hedClass;
+  let hedClass: string;
   $: {
     switch (hedSize) {
       case 'biggest':
@@ -74,7 +74,7 @@
 </script>
 
 <div class="headline-wrapper" style="display:contents;">
-  <Block width="{width}" class="headline text-center fmt-7 fmb-6 {cls}">
+  <Block {width} class="headline text-center fmt-7 fmb-6 {cls}">
     <header class="relative">
       {#if $$slots.crown}
         <div class="crown-container">
@@ -115,9 +115,9 @@
       {:else if authors.length > 0 || publishTime}
         <Byline
           class="fmy-4"
-          authors="{authors}"
-          publishTime="{publishTime}"
-          updateTime="{updateTime}"
+          {authors}
+          {publishTime}
+          {updateTime}
           align="center"
         />
       {/if}

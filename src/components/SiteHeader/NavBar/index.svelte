@@ -70,7 +70,7 @@
             </div>
             {#if $activeSection === section.id}
               <SectionDropdown
-                section="{section}"
+                {section}
                 headingText="{`Latest in ${section.name}`}"
               />
             {/if}

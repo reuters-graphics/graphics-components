@@ -2,11 +2,11 @@
   // svelte-ignore unused-export-let
   export let basePath = './';
   // For demo purposes only, hard-wiring img paths from Vite
-  // @ts-ignore
+  // @ts-ignore img
   import chartXs from '../imgs/ai-chart-xs.png';
-  // @ts-ignore
+  // @ts-ignore img
   import chartSm from '../imgs/ai-chart-sm.png';
-  // @ts-ignore
+  // @ts-ignore img
   import chartMd from '../imgs/ai-chart-md.png';
   let width = null;
 </script>
@@ -414,6 +414,7 @@
     </div>
   {/if}
 </div>
+
 <!-- End ai2html - 2021-09-29 12:37 -->
 
 <!-- ai file: _ai-chart.ai -->
@@ -445,8 +446,16 @@
     overflow: hidden;
   }
   #g-_ai-chart-xs p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 14px;
     height: auto;
@@ -495,8 +504,16 @@
     overflow: hidden;
   }
   #g-_ai-chart-sm p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 17px;
     height: auto;
@@ -552,8 +569,16 @@
     overflow: hidden;
   }
   #g-_ai-chart-md p {
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:
+      'Source Sans Pro',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Helvetica,
+      Arial,
+      sans-serif;
     font-weight: 400;
     line-height: 17px;
     height: auto;

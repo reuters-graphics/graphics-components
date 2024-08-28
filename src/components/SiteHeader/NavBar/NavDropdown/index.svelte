@@ -64,7 +64,7 @@
               {#each stories as story}
                 <li class="story-item">
                   <StoryCard
-                    story="{story}"
+                    {story}
                     withSection="{$activeSection === 'more'}"
                   />
                 </li>

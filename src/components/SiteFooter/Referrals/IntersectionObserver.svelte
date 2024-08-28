@@ -41,5 +41,5 @@
 </script>
 
 <div bind:this="{container}">
-  <slot intersecting="{intersecting}" />
+  <slot {intersecting} />
 </div>

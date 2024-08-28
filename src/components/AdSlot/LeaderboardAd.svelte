@@ -1,6 +1,6 @@
 <!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-LeaderboardAd--default) -->
 <script lang="ts">
-  import { LeaderboardAd } from './@types/ads';
+  import type { LeaderboardAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
   import { onMount } from 'svelte';
 
@@ -48,16 +48,16 @@
 
 <div
   class="leaderboard__sticky {cls}"
-  class:sticky="{sticky}"
-  class:unstick="{unstick}"
-  id="{id}"
+  class:sticky
+  class:unstick
+  {id}
   style="--height: {adSize}px;"
 >
   <div class="ad-block">
     <div class="ad-slot__container">
       <div class="ad-slot__inner">
         <div>
-          <ResponsiveAd desktopPlacementName="{desktopPlacementName}" />
+          <ResponsiveAd {desktopPlacementName} />
         </div>
       </div>
     </div>

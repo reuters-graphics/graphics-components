@@ -1,18 +1,18 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import withOverlaysDocs from './stories/docs/withOverlays.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import ariaDescriptionsDocs from './stories/docs/ariaDescriptions.md?raw';
 
   import BeforeAfter from './BeforeAfter.svelte';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import beforeImg from './stories/myrne-before.jpg';
-  // @ts-ignore
+  // @ts-ignore raw
   import afterImg from './stories/myrne-after.jpg';
 
   import {
@@ -90,13 +90,13 @@
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
     <div let:description="{id}" slot="beforeOverlay" class="overlay p-3">
-      <p class="body-caption" id="{id}">
+      <p class="body-caption" {id}>
         On July 7, 2020, the base contained only a few transport vehicles.
       </p>
     </div>
     <div let:description="{id}" slot="afterOverlay" class="overlay p-3">
       <!-- 👇 id can also be used on an element containing multiple text elements -->
-      <div id="{id}">
+      <div {id}>
         <p class="body-caption">
           But by October, tanks and artillery could be seen.
         </p>

@@ -60,7 +60,7 @@
 >
   <div>
     {#if includeReferrals}
-      <Referrals referrals="{referrals}" />
+      <Referrals {referrals} />
     {/if}
     <QuickLinks links="{data[0]}" />
     <CompanyLinks links="{data[0]}" />

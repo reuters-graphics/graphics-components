@@ -1,18 +1,18 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import playAndLoopDocs from './stories/docs/playAndLoop.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   import controlsDocs from './stories/docs/controls.md?raw';
-  // @ts-ignore
+  // @ts-ignore raw
   // import withSoundDocs from './stories/docs/withSound.md?raw';
 
-  // @ts-ignore
+  // @ts-ignore raw
   import SilentVideo from './stories/videos/silent-video.mp4';
-  // @ts-ignore
+  // @ts-ignore raw
   import SoundVideo from './stories/videos/sound-video.mp4';
 
   import Video from './Video.svelte';

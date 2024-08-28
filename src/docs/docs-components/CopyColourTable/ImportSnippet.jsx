@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism-light';
-// @ts-ignore
+// @ts-ignore scss
 import classes from './styles.module.scss';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
@@ -18,15 +18,17 @@ const Copyable = (props) => {
   let timeout;
 
   useEffect(() => {
-    if(timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => { setCopied(false); }, 1500);
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      setCopied(false);
+    }, 1500);
   }, [copied]);
 
-  const handleClick = async({ partial }) => {
-    const copyText = `@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`
+  const handleClick = async ({ partial }) => {
+    const copyText = `@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`;
     await navigator.clipboard.writeText(copyText);
     setCopied(true);
-  }
+  };
 
   return (
     <button className="copy-btn" onClick={() => handleClick(props)}>
@@ -34,21 +36,19 @@ const Copyable = (props) => {
       {copied && <span className="copy-tag">Copied</span>}
     </button>
   );
-}
+};
 
 const ImportSnippet = ({ included = false, partial = 'thematic/_tr.scss' }) => {
-  return included ? (
-    <div className={classes.importsnippet}>
-      <p>Included</p>
-    </div>
-  ) : (
-    <div className={classes.importsnippet}>
-      <SyntaxHighlighter language="scss" style={prism}>
-        {`// global.scss \n@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
-      </SyntaxHighlighter>
-      <Copyable partial={partial} />
-    </div>
-  )
+  return included ?
+      <div className={classes.importsnippet}>
+        <p>Included</p>
+      </div>
+    : <div className={classes.importsnippet}>
+        <SyntaxHighlighter language="scss" style={prism}>
+          {`// global.scss \n@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
+        </SyntaxHighlighter>
+        <Copyable partial={partial} />
+      </div>;
 };
 
 export default ImportSnippet;

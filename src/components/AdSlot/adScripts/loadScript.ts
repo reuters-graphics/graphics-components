@@ -1,6 +1,6 @@
 interface attributesInterface {
-  onload?: () => void,
-  async?: boolean
+  onload?: () => void;
+  async?: boolean;
 }
 
 export const loadScript = (src: string, attributes?: attributesInterface) => {
@@ -10,7 +10,7 @@ export const loadScript = (src: string, attributes?: attributesInterface) => {
   if (existingScript) return;
 
   const script = document.createElement('script');
-  script.addEventListener('load', onload);
+  if (onload) script.addEventListener('load', onload);
   script.async = async;
   script.src = src;
   document.head.append(script);

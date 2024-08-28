@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../../utils/docsPage.js';
+import CopyTable from '../../../docs-components/CopyTable/Table.jsx';
+import { cssStringToTableArray } from '../../../utils/parseCss';
+
+import visibilityStyles from '../../../../scss/tokens/accessibility/_visibility.scss?inline';
+
+<Meta title="Styles/Tokens/Accessibility" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Accessibility tokens
+
+<CopyTable
+  title="Visibility"
+  header={['Class', 'Include', 'Properties']}
+  body={cssStringToTableArray(visibilityStyles, true)}
+  copyable={[true, (t) => `@include ${t};`, false]}
+/>

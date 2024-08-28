@@ -1,5 +1,5 @@
-svelte.displayName = 'svelte'
-svelte.aliases = []
+svelte.displayName = 'svelte';
+svelte.aliases = [];
 
 export default function svelte(Prism) {
   const blocks = '(if|else if|await|then|catch|each|html|debug)';
@@ -48,7 +48,8 @@ export default function svelte(Prism) {
       },
     },
     tag: {
-      pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?:"[^"]*"|'[^']*'|{[\s\S]+?}(?=[\s/>])))|(?=[\s/>])))+)?\s*\/?>/i,
+      pattern:
+        /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?:"[^"]*"|'[^']*'|{[\s\S]+?}(?=[\s/>])))|(?=[\s/>])))+)?\s*\/?>/i,
       greedy: true,
       inside: {
         tag: {
@@ -59,7 +60,8 @@ export default function svelte(Prism) {
           },
         },
         'language-javascript': {
-          pattern: /\{(?:(?:\{(?:(?:\{(?:[^{}])*\})|(?:[^{}]))*\})|(?:[^{}]))*\}/,
+          pattern:
+            /\{(?:(?:\{(?:(?:\{(?:[^{}])*\})|(?:[^{}]))*\})|(?:[^{}]))*\}/,
           inside: Prism.languages['javascript'],
         },
         'attr-value': {
@@ -97,7 +99,7 @@ export default function svelte(Prism) {
   Prism.languages.svelte['tag'].inside['attr-value'].inside['entity'] =
     Prism.languages.svelte['entity'];
 
-  Prism.hooks.add('wrap', env => {
+  Prism.hooks.add('wrap', (env) => {
     if (env.type === 'entity') {
       env.attributes['title'] = env.content.replace(/&amp;/, '&');
     }

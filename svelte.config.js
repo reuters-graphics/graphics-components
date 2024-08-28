@@ -1,14 +1,5 @@
-import autoprefixer from 'autoprefixer';
-import preprocess from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-const config = {
-  preprocess: preprocess({
-    preserve: ['ld+json'],
-    scss: { quietDeps: true },
-    postcss: {
-      plugins: [autoprefixer],
-    },
-  }),
+export default {
+  preprocess: [vitePreprocess()],
 };
-
-export default config;

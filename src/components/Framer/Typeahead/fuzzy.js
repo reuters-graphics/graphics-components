@@ -102,7 +102,7 @@ fuzzy.filter = function (pattern, arr, opts) {
   opts = opts || {};
   return (
     arr
-      .reduce(function (prev, element, idx, arr) {
+      .reduce(function (prev, element, idx, _arr) {
         let str = element;
         if (opts.extract) {
           str = opts.extract(element);

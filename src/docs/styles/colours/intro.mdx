@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../../utils/docsPage.js';
+
+<Meta title="Styles/Colours/Intro" parameters={{ ...parameters }} />
+
+![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
+
+# Working with colours
+
+Colour palettes are provided as [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) you can use in your own styles. Some are included by default, others can be imported in your global stylesheet and then used.
+
+```scss
+/* global.scss */
+@import '@reuters-graphics/graphics-components/scss/colours/primary/blue';
+
+p {
+  color: var(--grey-400); // Included by default
+}
+
+p.blue-bg {
+  color: white;
+  background-colour: var(--blue-600); // Imported palette
+}
+```

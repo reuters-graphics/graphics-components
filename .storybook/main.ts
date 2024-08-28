@@ -4,14 +4,13 @@ import remarkGfm from 'remark-gfm';
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
   addons: [
+    '@storybook/addon-svelte-csf',
     '@storybook/addon-links',
     '@storybook/addon-actions',
     '@storybook/addon-viewport',
     {
       name: '@storybook/addon-docs',
       options: {
-        csfPluginOptions: null,
-        jsxOptions: {},
         mdxPluginOptions: {
           mdxCompileOptions: {
             remarkPlugins: [remarkGfm],
@@ -25,12 +24,12 @@ const config: StorybookConfig = {
     '@storybook/addon-measure',
     '@storybook/addon-outline',
     '@storybook/addon-interactions',
-    '@storybook/addon-svelte-csf',
+    '@chromatic-com/storybook',
   ],
   framework: '@storybook/svelte-vite',
-  core: { disableTelemetry: true },
-  docs: {
-    autodocs: true,
+  core: {
+    disableTelemetry: true,
   },
+  docs: {},
 };
 export default config;

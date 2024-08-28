@@ -47,4 +47,4 @@ An editor will approve your PR after addressing any issues they see. Once an edi
 
 ### ✉️ Publishing to the team
 
-For now, only editors should publish new versions of the library to npm. We'll follow [semantic versioning](https://semver.org/) conventions. Most MINOR and all MAJOR version changes should be identified ahead of time during PR review.
+Publishing is handled via [changesets](https://github.com/changesets/changesets) and should follow [semantic versioning](https://semver.org/) conventions. Most MINOR and all MAJOR version changes should be identified ahead of time during PR review.

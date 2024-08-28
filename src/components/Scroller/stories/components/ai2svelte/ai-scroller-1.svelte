@@ -1,14 +1,14 @@
 <script>
   // Hard-coding for demo purposes only...
-  // @ts-ignore
+  // @ts-ignore img
   import stepXl from './images/step-1-xl.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepLg from './images/step-1-lg.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepMd from './images/step-1-md.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepSm from './images/step-1-sm.png';
-  // @ts-ignore
+  // @ts-ignore img
   import stepXs from './images/step-1-xs.png';
   let width;
 </script>
@@ -77,6 +77,7 @@
     </div>
   {/if}
 </div>
+
 <!-- End ai2html - 2021-09-30 14:21 -->
 
 <!-- ai file: step-1.ai -->

@@ -2,100 +2,71 @@ name: Release
 
 on:
   push:
-  pull_request:
-  workflow_dispatch:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@v3
-
-      - id: setup-node
-        name: Setup Node.JS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
-      - id: cache
-        name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: yarn-deps-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-deps-${{ hashFiles('yarn.lock') }}
-
-      - id: install-deps
-        name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - id: lint
-        name: Lint code
-        run: yarn run eslint --fix --ext .ts,.js,.svelte src/components
-
   release:
     name: Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
-    # Restricts release to:
-    #   1) pushes of release tags
-    #   2) the default branch
-    #   3) the base repository
-    if: |
-      github.event_name == 'push' && startsWith(github.ref, 'refs/tags') &&
-      endsWith(github.event.base_ref, github.event.repository.default_branch) &&
-      github.repository == 'reuters-graphics/graphics-components'
+    if: github.repository == 'reuters-graphics/graphics-components'
     steps:
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.repository.default_branch }}
 
       - id: setup-node
         name: Setup Node.JS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org
-          scope: '@reuters-graphics'
+          node-version: 20
+          cache: npm
 
       - id: install-deps
         name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
-      - id: build-docs
-        name: Build docs
-        run: npm run build:docs
+      - id: lint
+        name: Lint code
+        run: npm run lint:check
 
       - id: build-package
         name: Build package
         run: npm run build:package
 
-      - id: version
-        name: Version
-        run: npm version ${{ github.ref_name }} --no-git-tag-version
-
-      - id: publish
-        name: Publish
-        run: npm publish --access public
+      - id: changesets
+        name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          version: npm run changeset:version
+          publish: npm run changeset:publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - id: commit
-        name: Commit
+      - id: build-docs
+        name: Build docs
+        if: steps.changesets.outputs.published == 'true'
+        run: npm run build:docs
+
+      - id: commit_and_push
+        name: Commit and push docs
+        if: steps.changesets.outputs.published == 'true'
         run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git commit -m "published ${{ github.ref_name }}"
+          git commit -m "docs"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
