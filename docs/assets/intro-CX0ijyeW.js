@@ -1,7 +1,0 @@
-import{j as t,p as r}from"./docsPage-CrCNk6vV.js";import{useMDXComponents as s}from"./index-CswL0fy2.js";import{M as i}from"./index-lnWGua5u.js";import"./index-DwChlhAQ.js";import"./_commonjsHelpers-BosuxZz1.js";import"./index-D-8MO0q_.js";import"./iframe-DpI0ciXx.js";import"../sb-preview/runtime.js";import"./index-DxKRhftL.js";import"./index-DrFu-skq.js";function n(o){const e={a:"a",em:"em",h1:"h1",img:"img",p:"p",...s(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Actions/Intro",parameters:{...r}}),`
-`,t.jsx(e.p,{children:t.jsx(e.img,{src:"https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg",alt:""})}),`
-`,t.jsx(e.h1,{id:"actions",children:"Actions"}),`
-`,t.jsxs(e.p,{children:["Svelte ",t.jsx(e.a,{href:"https://svelte.dev/tutorial/actions",rel:"nofollow",children:"actions"}),' are arbitrary functions that run after Svelte "mounts" an element in the DOM.']}),`
-`,t.jsxs(e.p,{children:["But let's try a ",t.jsx(e.em,{children:"less"})," technical definition: Svelte actions are extra topping you can add to your HTML once it comes out of the oven."]}),`
-`,t.jsx(e.p,{children:"These are little functions that do little, if often very useful, things on top of your code."}),`
-`,t.jsx(e.p,{children:"Have a look through the actions we have in this section to get a better idea and watch this space for more TK."})]})}function g(o={}){const{wrapper:e}={...s(),...o.components};return e?t.jsx(e,{...o,children:t.jsx(n,{...o})}):n(o)}export{g as default};

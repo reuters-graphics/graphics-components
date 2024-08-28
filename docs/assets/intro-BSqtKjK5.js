@@ -1,0 +1,10 @@
+import{j as e,p as n}from"./docsPage-CrCNk6vV.js";import{useMDXComponents as s}from"./index-CswL0fy2.js";import{M as a}from"./index-BuvbpKx8.js";import"./index-DwChlhAQ.js";import"./_commonjsHelpers-BosuxZz1.js";import"./index-D-8MO0q_.js";import"./iframe-CqubeUtq.js";import"../sb-preview/runtime.js";import"./index-DxKRhftL.js";import"./index-DrFu-skq.js";const i=""+new URL("article-well-C9G46YvJ.jpg",import.meta.url).href;function r(o){const t={a:"a",code:"code",h1:"h1",img:"img",p:"p",...s(),...o.components};return e.jsxs(e.Fragment,{children:[e.jsx(a,{title:"Layout/Intro",parameters:{...n}}),`
+`,e.jsx(t.p,{children:e.jsx(t.img,{src:"https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg",alt:""})}),`
+`,e.jsx(t.h1,{id:"layout",children:"Layout"}),`
+`,e.jsx(t.p,{children:"Layout components setup our default page structure."}),`
+`,e.jsx(t.p,{children:"Generally, our page layout includes a central text well and a few preset block breakpoints, wider and narrower than the well."}),`
+`,e.jsx(t.p,{children:"Here's how it works:"}),`
+`,e.jsx("img",{className:"feature",src:i,width:"100%",style:{margin:"3rem 0"}}),`
+`,e.jsxs(t.p,{children:["The ",e.jsx(t.a,{href:"?path=/docs/layout-article--default",children:e.jsx(t.code,{children:"Article"})})," component sets up the set dimensions of the well and the block breakpoints."]}),`
+`,e.jsxs(t.p,{children:["The ",e.jsx(t.a,{href:"?path=/docs/layout-block--default",children:e.jsx(t.code,{children:"Block"})})," component is a wrapper for individual parts of a page that can be as wide as any of those breakpoints."]}),`
+`,e.jsx(t.p,{children:"The docs in this section explain how to use our layout components to build the basic structure of your page and also how to break out of our default layout if you need to do something different."})]})}function j(o={}){const{wrapper:t}={...s(),...o.components};return t?e.jsx(t,{...o,children:e.jsx(r,{...o})}):r(o)}export{j as default};
