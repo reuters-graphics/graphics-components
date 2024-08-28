@@ -34,7 +34,7 @@ figure {
   @include fmx-auto;
 }
 
-iframe:not([id^="google_ads_iframe_"]) {
+iframe:not([id^='google_ads_iframe_']) {
   border: 0;
   width: 100%;
 }
