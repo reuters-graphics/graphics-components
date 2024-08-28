@@ -53,11 +53,3 @@
 </script>
 
 <div data-freestar-ad="{dataFreestarAd || null}" id="{adId}"></div>
-
-<style lang="scss">
-  div {
-    :global(iframe) {
-      width: 100%;
-    }
-  }
-</style>
