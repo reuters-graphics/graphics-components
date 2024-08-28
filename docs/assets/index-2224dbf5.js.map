@@ -1,1 +1,0 @@
-{"version":3,"file":"index-2224dbf5.js","sources":["../../src/components/SiteHeader/NavBar/utils/index.js"],"sourcesContent":["export const normalizeUrl = (url) =>\n  /^http/.test(url) ? url : `https://www.reuters.com${url}`;\n"],"names":["normalizeUrl","url"],"mappings":"AAAY,MAACA,EAAgBC,GAC3B,QAAQ,KAAKA,CAAG,EAAIA,EAAM,0BAA0BA,CAAG"}

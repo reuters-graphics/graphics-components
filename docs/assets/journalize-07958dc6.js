@@ -1,2 +1,0 @@
-var t={0:"Jan.",1:"Feb.",2:"March",3:"April",4:"May",5:"June",6:"July",7:"Aug.",8:"Sept.",9:"Oct.",10:"Nov.",11:"Dec."};function u(n){return n===void 0&&(n=new Date),t[n.getMonth()]}function a(n){return n===void 0&&(n=new Date),u(n)+" "+n.getDate()+", "+n.getFullYear()}function i(n){return n==null}function o(n){return typeof n=="number"&&isFinite(n)}function c(n){if(i(n))return"";var e,r=+n;return o(r)?((e=r.toString().split("."))[0]=e[0].replace(/\B(?=(\d{3})+(?!\d))/g,","),e.join(".")):n.toString()}export{c as g,a as r};
-//# sourceMappingURL=journalize-07958dc6.js.map
