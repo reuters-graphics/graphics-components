@@ -83,6 +83,31 @@
   font-display: swap;
 }
 
+/* Dotcom aliases for knowledge */
+@font-face {
+  font-family: 'knowledge-regular';
+  src: local('Knowledge');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'knowledge-medium';
+  src: local('Knowledge');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'knowledge-bold';
+  src: local('Knowledge');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* SOURCE SANS PRO */
 @font-face {
   font-family: 'Source Sans Pro';
