@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 1.1.4
+
+### Patch Changes
+
+- 4788ee2: Adds Dotcom Knowledge font aliases needed for ads
+
 ## 1.1.3
 
 ### Patch Changes
