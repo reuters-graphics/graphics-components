@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 1.1.3
+
+### Patch Changes
+
+- 146b970: Fixes "more" menu options
+
 ## 1.1.2
 
 ### Patch Changes
