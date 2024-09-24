@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 1.1.2
+
+### Patch Changes
+
+- d459852: Ads will collapse if unfulfilled
+
 ## 1.1.1
 
 ### Patch Changes
