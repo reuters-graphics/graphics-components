@@ -63,10 +63,7 @@
             <ul class="story-list">
               {#each stories as story}
                 <li class="story-item">
-                  <StoryCard
-                    {story}
-                    withSection="{$activeSection === 'more'}"
-                  />
+                  <StoryCard {story} />
                 </li>
               {/each}
             </ul>
