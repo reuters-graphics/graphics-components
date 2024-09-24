@@ -3,7 +3,6 @@
   import { getTime } from './time';
 
   export let story;
-  export let withSection = false;
 
   $: thumbnail = story.thumbnail;
 </script>
@@ -11,17 +10,8 @@
 <div class="story-card">
   <a href="{normalizeUrl(story.canonical_url)}">
     <div class="story-text" class:has-thumbnail="{thumbnail}">
-      {#if withSection}
-        <a href="{normalizeUrl(story.primary_section.id)}">
-          <span class="label">{story.primary_section.name}</span>
-        </a>
-      {/if}
       <span>{story.title}</span>
-      {#if !withSection}
-        <time datetime="{story.display_time}"
-          >{getTime(story.display_time)}</time
-        >
-      {/if}
+      <time datetime="{story.display_time}">{getTime(story.display_time)}</time>
     </div>
     {#if thumbnail}
       <div class="thumbnail">
