@@ -47,7 +47,7 @@
 <svelte:window bind:innerWidth="{windowWidth}" />
 
 <div
-  class="leaderboard__sticky {cls}"
+  class="freestar-adslot leaderboard__sticky {cls}"
   class:sticky
   class:unstick
   {id}
