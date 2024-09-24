@@ -54,6 +54,19 @@ export const loadBootstrap = () => {
       // @ts-ignore window global
       window.googletag.pubads().enableAsyncRendering();
       window.googletag.pubads().collapseEmptyDivs(true);
+
+      window.googletag
+        .pubads()
+        .addEventListener('slotRenderEnded', function (event) {
+          const adDiv = document.getElementById(event.slot.getSlotElementId());
+          if (!adDiv) return;
+          // If the ad slot is empty
+          if (event.isEmpty) {
+            adDiv.classList.add('unfulfilled-ad');
+          } else {
+            adDiv.classList.remove('unfulfilled-ad');
+          }
+        });
     });
 
     // Set page-level key-values
