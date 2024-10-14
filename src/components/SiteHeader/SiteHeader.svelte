@@ -49,13 +49,14 @@
     --theme-font-family-sans-serif: Knowledge, sans-serif;
   `}"
 >
+  <a href="#main-content" class="skip-link"> Skip to main content </a>
   <div class="nav-container show-nav">
     <div class="scroll-container">
       <div class="inner">
         <div class="main-bar">
           <div class="logo-container">
             <div class="logo">
-              <a href="https://www.reuters.com">
+              <a href="https://www.reuters.com" aria-label="Reuters home">
                 <ReutersLogo
                   logoColour="var(--nav-accent)"
                   textColour="var(--nav-primary)"
@@ -247,5 +248,21 @@
         border: 2px solid var(--nav-accent);
       }
     }
+  }
+
+  //Skip link styling. More about what a skip-link is and why we have it: https://www.w3schools.com/accessibility/accessibility_skip_links.php#:~:text=The%20HTML%20of%20a%20skip,to%20it%20with%20an%20anchor.
+  .skip-link {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .skip-link:focus {
+    position: static;
+    width: auto;
+    height: auto;
   }
 </style>
