@@ -42,7 +42,7 @@
   };
 </script>
 
-<main>
+<main id="main-content">
   <article {id} class:embedded {role} use:cssVariables="{columnWidthVars}">
     <!-- Article content -->
     <slot />
