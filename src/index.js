@@ -49,6 +49,7 @@ export { default as Theme, themes } from './components/Theme/Theme.svelte';
 export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.svelte';
 export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
+export { default as DianomiAd } from './components/Dianomi/DianomiAd.svelte';
 
 // Utilities
 export { getEndNotesPropsFromDoc } from './components/EndNotes/docProps.js';
