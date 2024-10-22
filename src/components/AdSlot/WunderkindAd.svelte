@@ -1,21 +1,22 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  let isLoggedIn = false;
-
   onMount(() => {
     // Check user login status
-    isLoggedIn = localStorage.getItem('ArcId.USER_PROFILE') !== 'null';
-  });
-</script>
-
-<svelte:head>
-  {#if !isLoggedIn}
-    <script data-cfasync="false" type="text/javascript">
-      freestar?.config?.enabled_slots?.push({
+    let isLoggedIn = localStorage.getItem('ArcId.USER_PROFILE') !== null;
+    if (!isLoggedIn) {
+      const script = document.createElement('script');
+      script.textContent = `p
+      freestar.config.enabled_slots.push({
         placementName: 'reuters_1x1_bouncex',
         slotId: 'reuters_1x1_bouncex',
       });
-    </script>
-  {/if}
-</svelte:head>
+    `;
+      script.setAttribute('data-cfasync', 'false');
+      script.type = 'text/javascript';
+      document.head.appendChild(script);
+    }
+  });
+</script>
+
+<div id="reuters_1x1_bouncex"></div>
