@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 1.1.5
+
+### Patch Changes
+
+- 2217848: Adds a skip link to the header component
+
 ## 1.1.4
 
 ### Patch Changes
