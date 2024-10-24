@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { Story, Meta } from '@storybook/addon-svelte-csf';
+  import { Template, Story, Meta } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore raw
   import adDocs from './stories/docs/wunderkind.md?raw';
 
+  import AdScripts from './AdScripts.svelte';
   import WunderkindAd from './WunderkindAd.svelte';
 
   import { withComponentDocs } from './../../docs/utils/withParams';
@@ -15,6 +16,11 @@
 
 <Meta title="Components/WunderkindAd" component="{WunderkindAd}" {...meta} />
 
-<Story name="Default">
-  <WunderkindAd />
-</Story>
+<Template>
+  <div>
+    <AdScripts />
+    <WunderkindAd />
+  </div>
+</Template>
+
+<Story name="Default" />
