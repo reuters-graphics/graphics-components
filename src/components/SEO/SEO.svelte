@@ -70,7 +70,7 @@
    */
   export let authors: GraphicAuthor[] = [];
 
-  const getOrigin = (baseUrl) => {
+  const getOrigin = (baseUrl: string) => {
     try {
       return new URL(baseUrl).origin;
     } catch {
@@ -82,7 +82,7 @@
   };
 
   $: origin = getOrigin(baseUrl);
-  $: canonicalUrl = (origin + pageUrl.pathname).replace(/index\.html\/$/, '');
+  $: canonicalUrl = (origin + pageUrl?.pathname).replace(/index\.html\/$/, '');
 
   const orgLdJson = {
     '@context': 'http://schema.org',
@@ -127,9 +127,9 @@
       name,
       url,
     })),
+    creator: authors.map(({ name }) => name),
     articleSection: 'Graphics',
     isAccessibleForFree: true,
-    creator: ['Reuters Graphics'],
     keywords: ['Reuters graphics', 'Reuters', 'graphics', 'Interactives'],
   };
 </script>

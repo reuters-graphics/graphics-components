@@ -1,11 +1,13 @@
 <script context="module">
   import { registerPageview as registerChartbeatPageview } from './providers/chartbeat';
   import { registerPageview as registerGAPageview } from './providers/ga';
+  import { registerPageview as registerParselyPageview } from './providers/parsely';
 
   /** Register virtual pageviews when using client-side routing in multipage applications. */
   export function registerPageview() {
     registerChartbeatPageview();
     registerGAPageview();
+    registerParselyPageview();
   }
 </script>
 
@@ -20,10 +22,11 @@
   export let authors: Author[] = [];
 
   import { onMount } from 'svelte';
-  import { ga, chartbeat } from './providers';
+  import { ga, chartbeat, parsely } from './providers';
 
   onMount(() => {
     ga();
     chartbeat(authors);
+    parsely();
   });
 </script>
