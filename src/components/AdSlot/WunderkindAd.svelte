@@ -6,7 +6,7 @@
     let isLoggedIn = localStorage.getItem('ArcId.USER_PROFILE') !== null;
     if (!isLoggedIn) {
       const script = document.createElement('script');
-      script.textContent = `p
+      script.textContent = `
       freestar.config.enabled_slots.push({
         placementName: 'reuters_1x1_bouncex',
         slotId: 'reuters_1x1_bouncex',
