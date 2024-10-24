@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 1.1.6
+
+### Patch Changes
+
+- d7d88e1: Adds parsely analytics
+
 ## 1.1.5
 
 ### Patch Changes
