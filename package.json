@@ -106,6 +106,7 @@
     "vite": "^5.4.2"
   },
   "dependencies": {
+    "@tr/rcom-bootstrap": "1.1.2",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@splidejs/svelte-splide": "^0.2.9",

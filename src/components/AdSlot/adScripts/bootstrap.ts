@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import '@tr/rcom-bootstrap/build/bootstrap.static.js';
 import getParameterByName from './getParameterByName';
 import Ias from './ias';
 
