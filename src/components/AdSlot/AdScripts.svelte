@@ -6,7 +6,7 @@
 
   onMount(() => {
     window.graphicsAdQueue = window.graphicsAdQueue || [];
-    loadBootstrap;
+    loadBootstrap();
     // Load Freestar script
     loadScript('https://a.pub.network/reuters-com/pubfig.min.js');
   });
