@@ -7,7 +7,7 @@
   onMount(() => {
     window.graphicsAdQueue = window.graphicsAdQueue || [];
     loadScript(
-      'https://graphics.thomsonreuters.com/cdn/js/bootstrap.static.js',
+      'https://www.reuters.com/static/js/bootstrap/v1.2/bootstrap.static.js',
       { onload: loadBootstrap, async: false }
     );
     // Load Freestar script
