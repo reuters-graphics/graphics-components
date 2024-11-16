@@ -2,9 +2,6 @@ import { svelte } from '@reuters-graphics/yaks-eslint';
 import reactPlugin from 'eslint-plugin-react';
 import * as mdx from 'eslint-plugin-mdx';
 
-/**
- * @type {import("eslint").Linter.Config[]}
- */
 export default [
   {
     files: ['src/**/*.{js,ts,svelte,jsx,tsx,mdx}', '.storybook/**/*'],
