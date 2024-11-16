@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 1.1.7
+
+### Patch Changes
+
+- 9dec472: Background change to action workflows...
+
 ## 1.1.6
 
 ### Patch Changes
