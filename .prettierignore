@@ -2,3 +2,4 @@ docs
 dist
 node_modules
 !src/docs/
+pnpm-lock.yaml
