@@ -5,42 +5,7 @@ on:
     branches:
       - main
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-permissions:
-  checks: write
-  contents: write
-
 jobs:
   lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - id: setup-node
-        name: Setup Node.JS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - id: install-deps
-        name: Install dependencies
-        run: npm ci
-
-      - id: lint
-        name: Lint code
-        run: npm run lint:check
-
-      - id: format
-        name: Format code
-        run: npm run format:check
-
-      - id: check-deps
-        name: Check for unused scripts and dependencies
-        run: npm run knip
+    uses: reuters-graphics/action-workflows/.github/workflows/lint.yaml@main
+    secrets: inherit
