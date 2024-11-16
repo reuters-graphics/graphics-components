@@ -1,0 +1,11 @@
+name: Manually publish docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docs:
+    uses: reuters-graphics/action-workflows/.github/workflows/docs.yaml@main
+    secrets: inherit
+    with:
+      node_version: '20'
