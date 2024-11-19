@@ -170,6 +170,7 @@
 
   div.heading {
     margin-top: 0;
+    font-family: Knowledge, sans-serif;
     &.stacked {
       max-width: 450px;
     }
@@ -209,14 +210,17 @@
         @include fpr-2;
         .kicker {
           @include text-xxs;
+          font-family: Knowledge, sans-serif;
         }
         .title {
           @include font-medium;
           @include text-sm;
           @include text-primary;
+          font-family: Knowledge, sans-serif;
         }
         .publish-time {
           @include text-xxs;
+          font-family: Knowledge, sans-serif;
         }
       }
       .image-container {
