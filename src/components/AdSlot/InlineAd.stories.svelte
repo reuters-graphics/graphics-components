@@ -5,7 +5,7 @@
   import { withComponentDocs } from './../../docs/utils/withParams';
 
   export const meta = {
-    title: 'Components/InlineAd',
+    title: 'Components/Ads & analytics/InlineAd',
     component: InlineAd,
     ...withComponentDocs(adDocs),
   };

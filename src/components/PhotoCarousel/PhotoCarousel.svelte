@@ -1,4 +1,4 @@
-<!-- @component `PhotoCarousel` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-PhotoCarousel--default) -->
+<!-- @component `PhotoCarousel` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-photocarousel--docs) -->
 <script lang="ts">
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 

@@ -1,4 +1,4 @@
-<!-- @component `EndNotes` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-EndNotes--default) -->
+<!-- @component `EndNotes` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-endnotes--docs) -->
 <script lang="ts">
   interface EndNote {
     /**

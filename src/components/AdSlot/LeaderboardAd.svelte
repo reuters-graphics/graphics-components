@@ -1,4 +1,4 @@
-<!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-LeaderboardAd--default) -->
+<!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-leaderboardad--docs) -->
 <script lang="ts">
   import type { LeaderboardAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';

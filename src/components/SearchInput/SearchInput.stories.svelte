@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/SearchInput',
+    title: 'Components/Controls/SearchInput',
     component: SearchInput,
     ...withComponentDocs(componentDocs),
   };

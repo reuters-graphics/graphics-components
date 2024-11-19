@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Spinner',
+    title: 'Components/Utilities/Spinner',
     component: Spinner,
     ...withComponentDocs(componentDocs),
     argTypes: {

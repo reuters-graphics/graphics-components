@@ -1,4 +1,4 @@
-<!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SponsorshipAd--default) -->
+<!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-sponsorshipad--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import type { SponsorshipAd } from './@types/ads';

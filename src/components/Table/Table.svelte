@@ -1,4 +1,4 @@
-<!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Table--default) -->
+<!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs) -->
 <script lang="ts">
   import { onMount } from 'svelte';
 

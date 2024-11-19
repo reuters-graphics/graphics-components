@@ -11,7 +11,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/DatawrapperChart',
+    title: 'Components/Graphics/DatawrapperChart',
     component: DatawrapperChart,
     ...withComponentDocs(componentDocs),
     argTypes: {

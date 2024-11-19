@@ -1,4 +1,4 @@
-<!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Headline--default) -->
+<!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-headline--docs) -->
 <script lang="ts">
   import type { HeadlineSize } from './../@types/global';
 

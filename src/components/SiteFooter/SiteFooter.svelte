@@ -1,4 +1,4 @@
-<!-- @component `SiteFooter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SiteFooter--default) -->
+<!-- @component `SiteFooter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-sitefooter--docs) -->
 <script lang="ts">
   import QuickLinks from './QuickLinks.svelte';
   import CompanyLinks from './CompanyLinks.svelte';

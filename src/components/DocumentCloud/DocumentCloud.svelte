@@ -1,4 +1,4 @@
-<!-- @component `DocumentCloud` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-DocumentCloud--default) -->
+<!-- @component `DocumentCloud` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-documentcloud--docs) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
   /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */

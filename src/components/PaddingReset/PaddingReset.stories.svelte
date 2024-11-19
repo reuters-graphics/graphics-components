@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/PaddingReset',
+    title: 'Components/Page layout/PaddingReset',
     component: PaddingReset,
     ...withComponentDocs(componentDocs),
   };

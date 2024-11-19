@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/SimpleTimeline',
+    title: 'Components/Text elements/SimpleTimeline',
     component: SimpleTimeline,
     ...withComponentDocs(componentDocs),
     argTypes: {

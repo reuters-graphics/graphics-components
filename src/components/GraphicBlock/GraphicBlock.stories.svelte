@@ -15,7 +15,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/GraphicBlock',
+    title: 'Components/Graphics/GraphicBlock',
     component: GraphicBlock,
     ...withComponentDocs(componentDocs),
     argTypes: {

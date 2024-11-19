@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/ToolsHeader',
+    title: 'Components/Page furniture/ToolsHeader',
     component: ToolsHeader,
     ...withComponentDocs(componentDocs),
   };

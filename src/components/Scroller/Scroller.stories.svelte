@@ -16,7 +16,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Scroller',
+    title: 'Components/Graphics/Scroller',
     component: Scroller,
     ...withComponentDocs(componentDocs),
     argTypes: {

@@ -1,4 +1,4 @@
-<!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Visible--default) -->
+<!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-visible--docs) -->
 <script lang="ts">
   import { onMount } from 'svelte';
   /**

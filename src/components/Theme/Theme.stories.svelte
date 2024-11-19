@@ -18,7 +18,7 @@
   } from '../../docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Theme',
+    title: 'Components/Theming/Theme',
     component: Theme,
     ...withComponentDocs(componentDocs),
     argTypes: {

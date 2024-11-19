@@ -12,7 +12,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/SiteHeader',
+    title: 'Components/Page furniture/SiteHeader',
     component: SiteHeader,
     ...withComponentDocs(componentDocs),
     argsTypes: {

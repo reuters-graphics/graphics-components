@@ -5,7 +5,7 @@
   import componentDocs from './stories/docs/component.md?raw';
 
   export const meta = {
-    title: 'Components/SiteHeadline',
+    title: 'Components/Text elements/SiteHeadline',
     component: SiteHeadline,
     ...withComponentDocs(componentDocs),
     argTypes: {

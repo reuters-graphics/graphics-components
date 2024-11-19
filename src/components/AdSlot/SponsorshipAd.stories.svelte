@@ -5,7 +5,7 @@
   import { withComponentDocs } from './../../docs/utils/withParams';
 
   export const meta = {
-    title: 'Components/SponsorshipAd',
+    title: 'Components/Ads & analytics/SponsorshipAd',
     component: SponsorshipAd,
     ...withComponentDocs(adDocs),
   };

@@ -1,4 +1,4 @@
-<!-- @component `PhotoPack` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-PhotoPack--default) -->
+<!-- @component `PhotoPack` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-photopack--docs) -->
 <script lang="ts">
   interface Image {
     src: string;

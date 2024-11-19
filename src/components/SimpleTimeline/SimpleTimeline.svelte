@@ -1,4 +1,4 @@
-<!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SimpleTimeline--default) -->
+<!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs) -->
 <script lang="ts">
   interface Event {
     title: string;

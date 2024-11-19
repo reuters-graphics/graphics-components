@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/PymChild',
+    title: 'Components/Utilities/PymChild',
     component: PymChild,
     ...withComponentDocs(componentDocs),
   };

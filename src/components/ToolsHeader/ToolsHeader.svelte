@@ -1,4 +1,4 @@
-<!-- @component `ToolsHeader` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ToolsHeader--default) -->
+<!-- @component `ToolsHeader` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-toolsheader--docs) -->
 <script lang="ts">
   /** Add an ID to target with SCSS. */
   export let id: string = '';

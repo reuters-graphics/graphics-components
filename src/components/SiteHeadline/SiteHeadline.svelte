@@ -1,3 +1,4 @@
+<!-- @component `SiteHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-siteheadline--docs) -->
 <script lang="ts">
   /**
    * Used to set headline class fluid size from text-2xl to text-4xl

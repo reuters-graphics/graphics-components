@@ -20,7 +20,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Headline',
+    title: 'Components/Text elements/Headline',
     component: Headline,
     ...withComponentDocs(componentDocs),
     argTypes: {

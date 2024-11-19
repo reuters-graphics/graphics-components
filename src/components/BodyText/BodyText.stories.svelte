@@ -6,7 +6,7 @@
   import { withComponentDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/BodyText',
+    title: 'Components/Text elements/BodyText',
     component: BodyText,
     ...withComponentDocs(componentDocs),
   };

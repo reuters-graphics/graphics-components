@@ -11,7 +11,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/PhotoPack',
+    title: 'Components/Multimedia/PhotoPack',
     component: PhotoPack,
     ...withComponentDocs(componentDocs),
     argTypes: {

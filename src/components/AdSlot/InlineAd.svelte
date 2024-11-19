@@ -1,4 +1,4 @@
-<!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InlineAd--default) -->
+<!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-inlinead--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import type { InlineAd } from './@types/ads';

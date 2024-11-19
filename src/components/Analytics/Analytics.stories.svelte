@@ -10,7 +10,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Analytics',
+    title: 'Components/Ads & analytics/Analytics',
     component: Analytics,
     ...withComponentDocs(componentDocs),
   };

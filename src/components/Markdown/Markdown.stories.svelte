@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Markdown',
+    title: 'Components/Text elements/Markdown',
     component: Markdown,
     ...withComponentDocs(componentDocs),
   };

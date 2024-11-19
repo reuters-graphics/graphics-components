@@ -1,4 +1,4 @@
-<!-- @component `Article` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/layout-article--default) -->
+<!-- @component `Article` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-article--docs) -->
 <script lang="ts">
   /** Set to true for embeddables. */
   export let embedded: boolean = false;
