@@ -3,22 +3,11 @@
   import QuickLinks from './QuickLinks.svelte';
   import CompanyLinks from './CompanyLinks.svelte';
   import LegalLinks from './LegalLinks.svelte';
-  import Referrals from './Referrals/index.svelte';
+  import ReferralBlock from '../ReferralBlock/ReferralBlock.svelte';
+  import PaddingReset from '../PaddingReset/PaddingReset.svelte';
 
   import starterData from './data.json';
   import { onMount } from 'svelte';
-
-  interface Referral {
-    url: URL;
-    image: URL;
-    title: string;
-    description?: string;
-  }
-
-  /**
-   * Custom referrals to other Reuters Graphics projects
-   */
-  export let referrals: Referral[] = [];
 
   /**
    * Set to `false` to remove graphics referrals
@@ -60,7 +49,13 @@
 >
   <div>
     {#if includeReferrals}
-      <Referrals {referrals} />
+      <PaddingReset>
+        <ReferralBlock
+          heading="More from Reuters Graphics"
+          collection="graphics"
+          class="fpy-4"
+        />
+      </PaddingReset>
     {/if}
     <QuickLinks links="{data[0]}" />
     <CompanyLinks links="{data[0]}" />
