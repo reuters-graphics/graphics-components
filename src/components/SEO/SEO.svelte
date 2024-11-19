@@ -1,4 +1,4 @@
-<!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SEO--default) -->
+<!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytic-seo--docs) -->
 <script lang="ts">
   /**
    * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)

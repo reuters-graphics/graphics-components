@@ -1,4 +1,4 @@
-<!-- @component `ReutersGraphicsLogo` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ReutersGraphicsLogo--default) -->
+<!-- @component `ReutersGraphicsLogo` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-reutersgraphicslogo--docs) -->
 <script lang="ts">
   /** "Kinesis" colour */
   export let logoColour: string = '#FA6400';

@@ -1,4 +1,4 @@
-<!-- @component `SearchInput` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-SearchInput--default) -->
+<!-- @component `SearchInput` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-controls-searchinput--docs) -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import MagnifyingGlass from './MagnifyingGlass.svelte';

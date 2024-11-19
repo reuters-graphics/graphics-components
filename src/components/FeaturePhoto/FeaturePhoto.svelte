@@ -1,4 +1,4 @@
-<!-- @component `FeaturePhoto` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-FeaturePhoto--default) -->
+<!-- @component `FeaturePhoto` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-featurephoto--docs) -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import Block from '../Block/Block.svelte';

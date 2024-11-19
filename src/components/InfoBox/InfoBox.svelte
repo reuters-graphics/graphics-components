@@ -1,4 +1,4 @@
-<!-- @component `EndNotes` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-InfoBox--default) -->
+<!-- @component `InfoBox` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-infobox--docs) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
 

@@ -1,3 +1,4 @@
+<!-- @component `Byline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-byline--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import slugify from 'slugify';

@@ -1,4 +1,4 @@
-<!-- @component `ReferralBlock` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ReferralBlock--default) -->
+<!-- @component `ReferralBlock` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-referralblock--docs) -->
 <script lang="ts">
   /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
 

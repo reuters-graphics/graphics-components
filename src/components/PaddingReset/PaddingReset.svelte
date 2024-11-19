@@ -1,3 +1,4 @@
+<!-- @component `PaddingReset` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-paddingreset--docs) -->
 <script>
   /**
    * If parent container is fluid, which resets the padding around contained elements.

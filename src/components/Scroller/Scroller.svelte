@@ -1,4 +1,4 @@
-<!-- @component `Scroller` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Scroller--default) -->
+<!-- @component `Scroller` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-scroller--docs) -->
 <script lang="ts">
   import type { ContainerWidth, ScrollerStep } from '../@types/global';
 

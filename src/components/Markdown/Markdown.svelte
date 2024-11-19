@@ -1,4 +1,4 @@
-<!-- @component `Markdown` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Markdown--default) -->
+<!-- @component `Markdown` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-markdown--docs) -->
 <script lang="ts">
   import type { Action } from 'svelte/action';
   import { marked } from 'marked';

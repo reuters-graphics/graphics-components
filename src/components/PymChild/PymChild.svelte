@@ -1,4 +1,4 @@
-<!-- @component `PymChild` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/utilities-PymChild--default) -->
+<!-- @component `PymChild` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-pymchild--docs) -->
 <script lang="ts">
   /** Pym.js polling interval */
   export let polling: number = 500;

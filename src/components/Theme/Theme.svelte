@@ -1,4 +1,4 @@
-<!-- @component `Theme` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/theming-Theme--default) -->
+<!-- @component `Theme` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-theming-theme--docs) -->
 <script context="module" lang="ts">
   import light from './themes/light.js';
   import dark from './themes/dark.js';

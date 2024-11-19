@@ -11,7 +11,7 @@
   }
 </script>
 
-<!-- @component `Analytics` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Analytics--default) -->
+<!-- @component `Analytics` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-analytics--docs) -->
 <script lang="ts">
   interface Author {
     name: string;

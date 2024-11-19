@@ -1,4 +1,4 @@
-<!-- @component `Video` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-Video--default) -->
+<!-- @component `Video` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-video--docs) -->
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import Controls from './Controls.svelte';

@@ -1,4 +1,4 @@
-<!-- @component `BodyText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-bodytext--default) -->
+<!-- @component `BodyText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-bodytext--docs) -->
 <script lang="ts">
   import Markdown from '../Markdown/Markdown.svelte';
   /**
