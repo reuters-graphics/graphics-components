@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -14,10 +12,6 @@
   // @ts-ignore raw
   import withCrownGraphicDocs from './stories/docs/withCrownGraphic.md?raw';
 
-  // @ts-ignore img
-  import crownImgSrc from './stories/crown.png';
-  import Map from './stories/graphic.svelte';
-
   import Headline from './Headline.svelte';
 
   import {
@@ -25,9 +19,10 @@
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Headline',
+    component: Headline,
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       hedSize: {
         control: 'select',
@@ -41,7 +36,13 @@
   };
 </script>
 
-<Meta title="Components/Headline" component="{Headline}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore img
+  import crownImgSrc from './stories/crown.png';
+  import Map from './stories/graphic.svelte';
+</script>
 
 <Template let:args>
   <Headline {...args} />

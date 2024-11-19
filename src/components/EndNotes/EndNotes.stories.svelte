@@ -1,12 +1,20 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import EndNotes from './EndNotes.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
-  import EndNotes from './EndNotes.svelte';
-  import { getEndNotesPropsFromDoc } from './docProps';
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/EndNotes',
+    component: EndNotes,
+    ...withComponentDocs(componentDocs),
+  };
+</script>
+
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import { getEndNotesPropsFromDoc } from './docProps';
 
   const notes = [
     {
@@ -23,12 +31,6 @@
     },
   ];
 </script>
-
-<Meta
-  title="Components/EndNotes"
-  component="{EndNotes}"
-  {...withComponentDocs(componentDocs)}
-/>
 
 <Template let:args>
   <EndNotes {...args} />

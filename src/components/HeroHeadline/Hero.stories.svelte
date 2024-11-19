@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -16,29 +14,17 @@
   // @ts-ignore raw
   import customHedDocs from './stories/docs/customHed.md?raw';
 
-  // @ts-ignore img
-  import polarImgSrc from './stories/polar.jpg';
-  // @ts-ignore img
-  import eurovisImgSrc from './stories/eurovis.jpeg';
-
-  import Block from '../Block/Block.svelte';
-  import SiteHeader from '../SiteHeader/SiteHeader.svelte';
   import HeroHeadline from './Hero.svelte';
-  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
-  import FeaturePhoto from '../FeaturePhoto/FeaturePhoto.svelte';
-  import Video from '../Video/Video.svelte';
-
-  import CrashMap from './stories/graphics/crash.svelte';
-  import QuakeMap from './stories/graphics/quakemap.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/HeroHeadline',
+    component: HeroHeadline,
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       hedSize: {
         control: 'select',
@@ -60,11 +46,23 @@
   };
 </script>
 
-<Meta
-  title="Components/HeroHeadline"
-  component="{HeroHeadline}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore img
+  import polarImgSrc from './stories/polar.jpg';
+  // @ts-ignore img
+  import eurovisImgSrc from './stories/eurovis.jpeg';
+
+  import Block from '../Block/Block.svelte';
+  import SiteHeader from '../SiteHeader/SiteHeader.svelte';
+  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+  import FeaturePhoto from '../FeaturePhoto/FeaturePhoto.svelte';
+  import Video from '../Video/Video.svelte';
+
+  import CrashMap from './stories/graphics/crash.svelte';
+  import QuakeMap from './stories/graphics/quakemap.svelte';
+</script>
 
 <Template let:args>
   <Block width="fluid" class="chromatic-ignore">

@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -26,11 +24,9 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  import pressFreedom from './stories/pressFreedom.json';
-  import homeRuns from './stories/homeRuns.json';
-  import richestWomen from './stories/richestWomen.json';
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Table',
+    component: Table,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -41,7 +37,13 @@
   };
 </script>
 
-<Meta title="Components/Table" component="{Table}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import pressFreedom from './stories/pressFreedom.json';
+  import homeRuns from './stories/homeRuns.json';
+  import richestWomen from './stories/richestWomen.json';
+</script>
 
 <Template let:args>
   <Table {...args} />
@@ -165,5 +167,4 @@
     title: 'The Richest Women in the World',
     source: 'Source: Forbes',
   }}"
-  ,
 />

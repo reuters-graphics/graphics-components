@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -9,19 +7,24 @@
   import removeReferralsDocs from './stories/docs/removeReferrals.md?raw';
 
   import SiteFooter from './SiteFooter.svelte';
-  import Theme from '../Theme/Theme.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/SiteFooter',
+    component: SiteFooter,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/SiteFooter"
-  component="{SiteFooter}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import Theme from '../Theme/Theme.svelte';
+</script>
 
 <Template let:args>
   <div>

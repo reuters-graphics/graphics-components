@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -10,7 +8,9 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/ReferralBlock',
+    component: ReferralBlock,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -37,11 +37,9 @@
   };
 </script>
 
-<Meta
-  title="Components/ReferralBlock"
-  component="{ReferralBlock}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <ReferralBlock {...args} />

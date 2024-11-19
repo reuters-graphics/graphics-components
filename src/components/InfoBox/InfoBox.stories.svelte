@@ -1,14 +1,14 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import InfoBox from './InfoBox.svelte';
-  import BodyText from '../BodyText/BodyText.svelte';
+
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/InfoBox',
+    component: InfoBox,
     ...withComponentDocs(componentDocs),
     argTypes: {
       theme: {
@@ -23,7 +23,11 @@
   };
 </script>
 
-<Meta title="Components/InfoBox" component="{InfoBox}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import BodyText from '../BodyText/BodyText.svelte';
+</script>
 
 <Template let:args>
   <InfoBox {...args} />

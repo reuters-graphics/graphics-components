@@ -1,6 +1,5 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import Analytics from './Analytics.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -8,16 +7,18 @@
   // @ts-ignore raw
   import multipageDocs from './stories/docs/multipage.md?raw';
 
-  import Analytics from './Analytics.svelte';
-
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/Analytics',
+    component: Analytics,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/Analytics"
-  component="{Analytics}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <Analytics {...args} />

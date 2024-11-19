@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -10,24 +8,28 @@
   // @ts-ignore raw
   // import withSoundDocs from './stories/docs/withSound.md?raw';
 
-  // @ts-ignore raw
-  import SilentVideo from './stories/videos/silent-video.mp4';
-  // @ts-ignore raw
-  import SoundVideo from './stories/videos/sound-video.mp4';
-
   import Video from './Video.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/Video',
+    component: Video,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/Video"
-  component="{Video}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore raw
+  import SilentVideo from './stories/videos/silent-video.mp4';
+  // @ts-ignore raw
+  import SoundVideo from './stories/videos/sound-video.mp4';
+</script>
 
 <Template let:args>
   <Video {...args} />

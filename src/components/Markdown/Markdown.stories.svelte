@@ -1,21 +1,23 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import Markdown from './Markdown.svelte';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
-  import Block from '../Block/Block.svelte';
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Markdown',
+    component: Markdown,
     ...withComponentDocs(componentDocs),
   };
 </script>
 
-<Meta title="Components/Markdown" component="{Markdown}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import Block from '../Block/Block.svelte';
+</script>
 
 <Template let:args>
   <Block>

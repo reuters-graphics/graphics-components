@@ -1,19 +1,20 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import BodyText from './BodyText.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
-  import BodyText from './BodyText.svelte';
+  import { withComponentDocs } from '$docs/utils/withParams.js';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+  export const meta = {
+    title: 'Components/BodyText',
+    component: BodyText,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/BodyText"
-  component="{BodyText}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <BodyText {...args} />

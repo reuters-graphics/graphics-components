@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -10,11 +8,9 @@
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  import photosJson from './stories/photos.json';
-
-  const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/PhotoCarousel',
+    component: PhotoCarousel,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -25,11 +21,13 @@
   };
 </script>
 
-<Meta
-  title="Components/PhotoCarousel"
-  component="{PhotoCarousel}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import photosJson from './stories/photos.json';
+
+  const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
+</script>
 
 <Template let:args>
   <PhotoCarousel {...args} />

@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
@@ -8,7 +6,9 @@
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Spinner',
+    component: Spinner,
     ...withComponentDocs(componentDocs),
     argTypes: {
       colour: { control: 'color' },
@@ -22,7 +22,9 @@
   };
 </script>
 
-<Meta title="Components/Spinner" component="{Spinner}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <Spinner {...args} />
