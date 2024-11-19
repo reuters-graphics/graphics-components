@@ -14,7 +14,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/SiteFooter',
+    title: 'Components/Page furniture/SiteFooter',
     component: SiteFooter,
     ...withComponentDocs(componentDocs),
   };

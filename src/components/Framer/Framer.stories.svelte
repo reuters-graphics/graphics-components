@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Framer',
+    title: 'Components/Utilities/Framer',
     component: Framer,
     ...withComponentDocs(componentDocs),
   };

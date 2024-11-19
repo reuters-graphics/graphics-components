@@ -8,7 +8,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Article',
+    title: 'Components/Page Layout/Article',
     component: Article,
     ...withComponentDocs(componentDocs),
   };

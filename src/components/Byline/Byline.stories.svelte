@@ -6,7 +6,7 @@
   import { withComponentDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Byline',
+    title: 'Components/Text elements/Byline',
     component: Byline,
     ...withComponentDocs(componentDocs),
     argTypes: {

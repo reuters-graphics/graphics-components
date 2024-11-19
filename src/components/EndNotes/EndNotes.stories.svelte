@@ -6,7 +6,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/EndNotes',
+    title: 'Components/Text elements/EndNotes',
     component: EndNotes,
     ...withComponentDocs(componentDocs),
   };

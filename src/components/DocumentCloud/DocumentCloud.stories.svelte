@@ -6,7 +6,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/DocumentCloud',
+    title: 'Components/Multimedia/DocumentCloud',
     component: DocumentCloud,
     ...withComponentDocs(componentDocs),
     argTypes: {

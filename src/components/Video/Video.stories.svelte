@@ -16,7 +16,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Video',
+    title: 'Components/Multimedia/Video',
     component: Video,
     ...withComponentDocs(componentDocs),
   };

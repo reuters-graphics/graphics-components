@@ -9,7 +9,7 @@
   import { withSource, withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Visible',
+    title: 'Components/Utilities/Visible',
     component: Visible,
     ...withComponentDocs(componentDocs),
   };

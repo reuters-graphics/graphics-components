@@ -9,7 +9,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/PhotoCarousel',
+    title: 'Components/Multimedia/PhotoCarousel',
     component: PhotoCarousel,
     ...withComponentDocs(componentDocs),
     argTypes: {

@@ -6,7 +6,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/EmbedPreviewerLink',
+    title: 'Components/Utilities/EmbedPreviewerLink',
     component: EmbedPreviewerLink,
     ...withComponentDocs(componentDocs),
   };

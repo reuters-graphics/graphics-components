@@ -7,7 +7,7 @@
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/ReutersGraphicsLogo',
+    title: 'Components/Logos/ReutersGraphicsLogo',
     component: ReutersGraphicsLogo,
     ...withComponentDocs(componentDocs),
   };

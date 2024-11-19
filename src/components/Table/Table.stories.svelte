@@ -25,7 +25,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/Table',
+    title: 'Components/Text elements/Table',
     component: Table,
     ...withComponentDocs(componentDocs),
     argTypes: {
@@ -37,12 +37,14 @@
   };
 </script>
 
-<script>
+<script lang="ts">
   import { Template, Story } from '@storybook/addon-svelte-csf';
 
   import pressFreedom from './stories/pressFreedom.json';
   import homeRuns from './stories/homeRuns.json';
   import richestWomen from './stories/richestWomen.json';
+
+  const currencyFormat = (v: number) => '$' + v.toFixed(1);
 </script>
 
 <Template let:args>
@@ -154,7 +156,7 @@
     sortable: true,
     sortField: 'Net worth (in billions)',
     sortDirection: 'descending',
-    fieldFormatters: { 'Net worth (in billions)': (v) => '$' + v.toFixed(1) },
+    fieldFormatters: { 'Net worth (in billions)': currencyFormat },
   }}"
 />
 

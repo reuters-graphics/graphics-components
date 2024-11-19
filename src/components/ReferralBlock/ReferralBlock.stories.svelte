@@ -9,7 +9,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/ReferralBlock',
+    title: 'Components/Page furniture/ReferralBlock',
     component: ReferralBlock,
     ...withComponentDocs(componentDocs),
     argTypes: {

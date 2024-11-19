@@ -14,7 +14,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/FeaturePhoto',
+    title: 'Components/Multimedia/FeaturePhoto',
     component: FeaturePhoto,
     ...withComponentDocs(componentDocs),
     argTypes: {

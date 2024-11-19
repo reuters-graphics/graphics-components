@@ -27,6 +27,7 @@ export const parameters = {
   options: {
     // https://storybook.js.org/docs/svelte/writing-stories/naming-components-and-hierarchy#sorting-stories
     storySort: {
+      method: 'alphabetical-by-kind',
       includeNames: true,
       order: [
         'Intro',

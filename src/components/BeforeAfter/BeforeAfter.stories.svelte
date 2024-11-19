@@ -10,7 +10,7 @@
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/BeforeAfter',
+    title: 'Components/Graphics/BeforeAfter',
     component: BeforeAfter,
     ...withComponentDocs(componentDocs),
     argTypes: {

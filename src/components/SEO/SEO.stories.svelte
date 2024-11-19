@@ -12,7 +12,7 @@
   } from '$lib/docs/utils/withParams.js';
 
   export const meta = {
-    title: 'Components/SEO',
+    title: 'Components/Ads & analytics/SEO',
     component: SEO,
     ...withComponentDocs(componentDocs),
   };
