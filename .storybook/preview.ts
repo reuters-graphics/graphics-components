@@ -7,77 +7,83 @@ import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import svelte from './svelte-highlighting.js';
 
+import type { Preview } from '@storybook/svelte';
+
 SyntaxHighlighter.registerLanguage('scss', scss);
 SyntaxHighlighter.registerLanguage('svelte', svelte);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  viewMode: 'docs',
-  previewTabs: { 'storybook/docs/panel': { index: -1 } },
-  controls: {
-    expanded: true,
-    sort: 'requiredFirst',
-    matchers: {
-      color: /(background|colour|Colour)$/i,
-      date: /Date$/,
+const preview: Preview = {
+  // @ts-ignore Is OK
+  decorators: [() => Wrapper],
+  tags: ['autodocs'],
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    viewMode: 'docs',
+    previewTabs: { 'storybook/docs/panel': { index: -1 } },
+    controls: {
+      expanded: true,
+      sort: 'requiredFirst',
+      matchers: {
+        color: /(background|colour|Colour)$/i,
+        date: /Date$/,
+      },
     },
-  },
-  layout: 'fullscreen',
-  options: {
-    // https://storybook.js.org/docs/svelte/writing-stories/naming-components-and-hierarchy#sorting-stories
-    storySort: {
-      method: 'alphabetical-by-kind',
-      includeNames: true,
-      order: [
-        'Intro',
-        'Guides',
-        [
-          'Using these docs',
-          'Using with the Graphics Kit',
-          'Using with Google docs',
-          'Customising components with SCSS',
-          '*',
-          'Getting help',
-        ],
-        'Layout',
-        ['Intro', '*'],
-        'Theming',
-        ['Theme', 'CSS variables', '*'],
-        'Components',
-        ['Intro', '*'],
-        '*',
-        'Utilities',
-        ['Intro', '*'],
-        'SCSS',
-        ['Intro', '*'],
-        'Styles',
-        [
+    layout: 'fullscreen',
+    options: {
+      // https://storybook.js.org/docs/svelte/writing-stories/naming-components-and-hierarchy#sorting-stories
+      storySort: {
+        method: 'alphabetical-by-kind',
+        includeNames: true,
+        order: [
           'Intro',
-          'Colours',
-          ['Intro', 'Primary', 'Thematic', '*'],
-          'Tokens',
-          ['Intro', 'Typography', '*'],
-        ],
-        'Actions',
-        ['Intro', '*'],
-        'Contributing',
-        [
-          'Quickstart',
-          'Component Basics',
+          'Guides',
+          [
+            'Using these docs',
+            'Using with the Graphics Kit',
+            'Using with Google docs',
+            'Customising components with SCSS',
+            '*',
+            'Getting help',
+          ],
+          'Layout',
+          ['Intro', '*'],
+          'Theming',
+          ['Theme', 'CSS variables', '*'],
+          'Components',
+          ['Intro', '*'],
           '*',
-          'Writing Stories',
-          'Recipes: Basic story',
-          'Recipes: Story with custom docs',
-          'Recipes: Story with custom controls',
-          'Recipes: Story with media',
-          'Recipes: Story for a component with slots',
-          'Writing docs pages',
+          'Utilities',
+          ['Intro', '*'],
+          'SCSS',
+          ['Intro', '*'],
+          'Styles',
+          [
+            'Intro',
+            'Colours',
+            ['Intro', 'Primary', 'Thematic', '*'],
+            'Tokens',
+            ['Intro', 'Typography', '*'],
+          ],
+          'Actions',
+          ['Intro', '*'],
+          'Contributing',
+          [
+            'Quickstart',
+            'Component Basics',
+            '*',
+            'Writing Stories',
+            'Recipes: Basic story',
+            'Recipes: Story with custom docs',
+            'Recipes: Story with custom controls',
+            'Recipes: Story with media',
+            'Recipes: Story for a component with slots',
+            'Writing docs pages',
+          ],
         ],
-      ],
+      },
     },
   },
 };
 
-export const decorators = [() => Wrapper];
-export const tags = ['autodocs'];
+export default preview;
