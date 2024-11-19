@@ -27,8 +27,7 @@
    */
   export let logoProps: {
     logoColour?: string;
-    primaryTextColor?: string;
-    secondaryTextColor?: string;
+    textColor?: string;
   } = { logoColour: '#404040' };
 
   /**

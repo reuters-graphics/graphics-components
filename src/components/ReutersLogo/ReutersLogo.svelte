@@ -1,9 +1,9 @@
 <!-- @component `ReutersLogo` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-reuterslogo--docs) -->
 <script lang="ts">
   /** "Kinesis" colour */
-  export let logoColour: string = '#FA6400';
+  export let logoColour: string = '#D64000';
   /** Text colour */
-  export let textColour: string = '#404040';
+  export let textColour: string = '#212223';
   /** CSS width value */
   export let width: string = '100%';
 </script>

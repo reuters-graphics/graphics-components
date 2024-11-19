@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
+  staticDirs: ['../public'],
   addons: [
     '@storybook/addon-svelte-csf',
     '@storybook/addon-links',
