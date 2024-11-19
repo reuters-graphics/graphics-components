@@ -48,7 +48,6 @@
   import Block from '../Block/Block.svelte';
 
   import { onMount } from 'svelte';
-  import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
 
   let clientWidth: number;
 
@@ -57,7 +56,7 @@
 
   let referrals = [];
 
-  onMount(async () => {
+  const getReferrals = async () => {
     const isCollection = Boolean(collection);
     const API = isCollection ? COLLECTION_API : SECTION_API;
     try {
@@ -82,74 +81,79 @@
     } catch {
       console.warn('Unable to fetch referral links.');
     }
-  });
+  };
 
-  getTime();
+  onMount(getReferrals);
 </script>
 
 {#if referrals.length === number}
   <Block {width} {id} class="referrals-block {cls}">
-    {#if heading}
-      <div
-        class="heading h4 font-bold"
-        class:stacked="{clientWidth && clientWidth < 750}"
-      >
-        {heading}
-      </div>
-    {/if}
     <div
-      class="referral-container inline-flex flex-wrap w-full justify-between"
+      class="block-container"
       class:stacked="{clientWidth && clientWidth < 750}"
-      class:xs="{clientWidth && clientWidth < 450}"
       bind:clientWidth
     >
-      {#each referrals as referral}
-        <div class="referral">
-          <a
-            href="https://www.reuters.com{referral.canonical_url}"
-            target="{linkTarget}"
-            rel="{linkTarget === '_blank' ? 'noreferrer' : null}"
-          >
-            <div class="referral-pack flex justify-around my-0 mx-auto">
-              <div
-                class="headline"
-                class:xs="{clientWidth && clientWidth < 450}"
-              >
-                <div
-                  class="kicker m-0 body-caption leading-tighter"
-                  data-chromatic="ignore"
-                >
-                  {referral.headline_category || referral.kicker.name}
-                </div>
-                <div
-                  class="title m-0 body-caption leading-tighter"
-                  data-chromatic="ignore"
-                >
-                  {referral.title}
-                </div>
-                <div
-                  class="publish-time body-caption leading-tighter"
-                  data-chromatic="ignore"
-                >
-                  {getTime(new Date(referral.display_time))}
-                </div>
-              </div>
-              <div
-                class="image-container block m-0 overflow-hidden relative"
-                class:xs="{clientWidth && clientWidth < 450}"
-              >
-                <img
-                  class="block object-cover m-0 w-full"
-                  data-chromatic="ignore"
-                  src="{referral.thumbnail.renditions.landscape['240w']}"
-                  alt="{referral.thumbnail.caption ||
-                    referral.thumbnail.alt_text}"
-                />
-              </div>
-            </div>
-          </a>
+      {#if heading}
+        <div
+          class="heading h4 font-bold"
+          class:stacked="{clientWidth && clientWidth < 750}"
+        >
+          {heading}
         </div>
-      {/each}
+      {/if}
+      <div
+        class="referral-container inline-flex flex-wrap w-full justify-between"
+        class:stacked="{clientWidth && clientWidth < 750}"
+        class:xs="{clientWidth && clientWidth < 450}"
+      >
+        {#each referrals as referral}
+          <div class="referral">
+            <a
+              href="https://www.reuters.com{referral.canonical_url}"
+              target="{linkTarget}"
+              rel="{linkTarget === '_blank' ? 'noreferrer' : null}"
+            >
+              <div class="referral-pack flex justify-around my-0 mx-auto">
+                <div
+                  class="headline"
+                  class:xs="{clientWidth && clientWidth < 450}"
+                >
+                  <div
+                    class="kicker m-0 body-caption leading-tighter"
+                    data-chromatic="ignore"
+                  >
+                    {referral.headline_category || referral.kicker.name}
+                  </div>
+                  <div
+                    class="title m-0 body-caption leading-tighter"
+                    data-chromatic="ignore"
+                  >
+                    {referral.title}
+                  </div>
+                  <div
+                    class="publish-time body-caption leading-tighter"
+                    data-chromatic="ignore"
+                  >
+                    {getTime(new Date(referral.display_time))}
+                  </div>
+                </div>
+                <div
+                  class="image-container block m-0 overflow-hidden relative"
+                  class:xs="{clientWidth && clientWidth < 450}"
+                >
+                  <img
+                    class="block object-cover m-0 w-full"
+                    data-chromatic="ignore"
+                    src="{referral.thumbnail.renditions.landscape['240w']}"
+                    alt="{referral.thumbnail.caption ||
+                      referral.thumbnail.alt_text}"
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        {/each}
+      </div>
     </div>
   </Block>
 {/if}
@@ -157,7 +161,14 @@
 <style lang="scss">
   @use '../../scss/mixins' as *;
 
+  div.block-container.stacked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   div.heading {
+    margin-top: 0;
     &.stacked {
       max-width: 450px;
     }
@@ -168,6 +179,7 @@
       text-decoration: none;
     }
     &.stacked {
+      max-width: 450px;
       .referral {
         width: 100%;
         .headline {
@@ -194,8 +206,6 @@
         display: inline-block;
         width: calc(100% - 9rem);
         @include fpr-2;
-        &.xs {
-        }
         .kicker {
           @include text-xxs;
         }
