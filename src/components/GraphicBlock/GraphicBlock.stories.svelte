@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -14,14 +12,11 @@
 
   import GraphicBlock from './GraphicBlock.svelte';
 
-  import AiMap from './stories/ai2svelte/ai-chart.svelte';
-
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  // @ts-ignore img
-  import PlaceholderImg from './stories/placeholder.png';
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/GraphicBlock',
+    component: GraphicBlock,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -36,11 +31,14 @@
   };
 </script>
 
-<Meta
-  title="Components/GraphicBlock"
-  component="{GraphicBlock}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import AiMap from './stories/ai2svelte/ai-chart.svelte';
+
+  // @ts-ignore img
+  import PlaceholderImg from './stories/placeholder.png';
+</script>
 
 <Template let:args>
   <GraphicBlock {...args}>

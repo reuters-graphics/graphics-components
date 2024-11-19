@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -12,16 +10,41 @@
 
   import Scroller from './Scroller.svelte';
 
+  import {
+    withComponentDocs,
+    withStoryDocs,
+  } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/Scroller',
+    component: Scroller,
+    ...withComponentDocs(componentDocs),
+    argTypes: {
+      steps: { control: false },
+      backgroundWidth: {
+        control: 'select',
+        options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
+      },
+      foregroundPosition: {
+        control: 'select',
+        options: ['middle', 'left', 'right', 'left opposite', 'right opposite'],
+      },
+      embeddedLayout: {
+        control: 'select',
+        options: ['fb', 'bf'],
+      },
+    },
+  };
+</script>
+
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
   import BasicStep from './stories/components/basic/Step.svelte';
   import InteractiveForeground from './stories/components/basic/InteractiveForeground.svelte';
   import AiMap1 from './stories/components/ai2svelte/ai-scroller-1.svelte';
   import AiMap2 from './stories/components/ai2svelte/ai-scroller-2.svelte';
   import AiMap3 from './stories/components/ai2svelte/ai-scroller-3.svelte';
-
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
 
   import { getScrollerPropsFromDoc } from './docProps';
 
@@ -56,28 +79,7 @@
       },
     ],
   };
-
-  const metaProps = {
-    ...withComponentDocs(componentDocs),
-    argTypes: {
-      steps: { control: false },
-      backgroundWidth: {
-        control: 'select',
-        options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
-      },
-      foregroundPosition: {
-        control: 'select',
-        options: ['middle', 'left', 'right', 'left opposite', 'right opposite'],
-      },
-      embeddedLayout: {
-        control: 'select',
-        options: ['fb', 'bf'],
-      },
-    },
-  };
 </script>
-
-<Meta title="Components/Scroller" component="{Scroller}" {...metaProps} />
 
 <Template let:args>
   <Scroller {...args} />

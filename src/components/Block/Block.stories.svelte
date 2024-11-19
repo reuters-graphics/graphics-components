@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -9,14 +7,12 @@
   import snapWidthsDocs from './stories/docs/snapWidths.md?raw';
 
   import Block from './Block.svelte';
-  import Article from '../Article/Article.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '../../docs/utils/withParams.js';
+  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Block',
+    component: Block,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -35,7 +31,10 @@
   };
 </script>
 
-<Meta title="Layout/Block" component="{Block}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import Article from '../Article/Article.svelte';
+</script>
 
 <Template let:args>
   <Article id="block-demo-article">

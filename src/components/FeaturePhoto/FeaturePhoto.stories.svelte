@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -10,15 +8,14 @@
 
   import FeaturePhoto from './FeaturePhoto.svelte';
 
-  // @ts-ignore jpg
-  import sharkSrc from './stories/shark.jpg';
-
   import {
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/FeaturePhoto',
+    component: FeaturePhoto,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -33,11 +30,12 @@
   };
 </script>
 
-<Meta
-  title="Components/FeaturePhoto"
-  component="{FeaturePhoto}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore jpg
+  import sharkSrc from './stories/shark.jpg';
+</script>
 
 <Template let:args>
   <FeaturePhoto {...args} />

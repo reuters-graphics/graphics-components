@@ -1,25 +1,23 @@
-<script lang="ts">
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import Article from './Article.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
   import customWellWidthsDocs from './stories/docs/customWellWidths.md?raw';
 
-  import Article from './Article.svelte';
-  import Block from '../Block/Block.svelte';
+  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '../../docs/utils/withParams.js';
+  export const meta = {
+    title: 'Components/Article',
+    component: Article,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Layout/Article"
-  component="{Article}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script lang="ts">
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import Block from '../Block/Block.svelte';
+</script>
 
 <Template let:args>
   <Article {...args} />

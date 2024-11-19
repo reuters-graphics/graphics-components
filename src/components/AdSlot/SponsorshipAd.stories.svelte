@@ -1,20 +1,21 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import SponsorshipAd from './SponsorshipAd.svelte';
   // @ts-ignore raw
   import adDocs from './stories/docs/sponsorship.md?raw';
-
-  import AdScripts from './AdScripts.svelte';
-  import SponsorshipAd from './SponsorshipAd.svelte';
-
   import { withComponentDocs } from './../../docs/utils/withParams';
 
-  const meta = {
+  export const meta = {
+    title: 'Components/SponsorshipAd',
+    component: SponsorshipAd,
     ...withComponentDocs(adDocs),
   };
 </script>
 
-<Meta title="Components/SponsorshipAd" component="{SponsorshipAd}" {...meta} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import AdScripts from './AdScripts.svelte';
+</script>
 
 <Template>
   <div>

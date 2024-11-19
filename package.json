@@ -49,7 +49,7 @@
     "@storybook/addon-mdx-gfm": "^8.2.9",
     "@storybook/addon-measure": "^8.4.4",
     "@storybook/addon-outline": "^8.4.4",
-    "@storybook/addon-svelte-csf": "^4.1.5",
+    "@storybook/addon-svelte-csf": "^4.1.7",
     "@storybook/addon-toolbars": "^8.4.4",
     "@storybook/addon-viewport": "^8.4.4",
     "@storybook/blocks": "^8.2.9",

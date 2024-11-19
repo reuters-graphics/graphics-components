@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -9,13 +7,17 @@
   import Visible from './Visible.svelte';
 
   import { withSource, withComponentDocs } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/Visible',
+    component: Visible,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/Visible"
-  component="{Visible}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <Visible {...args} let:visible>

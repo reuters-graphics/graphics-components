@@ -1,20 +1,24 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import SimpleTimeline from './SimpleTimeline.svelte';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
+  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/SimpleTimeline',
+    component: SimpleTimeline,
     ...withComponentDocs(componentDocs),
     argTypes: {
       symbolColour: { control: 'color' },
       dateColour: { control: 'color' },
     },
   };
+</script>
+
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
 
   const dates = [
     {
@@ -91,12 +95,6 @@
     },
   ];
 </script>
-
-<Meta
-  title="Components/SimpleTimeline"
-  component="{SimpleTimeline}"
-  {...metaProps}
-/>
 
 <Template let:args>
   <SimpleTimeline {...args} />

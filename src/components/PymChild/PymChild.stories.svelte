@@ -1,19 +1,21 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import PymChild from './PymChild.svelte';
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/PymChild',
+    component: PymChild,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/PymChild"
-  component="{PymChild}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <PymChild {...args} />

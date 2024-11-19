@@ -1,6 +1,5 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import BeforeAfter from './BeforeAfter.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -8,19 +7,11 @@
   // @ts-ignore raw
   import ariaDescriptionsDocs from './stories/docs/ariaDescriptions.md?raw';
 
-  import BeforeAfter from './BeforeAfter.svelte';
+  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  // @ts-ignore raw
-  import beforeImg from './stories/myrne-before.jpg';
-  // @ts-ignore raw
-  import afterImg from './stories/myrne-after.jpg';
-
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/BeforeAfter',
+    component: BeforeAfter,
     ...withComponentDocs(componentDocs),
     argTypes: {
       handleColour: { control: 'color' },
@@ -32,7 +23,14 @@
   };
 </script>
 
-<Meta title="Components/BeforeAfter" component="{BeforeAfter}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  // @ts-ignore raw
+  import beforeImg from './stories/myrne-before.jpg';
+  // @ts-ignore raw
+  import afterImg from './stories/myrne-after.jpg';
+</script>
 
 <Template let:args>
   <BeforeAfter {...args} />

@@ -1,20 +1,22 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import PaddingReset from './PaddingReset.svelte';
-  import Block from '../Block/Block.svelte';
 
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+
+  export const meta = {
+    title: 'Components/PaddingReset',
+    component: PaddingReset,
+    ...withComponentDocs(componentDocs),
+  };
 </script>
 
-<Meta
-  title="Components/PaddingReset"
-  component="{PaddingReset}"
-  {...withComponentDocs(componentDocs)}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import Block from '../Block/Block.svelte';
+</script>
 
 <Template let:args>
   <Block width="fluid">

@@ -1,19 +1,18 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import DatawrapperChart from './DatawrapperChart.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
   import withChatterDocs from './stories/docs/withChatter.md?raw';
-
-  import DatawrapperChart from './DatawrapperChart.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
   } from '$lib/docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/DatawrapperChart',
+    component: DatawrapperChart,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -24,11 +23,9 @@
   };
 </script>
 
-<Meta
-  title="Components/DatawrapperChart"
-  component="{DatawrapperChart}"
-  {...metaProps}
-/>
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <DatawrapperChart {...args} />

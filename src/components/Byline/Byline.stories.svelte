@@ -1,16 +1,14 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
+  import Byline from './Byline.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
-  import Byline from './Byline.svelte';
+  import { withComponentDocs } from '$docs/utils/withParams.js';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Byline',
+    component: Byline,
     ...withComponentDocs(componentDocs),
-    // https://storybook.js.org/docs/svelte/essentials/controls
     argTypes: {
       align: {
         control: 'select',
@@ -20,7 +18,9 @@
   };
 </script>
 
-<Meta title="Components/Byline" component="{Byline}" {...metaProps} />
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+</script>
 
 <Template let:args>
   <Byline {...args} />

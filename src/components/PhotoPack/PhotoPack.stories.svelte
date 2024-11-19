@@ -1,6 +1,4 @@
-<script>
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -9,11 +7,12 @@
   import missingAltTextDocs from './stories/docs/missingAltText.md?raw';
 
   import PhotoPack from './PhotoPack.svelte';
-  import { getPhotoPackPropsFromDoc } from './docProps';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/PhotoPack',
+    component: PhotoPack,
     ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
@@ -26,6 +25,12 @@
       },
     },
   };
+</script>
+
+<script>
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import { getPhotoPackPropsFromDoc } from './docProps';
 
   const defaultImages = [
     {
@@ -118,8 +123,6 @@
   ];
   const altTextLayouts = [{ breakpoint: 450, rows: [2] }];
 </script>
-
-<Meta title="Components/PhotoPack" component="{PhotoPack}" {...metaProps} />
 
 <Template let:args>
   <PhotoPack {...args} />

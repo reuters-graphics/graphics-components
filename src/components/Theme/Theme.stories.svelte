@@ -1,6 +1,4 @@
-<script lang="ts">
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-
+<script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -12,19 +10,16 @@
   // @ts-ignore raw
   import inheritanceDocs from './stories/docs/inheritance.md?raw';
 
-  import ThemedPage from './stories/ThemedPage.svelte';
-  import SiteHeader from '../SiteHeader/SiteHeader.svelte';
-
   import Theme, { themes } from './Theme.svelte';
-
-  import Headline from './../Headline/Headline.svelte';
 
   import {
     withComponentDocs,
     withStoryDocs,
   } from '../../docs/utils/withParams.js';
 
-  const metaProps = {
+  export const meta = {
+    title: 'Components/Theme',
+    component: Theme,
     ...withComponentDocs(componentDocs),
     argTypes: {
       base: {
@@ -36,7 +31,14 @@
   };
 </script>
 
-<Meta title="Theming/Theme" component="{Theme}" {...metaProps} />
+<script lang="ts">
+  import { Template, Story } from '@storybook/addon-svelte-csf';
+
+  import ThemedPage from './stories/ThemedPage.svelte';
+  import SiteHeader from '../SiteHeader/SiteHeader.svelte';
+
+  import Headline from './../Headline/Headline.svelte';
+</script>
 
 <Template let:args>
   <div class="reset-article">
