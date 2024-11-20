@@ -39,11 +39,11 @@ Luckily, it's still pretty easy. Just add a `cls` or `id` to your `Block` so you
   $column-width-wide: 860px;
   $column-width-wider: 1400px;
 
-  @import '@reuters-graphics/graphics-components/scss/mixins';
+  @use '@reuters-graphics/graphics-components/scss/mixins' as mixins;
 
   :global {
     div.custom-blocks {
-      @include block-snap-widths;
+      @include mixins.block-snap-widths;
     }
   }
 </style>

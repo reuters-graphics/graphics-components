@@ -25,7 +25,7 @@ const Copyable = (props) => {
   }, [copied]);
 
   const handleClick = async ({ partial }) => {
-    const copyText = `@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`;
+    const copyText = `@use "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`;
     await navigator.clipboard.writeText(copyText);
     setCopied(true);
   };
@@ -45,7 +45,7 @@ const ImportSnippet = ({ included = false, partial = 'thematic/_tr.scss' }) => {
       </div>
     : <div className={classes.importsnippet}>
         <SyntaxHighlighter language="scss" style={prismNord}>
-          {`// global.scss \n@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
+          {`// global.scss \n@use "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
         </SyntaxHighlighter>
         <Copyable partial={partial} />
       </div>;

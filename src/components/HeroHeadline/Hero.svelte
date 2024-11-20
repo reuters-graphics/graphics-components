@@ -188,7 +188,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   .hero-wrapper {
     :global(.background-hero) {
@@ -198,7 +198,7 @@
     }
 
     :global(.background-hero .headline) {
-      @include fmt-0;
+      @include mixins.fmt-0;
       z-index: 1;
       display: flex;
       align-items: center;
@@ -217,7 +217,7 @@
     }
 
     :global(aside p) {
-      @include body-caption;
+      @include mixins.body-caption;
     }
 
     :global(.background-hero video) {

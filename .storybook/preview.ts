@@ -17,8 +17,7 @@ const preview: Preview = {
   // @ts-ignore Is OK
   decorators: [() => Wrapper],
   tags: ['autodocs'],
-  parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+  parameters: { 
     viewMode: 'docs',
     previewTabs: { 'storybook/docs/panel': { index: -1 } },
     controls: {

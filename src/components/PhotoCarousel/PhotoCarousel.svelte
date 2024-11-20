@@ -196,7 +196,7 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   .carousel-container {
     .photo-slide {
@@ -240,7 +240,7 @@
       border-radius: 50%;
       background-color: transparent;
       cursor: pointer;
-      @include text-secondary;
+      @include mixins.text-secondary;
       opacity: 0.4;
     }
     :global(.splide__arrows button.splide__arrow--prev) {
@@ -252,7 +252,7 @@
     :global(.splide__arrows button:hover) {
       opacity: 1;
       border-color: $theme-colour-text-secondary;
-      @include text-secondary;
+      @include mixins.text-secondary;
     }
     :global(.splide__arrows button:disabled) {
       opacity: 0.4;

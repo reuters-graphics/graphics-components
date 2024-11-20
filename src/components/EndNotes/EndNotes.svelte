@@ -37,15 +37,15 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   .note-title {
     :global(p) {
-      @include body-caption;
-      @include text-primary;
-      @include font-medium;
-      @include tracking-normal;
-      @include fmt-3;
+      @include mixins.body-caption;
+      @include mixins.text-primary;
+      @include mixins.font-medium;
+      @include mixins.tracking-normal;
+      @include mixins.fmt-3;
       margin-bottom: 0.125rem;
       text-transform: none;
     }
@@ -53,8 +53,8 @@
 
   .note-content {
     :global(p) {
-      @include body-caption;
-      @include fmt-0;
+      @include mixins.body-caption;
+      @include mixins.fmt-0;
     }
   }
 </style>

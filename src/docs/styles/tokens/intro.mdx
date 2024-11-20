@@ -84,15 +84,13 @@ If you'd like to set the style in SCSS, you'd use the `Include` token like this:
 <p>Lorem ipsum...</p>
 
 <style lang="scss">
-  @import '@reuters-graphics/graphics-components/scss/mixins';
+  @use '@reuters-graphics/graphics-components/scss/mixins' as mixins;
 
   p {
-    @include text-primary;
+    @include mixins.text-primary;
   }
 </style>
 ```
-
-> **Note:** If you're writing SCSS _inside a component_, the `@import` above is required. If you're writing in `global.scss`, this is already included for you.
 
 To use multiple tokens, you'd simply add another class or include:
 
@@ -102,8 +100,8 @@ To use multiple tokens, you'd simply add another class or include:
 
 ```scss
 p {
-  @include text-primary;
-  @include font-bold;
+  @include mixins.text-primary;
+  @include mixins.font-bold;
 }
 ```
 
@@ -121,6 +119,6 @@ For SCSS includes, the concept is the same, but you need to escape the `!` by ad
 
 ```scss
 p {
-  @include \!font-bold;
+  @include mixins.\!font-bold;
 }
 ```

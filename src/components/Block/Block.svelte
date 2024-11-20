@@ -34,7 +34,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   .article-block {
     max-width: var(--normal-column-width, 660px);
@@ -68,7 +68,7 @@
     // Only setup for the default column widths, b/c can't use
     // CSS vars in media queries.
     &.snap {
-      @include block-snap-widths;
+      @include mixins.block-snap-widths;
     }
   }
 </style>

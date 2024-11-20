@@ -134,7 +134,7 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   div.photopack-container {
     div.photopack-row {
@@ -151,7 +151,7 @@
 
   .notes {
     :global(.photopack-captions-container .caption p) {
-      @include body-caption;
+      @include mixins.body-caption;
     }
   }
 </style>

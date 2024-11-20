@@ -125,19 +125,19 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss" global>
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   .article-block.graphic {
     // Dek
     p {
-      @include body-note;
-      @include font-light;
+      @include mixins.body-note;
+      @include mixins.font-light;
     }
     // Caption and Sources
     aside {
       p {
-        @include body-caption;
-        @include fmy-1;
+        @include mixins.body-caption;
+        @include mixins.fmy-1;
       }
     }
   }

@@ -88,7 +88,7 @@
 </aside>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   .infobox {
     :global(.article-block) {
@@ -107,40 +107,40 @@
     }
 
     :global(.header p) {
-      @include h4;
-      @include fmy-0;
+      @include mixins.h4;
+      @include mixins.fmy-0;
     }
 
     :global(.body p) {
-      @include body-note;
-      @include text-sm;
-      @include font-light;
+      @include mixins.body-note;
+      @include mixins.text-sm;
+      @include mixins.font-light;
       &:last-child {
-        @include fmb-0;
+        @include mixins.fmb-0;
       }
     }
 
     :global(.body ul),
     :global(.body ol) {
-      @include body-note;
-      @include text-sm;
-      @include font-light;
-      @include fmb-0;
+      @include mixins.body-note;
+      @include mixins.text-sm;
+      @include mixins.font-light;
+      @include mixins.fmb-0;
     }
 
     :global(.body ul li),
     :global(.body ol li) {
-      @include fmt-0;
-      @include fmy-2;
+      @include mixins.fmt-0;
+      @include mixins.fmy-2;
       &:last-child {
-        @include fmb-0;
+        @include mixins.fmb-0;
       }
     }
 
     :global(.footer p) {
-      @include body-caption;
+      @include mixins.body-caption;
       &:last-child {
-        @include fmb-0;
+        @include mixins.fmb-0;
       }
     }
   }
