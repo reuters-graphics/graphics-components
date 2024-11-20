@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism-light';
 // @ts-ignore scss
 import classes from './styles.module.scss';
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+import { prismNord } from '../syntax/nord';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 
 SyntaxHighlighter.registerLanguage('scss', scss);
@@ -44,7 +44,7 @@ const ImportSnippet = ({ included = false, partial = 'thematic/_tr.scss' }) => {
         <p>Included</p>
       </div>
     : <div className={classes.importsnippet}>
-        <SyntaxHighlighter language="scss" style={prism}>
+        <SyntaxHighlighter language="scss" style={prismNord}>
           {`// global.scss \n@import "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
         </SyntaxHighlighter>
         <Copyable partial={partial} />

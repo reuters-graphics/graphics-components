@@ -34,7 +34,7 @@ const preview: Preview = {
       // https://storybook.js.org/docs/svelte/writing-stories/naming-components-and-hierarchy#sorting-stories
       storySort: {
         method: 'alphabetical-by-kind',
-        includeNames: true,
+        includeNames: false,
         order: [
           'Intro',
           'Guides',
@@ -46,17 +46,8 @@ const preview: Preview = {
             '*',
             'Getting help',
           ],
-          'Layout',
-          ['Intro', '*'],
-          'Theming',
-          ['Theme', 'CSS variables', '*'],
           'Components',
-          ['Intro', '*'],
           '*',
-          'Utilities',
-          ['Intro', '*'],
-          'SCSS',
-          ['Intro', '*'],
           'Styles',
           [
             'Intro',

@@ -1,4 +1,4 @@
-The official home of the Reuters logo.
+The official Reuters logo.
 
 ```svelte
 <script>
