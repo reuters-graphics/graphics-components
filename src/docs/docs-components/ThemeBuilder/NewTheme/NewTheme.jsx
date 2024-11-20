@@ -6,7 +6,7 @@ import VariableTable from '../CSSVariables/VariableTable';
 import classes from './styles.module.scss';
 import darkTheme from '../../../../components/Theme/themes/dark';
 import lightTheme from '../../../../components/Theme/themes/light';
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+import { prismNord } from '../../syntax/nord';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import svelteSyntax from '../../../../../.storybook/svelte-highlighting';
 import { updatedDiff } from 'deep-object-diff';
@@ -26,7 +26,7 @@ const NewTheme = ({ theme, themeName }) => {
         Use the code below to adapt the <code>Theme</code> component for your
         new design:
       </p>
-      <SyntaxHighlighter language="svelte" style={prism}>
+      <SyntaxHighlighter language="svelte" style={prismNord}>
         {`<Theme
   base="${themeName}"
   theme={${JSON.stringify(updates, null, 2).replaceAll('"', "'")}}
@@ -38,7 +38,7 @@ const NewTheme = ({ theme, themeName }) => {
       {bgChanged && (
         <SyntaxHighlighter
           language="scss"
-          style={prism}
+          style={prismNord}
           customStyle={{ maxHeight: '140px' }}
         >
           {`// global.scss

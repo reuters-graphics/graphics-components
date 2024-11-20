@@ -1,3 +1,5 @@
+@use './syntax.scss';
+
 body {
   font-family: 'Nunito Sans', Helvetica, Arial, sans-serif;
 }
@@ -136,3 +138,6 @@ div.reset-article {
   width: calc(100% + 30px);
   margin-left: -15px;
 }
+
+
+
