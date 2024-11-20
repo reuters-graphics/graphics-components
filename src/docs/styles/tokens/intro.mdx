@@ -67,7 +67,7 @@ Here's our table of text colour tokens, which set the `text-color` style.
   mdnLink="color"
   header={['Class', 'Include', 'Properties']}
   body={cssStringToTableArray(color, true)}
-  copyable={[true, (t) => `@include ${t};`, false]}
+  copyable={[true, (t) => `@include mixins.${t};`, false]}
 />
 
 This table's tokens can be used through either a class or an SCSS mixin. (The table lets you click-to-copy for either.)
