@@ -38,5 +38,5 @@
     "*.cjs",
     "src/docs/**/*.css"
   ],
-  "exclude": ["dist", "eslint.config.js"]
+  "exclude": ["dist", "eslint.config.js", "bin/newComponent/template/**/*"]
 }

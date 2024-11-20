@@ -1,4 +1,4 @@
-<!-- @component `YourComponent` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-YourComponent--default) -->
+<!-- @component `YourComponent` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ComponentFolderSlug-YourComponentSlug--docs) -->
 <script lang="ts">
   /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
 
@@ -27,12 +27,13 @@
   export let id: string = '';
 
   /** Add a class to target with SCSS. */
-  export let cls: string = '';
+  let cls: string = '';
+  export { cls as class };
 
   import Block from '../Block/Block.svelte';
 </script>
 
-<Block {width} {id} cls="photo {cls}">
+<Block {width} {id} class="photo {cls}">
   <div
     style:background-image="{`url(${src})`}"
     style:height="{`${height}px`}"
