@@ -251,7 +251,7 @@
     }
     :global(.splide__arrows button:hover) {
       opacity: 1;
-      border-color: $theme-colour-text-secondary;
+      border-color: mixins.$theme-colour-text-secondary;
       @include mixins.text-secondary;
     }
     :global(.splide__arrows button:disabled) {
@@ -277,8 +277,8 @@
       height: 7px;
       border-radius: 0;
       padding: 0;
-      border: 1px solid $theme-colour-background;
-      background: $theme-colour-text-secondary;
+      border: 1px solid mixins.$theme-colour-background;
+      background: mixins.$theme-colour-text-secondary;
       opacity: 0.4;
     }
     :global(ul.splide__pagination li button.is-active) {

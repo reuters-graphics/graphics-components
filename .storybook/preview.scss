@@ -34,7 +34,7 @@ div.sbdocs-content {
   }
 
   .docblock-source {
-    margin: 1rem 0;
+    margin: 1rem 0 2.5rem;
   }
 
   & > div > :where(p, ul, ol),
@@ -128,10 +128,6 @@ div.sbdocs-content {
       }
     }
   }
-}
-
-.sbdocs.sbdocs-wrapper {
-  padding-top: 1rem;
 }
 
 div.reset-article {
