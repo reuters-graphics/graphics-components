@@ -1,0 +1,441 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../utils/docsPage.js';
+import Herbie from '../docs-components/Herbie/Herbie';
+
+<Meta title="Guides/Using with ArchieML docs" parameters={{ ...parameters }} />
+
+# Using components with ArchieML docs
+
+Most of the snippets in these docs show how to use components by passing data into their props directly. In most cases, though, you don't want to hard-code content in your project and instead will get those values from an [ArchieML](https://archieml.org/)-formatted document, hosted in either [RNGS.io](https://rngs.io) or a Google Doc.
+
+In most cases, it's straight forward to fill in component props from ArchieML values, but in some cases you may need to write a small bit of code to translate strings from an ArchieML doc into a different data type or to rearrange data from a doc into a specific format to match a component's props.
+
+## Simple example
+
+Let's look at a basic component, a `ProfileCard`, with a demo that looks like this in the docs:
+
+```svelte
+<script>
+  import { ProfileCard } from '@reuters-graphics/graphics-components';
+</script>
+
+<ProfileCard
+  name="Kitty"
+  age="{2}"
+  img="https://cats.com/cat1.jpg"
+  birthday="{new Date('2020-09-25')}"
+  bio="Some notes.\n\nWith multiple paragraphs."
+  isGood="{true}"
+/>
+```
+
+Notice the component's props includes strings, a date, a number and a boolean.
+
+<Herbie number="1">
+  {`In our ArchieML doc, we might fill out a block for this component like ...`}
+</Herbie>
+
+```yaml
+[blocks]
+# ...
+
+type: profile-card
+name: Tom
+age: 10
+picture: images/tom-the-cat.jpg
+birthday: 2020-09-25
+bio: A very frisky feline.
+
+... and an avid mouser!
+:end
+isGood: true
+
+# ...
+[]
+```
+
+It's often a good idea to give the properties in your ArchieML doc the same names as the props on the component you're using. That's what we've done above, but you can also name them something else. For example, we went with `picture` instead of `img`.
+
+> If the ArchieML syntax above looks foreign to you, check out the Help docs on any story in [RNGS.io](https://rngs.io) or read the official [ArchieML docs](https://archieml.org/#demo) to get familiar with the basics.
+
+<Herbie number="2">
+  {`When we download the doc, our ArchieML will turn into JSON data like ...`}
+</Herbie>
+
+```json
+{
+  "blocks": [
+    {
+      "type": "profile-card",
+      "name": "Tom",
+      "age": "10",
+      "picture": "images/tom-the-cat.jpg",
+      "birthday": "2020-09-25",
+      "bio": "A very frisy feline.\n\n... and an avid mouser!",
+      "isGood": "true"
+    }
+  ]
+}
+```
+
+Notice all the values in the data are **strings**. More on that soon.
+
+<Herbie number="3">
+  {`Now we can use that data to feed our component the information it needs for its props:`}
+</Herbie>
+
+```svelte
+<script>
+  // These are usually already imported for you
+  import { assets } from '$app/paths';
+  // Your ArchieML doc
+  import content from '$locales/en/content.json';
+
+  // Your component from graphics-components
+  import { ProfileCard } from '@reuters-graphics/graphics-components';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'text'}
+    <!-- ... -->
+  {:else if block.type === 'profile-card'}
+    <ProfileCard
+      name="{block.name}"
+      age="{parseInt(block.age)}"
+      img="{`${assets}/${block.picture}`}"
+      birthday="{new Date(block.birthday)}"
+      bio="{block.bio}"
+      isGood="{block.isGood === 'true'}"
+    />
+    <!-- ... -->
+  {/if}
+{/each}
+```
+
+### But let's break that last bit down ...
+
+This is a loop that goes over each block in the `blocks: []` array in the JSON data we downloaded from our ArchieML doc.
+
+```svelte
+{#each content.blocks as block}
+  <!-- ... -->
+{/each}
+```
+
+While we're looping over each individual block, we check its `type` so we know which component to match it with. For example, `block.type === 'text'` will signal we want to use our [BodyText](./?path=/docs/components-text-elements-bodytext--docs) component in this case.
+
+```svelte
+{#if block.type === 'text'}
+  <!-- ... -->
+{:else if block.type === 'profile-card'}
+  <!-- ... -->
+{/if}
+```
+
+Once we've identified we have the right block for our component, we need to convert several of the data values from strings to the appropriate data type for each prop.
+
+```svelte
+<ProfileCard
+  name="{block.name}"
+  age="{parseInt(block.age)}"
+  img="{`${assets}/${block.picture}`}"
+  birthday="{new Date(block.birthday)}"
+  bio="{block.bio}"
+  isGood="{block.isGood === 'true'}"
+/>
+```
+
+For example, we're converting Tom's age into a number with JavaScript's [parseInt](https://www.w3schools.com/jsref/jsref_parseint.asp) function ...
+
+```svelte
+{parseInt(block.age)}
+```
+
+... and we're parsing his birthday into a JavaScript Date ...
+
+```svelte
+{new Date(block.birthday)}
+```
+
+... and we're checking if he's a good cat by converting the string into a `true`/`false` boolean:
+
+```svelte
+{block.isGood === 'true'}
+```
+
+**Especially note** how we're using the `assets` module we talked about in ["Using with the Graphics Kit"](./?path=/docs/guides-using-with-the-graphics-kit--docs) to turn the _relative_ path to Tom's profile pic in our ArchieML doc into an _absolute_ path that will have the full `https://reuters.com...` bit attached.
+
+```svelte
+{`${assets}/${block.picture}`}
+```
+
+### Sum it all up 🏁
+
+Tying your ArchieML doc to a component is as easy as:
+
+<Herbie number={1}>Read what props your component needs in these docs.</Herbie>
+
+<Herbie number={2}>Write your ArchieML block to match those props.</Herbie>
+
+<Herbie number={3}>
+  {`Convert the string values in your ArchieML JSON into the data types the
+  component's props expect and pass them into your component!`}
+</Herbie>
+
+## A slightly more complex example
+
+The simple example above is a variation of the majority of the components in these docs. Sometimes, though, a component's props get a little more complex, especially when they require an _array_ of objects with different data.
+
+Let's look at another example component:
+
+```svelte
+<Timeline
+  title="A brief history of BitCoin"
+  dates="{[
+    {
+      date: new Date('1992-01-01'),
+      subhed:
+        'Cynthia Dwork and Moni Naor come with an idea for "cryptocurrency"',
+      img: `${assets}/images/dwork-naor.jpeg`,
+    },
+    {
+      date: new Date('2008-08-18'),
+      subhed: 'Domain name for bitcoin.org registered',
+      link: 'https://bitcoin.org',
+    },
+    {
+      date: new Date('2013-07-22'),
+      subhed: 'The Winklevoss twins buy in',
+      img: `${assets}/images/winkle-boys.jpeg`,
+    },
+  ]}"
+/>
+```
+
+Notice our `Timeline` component's `dates` prop takes an array of objects, each with required `date` and `subhed` properties and what appears to be _optional_ `img` or `link` properties.
+
+To match that structure in our ArchieML doc, we might write it like ...
+
+```yaml
+[blocks]
+# ...
+
+type: timeline
+title: A brief history of Bitcoin
+[.dates]
+  date: 1992-01-01
+  subhed: Cynthia Dwork and Moni Naor ...
+  img: images/dwork-naor.jpeg
+
+  date: 2008-08-18
+  subhed: Domain name for bitcoin.org ...
+  link: https://bitcoin.org
+
+  date: 2013-07-22
+  subhed: The Winklevoss twins ...
+  img: images/winkle-boys.jpeg
+[]
+
+# ...
+[]
+```
+
+**Especially notice** the `[.dates] ... []` bit. The `.` on `.dates` creates a _nested_ array on this block.
+
+That leaves us with JSON data that looks like ...
+
+```json
+{
+  "blocks": [
+    {
+      "type": "timeline",
+      "title": "A brief history of Bitcoin",
+      "dates": [
+        {
+          "date": "1992-01-01",
+          "subhed": "Cynthia Dwork and Moni Naor ...",
+          "img": "images/dwork-naor.jpeg"
+        },
+        {
+          "date": "2008-08-18",
+          "subhed": "Domain name for bitcoin.org ...",
+          "link": "https://bitcoin.org"
+        },
+        {
+          "date": "2013-07-22",
+          "subhed": "The Winklevoss twins ...",
+          "img": "images/winkle-boys.jpeg"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Now our data looks OK and all the properties on each date object that go into the Timeline component's `dates` prop appear to match. It may look like we can pass our data straight into our component like ...
+
+```svelte
+<!-- ... -->
+{:else if block.type === 'timeline'}
+  <Timeline
+    title="{block.title}"
+    dates="{block.dates}""
+  />
+{/else}
+<!-- ... -->
+```
+
+... but we have a couple problems and they all have to do with data types.
+
+According to the component's docs, our `date` property's value should be a JavaScript Date and our `img` needs to be an absolute path.
+
+But this is a problem we can solve by looping over our JSON data and making a new array where all the values are of the right type for our props.
+
+```svelte
+<script>
+  // ...
+
+  const timelineBlock = content.blocks.find((block) => block.type === 'timeline');
+
+  const timelineDates = timelineBlock.dates.map((d) => {
+    const date = new Date(d.date);
+    const subhed = d.subhed;
+    let img;
+    let link;
+
+    if (d.img) {
+      img = `${assets}/${d.img}`;
+    }
+    if (d.link) {
+      link = d.link;
+    }
+
+    return {
+      date,
+      subhed,
+      img,
+      link,
+    };
+  });
+</script>
+
+<!-- ... -->
+
+{:else if block.type === 'timeline'}
+  <Timeline
+    title="{block.title}"
+    dates="{timelineDates}""
+  />
+{/else}
+
+<!-- ... -->
+```
+
+### OK, let's break down that new chunk of code ...
+
+First, notice I'm writing this code inside my `script` tags so I can easily just write it with JavaScript.
+
+```svelte
+<script>
+  // Normal JavaScript is OK here ...
+</script>
+```
+
+Now the first thing I do is get ahold of _just_ my timeline block, leaving behind all the other blocks on my page, using a simple [find](https://www.w3schools.com/jsref/jsref_find.asp) function.
+
+```javascript
+// Gets JUST my timeline block from the array of all the blocks that make up my page
+const timelineBlock = content.blocks.find((block) => block.type === 'timeline');
+```
+
+With my timeline block in hand, I can loop over all my dates and create a _new_ array with all the values correctly parsed using a basic [map](https://www.w3schools.com/jsref/jsref_map.asp) function.
+
+```javascript
+const timelineDates = timelineBlock.dates.map((d) => {
+  // "d" is each date object in the ArchieML JSON
+  // ...
+});
+```
+
+Inside my `map` I can convert the required properties into new variables matching my component's prop names. In this case, I need to convert the data, but the subhed is just a string ...
+
+```javascript
+const timelineDates = timelineBlock.dates.map((d) => {
+  const date = new Date(d.date);
+  const subhed = d.subhed;
+  // ...
+});
+```
+
+For the optional ones, I'll do a tiny `if` to check if the date has them before adding them to a variable:
+
+```javascript
+const timelineDates = timelineBlock.dates.map((d) => {
+  // ...
+
+  let img; // Start as an empty variable ...
+  let link;
+
+  // If our date has an image, we'll make it an absolute URL
+  if (d.img) {
+    img = `${assets}/${d.img}`;
+  }
+
+  // If it has a link, we'll just pass that on, as is
+  if (d.link) {
+    link = d.link;
+  }
+
+  // ...
+});
+```
+
+All that done, I can create my new object by returning it from my `map` ...
+
+```javascript
+const timelineDates = timelineBlock.dates.map((d) => {
+  // ...
+
+  return {
+    date,
+    subhed,
+    img,
+    link,
+  };
+});
+```
+
+**Finally**, I have a new array of dates all sorted for my timeline and I can pass them direcly in to the component's `dates` prop:
+
+```svelte
+<script>
+  const timelineDates = timelineBlock.dates.map((d) => {
+    // ...
+  });
+</script>
+
+{:else if block.type === 'timeline'}
+  <Timeline
+    title="{block.title}"
+    dates="{timelineDates}""
+  />
+{/else}
+```
+
+> This is just _one way_ to prepare your data for your component in JavaScript. In many cases, generative AI tools like ChatGPT can also help you write the small bit of code you need. Just provide it a sample of the ArchieML JSON data and describe the format you need to convert it to for your component.
+
+### Sum it all up 🏁
+
+If your component has more complex props like arrays of objects ...
+
+<Herbie
+  number={1}
+>{`Write your ArchieML doc with nested arrays to match your component's props.`}</Herbie>
+
+<Herbie
+  number={2}
+>{`Format your data in JavaScript using simple \`find\` and \`map\` functions.`}</Herbie>
+
+<Herbie
+  number={3}
+>{`Pass the new formatted array into your components' props instead of the original ArchieML data.`}</Herbie>

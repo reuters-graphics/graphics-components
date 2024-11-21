@@ -1,0 +1,138 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../utils/docsPage.js';
+import Highlight from '../docs-components/Highlight/Highlight';
+
+<Meta title="Guides/Bare minimum Svelte" parameters={{ ...parameters }} />
+
+# Introduction to Svelte components
+
+Svelte is a modern JavaScript framework for building parts of HTML pages. Components are the building blocks of Svelte pages, allowing you to create reusable and interactive parts of your page.
+
+Here's **the bare minimum** you need to know to start using graphics components:
+
+## What's a component?
+
+A Svelte <Highlight>component</Highlight> is just a `.svelte` file.
+
+A component is usually composed of several parts: JavaScript for managing data, HTML to represent the elements it creates on the page and CSS to style those elements.
+
+```svelte
+<!-- JavaScript -->
+<script>
+  export let imgSrc = 'https://reuters.com/image.jpg';
+  export let altText = 'A cat';
+  export let caption = 'Mousing all day is hard work ...';
+</script>
+
+<!-- HTML -->
+<figure>
+  <img src="{imgSrc}" alt="{altText}" />
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<!-- CSS -->
+<style>
+  figure {
+    max-width: 600px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
+  }
+</style>
+```
+
+## Importing and using components
+
+To use a component, you first need to import it. For example, below is a component called `Button.svelte`:
+
+```svelte
+<script>
+  export let text = 'Click me';
+</script>
+
+<!-- Button.svelte -->
+<button>{text}</button>
+```
+
+You can import and use this component in another file:
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import Button from './Button.svelte';
+</script>
+
+<main>
+  <h1>Welcome to Svelte</h1>
+  <Button text="Press here" />
+</main>
+```
+
+Here, the `Button` component is imported and used in the `App` component.
+
+The components in this project are pre-made so you can install, import and use them directly in your page without needing to write them yourself or have a copy of each component in your project.
+
+For example, a basic page might look like this:
+
+```svelte
+<script>
+  // Importing our pre-made components from this project
+  import {
+    BodyText,
+    SiteHeader,
+    SiteFooter,
+    Headline,
+  } from '@reuters-graphics/graphics-components';
+</script>
+
+<SiteHeader />
+
+<Headline hed="My new story" dek="The beginning of a beautiful page" />
+<BodyText text="Lorem ipsum ..." />
+
+<SiteFooter />
+```
+
+## Passing data to components with props
+
+All graphics components are written to work across different stories. That means they expect to be given the content they'll add (or "render") on the page by you.
+
+We pass the data components use to render their part of a page using <Highlight>props</Highlight>.
+
+In the `Button.svelte` example above, the `text` prop provides a way to pass the text that will be rendered in the button like this:
+
+```svelte
+<Button text="Click me!" />
+```
+
+<button>Click me!</button>
+
+## Reading component props
+
+All graphics components are documented with a code snippet showing how to import them and what props that component has with the kind of data each expects.
+
+For example, the default FeaturePhoto example looks like:
+
+```svelte
+<script>
+  import { FeaturePhoto } from '@reuters-graphics/graphics-components';
+</script>
+
+<FeaturePhoto
+  src="https://reuters.com/images/myImage.jpg"
+  altText="Some alt text"
+  caption="A caption"
+  width="normal"
+/>
+```
+
+The component's props are `src`, `altTtext`, `caption` and `width` and each shows an example of the type of data that should go into that prop. For example, the `src` prop expects a full URL to the image it will render.
+
+## Next steps
+
+To learn more about Svelte, you're not short of great tutorials. There are dozens of YouTube videos, online courses and articles to introduce you to more advanced features of the framework. Watch out for our own training courses on the Graphics Team to learn more about Svelte or JavaScript. But in a pinch, each desk has at least one developer who can help you through any problems as you're working with Svelte.
+
+All are also welcome to join the "⚙️ Graphics Dev Group" channel in Teams, where we occasionally chat about code tips or tricks.
+
+> **NOTE:** As of now, we are using version 4 Svelte syntax. We will soon upgrade to version 5, but for now, we recommend looking for older tutorials online and not the official guides for the latest version.
