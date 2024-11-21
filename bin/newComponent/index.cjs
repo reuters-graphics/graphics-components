@@ -10,16 +10,19 @@ const LIB = path.join(ROOT, 'src/components');
 const TEMPLATE = path.join(__dirname, 'template');
 
 const makeNewComponent = async () => {
-  const { name, folder } = await prompts([{
-    type: 'text',
-    name: 'name',
-    message: 'What should we call your new component, e.g., ImagePack?',
-  }, {
-    type: 'text',
-    name: 'folder',
-    message: 'What folder should we put it in, e.g., Graphics?',
-    initial: 'Graphics',
-  }]);
+  const { name, folder } = await prompts([
+    {
+      type: 'text',
+      name: 'name',
+      message: 'What should we call your new component, e.g., ImagePack?',
+    },
+    {
+      type: 'text',
+      name: 'folder',
+      message: 'What folder should we put it in, e.g., Graphics?',
+      initial: 'Graphics',
+    },
+  ]);
 
   if (!name || !folder) return;
 
@@ -43,7 +46,7 @@ const makeNewComponent = async () => {
       LIB,
       file.replace(/YourComponent/g, componentName)
     );
-    
+
     fs.ensureDirSync(path.dirname(writePath));
 
     if (path.extname(file) === '.jpg') {
