@@ -80,7 +80,7 @@
     "css": "^3.0.0",
     "css-color-converter": "^2.0.0",
     "deep-object-diff": "^1.1.9",
-    "eslint": "^9.15.0",
+    "eslint": "9.14.0",
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react": "^7.37.2",
     "fs-extra": "^11.1.1",
