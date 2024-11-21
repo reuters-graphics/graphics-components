@@ -1,5 +1,18 @@
 # @reuters-graphics/graphics-components
 
+## 2.0.0
+
+### Major Changes
+
+- 3e20529: Removes Google Docs-based utils in favour of ArchieML/RNGS.io examples.
+
+### Patch Changes
+
+- a5ad543: Docs syntax highlighting and organisation
+- 06b4d48: Updates ReferralBlock and SiteFooter
+- b44ed64: Reuters Graphics logo refresh
+- 05b80fd: Patches up component docs links
+
 ## 1.1.7
 
 ### Patch Changes
