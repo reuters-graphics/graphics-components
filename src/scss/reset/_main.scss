@@ -1,6 +1,6 @@
 @use '../mixins' as *;
-@import 'normalize';
-@import 'typography';
+@forward 'normalize';
+@forward 'typography';
 
 *,
 *:before,

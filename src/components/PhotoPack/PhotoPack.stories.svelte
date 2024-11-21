@@ -2,7 +2,7 @@
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
-  import quickitDocs from './stories/docs/quickit.md?raw';
+  import archieMLDocs from './stories/docs/archieML.md?raw';
   // @ts-ignore raw
   import missingAltTextDocs from './stories/docs/missingAltText.md?raw';
 
@@ -29,8 +29,6 @@
 
 <script>
   import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import { getPhotoPackPropsFromDoc } from './docProps';
 
   const defaultImages = [
     {
@@ -65,44 +63,44 @@
     { breakpoint: 750, rows: [1, 3] },
   ];
 
-  const quickItBlock = {
-    Type: 'photo-pack',
-    ID: 'my-photo-pack',
-    Class: 'mb-2',
-    Width: 'wide',
+  const archieMLBlock = {
+    type: 'photo-pack',
+    id: 'my-photo-pack',
+    class: 'mb-2',
+    width: 'wide',
     textWidth: 'normal',
-    Gap: '15',
-    Images: [
+    gap: '15',
+    images: [
       {
-        Src: 'https://via.placeholder.com/1024x768.jpg',
-        AltText: 'alt text',
-        Caption: 'Lorem ipsum. Reuters/Photog',
-        MaxHeight: '600',
+        src: 'https://via.placeholder.com/1024x768.jpg',
+        altText: 'alt text',
+        caption: 'Lorem ipsum. Reuters/Photog',
+        maxHeight: 600,
       },
       {
-        Src: 'https://via.placeholder.com/1024x768.jpg',
-        AltText: 'alt text',
-        Caption: 'Lorem ipsum. Reuters/Photog',
+        src: 'https://via.placeholder.com/1024x768.jpg',
+        altText: 'alt text',
+        caption: 'Lorem ipsum. Reuters/Photog',
       },
       {
-        Src: 'https://via.placeholder.com/1024x768.jpg',
-        AltText: 'alt text',
-        Caption: 'Lorem ipsum. Reuters/Photog',
+        src: 'https://via.placeholder.com/1024x768.jpg',
+        altText: 'alt text',
+        caption: 'Lorem ipsum. Reuters/Photog',
       },
       {
-        Src: 'https://via.placeholder.com/1024x768.jpg',
-        AltText: 'alt text',
-        Caption: 'Lorem ipsum. Reuters/Photog',
+        src: 'https://via.placeholder.com/1024x768.jpg',
+        altText: 'alt text',
+        caption: 'Lorem ipsum. Reuters/Photog',
       },
       {
-        Src: 'https://via.placeholder.com/1024x768.jpg',
-        AltText: 'alt text',
-        Caption: 'Lorem ipsum. Reuters/Photog',
+        src: 'https://via.placeholder.com/1024x768.jpg',
+        altText: 'alt text',
+        caption: 'Lorem ipsum. Reuters/Photog',
       },
     ],
-    Layouts: [
-      { Breakpoint: '750', Rows: '2,3' },
-      { Breakpoint: '450', Rows: '1, 2, 2' },
+    layouts: [
+      { breakpoint: 750, rows: [2, 3] },
+      { breakpoint: 450, rows: [1, 2, 2] },
     ],
   };
 
@@ -139,9 +137,9 @@
 />
 
 <Story
-  name="🚀 QUICKIT"
-  {...withStoryDocs(quickitDocs)}
-  args="{getPhotoPackPropsFromDoc(quickItBlock)}"
+  name="ArchieML"
+  {...withStoryDocs(archieMLDocs)}
+  args="{archieMLBlock}"
 />
 
 <Story

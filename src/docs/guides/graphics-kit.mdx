@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import { parameters } from '../utils/docsPage.js';
+import Highlight from '../docs-components/Highlight/Highlight';
 
 <Meta
   title="Guides/Using with the Graphics Kit"
@@ -8,47 +9,26 @@ import { parameters } from '../utils/docsPage.js';
 
 # Using with the Graphics Kit
 
-If you haven't, check out ["Using Reuters Graphics Components" in the Graphics Kit docs](https://reuters-graphics.github.io/docs_graphics-kit/for_developers/graphics-components/) to get a general idea of how to use components.
+Our graphics components are designed to work seemlessly with the [Graphics Kit](https://github.com/reuters-graphics/bluprint_graphics-kit) as well as just about any Svelte-based page builder.
 
-## Quickit
+**There is, however, one gotcha to watch out for:**
 
-Look <span className="highlight">for <strong>🚀 QUICKIT</strong> stories</span> (Quick Kit 🤣🙄) for some of our most commonly used components. These stories
-include easy copy/paste snippets as well as Google Doc block examples that should
-shortcut getting a component working in the Graphics Kit.
+When working with multimedia files like images or videos, components expect all paths to be <Highlight>absolute URLs.</Highlight>
 
-(Want a QUICKIT story for another component? [Just ask us!](https://github.com/reuters-graphics/graphics-components/issues/new?labels=%F0%9F%93%9A%20documentation&assignees=hobbes7878))
-
-## FAQs
-
-### How do I write my Google Doc?
-
-Many component stories show passing data directly into component props. In the Kit, though, you likely won't be hard-coding things like text strings in your code and instead will get them from a Google Doc.
-
-Check out the guide devoted to [using components with Google Docs](?path=/docs/guides-using-with-google-docs--page) for a quick explanation of how to work with Google Docs.
-
-And, of course, look for a QUICKIT story for your component, which will have a Docs example specific to it.
-
-### How do I use this image/video/etc.?
-
-Remember, all references to images, videos and other media must be _absolute paths_:
-
-✅ `https://.../myImage.jpg`
+✅ `https://reuters.com/graphics/.../myImage.jpg`
 
 ❌ `./myImage.jpg`
 
-In most cases, that means you'll need to prefix relative paths with the special `assets` Svelte module. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
+In the Graphics Kit, that means you'll need to prefix relative paths with the special [`assets`](https://svelte.dev/docs/kit/$app-paths#assets) SvelteKit module that contains the root URL for your project. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
 
 ```svelte
 <script>
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
 
-  // This is already imported for you in App.svelte
+  // Import the assets module if it's not already there.
   import { assets } from '$app/paths';
 </script>
 
+<!-- Use the assets module to prefix the path to your image. -->
 <FeautrePhoto src="{`${assets}/imgs/myImage.jpg`}" />
 ```
-
-### How do I change this component's styles?
-
-Check out our guide on [customising components with SCSS](?path=/docs/guides-customising-components-with-scss--page)

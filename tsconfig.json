@@ -31,12 +31,12 @@
     "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.svelte",
-    "src/**/*.jsx",
+    "src/**/*.{jsx,tsx}",
     "bin/**/*.{js,cjs}",
     "*.ts",
     "*.js",
     "*.cjs",
     "src/docs/**/*.css"
   ],
-  "exclude": ["dist", "eslint.config.js"]
+  "exclude": ["dist", "eslint.config.js", "bin/newComponent/template/**/*"]
 }

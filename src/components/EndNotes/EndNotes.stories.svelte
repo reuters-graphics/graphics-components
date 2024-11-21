@@ -14,20 +14,19 @@
 
 <script>
   import { Template, Story } from '@storybook/addon-svelte-csf';
-  import { getEndNotesPropsFromDoc } from './docProps';
 
   const notes = [
     {
-      Title: 'Note',
-      Text: 'Data is current as of today.',
+      title: 'Note',
+      text: 'Data is current as of today.',
     },
     {
-      Title: 'Sources',
-      Text: 'Data, Inc.',
+      title: 'Sources',
+      text: 'Data, Inc.',
     },
     {
-      Title: 'Edited by',
-      Text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
+      title: 'Edited by',
+      text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
     },
   ];
 </script>
@@ -36,4 +35,4 @@
   <EndNotes {...args} />
 </Template>
 
-<Story name="Default" args="{{ notes: getEndNotesPropsFromDoc(notes) }}" />
+<Story name="Default" args="{{ notes }}" />

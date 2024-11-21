@@ -41,7 +41,7 @@ A more detailed example of using `Scroller` with graphics created by [ai2svelte]
 />
 ```
 
-When working with a Google doc, here's an example of how you can tie your text into your steps.
+When working with a ArchieML doc, here's an example of how you can tie your text into your steps.
 
 ```yaml
 # Google doc block

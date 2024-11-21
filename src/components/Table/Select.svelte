@@ -39,8 +39,6 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/mixins';
-
   .select {
     width: 250px;
 

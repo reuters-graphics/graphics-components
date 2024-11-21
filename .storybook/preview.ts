@@ -18,7 +18,6 @@ const preview: Preview = {
   decorators: [() => Wrapper],
   tags: ['autodocs'],
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     viewMode: 'docs',
     previewTabs: { 'storybook/docs/panel': { index: -1 } },
     controls: {
@@ -41,7 +40,7 @@ const preview: Preview = {
           [
             'Using these docs',
             'Using with the Graphics Kit',
-            'Using with Google docs',
+            'Using with ArchieML docs',
             'Customising components with SCSS',
             '*',
             'Getting help',

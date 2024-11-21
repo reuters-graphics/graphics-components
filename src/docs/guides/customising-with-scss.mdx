@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import { parameters } from '../utils/docsPage.js';
+import Highlight from '../docs-components/Highlight/Highlight';
 
 import startImg from './imgs/scss-start.png';
 import highlightImg from './imgs/scss-highlight.png';
@@ -29,13 +30,13 @@ Let's say you wanted to change our `BeforeAfter` component. You want the text ov
 
 <img src={startImg} width="600" />
 
-The first thing you should do is <span className="highlight">check out the elements you want to change in your web inspector</span> and see if CSS can make the change you want.
+The first thing you should do is <Highlight>check out the elements you want to change in your web inspector</Highlight> and see if CSS can make the change you want.
 
 <img src={highlightImg} width="300" style={{ margin: '0 0 1rem' }} />
 
 <img src={inspectorImg} width="100%" />
 
-In our case, we want to change the absolute position of those elements. To test that'll actually work, we can <span className="highlight">try it directly in the inspector first!</span>
+In our case, we want to change the absolute position of those elements. To test that'll actually work, we can <Highlight>try it directly in the inspector first!</Highlight>
 
 <img src={changeImg} width="500" style={{ margin: '0 0 1rem' }} />
 
@@ -47,7 +48,7 @@ First, let's look at the class of the style rule we changed in the inspector:
 
 `figure.before-after-container.s-khJY-w4TYkp5 .overlay-container.before.s-khJY-w4TYkp5`
 
-One thing we always need to do is <span className="highlight">strip out any Svelte class names</span>, i.e., those weird `.s-khJY-w4TYkp5` classes. Why? Those are random classes Svelte adds to CSS, and we can't guarantee they won't change.
+One thing we always need to do is <Highlight>strip out any Svelte class names</Highlight>, i.e., those weird `.s-khJY-w4TYkp5` classes. Why? Those are random classes Svelte adds to CSS, and we can't guarantee they won't change.
 
 That leaves us with:
 
@@ -55,7 +56,7 @@ That leaves us with:
 
 But we need our style rule to _beat_ the original style in the CSS cascade, and right now, it's less specific without those class names we stripped.
 
-The easiest way to make sure your style rule wins out is to <span className="highlight">add an ID either directly to the element or to a parent</span>. In our case, let's add an ID through the `BeforeAfter` `id` prop. Now we can use it! (For extra credit, though, we'll drop the `.before` so our new style rule applies to _both_ overlays.)
+The easiest way to make sure your style rule wins out is to <Highlight>add an ID either directly to the element or to a parent</Highlight>. In our case, let's add an ID through the `BeforeAfter` `id` prop. Now we can use it! (For extra credit, though, we'll drop the `.before` so our new style rule applies to _both_ overlays.)
 
 ```scss
 figure#my-before-after .overlay-container {
@@ -81,12 +82,14 @@ div#my-before-after figure .overlay-container {
 }
 ```
 
-We can <span className="highlight">confirm the new style rule is winning by looking at its order back in our web inspector!</span>
+We can <Highlight>confirm the new style rule is winning by looking at its order back in our web inspector!</Highlight>
 
 <img src={winningImg} width="500" style={{ margin: '0 0 1rem' }} />
 
 Done!
 
-#### Can I just... `important!` it?
+### Can I just... `important!` it?
 
-Yep, as a last result. Just be sure your style rule is **very specific** and not something generic that might apply to other elements like `div.container`.
+Yep! Just be sure your style rule is **very specific** and not something generic that might apply to other elements in your page like `div.container`.
+
+Many of the components have `class` or `id` props you can use to attach additional classes or an id that will add more specificity to your components.

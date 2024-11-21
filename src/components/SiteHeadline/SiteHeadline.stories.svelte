@@ -21,7 +21,7 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore raw
-  import quickitDocs from './stories/docs/quickit.md?raw';
+  import archieML from './stories/docs/archieML.md?raw';
 
   import { withStoryDocs } from '$lib/docs/utils/withParams.js';
 
@@ -56,7 +56,7 @@
   }}"
 />
 
-<Story name="🚀 QUICKIT" {...withStoryDocs(quickitDocs)}>
+<Story name="ArchieML" {...withStoryDocs(archieML)}>
   <SiteHeadline
     hed="{content.Hed}"
     section="{content.Section}"

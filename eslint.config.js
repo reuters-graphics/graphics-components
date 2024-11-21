@@ -15,6 +15,7 @@ export default [
       'bin/css-to-js/',
       'bin/newComponent/',
       '.svelte-kit/',
+      'src/docs/guides/archieml.mdx',
     ],
   },
   ...svelte,

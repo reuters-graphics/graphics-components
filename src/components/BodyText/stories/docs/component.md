@@ -16,7 +16,19 @@ Use it like this:
 <BodyText text="{markdownText}" />
 ```
 
-... or more commonly, you'll use it with a Google doc in the Graphics Kit like this:
+... or more commonly, you'll use it with a ArchieML doc in the Graphics Kit like this:
+
+```yaml
+[blocks]
+
+type: text
+text: Lorem ipsum ...
+
+... etc.
+:end
+
+[]
+```
 
 ```svelte
 <script>
@@ -26,8 +38,9 @@ Use it like this:
 </script>
 
 {#each content.blocks as block}
-  {#if block.Type === 'text'}
-    <BodyText text="{block.Text}" />
+  {#if block.type === 'text'}
+    <BodyText text="{block.text}" />
+  <!-- ... -->
   {/if}
 {/each}
 ```

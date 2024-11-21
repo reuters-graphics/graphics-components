@@ -353,7 +353,7 @@
 </Block>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as mixins;
 
   section.table {
     overflow-x: auto;
@@ -366,7 +366,7 @@
       tr {
         th {
           border-bottom: 1px solid var(--theme-colour-text-primary);
-          @include bg;
+          @include mixins.bg;
           text-align: inherit;
           &.sortable {
             cursor: pointer;
@@ -382,13 +382,13 @@
     }
     tbody {
       td {
-        @include text-sm;
-        @include font-regular;
+        @include mixins.text-sm;
+        @include mixins.font-regular;
         vertical-align: top;
         border-bottom: 1px solid
           var(--theme-colour-brand-rules, var(--tr-muted-grey));
         &.no-results {
-          @include text-secondary;
+          @include mixins.text-secondary;
         }
       }
     }
@@ -397,7 +397,7 @@
         border-bottom: 0;
       }
       td {
-        @include body-caption;
+        @include mixins.body-caption;
       }
     }
     &.truncated {
@@ -438,7 +438,7 @@
       height: 2.15rem;
       border: 1px solid var(--theme-colour-brand-rules, var(--tr-muted-grey));
       border-radius: 0.25rem;
-      @include bg;
+      @include mixins.bg;
       cursor: pointer;
     }
   }

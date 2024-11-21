@@ -2,7 +2,7 @@
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
-  import quickitDocs from './stories/docs/quickit.md?raw';
+  import archieMLDocs from './stories/docs/archieML.md?raw';
 
   import SEO from './SEO.svelte';
 
@@ -37,11 +37,11 @@
 />
 
 <Story
-  name="🚀 QUICKIT"
+  name="ArchieML"
   args="{{
     baseUrl: 'https://graphics.reuters.com',
     pageUrl: new URL('https://graphics.reuters.com/hello-world/'),
     publishTime: new Date('2020-09-15').toISOString(),
   }}"
-  {...withStoryDocs(quickitDocs)}
+  {...withStoryDocs(archieMLDocs)}
 />

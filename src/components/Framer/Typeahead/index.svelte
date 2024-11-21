@@ -272,7 +272,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../../scss/mixins';
+  @use '../../../scss/mixins' as mixins;
 
   [data-svelte-typeahead] {
     position: relative;
@@ -299,7 +299,7 @@
   li,
   li.no-results {
     padding: 0.25rem 1rem;
-    @include font-sans;
+    @include mixins.font-sans;
     color: #333;
   }
   li.no-results {
@@ -342,7 +342,7 @@
     display: inline-flex;
     font-size: 0.75rem;
     color: #aaa;
-    @include font-sans;
+    @include mixins.font-sans;
   }
 
   :global([data-svelte-search] input) {
@@ -354,7 +354,7 @@
     border-radius: 0 !important;
     background-color: #fff;
     border: 1px solid #ddd;
-    @include font-sans;
+    @include mixins.font-sans;
   }
 
   :global([data-svelte-search] input:focus) {

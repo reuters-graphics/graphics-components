@@ -2,7 +2,7 @@
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
-  import quickitDocs from './stories/docs/quickit.md?raw';
+  import archieMLDocs from './stories/docs/archieML.md?raw';
   // @ts-ignore raw
   import missingAltTextDocs from './stories/docs/missingAltText.md?raw';
 
@@ -52,14 +52,14 @@
 />
 
 <Story
-  name="🚀 QUICKIT"
+  name="ArchieML"
   args="{{
     src: sharkSrc,
     altText: 'A shark!',
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS',
   }}"
-  {...withStoryDocs(quickitDocs)}
+  {...withStoryDocs(archieMLDocs)}
 />
 
 <Story

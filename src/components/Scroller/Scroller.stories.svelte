@@ -6,7 +6,7 @@
   // @ts-ignore raw
   import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
   // @ts-ignore raw
-  import quickitDocs from './stories/docs/quickit.md?raw';
+  import archieMLDocs from './stories/docs/archieML.md?raw';
 
   import Scroller from './Scroller.svelte';
 
@@ -46,8 +46,6 @@
   import AiMap2 from './stories/components/ai2svelte/ai-scroller-2.svelte';
   import AiMap3 from './stories/components/ai2svelte/ai-scroller-3.svelte';
 
-  import { getScrollerPropsFromDoc } from './docProps';
-
   const aiCharts = {
     AiMap1,
     AiMap2,
@@ -55,26 +53,26 @@
   };
 
   const docBlock = {
-    Type: 'scroller',
-    Width: 'fluid',
-    ForegroundPosition: 'middle',
-    ID: 'my-scroller',
-    StackBackground: 'true',
-    Steps: [
+    type: 'scroller',
+    width: 'fluid',
+    foregroundPosition: 'middle',
+    id: 'my-scroller',
+    stackBackground: true,
+    steps: [
       {
-        Background: 'AiMap1',
-        Text: '#### Step 1\n\nLorem ipsum',
-        AltText: 'A map showing the Upper West side in New York City.',
+        background: aiCharts.AiMap1,
+        text: '#### Step 1\n\nLorem ipsum',
+        altText: 'A map showing the Upper West side in New York City.',
       },
       {
-        Background: 'AiMap2',
-        Text: '#### Step 2\n\nLorem ipsum',
-        AltText: 'The same map now highlights 98th Street.',
+        background: aiCharts.AiMap2,
+        text: '#### Step 2\n\nLorem ipsum',
+        altText: 'The same map now highlights 98th Street.',
       },
       {
-        Background: 'AiMap3',
-        Text: '#### Step 3\n\nLorem ipsum',
-        AltText:
+        background: aiCharts.AiMap3,
+        text: '#### Step 3\n\nLorem ipsum',
+        altText:
           'The same map now highlights three locations near 98th Street where something particulary important happened.',
       },
     ],
@@ -115,11 +113,7 @@
   }}"
 />
 
-<Story
-  name="🚀 QUICKIT"
-  args="{getScrollerPropsFromDoc(docBlock, aiCharts)}"
-  {...withStoryDocs(quickitDocs)}
-/>
+<Story name="ArchieML" args="{docBlock}" {...withStoryDocs(archieMLDocs)} />
 
 <Story
   name="Foreground components"

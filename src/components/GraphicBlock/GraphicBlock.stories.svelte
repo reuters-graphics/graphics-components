@@ -2,7 +2,7 @@
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
-  import quickitDocs from './stories/docs/quickit.md?raw';
+  import archieMLDocs from './stories/docs/archieML.md?raw';
   // @ts-ignore raw
   import customTextDocs from './stories/docs/customText.md?raw';
   // @ts-ignore raw
@@ -60,7 +60,7 @@
   }}"
 />
 
-<Story name="🚀 QUICKIT" {...withStoryDocs(quickitDocs)}>
+<Story name="ArchieML" {...withStoryDocs(archieMLDocs)}>
   <GraphicBlock
     width="normal"
     title="Earthquake in Haiti"
