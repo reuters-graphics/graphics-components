@@ -20,7 +20,10 @@ const isCurrentPage = (urlPath: string) => {
   }
   const url = getUrlFromPath(urlPath);
   if (!url) return false;
-  return window.location.href === url.href;
+  return (
+    window.location.origin === url.origin &&
+    window.location.pathname === url.pathname
+  );
 };
 
 export const articleIsNotCurrentPage = (article: Article) => {
