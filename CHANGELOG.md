@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 2.0.1
+
+### Patch Changes
+
+- ca278c4: ReferralBlock checks if a referral is for the current page and doesn't include it if so.
+
 ## 2.0.0
 
 ### Major Changes
