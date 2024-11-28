@@ -134,7 +134,7 @@ $header: #5e81ac;
 .importsnippet :global {
   max-width: 600px;
   position: relative;
-  
+
   p {
     font-size: 0.8rem;
     line-height: 1;
@@ -147,7 +147,9 @@ $header: #5e81ac;
   }
 
   pre {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23) !important;
+    box-shadow:
+      0 5px 10px rgba(0, 0, 0, 0.19),
+      0 3px 3px rgba(0, 0, 0, 0.23) !important;
     margin-top: 0 !important;
     border-radius: 4px;
     border: 1px solid hsla(203, 50%, 30%, 0.15);
