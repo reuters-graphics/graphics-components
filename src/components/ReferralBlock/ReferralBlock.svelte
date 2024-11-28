@@ -49,13 +49,16 @@
 
   import { onMount } from 'svelte';
   import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
+  import type { Referrals } from './types';
+  import { articleIsNotCurrentPage } from './filterCurrentPage';
+  import type { Article } from './types';
 
   let clientWidth: number;
 
   const SECTION_API = 'recent-stories-by-sections-v1';
   const COLLECTION_API = 'articles-by-collection-alias-or-id-v1';
 
-  let referrals = [];
+  let referrals: Article[] = [];
 
   const getReferrals = async () => {
     const isCollection = Boolean(collection);
@@ -72,11 +75,12 @@
             }),
           })
       );
-      const data = await response.json();
+      const data = (await response.json()) as Referrals;
       const articles = data.result.articles
         .filter((a) => a?.headline_category || a?.kicker?.name)
         .filter((a) => a?.thumbnail?.renditions?.landscape?.['240w'])
         .filter((a) => !a?.content?.third_party)
+        .filter(articleIsNotCurrentPage)
         .slice(0, number);
       referrals = articles;
     } catch {
