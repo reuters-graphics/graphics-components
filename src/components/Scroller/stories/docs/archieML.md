@@ -75,7 +75,7 @@ stackBackground: true
         stackBackground="{block.stackBackground === 'true'}"
         steps="{block.steps.map((step) => ({
           background: aiCharts[step.background],
-          backgroundProps: assets || '/',
+          backgroundProps: { assetsPath: assets || '/' },
           foreground: step.text,
           altText: step.altText,
         }))}"
