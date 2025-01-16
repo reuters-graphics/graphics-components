@@ -9,11 +9,17 @@
   import Block from './Block.svelte';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
+  import { toId } from '@storybook/csf';
 
   export const meta = {
     title: 'Components/Page layout/Block',
     component: Block,
-    ...withComponentDocs(componentDocs),
+    parameters: {
+      ...withComponentDocs(componentDocs).parameters,
+      canvasDocs: {
+        [toId('Components/Page layout/Block', 'default')]: componentDocs,
+      },
+    },
     argTypes: {
       width: {
         control: 'select',
