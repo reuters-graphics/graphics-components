@@ -1,5 +1,9 @@
-<script>
-  export let colour = 'lightblue';
+<script lang="ts">
+  interface Props {
+    colour?: string;
+  }
+
+  let { colour = 'lightblue' }: Props = $props();
 </script>
 
 <div class="step" style="{`background: ${colour};`}"></div>

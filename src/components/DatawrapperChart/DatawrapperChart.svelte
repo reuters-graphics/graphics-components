@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot making the component unusable -->
 <!-- @component `DatawrapperChart` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-datawrapperchart--docs) -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';

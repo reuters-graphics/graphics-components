@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -31,8 +31,10 @@
   import SoundVideo from './stories/videos/sound-video.mp4';
 </script>
 
-<Template let:args>
-  <Video {...args} />
+<Template >
+  {#snippet children({ args })}
+    <Video {...args} />
+  {/snippet}
 </Template>
 
 <Story

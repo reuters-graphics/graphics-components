@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -40,12 +40,14 @@
   import PlaceholderImg from './stories/placeholder.png';
 </script>
 
-<Template let:args>
-  <GraphicBlock {...args}>
-    <div class="demo-graphic">
-      <img src="{PlaceholderImg}" alt="placeholder" />
-    </div>
-  </GraphicBlock>
+<Template >
+  {#snippet children({ args })}
+    <GraphicBlock {...args}>
+      <div class="demo-graphic">
+        <img src="{PlaceholderImg}" alt="placeholder" />
+      </div>
+    </GraphicBlock>
+  {/snippet}
 </Template>
 
 <Story
@@ -73,15 +75,19 @@
 
 <Story name="Custom text" {...withStoryDocs(customTextDocs)}>
   <GraphicBlock width="normal">
-    <div slot="title">
-      <h5>My smaller title</h5>
-    </div>
+    {#snippet title()}
+        <div >
+        <h5>My smaller title</h5>
+      </div>
+      {/snippet}
     <div class="demo-graphic">
       <img src="{PlaceholderImg}" alt="placeholder" />
     </div>
-    <aside slot="notes">
-      <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
-    </aside>
+    {#snippet notes()}
+        <aside >
+        <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
+      </aside>
+      {/snippet}
   </GraphicBlock>
 </Story>
 

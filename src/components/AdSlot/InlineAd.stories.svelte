@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import InlineAd from './InlineAd.svelte';
   // @ts-ignore raw
   import adDocs from './stories/docs/inline.md?raw';

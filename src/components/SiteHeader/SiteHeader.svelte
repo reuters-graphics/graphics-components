@@ -10,11 +10,11 @@
 
   setContext('nav-active-section', writable(null));
 
-  let data = starterData;
+  let data = $state(starterData);
 
-  $: sections = data[0].sections;
+  let sections = $derived(data[0].sections);
 
-  let isMobileMenuOpen = false;
+  let isMobileMenuOpen = $state(false);
 
   onMount(async () => {
     // Only fire on prod...
@@ -77,9 +77,9 @@
                 aria-label="Menu"
                 aria-haspopup="true"
                 aria-expanded="{isMobileMenuOpen}"
-                on:click="{() => {
+                onclick={() => {
                   isMobileMenuOpen = !isMobileMenuOpen;
-                }}"
+                }}
               >
                 <div class="button-container">
                   <MenuIcon />

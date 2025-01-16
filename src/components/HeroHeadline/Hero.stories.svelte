@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: end is out of bounds -->
 <script context="module" lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';

@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
@@ -29,8 +29,10 @@
   import BodyText from '../BodyText/BodyText.svelte';
 </script>
 
-<Template let:args>
-  <InfoBox {...args} />
+<Template >
+  {#snippet children({ args })}
+    <InfoBox {...args} />
+  {/snippet}
 </Template>
 
 <Story name="Default">

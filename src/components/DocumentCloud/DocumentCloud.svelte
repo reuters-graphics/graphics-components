@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `DocumentCloud` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-documentcloud--docs) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';

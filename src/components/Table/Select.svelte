@@ -2,17 +2,23 @@
   import { createEventDispatcher } from 'svelte';
   import type { Option } from '../@types/global';
 
-  /**
+  
+
+  
+  interface Props {
+    /**
    * The label that appears above the select input.
    * @type {string}
    */
-  export let label: string = '';
-
-  /**
+    label?: string;
+    /**
    * The label that appears above the select input.
    * @type {Array}
    */
-  export let options: Option[] = [];
+    options?: Option[];
+  }
+
+  let { label = '', options = [] }: Props = $props();
 
   const dispatch = createEventDispatcher();
 
@@ -30,7 +36,7 @@
     class="select--input body-caption fpx-2"
     name="select--input"
     id="select--input"
-    on:input="{input}"
+    oninput={input}
   >
     {#each options as obj}
       <option value="{obj.value}">{obj.text}</option>

@@ -1,6 +1,6 @@
 <script>
   // export let assetsPath = './';
-  let width = null;
+  let width = $state(null);
 
   // @ts-ignore img
   import chartXs from './CRASH_1-xs.jpeg';

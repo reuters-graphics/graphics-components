@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `YourComponent` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ComponentFolderSlug-YourComponentSlug--docs) -->
 <script lang="ts">
   /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */

@@ -1,29 +1,40 @@
-<script>
+<script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
   import { width } from './../stores.js';
 
-  export let breakpoints = [330, 510, 660, 930, 1200];
-  export let maxFrameWidth = 1200;
-  export let minFrameWidth = 320;
+  interface Props {
+    breakpoints?: any;
+    maxFrameWidth?: number;
+    minFrameWidth?: number;
+  }
 
-  let container;
+  let { breakpoints = [330, 510, 660, 930, 1200], maxFrameWidth = 1200, minFrameWidth = 320 }: Props = $props();
+
+  let container = $state();
 
   const sliderWidth = 90;
-  let windowInnerWidth = 1200;
-  $: minWidth = minFrameWidth;
-  $: maxWidth = Math.min(windowInnerWidth - 70, maxFrameWidth);
-  $: pixelRange = maxWidth - minWidth;
-  $: if ($width > maxWidth) width.set(maxWidth);
-  $: offset = ($width - minWidth) / pixelRange;
+  let windowInnerWidth = $state(1200);
+  let minWidth = $derived(minFrameWidth);
+  let maxWidth = $derived(Math.min(windowInnerWidth - 70, maxFrameWidth));
+  let pixelRange = $derived(maxWidth - minWidth);
+  run(() => {
+    if ($width > maxWidth) width.set(maxWidth);
+  });
+  let offset;
+  run(() => {
+    offset = ($width - minWidth) / pixelRange;
+  });
 
-  let sliding = false;
-  let isFocused = false;
+  let sliding = $state(false);
+  let isFocused = $state(false);
 
   const roundToNearestFive = (d) => Math.ceil(d / 5) * 5;
   const getPx = () => Math.round(pixelRange * offset + minWidth);
 
-  let pixelLabel = null;
+  let pixelLabel = $state(null);
 
   const move = (e) => {
     if (!sliding || !container) return;
@@ -80,9 +91,9 @@
 </script>
 
 <svelte:window
-  on:mousemove="{move}"
-  on:mouseup="{end}"
-  on:keydown="{handleKeyDown}"
+  onmousemove={move}
+  onmouseup={end}
+  onkeydown={handleKeyDown}
   bind:innerWidth="{windowInnerWidth}"
 />
 
@@ -94,10 +105,10 @@
     <button
       class="icon left"
       disabled="{$width === minWidth}"
-      on:click="{decrement}"
-      on:focus="{onFocus}"
-      on:mouseover="{onFocus}"
-      on:mouseleave="{onBlur}"
+      onclick={decrement}
+      onfocus={onFocus}
+      onmouseover={onFocus}
+      onmouseleave={onBlur}
     >
       <Fa icon="{faMobileAlt}" fw />
     </button>
@@ -108,18 +119,18 @@
         tabindex="0"
         role="button"
         style="left: calc({offset * 100}% - 5px);"
-        on:mousedown="{start}"
-        on:focus="{onFocus}"
-        on:blur="{onBlur}"
+        onmousedown={start}
+        onfocus={onFocus}
+        onblur={onBlur}
       ></div>
     </div>
     <button
       class="icon right"
       disabled="{$width === maxWidth}"
-      on:click="{increment}"
-      on:focus="{onFocus}"
-      on:mouseover="{onFocus}"
-      on:mouseleave="{onBlur}"
+      onclick={increment}
+      onfocus={onFocus}
+      onmouseover={onFocus}
+      onmouseleave={onBlur}
     >
       <Fa icon="{faDesktop}" fw />
     </button>

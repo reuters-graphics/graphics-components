@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Twitter from './svgs/Twitter.svelte';
   import YouTube from './svgs/YouTube.svelte';
   import Facebook from './svgs/Facebook.svelte';
@@ -14,7 +14,7 @@
     linkedin: LinkedIn,
   };
 
-  export let links = {};
+  let { links = {} } = $props();
 </script>
 
 {#if links.social_links}
@@ -29,11 +29,12 @@
         <div>
           <ul class="links">
             {#each links.social_links as link}
+              {@const SvelteComponent = symbols[link.type]}
               <li class="social-links symbol">
                 <a href="{normalizeUrl(link.url)}">
                   <div class="button">
                     <div class="social">
-                      <svelte:component this="{symbols[link.type]}" />
+                      <SvelteComponent />
                     </div>
                   </div>
                 </a>

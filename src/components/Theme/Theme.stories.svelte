@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -40,12 +40,14 @@
   import Headline from './../Headline/Headline.svelte';
 </script>
 
-<Template let:args>
-  <div class="reset-article">
-    <Theme {...args}>
-      <ThemedPage />
-    </Theme>
-  </div>
+<Template >
+  {#snippet children({ args })}
+    <div class="reset-article">
+      <Theme {...args}>
+        <ThemedPage />
+      </Theme>
+    </div>
+  {/snippet}
 </Template>
 
 <Story

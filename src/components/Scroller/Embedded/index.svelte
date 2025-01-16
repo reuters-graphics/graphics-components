@@ -1,15 +1,19 @@
 <script lang="ts">
   import type { ContainerWidth, ScrollerStep } from '../../@types/global';
 
-  export let steps: ScrollerStep[] = [];
 
   type EmbeddedLayout = 'fb' | 'bf';
-  export let embeddedLayout: EmbeddedLayout = 'fb';
 
-  export let backgroundWidth: ContainerWidth = 'fluid';
 
   import Background from './Background.svelte';
   import Foreground from './Foreground.svelte';
+  interface Props {
+    steps?: ScrollerStep[];
+    embeddedLayout?: EmbeddedLayout;
+    backgroundWidth?: ContainerWidth;
+  }
+
+  let { steps = [], embeddedLayout = 'fb', backgroundWidth = 'fluid' }: Props = $props();
 </script>
 
 {#each steps as step, index}

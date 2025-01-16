@@ -1,14 +1,20 @@
 <script lang="ts">
-  /**
+  
+  interface Props {
+    /**
    * Whether to wrap the graphic with an aria hidden tag.
    */
-  export let hidden: boolean = false;
+    hidden?: boolean;
+    children?: import('svelte').Snippet;
+  }
+
+  let { hidden = false, children }: Props = $props();
 </script>
 
 {#if hidden}
   <div aria-hidden="true">
-    <slot></slot>
+    {@render children?.()}
   </div>
 {:else}
-  <slot></slot>
+  {@render children?.()}
 {/if}

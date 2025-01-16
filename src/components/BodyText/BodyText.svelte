@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `BodyText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-bodytext--docs) -->
 <script lang="ts">
   import Markdown from '../Markdown/Markdown.svelte';

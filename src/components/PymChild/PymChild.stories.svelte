@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
@@ -17,9 +17,11 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template let:args>
-  <PymChild {...args} />
-  <div>Nothing to see here. 😎</div>
+<Template >
+  {#snippet children({ args })}
+    <PymChild {...args} />
+    <div>Nothing to see here. 😎</div>
+  {/snippet}
 </Template>
 
 <Story name="Default" />

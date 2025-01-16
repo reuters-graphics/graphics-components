@@ -1,5 +1,9 @@
-<script>
-  export let rotate = false;
+<script lang="ts">
+  interface Props {
+    rotate?: boolean;
+  }
+
+  let { rotate = false }: Props = $props();
 </script>
 
 <svg

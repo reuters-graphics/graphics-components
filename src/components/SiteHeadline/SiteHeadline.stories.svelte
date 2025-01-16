@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import SiteHeadline from './SiteHeadline.svelte';
   import { withComponentDocs } from '$lib/docs/utils/withParams.js';
   // @ts-ignore raw
@@ -35,8 +35,10 @@
   };
 </script>
 
-<Template let:args>
-  <SiteHeadline {...args} />
+<Template >
+  {#snippet children({ args })}
+    <SiteHeadline {...args} />
+  {/snippet}
 </Template>
 
 <Story

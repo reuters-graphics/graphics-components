@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import EndNotes from './EndNotes.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
@@ -31,8 +31,10 @@
   ];
 </script>
 
-<Template let:args>
-  <EndNotes {...args} />
+<Template >
+  {#snippet children({ args })}
+    <EndNotes {...args} />
+  {/snippet}
 </Template>
 
 <Story name="Default" args="{{ notes }}" />

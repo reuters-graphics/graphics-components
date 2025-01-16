@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import DocumentCloud from './DocumentCloud.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
@@ -22,8 +22,10 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template let:args>
-  <DocumentCloud {...args} />
+<Template >
+  {#snippet children({ args })}
+    <DocumentCloud {...args} />
+  {/snippet}
 </Template>
 
 <Story

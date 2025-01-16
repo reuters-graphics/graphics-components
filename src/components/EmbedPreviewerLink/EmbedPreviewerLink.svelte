@@ -1,8 +1,12 @@
 <script lang="ts">
-  export let dev: boolean = false;
 
   import Fa from 'svelte-fa/src/fa.svelte';
   import { faWindowRestore } from '@fortawesome/free-regular-svg-icons';
+  interface Props {
+    dev?: boolean;
+  }
+
+  let { dev = false }: Props = $props();
 </script>
 
 {#if dev}

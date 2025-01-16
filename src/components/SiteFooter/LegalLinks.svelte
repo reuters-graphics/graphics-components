@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../SiteHeader/NavBar/utils';
 
-  export let links = {};
+  let { links = {} } = $props();
 </script>
 
 {#if links.ad_links}

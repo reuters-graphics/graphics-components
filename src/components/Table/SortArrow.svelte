@@ -4,13 +4,18 @@
    * @type {SortDirection}
    */
   type SortDirection = 'ascending' | 'descending';
-  export let sortDirection: SortDirection = 'ascending';
 
-  /**
+  
+  interface Props {
+    sortDirection?: SortDirection;
+    /**
    * Whether or not this arrow is currently sorting. It is false by default.
    * @type {boolean}
    */
-  export let active: boolean = false;
+    active?: boolean;
+  }
+
+  let { sortDirection = 'ascending', active = false }: Props = $props();
 </script>
 
 <svg

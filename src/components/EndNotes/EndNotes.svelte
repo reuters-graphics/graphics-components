@@ -12,14 +12,19 @@
     text: string;
   }
 
-  /**
-   * An array of endnote items.
-   * @required
-   */
-  export let notes: EndNote[] = [];
+  
 
   import Block from '../Block/Block.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
+  interface Props {
+    /**
+   * An array of endnote items.
+   * @required
+   */
+    notes?: EndNote[];
+  }
+
+  let { notes = [] }: Props = $props();
 </script>
 
 <Block class="notes fmt-6 fmb-8">
@@ -35,7 +40,7 @@
   {/if}
 </Block>
 
-<!-- svelte-ignore css-unused-selector -->
+<!-- svelte-ignore css_unused_selector -->
 <style lang="scss">
   @use '../../scss/mixins' as mixins;
 

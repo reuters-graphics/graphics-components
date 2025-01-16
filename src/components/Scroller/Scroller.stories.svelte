@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -79,8 +79,10 @@
   };
 </script>
 
-<Template let:args>
-  <Scroller {...args} />
+<Template >
+  {#snippet children({ args })}
+    <Scroller {...args} />
+  {/snippet}
 </Template>
 
 <Story

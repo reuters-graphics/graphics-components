@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import DatawrapperChart from './DatawrapperChart.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
@@ -27,8 +27,10 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template let:args>
-  <DatawrapperChart {...args} />
+<Template >
+  {#snippet children({ args })}
+    <DatawrapperChart {...args} />
+  {/snippet}
 </Template>
 
 <Story

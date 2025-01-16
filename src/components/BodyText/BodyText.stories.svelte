@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import BodyText from './BodyText.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
@@ -16,8 +16,10 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template let:args>
-  <BodyText {...args} />
+<Template >
+  {#snippet children({ args })}
+    <BodyText {...args} />
+  {/snippet}
 </Template>
 
 <Story
@@ -94,7 +96,7 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
   }}"
 />
 
-<!-- svelte-ignore css-unused-selector -->
+<!-- svelte-ignore css_unused_selector -->
 <style lang="scss" global>
   @mixin heading-tag {
     position: absolute;

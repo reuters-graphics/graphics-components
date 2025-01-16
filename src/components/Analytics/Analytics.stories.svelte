@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import Analytics from './Analytics.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
@@ -20,9 +20,11 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template let:args>
-  <Analytics {...args} />
-  <div>Nothing to see here</div>
+<Template >
+  {#snippet children({ args })}
+    <Analytics {...args} />
+    <div>Nothing to see here</div>
+  {/snippet}
 </Template>
 
 <Story

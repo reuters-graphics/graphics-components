@@ -4,22 +4,28 @@
   import ResponsiveAd from './ResponsiveAd.svelte';
   import { onMount } from 'svelte';
 
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
+  
 
-  /** Add a class to target with SCSS. */
-  export let cls: string = '';
-  export { cls as class };
+  
+  interface Props {
+    /** Add an ID to target with SCSS. */
+    id?: string;
+    /** Add a class to target with SCSS. */
+    class?: string;
+  }
 
-  let windowWidth = 1200;
-  $: adSize = windowWidth < 1024 ? 110 : 275;
+  let { id = '', class: cls = '' }: Props = $props();
+  
+
+  let windowWidth = $state(1200);
+  let adSize = $derived(windowWidth < 1024 ? 110 : 275);
 
   const desktopPlacementName: LeaderboardAd['desktop']['placementName'] =
     'reuters_desktop_leaderboard_atf';
 
-  let sticky = false;
+  let sticky = $state(false);
   // Handles transition out... somewhat dumb, but here we are...
-  let unstick = false;
+  let unstick = $state(false);
 
   onMount(() => {
     const handleScroll = () => {

@@ -1,15 +1,21 @@
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
 
-  /** Width of the component within the text well. */
-  export let width: ContainerWidth | null = null;
+  
   import Block from '../Block/Block.svelte';
+  interface Props {
+    /** Width of the component within the text well. */
+    width?: ContainerWidth | null;
+    children?: import('svelte').Snippet;
+  }
+
+  let { width = null, children }: Props = $props();
 </script>
 
 {#if width}
   <Block {width} class="notes fmy-0">
-    <slot />
+    {@render children?.()}
   </Block>
 {:else}
-  <slot />
+  {@render children?.()}
 {/if}

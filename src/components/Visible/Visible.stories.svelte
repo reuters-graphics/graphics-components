@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -19,14 +19,18 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template let:args>
-  <Visible {...args} let:visible>
-    {#if visible}
-      <p>Visible!</p>
-    {:else}
-      <p>Not yet visible.</p>
-    {/if}
-  </Visible>
+<Template >
+  {#snippet children({ args })}
+    <Visible {...args} >
+      {#snippet children({ visible })}
+        {#if visible}
+          <p>Visible!</p>
+        {:else}
+          <p>Not yet visible.</p>
+        {/if}
+            {/snippet}
+    </Visible>
+  {/snippet}
 </Template>
 
 <Story name="Default" {...withSource({ svelte: defaultSnippet })} />

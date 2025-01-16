@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
 <script>
   import Fa from 'svelte-fa/src/fa.svelte';
   import { faDesktop, faLink } from '@fortawesome/free-solid-svg-icons';

@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import YourComponent from './YourComponent.svelte';
   // Don't lose the "?raw" in markdown imports!
   // @ts-ignore raw
@@ -28,8 +28,10 @@
   import SharkImg from './stories/shark.jpg';
 </script>
 
-<Template let:args>
-  <YourComponent {...args} />
+<Template >
+  {#snippet children({ args })}
+    <YourComponent {...args} />
+  {/snippet}
 </Template>
 
 <Story

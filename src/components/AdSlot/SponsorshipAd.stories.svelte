@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import SponsorshipAd from './SponsorshipAd.svelte';
   // @ts-ignore raw
   import adDocs from './stories/docs/sponsorship.md?raw';

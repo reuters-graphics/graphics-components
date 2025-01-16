@@ -1,20 +1,22 @@
-<script>
+<script lang="ts">
   import Fa from 'svelte-fa';
   import { faReply, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
-  export let paused;
-  export let clickedOnPauseBtn;
-  export let controlsOpacity;
-  export let controlsPosition;
-  export let widthVideoContainer;
-  export let heightVideoContainer;
-  export let controlsBorderOffset;
-  export let resetCondition;
-  export let separateReplayIcon;
-  export let controlsColour;
+  let {
+    paused = $bindable(),
+    clickedOnPauseBtn = $bindable(),
+    controlsOpacity,
+    controlsPosition,
+    widthVideoContainer,
+    heightVideoContainer,
+    controlsBorderOffset,
+    resetCondition,
+    separateReplayIcon,
+    controlsColour
+  } = $props();
 
   function forwardBtnClick() {
     paused = !paused;
@@ -27,7 +29,7 @@
 </script>
 
 <button
-  on:click="{forwardBtnClick}"
+  onclick={forwardBtnClick}
   style="
     opacity: {controlsOpacity};
     top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?

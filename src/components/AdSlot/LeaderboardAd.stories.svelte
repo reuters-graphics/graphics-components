@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import LeaderboardAd from './LeaderboardAd.svelte';
   // @ts-ignore raw
   import adDocs from './stories/docs/leaderboard.md?raw';

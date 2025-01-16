@@ -4,13 +4,19 @@
   import { marked } from 'marked';
   import { staticMarkdown } from './stores';
 
-  /** A Markdown formatted string */
-  export let source = '';
+  
 
-  /** Parse markdown inline, i.e., without wrapping it in paragraph tags */
-  export let parseInline = false;
+  
+  interface Props {
+    /** A Markdown formatted string */
+    source?: string;
+    /** Parse markdown inline, i.e., without wrapping it in paragraph tags */
+    parseInline?: boolean;
+  }
 
-  $: markdown = parseInline ? marked.parseInline(source) : marked.parse(source);
+  let { source = '', parseInline = false }: Props = $props();
+
+  let markdown = $derived(parseInline ? marked.parseInline(source) : marked.parse(source));
 
   const setInnerHTML: Action<HTMLElement, string> = (node, html) => {
     node.innerHTML = html;

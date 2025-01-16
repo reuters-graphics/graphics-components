@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -26,10 +26,12 @@
   import Theme from '../Theme/Theme.svelte';
 </script>
 
-<Template let:args>
-  <div>
-    <SiteFooter {...args} />
-  </div>
+<Template >
+  {#snippet children({ args })}
+    <div>
+      <SiteFooter {...args} />
+    </div>
+  {/snippet}
 </Template>
 
 <Story name="Default" />

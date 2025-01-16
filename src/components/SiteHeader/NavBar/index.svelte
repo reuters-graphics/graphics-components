@@ -1,61 +1,61 @@
-<script>
+<script lang="ts">
   import DownArrow from './DownArrow.svelte';
   import SectionDropdown from './NavDropdown/SectionDropdown.svelte';
   import MoreDropdown from './NavDropdown/MoreDropdown.svelte';
   import { normalizeUrl } from './utils/index';
   import { getContext } from 'svelte';
 
-  export let sections = [];
+  let { sections = [] } = $props();
 
   const activeSection = getContext('nav-active-section');
 
-  let windowWidth = 1200;
+  let windowWidth = $state(1200);
 
-  $: getDisplayCount = () => {
+  let getDisplayCount = $derived(() => {
     if (windowWidth >= 1300) return 7;
     return 5;
-  };
+  });
 
-  let navTimeout;
+  let navTimeout = $state();
   const timeout = 250;
 
-  $: displayCount = getDisplayCount();
-  $: displaySections = sections.slice(0, displayCount);
-  $: hiddenSections = sections.slice(displayCount);
+  let displayCount = $derived(getDisplayCount());
+  let displaySections = $derived(sections.slice(0, displayCount));
+  let hiddenSections = $derived(sections.slice(displayCount));
 </script>
 
 <svelte:window bind:innerWidth="{windowWidth}" />
 
 <div class="nav-bar">
   <nav aria-label="Main navigation">
-    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <ul class="nav-list">
       {#each displaySections as section}
         {#if section.children}
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
           <li
             class="nav-item category link"
-            on:mouseenter="{() => {
+            onmouseenter={() => {
               navTimeout = setTimeout(
                 () => activeSection.set(section.id),
                 timeout
               );
-            }}"
-            on:focus="{() => activeSection.set(section.id)}"
-            on:mouseleave="{() => {
+            }}
+            onfocus={() => activeSection.set(section.id)}
+            onmouseleave={() => {
               clearTimeout(navTimeout);
               activeSection.set(null);
-            }}"
-            on:blur="{() => {
+            }}
+            onblur={() => {
               clearTimeout(navTimeout);
               activeSection.set(null);
-            }}"
-            on:click="{() => {
+            }}
+            onclick={() => {
               if ($activeSection === section.id) {
                 clearTimeout(navTimeout);
                 activeSection.set(null);
               }
-            }}"
+            }}
           >
             <div
               class="nav-button link"
@@ -85,27 +85,27 @@
           </li>
         {/if}
       {/each}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
       <li
         class="nav-item"
-        on:mouseenter="{() => {
+        onmouseenter={() => {
           navTimeout = setTimeout(() => activeSection.set('more'), timeout);
-        }}"
-        on:focus="{() => activeSection.set('more')}"
-        on:mouseleave="{() => {
+        }}
+        onfocus={() => activeSection.set('more')}
+        onmouseleave={() => {
           clearTimeout(navTimeout);
           activeSection.set(null);
-        }}"
-        on:blur="{() => {
+        }}
+        onblur={() => {
           clearTimeout(navTimeout);
           activeSection.set(null);
-        }}"
-        on:click="{() => {
+        }}
+        onclick={() => {
           if ($activeSection === 'more') {
             clearTimeout(navTimeout);
             activeSection.set(null);
           }
-        }}"
+        }}
       >
         <div
           class="nav-button more link"

@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -122,8 +122,10 @@
   const altTextLayouts = [{ breakpoint: 450, rows: [2] }];
 </script>
 
-<Template let:args>
-  <PhotoPack {...args} />
+<Template >
+  {#snippet children({ args })}
+    <PhotoPack {...args} />
+  {/snippet}
 </Template>
 
 <Story

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../SiteHeader/NavBar/utils';
 
   import Graphics from './svgs/Graphics.svelte';
@@ -11,9 +11,9 @@
     videos: Videos,
   };
 
-  export let links = {};
+  let { links = {} } = $props();
 
-  let windowWidth = 1200;
+  let windowWidth = $state(1200);
   const mobileBreakpoint = 745;
 </script>
 
@@ -39,9 +39,10 @@
             <h3>Media</h3>
             <ul>
               {#each links.media_links as link}
+                {@const SvelteComponent = symbols[link.symbol]}
                 <li>
                   <div class="symbol">
-                    <svelte:component this="{symbols[link.symbol]}" />
+                    <SvelteComponent />
                   </div>
                   <a href="{normalizeUrl(link.url)}">
                     {link.text}
@@ -79,9 +80,10 @@
           <h3>Media</h3>
           <ul>
             {#each links.media_links as link}
+              {@const SvelteComponent_1 = symbols[link.symbol]}
               <li>
                 <div class="symbol">
-                  <svelte:component this="{symbols[link.symbol]}" />
+                  <SvelteComponent_1 />
                 </div>
                 <a href="{normalizeUrl(link.url)}">
                   {link.text}

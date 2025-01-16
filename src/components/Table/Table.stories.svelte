@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -47,8 +47,10 @@
   const currencyFormat = (v: number) => '$' + v.toFixed(1);
 </script>
 
-<Template let:args>
-  <Table {...args} />
+<Template >
+  {#snippet children({ args })}
+    <Table {...args} />
+  {/snippet}
 </Template>
 
 <Story

@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
@@ -96,8 +96,10 @@
   ];
 </script>
 
-<Template let:args>
-  <SimpleTimeline {...args} />
+<Template >
+  {#snippet children({ args })}
+    <SimpleTimeline {...args} />
+  {/snippet}
 </Template>
 
 <Story

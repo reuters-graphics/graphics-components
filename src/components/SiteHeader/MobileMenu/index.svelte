@@ -1,11 +1,15 @@
-<script>
+<script lang="ts">
   import ReutersLogo from '../../ReutersLogo/ReutersLogo.svelte';
   import CloseIcon from '../svgs/Close.svelte';
   import { normalizeUrl } from '../NavBar/utils/index.js';
 
-  export let data = [];
-  export let isMobileMenuOpen = false;
-  export let releaseMobileMenu = () => {};
+  interface Props {
+    data?: any;
+    isMobileMenuOpen?: boolean;
+    releaseMobileMenu?: any;
+  }
+
+  let { data = [], isMobileMenuOpen = false, releaseMobileMenu = () => {} }: Props = $props();
 </script>
 
 {#if isMobileMenuOpen}
@@ -27,7 +31,7 @@
           textColour="var(--nav-primary)"
         />
       </div>
-      <button class="button close-button" on:click="{releaseMobileMenu}">
+      <button class="button close-button" onclick={releaseMobileMenu}>
         <div class="button-container">
           <CloseIcon />
         </div>

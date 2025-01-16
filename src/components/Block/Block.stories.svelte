@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -36,15 +36,17 @@
   import Article from '../Article/Article.svelte';
 </script>
 
-<Template let:args>
-  <Article id="block-demo-article">
-    <div class="article-boundaries">
-      <div class="label">Article</div>
-      <Block {...args}>
-        <div class="label">Block</div>
-      </Block>
-    </div>
-  </Article>
+<Template >
+  {#snippet children({ args })}
+    <Article id="block-demo-article">
+      <div class="article-boundaries">
+        <div class="label">Article</div>
+        <Block {...args}>
+          <div class="label">Block</div>
+        </Block>
+      </div>
+    </Article>
+  {/snippet}
 </Template>
 
 <Story

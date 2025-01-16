@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `ToolsHeader` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-toolsheader--docs) -->
 <script lang="ts">
   /** Add an ID to target with SCSS. */

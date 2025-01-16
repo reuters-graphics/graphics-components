@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -44,8 +44,10 @@
   import Map from './stories/graphic.svelte';
 </script>
 
-<Template let:args>
-  <Headline {...args} />
+<Template >
+  {#snippet children({ args })}
+    <Headline {...args} />
+  {/snippet}
 </Template>
 
 <Story
@@ -79,16 +81,20 @@
 
 <Story name="With custom hed" {...withStoryDocs(customHedDocs)}>
   <Headline width="wide">
-    <h1 class="custom-hed" slot="hed">
-      <span class="small block text-base">The secret to</span>
-      “The Nutcracker's”
-      <span class="small block text-base fpt-1">success</span>
-    </h1>
-    <p class="custom-dek !fmt-3" slot="dek">
-      How “The Nutcracker” ballet became an<span
-        class="font-medium mx-1 px-1.5 py-1">American holday staple</span
-      >and a financial pillar of ballet companies across the country
-    </p>
+    {#snippet hed()}
+        <h1 class="custom-hed" >
+        <span class="small block text-base">The secret to</span>
+        “The Nutcracker's”
+        <span class="small block text-base fpt-1">success</span>
+      </h1>
+      {/snippet}
+    {#snippet dek()}
+        <p class="custom-dek !fmt-3" >
+        How “The Nutcracker” ballet became an<span
+          class="font-medium mx-1 px-1.5 py-1">American holday staple</span
+        >and a financial pillar of ballet companies across the country
+      </p>
+      {/snippet}
   </Headline>
   <style lang="scss">
     .custom-hed {
@@ -105,15 +111,19 @@
 <Story name="With crown image" {...withStoryDocs(withCrownImgDocs)}>
   <Headline class="!fmt-3" publishTime="{new Date('2020-01-01').toISOString()}">
     <!-- Add a crown -->
-    <img
-      slot="crown"
-      src="{crownImgSrc}"
-      width="100"
-      class="mx-auto mb-0"
-      alt="Illustration of Europe"
-    />
+    {#snippet crown()}
+        <img
+        
+        src="{crownImgSrc}"
+        width="100"
+        class="mx-auto mb-0"
+        alt="Illustration of Europe"
+      />
+      {/snippet}
     <!-- Override the hed with a named slot -->
-    <h1 slot="hed" class="!font-serif !tracking-wide">Europa</h1>
+    {#snippet hed()}
+        <h1  class="!font-serif !tracking-wide">Europa</h1>
+      {/snippet}
   </Headline>
 </Story>
 
@@ -128,8 +138,10 @@
     publishTime="{new Date('2022-03-04').toISOString()}"
   >
     <!-- Add a crown graphic -->
-    <div slot="crown">
-      <Map />
-    </div>
+    {#snippet crown()}
+        <div >
+        <Map />
+      </div>
+      {/snippet}
   </Headline>
 </Story>

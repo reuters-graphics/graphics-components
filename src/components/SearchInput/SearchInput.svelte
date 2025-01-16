@@ -4,14 +4,19 @@
   import MagnifyingGlass from './MagnifyingGlass.svelte';
   import X from './X.svelte';
 
-  /**
+  
+  interface Props {
+    /**
    * The placeholder text that appears in the search box.
    * @type {string}
    */
-  export let searchPlaceholder: string = 'Search...';
+    searchPlaceholder?: string;
+  }
 
-  let value = '';
-  $: active = value !== '';
+  let { searchPlaceholder = 'Search...' }: Props = $props();
+
+  let value = $state('');
+  let active = $derived(value !== '');
 
   const dispatch = createEventDispatcher();
 
@@ -35,7 +40,7 @@
     class="search--input body-caption pl-8"
     type="text"
     placeholder="{searchPlaceholder}"
-    on:input="{input}"
+    oninput={input}
     bind:value
   />
   <div
@@ -43,8 +48,8 @@
     role="button"
     tabindex="0"
     class:invisible="{!active}"
-    on:click="{clear}"
-    on:keyup="{clear}"
+    onclick={clear}
+    onkeyup={clear}
   >
     <X />
   </div>

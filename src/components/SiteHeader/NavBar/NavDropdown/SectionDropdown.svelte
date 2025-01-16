@@ -1,15 +1,14 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../utils';
 
   import NavDropdown from './index.svelte';
 
-  export let section = {};
-  export let headingText;
+  let { section = {}, headingText } = $props();
 
-  $: splitCount =
-    section.children && section.children.length > 7 ?
+  let splitCount =
+    $derived(section.children && section.children.length > 7 ?
       Math.ceil(section.children.length / 2)
-    : 0;
+    : 0);
 </script>
 
 <NavDropdown {headingText}>

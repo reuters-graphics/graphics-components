@@ -1,11 +1,14 @@
 <script lang="ts">
   import type { ScrollerStep } from '../../@types/global';
 
-  export let step: ScrollerStep;
-  export let index: number;
-
   import Block from '../../Block/Block.svelte';
   import Markdown from '../../Markdown/Markdown.svelte';
+  interface Props {
+    step: ScrollerStep;
+    index: number;
+  }
+
+  let { step, index }: Props = $props();
 </script>
 
 {#if step.foreground === '' || !step.foreground}
@@ -31,10 +34,7 @@
   </Block>
 {:else}
   <div class="embedded-foreground step-{index + 1}">
-    <svelte:component
-      this="{step.foreground}"
-      {...step.foregroundProps || {}}
-    />
+    <step.foreground {...step.foregroundProps || {}}></step.foreground>
   </div>
 {/if}
 

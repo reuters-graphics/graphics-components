@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import NavDropdown from './index.svelte';
   import { normalizeUrl } from '../utils';
 
-  export let sections = [];
+  let { sections = [] } = $props();
 </script>
 
 <NavDropdown>

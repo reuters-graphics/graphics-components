@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `Scroller` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-scroller--docs) -->
 <script lang="ts">
   import type { ContainerWidth, ScrollerStep } from '../@types/global';

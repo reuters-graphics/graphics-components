@@ -1,19 +1,25 @@
 <!-- @component `PaddingReset` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-paddingreset--docs) -->
-<script>
-  /**
+<script lang="ts">
+  
+  interface Props {
+    /**
    * If parent container is fluid, which resets the padding around contained elements.
    */
-  export let containerIsFluid = true;
+    containerIsFluid?: boolean;
+    children?: import('svelte').Snippet;
+  }
+
+  let { containerIsFluid = true, children }: Props = $props();
 </script>
 
 {#if containerIsFluid}
   <div>
     <!-- Padded content -->
-    <slot />
+    {@render children?.()}
   </div>
 {:else}
   <!-- Padded content -->
-  <slot />
+  {@render children?.()}
 {/if}
 
 <style>

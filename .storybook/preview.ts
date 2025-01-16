@@ -16,7 +16,7 @@ SyntaxHighlighter.registerLanguage('markdown', markdown);
 const preview: Preview = {
   // @ts-ignore Is OK
   decorators: [() => Wrapper],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'autodocs', 'autodocs', 'autodocs'],
   parameters: {
     viewMode: 'docs',
     previewTabs: { 'storybook/docs/panel': { index: -1 } },

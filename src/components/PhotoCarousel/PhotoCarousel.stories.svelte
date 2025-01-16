@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -29,8 +29,10 @@
   const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
 </script>
 
-<Template let:args>
-  <PhotoCarousel {...args} />
+<Template >
+  {#snippet children({ args })}
+    <PhotoCarousel {...args} />
+  {/snippet}
 </Template>
 
 <Story
@@ -55,8 +57,12 @@
       photos,
     }}
   >
-    <p class="custom-credit" slot="credit" let:credit>{credit}</p>
-    <p class="custom-caption" slot="caption" let:caption>{caption}</p>
+    {#snippet credit({ credit })}
+        <p class="custom-credit"  >{credit}</p>
+      {/snippet}
+    {#snippet caption({ caption })}
+        <p class="custom-caption"  >{caption}</p>
+      {/snippet}
   </PhotoCarousel>
 </Story>
 

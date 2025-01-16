@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: end is out of bounds -->
 <script context="module" lang="ts">
   import BeforeAfter from './BeforeAfter.svelte';
   // @ts-ignore raw

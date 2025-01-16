@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
@@ -18,13 +18,15 @@
   import Block from '../Block/Block.svelte';
 </script>
 
-<Template let:args>
-  <Block width="fluid">
-    <div class="outer"></div>
-    <PaddingReset {...args}>
-      <div class="inner"></div>
-    </PaddingReset>
-  </Block>
+<Template >
+  {#snippet children({ args })}
+    <Block width="fluid">
+      <div class="outer"></div>
+      <PaddingReset {...args}>
+        <div class="inner"></div>
+      </PaddingReset>
+    </Block>
+  {/snippet}
 </Template>
 
 <Story

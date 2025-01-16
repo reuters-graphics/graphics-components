@@ -3,33 +3,46 @@
   import LeftArrow from './LeftArrow.svelte';
   import RightArrow from './RightArrow.svelte';
 
-  /**
+  
+
+  
+
+  
+
+  
+  interface Props {
+    /**
    * The current page number.
    * @type {number}
    */
-  export let pageNumber: number = 1;
-
-  /**
+    pageNumber?: number;
+    /**
    * The default page size.
    * @type {number}
    */
-  export let pageSize: number = 25;
-
-  /**
+    pageSize?: number;
+    /**
    * The number of records in the current page.
    * @type {number}
    */
-  export let pageLength: number = null;
-
-  /**
+    pageLength?: number;
+    /**
    * The total number of records in the data set.
    * @type {number}
    */
-  export let n: number = null;
+    n?: number;
+  }
 
-  $: minRow = pageNumber * pageSize - pageSize + 1;
-  $: maxRow = pageNumber * pageSize - pageSize + pageLength;
-  $: numPages = Math.ceil(n / pageSize);
+  let {
+    pageNumber = $bindable(1),
+    pageSize = 25,
+    pageLength = null,
+    n = null
+  }: Props = $props();
+
+  let minRow = $derived(pageNumber * pageSize - pageSize + 1);
+  let maxRow = $derived(pageNumber * pageSize - pageSize + pageLength);
+  let numPages = $derived(Math.ceil(n / pageSize));
 
   function goToPreviousPage() {
     if (pageNumber > 1) {
@@ -45,7 +58,7 @@
 </script>
 
 <nav aria-label="pagination" class="pagination fmt-4">
-  <button on:click="{goToPreviousPage}" disabled="{pageNumber === 1}"
+  <button onclick={goToPreviousPage} disabled="{pageNumber === 1}"
     ><div class="icon-wrapper">
       <LeftArrow />
       <span class="visually-hidden">Previous page</span>
@@ -57,7 +70,7 @@
     </div>
   </div>
   <button
-    on:click="{goToNextPage}"
+    onclick={goToNextPage}
     disabled="{pageNumber === Math.ceil(n / pageSize)}"
     ><div class="icon-wrapper">
       <RightArrow />

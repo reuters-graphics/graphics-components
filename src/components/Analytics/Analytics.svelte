@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import { registerPageview as registerChartbeatPageview } from './providers/chartbeat';
   import { registerPageview as registerGAPageview } from './providers/ga';
   import { registerPageview as registerParselyPageview } from './providers/parsely';
@@ -16,13 +16,18 @@
   interface Author {
     name: string;
   }
-  /**
-   * Used to associate a page with its author(s) in Chartbeat.
-   */
-  export let authors: Author[] = [];
+  
 
   import { onMount } from 'svelte';
   import { ga, chartbeat, parsely } from './providers';
+  interface Props {
+    /**
+   * Used to associate a page with its author(s) in Chartbeat.
+   */
+    authors?: Author[];
+  }
+
+  let { authors = [] }: Props = $props();
 
   onMount(() => {
     ga();

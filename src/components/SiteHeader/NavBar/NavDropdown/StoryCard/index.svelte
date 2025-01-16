@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../../utils';
   import { getTime } from './time';
 
-  export let story;
+  let { story } = $props();
 
-  $: thumbnail = story.thumbnail;
+  let thumbnail = $derived(story.thumbnail);
 </script>
 
 <div class="story-card">

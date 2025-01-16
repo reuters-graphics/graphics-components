@@ -9,12 +9,17 @@
   import starterData from './data.json';
   import { onMount } from 'svelte';
 
-  /**
+  
+  interface Props {
+    /**
    * Set to `false` to remove graphics referrals
    */
-  export let includeReferrals = true;
+    includeReferrals?: boolean;
+  }
 
-  let data = starterData;
+  let { includeReferrals = true }: Props = $props();
+
+  let data = $state(starterData);
 
   onMount(async () => {
     if (new URL(document.location.href).origin !== 'https://www.reuters.com') {

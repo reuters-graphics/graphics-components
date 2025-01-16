@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -37,8 +37,10 @@
   import sharkSrc from './stories/shark.jpg';
 </script>
 
-<Template let:args>
-  <FeaturePhoto {...args} />
+<Template >
+  {#snippet children({ args })}
+    <FeaturePhoto {...args} />
+  {/snippet}
 </Template>
 
 <Story
