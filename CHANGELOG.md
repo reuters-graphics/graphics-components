@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 2.0.2
+
+### Patch Changes
+
+- 64b6d88: Fix for changed thumbnail API schema
+
 ## 2.0.1
 
 ### Patch Changes
