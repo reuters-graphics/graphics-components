@@ -123,10 +123,12 @@
 </script>
 
 <Template >
-  {#snippet children({ args })}
+  {#snippet children({ ...args })}
     <PhotoPack {...args} />
   {/snippet}
 </Template>
+
+
 
 <Story
   name="Default"
