@@ -108,6 +108,9 @@ importers:
       '@storybook/components':
         specifier: ^8.4.4
         version: 8.4.4(storybook@8.4.4(prettier@3.3.3))
+      '@storybook/csf':
+        specifier: ^0.1.12
+        version: 0.1.12
       '@storybook/manager-api':
         specifier: ^8.4.4
         version: 8.4.4(storybook@8.4.4(prettier@3.3.3))
@@ -1102,8 +1105,8 @@ packages:
     peerDependencies:
       storybook: ^8.4.4
 
-  '@storybook/csf@0.1.11':
-    resolution: {integrity: sha512-dHYFQH3mA+EtnCkHXzicbLgsvzYjcDJ1JWsogbItZogkPHgSJM/Wr71uMkcvw8v9mmCyP4NpXJuu6bPoVsOnzg==}
+  '@storybook/csf@0.1.12':
+    resolution: {integrity: sha512-9/exVhabisyIVL0VxTCxo01Tdm8wefIXKXfltAPTSr8cbLn5JAxGQ6QV3mjdecLGEOucfoVhAKtJfVHxEK1iqw==}
 
   '@storybook/global@5.0.0':
     resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
@@ -5096,7 +5099,7 @@ snapshots:
 
   '@storybook/addon-links@8.4.4(react@18.3.1)(storybook@8.4.4(prettier@3.3.3))':
     dependencies:
-      '@storybook/csf': 0.1.11
+      '@storybook/csf': 0.1.12
       '@storybook/global': 5.0.0
       storybook: 8.4.4(prettier@3.3.3)
       ts-dedent: 2.2.0
@@ -5150,7 +5153,7 @@ snapshots:
 
   '@storybook/blocks@8.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.4(prettier@3.3.3))':
     dependencies:
-      '@storybook/csf': 0.1.11
+      '@storybook/csf': 0.1.12
       '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       storybook: 8.4.4(prettier@3.3.3)
       ts-dedent: 2.2.0
@@ -5172,7 +5175,7 @@ snapshots:
 
   '@storybook/core@8.4.4(prettier@3.3.3)':
     dependencies:
-      '@storybook/csf': 0.1.11
+      '@storybook/csf': 0.1.12
       better-opn: 3.0.2
       browser-assert: 1.2.1
       esbuild: 0.24.0
@@ -5195,7 +5198,7 @@ snapshots:
       storybook: 8.4.4(prettier@3.3.3)
       unplugin: 1.16.0
 
-  '@storybook/csf@0.1.11':
+  '@storybook/csf@0.1.12':
     dependencies:
       type-fest: 2.19.0
 
@@ -5271,7 +5274,7 @@ snapshots:
 
   '@storybook/test@8.4.4(storybook@8.4.4(prettier@3.3.3))':
     dependencies:
-      '@storybook/csf': 0.1.11
+      '@storybook/csf': 0.1.12
       '@storybook/global': 5.0.0
       '@storybook/instrumenter': 8.4.4(storybook@8.4.4(prettier@3.3.3))
       '@testing-library/dom': 10.4.0
