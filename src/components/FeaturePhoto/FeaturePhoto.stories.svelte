@@ -1,4 +1,6 @@
 <script module lang="ts">
+    import { defineMeta } from '@storybook/addon-svelte-csf';
+
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
@@ -8,15 +10,17 @@
 
   import FeaturePhoto from './FeaturePhoto.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
+  // import {
+  //   withComponentDocs,
+  //   withStoryDocs,
+  // } from '$lib/docs/utils/withParams.js';
 
-  export const meta = {
+
+  const { Story } = defineMeta({
     title: 'Components/Multimedia/FeaturePhoto',
     component: FeaturePhoto,
-    ...withComponentDocs(componentDocs),
+    // ...withComponentDocs(componentDocs),
+    tags: ['autodocs'],
     argTypes: {
       width: {
         control: 'select',
@@ -27,21 +31,14 @@
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
   // @ts-ignore jpg
   import sharkSrc from './stories/shark.jpg';
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <FeaturePhoto {...args} />
-  {/snippet}
-</Template>
 
 <Story
   name="Default"
@@ -61,8 +58,8 @@
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS',
   }}"
-  {...withStoryDocs(archieMLDocs)}
 />
+<!-- {...withStoryDocs(archieMLDocs)} -->
 
 <Story
   name="Missing altText"
@@ -71,5 +68,5 @@
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS',
   }}"
-  {...withStoryDocs(missingAltTextDocs)}
 />
+<!-- {...withStoryDocs(missingAltTextDocs)} -->

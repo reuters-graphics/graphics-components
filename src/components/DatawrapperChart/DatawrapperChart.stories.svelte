@@ -1,37 +1,19 @@
 <script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import DatawrapperChart from './DatawrapperChart.svelte';
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import withChatterDocs from './stories/docs/withChatter.md?raw';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Graphics/DatawrapperChart',
     component: DatawrapperChart,
-    ...withComponentDocs(componentDocs),
+    tags: ['autodocs'],
     argTypes: {
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
-
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template >
-  {#snippet children({ args })}
-    <DatawrapperChart {...args} />
-  {/snippet}
-</Template>
 
 <Story
   name="Default"
@@ -43,14 +25,16 @@
   }}"
 />
 
-<Story name="With chatter" {...withStoryDocs(withChatterDocs)}>
-  <DatawrapperChart
-    frameTitle="Global abortion access"
-    ariaLabel="map"
-    id="abortion-rights-map"
-    src="https://reuters.com/graphics/USA-ABORTION/lgvdwemlbpo/media-embed.html"
-    title="Global abortion access"
-    description="A map of worldwide access to abortion."
-    notes="{'Note: Different indicators and additional restrictions, including different gestational limits, apply in some countries. Refer to source for full classification. Current as of May 4, 2022.\n\nSource: Center for Reproductive Rights'}"
-  />
-</Story>
+<Story
+  name="With chatter"
+  args="{{
+    frameTitle: 'Global abortion access',
+    ariaLabel: 'map',
+    id: 'abortion-rights-map',
+    src: 'https://reuters.com/graphics/USA-ABORTION/lgvdwemlbpo/media-embed.html',
+    title: 'Global abortion access',
+    description: 'A map of worldwide access to abortion.',
+    notes:
+      'Note: Different indicators and additional restrictions, including different gestational limits, apply in some countries. Refer to source for full classification. Current as of May 4, 2022.\n\nSource: Center for Reproductive Rights',
+  }}"
+/>

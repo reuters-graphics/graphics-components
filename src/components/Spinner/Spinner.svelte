@@ -1,28 +1,23 @@
 <!-- @component `Spinner` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-spinner--docs) -->
 <script lang="ts">
-  
-  
-  
-  
-  
   interface Props {
     /** Primary colour of the spinner. */
     colour?: string;
     /**
-   * Outer width of the spinner
-   */
+     * Outer width of the spinner
+     */
     width?: number;
     /**
-   * Width of the spinner ring
-   */
+     * Width of the spinner ring
+     */
     ringWidth?: number;
     /**
-   * How fast the spinner spins in seconds
-   */
+     * How fast the spinner spins in seconds
+     */
     speed?: number;
     /**
-   * Vertical padding for the spinner's container
-   */
+     * Vertical padding for the spinner's container
+     */
     containerPadding?: number;
   }
 
@@ -31,7 +26,7 @@
     width = 40,
     ringWidth = 6,
     speed = 0.8,
-    containerPadding = 10
+    containerPadding = 10,
   }: Props = $props();
 </script>
 
