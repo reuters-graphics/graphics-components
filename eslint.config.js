@@ -1,6 +1,7 @@
 import { svelte } from '@reuters-graphics/yaks-eslint';
 import reactPlugin from 'eslint-plugin-react';
 import * as mdx from 'eslint-plugin-mdx';
+import storybook from 'eslint-plugin-storybook';
 
 export default [
   {
@@ -19,6 +20,7 @@ export default [
     ],
   },
   ...svelte,
+  ...storybook.configs['flat/recommended'],
   reactPlugin.configs.flat.recommended,
   {
     settings: { react: { version: '18.2' } },
