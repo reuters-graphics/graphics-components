@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 2.0.3
+
+### Patch Changes
+
+- 50f4320: Updates favicons for new kinesis
+
 ## 2.0.2
 
 ### Patch Changes
