@@ -1,29 +1,22 @@
 <script module lang="ts">
+  import AdScripts from './AdScripts.svelte';
   import LeaderboardAd from './LeaderboardAd.svelte';
-  // @ts-ignore raw
-  import adDocs from './stories/docs/leaderboard.md?raw';
-  import { withComponentDocs } from './../../docs/utils/withParams';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Ads & analytics/LeaderboardAd',
     component: LeaderboardAd,
-    ...withComponentDocs(adDocs),
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-  import AdScripts from './AdScripts.svelte';
-</script>
-
-<Template>
+{#snippet template()}
   <div>
     <AdScripts />
     <LeaderboardAd />
   </div>
-</Template>
+{/snippet}
 
-<Story name="Default" />
+<Story name="Demo" children={template} />
 
 <style>
   div {

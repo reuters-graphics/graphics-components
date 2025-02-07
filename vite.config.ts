@@ -1,5 +1,4 @@
 import { defineConfig, type UserConfig } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { sveltekit } from '@sveltejs/kit/vite';
 import path from 'path';
 

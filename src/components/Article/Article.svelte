@@ -1,11 +1,5 @@
 <!-- @component `Article` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-article--docs) -->
 <script lang="ts">
-  
-
-  
-
-  
-
   interface ColumnWidths {
     /** Narrower column width */
     narrower: number;
@@ -18,8 +12,6 @@
     /** Wider column width */
     wider: number;
   }
-
-  
 
   import cssVariables from '../../actions/cssVariables/index.js';
   interface Props {
@@ -39,13 +31,13 @@
     id = null,
     role = null,
     columnWidths = {
-    narrower: 330,
-    narrow: 510,
-    normal: 660,
-    wide: 930,
-    wider: 1200,
-  },
-    children
+      narrower: 330,
+      narrow: 510,
+      normal: 660,
+      wide: 930,
+      wider: 1200,
+    },
+    children,
   }: Props = $props();
 
   let columnWidthVars = $derived({
@@ -58,7 +50,7 @@
 </script>
 
 <main id="main-content">
-  <article {id} class:embedded {role} use:cssVariables="{columnWidthVars}">
+  <article {id} class:embedded {role} use:cssVariables={columnWidthVars}>
     <!-- Article content -->
     {@render children?.()}
   </article>

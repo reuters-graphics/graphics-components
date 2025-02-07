@@ -1,27 +1,20 @@
 <script module lang="ts">
+  import AdScripts from './AdScripts.svelte';
   import InlineAd from './InlineAd.svelte';
-  // @ts-ignore raw
-  import adDocs from './stories/docs/inline.md?raw';
-  import { withComponentDocs } from './../../docs/utils/withParams';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Ads & analytics/InlineAd',
     component: InlineAd,
-    ...withComponentDocs(adDocs),
-  };
+  });
 </script>
 
-<script lang="ts">
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-  import AdScripts from './AdScripts.svelte';
-</script>
-
-<Template>
+{#snippet template()}
   <div>
     <AdScripts />
     <InlineAd />
     <InlineAd />
   </div>
-</Template>
+{/snippet}
 
-<Story name="Default" />
+<Story name="Demo" children={template} />

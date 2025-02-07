@@ -14,7 +14,7 @@
 
   let { desktopPlacementName, mobileBreakpoint = 1024 }: Props = $props();
 
-  let windowWidth: number = $state();
+  let windowWidth: number | undefined = $state();
 
   const getMobilePlacementName = (
     desktopPlacementName: DesktopPlacementName
@@ -61,14 +61,15 @@
     }
   };
 
-  let placementName =
-    $derived(windowWidth && windowWidth < mobileBreakpoint ?
+  let placementName = $derived(
+    windowWidth && windowWidth < mobileBreakpoint ?
       getMobilePlacementName(desktopPlacementName)
-    : desktopPlacementName);
+    : desktopPlacementName
+  );
   let adType = $derived(getAdType(placementName));
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 {#if windowWidth}
   {#key placementName}

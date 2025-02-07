@@ -1,62 +1,71 @@
 <!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot making the component unusable -->
 <!-- @component `DatawrapperChart` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-datawrapperchart--docs) -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, type Snippet } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
-  /**
-   * Title of the graphic
-   * @type {string}
-   */
-  export let title: string | null = null;
-
-  /**
-   * Description of the graphic, passed in as a markdown string.
-   * @type {string}
-   */
-  export let description: string | null = null;
-  /**
-   * iframe title
-   * @required
-   */
-  export let frameTitle: string = '';
-  /**
-   * Notes to the graphic, passed in as a markdown string.
-   * @type {string}
-   */
-  export let notes: string | null = null;
-  /**
-   * iframe aria label
-   * @required
-   */
-  export let ariaLabel: string = '';
-  /** iframe id */
-  export let id: string = '';
-  /**
-   * Datawrapper embed URL
-   * @required
-   */
-  export let src: string;
 
   type ScrollingOption = 'auto' | 'yes' | 'no';
 
-  /** iframe scrolling option */
-  export let scrolling: ScrollingOption = 'no';
+  interface Props {
+    /** Title of the graphic */
+    title: string | null;
+    /** Description of the graphic, passed in as a markdown string. */
+    description: string | null;
+    /**
+     * iframe title
+     */
+    frameTitle: string;
+    /**
+     * Notes to the graphic, passed in as a markdown string.
+     */
+    notes: string | null;
+    /**
+     * iframe aria label
+     */
+    ariaLabel: string;
+    /*
+     * iframe id
+     */
+    id: string;
+    /**
+     * Datawrapper embed URL
+     */
+    src: string;
+    /** iframe scrolling option */
+    scrolling: ScrollingOption;
+    /** Width of the chart within the text well. */
+    width: ContainerWidth;
+    /**
+     * Set a different width for the text within the text well, for example,
+     * "normal" to keep the title, description and notes inline with the rest
+     * of the text well. Can't ever be wider than `width`.
+     */
+    textWidth: ContainerWidth;
+    /** Custom headline and chatter snippet */
+    titleSnippet?: Snippet;
+    /** Custom notes and source snippet */
+    notesSnippet?: Snippet;
+  }
 
-  /** Width of the chart within the text well. */
-  export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
+  let {
+    title = null,
+    description = null,
+    frameTitle = '',
+    notes = null,
+    ariaLabel = '',
+    id = '',
+    src,
+    scrolling = 'no',
+    width = 'normal',
+    textWidth = 'normal',
+    titleSnippet,
+    notesSnippet,
+  }: Props = $props();
 
-  /**
-   * Set a different width for the text within the text well, for example,
-   * "normal" to keep the title, description and notes inline with the rest
-   * of the text well. Can't ever be wider than `width`.
-   * @type {string}
-   */
-  export let textWidth: ContainerWidth | null = 'normal';
+  let frameElement: HTMLElement;
 
-  let frameElement;
-
-  $: frameFiller = (e) => {
+  const frameFiller = (e: any) => {
     if (void 0 !== e.data['datawrapper-height']) {
       const t = [frameElement];
       for (const a in e.data['datawrapper-height']) {
@@ -82,16 +91,16 @@
 </script>
 
 <GraphicBlock {width} {textWidth} {title} {description} {notes}>
-  {#if $$slots.title}
+  {#if titleSnippet}
     <!-- Custom headline and chatter slot -->
-    <slot name="title" />
+    {@render titleSnippet()}
   {/if}
 
   <div class="datawrapper-chart">
     <iframe
-      bind:this="{frameElement}"
-      title="{frameTitle}"
-      aria-label="{ariaLabel}"
+      bind:this={frameElement}
+      title={frameTitle}
+      aria-label={ariaLabel}
       {id}
       {src}
       {scrolling}
@@ -101,8 +110,7 @@
     ></iframe>
   </div>
 
-  {#if $$slots.notes}
-    <!-- Custom notes and source slot -->
-    <slot name="notes" />
+  {#if notesSnippet}
+    {@render notesSnippet()}
   {/if}
 </GraphicBlock>

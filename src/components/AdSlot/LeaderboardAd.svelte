@@ -4,9 +4,6 @@
   import ResponsiveAd from './ResponsiveAd.svelte';
   import { onMount } from 'svelte';
 
-  
-
-  
   interface Props {
     /** Add an ID to target with SCSS. */
     id?: string;
@@ -15,7 +12,6 @@
   }
 
   let { id = '', class: cls = '' }: Props = $props();
-  
 
   let windowWidth = $state(1200);
   let adSize = $derived(windowWidth < 1024 ? 110 : 275);
@@ -50,7 +46,7 @@
   });
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 <div
   class="freestar-adslot leaderboard__sticky {cls}"
