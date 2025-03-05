@@ -1,5 +1,4 @@
 <script lang="ts">
-
   import Fa from 'svelte-fa/src/fa.svelte';
   import { faWindowRestore } from '@fortawesome/free-regular-svg-icons';
   interface Props {

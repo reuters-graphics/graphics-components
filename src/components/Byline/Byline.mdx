@@ -1,4 +1,12 @@
-Byline and dateline.
+import { Meta } from '@storybook/blocks';
+
+import * as BylineStories from './Byline.stories.svelte';
+
+<Meta of={BylineStories} />
+
+# Byline
+
+Easily add a byline and dateline.
 
 ```svelte
 <script>
@@ -6,13 +14,12 @@ Byline and dateline.
 </script>
 
 <Byline
-  authors="{[
+  authors={[
     'Dea Bankova',
-    'Aditi Bhandari',
     'Prasanta Kumar Dutta',
     'Anurag Rao',
     'Mariano Zafra',
-  ]}"
+  ]}
   publishTime="2021-09-12T00:00:00.000Z"
   updateTime="2021-09-12T12:57:00.000Z"
 />

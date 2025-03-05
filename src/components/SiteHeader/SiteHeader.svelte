@@ -77,9 +77,9 @@
                 aria-label="Menu"
                 aria-haspopup="true"
                 aria-expanded="{isMobileMenuOpen}"
-                onclick={() => {
+                onclick="{() => {
                   isMobileMenuOpen = !isMobileMenuOpen;
-                }}
+                }}"
               >
                 <div class="button-container">
                   <MenuIcon />

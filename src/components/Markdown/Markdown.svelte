@@ -4,9 +4,6 @@
   import { marked } from 'marked';
   import { staticMarkdown } from './stores';
 
-  
-
-  
   interface Props {
     /** A Markdown formatted string */
     source?: string;
@@ -16,7 +13,9 @@
 
   let { source = '', parseInline = false }: Props = $props();
 
-  let markdown = $derived(parseInline ? marked.parseInline(source) : marked.parse(source));
+  let markdown = $derived(
+    parseInline ? marked.parseInline(source) : marked.parse(source)
+  );
 
   const setInnerHTML: Action<HTMLElement, string> = (node, html) => {
     node.innerHTML = html;
