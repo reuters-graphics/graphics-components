@@ -1,36 +1,27 @@
 <script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import Block from '../Block/Block.svelte';
   import Article from './Article.svelte';
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
   // @ts-ignore raw
   import customWellWidthsDocs from './stories/docs/customWellWidths.md?raw';
 
   import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Page Layout/Article',
     component: Article,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-  import Block from '../Block/Block.svelte';
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <Article {...args} />
-  {/snippet}
-</Template>
-
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  args={{
     embedded: false,
     id: '',
-  }}"
+  }}
 >
   <Article id="article-story-basic">
     <div class="demo-container">
@@ -54,13 +45,13 @@
   </Article>
   <Article
     id="article-column-widths-demo"
-    columnWidths="{{
+    columnWidths={{
       narrower: 310,
       narrow: 450,
       normal: 550,
       wide: 675,
       wider: 1400,
-    }}"
+    }}
   >
     <div class="article-boundaries custom">
       <Block id="section-demo" width="narrower">narrower*</Block>
@@ -91,8 +82,8 @@
     background-color: #bbb;
   }
   :global(
-      #article-column-widths-demo .article-boundaries.custom div.article-block
-    ) {
+    #article-column-widths-demo .article-boundaries.custom div.article-block
+  ) {
     background: rgb(211, 132, 123);
   }
   :global(#article-column-widths-demo div.article-block) {

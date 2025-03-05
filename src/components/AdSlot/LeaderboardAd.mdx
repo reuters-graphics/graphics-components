@@ -1,3 +1,11 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as LeaderboardAdStories from './LeaderboardAd.stories.svelte';
+
+<Meta of={LeaderboardAdStories} />
+
+# LeaderboardAd
+
 Add a leaderboard ad to your page.
 
 > **IMPORTANT!** Make sure ads are only used on dotcom pages, never on embeds.
@@ -19,3 +27,5 @@ Add a leaderboard ad to your page.
 <LeaderboardAd />
 <SiteHeader />
 ```
+
+<Canvas of={LeaderboardAdStories.Demo} />

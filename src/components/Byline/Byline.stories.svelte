@@ -1,11 +1,14 @@
 <script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Byline from './Byline.svelte';
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
 
   import { withComponentDocs } from '$docs/utils/withParams.js';
 
-  export const meta = {
+  import type { ComponentProps } from 'svelte';
+
+  const { Story } = defineMeta({
     title: 'Components/Text elements/Byline',
     component: Byline,
     ...withComponentDocs(componentDocs),
@@ -15,22 +18,16 @@
         options: ['left', 'center'],
       },
     },
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template >
-  {#snippet children({ args })}
-    <Byline {...args} />
-  {/snippet}
-</Template>
+{#snippet template(args: ComponentProps<Byline>)}
+  <Byline {...args} />
+{/snippet}
 
 <Story
   name="Default"
-  args="{{
+  args={{
     align: 'left',
     authors: [
       'Dea Bankova',
@@ -41,5 +38,6 @@
     ],
     publishTime: new Date('2021-09-12').toISOString(),
     updateTime: new Date('2021-09-12T13:57:00').toISOString(),
-  }}"
+  }}
+  children={template}
 />

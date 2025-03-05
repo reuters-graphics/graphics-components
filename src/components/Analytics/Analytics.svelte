@@ -4,11 +4,13 @@
   import { registerPageview as registerParselyPageview } from './providers/parsely';
 
   /** Register virtual pageviews when using client-side routing in multipage applications. */
-  export function registerPageview() {
+  function registerPageview() {
     registerChartbeatPageview();
     registerGAPageview();
     registerParselyPageview();
   }
+
+  export { registerPageview };
 </script>
 
 <!-- @component `Analytics` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-analytics--docs) -->
@@ -16,14 +18,13 @@
   interface Author {
     name: string;
   }
-  
 
   import { onMount } from 'svelte';
   import { ga, chartbeat, parsely } from './providers';
   interface Props {
     /**
-   * Used to associate a page with its author(s) in Chartbeat.
-   */
+     * Used to associate a page with its author(s) in Chartbeat.
+     */
     authors?: Author[];
   }
 

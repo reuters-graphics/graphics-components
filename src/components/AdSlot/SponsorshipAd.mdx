@@ -1,3 +1,11 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SponsorshipAdStories from './SponsorshipAd.stories.svelte';
+
+<Meta of={SponsorshipAdStories} />
+
+# SponsorshipAd
+
 Add a sponsorship ad to your page.
 
 > **IMPORTANT!** Make sure ads are only used on dotcom pages, never on embeds.
@@ -25,3 +33,5 @@ Add a sponsorship ad to your page.
   <SponsorshipAd />
 {/if}
 ```
+
+<Canvas of={SponsorshipAdStories.Demo} />

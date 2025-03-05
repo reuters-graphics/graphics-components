@@ -1,3 +1,11 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as InlineAdStories from './InlineAd.stories.svelte';
+
+<Meta of={InlineAdStories} />
+
+# InlineAd
+
 Add programmatic ads inline on your page.
 
 > **IMPORTANT!** Make sure ads are only used on dotcom pages, never on embeds.
@@ -38,9 +46,11 @@ You may add **up to three** inline ads per page, but must set the `n` prop on mu
 
 ```svelte
 <!-- First inline ad on the page -->
-<InlineAd n="{1}" />
+<InlineAd n={1} />
 <!-- ... second ... -->
-<InlineAd n="{2}" />
+<InlineAd n={2} />
 <!-- ... third and final. -->
-<InlineAd n="{3}" />
+<InlineAd n={3} />
 ```
+
+<Canvas of={InlineAdStories.Demo} />

@@ -112,6 +112,7 @@ function _iterableToArrayLimit(arr, i) {
     try {
       if (!_n && _i.return != null) _i.return();
     } finally {
+      // eslint-disable-next-line
       if (_d) throw _e;
     }
   }
@@ -353,7 +354,7 @@ const convert = function convert(input) {
   const config =
     arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   const outputType = config.outputType;
-  const outputPath = config.outputPath;
+  const _outputPath = config.outputPath;
   let mediaReverse = config.mediaReverse;
   let convertedCss;
 
