@@ -4,63 +4,86 @@
   import Block from '../Block/Block.svelte';
   import slugify from 'slugify';
   import { apdate } from 'journalize';
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    /**
+     * Array of author names, which will be slugified to create links to Reuters author pages
+     */
+    authors: string[];
+    /**
+     * Publish time as a datetime string.
+     */
+    publishTime: string;
+    /**
+     * Update time as a datetime string.
+     * @type {string}
+     */
+    updateTime: string;
+    /**
+     * Alignment of the byline.
+     * @type {string}
+     */
+    align?: 'left' | 'center';
+    /**
+     * Add an id to to target with custom CSS.
+     * @type {string}
+     */
+    id?: string;
+    /**
+     * Add extra classes to target with custom CSS.
+     * @type {string}
+     */
+    cls?: string;
+    /**
+     * Custom function that returns an author page URL.
+     */
+    getAuthorPage?: (author: string) => string;
+    /**
+     * Optional snippet for a custom published dateline.
+     */
+    // Specify that this prop should have the type of a Svelte snippet, i.e. basic html
+    customPublished?: Snippet | null;
+    /**
+     * Optional snippet for a custom updated dateline.
+     */
+    customUpdated?: Snippet | null;
+  }
+
+  let {
+    authors = [],
+    publishTime = '',
+    updateTime = '',
+    align = 'left',
+    id = '',
+    cls = '',
+    getAuthorPage = (author: string): string => {
+      const authorSlug = slugify(author.trim(), { lower: true });
+      return `https://www.reuters.com/authors/${authorSlug}/`;
+    },
+    customPublished = null,
+    customUpdated = null,
+  }: Props = $props();
+
+  let alignmentClass = $derived(align === 'left' ? 'text-left' : 'text-center');
 
   /**
-   * Array of author names, which will be slugified to create links to Reuters author pages
+  /* Date validation and formatter functions
    */
-  export let authors: string[] = [];
-  /**
-   * Publish time as a datetime string.
-   * @type {string}
-   */
-  export let publishTime: string = '';
-  /**
-   * Update time as a datetime string.
-   * @type {string}
-   */
-  export let updateTime: string = '';
-  /**
-   * Alignment of the byline.
-   * @type {string}
-   */
-  export let align: 'left' | 'center' = 'left';
-  /**
-   * Add an id to to target with custom CSS.
-   * @type {string}
-   */
-  export let id: string = '';
-  /**
-   * Add extra classes to target with custom CSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
-
-  /**
-   * Custom function that returns an author page URL.
-   * @param author
-   */
-  export let getAuthorPage = (author: string): string => {
-    const authorSlug = slugify(author.trim(), { lower: true });
-    return `https://www.reuters.com/authors/${authorSlug}/`;
-  };
-
-  $: alignmentClass = align === 'left' ? 'text-left' : 'text-center';
-
-  const isValidDate = (datetime) => {
+  const isValidDate = (datetime: string) => {
     if (!datetime) return false;
     if (!Date.parse(datetime)) return false;
     return true;
   };
 
-  const formatTime = (datetime) =>
+  const formatTime = (datetime: string) =>
     new Date(datetime).toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
       timeZoneName: 'short',
     });
 
-  const areSameDay = (first, second) =>
+  const areSameDay = (first: Date, second: Date) =>
     first.getFullYear() === second.getFullYear() &&
     first.getMonth() === second.getMonth() &&
     first.getDate() === second.getDate();
@@ -69,41 +92,38 @@
 <Block {id} class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
     <div class="byline body-caption fmb-1">
-      {#if $$slots.byline}
-        <!-- Custom byline -->
-        <slot name="byline" />
-      {:else}
-        By
-        {#if authors.length > 0}
-          {#each authors as author, i}
-            <a
-              class="no-underline whitespace-nowrap text-primary font-bold"
-              href="{getAuthorPage(author)}"
-              rel="author"
-            >
-              {author.trim()}</a
-            >{#if authors.length > 1 && i < authors.length - 2},{/if}
-            {#if authors.length > 1 && i === authors.length - 2}and&nbsp;{/if}
-          {/each}
-        {:else}
+      By
+      {#if authors.length > 0}
+        {#each authors as author, i}
           <a
-            href="https://www.reuters.com"
             class="no-underline whitespace-nowrap text-primary font-bold"
-            >Reuters</a
+            href={getAuthorPage(author)}
+            rel="author"
           >
-        {/if}
+            {author.trim()}</a
+          >{#if authors.length > 1 && i < authors.length - 2},{/if}
+          {#if authors.length > 1 && i === authors.length - 2}and&nbsp;{/if}
+        {/each}
+      {:else}
+        <a
+          href="https://www.reuters.com"
+          class="no-underline whitespace-nowrap text-primary font-bold"
+          >Reuters</a
+        >
       {/if}
     </div>
     <div class="dateline body-caption fmt-0">
-      {#if $$slots.published}
+      {#if customPublished}
         <div class="whitespace-nowrap inline-block">
-          <!-- Custom published dateline -->
-          <slot name="published" />
+          <!-- Custom published dateline snippet -->
+          <time datetime={publishTime}>
+            {@render customPublished()}
+          </time>
         </div>
       {:else if isValidDate(publishTime)}
         <div class="whitespace-nowrap inline-block">
           Published
-          <time datetime="{publishTime}">
+          <time datetime={publishTime}>
             {#if isValidDate(updateTime)}
               {apdate(new Date(publishTime))}
             {:else}
@@ -114,15 +134,17 @@
           </time>
         </div>
       {/if}
-      {#if $$slots.updated}
+      {#if customUpdated}
         <div class="whitespace-nowrap inline-block">
-          <!-- Custom updated dateline -->
-          <slot name="updated" />
+          <!-- Custom updated dateline snippet -->
+          <time datetime={updateTime}>
+            {@render customUpdated()}
+          </time>
         </div>
       {:else if isValidDate(publishTime) && isValidDate(updateTime)}
         <div class="whitespace-nowrap inline-block">
           Last updated
-          <time datetime="{updateTime}">
+          <time datetime={updateTime}>
             {#if areSameDay(new Date(publishTime), new Date(updateTime))}
               {formatTime(updateTime)}
             {:else}
