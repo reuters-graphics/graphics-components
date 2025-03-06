@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta } from '@storybook/blocks';
 
 import * as InfoBoxStories from './InfoBox.stories.svelte';
 
@@ -20,10 +20,12 @@ InfoBox is used to provide additional information that needs to be visually set 
 />
 ```
 
-You can use InfoBoox as a list by creating a list with a **ArchieML doc** in the **Graphics Kit** like this:
+## Lists
+
+You can use InfoBoox as a list by creating a list with a **ArchieML doc** in the **Graphics Kit** like in this [example](/story/components-text-elements-infobox--lists):
 
 ```yaml
-# TEST THIS START HERE
+# ArchieML
 [infoBox]
 title: What you need to know about the war
 text:
@@ -50,12 +52,52 @@ text:
 {/each}
 ```
 
-## List
-
 ## Theme
 
 Switch the theme prop to `dark` for a dark page infobox.
 
 ## Customisation
 
-Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the content as needed, e.g. adding icons and thumbnail images.
+Use [snippets](https://svelte.dev/docs/svelte/snippet), which are the Svelte 5 version of slots, to customise the content as needed, e.g. adding tables, icons and thumbnail images, like in this [example](/story/components-text-elements-infobox--customised).
+
+```svelte
+<InfoBox title="About this data">
+  <!-- Optional custom header -->
+  {#snippet header()}
+    <h3>COVID-19 deaths</h3>
+  {/snippet}
+  <!-- Optional custom body -->
+  {#snippet body()}
+    <table>
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Infections</th>
+          <th>Deaths</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>United States</td>
+          <td>1,000,000</td>
+          <td>100,000</td>
+        </tr>
+        <tr>
+          <td>United Kingdom</td>
+          <td>500,000</td>
+          <td>50,000</td>
+        </tr>
+        <tr>
+          <td>Italy</td>
+          <td>250,000</td>
+          <td>25,000</td>
+        </tr>
+      </tbody>
+    </table>
+  {/snippet}
+  <!-- Optional custom footer -->
+  {#snippet updated()}
+    <em>Note: This is dummy data</em>
+  {/snippet}
+</InfoBox>
+```

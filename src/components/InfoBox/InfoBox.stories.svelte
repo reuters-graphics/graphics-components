@@ -34,10 +34,69 @@
   />
 </Story>
 <Story
-  name="List"
+  name="Lists"
   tags={['!autodocs']}
   args={{
     title: 'What you need to know about the war',
     text: "- **Food crisis**: [Russia's invasion of Ukraine](#) in late February dramatically worsened the outlook for already inflated global food prices. \n- **Under fire**: Civillian homes destroyed in the conflict and Russia accused of war crimes. \n- **Nordstream sabotage**: A series of clandestine bombings and subsequent underwater gas leaks occurred on the Nord Stream 1 and Nord Stream 2 natural gas pipelines. ",
   }}
-></Story>
+/>
+<Story name="Customised">
+  <InfoBox>
+    {#snippet header()}
+      <h3>COVID-19 deaths</h3>
+    {/snippet}
+    {#snippet body()}
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Infections</th>
+            <th>Deaths</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>United States</td>
+            <td>1,000,000</td>
+            <td>100,000</td>
+          </tr>
+          <tr>
+            <td>United Kingdom</td>
+            <td>500,000</td>
+            <td>50,000</td>
+          </tr>
+          <tr>
+            <td>Italy</td>
+            <td>250,000</td>
+            <td>25,000</td>
+          </tr>
+        </tbody>
+      </table>
+    {/snippet}
+    {#snippet footer()}
+      <em>Note: This is dummy data</em>
+    {/snippet}
+  </InfoBox>
+</Story>
+
+<style lang="scss">
+  h3 {
+    margin: 0;
+  }
+  // Style the table nicely
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>

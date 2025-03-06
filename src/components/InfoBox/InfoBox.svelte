@@ -13,7 +13,7 @@
     /**
      * Contents of the note as a markdown string
      */
-    text: string;
+    text?: string;
     /**
      * Additional footnotes
      */
