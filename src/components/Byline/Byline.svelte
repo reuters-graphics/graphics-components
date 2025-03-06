@@ -10,7 +10,7 @@
     /**
      * Array of author names, which will be slugified to create links to Reuters author pages
      */
-    authors: string[];
+    authors?: string[];
     /**
      * Publish time as a datetime string.
      */
@@ -40,14 +40,18 @@
      */
     getAuthorPage?: (author: string) => string;
     /**
+     * Optional snippet for a custom byline.
+     */
+    byline?: Snippet | null;
+    /**
      * Optional snippet for a custom published dateline.
      */
     // Specify that this prop should have the type of a Svelte snippet, i.e. basic html
-    customPublished?: Snippet | null;
+    published?: Snippet | null;
     /**
      * Optional snippet for a custom updated dateline.
      */
-    customUpdated?: Snippet | null;
+    updated?: Snippet | null;
   }
 
   let {
@@ -61,8 +65,9 @@
       const authorSlug = slugify(author.trim(), { lower: true });
       return `https://www.reuters.com/authors/${authorSlug}/`;
     },
-    customPublished = null,
-    customUpdated = null,
+    byline = null,
+    published = null,
+    updated = null,
   }: Props = $props();
 
   let alignmentClass = $derived(align === 'left' ? 'text-left' : 'text-center');
@@ -92,32 +97,37 @@
 <Block {id} class="byline-container {alignmentClass} {cls}" width="normal">
   <aside class="article-metadata font-subhed">
     <div class="byline body-caption fmb-1">
-      By
-      {#if authors.length > 0}
-        {#each authors as author, i}
-          <a
-            class="no-underline whitespace-nowrap text-primary font-bold"
-            href={getAuthorPage(author)}
-            rel="author"
-          >
-            {author.trim()}</a
-          >{#if authors.length > 1 && i < authors.length - 2},{/if}
-          {#if authors.length > 1 && i === authors.length - 2}and&nbsp;{/if}
-        {/each}
+      {#if byline}
+        <!-- Custom byline -->
+        {@render byline()}
       {:else}
-        <a
-          href="https://www.reuters.com"
-          class="no-underline whitespace-nowrap text-primary font-bold"
-          >Reuters</a
-        >
+        By
+        {#if authors.length > 0}
+          {#each authors as author, i}
+            <a
+              class="no-underline whitespace-nowrap text-primary font-bold"
+              href={getAuthorPage(author)}
+              rel="author"
+            >
+              {author.trim()}</a
+            >{#if authors.length > 1 && i < authors.length - 2},{/if}
+            {#if authors.length > 1 && i === authors.length - 2}and&nbsp;{/if}
+          {/each}
+        {:else}
+          <a
+            href="https://www.reuters.com"
+            class="no-underline whitespace-nowrap text-primary font-bold"
+            >Reuters</a
+          >
+        {/if}
       {/if}
     </div>
     <div class="dateline body-caption fmt-0">
-      {#if customPublished}
+      {#if published}
         <div class="whitespace-nowrap inline-block">
           <!-- Custom published dateline snippet -->
           <time datetime={publishTime}>
-            {@render customPublished()}
+            {@render published()}
           </time>
         </div>
       {:else if isValidDate(publishTime)}
@@ -134,11 +144,11 @@
           </time>
         </div>
       {/if}
-      {#if customUpdated}
+      {#if updated}
         <div class="whitespace-nowrap inline-block">
           <!-- Custom updated dateline snippet -->
           <time datetime={updateTime}>
-            {@render customUpdated()}
+            {@render updated()}
           </time>
         </div>
       {:else if isValidDate(publishTime) && isValidDate(updateTime)}

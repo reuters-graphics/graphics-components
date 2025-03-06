@@ -16,7 +16,7 @@
 </script>
 
 <Story
-  name="Default"
+  name="Demo"
   args={{
     align: 'left',
     authors: [
@@ -30,17 +30,15 @@
   }}
 />
 
-<Story name="Custom datelines">
-  <Byline
-    authors={['Reuters Graphics staff']}
-    getAuthorPage={() => `https://www.reuters.com/graphics/`}
-    publishTime="2021-09-12T00:00:00Z"
-    updateTime="2021-09-12T13:57:00Z"
-  >
-    {#snippet customPublished()}
+<Story name="Customised">
+  <Byline publishTime="2021-09-12T00:00:00Z" updateTime="2021-09-12T13:57:00Z">
+    {#snippet byline()}
+      <strong>BY REUTERS GRAPHICS</strong>
+    {/snippet}
+    {#snippet published()}
       PUBLISHED on some custom date and time
     {/snippet}
-    {#snippet customUpdated()}
+    {#snippet updated()}
       <em>Updated every 5 minutes</em>
     {/snippet}
   </Byline>
