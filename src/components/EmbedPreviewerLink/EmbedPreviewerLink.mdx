@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+
+import * as EmbedPreviewerLinkStories from './EmbedPreviewerLink.stories.svelte';
+
+<Meta of={EmbedPreviewerLinkStories} />
+
+# EmbedPreviewerLink
+
+A tool for previewing the embeds in development. This adds an icon at the bottom of the page that, when clicked, opens a preview page with the embeds.
+
+```svelte
+<script>
+  import { EmbedPreviewerLink } from '@reuters-graphics/graphics-components';
+
+  import { dev } from '$app/env';
+</script>
+
+<EmbedPreviewerLink {dev} />
+```
