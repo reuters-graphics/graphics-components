@@ -1,6 +1,6 @@
 <script module lang="ts">
-  import { defineMeta } from '@storybook/addon-svelte-csf';
   import DatawrapperChart from './DatawrapperChart.svelte';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/DatawrapperChart',
