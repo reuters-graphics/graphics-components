@@ -1,0 +1,61 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as InfoBoxStories from './InfoBox.stories.svelte';
+
+<Meta of={InfoBoxStories} />
+
+# InfoBox
+
+InfoBox is used to provide additional information that needs to be visually set aside from the main content flowm, such as methodology, detailed notes about data, and extra context as text stories.
+
+```svelte
+<script>
+  import { InfoBox } from '@reuters-graphics/graphics-components';
+</script>
+
+<InfoBox
+  title="About this data"
+  text={'Reuters is collecting daily COVID-19 infections and deaths data for 240 countries and territories around the world, updated regularly throughout each day. \n\n Every country reports those figures a little differently and, inevitably, misses undiagnosed infections and deaths. With this project we are focusing on the trends within countries as they try to contain the virus’ spread, whether they are approaching or past peak infection rates, or if they are seeing a resurgence of infections or deaths.'}
+  notes={'[Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)'}
+/>
+```
+
+You can use InfoBoox as a list by creating a list with a **ArchieML doc** in the **Graphics Kit** like this:
+
+```yaml
+# TEST THIS START HERE
+[infoBox]
+title: What you need to know about the war
+text:
+- **Food crisis**: [Russia's invasion of Ukraine](#) in late February dramatically worsened the outlook for already inflated global food prices.
+- **Under fire**: Civillian homes destroyed in the conflict and Russia accused of war crimes.
+- **Nordstream sabotage**: A series of clandestine bombings and subsequent underwater gas leaks occurred on the Nord Stream 1 and Nord Stream 2 natural gas pipelines.
+:end
+[]
+```
+
+```svelte
+<!-- Graphics Kit -->
+<script>
+  import { BodyText } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
+# Graphics Kit
+{#each content.blocks as block}
+  {#if block.type === 'text'}
+    <BodyText text={block.text} />
+    <!-- ... -->
+  {/if}
+{/each}
+```
+
+## List
+
+## Theme
+
+Switch the theme prop to `dark` for a dark page infobox.
+
+## Customisation
+
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the content as needed, e.g. adding icons and thumbnail images.
