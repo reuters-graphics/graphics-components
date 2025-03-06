@@ -167,27 +167,25 @@
     <meta name="description" content="{seoDescription}" />
     <link rel="canonical" href="{canonicalUrl}" />
     <link
+      rel="icon"
+      type="image/png"
+      href="https://graphics.thomsonreuters.com/style-assets/images/logos/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://graphics.thomsonreuters.com/style-assets/images/logos/favicon/kinesis.svg"
+    />
+    <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon.ico"
+      href="https://graphics.thomsonreuters.com/style-assets/images/logos/favicon/favicon.ico"
     />
     <link
-      rel="icon"
-      type="image/png"
-      href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon-16x16.png"
-      sizes="16x16"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://s1.reutersmedia.net/resources_v2/images/favicon/favicon-32x32.png"
-      sizes="32x32"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://s3.reutersmedia.net/resources_v2/images/favicon/favicon-96x96.png"
-      sizes="96x96"
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://graphics.thomsonreuters.com/style-assets/images/logos/favicon/apple-touch-icon.png"
     />
 
     <meta property="og:url" content="{canonicalUrl}" />

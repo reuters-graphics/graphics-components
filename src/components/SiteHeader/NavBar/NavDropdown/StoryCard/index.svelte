@@ -13,12 +13,19 @@
       <span>{story.title}</span>
       <time datetime="{story.display_time}">{getTime(story.display_time)}</time>
     </div>
-    {#if thumbnail}
+    {#if thumbnail && (thumbnail.resizer_url || thumbnail?.renditions?.square?.['120w'])}
       <div class="thumbnail">
-        <img
-          src="{thumbnail.renditions.square['120w']}"
-          alt="{thumbnail.alt_text}"
-        />
+        {#if thumbnail.resizer_url}
+          <img
+            src="{thumbnail.resizer_url}&width=120&quality=80"
+            alt="{thumbnail.alt_text}"
+          />
+        {:else}
+          <img
+            src="{thumbnail.renditions.square['120w']}"
+            alt="{thumbnail.alt_text}"
+          />
+        {/if}
       </div>
     {/if}
   </a>

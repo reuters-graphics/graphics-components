@@ -79,7 +79,11 @@
       const data = (await response.json()) as Referrals;
       const articles = data.result.articles
         .filter((a) => a?.headline_category || a?.kicker?.name)
-        .filter((a) => a?.thumbnail?.renditions?.landscape?.['240w'])
+        .filter(
+          (a) =>
+            a?.thumbnail?.renditions?.landscape?.['240w'] ||
+            a?.thumbnail?.resizer_url
+        )
         .filter((a) => !a?.content?.third_party)
         .filter(articleIsNotCurrentPage)
         .slice(0, number);
@@ -147,13 +151,24 @@
                   class="image-container block m-0 overflow-hidden relative"
                   class:xs="{clientWidth && clientWidth < 450}"
                 >
-                  <img
-                    class="block object-cover m-0 w-full"
-                    data-chromatic="ignore"
-                    src="{referral.thumbnail.renditions.landscape['240w']}"
-                    alt="{referral.thumbnail.caption ||
-                      referral.thumbnail.alt_text}"
-                  />
+                  {#if referral.thumbnail.resizer_url}
+                    <img
+                      class="block object-cover m-0 w-full"
+                      data-chromatic="ignore"
+                      src="{referral.thumbnail
+                        .resizer_url}&width=120&quality=80"
+                      alt="{referral.thumbnail.caption ||
+                        referral.thumbnail.alt_text}"
+                    />
+                  {:else}
+                    <img
+                      class="block object-cover m-0 w-full"
+                      data-chromatic="ignore"
+                      src="{referral.thumbnail.renditions.landscape['240w']}"
+                      alt="{referral.thumbnail.caption ||
+                        referral.thumbnail.alt_text}"
+                    />
+                  {/if}
                 </div>
               </div>
             </a>
