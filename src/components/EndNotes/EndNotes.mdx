@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/blocks';
+
+import * as EndNotesStories from './EndNotes.stories.svelte';
+
+<Meta of={EndNotesStories} />
+
+# EndNotes
+
+End notes includes notes to the main article — usually things like sources, clarifiying notes and minor corrections at the end of a story.
+
+Use it like this:
+
+```svelte
+<script>
+  import { EndNotes } from '@reuters-graphics/graphics-components';
+
+  const notes = [
+    {
+      title: 'Note',
+      text: 'Data is current as of today.',
+    },
+    {
+      title: 'Sources',
+      text: 'Data, Inc.',
+    },
+    {
+      title: 'Edited by',
+      text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
+    },
+  ];
+</script>
+
+<EndNotes {notes} />
+```
+
+... or more commonly, you'll use it with a **ArchieML doc** in the **Graphics Kit** like this:
+
+```yaml
+# ArchieML doc
+[endNotes]
+title: Note
+text: Data is current as of today
+
+title: Sources
+text: Data, Inc.
+
+title: Edited by
+text: Editor, Copyeditor
+[]
+```
+
+```svelte
+<!-- Graphics Kit -->
+<script>
+  import { EndNotes } from '@reuters-graphics/graphics-components';
+
+  import content from '$locales/en/content.json';
+</script>
+
+<EndNotes notes={content.endNotes} />
+```
