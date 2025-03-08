@@ -25,6 +25,8 @@
 
 <Story
   name="Typography sample"
+  exportName="TypographySample"
+  tags={['!autodocs', '!dev']}
   args={{
     class: 'body-text-typography-example-story',
     text: `<span class='drop-cap'>R</span>eprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock [tempor meatball](https://baconipsum.com/) alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.
@@ -81,3 +83,20 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
 `,
   }}
 />
+
+<Story
+  name="Custom styles"
+  exportName="CustomStyles"
+  tags={['!autodocs', '!dev']}
+  args={{
+    class: 'body-text-custom-styles-story',
+    text: `Venison shoulder <span class="highlight">ham hock</span> ham leberkas.`,
+  }}
+/>
+
+<style lang="scss">
+  :global(.body-text-custom-styles-story span.highlight) {
+    background: palegoldenrod;
+    padding: 2px 4px;
+  }
+</style>
