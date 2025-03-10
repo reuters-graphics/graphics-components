@@ -1,0 +1,110 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BodyTextStories from './BodyText.stories.svelte';
+
+<Meta of={BodyTextStories} />
+
+# BodyText
+
+The `BodyText` component creates the main text of your page. You can pass the `text` prop a [markdown-formatted](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) string, which will be parsed into paragraphs, headers, lists, links, blockquotes and other markdown-supported elements.
+
+```svelte
+<script>
+  import { BodyText } from '@reuters-graphics/graphics-components';
+
+  const markdownText = `Bacon ipsum **dolor amet** cow tongue tri-tip.
+  
+Biltong turducken ground round kevin [hamburger turkey](https://reuters.com) pig.
+
+- Steak
+- [Pork chop](https://www.google.com)
+- Fillet
+  
+Venison shoulder *ham hock ham leberkas*. Flank beef ribs fatback, jerky meatball ham hock.`;
+</script>
+
+<BodyText text={markdownText} />
+```
+
+<Canvas of={BodyTextStories.Demo} />
+
+## Using with ArchieML docs
+
+With the graphics kit, you'll likely get your text value from an ArchieML doc.
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: text
+text: Bacon ipsum ...
+
+... etc.
+:end
+
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `BodyText` component.
+
+```svelte
+<!-- App.svelte -->
+{#each content.blocks as block}
+  {#if block.type === 'text'}
+    <BodyText text={block.text} />
+  {/if}
+{/each}
+```
+
+<Canvas of={BodyTextStories.Demo} />
+
+## Styling text
+
+Styles are built in for many text elements created by `BodyText`, including headings, ordered and unordered lists, links, blockquotes and even drop caps (using a `"drop-cap"` classed span).
+
+```svelte
+<BodyText
+  text="<span class='drop-cap'>R</span>eprehenderit hamburger pork bresaola ..."
+/>
+```
+
+<Canvas of={BodyTextStories.TypographySample} />
+
+### Custom styles
+
+To add your own styling, you can write styles in a global SCSS stylesheet:
+
+```svelte
+<BodyText
+  text="Venison shoulder <span class='highlight'>ham hock</span> ham leberkas."
+/>
+```
+
+```scss
+// global.scss
+span.highlight {
+  background: palegoldenrod;
+  padding: 2px 4px;
+}
+```
+
+<Canvas of={BodyTextStories.CustomStyles} />
+
+If you want to make sure styles for one portion of text don't apply other parts of the page, add a `class` to BodyText to use as an additional selector.
+
+```svelte highlight=2
+<BodyText
+  class="my-special-text-block"
+  text="Venison shoulder <span class='highlight'>ham hock</span> ham leberkas."
+/>
+```
+
+```scss
+// global.scss
+.my-special-text-block {
+  span.highlight {
+    background: palegoldenrod;
+    padding: 2px 4px;
+  }
+}
+```
