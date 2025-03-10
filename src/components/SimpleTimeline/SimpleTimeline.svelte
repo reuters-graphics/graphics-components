@@ -1,5 +1,10 @@
 <!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs) -->
 <script lang="ts">
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import { faLink } from '@fortawesome/free-solid-svg-icons';
+  import Block from '../Block/Block.svelte';
+  import Markdown from '../Markdown/Markdown.svelte';
+
   interface Event {
     title: string;
     titleLink?: string;
@@ -9,37 +14,37 @@
     date: string;
     events: Event[];
   }
-  /**
-   * An array of dates with events.
-   * @required
-   */
-  export let dates: EventDate[];
-  /**
-   * Set a colour for the timeline bullet symbols and line.
-   * @type {string}
-   */
-  export let symbolColour: string = 'var(--theme-colour-brand-rules)';
-  /**
-   * Set a colour for the date headings in the timeline.
-   * @type {string}
-   */
-  export let dateColour: string = 'var(--theme-colour-accent, red)';
-  /**
-   * Set a class to target with SCSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
-  /**
-   * Set an ID to target with SCSS.
-   * @type {string}
-   */
-  export let id: string = '';
 
-  import Block from '../Block/Block.svelte';
-  import Fa from 'svelte-fa/src/fa.svelte';
-  import { faLink } from '@fortawesome/free-solid-svg-icons';
-  import Markdown from '../Markdown/Markdown.svelte';
+  interface Props {
+    /**
+     * An array of dates with events.
+     */
+    dates: EventDate[];
+    /**
+     * Set a colour for the timeline bullet symbols and line.
+     */
+    symbolColour?: string;
+    /**
+     * Set a colour for the date headings in the timeline.
+     */
+    dateColour?: string;
+    /**
+     * Set a class to target with SCSS.
+     */
+    class?: string;
+    /**
+     * Set an ID to target with SCSS.
+     */
+    id?: string;
+  }
+
+  let {
+    dates,
+    symbolColour = 'var(--theme-colour-brand-rules)',
+    dateColour = 'var(--theme-colour-accent, red)',
+    class: cls = '',
+    id = '',
+  }: Props = $props();
 </script>
 
 <Block width="normal" {id} class="simple-timeline-container fmy-6 {cls}">

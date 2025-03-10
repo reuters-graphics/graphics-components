@@ -49,20 +49,9 @@
         },
       ],
     },
-    {
-      date: 'Feb. 27',
-      events: [
-        {
-          title: 'Russians push into Kharkiv',
-          titleLink:
-            'https://www.reuters.com/world/europe/western-allies-expel-key-russian-banks-global-system-ukraine-fights-2022-02-27/',
-        },
-        {
-          title:
-            'Human rights groups and Ukrainian ambassador accuse Russia of using cluster and vacuum bombs',
-        },
-      ],
-    },
+  ];
+
+  const datesMultipleEvents = [
     {
       date: 'Feb. 25',
       events: [
@@ -93,5 +82,14 @@
   name="Demo"
   args={{
     dates,
+  }}
+/>
+
+<Story
+  name="Multiple events"
+  exportName="MultipleEvents"
+  tags={['!autodocs', '!dev']}
+  args={{
+    dates: datesMultipleEvents,
   }}
 />
