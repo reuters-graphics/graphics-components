@@ -1,4 +1,12 @@
-A simple, clean text timeline.
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SimpleTimelineStories from './SimpleTimeline.stories.svelte';
+
+<Meta of={SimpleTimelineStories} />
+
+# SimpleTimeline
+
+The `SimpleTimeline` component creates a basic timeline with dates, titles and descriptions of events.
 
 ```svelte
 <script>
@@ -20,5 +28,7 @@ A simple, clean text timeline.
   ];
 </script>
 
-<SimpleTimeline dates="{dates}" />
+<SimpleTimeline {dates} />
 ```
+
+<Canvas of={SimpleTimelineStories.Demo} />

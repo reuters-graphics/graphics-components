@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs) -->
 <script lang="ts">
   interface Event {
@@ -52,24 +51,24 @@
             cx="10"
             cy="12"
             r="5"
-            stroke="{symbolColour}"
+            stroke={symbolColour}
             stroke-width="2"
             fill="transparent"
           ></circle>
         </svg>
         <div
           class="timeline-date font-note text-xs uppercase font-black tracking-wide fmb-0"
-          style:color="{dateColour}"
+          style:color={dateColour}
         >
           {date.date}
         </div>
         {#each date.events as event}
           <div class="event pb-2">
             {#if event.titleLink}
-              <a href="{event.titleLink}" target="_blank">
+              <a href={event.titleLink} target="_blank">
                 <div class="title h3">
                   {event.title}
-                  <span class="text-sm"><Fa fw icon="{faLink}" /></span>
+                  <span class="text-sm"><Fa fw icon={faLink} /></span>
                 </div>
               </a>
             {:else}
@@ -78,7 +77,7 @@
               </div>
             {/if}
             {#if event.context}
-              <Markdown source="{event.context}" />
+              <Markdown source={event.context} />
             {/if}
           </div>
         {/each}
