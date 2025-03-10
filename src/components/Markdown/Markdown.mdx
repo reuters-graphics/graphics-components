@@ -1,14 +1,22 @@
-The Markdown component renders markdown into HTML. That's it!
+import { Meta, Canvas } from '@storybook/blocks';
 
----
+import * as MarkdownStories from './Markdown.stories.svelte';
+
+<Meta of={MarkdownStories} />
+
+# Markdown
+
+The `Markdown` component renders a markdown string into HTML.
 
 ```svelte
 <script>
   import { Markdown } from '@reuters-graphics/graphics-components';
 </script>
 
-<Markdown source="{'My markdown **string**!'}" />
+<Markdown source={'My *awesome* text in **markdown**.'} />
 ```
+
+<Canvas of={MarkdownStories.Demo} />
 
 ... well, almost.
 
