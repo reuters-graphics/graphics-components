@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/blocks';
 
 import * as InfoBoxStories from './InfoBox.stories.svelte';
 
@@ -6,7 +6,7 @@ import * as InfoBoxStories from './InfoBox.stories.svelte';
 
 # InfoBox
 
-InfoBox is used to provide additional information that needs to be visually set aside from the main content flowm, such as methodology, detailed notes about data, and extra context as text stories.
+The `InfoBox` component creates a stylised text box that provides additional information that needs to be visually separate from the main content flow, such as methodology, detailed notes about data, and extra context.
 
 ```svelte
 <script>
@@ -20,84 +20,103 @@ InfoBox is used to provide additional information that needs to be visually set 
 />
 ```
 
-## Lists
+<Canvas of={InfoBoxStories.Demo} />
 
-You can use InfoBoox as a list by creating a list with a **ArchieML doc** in the **Graphics Kit** like in this [example](/story/components-text-elements-infobox--lists):
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
 
 ```yaml
-# ArchieML
-[infoBox]
+# Archie ML doc
+[blocks]
+
+type: info-box
 title: What you need to know about the war
-text:
-- **Food crisis**: [Russia's invasion of Ukraine](#) in late February dramatically worsened the outlook for already inflated global food prices.
-- **Under fire**: Civillian homes destroyed in the conflict and Russia accused of war crimes.
-- **Nordstream sabotage**: A series of clandestine bombings and subsequent underwater gas leaks occurred on the Nord Stream 1 and Nord Stream 2 natural gas pipelines.
+text: Reuters is collecting daily COVID-19 infections and deaths data for 240 countries and territories around the world, updated regularly throughout each day.
+
+Every country reports those figures a little differently and, inevitably, misses undiagnosed infections and deaths. With this project we are focusing on the trends within countries as they try to contain the virus’ spread, whether they are approaching or past peak infection rates, or if they are seeing a resurgence of infections or deaths.
 :end
+notes: [Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)
 []
 ```
+
+... which you'll parse out of a ArchieML block object before passing to the `InfoBox` component.
 
 ```svelte
 <!-- Graphics Kit -->
 <script>
-  import { BodyText } from '@reuters-graphics/graphics-components';
+  import { InfoBox } from '@reuters-graphics/graphics-components';
   import content from '$locales/en/content.json';
 </script>
 
 # Graphics Kit
 {#each content.blocks as block}
-  {#if block.type === 'text'}
-    <BodyText text={block.text} />
+  {#if block.type === 'info-box'}
+    <InfoBox title={block.title} text={block.text} notes={block.notes} />
     <!-- ... -->
   {/if}
 {/each}
 ```
 
-## Theme
+<Canvas of={InfoBoxStories.Demo} />
 
-Switch the theme prop to `dark` for a dark page infobox.
+## Lists
 
+Use markdown to add lists to `InfoBox`.
+
+```svelte
+<script>
+  import { InfoBox } from '@reuters-graphics/graphics-components';
+</script>
+
+<InfoBox
+  title="What you need to know about the war"
+  text={"- **Food crisis**: [Russia's invasion of Ukraine](#) in late February dramatically worsened the outlook for already inflated global food prices.\n- **Under fire**: Civillian homes destroyed in the conflict and Russia accused of war crimes.\n- **Nordstream sabotage**: A series of clandestine bombings and subsequent underwater gas leaks occurred on the Nord Stream 1 and Nord Stream 2 natural gas pipelines."}
+  notes={'[Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)'}
+/>
+```
+
+<Canvas of={InfoBoxStories.Lists} />
 ## Customisation
 
-Use [snippets](https://svelte.dev/docs/svelte/snippet), which are the Svelte 5 version of slots, to customise the content as needed, e.g. adding tables, icons and thumbnail images, like in this [example](/story/components-text-elements-infobox--customised).
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the `InfoBox`, such as adding tables, icons and thumbnail images.
 
 ```svelte
 <InfoBox title="About this data">
   <!-- Optional custom header -->
   {#snippet header()}
-    <h3>COVID-19 deaths</h3>
+    <h3>Global video game market</h3>
   {/snippet}
   <!-- Optional custom body -->
   {#snippet body()}
     <table>
       <thead>
         <tr>
-          <th>Country</th>
-          <th>Infections</th>
-          <th>Deaths</th>
+          <th>Year</th>
+          <th>Market size ($bln)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>United States</td>
-          <td>1,000,000</td>
-          <td>100,000</td>
+          <td>2024</td>
+          <td>274.63</td>
         </tr>
         <tr>
-          <td>United Kingdom</td>
-          <td>500,000</td>
-          <td>50,000</td>
+          <td>2023</td>
+          <td>281.77</td>
         </tr>
         <tr>
-          <td>Italy</td>
-          <td>250,000</td>
-          <td>25,000</td>
+          <td>2022</td>
+          <td>249.55</td>
         </tr>
       </tbody>
     </table>
   {/snippet}
   <!-- Optional custom footer -->
   {#snippet updated()}
-    <em>Note: This is dummy data</em>
+    <em>Source: Precedence Research</em>
   {/snippet}
 </InfoBox>
 ```
+
+<Canvas of={InfoBoxStories.Customised} />
