@@ -56,8 +56,8 @@
 
   let {
     authors = [],
-    publishTime = '',
-    updateTime = '',
+    publishTime,
+    updateTime,
     align = 'left',
     id = '',
     cls = '',

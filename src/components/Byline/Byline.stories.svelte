@@ -30,7 +30,7 @@
   }}
 />
 
-<Story name="Customised">
+<Story name="Customised" tags={['!autodocs', '!dev']}>
   <Byline publishTime="2021-09-12T00:00:00Z" updateTime="2021-09-12T13:57:00Z">
     {#snippet byline()}
       <strong>BY REUTERS GRAPHICS</strong>

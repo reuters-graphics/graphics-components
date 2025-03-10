@@ -6,7 +6,7 @@ import * as BylineStories from './Byline.stories.svelte';
 
 # Byline
 
-Easily add a byline and dateline to your story.
+The `Byline` component adds a byline, published and updated datelines to your page.
 
 ```svelte
 <script>
@@ -25,9 +25,11 @@ Easily add a byline and dateline to your story.
 />
 ```
 
-## Cutom byline, published and updated datelines
+<Canvas of={BylineStories.Demo} />
 
-You can customise the byline, published and updated datelines using [snippets](https://svelte.dev/docs/svelte/snippet), which are the Svelte 5 version of slots. You can pass any string or html as snippets.
+## Cutomisation
+
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, published and updated datelines.
 
 ```svelte
 <Byline publishTime="2021-09-12T00:00:00Z" updateTime="2021-09-12T13:57:00Z">
