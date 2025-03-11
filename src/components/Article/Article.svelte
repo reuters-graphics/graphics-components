@@ -18,7 +18,7 @@
     /** Set to true for embeddables. */
     embedded?: boolean;
     /** Add an id to the article tag to target it with custom CSS. */
-    id?: string | null;
+    id?: string;
     /** ARIA role of the article */
     role?: string | null;
     /** Set custom widths for the normal, wide and wider column dimensions */
@@ -28,7 +28,7 @@
 
   let {
     embedded = false,
-    id = null,
+    id = '',
     role = null,
     columnWidths = {
       narrower: 330,

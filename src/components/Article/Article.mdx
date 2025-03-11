@@ -6,9 +6,9 @@ import * as ArticleStories from './Article.stories.svelte';
 
 # Article
 
-The `Article` component contains all the content of our story and also establishes the dimensions of our article well, the default central trunk of our page layout.
+The `Article` component contains all the contents of our story.
 
-> 📌 In most cases, **you won't need to mess with the `Article` component** because it's already included in our rigs for you!
+> 📌 In most cases, **you don't need to mess with the `Article` component** because it's already set up in the Graphics Kit.
 
 ```svelte
 <script>
@@ -16,29 +16,30 @@ The `Article` component contains all the content of our story and also establish
 </script>
 
 <Article>
-  <!-- The story stuff goes in here! -->
+  <!-- The story content goes here! -->
 </Article>
 ```
 
 <Canvas of={ArticleStories.Demo} />
 
-## Custom well widths
+## Custom column widths
 
-The `Article` component also creates several column dimensions inside our article well. The standard widths of columns follow a basic class scheme:
+The `Article` component also establishes the widths of columns that contain individual sections of the story, such as text, photos, and charts. The default column widths follow a basic class scheme:
 
-- `narrower` A bit narrower than narrow...
-- `narrow` A bit narrower than the text column
-- `normal` **The main width of the body text column**
-- `wide` A bit wider than the text column
+- `narrower` The narrowest...
+- `narrow` A bit narrower than the default body text column
+- `normal` **The default width of the body text column**
+- `wide` A bit wider
 - `wider` A bit wider than wide...
 - `widest` Edge-to-edge, but _excluding_ the left and right padding on `Article`
 - `fluid` Fully edge-to-edge
 
-When combined with the `Block` component, you can set custom column widths by passing an object to the `columnWidths` prop with pixel values for the `narrower`, `narrow`, `normal`, `wide` and `wider` column widths.
+You can set custom column widths by passing an object to the `columnWidths` prop with pixel values for the `narrower`, `narrow`, `normal`, `wide` and `wider` classes. These can then be used by the `Block` component or other elements housed inside `<Article>`.
 
-> **For most pages, you shouldn't customise the column widths.** Other tools, like our AI templates, use our default column widths, so customising those widths here has downstream consequences for graphics made outside your code. The main exception is SREP stories.
+> **For most Graphics Kit pages, you shouldn't customise the column widths.** Other Reuters tools, like our AI templates, use our default column widths, so customising those widths here has downstream consequences for graphics made outside Graphics Kit. The main exception is SREP stories.
 
 ```svelte
+<!-- Set custom column widths -->
 <Article
   columnWidths={{
     narrower: 310,
@@ -48,6 +49,7 @@ When combined with the `Block` component, you can set custom column widths by pa
     wider: 1400,
   }}
 >
+  <!-- Custom column widths get passed down to the `Block` component -->
   <Block width="narrower" />
   <Block width="narrow" />
   <Block width="normal" />
@@ -58,11 +60,11 @@ When combined with the `Block` component, you can set custom column widths by pa
 </Article>
 ```
 
-If you're not using our `Block` component, you can still inherit the column widths from `Article` to create your own custom container with the article well dimensions by using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) like this:
+If you're not using our `Block` component, you can still inherit the column widths from `Article` and create your own custom containers by using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) like this:
 
 ```svelte
 <div class="my-special-container">
-  <!-- Stuffs... -->
+  <!-- Story content -->
 </div>
 
 <style lang="scss">
@@ -72,7 +74,7 @@ If you're not using our `Block` component, you can still inherit the column widt
 </style>
 ```
 
-... or you can make your component entirely configurable within the article well doing something like this:
+... or you can make your column widths entirely configurable by adding classes and manually specifying widths:
 
 ```svelte
 <script>
@@ -80,7 +82,7 @@ If you're not using our `Block` component, you can still inherit the column widt
 </script>
 
 <div class="my-special-container {width}">
-  <!-- Stuffs... -->
+  <!-- Story content -->
 </div>
 
 <style lang="scss">
@@ -110,4 +112,6 @@ If you're not using our `Block` component, you can still inherit the column widt
 </style>
 ```
 
-Here's an example of how custom\* `columnWidths` can be used to change the article well columns:
+Here's an example of how <span className='custom'>custom</span> `columnWidths` can be used to change column widths:
+
+<Canvas of={ArticleStories.CustomColumns} />
