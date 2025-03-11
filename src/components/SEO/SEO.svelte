@@ -7,61 +7,43 @@
 
   interface Props {
     /**
-     * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
-     * is globally available as `import.meta.env.BASE_URL`.
-     * @requiredx
-     * @type {string}
+     * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path) is globally available as `import.meta.env.BASE_URL`.
      */
-    baseUrl?: string;
+    baseUrl: string;
     /**
      * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
-     * @required
-     * @type {URL}
      */
-    pageUrl?: URL | null;
+    pageUrl: URL | null;
     /**
      * SEO title
-     * @required
-     * @type {string}
      */
     seoTitle: string;
     /**
      * SEO description
-     * @required
-     * @type {string}
      */
     seoDescription: string;
     /**
      * Share title
-     * @required
-     * @type {string}
      */
     shareTitle: string;
     /**
      * Share description
-     * @required
-     * @type {string}
      */
     shareDescription: string;
     /**
      * Share image path. **Must be an absolute path.**
-     * @required
-     * @type {string}
      */
     shareImgPath: string;
     /**
      * Share image alt text, up to 420 characters.
-     * @type {string}
      */
     shareImgAlt?: string;
     /**
      * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-     * @type {string}
      */
     publishTime?: string;
     /**
      * Updated time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-     * @type {string}
      */
     updateTime?: string;
     /**
@@ -71,7 +53,7 @@
   }
 
   let {
-    baseUrl = '',
+    baseUrl,
     pageUrl = null,
     seoTitle,
     seoDescription,
@@ -83,7 +65,6 @@
     updateTime = '',
     authors = [],
   }: Props = $props();
-
   const getOrigin = (baseUrl: string) => {
     try {
       return new URL(baseUrl).origin;
