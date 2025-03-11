@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Twitter from './svgs/Twitter.svelte';
-  import YouTube from './svgs/YouTube.svelte';
-  import Facebook from './svgs/Facebook.svelte';
-  import Instagram from './svgs/Instagram.svelte';
-  import LinkedIn from './svgs/LinkedIn.svelte';
-  import { normalizeUrl } from '../SiteHeader/NavBar/utils';
+  import Twitter from '.././svgs/Twitter.svelte';
+  import YouTube from '.././svgs/YouTube.svelte';
+  import Facebook from '.././svgs/Facebook.svelte';
+  import Instagram from '.././svgs/Instagram.svelte';
+  import LinkedIn from '.././svgs/LinkedIn.svelte';
+  import { normalizeUrl } from '../../SiteHeader/NavBar/utils';
 
   const symbols = {
     twitter: Twitter,
@@ -31,7 +31,7 @@
             {#each links.social_links as link}
               {@const SvelteComponent = symbols[link.type]}
               <li class="social-links symbol">
-                <a href="{normalizeUrl(link.url)}">
+                <a href={normalizeUrl(link.url)}>
                   <div class="button">
                     <div class="social">
                       <SvelteComponent />
@@ -48,10 +48,10 @@
 {/if}
 
 <style lang="scss">
-  @import '../SiteHeader/scss/_breakpoints.scss';
-  @import '../SiteHeader/scss/_grids.scss';
+  @import '../../SiteHeader/scss/_breakpoints.scss';
+  @import '../../SiteHeader/scss/_grids.scss';
 
-  @import '../../scss/mixins';
+  @import '../../../scss/mixins';
   .content-container {
     @include max-width;
 
