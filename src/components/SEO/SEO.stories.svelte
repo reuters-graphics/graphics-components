@@ -1,49 +1,21 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import archieMLDocs from './stories/docs/archieML.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import SEO from './SEO.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Ads & analytics/SEO',
     component: SEO,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
-
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template >
-  {#snippet children({ args })}
-    <SEO {...args} />
-    <div>Nothing to see here. 😎</div>
-  {/snippet}
-</Template>
 
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  args={{
+    seoTitle: 'blah',
     baseUrl: 'https://graphics.reuters.com',
     pageUrl: new URL('https://graphics.reuters.com/hello-world/'),
     publishTime: new Date('2020-09-15').toISOString(),
-  }}"
-/>
-
-<Story
-  name="ArchieML"
-  args="{{
-    baseUrl: 'https://graphics.reuters.com',
-    pageUrl: new URL('https://graphics.reuters.com/hello-world/'),
-    publishTime: new Date('2020-09-15').toISOString(),
-  }}"
-  {...withStoryDocs(archieMLDocs)}
-/>
+  }}
+>
+  View page source to see the SEO metadata.
+</Story>
