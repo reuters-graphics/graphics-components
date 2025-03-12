@@ -11,7 +11,7 @@
 {#if dev}
   <div>
     <a rel="external" href="/embed-previewer">
-      <Fa icon="{faWindowRestore}" />
+      <Fa icon={faWindowRestore} />
     </a>
   </div>
 {/if}
