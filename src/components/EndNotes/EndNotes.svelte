@@ -12,15 +12,13 @@
     text: string;
   }
 
-  
-
   import Block from '../Block/Block.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
   interface Props {
     /**
-   * An array of endnote items.
-   * @required
-   */
+     * An array of endnote items.
+     * @required
+     */
     notes?: EndNote[];
   }
 

@@ -9,11 +9,10 @@
   import starterData from './data.json';
   import { onMount } from 'svelte';
 
-  
   interface Props {
     /**
-   * Set to `false` to remove graphics referrals
-   */
+     * Set to `false` to remove graphics referrals
+     */
     includeReferrals?: boolean;
   }
 
