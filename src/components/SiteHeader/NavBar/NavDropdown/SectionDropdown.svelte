@@ -5,10 +5,11 @@
 
   let { section = {}, headingText } = $props();
 
-  let splitCount =
-    $derived(section.children && section.children.length > 7 ?
+  let splitCount = $derived(
+    section.children && section.children.length > 7 ?
       Math.ceil(section.children.length / 2)
-    : 0);
+    : 0
+  );
 </script>
 
 <NavDropdown {headingText}>

@@ -5,13 +5,12 @@
    */
   type SortDirection = 'ascending' | 'descending';
 
-  
   interface Props {
     sortDirection?: SortDirection;
     /**
-   * Whether or not this arrow is currently sorting. It is false by default.
-   * @type {boolean}
-   */
+     * Whether or not this arrow is currently sorting. It is false by default.
+     * @type {boolean}
+     */
     active?: boolean;
   }
 

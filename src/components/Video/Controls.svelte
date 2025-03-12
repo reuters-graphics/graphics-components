@@ -15,7 +15,7 @@
     controlsBorderOffset,
     resetCondition,
     separateReplayIcon,
-    controlsColour
+    controlsColour,
   } = $props();
 
   function forwardBtnClick() {
@@ -29,7 +29,7 @@
 </script>
 
 <button
-  onclick={forwardBtnClick}
+  onclick="{forwardBtnClick}"
   style="
     opacity: {controlsOpacity};
     top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?
