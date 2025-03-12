@@ -10,6 +10,7 @@
 
 <Story
   name="Demo"
+  tags={['!autodocs', '!dev']}
   args={{
     dev: true,
   }}
