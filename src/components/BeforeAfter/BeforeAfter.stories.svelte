@@ -78,15 +78,15 @@
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
     {#snippet beforeOverlay()}
-      <div let:description={id} class="overlay p-3">
-        <p class="body-caption" {id}>
+      <div class="overlay p-3">
+        <p class="body-caption" id="aria-description-before">
           On July 7, 2020, the base contained only a few transport vehicles.
         </p>
       </div>
     {/snippet}
     {#snippet afterOverlay()}
-      <div let:description={id} class="overlay p-3">
-        <p class="body-caption" {id}>
+      <div class="overlay p-3">
+        <p class="body-caption" id="aria-description-after">
           But by October, tanks and artillery could be seen.
         </p>
         <p class="body-caption">
