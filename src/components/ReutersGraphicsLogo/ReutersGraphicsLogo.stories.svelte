@@ -4,6 +4,10 @@
   const { Story } = defineMeta({
     title: 'Components/Logos/ReutersGraphicsLogo',
     component: ReutersGraphicsLogo,
+    argTypes: {
+      logoColour: { control: 'color' },
+      textColour: { control: 'color' },
+    },
   });
 </script>
 
