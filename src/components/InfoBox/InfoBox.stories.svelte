@@ -22,7 +22,7 @@
 
 <Story name="Demo">
   <BodyText
-    text="If you haven't seen Game of Thrones, go watch it right now. If you have then you'll totally get why this Hodor themed lorem ipsum generator is just brilliant."
+    text="Bacon ipsum dolor amet turducken buffalo beef ribs bresaola pancetta ribeye pork belly doner hamburger biltong cupim porchetta chuck ham tenderloin. Turducken bresaola jerky chicken."
   />
   <InfoBox
     title="About this data"
@@ -30,7 +30,7 @@
     notes={'[Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)'}
   />
   <BodyText
-    text="In case you don't read Twitter, the news, or just can't get enough of The Apprentice host's legendary oration, try this Trump lorem ipsum generator on for size."
+    text="Ham drumstick tail ribeye pancetta, leberkas hamburger chicken spare ribs buffalo jerky sausage ground round meatball. Leberkas kevin short loin, tri-tip shank spare ribs buffalo beef pork belly corned beef chislic tongue."
   />
 </Story>
 <Story
@@ -71,7 +71,7 @@
       </table>
     {/snippet}
     {#snippet footer()}
-      <em>Source: Precedence Research</em>
+      <div class="text-xs font-note">Source: Precedence Research</div>
     {/snippet}
   </InfoBox>
 </Story>

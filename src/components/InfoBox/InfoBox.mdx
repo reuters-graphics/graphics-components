@@ -6,7 +6,7 @@ import * as InfoBoxStories from './InfoBox.stories.svelte';
 
 # InfoBox
 
-The `InfoBox` component creates a stylised text box that provides additional information that needs to be visually separate from the main content flow, such as methodology, detailed notes about data, and extra context.
+The `InfoBox` component creates a stylised text box that provides additional information that needs to be visually separate from the main content flow, such as methodology, detailed notes about data and extra context.
 
 ```svelte
 <script>
@@ -24,7 +24,7 @@ The `InfoBox` component creates a stylised text box that provides additional inf
 
 ## Using with ArchieML docs
 
-With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+With the graphics kit, you'll likely get your text value from an ArchieML doc...
 
 ```yaml
 # Archie ML doc
@@ -114,7 +114,7 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the `InfoBox
   {/snippet}
   <!-- Optional custom footer -->
   {#snippet updated()}
-    <em>Source: Precedence Research</em>
+    <div class="text-xs font-note">Source: Precedence Research</div>
   {/snippet}
 </InfoBox>
 ```
