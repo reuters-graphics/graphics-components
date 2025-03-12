@@ -22,22 +22,6 @@
   viewBox="0 0 1760.4 558.7"
   style="width: {width}; --logoColour: {logoColour}; --textColour: {textColour};"
 >
-  <defs>
-    <style>
-      .cls-1 {
-        fill: var(--logoColour);
-      }
-
-      .cls-1,
-      .cls-2 {
-        stroke-width: 0px;
-      }
-
-      .cls-2 {
-        fill: var(--textColour);
-      }
-    </style>
-  </defs>
   <g id="Primary_Logo" data-name="Primary Logo">
     <g>
       <g>
@@ -187,3 +171,18 @@
     </g>
   </g>
 </svg>
+
+<style>
+  .cls-1 {
+    fill: var(--logoColour);
+  }
+
+  .cls-1,
+  .cls-2 {
+    stroke-width: 0px;
+  }
+
+  .cls-2 {
+    fill: var(--textColour);
+  }
+</style>
