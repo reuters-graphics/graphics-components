@@ -88,19 +88,23 @@
     caption,
   }: Props = $props();
 
-  let img: HTMLImageElement;
-  let imgOffset: DOMRect | null = null;
+  /** DOM nodes are undefined until the component is mounted — in other words, you should read it inside an effect or an event handler, but not during component initialisation.
+   */
+  let img: HTMLImageElement | undefined = $state(undefined);
+
+  /** Defaults with an empty DOMRect with all values set to 0 */
+  let imgOffset: DOMRect = $state(new DOMRect());
   let sliding = false;
-  let figure: HTMLElement;
-  let beforeOverlayWidth = 0;
+  let figure: HTMLElement | undefined = $state(undefined);
+  let beforeOverlayWidth = $state(0);
   let isFocused = false;
-  let containerWidth: number;
+  let containerWidth: number = $state(0); // check if this should be undefined
 
   let containerHeight = $derived(
     containerWidth && heightRatio ? containerWidth * heightRatio : height
   );
 
-  let w = $derived((imgOffset && imgOffset.width) || 0);
+  let w = $derived(imgOffset.width);
   let x = $derived(w * offset);
   let figStyle = $derived(`width:100%;height:${containerHeight}px;`);
   const imgStyle = 'width:100%;height:100%;';
@@ -110,13 +114,15 @@
 
   const onfocus = () => (isFocused = true);
   const onblur = () => (isFocused = false);
+
+  /** Handle left or right arrows being pressed */
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!isFocused) return;
-    const { keyCode } = e; // DEPRECATED, change to key or code tk
+    const { code, key } = e;
     const margin = handleMargin / w;
-    if (keyCode === 39) {
+    if (code === 'ArrowRight' || key === 'ArrowRight') {
       offset = Math.min(1 - margin, offset + keyPressStep);
-    } else if (keyCode === 37) {
+    } else if (code === 'ArrowLeft' || key === 'ArrowLeft') {
       offset = Math.max(0 + margin, offset - keyPressStep);
     }
   };
@@ -129,6 +135,7 @@
     measureImage();
   };
 
+  /** This can probably get fixed?? */
   const measureLoadedImage = (e: Event) => {
     if (e.type === 'load') {
       imgOffset = (e.target as HTMLImageElement).getBoundingClientRect();
@@ -182,6 +189,7 @@
   <Block {width} {id} class="photo before-after fmy-6 {cls}">
     <div style="height: {containerHeight}px;" bind:clientWidth={containerWidth}>
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+
       <figure
         style={figStyle}
         class="before-after-container relative overflow-hidden my-0 mx-auto"
