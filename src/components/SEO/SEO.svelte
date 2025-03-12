@@ -78,7 +78,7 @@
 
   let origin = $derived(getOrigin(baseUrl));
   let canonicalUrl = $derived(
-    (origin + pageUrl?.pathname).replace(/index\.html\/$/, '')
+    (origin + (pageUrl?.pathname || '')).replace(/index\.html\/$/, '')
   );
 
   const orgLdJson = {
