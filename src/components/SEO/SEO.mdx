@@ -27,15 +27,15 @@ The `SEO` component adds essential metadata to pages.
   publishTime="2020-09-15T00:00:00.000Z"
   updateTime="2021-01-10T12:30:00.000Z"
   authors={[
-    { name: 'Jane Doe', url: 'https://twitter.com/JaneDoe' },
-    { name: 'John Doe', url: 'https://twitter.com/JohnDoe' },
+    { name: 'Jane Doe', link: 'https://www.reuters.com/authors/jane-doe/' },
+    { name: 'John Doe', link: 'https://www.reuters.com/authors/john-doe/' },
   ]}
 />
 ```
 
 ## Using with ArchieML docs
 
-With the Graphics Kit, you'll likely get your text values from an ArchieML doc...
+With the graphics kit, you'll likely get many of your text values from an ArchieML doc...
 
 ```yaml
 # ArchieML doc
@@ -74,7 +74,7 @@ shareImgAlt: Alt text for share image.
 />
 ```
 
-> **Note:** For _reasons_, we can't document the value of `VITE_BASE_URL` below. It's `import` + `.meta.env.BASE_URL` (concatenate all that) in the Graphics Kit and other Vite-based rigs.
+> **Note:** For _reasons_, we can't document the value of `VITE_BASE_URL` below. It's `import` + `.meta.env.BASE_URL` (concatenate all that) in the graphics kit and other Vite-based rigs.
 
 <Canvas of={SEOStories.Demo} />
 ```
