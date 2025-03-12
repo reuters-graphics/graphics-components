@@ -2,11 +2,11 @@
 <script lang="ts">
   import type { Action } from 'svelte/action';
   import { marked } from 'marked';
-  import { staticMarkdown } from './stores';
+  import { markedSmartypants } from 'marked-smartypants';
+  import { staticMarkdown } from './state.svelte';
 
-  
+  marked.use(markedSmartypants());
 
-  
   interface Props {
     /** A Markdown formatted string */
     source?: string;
@@ -16,7 +16,11 @@
 
   let { source = '', parseInline = false }: Props = $props();
 
-  let markdown = $derived(parseInline ? marked.parseInline(source) : marked.parse(source));
+  let markdown = $derived(
+    parseInline ?
+      (marked.parseInline(source) as string)
+    : (marked.parse(source) as string)
+  );
 
   const setInnerHTML: Action<HTMLElement, string> = (node, html) => {
     node.innerHTML = html;
@@ -32,13 +36,15 @@
 </script>
 
 {#if source}
-  {#if $staticMarkdown}
-    <div>
-      {@html markdown}
-    </div>
-  {:else}
-    <div use:setInnerHTML="{markdown}"></div>
-  {/if}
+  {#key source}
+    {#if staticMarkdown.static}
+      <div>
+        {@html markdown}
+      </div>
+    {:else}
+      <div use:setInnerHTML={markdown}></div>
+    {/if}
+  {/key}
 {/if}
 
 <style>

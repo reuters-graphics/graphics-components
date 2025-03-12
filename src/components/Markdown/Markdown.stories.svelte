@@ -11,6 +11,6 @@
 <Story
   name="Demo"
   args={{
-    source: 'My *awesome* text in **markdown**.',
+    source: 'My *awesome* text in **markdown** with "smart quotes".',
   }}
 />

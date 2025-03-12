@@ -13,16 +13,16 @@ The `Markdown` component renders a markdown string into HTML.
   import { Markdown } from '@reuters-graphics/graphics-components';
 </script>
 
-<Markdown source={'My *awesome* text in **markdown**.'} />
+<Markdown source={'My *awesome* text in **markdown** with "smart quotes".'} />
 ```
 
 <Canvas of={MarkdownStories.Demo} />
 
 ... well, almost.
 
-Owing to a weird quirk of Svelte's [`@html`](https://svelte.dev/docs/special-tags#html) directive (see [this issue](https://github.com/reuters-graphics/graphics-components/issues/148)), if you want your resulting HTML to be dynamic — e.g., update after a SvelteKit app [hydrates](https://kit.svelte.dev/docs/glossary#hydration) — then you may need to set the included `$staticMarkdown` store to `false` in the browser.
+Owing to a weird quirk of Svelte's [`@html`](https://svelte.dev/docs/special-tags#html) directive (see [this issue](https://github.com/reuters-graphics/graphics-components/issues/148)), if you want your resulting HTML to be dynamic — e.g., update after a SvelteKit app [hydrates](https://kit.svelte.dev/docs/glossary#hydration) — then you may need to set the included `staticMarkdown` rune to `{ static: false }` in the browser.
 
-For example, if you're refreshing some data with markdown strings in a SvelteKit project using a [load function](https://kit.svelte.dev/docs/load), set the store to reflect the [`building`](https://kit.svelte.dev/docs/modules#$app-environment-building) variable, which will correctly [prerender](https://kit.svelte.dev/docs/glossary#prerendering) your markdown content AND update it after fresh data is fetched in the browser.
+For example, if you're refreshing some data with markdown strings in a SvelteKit project using a [load function](https://kit.svelte.dev/docs/load), set the rune to reflect the [`building`](https://kit.svelte.dev/docs/modules#$app-environment-building) variable, which will correctly [prerender](https://kit.svelte.dev/docs/glossary#prerendering) your markdown content AND update it after fresh data is fetched in the browser.
 
 ```javascript
 // +layout.js
@@ -31,8 +31,8 @@ import { building } from '$app/environment';
 
 /** @type {import('./$types').LayoutLoad} */
 export const load = async () => {
-  // Set the staticMarkdown store with the value of building.
-  staticMarkdown.set(building);
+  // Set the staticMarkdown rune with the value of building.
+  staticMarkdown.static = building;
 
   // Now this content will correctly refresh when a reader loads your page.
   const resp = await fetch(
@@ -44,4 +44,4 @@ export const load = async () => {
 };
 ```
 
-If you're not updating your markdown content as above, you can safely leave the `$staticMarkdown` store alone and your page will do the right thing.
+If you're not updating your markdown content as above, you can safely leave the `staticMarkdown` rune alone and your page will do the right thing.
