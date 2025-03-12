@@ -9,7 +9,11 @@
     releaseMobileMenu?: any;
   }
 
-  let { data = [], isMobileMenuOpen = false, releaseMobileMenu = () => {} }: Props = $props();
+  let {
+    data = [],
+    isMobileMenuOpen = false,
+    releaseMobileMenu = () => {},
+  }: Props = $props();
 </script>
 
 {#if isMobileMenuOpen}
@@ -31,7 +35,7 @@
           textColour="var(--nav-primary)"
         />
       </div>
-      <button class="button close-button" onclick={releaseMobileMenu}>
+      <button class="button close-button" onclick="{releaseMobileMenu}">
         <div class="button-container">
           <CloseIcon />
         </div>

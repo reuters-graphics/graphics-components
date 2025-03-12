@@ -69,7 +69,7 @@
   let adType = $derived(getAdType(placementName));
 </script>
 
-<svelte:window bind:innerWidth={windowWidth} />
+<svelte:window bind:innerWidth="{windowWidth}" />
 
 {#if windowWidth}
   {#key placementName}

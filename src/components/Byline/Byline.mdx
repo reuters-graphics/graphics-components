@@ -1,0 +1,53 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BylineStories from './Byline.stories.svelte';
+
+<Meta of={BylineStories} />
+
+# Byline
+
+The `Byline` component adds a byline, published and updated datelines to your page.
+
+```svelte
+<script>
+  import { Byline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Byline
+  authors={[
+    'Dea Bankova',
+    'Prasanta Kumar Dutta',
+    'Anurag Rao',
+    'Mariano Zafra',
+  ]}
+  publishTime="2021-09-12T00:00:00.000Z"
+  updateTime="2021-09-12T12:57:00.000Z"
+/>
+```
+
+<Canvas of={BylineStories.Demo} />
+
+## Cutomisation
+
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, published and updated datelines.
+
+```svelte
+<Byline publishTime="2021-09-12T00:00:00Z" updateTime="2021-09-12T13:57:00Z">
+  <!-- Optional custom byline -->
+  {#snippet byline()}
+    <strong>BY REUTERS GRAPHICS</strong>
+  {/snippet}
+
+  <!-- Optional custom published dateline -->
+  {#snippet published()}
+    PUBLISHED on some custom date and time
+  {/snippet}
+
+  <!-- Optional custom updated dateline -->
+  {#snippet updated()}
+    <em>Updated every 5 minutes</em>
+  {/snippet}
+</Byline>
+```
+
+<Canvas of={BylineStories.Customised} />

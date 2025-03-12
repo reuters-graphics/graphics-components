@@ -1,5 +1,4 @@
 <script lang="ts">
-  
   // For demo purposes only, hard-wiring img paths from Vite
   // @ts-ignore img
   import chartXs from '../imgs/ai-chart-xs.png';
