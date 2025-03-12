@@ -9,12 +9,12 @@
 
   interface Props {
     /** A Markdown formatted string */
-    source?: string;
+    source: string;
     /** Parse markdown inline, i.e., without wrapping it in paragraph tags */
     parseInline?: boolean;
   }
 
-  let { source = '', parseInline = false }: Props = $props();
+  let { source, parseInline = false }: Props = $props();
 
   let markdown = $derived(
     parseInline ?
@@ -35,15 +35,17 @@
   };
 </script>
 
-{#key source}
-  {#if staticMarkdown.static}
-    <div>
-      {@html markdown}
-    </div>
-  {:else}
-    <div use:setInnerHTML={markdown}></div>
-  {/if}
-{/key}
+{#if source}
+  {#key source}
+    {#if staticMarkdown.static}
+      <div>
+        {@html markdown}
+      </div>
+    {:else}
+      <div use:setInnerHTML={markdown}></div>
+    {/if}
+  {/key}
+{/if}
 
 <style>
   div {
