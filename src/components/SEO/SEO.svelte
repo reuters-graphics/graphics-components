@@ -13,7 +13,7 @@
     /**
      * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
      */
-    pageUrl: URL | null;
+    pageUrl: URL;
     /**
      * SEO title
      */
@@ -54,7 +54,7 @@
 
   let {
     baseUrl,
-    pageUrl = null,
+    pageUrl,
     seoTitle,
     seoDescription,
     shareTitle,
