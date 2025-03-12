@@ -92,13 +92,13 @@
 </Block>
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
   .timeline {
     .date {
       border-left: 1px solid var(--symbol-colour);
       &:last-child {
-        border-left: 1px solid $theme-colour-background;
-        @include fpb-0;
+        border-left: 1px solid mixins.$theme-colour-background;
+        @include mixins.fpb-0;
       }
     }
     svg {
@@ -106,9 +106,9 @@
       left: -10px;
     }
     div.title {
-      @include fmt-2;
-      @include fmb-1;
-      @include font-medium;
+      @include mixins.fmt-2;
+      @include mixins.fmb-1;
+      @include mixins.font-medium;
     }
 
     div.event {
@@ -127,8 +127,8 @@
         }
       }
       :global(p) {
-        @include body-note;
-        @include font-light;
+        @include mixins.body-note;
+        @include mixins.font-light;
       }
     }
   }
