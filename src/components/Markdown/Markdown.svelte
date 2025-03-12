@@ -35,17 +35,15 @@
   };
 </script>
 
-{#if source}
-  {#key source}
-    {#if staticMarkdown.static}
-      <div>
-        {@html markdown}
-      </div>
-    {:else}
-      <div use:setInnerHTML={markdown}></div>
-    {/if}
-  {/key}
-{/if}
+{#key source}
+  {#if staticMarkdown.static}
+    <div>
+      {@html markdown}
+    </div>
+  {:else}
+    <div use:setInnerHTML={markdown}></div>
+  {/if}
+{/key}
 
 <style>
   div {
