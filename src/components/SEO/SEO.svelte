@@ -1,85 +1,72 @@
 <!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytic-seo--docs) -->
 <script lang="ts">
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-
   interface GraphicAuthor {
     name: string;
     url: string;
   }
 
-  
   interface Props {
     /**
-   * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
-   * is globally available as `import.meta.env.BASE_URL`.
-   * @requiredx
-   * @type {string}
-   */
+     * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
+     * is globally available as `import.meta.env.BASE_URL`.
+     * @requiredx
+     * @type {string}
+     */
     baseUrl?: string;
     /**
-   * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
-   * @required
-   * @type {URL}
-   */
+     * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
+     * @required
+     * @type {URL}
+     */
     pageUrl?: URL | null;
     /**
-   * SEO title
-   * @required
-   * @type {string}
-   */
+     * SEO title
+     * @required
+     * @type {string}
+     */
     seoTitle: string;
     /**
-   * SEO description
-   * @required
-   * @type {string}
-   */
+     * SEO description
+     * @required
+     * @type {string}
+     */
     seoDescription: string;
     /**
-   * Share title
-   * @required
-   * @type {string}
-   */
+     * Share title
+     * @required
+     * @type {string}
+     */
     shareTitle: string;
     /**
-   * Share description
-   * @required
-   * @type {string}
-   */
+     * Share description
+     * @required
+     * @type {string}
+     */
     shareDescription: string;
     /**
-   * Share image path. **Must be an absolute path.**
-   * @required
-   * @type {string}
-   */
+     * Share image path. **Must be an absolute path.**
+     * @required
+     * @type {string}
+     */
     shareImgPath: string;
     /**
-   * Share image alt text, up to 420 characters.
-   * @type {string}
-   */
+     * Share image alt text, up to 420 characters.
+     * @type {string}
+     */
     shareImgAlt?: string;
     /**
-   * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * @type {string}
-   */
+     * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+     * @type {string}
+     */
     publishTime?: string;
     /**
-   * Updated time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * @type {string}
-   */
+     * Updated time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+     * @type {string}
+     */
     updateTime?: string;
     /**
-   * Array of authors for the piece. Each author object must have `name` and `url` attributes.
-   */
+     * Array of authors for the piece. Each author object must have `name` and `url` attributes.
+     */
     authors?: GraphicAuthor[];
   }
 
@@ -94,7 +81,7 @@
     shareImgAlt = '',
     publishTime = '',
     updateTime = '',
-    authors = []
+    authors = [],
   }: Props = $props();
 
   const getOrigin = (baseUrl: string) => {
@@ -109,7 +96,9 @@
   };
 
   let origin = $derived(getOrigin(baseUrl));
-  let canonicalUrl = $derived((origin + pageUrl?.pathname).replace(/index\.html\/$/, ''));
+  let canonicalUrl = $derived(
+    (origin + pageUrl?.pathname).replace(/index\.html\/$/, '')
+  );
 
   const orgLdJson = {
     '@context': 'http://schema.org',
