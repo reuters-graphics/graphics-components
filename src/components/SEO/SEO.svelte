@@ -2,7 +2,7 @@
 <script lang="ts">
   interface GraphicAuthor {
     name: string;
-    url: string;
+    link: string;
   }
 
   interface Props {
@@ -47,7 +47,7 @@
      */
     updateTime?: string;
     /**
-     * Array of authors for the piece. Each author object must have `name` and `url` attributes.
+     * Array of authors for the piece. Each author object must have `name` and `link` attributes.
      */
     authors?: GraphicAuthor[];
   }
@@ -119,10 +119,10 @@
     dateCreated: publishTime,
     datePublished: publishTime,
     dateModified: updateTime,
-    author: authors.map(({ name, url }) => ({
+    author: authors.map(({ name, link }) => ({
       '@type': 'Person',
       name,
-      url,
+      url: link,
     })),
     creator: authors.map(({ name }) => name),
     articleSection: 'Graphics',
