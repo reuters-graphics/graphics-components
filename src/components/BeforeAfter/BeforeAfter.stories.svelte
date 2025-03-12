@@ -1,19 +1,10 @@
-<!-- @migration-task Error while migrating Svelte code: end is out of bounds -->
-<script context="module" lang="ts">
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import BeforeAfter from './BeforeAfter.svelte';
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import withOverlaysDocs from './stories/docs/withOverlays.md?raw';
-  // @ts-ignore raw
-  import ariaDescriptionsDocs from './stories/docs/ariaDescriptions.md?raw';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Graphics/BeforeAfter',
     component: BeforeAfter,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       handleColour: { control: 'color' },
       width: {
@@ -21,39 +12,31 @@
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  // @ts-ignore raw
-  import beforeImg from './stories/myrne-before.jpg';
-  // @ts-ignore raw
-  import afterImg from './stories/myrne-after.jpg';
+  import beforeImg from './images/myrne-before.jpg';
+  import afterImg from './images/myrne-after.jpg';
 </script>
 
-<Template let:args>
-  <BeforeAfter {...args} />
-</Template>
-
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  args={{
     beforeSrc: beforeImg,
     beforeAlt:
       'Satellite image of Russian base at Myrne taken on July 7, 2020.',
     afterSrc: afterImg,
     afterAlt:
       'Satellite image of Russian base at Myrne taken on Oct. 20, 2020.',
-  }}"
+  }}
 />
 
-<Story name="With overlays" {...withStoryDocs(withOverlaysDocs)}>
+<Story name="With overlays" exportName="WithOverlays">
   <BeforeAfter
-    beforeSrc="{beforeImg}"
+    beforeSrc={beforeImg}
     beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
-    afterSrc="{afterImg}"
+    afterSrc={afterImg}
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
     <div slot="beforeOverlay" class="overlay p-3 before">
@@ -81,19 +64,19 @@
   </style>
 </Story>
 
-<Story name="ARIA descriptions" {...withStoryDocs(ariaDescriptionsDocs)}>
+<Story name="ARIA descriptions" exportName="AriaDescriptions">
   <BeforeAfter
-    beforeSrc="{beforeImg}"
+    beforeSrc={beforeImg}
     beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
-    afterSrc="{afterImg}"
+    afterSrc={afterImg}
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
-    <div let:description="{id}" slot="beforeOverlay" class="overlay p-3">
+    <div let:description={id} slot="beforeOverlay" class="overlay p-3">
       <p class="body-caption" {id}>
         On July 7, 2020, the base contained only a few transport vehicles.
       </p>
     </div>
-    <div let:description="{id}" slot="afterOverlay" class="overlay p-3">
+    <div let:description={id} slot="afterOverlay" class="overlay p-3">
       <!-- 👇 id can also be used on an element containing multiple text elements -->
       <div {id}>
         <p class="body-caption">

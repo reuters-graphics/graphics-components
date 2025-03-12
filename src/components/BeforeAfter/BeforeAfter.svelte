@@ -1,73 +1,92 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `BeforeAfter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-beforeafter--docs) -->
 <script lang="ts">
+  import { onMount, type Snippet } from 'svelte';
   import { throttle } from 'lodash-es';
-  import { onMount } from 'svelte';
+
   import Block from '../Block/Block.svelte';
-  import type { ContainerWidth } from '../@types/global';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
+  import type { ContainerWidth } from '../@types/global';
 
-  /** Width of the chart within the text well. */
-  export let width: ContainerWidth = 'normal'; // options: wide, wider, widest, fluid
-  /** Height of the component */
-  export let height = 600;
-
-  /**
-   * If set, makes the height a ratio of the component's width.
-   * @type {number}
-   */
-  export let heightRatio: number | null = null;
-
-  /**
-   * Before image src
-   * @required
-   */
-  export let beforeSrc: string | null = null;
-  /**
-   * Before image altText
-   * @required
-   */
-  export let beforeAlt: string | null = null;
-  /**
-   * After image src
-   * @required
-   */
-  export let afterSrc: string | null = null;
-  /**
-   * After image altText
-   * @required
-   */
-  export let afterAlt: string | null = null;
-
-  /**
-   * Set a class to target with SCSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
-
-  /** Drag handle colour */
-  export let handleColour = 'white';
-  /** Drag handle opacity */
-  export let handleInactiveOpacity = 0.9;
-  /** Margin at the edge of the image to stop dragging */
-  export let handleMargin = 20;
-  /** Percentage of the component width the handle will travel ona key press */
-  export let keyPressStep = 0.05;
-
-  /** Initial offset of the handle, between 0 and 1. */
-  export let offset = 0.5;
-
+  /** Helper function to generate a random 4-character string */
   const random4 = () =>
     Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
 
-  /**
-   * Add an ID to target with SCSS.
-   * @type {string}
-   */
-  export let id: string = 'before-after-' + random4() + random4();
+  interface Props {
+    /** Width of the chart within the text well. Options: wide, wider, widest, fluid */
+    width?: ContainerWidth;
+    /** Height of the component */
+    height?: number;
+    /**
+     * If set, makes the height a ratio of the component's width.
+     */
+    heightRatio?: number;
+    /**
+     * Before image source
+     */
+    beforeSrc: string;
+    /**
+     * Before image altText
+     */
+    beforeAlt: string;
+    /**
+     * After image source
+     */
+    afterSrc: string;
+    /**
+     * After image altText
+     */
+    afterAlt: string;
+    /**
+     * Class to target with SCSS.
+     */
+    class?: string;
+    /** Drag handle colour */
+    handleColour?: string;
+    /** Drag handle opacity */
+    handleInactiveOpacity?: number;
+    /** Margin at the edge of the image to stop dragging */
+    handleMargin?: number;
+    /** Percentage of the component width the handle will travel ona key press */
+    keyPressStep?: number;
+    /** Initial offset of the handle, between 0 and 1. */
+    offset?: number;
+    /** ID to target with SCSS. */
+    id?: string;
+    /**
+     * Optional snippet for a custom overlay for the before image.
+     */
+    beforeOverlay?: Snippet;
+    /**
+     * Optional snippet for a custom overlay for the after image.
+     */
+    afterOverlay?: Snippet;
+    /**
+     * Optional snippet for a custom caption.
+     */
+    caption?: Snippet;
+  }
+
+  let {
+    width = 'normal',
+    height = 600,
+    heightRatio,
+    beforeSrc,
+    beforeAlt,
+    afterSrc,
+    afterAlt,
+    class: cls = '',
+    handleColour = 'white',
+    handleInactiveOpacity = 0.9,
+    handleMargin = 20,
+    keyPressStep = 0.05,
+    offset = 0.5,
+    id = 'before-after-' + random4() + random4(),
+    beforeOverlay,
+    afterOverlay,
+    caption,
+  }: Props = $props();
 
   let img: HTMLImageElement;
   let imgOffset: DOMRect | null = null;
@@ -77,21 +96,23 @@
   let isFocused = false;
   let containerWidth: number;
 
-  $: containerHeight =
-    containerWidth && heightRatio ? containerWidth * heightRatio : height;
+  let containerHeight = $derived(
+    containerWidth && heightRatio ? containerWidth * heightRatio : height
+  );
 
-  $: w = (imgOffset && imgOffset.width) || 0;
-  $: x = w * offset;
-  $: figStyle = `width:100%;height:${containerHeight}px;`;
-  $: imgStyle = 'width:100%;height:100%;';
-  $: beforeOverlayClip =
-    x < beforeOverlayWidth ? Math.abs(x - beforeOverlayWidth) : 0;
+  let w = $derived((imgOffset && imgOffset.width) || 0);
+  let x = $derived(w * offset);
+  let figStyle = $derived(`width:100%;height:${containerHeight}px;`);
+  const imgStyle = 'width:100%;height:100%;';
+  let beforeOverlayClip = $derived(
+    x < beforeOverlayWidth ? Math.abs(x - beforeOverlayWidth) : 0
+  );
 
-  const onFocus = () => (isFocused = true);
-  const onBlur = () => (isFocused = false);
+  const onfocus = () => (isFocused = true);
+  const onblur = () => (isFocused = false);
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!isFocused) return;
-    const { keyCode } = e;
+    const { keyCode } = e; // DEPRECATED, change to key or code tk
     const margin = handleMargin / w;
     if (keyCode === 39) {
       offset = Math.min(1 - margin, offset + keyPressStep);
@@ -134,13 +155,10 @@
     sliding = true;
     move(e);
   };
+
   const end = () => {
     sliding = false;
   };
-
-  if (!(beforeSrc && beforeAlt && afterSrc && afterAlt)) {
-    console.warn('Missing required src or alt props for BeforeAfter component');
-  }
 
   onMount(() => {
     // This is necessary b/c on:load doesn't reliably fire on the image...
@@ -152,93 +170,83 @@
 </script>
 
 <svelte:window
-  on:touchmove="{move}"
-  on:touchend="{end}"
-  on:mousemove="{move}"
-  on:mouseup="{end}"
-  on:resize="{throttle(resize, 100)}"
-  on:keydown="{handleKeyDown}"
+  on:touchmove={move}
+  on:touchend={end}
+  on:mousemove={move}
+  on:mouseup={end}
+  on:resize={throttle(resize, 100)}
+  on:keydown={handleKeyDown}
 />
 
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
   <Block {width} {id} class="photo before-after fmy-6 {cls}">
-    <div
-      style="height: {containerHeight}px;"
-      bind:clientWidth="{containerWidth}"
-    >
-      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <div style="height: {containerHeight}px;" bind:clientWidth={containerWidth}>
+      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <figure
-        style="{figStyle}"
+        style={figStyle}
         class="before-after-container relative overflow-hidden my-0 mx-auto"
-        on:touchstart="{start}"
-        on:mousedown="{start}"
-        bind:this="{figure}"
-        aria-labelledby="{($$slots.caption && `${id}-caption`) || undefined}"
+        ontouchstart={start}
+        onmousedown={start}
+        bind:this={figure}
+        aria-labelledby={(caption && `${id}-caption`) || undefined}
       >
+        <!-- onmousedown={start || (e) => e.preventDefault()} -->
         <img
-          bind:this="{img}"
-          src="{afterSrc}"
-          alt="{afterAlt}"
-          on:load="{measureLoadedImage}"
-          on:mousedown|preventDefault
-          style="{imgStyle}"
+          bind:this={img}
+          src={afterSrc}
+          alt={afterAlt}
+          onload={measureLoadedImage}
+          onmousedown={start}
+          style={imgStyle}
           class="after absolute block m-0 max-w-full object-cover"
-          aria-describedby="{($$slots.beforeOverlay && `${id}-before`) ||
-            undefined}"
+          aria-describedby={(beforeOverlay && `${id}-before`) || undefined}
         />
-
+        <!-- onmousedown={start || (e) => e.preventDefault()} -->
         <img
-          src="{beforeSrc}"
-          alt="{beforeAlt}"
-          on:mousedown|preventDefault
+          src={beforeSrc}
+          alt={beforeAlt}
+          onmousedown={start}
           style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
           class="before absolute block m-0 max-w-full object-cover"
-          aria-describedby="{($$slots.afterOverlay && `${id}-after`) ||
-            undefined}"
+          aria-describedby={(afterOverlay && `${id}-after`) || undefined}
         />
-        {#if $$slots.beforeOverlay}
+        {#if beforeOverlay}
           <div
             id="image-before-label"
             class="overlay-container before absolute"
-            bind:clientWidth="{beforeOverlayWidth}"
+            bind:clientWidth={beforeOverlayWidth}
             style="clip-path: inset(0 {beforeOverlayClip}px 0 0);"
           >
             <!-- Overlay for before image -->
-            <slot
-              name="beforeOverlay"
-              description="{`${id}-before-description`}"
-            />
+            {@render beforeOverlay()}
           </div>
         {/if}
-        {#if $$slots.afterOverlay}
+        {#if afterOverlay}
           <div id="image-after-label" class="overlay-container after absolute">
             <!-- Overlay for after image -->
-            <slot
-              name="afterOverlay"
-              description="{`${id}-after-description`}"
-            />
+            {@render afterOverlay()}
           </div>
         {/if}
         <div
           tabindex="0"
           role="slider"
-          aria-valuenow="{Math.round(offset * 100)}"
+          aria-valuenow={Math.round(offset * 100)}
           class="handle"
           style="left: calc({offset *
             100}% - 20px); --before-after-handle-colour: {handleColour}; --before-after-handle-inactive-opacity: {handleInactiveOpacity};"
-          on:focus="{onFocus}"
-          on:blur="{onBlur}"
+          {onfocus}
+          {onblur}
         >
           <div class="arrow-left"></div>
           <div class="arrow-right"></div>
         </div>
       </figure>
     </div>
-    {#if $$slots.caption}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <aside class="before-after-caption mx-auto" id="{`${id}-caption`}">
+    {#if caption}
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <aside class="before-after-caption mx-auto" id={`${id}-caption`}>
           <!-- Caption for image credits -->
-          <slot name="caption" />
+          {@render caption()}
         </aside>
       </PaddingReset>
     {/if}
@@ -246,7 +254,7 @@
 {/if}
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
 
   figure.before-after-container {
     box-sizing: content-box;
@@ -339,7 +347,7 @@
 
   aside.before-after-caption {
     :global(p) {
-      @include body-caption;
+      @include mixins.body-caption;
     }
   }
 </style>

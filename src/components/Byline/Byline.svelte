@@ -17,12 +17,10 @@
     publishTime: string;
     /**
      * Update time as a datetime string.
-     * @type {string}
      */
     updateTime: string;
     /**
      * Alignment of the byline.
-     * @type {string}
      */
     align?: 'left' | 'center';
     /**
@@ -42,16 +40,16 @@
     /**
      * Optional snippet for a custom byline.
      */
-    byline?: Snippet | null;
+    byline?: Snippet;
     /**
      * Optional snippet for a custom published dateline.
      */
     // Specify that this prop should have the type of a Svelte snippet, i.e. basic html
-    published?: Snippet | null;
+    published?: Snippet;
     /**
      * Optional snippet for a custom updated dateline.
      */
-    updated?: Snippet | null;
+    updated?: Snippet;
   }
 
   let {
@@ -65,9 +63,9 @@
       const authorSlug = slugify(author.trim(), { lower: true });
       return `https://www.reuters.com/authors/${authorSlug}/`;
     },
-    byline = null,
-    published = null,
-    updated = null,
+    byline,
+    published,
+    updated,
   }: Props = $props();
 
   let alignmentClass = $derived(align === 'left' ? 'text-left' : 'text-center');
