@@ -1,6 +1,6 @@
 <!-- @component `BeforeAfter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-beforeafter--docs) -->
 <script lang="ts">
-  import { onMount, type Snippet } from 'svelte';
+  import { type Snippet } from 'svelte';
   import { throttle } from 'lodash-es';
 
   import Block from '../Block/Block.svelte';
@@ -133,7 +133,7 @@
     measureImage();
   };
 
-  /** This can probably get fixed?? */
+  /** Measure image and set image offset on load */
   const measureLoadedImage = (e: Event) => {
     if (e.type === 'load') {
       imgOffset = (e.target as HTMLImageElement).getBoundingClientRect();
@@ -169,13 +169,14 @@
     sliding = false;
   };
 
-  onMount(() => {
-    // This is necessary b/c on:load doesn't reliably fire on the image...
-    const interval = setInterval(() => {
-      if (imgOffset) clearInterval(interval);
-      if (img && img.complete && !imgOffset) measureImage();
-    }, 50);
-  });
+  /** @TODO - Double check if this onMount is still necessary */
+  // onMount(() => {
+  //   // This is necessary b/c on:load doesn't reliably fire on the image...
+  //   const interval = setInterval(() => {
+  //     if (imgOffset) clearInterval(interval);
+  //     if (img && img.complete && !imgOffset) measureImage();
+  //   }, 50);
+  // });
 </script>
 
 <svelte:window
