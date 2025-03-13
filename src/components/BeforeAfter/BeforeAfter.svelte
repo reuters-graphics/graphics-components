@@ -61,8 +61,8 @@
      * Optional snippet for a custom caption.
      */
     caption?: Snippet;
-    /** Custom ARIA label language to label the slider. */
-    sliderAriaLabel?: string;
+    /** Custom ARIA label language to label the component. */
+    ariaLabel?: string;
   }
 
   let {
@@ -83,7 +83,7 @@
     beforeOverlay,
     afterOverlay,
     caption,
-    sliderAriaLabel = 'Stacked before and after images with an adjustable slider',
+    ariaLabel = 'Stacked before and after images with an adjustable slider',
   }: Props = $props();
 
   /** DOM nodes are undefined until the component is mounted — in other words, you should read it inside an effect or an event handler, but not during component initialisation.
@@ -206,7 +206,7 @@
         ontouchstart={start}
         onmousedown={start}
         bind:this={figure}
-        aria-label={sliderAriaLabel}
+        aria-label={ariaLabel}
       >
         <img
           bind:this={img}
