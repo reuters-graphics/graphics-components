@@ -169,6 +169,11 @@
     sliding = false;
   };
 
+  /** Keep this warning since these values are often read from an ArchieML doc, which will not trigger typescript errors even if required values don't exist */
+  if (!(beforeSrc && beforeAlt && afterSrc && afterAlt)) {
+    console.warn('Missing required src or alt props for BeforeAfter component');
+  }
+
   /** @TODO - Double check if this onMount is still necessary */
   // onMount(() => {
   //   // This is necessary b/c on:load doesn't reliably fire on the image...
