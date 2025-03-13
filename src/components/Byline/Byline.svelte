@@ -42,16 +42,16 @@
     /**
      * Optional snippet for a custom byline.
      */
-    byline?: Snippet | null;
+    byline?: Snippet;
     /**
      * Optional snippet for a custom published dateline.
      */
     // Specify that this prop should have the type of a Svelte snippet, i.e. basic html
-    published?: Snippet | null;
+    published?: Snippet;
     /**
      * Optional snippet for a custom updated dateline.
      */
-    updated?: Snippet | null;
+    updated?: Snippet;
   }
 
   let {
