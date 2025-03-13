@@ -6,12 +6,7 @@
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
   import type { ContainerWidth } from '../@types/global';
-
-  /** Helper function to generate a random 4-character string */
-  const random4 = () =>
-    Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
+  import { random4 } from '../../utils/';
 
   interface Props {
     /** Width of the chart within the text well. Options: wide, wider, widest, fluid */
@@ -98,7 +93,7 @@
   let figure: HTMLElement | undefined = $state(undefined);
   let beforeOverlayWidth = $state(0);
   let isFocused = false;
-  let containerWidth: number = $state(0); // check if this should be undefined
+  let containerWidth: number = $state(0); // Defaults to 0
 
   let containerHeight = $derived(
     containerWidth && heightRatio ? containerWidth * heightRatio : height
@@ -112,6 +107,7 @@
     x < beforeOverlayWidth ? Math.abs(x - beforeOverlayWidth) : 0
   );
 
+  /** Toggle `isFocused` */
   const onfocus = () => (isFocused = true);
   const onblur = () => (isFocused = false);
 
@@ -127,10 +123,12 @@
     }
   };
 
+  /** Measure image and set image offset */
   const measureImage = () => {
     if (img && img.complete) imgOffset = img.getBoundingClientRect();
   };
 
+  /** Reset image offset on resize */
   const resize = () => {
     measureImage();
   };
@@ -142,6 +140,7 @@
     }
   };
 
+  /** Move the slider */
   const move = (e: MouseEvent | TouchEvent) => {
     if (sliding && imgOffset) {
       const el =
@@ -158,11 +157,14 @@
       offset = x / w;
     }
   };
+
+  /** Starts the slider */
   const start = (e: MouseEvent | TouchEvent) => {
     sliding = true;
     move(e);
   };
 
+  /** Sets `sliding` to `false`*/
   const end = () => {
     sliding = false;
   };
@@ -177,46 +179,41 @@
 </script>
 
 <svelte:window
-  on:touchmove={move}
-  on:touchend={end}
-  on:mousemove={move}
-  on:mouseup={end}
-  on:resize={throttle(resize, 100)}
-  on:keydown={handleKeyDown}
+  ontouchmove={move}
+  ontouchend={end}
+  onmousemove={move}
+  onmouseup={end}
+  onresize={throttle(resize, 100)}
+  onkeydown={handleKeyDown}
 />
 
+<!-- Since we usually read these values from ArchieML, check that they exist -->
 {#if beforeSrc && beforeAlt && afterSrc && afterAlt}
   <Block {width} {id} class="photo before-after fmy-6 {cls}">
     <div style="height: {containerHeight}px;" bind:clientWidth={containerWidth}>
-      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-
-      <figure
+      <button
         style={figStyle}
         class="before-after-container relative overflow-hidden my-0 mx-auto"
         ontouchstart={start}
         onmousedown={start}
         bind:this={figure}
-        aria-labelledby={(caption && `${id}-caption`) || undefined}
+        aria-labelledby={(caption && `${id}-caption`) || ''}
       >
-        <!-- onmousedown={start || (e) => e.preventDefault()} -->
         <img
           bind:this={img}
           src={afterSrc}
           alt={afterAlt}
           onload={measureLoadedImage}
-          onmousedown={start}
           style={imgStyle}
           class="after absolute block m-0 max-w-full object-cover"
-          aria-describedby={(beforeOverlay && `${id}-before`) || undefined}
+          aria-describedby={(beforeOverlay && `${id}-before`) || ''}
         />
-        <!-- onmousedown={start || (e) => e.preventDefault()} -->
         <img
           src={beforeSrc}
           alt={beforeAlt}
-          onmousedown={start}
           style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
           class="before absolute block m-0 max-w-full object-cover"
-          aria-describedby={(afterOverlay && `${id}-after`) || undefined}
+          aria-describedby={(afterOverlay && `${id}-after`) || ''}
         />
         {#if beforeOverlay}
           <div
@@ -248,7 +245,7 @@
           <div class="arrow-left"></div>
           <div class="arrow-right"></div>
         </div>
-      </figure>
+      </button>
     </div>
     {#if caption}
       <PaddingReset containerIsFluid={width === 'fluid'}>
@@ -264,7 +261,7 @@
 <style lang="scss">
   @use '../../scss/mixins' as mixins;
 
-  figure.before-after-container {
+  button.before-after-container {
     box-sizing: content-box;
 
     img {
@@ -280,7 +277,7 @@
       user-select: none;
     }
     .overlay-container {
-      position: absolute;
+      top: 0;
       :global(:first-child) {
         margin-top: 0;
       }

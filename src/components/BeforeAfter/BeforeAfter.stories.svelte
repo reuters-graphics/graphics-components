@@ -3,7 +3,7 @@
   import BeforeAfter from './BeforeAfter.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/BeforeAfter',
+    title: 'Components/Multimedia/BeforeAfter',
     component: BeforeAfter,
     argTypes: {
       handleColour: { control: 'color' },
@@ -40,13 +40,13 @@
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
     {#snippet beforeOverlay()}
-      <div class="overlay p-3 before">
+      <div class="overlay p-3 before text-left">
         <p class="h4 font-bold">July 7, 2020</p>
         <p class="body-note">Initially, this site was far smaller.</p>
       </div>
     {/snippet}
     {#snippet afterOverlay()}
-      <div class="overlay p-3 after">
+      <div class="overlay p-3 after text-right">
         <p class="h4 font-bold">Oct. 20, 2020</p>
         <p class="body-note">But then forces built up.</p>
       </div>
@@ -60,9 +60,6 @@
     .overlay {
       background: rgba(0, 0, 0, 0.45);
       max-width: 350px;
-      &.after {
-        text-align: right;
-      }
       p {
         color: #ffffff;
       }
@@ -78,14 +75,14 @@
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
     {#snippet beforeOverlay()}
-      <div class="overlay p-3">
+      <div class="overlay p-3 text-left">
         <p class="body-caption" id="aria-description-before">
           On July 7, 2020, the base contained only a few transport vehicles.
         </p>
       </div>
     {/snippet}
     {#snippet afterOverlay()}
-      <div class="overlay p-3">
+      <div class="overlay p-3 text-right">
         <p class="body-caption" id="aria-description-after">
           But by October, tanks and artillery could be seen.
         </p>
