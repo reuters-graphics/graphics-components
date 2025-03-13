@@ -197,7 +197,7 @@
         ontouchstart={start}
         onmousedown={start}
         bind:this={figure}
-        aria-labelledby={(caption && `${id}-caption`) || ''}
+        aria-labelledby={(caption && `${id}-caption-description`) || undefined}
       >
         <img
           bind:this={img}
@@ -206,18 +206,21 @@
           onload={measureLoadedImage}
           style={imgStyle}
           class="after absolute block m-0 max-w-full object-cover"
-          aria-describedby={(beforeOverlay && `${id}-before`) || ''}
+          aria-describedby={(beforeOverlay && `${id}-before-description`) ||
+            undefined}
         />
+
         <img
           src={beforeSrc}
           alt={beforeAlt}
           style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
           class="before absolute block m-0 max-w-full object-cover"
-          aria-describedby={(afterOverlay && `${id}-after`) || ''}
+          aria-describedby={(afterOverlay && `${id}-after-description`) ||
+            undefined}
         />
         {#if beforeOverlay}
           <div
-            id="image-before-label"
+            id="{id}-before-description"
             class="overlay-container before absolute"
             bind:clientWidth={beforeOverlayWidth}
             style="clip-path: inset(0 {beforeOverlayClip}px 0 0);"
@@ -227,7 +230,10 @@
           </div>
         {/if}
         {#if afterOverlay}
-          <div id="image-after-label" class="overlay-container after absolute">
+          <div
+            id="{id}-after-description"
+            class="overlay-container after absolute"
+          >
             <!-- Overlay for after image -->
             {@render afterOverlay()}
           </div>

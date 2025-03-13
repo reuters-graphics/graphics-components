@@ -32,7 +32,7 @@
   }}
 />
 
-<Story name="With overlays" exportName="WithOverlays">
+<Story name="With text" exportName="WithText">
   <BeforeAfter
     beforeSrc={beforeImg}
     beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
@@ -60,47 +60,6 @@
     .overlay {
       background: rgba(0, 0, 0, 0.45);
       max-width: 350px;
-      p {
-        color: #ffffff;
-      }
-    }
-  </style>
-</Story>
-
-<Story name="ARIA descriptions" exportName="AriaDescriptions">
-  <BeforeAfter
-    beforeSrc={beforeImg}
-    beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
-    afterSrc={afterImg}
-    afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
-  >
-    {#snippet beforeOverlay()}
-      <div class="overlay p-3 text-left">
-        <p class="body-caption" id="aria-description-before">
-          On July 7, 2020, the base contained only a few transport vehicles.
-        </p>
-      </div>
-    {/snippet}
-    {#snippet afterOverlay()}
-      <div class="overlay p-3 text-right">
-        <p class="body-caption" id="aria-description-after">
-          But by October, tanks and artillery could be seen.
-        </p>
-        <p class="body-caption">
-          In total, over 50 pieces of heavy machinery and 200 personnel are now
-          based here.
-        </p>
-      </div>
-    {/snippet}
-    {#snippet caption()}
-      <p class="body-note">Photos by MAXAR Technologies, 2021.</p>
-    {/snippet}
-  </BeforeAfter>
-
-  <style lang="scss">
-    div.overlay {
-      max-width: 250px;
-      background: rgba(0, 0, 0, 0.45);
       p {
         color: #ffffff;
       }
