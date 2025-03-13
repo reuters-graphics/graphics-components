@@ -65,9 +65,9 @@
       const authorSlug = slugify(author.trim(), { lower: true });
       return `https://www.reuters.com/authors/${authorSlug}/`;
     },
-    byline = null,
-    published = null,
-    updated = null,
+    byline,
+    published,
+    updated,
   }: Props = $props();
 
   let alignmentClass = $derived(align === 'left' ? 'text-left' : 'text-center');
