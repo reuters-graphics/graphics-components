@@ -25,6 +25,37 @@ The `Byline` component adds a byline, published and updated datelines to your pa
 />
 ```
 
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[authors]
+* Dea Bankova
+* Prasanta Kumar Dutta
+* Anurag Rao
+* Mariano Zafra
+[]
+publishTime: 2021-09-12T00:00:00.000Z
+updateTime: 2021-09-12T12:57:00.000Z
+```
+
+... which you'll pass to the `Byline` component.
+
+```svelte
+<script>
+  import { Byline } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
+<Byline
+  authors={content.authors}
+  publishTime={content.publishTime}
+  updateTime={content.updateTime}
+/>
+```
+
 <Canvas of={BylineStories.Demo} />
 
 ## Cutomisation
