@@ -61,6 +61,8 @@
      * Optional snippet for a custom caption.
      */
     caption?: Snippet;
+    /** Custom ARIA label language to label the slider. */
+    sliderAriaLabel?: string;
   }
 
   let {
@@ -81,6 +83,7 @@
     beforeOverlay,
     afterOverlay,
     caption,
+    sliderAriaLabel = 'Stacked before and after images with an adjustable slider',
   }: Props = $props();
 
   /** DOM nodes are undefined until the component is mounted — in other words, you should read it inside an effect or an event handler, but not during component initialisation.
@@ -203,7 +206,7 @@
         ontouchstart={start}
         onmousedown={start}
         bind:this={figure}
-        aria-labelledby={caption ? `${id}-caption` : undefined}
+        aria-label={sliderAriaLabel}
       >
         <img
           bind:this={img}
@@ -364,7 +367,7 @@
     }
   }
 
-  aside.before-after-caption {
+  .before-after-caption {
     :global(p) {
       @include mixins.body-caption;
     }
