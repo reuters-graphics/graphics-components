@@ -197,7 +197,7 @@
         ontouchstart={start}
         onmousedown={start}
         bind:this={figure}
-        aria-labelledby={(caption && `${id}-caption-description`) || undefined}
+        aria-labelledby={(caption && `${id}-caption`) || undefined}
       >
         <img
           bind:this={img}
