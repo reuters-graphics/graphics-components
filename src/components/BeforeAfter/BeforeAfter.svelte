@@ -203,7 +203,7 @@
         ontouchstart={start}
         onmousedown={start}
         bind:this={figure}
-        aria-labelledby={(caption && `${id}-caption`) || undefined}
+        aria-labelledby={caption ? `${id}-caption` : undefined}
       >
         <img
           bind:this={img}
@@ -212,8 +212,9 @@
           onload={measureLoadedImage}
           style={imgStyle}
           class="after absolute block m-0 max-w-full object-cover"
-          aria-describedby={(beforeOverlay && `${id}-before-description`) ||
-            undefined}
+          aria-describedby={beforeOverlay ?
+            `${id}-before-description`
+          : undefined}
         />
 
         <img
@@ -221,8 +222,9 @@
           alt={beforeAlt}
           style="clip: rect(0 {x}px {containerHeight}px 0);{imgStyle}"
           class="before absolute block m-0 max-w-full object-cover"
-          aria-describedby={(afterOverlay && `${id}-after-description`) ||
-            undefined}
+          aria-describedby={afterOverlay ?
+            `${id}-after-description`
+          : undefined}
         />
         {#if beforeOverlay}
           <div
