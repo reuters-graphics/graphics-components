@@ -1,9 +1,51 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BlockStories from './Block.stories.svelte';
+
+<Meta of={BlockStories} />
+
+# Block
+
+The `Block` component is the basic building block of stories, a responsive container that wraps each section of your piece.
+
+Blocks are stacked vertically within the well created by the [`Article`](./?path=/docs/layout-article) component. They can have different widths on larger screens depending on the `width` prop.
+
+> 📌 Many of our other components already use the `Block` component, internally. You'll usually only need to use it yourself if you're making something custom.
+
+```svelte
+<script>
+  import { Block } from '@reuters-graphics/graphics-components';
+</script>
+
+<Block width="normal">
+  <!-- Your stuff for this block -->
+</Block>
+```
+
+## Custom layouts
+
+Our article well is designed to provide a basic responsive layout for you, but it's also made to get out of the way quickly when you need to do something custom.
+
+If you need to get really radical, the easiest way is to create a `Block` with a `fluid` width -- which basically cancels out the article well dimensions -- and then code whatever you need from scratch or with another framework.
+
+```svelte
+<Block width="fluid">
+  <div class="my-radical-container">
+    <!-- Now, you have full control! -->
+  </div>
+</Block>
+```
+
+The demo below does exactly that to create an edge-to-edge grid with [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/).
+
+## Snap widths
+
 Normally, `Block` containers resize fluidly below the original `width`. Sometimes, though, you may want the container to snap to the next breakpoint -- for example, if you have a static graphic that looks fine at the set block breakpoints, but isn't so great at widths inbetween.
 
 You can use the `snap` prop to force the container to snap to each block width successively as the window sizes down.
 
 ```svelte
-<Block width="wider" snap="{true}">
+<Block width="wider" snap={true}>
   <!-- Your stuff for this block -->
 </Block>
 ```
@@ -12,7 +54,7 @@ If you want to skip certain block widths entirely, you can add one or more class
 
 ```svelte
 <!-- Will skip wide and go straight to normal column width on resize. -->
-<Block width="wider" snap="{true}" class="skip-wide">
+<Block width="wider" snap={true} class="skip-wide">
   <!-- Your stuff for this block -->
 </Block>
 ```
@@ -28,7 +70,7 @@ Snap width breakpoints are hard-coded to the default article well column widths,
 Luckily, it's still pretty easy. Just add a `cls` or `id` to your `Block` so you can target it with some custom SCSS. Now, defined a few SCSS variables corresponding to your custom column widths and use the `block-snap-widths` SCSS mixin to get the same functionality at your custom breakpoints.
 
 ```svelte
-<Block width="wider" snap="{true}" class="custom-blocks">
+<Block width="wider" snap={true} class="custom-blocks">
   <!-- Your stuff for this block -->
 </Block>
 
