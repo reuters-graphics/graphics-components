@@ -23,89 +23,136 @@
   });
 </script>
 
-<!-- 
 <script>
   import Article from '../Article/Article.svelte';
-</script> -->
+</script>
 
-<!-- 
-{#snippet children({ args })}
+{#snippet template()}
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
-      <Block {...args}>
-        <div class="label">Block</div>
+      <Block>
+        {#snippet content()}
+          <div class="label">Block</div>
+        {/snippet}
       </Block>
     </div>
   </Article>
-{/snippet} -->
+{/snippet}
 
-<Story name="Demo" />
+<Story name="Demo" children={template} />
 
 <Story name="Custom layout" exportName="CustomLayout">
   <Block width="fluid">
-    <!-- Enter bootstrap grid! -->
-    <div id="block-flex-example">
-      <div class="row">
-        <div class="col">Column</div>
-        <div class="col-6">Column</div>
-        <div class="col">Column</div>
+    {#snippet content()}
+      <!-- Enter bootstrap grid! -->
+      <div id="block-flex-example">
+        <div class="row">
+          <div class="col">Column</div>
+          <div class="col-6">Column</div>
+          <div class="col">Column</div>
+        </div>
+        <div class="row">
+          <div class="col">Column</div>
+          <div class="col">Column</div>
+        </div>
       </div>
-      <div class="row">
-        <div class="col">Column</div>
-        <div class="col">Column</div>
-      </div>
-    </div>
+    {/snippet}
   </Block>
 </Story>
 
-<!-- 
-<Story name="Snap widths">
+<Story name="Snap widths" exportName="SnapWidthsBasic">
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
-      <Block width="narrower" snap={true} class="block-snap-widths-demo"
-        >narrower</Block
+      <h4>snap widths</h4>
+      <Block snap={true}>
+        {#snippet content()}
+          <div class="label">Block</div>
+        {/snippet}
+      </Block>
+    </div>
+  </Article>
+</Story>
+
+<Story name="Snap and skip widths" exportName="SnapSkipWidths">
+  <Article id="block-demo-article">
+    <div class="article-boundaries">
+      <div class="label">Article</div>
+      <h4>Regular layout</h4>
+
+      <Block width="narrower" snap={true} class="block-snap-widths-demo">
+        {#snippet content()}
+          narrower
+        {/snippet}
+      </Block>
+      <Block width="narrow" snap={true} class="block-snap-widths-demo">
+        {#snippet content()}
+          narrow
+        {/snippet}</Block
       >
-      <Block width="narrow" snap={true} class="block-snap-widths-demo"
-        >narrow</Block
-      >
-      <Block width="normal" snap={true} class="block-snap-widths-demo"
-        >normal</Block
-      >
-      <Block width="wide" snap={true} class="block-snap-widths-demo">wide</Block
-      >
-      <Block width="wider" snap={true} class="block-snap-widths-demo"
-        >wider</Block
-      >
-      <Block width="narrower" snap={true} class="block-snap-widths-demo even"
-        >narrower</Block
-      >
-      <Block width="narrow" snap={true} class="block-snap-widths-demo even"
-        >narrow</Block
+      <Block width="normal" snap={true} class="block-snap-widths-demo">
+        {#snippet content()}
+          normal
+        {/snippet}
+      </Block>
+      <Block width="wide" snap={true} class="block-snap-widths-demo">
+        {#snippet content()}
+          wide
+        {/snippet}
+      </Block>
+      <Block width="wider" snap={true} class="block-snap-widths-demo">
+        {#snippet content()}
+          wider
+        {/snippet}
+      </Block>
+
+      <h4>with snap and skip</h4>
+      <Block width="narrower" snap={true} class="block-snap-widths-demo even">
+        {#snippet content()}
+          narrower
+        {/snippet}
+      </Block>
+      <Block width="narrow" snap={true} class="block-snap-widths-demo even">
+        {#snippet content()}
+          narrow
+        {/snippet}</Block
       >
       <Block
         width="normal"
         snap={true}
         class="block-snap-widths-demo even skip-narrow"
-        >normal.skip-narrow</Block
       >
+        {#snippet content()}
+          normal.skip-narrow
+        {/snippet}
+      </Block>
       <Block
         width="wide"
         snap={true}
         class="block-snap-widths-demo even skip-normal skip-narrow"
-        >wide.skip-normal.skip-narrow</Block
       >
+        {#snippet content()}
+          wide.skip-normal.skip-narrow
+        {/snippet}
+      </Block>
       <Block
         width="wider"
         snap={true}
-        class="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
+        class="block-snap-widths-demo even skip-wide"
+      >
+        {#snippet content()}
+          wider.skip-wide
+        {/snippet}</Block
       >
     </div>
   </Article>
-</Story> -->
+</Story>
 
 <style lang="scss">
+  h4 {
+    text-align: center;
+  }
   :global(#block-demo-article) {
     background-color: #ddd;
     position: relative;
@@ -136,6 +183,7 @@
   ) {
     padding-left: 3px;
     color: white;
+    font-weight: 500;
   }
 
   div#block-flex-example {
