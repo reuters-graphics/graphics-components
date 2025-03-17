@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `DocumentCloud` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-documentcloud--docs) -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
@@ -35,7 +34,7 @@
   <iframe
     class="h-screen"
     src="https://embed.documentcloud.org/documents/{slug}/?embed=1&amp;responsive=1&amp;title=1"
-    title="{altText}"
+    title={altText}
     width="700"
     height="540"
     sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox"
