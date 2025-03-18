@@ -29,11 +29,9 @@
      */
     role?: string;
     /**
-     * Notes to the graphic, passed in as a markdown string.
+     * Notes to the graphic, passed in as a markdown string OR as a custom snippet.
      */
-    notes?: string;
-    /** Custom notes snippet */
-    customNotes?: Snippet;
+    notes?: string | Snippet;
     /**
      * Width of the component within the text well.
      */
@@ -43,11 +41,9 @@
      */
     textWidth?: ContainerWidth;
     /**
-     * Title of the graphic
+     * Title of the graphic as a string or a custom snippet.
      */
-    title?: string;
-    /** Custom title snippet */
-    customTitle?: Snippet;
+    title?: string | Snippet;
     /**
      * Description of the graphic, passed in as a markdown string.
      */
@@ -57,11 +53,9 @@
      */
     ariaLabel?: string;
     /**
-     * ARIA description, passed in as a markdown string.
+     * ARIA description, passed in as a markdown string OR as a custom snippet.
      */
-    ariaDescription?: string;
-    /** Custom ARIA snippet */
-    customAria?: Snippet;
+    ariaDescription?: string | Snippet;
   }
 
   let {
@@ -71,27 +65,18 @@
     snap = false,
     role,
     notes,
-    customNotes,
     width = 'normal',
     textWidth = 'normal',
     title,
-    customTitle,
     description,
     ariaLabel = 'chart',
     ariaDescription,
-    customAria,
   }: Props = $props();
 </script>
 
 <Block {id} {snap} {role} {width} {ariaLabel} class="graphic fmy-6 {cls}">
-  {#if customTitle}
-    <PaddingReset containerIsFluid={width === 'fluid'}>
-      <TextBlock width={textWidth}>
-        <!-- Custom title snippet -->
-        {@render customTitle()}
-      </TextBlock>
-    </PaddingReset>
-  {:else if title}
+  <!-- Check if `title` is a snippet -->
+  {#if typeof title === 'string'}
     <PaddingReset containerIsFluid={width === 'fluid'}>
       <TextBlock width={textWidth}>
         <h3>{title}</h3>
@@ -100,34 +85,41 @@
         {/if}
       </TextBlock>
     </PaddingReset>
+  {:else if title}
+    <PaddingReset containerIsFluid={width === 'fluid'}>
+      <TextBlock width={textWidth}>
+        <!-- Custom title snippet -->
+        {@render title()}
+      </TextBlock>
+    </PaddingReset>
   {/if}
-  <AriaHidden hidden={!!customAria || !!ariaDescription}>
+  <AriaHidden hidden={!!ariaDescription}>
     <!-- Graphic content -->
     {@render children()}
   </AriaHidden>
-  {#if customAria || ariaDescription}
+  {#if ariaDescription}
     <div class="visually-hidden">
-      {#if customAria}
-        <!-- Custom ARIA snippet -->
-        {@render customAria()}
-      {:else if ariaDescription}
+      {#if typeof ariaDescription === 'string'}
         <Markdown source={ariaDescription} />
+      {:else}
+        <!-- Custom ARIA snippet -->
+        {@render ariaDescription()}
       {/if}
     </div>
   {/if}
-  {#if customNotes}
-    <PaddingReset containerIsFluid={width === 'fluid'}>
-      <TextBlock width={textWidth}>
-        <!-- Custom notes content -->
-        {@render customNotes()}
-      </TextBlock>
-    </PaddingReset>
-  {:else if notes}
+  {#if typeof notes === 'string'}
     <PaddingReset containerIsFluid={width === 'fluid'}>
       <TextBlock width={textWidth}>
         <aside>
           <Markdown source={notes} />
         </aside>
+      </TextBlock>
+    </PaddingReset>
+  {:else if notes}
+    <PaddingReset containerIsFluid={width === 'fluid'}>
+      <TextBlock width={textWidth}>
+        <!-- Custom notes content -->
+        {@render notes()}
       </TextBlock>
     </PaddingReset>
   {/if}

@@ -51,11 +51,11 @@
       <img src={PlaceholderImg} alt="placeholder" />
     </div>
 
-    {#snippet customTitle()}
+    {#snippet title()}
       <h5>My smaller title</h5>
     {/snippet}
 
-    {#snippet customNotes()}
+    {#snippet notes()}
       <aside>
         <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
       </aside>
@@ -81,7 +81,7 @@
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   >
     <AiMap />
-    {#snippet customAria()}
+    {#snippet ariaDescription()}
       <p>
         A shakemap shows the intensity of the 7.2-magnitude earthquake that
         struck Haiti at 8:29 a.m. EST, Aug. 14, 2021.
