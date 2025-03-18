@@ -32,9 +32,7 @@
     <div class="article-boundaries">
       <div class="label">Article</div>
       <Block>
-        {#snippet content()}
-          <div class="label">Block</div>
-        {/snippet}
+        <div class="label">Block</div>
       </Block>
     </div>
   </Article>
@@ -44,20 +42,18 @@
 
 <Story name="Custom layout" exportName="CustomLayout">
   <Block width="fluid">
-    {#snippet content()}
-      <!-- Enter bootstrap grid! -->
-      <div id="block-flex-example">
-        <div class="row">
-          <div class="col">Column</div>
-          <div class="col-6">Column</div>
-          <div class="col">Column</div>
-        </div>
-        <div class="row">
-          <div class="col">Column</div>
-          <div class="col">Column</div>
-        </div>
+    <!-- Enter bootstrap grid! -->
+    <div id="block-flex-example">
+      <div class="row">
+        <div class="col">Column</div>
+        <div class="col-6">Column</div>
+        <div class="col">Column</div>
       </div>
-    {/snippet}
+      <div class="row">
+        <div class="col">Column</div>
+        <div class="col">Column</div>
+      </div>
+    </div>
   </Block>
 </Story>
 
@@ -67,9 +63,7 @@
       <div class="label">Article</div>
       <h4>snap widths</h4>
       <Block snap={true}>
-        {#snippet content()}
-          <div class="label">Block</div>
-        {/snippet}
+        <div class="label">Block</div>
       </Block>
     </div>
   </Article>
@@ -82,69 +76,49 @@
       <h4>Regular layout</h4>
 
       <Block width="narrower" snap={true} class="block-snap-widths-demo">
-        {#snippet content()}
-          narrower
-        {/snippet}
+        narrower
       </Block>
       <Block width="narrow" snap={true} class="block-snap-widths-demo">
-        {#snippet content()}
-          narrow
-        {/snippet}</Block
-      >
+        narrow
+      </Block>
       <Block width="normal" snap={true} class="block-snap-widths-demo">
-        {#snippet content()}
-          normal
-        {/snippet}
+        normal
       </Block>
       <Block width="wide" snap={true} class="block-snap-widths-demo">
-        {#snippet content()}
-          wide
-        {/snippet}
+        wide
       </Block>
       <Block width="wider" snap={true} class="block-snap-widths-demo">
-        {#snippet content()}
-          wider
-        {/snippet}
+        wider
       </Block>
 
       <h4>with snap and skip</h4>
       <Block width="narrower" snap={true} class="block-snap-widths-demo even">
-        {#snippet content()}
-          narrower
-        {/snippet}
+        narrower
       </Block>
       <Block width="narrow" snap={true} class="block-snap-widths-demo even">
-        {#snippet content()}
-          narrow
-        {/snippet}</Block
-      >
+        narrow
+      </Block>
       <Block
         width="normal"
         snap={true}
         class="block-snap-widths-demo even skip-narrow"
       >
-        {#snippet content()}
-          normal.skip-narrow
-        {/snippet}
+        normal.skip-narrow
       </Block>
       <Block
         width="wide"
         snap={true}
         class="block-snap-widths-demo even skip-normal skip-narrow"
       >
-        {#snippet content()}
-          wide.skip-normal.skip-narrow
-        {/snippet}
+        wide.skip-normal.skip-narrow
       </Block>
       <Block
         width="wider"
         snap={true}
         class="block-snap-widths-demo even skip-wide"
       >
-        {#snippet content()}
-          wider.skip-wide
-        {/snippet}</Block
-      >
+        wider.skip-wide
+      </Block>
     </div>
   </Article>
 </Story>

@@ -5,7 +5,7 @@
 
   interface Props {
     /** Content that goes inside `<Block>`*/
-    content: Snippet;
+    children: Snippet;
     /** Width of the block within the article well. */
     width?: ContainerWidth;
     /** Add an id to the block tag to target it with custom CSS. */
@@ -21,7 +21,7 @@
   }
 
   let {
-    content,
+    children,
     width = 'normal',
     id = '',
     class: cls = '',
@@ -38,8 +38,7 @@
   {role}
   aria-label={ariaLabel}
 >
-  <!-- block content -->
-  {@render content()}
+  {@render children()}
 </div>
 
 <style lang="scss">

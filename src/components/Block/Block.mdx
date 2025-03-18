@@ -6,7 +6,7 @@ import * as BlockStories from './Block.stories.svelte';
 
 # Block
 
-The `Block` component is the basic building block of pages, a responsive container that wraps around each section of your piece. The contents of each block are rendered as [snippets](https://svelte.dev/docs/svelte/snippet).
+The `Block` component is the basic building block of pages, a responsive container that wraps around each section of your piece.
 
 Blocks are stacked vertically within the well created by the [Article](./?path=/docs/components-page-layout-article--docs) component. They can have different widths on larger screens depending on the `width` prop.
 
@@ -18,9 +18,7 @@ Blocks are stacked vertically within the well created by the [Article](./?path=/
 </script>
 
 <Block>
-  {#snippet content()}
-    <!-- Contents for this block goes here -->
-  {/snippet}
+  <!-- Contents for this block goes here -->
 </Block>
 ```
 
@@ -52,9 +50,7 @@ You can use the `snap` prop to force the container to snap to each block width s
 
 ```svelte
 <Block width="wider" snap={true}>
-  {#snippet content()}
-    <!-- Contents for this block -->
-  {/snippet}
+  <!-- Contents for this block -->
 </Block>
 ```
 
@@ -67,9 +63,7 @@ If you want to skip certain block widths entirely, you can add one or more class
 ```svelte
 <!-- Will skip wide and go straight to normal column width on resize. -->
 <Block width="wider" snap={true} class="skip-wide">
-  {#snippet content()}
-    <!-- Contents for this block -->
-  {/snippet}
+  <!-- Contents for this block -->
 </Block>
 ```
 
@@ -83,9 +77,7 @@ Luckily, it's still pretty easy. Just add a `cls` or `id` to your `Block` so you
 
 ```svelte
 <Block width="wider" snap={true} class="custom-blocks">
-  {#snippet content()}
-    <!-- Contents for this block -->
-  {/snippet}
+  <!-- Contents for this block -->
 </Block>
 
 <style lang="scss">
