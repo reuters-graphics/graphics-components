@@ -17,7 +17,6 @@
 <Story
   name="Demo"
   args={{
-    width: 'normal',
     slug: '3259984-Trump-Intelligence-Allegations',
     altText: 'These Reports Allege Trump Has Deep Ties To Russia',
   }}
