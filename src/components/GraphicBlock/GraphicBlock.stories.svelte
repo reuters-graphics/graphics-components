@@ -29,7 +29,6 @@
     description="Some description for your chart."
     notes="Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)"
   >
-    <!-- Graphic content -->
     <div id="my-chart">
       <img src={PlaceholderImg} alt="placeholder" />
     </div>
