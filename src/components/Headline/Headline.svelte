@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-headline--docs) -->
 <script lang="ts">
   import type { HeadlineSize } from './../@types/global';
@@ -95,8 +94,8 @@
           <!-- Headline named slot -->
           <slot name="hed" />
         {:else}
-          <h1 class="{hedClass}">
-            <Markdown source="{hed}" parseInline />
+          <h1 class={hedClass}>
+            <Markdown source={hed} parseInline />
           </h1>
         {/if}
         {#if $$slots.dek}
@@ -106,7 +105,7 @@
           </div>
         {:else if dek}
           <div class="dek fmx-auto fmb-6">
-            <Markdown source="{dek}" />
+            <Markdown source={dek} />
           </div>
         {/if}
       </div>
@@ -115,7 +114,7 @@
         <slot name="byline" />
       {:else if authors.length > 0 || publishTime}
         <Byline
-          class="fmy-4"
+          cls="fmy-4"
           {authors}
           {publishTime}
           {updateTime}
@@ -127,17 +126,17 @@
 </div>
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
   .headline-wrapper {
     :global(.dek) {
       max-width: $column-width-normal;
     }
     :global(.dek p) {
-      @include fmt-0;
-      @include font-note;
-      @include leading-tight;
-      @include font-light;
-      @include fmb-3;
+      @include mixins.fmt-0;
+      @include mixins.font-note;
+      @include mixins.leading-tight;
+      @include mixins.font-light;
+      @include mixins.fmb-3;
     }
   }
 </style>

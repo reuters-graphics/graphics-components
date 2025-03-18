@@ -1,0 +1,137 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as HeadlineStories from './Headline.stories.svelte';
+
+<Meta of={HeadlineStories} />
+
+# Headline
+
+The `Headline` component creates the Reuters Graphics headline.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline
+  hed={'Reuters Graphics Interactive'}
+  dek={'The beginning of a beautiful page'}
+  section={'World News'}
+/>
+```
+
+<Canvas of={HeadlineStories.Demo} />
+
+## Dek
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline
+  hed={'Reuters Graphics Interactive'}
+  dek={'The beginning of a beautiful page'}
+  section={'Global news'}
+/>
+```
+
+## With byline
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline
+  hed={'Reuters Graphics Interactive'}
+  dek={'The beginning of a beautiful page'}
+  section={'Global news'}
+  authors={['Dea Bankova', 'Aditi Bhandari']}
+  publishTime={new Date('2020-01-01').toISOString()}
+/>
+```
+
+## With custom hed
+Use the `hed` and/or `dek` named slots to override those elements with completely custom markup.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline width="wide">
+  <h1 class="custom-hed" slot="hed">
+    <span class="small block text-base">The secret to</span>
+    “The Nutcracker's”
+    <span class="small block text-base fpt-1">success</span>
+  </h1>
+  <p class="custom-dek !fmt-3" slot="dek">
+    How “The Nutcracker” ballet became an<span
+      class="font-medium mx-1 px-1.5 py-1">American holday staple</span
+    >and a financial pillar of ballet companies across the country
+  </p>
+</Headline>
+
+<style lang="scss">
+  .custom-hed {
+    line-height: 0.9;
+  }
+  .custom-dek {
+    span {
+      background-color: #fde68a;
+    }
+  }
+</style>
+```
+
+## With crown image
+
+Add a crown image in the `crown` named slot and override the headline in the `hed` named slot.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
+</script>
+
+<Headline class="!fmt-3" publishTime={new Date('2020-01-01').toISOString()}>
+  <!-- Add a crown -->
+  <img
+    slot="crown"
+    src={crownImgSrc}
+    width="100"
+    class="mx-auto mb-0"
+    alt="Illustration of Europe"
+  />
+  <!-- Override the hed with a named slot -->
+  <h1 slot="hed" class="!font-serif !tracking-wide">Europa</h1>
+</Headline>
+```
+
+## With crown graphic
+
+Add a full graphic or any other component in the crown.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+  import Map from './ai2svelte/graphic.svelte';
+  import { assets } from '$app/paths';
+</script>
+
+<Headline
+  width="wider"
+  class="!fmt-1"
+  hed={'Unfriendly skies'}
+  dek={'How Russia’s invasion of Ukraine is redrawing air routes'}
+  section={'Ukraine Crisis'}
+  authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+  publishTime={new Date('2022-03-04').toISOString()}
+>
+  <!-- Add a crown graphic -->
+  <div slot="crown">
+    <Map assetsPath={assets} />
+  </div>
+</Headline>
+```
