@@ -42,14 +42,12 @@
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   >
-    <!-- Graphic content -->
     <AiMap />
   </GraphicBlock>
 </Story>
 
 <Story name="Custom text" exportName="CustomText">
   <GraphicBlock>
-    <!-- Graphic content -->
     <div class="demo-graphic">
       <img src={PlaceholderImg} alt="placeholder" />
     </div>
@@ -73,7 +71,6 @@
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
     ariaDescription="A map showing the shake intensity produced by the earthquake."
   >
-    <!-- Graphic content -->
     <AiMap />
   </GraphicBlock>
 </Story>
@@ -84,7 +81,6 @@
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   >
-    <!-- Graphic content -->
     <AiMap />
     {#snippet customAria()}
       <p>
