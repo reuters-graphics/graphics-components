@@ -6,16 +6,17 @@
      * Whether to wrap the graphic with an aria hidden tag.
      */
     hidden?: boolean;
+    /** Content to put inside `AriaHidden`*/
     children: Snippet;
   }
 
   let { hidden = false, children }: Props = $props();
 </script>
 
-{#if hidden && children}
+{#if hidden}
   <div aria-hidden="true">
     {@render children()}
   </div>
-{:else if children}
+{:else}
   {@render children()}
 {/if}
