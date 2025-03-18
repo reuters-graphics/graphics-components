@@ -10,20 +10,16 @@
   import Markdown from '../Markdown/Markdown.svelte';
 
   interface Props {
-    /** Headline, parsed as an _inline_ markdown string in an `h1` element. */
-    hed: string;
+    /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */
+    hed: string | Snippet;
     /** Custom byline snippet */
     byline?: Snippet;
-    /** Custom headline snippet */
-    customHed?: Snippet;
     /** Add extra classes to the block tag to target it with custom CSS. */
     class?: string;
     /** Headline size: small, normal, big, bigger, biggest */
     hedSize?: HeadlineSize;
-    /** Dek, parsed as a markdown string. */
-    dek?: string;
-    /** Custom dek snippet */
-    customDek?: Snippet;
+    /** Dek, parsed as a markdown string OR as a custom snippet. */
+    dek?: string | Snippet;
     /** Custom crown snippet */
     crown?: Snippet;
     /** Section title */
@@ -41,11 +37,9 @@
   let {
     hed = 'Reuters Graphics Interactive',
     byline,
-    customHed,
     class: cls = '',
     hedSize = 'normal',
     dek,
-    customDek,
     crown,
     section,
     authors = [],
@@ -93,22 +87,22 @@
             {section}
           </p>
         {/if}
-        {#if customHed}
-          <!-- Headline snippet -->
-          {@render customHed()}
-        {:else}
+        {#if typeof hed === 'string'}
           <h1 class={hedClass}>
             <Markdown source={hed} parseInline />
           </h1>
+        {:else if hed}
+          <!-- Headline snippet -->
+          {@render hed()}
         {/if}
-        {#if customDek}
-          <!-- Dek snippet-->
-          <div class="dek fmx-auto fmb-6">
-            {@render customDek()}
-          </div>
-        {:else if dek}
+        {#if typeof dek === 'string'}
           <div class="dek fmx-auto fmb-6">
             <Markdown source={dek} />
+          </div>
+        {:else if dek}
+          <!-- Dek snippet-->
+          <div class="dek fmx-auto fmb-6">
+            {@render dek()}
           </div>
         {/if}
       </div>
@@ -132,7 +126,7 @@
   @use '../../scss/mixins' as mixins;
   .headline-wrapper {
     :global(.dek) {
-      max-width: $column-width-normal;
+      max-width: mixins.$column-width-normal;
     }
     :global(.dek p) {
       @include mixins.fmt-0;

@@ -54,14 +54,14 @@
 
 <Story name="Custom hed" exportName="CustomHed">
   <Headline width="wide">
-    {#snippet customHed()}
+    {#snippet hed()}
       <h1 class="custom-hed">
         <span class="small block text-base">The secret to</span>
         “The Nutcracker's”
         <span class="small block text-base fpt-1">success</span>
       </h1>
     {/snippet}
-    {#snippet customDek()}
+    {#snippet dek()}
       <p class="custom-dek !fmt-3">
         How “The Nutcracker” ballet became an<span
           class="font-medium mx-1 px-1.5 py-1">American holday staple</span
