@@ -1,59 +1,62 @@
 <!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-headline--docs) -->
 <script lang="ts">
+  // Types
   import type { HeadlineSize } from './../@types/global';
+  import type { Snippet } from 'svelte';
 
-  /**
-   * Headline, parsed as an _inline_ markdown string in an `h1` element.
-   * @type {string}
-   */
-  export let hed: string = 'Reuters Graphics Interactive';
-
-  /** Add extra classes to the block tag to target it with custom CSS. */
-  let cls: string = '';
-  export { cls as class };
-
-  /**
-   * Headline size
-   * @type {string}
-   */
-  export let hedSize: HeadlineSize = 'normal';
-
-  /**
-   * Dek, parsed as a markdown string.
-   * @type {string}
-   */
-  export let dek: string | null = null;
-  /**
-   * Section title
-   * @type {string}
-   */
-  export let section: string | null = null;
-  /**
-   * Array of author names, which will be slugified to create links to Reuters author pages
-   */
-  export let authors: string[] = [];
-  /**
-   * Publish time as a datetime string.
-   * @type {string}
-   */
-  export let publishTime: string = '';
-  /**
-   * Update time as a datetime string.
-   * @type {string}
-   */
-  export let updateTime: string = '';
-
-  /**
-   * Width of the headline.
-   */
-  export let width: 'normal' | 'wide' | 'wider' | 'widest' = 'normal';
-
+  // Components
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
 
-  let hedClass: string;
-  $: {
+  interface Props {
+    /** Headline, parsed as an _inline_ markdown string in an `h1` element. */
+    hed: string;
+    /** Custom byline snippet */
+    byline?: Snippet;
+    /** Custom headline snippet */
+    customHed?: Snippet;
+    /** Add extra classes to the block tag to target it with custom CSS. */
+    class?: string;
+    /** Headline size: small, normal, big, bigger, biggest */
+    hedSize?: HeadlineSize;
+    /** Dek, parsed as a markdown string. */
+    dek?: string;
+    /** Custom dek snippet */
+    customDek?: Snippet;
+    /** Custom crown snippet */
+    crown?: Snippet;
+    /** Section title */
+    section?: string;
+    /** Array of author names, which will be slugified to create links to Reuters author pages */
+    authors?: string[];
+    /** Publish time as a datetime string. */
+    publishTime?: string;
+    /** Update time as a datetime string. */
+    updateTime?: string;
+    /** Width of the headline: normal, wide, wider, widest */
+    width?: 'normal' | 'wide' | 'wider' | 'widest';
+  }
+
+  let {
+    hed = 'Reuters Graphics Interactive',
+    byline,
+    customHed,
+    class: cls = '',
+    hedSize = 'normal',
+    dek,
+    customDek,
+    crown,
+    section,
+    authors = [],
+    publishTime = '',
+    updateTime = '',
+    width = 'normal',
+  }: Props = $props();
+
+  // Set the headline text size class based on the `hedSize` prop
+  let hedClass = $state('text-3xl');
+  $effect(() => {
     switch (hedSize) {
       case 'biggest':
         hedClass = 'text-6xl';
@@ -70,16 +73,16 @@
       default:
         hedClass = 'text-3xl';
     }
-  }
+  });
 </script>
 
 <div class="headline-wrapper" style="display:contents;">
   <Block {width} class="headline text-center fmt-7 fmb-6 {cls}">
     <header class="relative">
-      {#if $$slots.crown}
+      {#if crown}
         <div class="crown-container">
-          <!-- Crown named slot -->
-          <slot name="crown" />
+          <!-- Crown snippet -->
+          {@render crown()}
         </div>
       {/if}
       <div class="title">
@@ -90,18 +93,18 @@
             {section}
           </p>
         {/if}
-        {#if $$slots.hed}
-          <!-- Headline named slot -->
-          <slot name="hed" />
+        {#if customHed}
+          <!-- Headline snippet -->
+          {@render customHed()}
         {:else}
           <h1 class={hedClass}>
             <Markdown source={hed} parseInline />
           </h1>
         {/if}
-        {#if $$slots.dek}
-          <!-- Dek named slot-->
+        {#if customDek}
+          <!-- Dek snippet-->
           <div class="dek fmx-auto fmb-6">
-            <slot name="dek" />
+            {@render customDek()}
           </div>
         {:else if dek}
           <div class="dek fmx-auto fmb-6">
@@ -109,9 +112,9 @@
           </div>
         {/if}
       </div>
-      {#if $$slots.byline}
+      {#if byline}
         <!-- Custom byline/dateline -->
-        <slot name="byline" />
+        {@render byline()}
       {:else if authors.length > 0 || publishTime}
         <Byline
           cls="fmy-4"
