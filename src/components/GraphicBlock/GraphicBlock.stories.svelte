@@ -1,23 +1,10 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import archieMLDocs from './stories/docs/archieML.md?raw';
-  // @ts-ignore raw
-  import customTextDocs from './stories/docs/customText.md?raw';
-  // @ts-ignore raw
-  import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
-  // @ts-ignore raw
-  import ariaDocs from './stories/docs/aria.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import GraphicBlock from './GraphicBlock.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Graphics/GraphicBlock',
     component: GraphicBlock,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
         control: 'select',
@@ -28,89 +15,99 @@
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import AiMap from './stories/ai2svelte/ai-chart.svelte';
-
-  // @ts-ignore img
-  import PlaceholderImg from './stories/placeholder.png';
+  import AiMap from './demo/ai2svelte/ai-chart.svelte';
+  import PlaceholderImg from './demo/placeholder.png';
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <GraphicBlock {...args}>
-      <div class="demo-graphic">
-        <img src="{PlaceholderImg}" alt="placeholder" />
-      </div>
-    </GraphicBlock>
-  {/snippet}
-</Template>
-
-<Story
-  name="Default"
-  args="{{
-    width: 'normal',
-    title: 'Bacon ipsum dolor amet t-bone',
-    description:
-      'Pork loin t-bone jowl prosciutto, short loin flank kevin tri-tip cupim pig pork. Meatloaf tri-tip frankfurter short ribs, cupim brisket bresaola chislic tail jerky burgdoggen pancetta.',
-    notes:
-      'Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)',
-  }}"
-/>
-
-<Story name="ArchieML" {...withStoryDocs(archieMLDocs)}>
+<Story name="Demo">
   <GraphicBlock
-    width="normal"
+    title="Title for my chart"
+    description="Some description for your chart."
+    notes="Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)"
+  >
+    <!-- Graphic content -->
+    <div id="my-chart">
+      <img src={PlaceholderImg} alt="placeholder" />
+    </div>
+  </GraphicBlock>
+</Story>
+
+<Story name="Ai2svelte and ArchieML" exportName="Ai2SvelteAndArchieML">
+  <GraphicBlock
     title="Earthquake in Haiti"
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   >
+    <!-- Graphic content -->
     <AiMap />
   </GraphicBlock>
 </Story>
 
-<Story name="Custom text" {...withStoryDocs(customTextDocs)}>
-  <GraphicBlock width="normal">
-    {#snippet title()}
-        <div >
-        <h5>My smaller title</h5>
-      </div>
-      {/snippet}
+<Story name="Custom text" exportName="CustomText">
+  <GraphicBlock>
+    <!-- Graphic content -->
     <div class="demo-graphic">
-      <img src="{PlaceholderImg}" alt="placeholder" />
+      <img src={PlaceholderImg} alt="placeholder" />
     </div>
-    {#snippet notes()}
-        <aside >
+
+    {#snippet customTitle()}
+      <h5>My smaller title</h5>
+    {/snippet}
+
+    {#snippet customNotes()}
+      <aside>
         <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
       </aside>
-      {/snippet}
+    {/snippet}
   </GraphicBlock>
 </Story>
 
-<Story name="Ai2svelte" {...withStoryDocs(ai2svelteDocs)}>
+<Story name="AREA description" exportName="AriaDescription">
   <GraphicBlock
-    width="normal"
-    title="Earthquake in Haiti"
-    description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
-    notes="Note: A shakemap represents the ground shaking produced by an earthquake."
-  >
-    <AiMap />
-  </GraphicBlock>
-</Story>
-
-<Story name="ARIA" {...withStoryDocs(ariaDocs)}>
-  <GraphicBlock
-    width="normal"
     title="Earthquake in Haiti"
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
     ariaDescription="A map showing the shake intensity produced by the earthquake."
   >
+    <!-- Graphic content -->
     <AiMap />
+  </GraphicBlock>
+</Story>
+
+<Story name="Custom AREA description" exportName="CustomAriaDescription">
+  <GraphicBlock
+    title="Earthquake in Haiti"
+    description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
+    notes="Note: A shakemap represents the ground shaking produced by an earthquake."
+  >
+    <!-- Graphic content -->
+    <AiMap />
+    {#snippet customAria()}
+      <p>
+        A shakemap shows the intensity of the 7.2-magnitude earthquake that
+        struck Haiti at 8:29 a.m. EST, Aug. 14, 2021.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <th>City</th>
+            <th>Felt shake strength</th>
+          </tr>
+          <tr>
+            <td>Les Cayes</td>
+            <td>Very strong</td>
+          </tr>
+          <tr>
+            <td>Jeremie</td>
+            <td>Strong</td>
+          </tr>
+        </tbody>
+      </table>
+    {/snippet}
   </GraphicBlock>
 </Story>
 
@@ -123,6 +120,20 @@
     justify-content: center;
     img {
       opacity: 0.4;
+    }
+  }
+
+  // Style the table nicely
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
     }
   }
 </style>
