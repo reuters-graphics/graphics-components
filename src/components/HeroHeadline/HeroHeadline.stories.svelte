@@ -169,7 +169,6 @@
   </Block>
 
   <HeroHeadline
-    stacked={false}
     class="video-hero"
     hed="The conflict in Ethiopia"
     hedSize="bigger"
