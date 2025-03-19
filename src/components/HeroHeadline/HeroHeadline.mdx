@@ -8,7 +8,7 @@ import * as HeroHeadlineStories from './HeroHeadline.stories.svelte';
 
 The `HeroHeadline` component creates a Reuters Graphics headline with a hero media, which can be a graphic, photo, video, or any other media.
 
-By default, the hero is in the background, i.e. the headline and dek are stacked on top of the hero. You can unstack and make the headline and dek come before or after the hero media by setting `stacked: true`. [Read more.](?path=/docs/components-text-elements-heroheadline--docs&globals=#transparent-site-header)
+By default, the hero is in the background, i.e. the headline and dek are stacked on top of the hero. You can unstack and insert the hero media inline -- i.e. before or after the headline -- by setting `stacked: true`. [Read more.](?/iframe.html?viewMode=docs&id=components-text-elements-heroheadline--docs&globals=&args=#inline-hero)
 
 ## Photo hero
 
@@ -59,7 +59,7 @@ In the Graphics Kit, set styles in `global.scss` to make the Reuters site header
 
 ## Ai2svelte hero
 
-To use an ai2svelte graphic as the hero, wrap your ai2svelte component in a `GraphicBlock` component and insert it inside the `HeroHeadline` component.
+To use an ai2svelte graphic as the hero, wrap your ai2svelte component in a `GraphicBlock` component and insert it inside `HeroHeadline`.
 
 To customise styles, use CSS to target the class passed to `HeroHeadline`.
 
@@ -209,9 +209,7 @@ To add a video as the hero, use the [Video](?path=/docs/components-multimedia-vi
 
 ## Inline hero
 
-To use a photo, graphic, video, etc. as an inline hero -- i.e. to make the hero appear below or above the headline and dek, not on top -- set `stacked` to `false`. Otherwise add your hero media as documented above.
-
-> **Note:** Pass `notes` and `ariaDescription` to the component you're inserting into `HeroHeadline` to provide additional information.
+To use a photo, graphic, video, etc. as an inline hero -- i.e. to make the hero appear before or after the headline and dek, instead of stacked underneath -- set `stacked` to `false`. Otherwise, add your hero media in the same way as documented above.
 
 ```svelte
 <!-- App.svelte -->
@@ -251,11 +249,11 @@ To use a photo, graphic, video, etc. as an inline hero -- i.e. to make the hero 
 
 <Canvas of={HeroHeadlineStories.InlineHero} />
 
-## Custom hed and dek
+## Custom hed, dek and byline
 
-The `HeroHeadline` component internally uses the [Headline](?path=/docs/components-text-elements-headline--docs) component to render the headline and dek.
+The `HeroHeadline` component internally uses the [Headline](?path=/docs/components-text-elements-headline--docs) component to render the headline and dek, which lets you to customise the headline and dek by passing [snippets](https://svelte.dev/docs/svelte/snippet) into the `hed` and `dek` props.
 
-If `hed` and `dek` values are strings, they are rendered according to the default Reuters style. To customise the headline and dek, pass custom `hed` and `dek` elements as [snippets](https://svelte.dev/docs/svelte/snippet) to `HeroHeadline` -- the same way as you would with `Headline`.
+Since `Headline` internally uses the [Byline](?path=/docs/components-text-elements-headline--docs) component, you can also customise the author page hyperlink and bylines with the `getAuthorPage`, `byline`, `published` and `updated` props.
 
 ```svelte
 <!-- App.svelte -->
@@ -269,6 +267,9 @@ If `hed` and `dek` values are strings, they are rendered according to the defaul
   ]}
   publishTime={new Date('2023-05-11').toISOString()}
   img={eurovisImgSrc}
+  getAuthorPage={(author: string) => {
+      return `mailto:${author.replace(' ', '')}@example.com`;
+    }}
 >
   <!-- Custom hed snippet -->
   {#snippet hed()}
@@ -289,6 +290,7 @@ If `hed` and `dek` values are strings, they are rendered according to the defaul
       </p>
     </div>
   {/snippet}
+</HeroHeadline>
 
   <!-- Style your custom hed and dek -->
   <style lang="scss">

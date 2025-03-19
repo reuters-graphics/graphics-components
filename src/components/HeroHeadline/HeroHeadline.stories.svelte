@@ -245,6 +245,9 @@
     ]}
     publishTime={new Date('2023-05-11').toISOString()}
     img={eurovisImgSrc}
+    getAuthorPage={(author: string) => {
+      return `mailto:${author.replace(' ', '')}@example.com`;
+    }}
   >
     {#snippet hed()}
       <h1>

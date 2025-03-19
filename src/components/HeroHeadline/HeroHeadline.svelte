@@ -17,10 +17,10 @@
      * Optional snippet for a custom hero graphic, photo, etc.
      */
     children?: Snippet;
-    /** Set to `false` for non-stacked hero headline */
+    /** Set to `false` for inline hero media */
     stacked?: boolean;
     /**
-     * Path to background image
+     * Path to the background hero image
      */
     img?: string;
     /**
@@ -31,11 +31,10 @@
      * Notes to the graphic, passed in as a markdown string.
      */
     notes?: string;
-
     /** Add classes to the block tag to target it with custom CSS. */
     class?: string;
     /**
-     * Headline size
+     * Headline size: small, normal, big, bigger, biggest
      */
     hedSize?: HeadlineSize;
     /**
@@ -70,7 +69,7 @@
      * Width of the hero graphic: normal, wide, wider, widest
      */
     width?: 'normal' | 'wide' | 'wider' | 'widest';
-    /** Set to true for embeddables. */
+    /** Set to true for embeds. */
     embedded?: boolean;
     /**
      * Custom function that returns an author page URL.
@@ -199,7 +198,15 @@
       <!-- Custom byline/dateline -->
       {@render byline()}
     {:else if authors.length > 0 || publishTime}
-      <Byline {authors} {publishTime} {updateTime} align="left" />
+      <Byline
+        {authors}
+        {publishTime}
+        {updateTime}
+        {getAuthorPage}
+        {published}
+        {updated}
+        align="left"
+      />
     {/if}
   </div>
 </div>
