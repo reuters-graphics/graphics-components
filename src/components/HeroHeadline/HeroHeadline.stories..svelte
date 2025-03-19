@@ -1,31 +1,10 @@
-<!-- @migration-task Error while migrating Svelte code: end is out of bounds -->
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import backgroundGraphicDocs from './stories/docs/backgroundGraphic.md?raw';
-  // @ts-ignore raw
-  import inlineGraphicDocs from './stories/docs/inlineGraphic.md?raw';
-  // @ts-ignore raw
-  import inlinePhotoDocs from './stories/docs/inlinePhoto.md?raw';
-  // @ts-ignore raw
-  import transparentHeaderDocs from './stories/docs/transparentHeader.md?raw';
-  // @ts-ignore raw
-  import videoDocs from './stories/docs/backgroundVideo.md?raw';
-  // @ts-ignore raw
-  import customHedDocs from './stories/docs/customHed.md?raw';
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import HeroHeadline from './HeroHeadline.svelte';
 
-  import HeroHeadline from './Hero.svelte';
-
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Text elements/HeroHeadline',
     component: HeroHeadline,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       hedSize: {
         control: 'select',
@@ -44,16 +23,12 @@
         options: ['normal', 'wide', 'wider', 'widest'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  // @ts-ignore img
-  import polarImgSrc from './stories/polar.jpg';
-  // @ts-ignore img
-  import eurovisImgSrc from './stories/eurovis.jpeg';
+  import polarImgSrc from './demo/polar.jpg';
+  import eurovisImgSrc from './demo/eurovis.jpeg';
 
   import Block from '../Block/Block.svelte';
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
@@ -61,31 +36,41 @@
   import FeaturePhoto from '../FeaturePhoto/FeaturePhoto.svelte';
   import Video from '../Video/Video.svelte';
 
-  import CrashMap from './stories/graphics/crash.svelte';
-  import QuakeMap from './stories/graphics/quakemap.svelte';
+  import CrashMap from './demo/graphics/crash.svelte';
+  import QuakeMap from './demo/graphics/quakemap.svelte';
 </script>
 
-<Template let:args>
+{#snippet template(args)}
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
   <HeroHeadline {...args} />
-</Template>
+{/snippet}
 
 <Story
-  name="With backdrop photo"
-  args="{{
+  name="Demo"
+  args={{
     section: 'World News',
     hed: 'Reuters Graphics Interactive',
     dek: 'The beginning of a beautiful page',
     authors: ['Simon Scarr', 'Vijdan Mohammad Kawoosa'],
     publishTime: new Date('2022-03-04').toISOString(),
     img: polarImgSrc,
-  }}"
-/>
+  }}
+>
+  {@render template({
+    section: 'World News',
+    hed: 'Reuters Graphics Interactive',
+    dek: 'The beginning of a beautiful page',
+    authors: ['Simon Scarr', 'Vijdan Mohammad Kawoosa'],
+    publishTime: new Date('2022-03-04').toISOString(),
+    img: polarImgSrc,
+  })}
+</Story>
 
-<Story name="With transparent header" {...withStoryDocs(transparentHeaderDocs)}>
+<!-- 
+<Story name="With transparent header">
   <div class="transparent-header">
     <Block width="fluid" class="chromatic-ignore">
       <SiteHeader />
@@ -95,25 +80,25 @@
       section="World News"
       hed="Reuters Graphics Interactive"
       dek="The beginning of a beautiful page"
-      authors="{['Simon Scarr', 'Vijdan Mohammad Kawoosa']}"
-      publishTime="{new Date('2022-03-04').toISOString()}"
-      img="{polarImgSrc}"
+      authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+      publishTime={new Date('2022-03-04').toISOString()}
+      img={polarImgSrc}
     />
   </div>
 </Story>
 
-<Story name="With backdrop graphic" {...withStoryDocs(backgroundGraphicDocs)}>
+<Story name="With backdrop graphic">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
   <HeroHeadline
-    hed="{'Earthquake devastates Afghanistan'}"
-    hedSize="{'big'}"
+    hed={'Earthquake devastates Afghanistan'}
+    hedSize={'big'}
     hedWidth="wide"
     class="custom-hero mb-0"
     dek=""
-    authors="{[
+    authors={[
       'Anand Katakam',
       'Vijdan Mohammad Kawoosa',
       'Adolfo Arranz',
@@ -123,8 +108,8 @@
       'Jitesh Chowdhury',
       'Manas Sharma',
       'Aditi Bhandari',
-    ]}"
-    publishTime="{new Date('2022-06-24').toISOString()}"
+    ]}
+    publishTime={new Date('2022-06-24').toISOString()}
   >
     <div slot="background">
       <GraphicBlock
@@ -135,7 +120,7 @@
         notes=""
         ariaDescription="Earthquake impact map"
       >
-        <svelte:component this="{QuakeMap}" />
+        <svelte:component this={QuakeMap} />
       </GraphicBlock>
     </div>
   </HeroHeadline>
@@ -176,7 +161,7 @@
   </style>
 </Story>
 
-<Story name="With backdrop video" {...withStoryDocs(videoDocs)}>
+<Story name="With backdrop video">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
@@ -186,16 +171,16 @@
     hed="The conflict in Ethiopia"
     hedSize="bigger"
     hedWidth="wide"
-    authors="{['Aditi Bhandari ', 'David Lewis']}"
-    publishTime="{new Date('2020-12-18').toISOString()}"
+    authors={['Aditi Bhandari ', 'David Lewis']}
+    publishTime={new Date('2020-12-18').toISOString()}
   >
     <div slot="background">
       <Video
         width="widest"
         class="my-0"
-        showControls="{false}"
+        showControls={false}
         preloadVideo="auto"
-        playVideoWhenInView="{false}"
+        playVideoWhenInView={false}
         src="https://vm.reuters.tv/9c72e/titlef2ac(425954_R21MP41500).mp4"
         poster="https://www.reuters.com/resizer/vexYmtEuXKmfnsCbfS6jSMVbHms=/1080x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/VKJHKJEENVO4DASDND3VLHPV5Y.jpg"
         notes="Drone footage from the Village 8 refugee camp in Sudan."
@@ -221,19 +206,19 @@
   </style>
 </Story>
 
-<Story name="With inline photo" {...withStoryDocs(inlinePhotoDocs)}>
+<Story name="With inline photo">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
   <HeroHeadline
-    hed="{'Buried under the bricks'}"
+    hed={'Buried under the bricks'}
     hedWidth="wide"
     class="mb-0"
-    dek="{'How mud-brick housing made the Morocco earthquake so deadly'}"
-    section="{'Global news'}"
-    authors="{['Mariano Zafra']}"
-    publishTime="{new Date('2020-01-01').toISOString()}"
+    dek={'How mud-brick housing made the Morocco earthquake so deadly'}
+    section={'Global news'}
+    authors={['Mariano Zafra']}
+    publishTime={new Date('2020-01-01').toISOString()}
   >
     <div slot="inline">
       <FeaturePhoto
@@ -247,19 +232,19 @@
   </HeroHeadline>
 </Story>
 
-<Story name="With inline graphic" {...withStoryDocs(inlineGraphicDocs)}>
+<Story name="With inline graphic">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
   <HeroHeadline
-    hed="{'The plunge from 29,000 feet'}"
+    hed={'The plunge from 29,000 feet'}
     hedWidth="wide"
     class="mb-0"
-    dek="{'How China Eastern Airlines flight MU5735 went from an uneventful flight at cruising altitude to disaster in just minutes.'}"
-    section="{'Global news'}"
-    authors="{['Simon Scarr', 'Vijdan Mohammad Kawoosa']}"
-    publishTime="{new Date('2020-01-01').toISOString()}"
+    dek={'How China Eastern Airlines flight MU5735 went from an uneventful flight at cruising altitude to disaster in just minutes.'}
+    section={'Global news'}
+    authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+    publishTime={new Date('2020-01-01').toISOString()}
   >
     <div slot="inline">
       <GraphicBlock
@@ -270,33 +255,33 @@
         notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
         ariaDescription="Aerial map showing trajectory of crash"
       >
-        <svelte:component this="{CrashMap}" />
+        <svelte:component this={CrashMap} />
       </GraphicBlock>
     </div>
   </HeroHeadline>
 </Story>
 
-<Story name="With inline video" {...withStoryDocs(inlinePhotoDocs)}>
+<Story name="With inline video">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
 
   <HeroHeadline
-    hed="{'Devastation in Derna'}"
+    hed={'Devastation in Derna'}
     hedWidth="wide"
     class="mb-0"
-    dek="{'How raging floods burst dams, destroyed neighbourhoods and killed thousands in Libya'}"
-    section="{'Global news'}"
-    authors="{['Simon Scarr']}"
-    publishTime="{new Date('2020-01-01').toISOString()}"
+    dek={'How raging floods burst dams, destroyed neighbourhoods and killed thousands in Libya'}
+    section={'Global news'}
+    authors={['Simon Scarr']}
+    publishTime={new Date('2020-01-01').toISOString()}
   >
     <div slot="inline">
       <Video
         width="widest"
         class="my-0"
-        showControls="{false}"
+        showControls={false}
         preloadVideo="auto"
-        playVideoWhenInView="{false}"
+        playVideoWhenInView={false}
         src="https://www.reuters.com/graphics/LIBYA-STORM/EXPLAINER/klvyzqebzpg/cdn/video/drone.mp4"
         notes="Drone shots of Derna, Libya. September 14, 2023. REUTERS"
         ariaDescription="alttext fot video"
@@ -305,17 +290,17 @@
   </HeroHeadline>
 </Story>
 
-<Story name="With custom hed" {...withStoryDocs(customHedDocs)}>
+<Story name="With custom hed">
   <HeroHeadline
     class="custom-hed"
-    authors="{[
+    authors={[
       'Prasanta Kumar Dutta',
       'Dea Bankova',
       'Aditi Bhandari',
       'Anurag Rao',
-    ]}"
-    publishTime="{new Date('2023-05-11').toISOString()}"
-    img="{eurovisImgSrc}"
+    ]}
+    publishTime={new Date('2023-05-11').toISOString()}
+    img={eurovisImgSrc}
   >
     <h1 slot="hed">
       <div class="body-note">A visual guide to</div>
@@ -337,7 +322,7 @@
       }
     }
   </style>
-</Story>
+</Story> -->
 
 <style lang="scss">
   .transparent-header {

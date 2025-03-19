@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `HeroHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-heroheadline--docs) -->
 <script lang="ts">
   import type { HeadlineSize } from '../@types/global';
@@ -96,7 +95,7 @@
         {#if $$slots.hed}
           <Headline
             class="{cls} !text-{hedAlign}"
-            width="{hedWidth}"
+            width={hedWidth}
             {section}
             {hedSize}
             {hed}
@@ -110,7 +109,7 @@
         {:else}
           <Headline
             class="{cls} !text-{hedAlign}"
-            width="{hedWidth}"
+            width={hedWidth}
             {section}
             {hedSize}
             {hed}
@@ -144,11 +143,11 @@
     <!-- Inline hero -->
     {#if $$slots.inline}
       <Block width="fluid" class="hero-headline inline-hero">
-        <PaddingReset containerIsFluid="{true}">
+        <PaddingReset containerIsFluid={true}>
           {#if $$slots.hed}
             <Headline
               class="{cls} !text-{hedAlign}"
-              width="{hedWidth}"
+              width={hedWidth}
               {section}
               {hedSize}
               {hed}
@@ -162,7 +161,7 @@
           {:else}
             <Headline
               class="{cls} !text-{hedAlign}"
-              width="{hedWidth}"
+              width={hedWidth}
               {section}
               {hedSize}
               {hed}

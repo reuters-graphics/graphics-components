@@ -1,0 +1,366 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as HeroHeadlineStories from './HeroHeadline.stories.svelte';
+
+<Meta of={HeroHeadlineStories} />
+
+# HeroHeadline
+
+The `HeroHeadline` component creates a Reuters Graphics headline with a Hero media.
+
+```svelte
+<script>
+  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  img={`${assets}/images/myImage.jpg`}
+  hed={'Reuters Graphics Interactive'}
+  dek={'The beginning of a beautiful page'}
+  section={'World News'}
+  authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+  publishTime={new Date('2022-03-04').toISOString()}
+/>
+```
+
+<Canvas of={HeroHeadlineStories.Demo} />
+
+## Transparent site header
+
+Make the hero full bleed and under the header.
+
+```scss
+// global.scss
+
+.nav-container {
+  background-color: transparent !important;
+}
+.nav-container .inner {
+  background-color: transparent !important;
+  border: none;
+}
+
+.hero-wrapper {
+  margin-top: -64px;
+}
+```
+
+<Canvas of={HeroHeadlineStories.TransparentHeader} />
+
+## With background graphic
+
+Reuters Graphics headline with ai2svelte graphic as background.
+
+```svelte
+<script>
+  import {
+    HeroHeadline,
+    GraphicBlock,
+  } from '@reuters-graphics/graphics-components';
+  import QuakeMap from './ai2svelte/graphic.svelte';
+  import { assets } from '$app/paths';
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  hed={'Earthquake devastates Afghanistan'}
+  hedSize={'big'}
+  hedWidth="wide"
+  class="custom-hero mb-0"
+  dek=""
+  authors={[
+    'Anand Katakam',
+    'Vijdan Mohammad Kawoosa',
+    'Adolfo Arranz',
+    'Wen Foo',
+    'Simon Scarr',
+    'Aman Bhargava',
+    'Jitesh Chowdhury',
+    'Manas Sharma',
+    'Aditi Bhandari',
+  ]}
+  publishTime={new Date('2022-06-24').toISOString()}
+>
+  <div slot="background">
+    <GraphicBlock
+      width="widest"
+      role="figure"
+      class="my-0"
+      textWidth="normal"
+      notes=""
+      ariaDescription="Earthquake impact map"
+    >
+      <svelte:component this={QuakeMap} />
+    </GraphicBlock>
+  </div>
+</HeroHeadline>
+
+<style lang="scss">
+  .hero-wrapper {
+    .custom-hero.headline {
+      // Adjust vertical positioning
+      align-items: flex-end !important;
+
+      @media (max-width: 1100px) {
+        // Adjust line length of title
+        max-width: var(--normal-column-width) !important;
+      }
+    }
+
+    // Make hero smaller than 100vh
+    --heroHeight: 85svh;
+
+    @media (max-width: 960px) {
+      --heroHeight: 65svh;
+    }
+
+    // For small height
+    @media (max-height: 850px) {
+      --heroHeight: 100svh;
+    }
+
+    // Custom hero sizing for landscape mobile
+    @media (max-width: 960px) and (orientation: landscape) {
+      --heroHeight: 200svh;
+    }
+  }
+
+  // Override default fixed height for hero layout in embeds
+  .hero-wrapper.embedded {
+    --heroHeight: 1000px;
+  }
+</style>
+```
+
+<Canvas of={HeroHeadlineStories.BackgroundGraphic} />
+
+## With background video
+
+Add a cover video and position the title with ease.
+
+```svelte
+<script>
+  import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  class="custom-hero"
+  hed="The conflict in Ethiopia"
+  hedSize="bigger"
+  hedWidth="wide"
+  authors={['Aditi Bhandari ', 'David Lewis']}
+  publishTime={new Date('2020-12-18').toISOString()}
+>
+  <div slot="background">
+    <Video
+      width="widest"
+      class="my-0"
+      showControls={false}
+      preloadVideo="auto"
+      playVideoWhenInView={false}
+      src="{assets}/videos/intro.mp4"
+      poster="{assets}/images/video-poster-intro.jpg"
+      notes="Drone footage from the Village 8 refugee camp in Sudan."
+      ariaDescription="Aerial footage of people houses in refugee camp"
+    />
+  </div>
+</HeroHeadline>
+
+<style lang="scss">
+  .hero-wrapper {
+    --heroHeight: calc(100svh - 60px);
+    .custom-hero.headline {
+      header {
+        // Adjust vertical position as offset from default center
+        top: calc(50svh - 250px);
+      }
+
+      h1 {
+        color: #ffd430;
+        text-shadow: 3px 4px 7px rgba(81, 67, 21, 0.8);
+      }
+    }
+  }
+</style>
+```
+
+<Canvas of={HeroHeadlineStories.BackgroundVideo} />
+
+## With inline photo
+
+Reuters Graphics headline followed by a graphic or any media block.
+
+```svelte
+<script>
+  import {
+    HeroHeadline,
+    FeaturePhoto,
+  } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  hed={'Buried under the bricks'}
+  hedWidth="wide"
+  class="mb-0"
+  dek={'How mud-brick housing made the Morocco earthquake so deadly'}
+  section={'Global news'}
+  authors={['Mariano Zafra']}
+  publishTime={new Date('2020-01-01').toISOString()}
+>
+  <div slot="inline">
+    <FeaturePhoto
+      width="widest"
+      class="my-0"
+      src={`${assets}/images/myImage.jpg`}
+      caption="Photo by REUTERS/Nacho Doce."
+      altText="A photo of the town of Adassil, Morocco, showing severe damage to many houses, which have collapsed after the earthquake. The houses are all made of mud brick."
+    />
+  </div>
+</HeroHeadline>
+```
+
+<Canvas of={HeroHeadlineStories.InlinePhoto} />
+
+## With inline graphic
+
+Reuters Graphics headline followed by a graphic or any media block.
+
+```svelte
+<script>
+  import {
+    HeroHeadline,
+    GraphicBlock,
+  } from '@reuters-graphics/graphics-components';
+  import Map from './ai2svelte/graphic.svelte';
+  import { assets } from '$app/paths';
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  hed={'The plunge from 29,000 feet'}
+  hedWidth="wide"
+  class="mb-0"
+  dek={'How China Eastern Airlines flight MU5735 went from an uneventful flight at cruising altitude to disaster in just minutes.'}
+  section={'Global news'}
+  authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+  publishTime={new Date('2020-01-01').toISOString()}
+>
+  <div slot="inline">
+    <GraphicBlock
+      width="widest"
+      role="img"
+      class="my-0"
+      textWidth="normal"
+      notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
+      ariaDescription="Aerial map showing trajectory of crash"
+    >
+      <svelte:component this={Map} assetsPath={assets || '/'} />
+    </GraphicBlock>
+  </div>
+</HeroHeadline>
+```
+
+<Canvas of={HeroHeadlineStories.InlineGraphic} />
+
+## With inline video
+
+Add a cover video and position the title with ease.
+
+```svelte
+<script>
+  import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  hed={'Devastation in Derna'}
+  hedWidth="wide"
+  class="mb-0"
+  dek={'How raging floods burst dams, destroyed neighbourhoods and killed thousands in Libya'}
+  section={'Global news'}
+  authors={['Simon Scarr']}
+  publishTime={new Date('2020-01-01').toISOString()}
+>
+  <div slot="inline">
+    <Video
+      width="widest"
+      class="my-0"
+      showControls={false}
+      preloadVideo="auto"
+      playVideoWhenInView={false}
+      src="{assets}/videos/intro.mp4"
+      notes="Drone shots of Derna, Libya. September 14, 2023. REUTERS"
+      ariaDescription="alttext fot video"
+    />
+  </div>
+</HeroHeadline>
+```
+
+<Canvas of={HeroHeadlineStories.InlineVideo} />
+
+## Custom hed
+
+Add a custom styled headline.
+
+```svelte
+<script>
+  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+
+  export let embedded = false;
+</script>
+
+<HeroHeadline
+  {embedded}
+  class="custom-hed"
+  authors={[
+    'Prasanta Kumar Dutta',
+    'Dea Bankova',
+    'Aditi Bhandari',
+    'Anurag Rao',
+  ]}
+  publishTime={new Date('2023-05-11').toISOString()}
+  img={`${assets}/images/myImage.jpg`}
+>
+  <h1 slot="hed">
+    <div class="body-note">A visual guide to</div>
+    <div class="title text-6xl font-light tracking-widest">EUROVISION</div>
+  </h1>
+</HeroHeadline>
+
+<style lang="scss">
+  .custom-hed {
+    h1 {
+      .body-note {
+        color: #ffffff;
+      }
+      .title {
+        color: #ffffff;
+        text-shadow: 1px 1px 8px #ff7c88;
+        filter: drop-shadow(0px 0px 12px #ff7c88);
+      }
+    }
+  }
+</style>
+```
+
+    <Canvas of={HeroHeadlineStories.CustomHed} />
