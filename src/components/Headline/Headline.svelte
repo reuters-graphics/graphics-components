@@ -12,7 +12,6 @@
   interface Props {
     /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */
     hed: string | Snippet;
-
     /** Add extra classes to the block tag to target it with custom CSS. */
     class?: string;
     /** Headline size: small, normal, big, bigger, biggest */

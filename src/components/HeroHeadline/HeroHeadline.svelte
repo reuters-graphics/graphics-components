@@ -1,127 +1,142 @@
 <!-- @component `HeroHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-heroheadline--docs) -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import type { HeadlineSize } from '../@types/global';
 
-  /** Set to true for embeddables. */
-  export let embedded: boolean = false;
-
-  /**
-   * Path to background image
-   * @type {string}
-   */
-  export let img: string | null = null;
-
-  /**
-   * ARIA description, passed in as a markdown string.
-   * @type {string}
-   */
-  export let ariaDescription: string | null = null;
-
-  /**
-   * Notes to the graphic, passed in as a markdown string.
-   * @type {string}
-   */
-  export let notes: string | null = null;
-
-  /**
-   * Headline, parsed as an _inline_ markdown string in an `h1` element.
-   * @type {string}
-   */
-  export let hed: string = 'Reuters Graphics Interactive';
-
-  /** Add extra classes to the block tag to target it with custom CSS. */
-  let cls: string = '';
-  export { cls as class };
-
-  /**
-   * Headline size
-   * @type {string}
-   */
-  export let hedSize: HeadlineSize = 'normal';
-
-  /**
-   * Headline horizontal alignment
-   * @type {string}
-   */
-  export let hedAlign: 'left' | 'center' | 'right' = 'center';
-
-  /**
-   * Width of the headline.
-   */
-  export let hedWidth: 'normal' | 'wide' | 'wider' | 'widest' = 'normal';
-
-  /**
-   * Dek, parsed as a markdown string.
-   * @type {string}
-   */
-  export let dek: string | null = null;
-  /**
-   * Section title
-   * @type {string}
-   */
-  export let section: string | null = null;
-  /**
-   * Array of author names, which will be slugified to create links to Reuters author pages
-   */
-  export let authors: string[] = [];
-  /**
-   * Publish time as a datetime string.
-   * @type {string}
-   */
-  export let publishTime: string = '';
-  /**
-   * Update time as a datetime string.
-   * @type {string}
-   */
-  export let updateTime: string = '';
-
-  /**
-   * Width of the Hero graphic.
-   */
-  export let width: 'normal' | 'wide' | 'wider' | 'widest' = 'widest';
-
-  import Headline from '../Headline/Headline.svelte';
-  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+  // Components
   import Block from '../Block/Block.svelte';
-  import Byline from '../Byline/Byline.svelte';
+  import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
+  import Headline from '../Headline/Headline.svelte';
+  import Byline from '../Byline/Byline.svelte';
+
+  export interface Props {
+    /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */
+    hed: string | Snippet;
+    /**
+     * Optional snippet for a custom hero graphic, photo, etc.
+     */
+    children?: Snippet;
+    /** Set to `false` for non-stacked hero headline */
+    stacked?: boolean;
+    /**
+     * Path to background image
+     */
+    img?: string;
+    /**
+     * ARIA description, passed in as a markdown string.
+     */
+    ariaDescription?: string;
+    /**
+     * Notes to the graphic, passed in as a markdown string.
+     */
+    notes?: string;
+
+    /** Add classes to the block tag to target it with custom CSS. */
+    class?: string;
+    /**
+     * Headline size
+     */
+    hedSize?: HeadlineSize;
+    /**
+     * Headline horizontal alignment: left, center, right
+     */
+    hedAlign?: 'left' | 'center' | 'right';
+    /**
+     * Width of the headline: normal, wide, wider, widest
+     */
+    hedWidth?: 'normal' | 'wide' | 'wider' | 'widest';
+    /**
+     * Dek, parsed as a markdown string OR as a custom snippet.
+     */
+    dek?: string | Snippet;
+    /**
+     * Section title
+     */
+    section?: string;
+    /**
+     * Array of author names, which will be slugified to create links to Reuters author pages
+     */
+    authors?: string[];
+    /**
+     * Publish time as a datetime string.
+     */
+    publishTime: string;
+    /**
+     * Update time as a datetime string.
+     */
+    updateTime?: string;
+    /**
+     * Width of the hero graphic: normal, wide, wider, widest
+     */
+    width?: 'normal' | 'wide' | 'wider' | 'widest';
+    /** Set to true for embeddables. */
+    embedded?: boolean;
+    /**
+     * Custom function that returns an author page URL.
+     */
+    getAuthorPage?: (author: string) => string;
+    /**
+     * Optional snippet for a custom byline.
+     */
+    byline?: Snippet;
+    /**
+     * Optional snippet for a custom published dateline.
+     */
+    published?: Snippet;
+    /**
+     * Optional snippet for a custom updated dateline.
+     */
+    updated?: Snippet;
+  }
+
+  let {
+    hed,
+    stacked = true,
+    img,
+    ariaDescription,
+    notes,
+    class: cls = '',
+    hedSize = 'normal',
+    hedAlign = 'center',
+    hedWidth = 'normal',
+    dek,
+    section,
+    authors = [],
+    publishTime,
+    updateTime,
+    width = 'widest',
+    embedded = false,
+    children,
+    getAuthorPage,
+    byline,
+    published,
+    updated,
+  }: Props = $props();
 </script>
 
 <div style="--heroHeight: {embedded ? '850px' : '100svh'}; display:contents;">
   <div class="hero-wrapper fmb-6" class:embedded>
-    <!-- Background media hero-->
-    {#if $$slots.background || img}
+    <!-- stacked media hero-->
+    {#if stacked}
       <Block width="fluid" class="hero-headline background-hero fmt-0">
-        {#if $$slots.hed}
-          <Headline
-            class="{cls} !text-{hedAlign}"
-            width={hedWidth}
-            {section}
-            {hedSize}
-            {hed}
-            {dek}
-          >
-            <!-- Headline named slot -->
-            <div slot="hed">
-              <slot name="hed" />
-            </div>
-          </Headline>
-        {:else}
-          <Headline
-            class="{cls} !text-{hedAlign}"
-            width={hedWidth}
-            {section}
-            {hedSize}
-            {hed}
-            {dek}
-          />
-        {/if}
+        <!-- Handles string or snippet `hed` -->
+        <Headline
+          class="{cls} !text-{hedAlign}"
+          width={hedWidth}
+          {section}
+          {hedSize}
+          {hed}
+          {dek}
+        />
 
         <div class="graphic-container">
-          {#if $$slots.background}
-            <!-- Hero graphic named slot -->
-            <slot name="background" />
-          {:else}
+          <!-- Custom hero snippet -->
+          {#if children}
+            {@render children()}
+
+            <!-- Otherwise render the image if it exists -->
+          {:else if img}
             <GraphicBlock
               {width}
               role="img"
@@ -140,47 +155,49 @@
       </Block>
     {/if}
 
-    <!-- Inline hero -->
-    {#if $$slots.inline}
+    <!-- Non-stacked hero -->
+    {#if stacked === false}
       <Block width="fluid" class="hero-headline inline-hero">
         <PaddingReset containerIsFluid={true}>
-          {#if $$slots.hed}
-            <Headline
-              class="{cls} !text-{hedAlign}"
-              width={hedWidth}
-              {section}
-              {hedSize}
-              {hed}
-              {dek}
-            >
-              <!-- Headline named slot -->
-              <div slot="hed">
-                <slot name="hed" />
-              </div>
-            </Headline>
-          {:else}
-            <Headline
-              class="{cls} !text-{hedAlign}"
-              width={hedWidth}
-              {section}
-              {hedSize}
-              {hed}
-              {dek}
-            />
-          {/if}
+          <Headline
+            class="{cls} !text-{hedAlign}"
+            width={hedWidth}
+            {section}
+            {hedSize}
+            {hed}
+            {dek}
+          />
         </PaddingReset>
         <div class="graphic-container">
-          <!-- Hero named slot -->
-          <slot name="inline" />
+          <!-- Custom hero snippet -->
+          {#if children}
+            {@render children()}
+
+            <!-- Otherwise render the image if it exists -->
+          {:else if img}
+            <GraphicBlock
+              {width}
+              role="img"
+              class="my-0"
+              textWidth="normal"
+              {notes}
+              {ariaDescription}
+            >
+              <div
+                class="background-image"
+                style="background-image: url({img})"
+              ></div>
+            </GraphicBlock>
+          {/if}
         </div>
       </Block>
     {/if}
   </div>
 
   <div class="hero-byline fmb-6">
-    {#if $$slots.byline}
+    {#if byline}
       <!-- Custom byline/dateline -->
-      <slot name="byline" />
+      {@render byline()}
     {:else if authors.length > 0 || publishTime}
       <Byline {authors} {publishTime} {updateTime} align="left" />
     {/if}

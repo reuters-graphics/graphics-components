@@ -19,7 +19,7 @@
      * Update time as a datetime string.
      * @type {string}
      */
-    updateTime: string;
+    updateTime?: string;
     /**
      * Alignment of the byline.
      * @type {string}
@@ -130,7 +130,7 @@
         <div class="whitespace-nowrap inline-block">
           Published
           <time datetime={publishTime}>
-            {#if isValidDate(updateTime)}
+            {#if updateTime && isValidDate(updateTime)}
               {apdate(new Date(publishTime))}
             {:else}
               {apdate(new Date(publishTime))}&nbsp;&nbsp;{formatTime(

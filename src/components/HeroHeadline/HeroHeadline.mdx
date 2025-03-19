@@ -6,44 +6,50 @@ import * as HeroHeadlineStories from './HeroHeadline.stories.svelte';
 
 # HeroHeadline
 
-The `HeroHeadline` component creates a Reuters Graphics headline with a Hero media.
+The `HeroHeadline` component creates a Reuters Graphics headline with a hero media, which can be a graphic, photo, video, or any other media.
+
+By default, the hero is in the background, i.e. the headline and dek are stacked on top of the hero. You can unstack and make the headline and dek come before or after the hero media by setting `stacked: true`. [Read more.](?path=/docs/components-text-elements-heroheadline--docs&globals=#transparent-site-header)
+
+## Photo hero
+
+To use a photo as the hero, simply pass the image source to the `img` prop.
 
 ```svelte
+<!-- App.svelte -->
 <script>
   import { HeroHeadline } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
 
-  export let embedded = false;
+  let { embedded = false } = $props(); // 👈 If using in the Graphics Kit...
 </script>
 
 <HeroHeadline
   {embedded}
-  img={`${assets}/images/myImage.jpg`}
+  img={`${assets}/images/polar-bear.jpg`}
+  ariaDescription="A photo of a polar bear"
+  notes="Photo by REUTERS"
+  section={'World News'}
   hed={'Reuters Graphics Interactive'}
   dek={'The beginning of a beautiful page'}
-  section={'World News'}
-  authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
-  publishTime={new Date('2022-03-04').toISOString()}
+  authors={['Jane Doe', 'John Doe']}
 />
 ```
 
-<Canvas of={HeroHeadlineStories.Demo} />
+<Canvas of={HeroHeadlineStories.PhotoHero} />
 
 ## Transparent site header
 
-Make the hero full bleed and under the header.
+In the Graphics Kit, set styles in `global.scss` to make the Reuters site header transparent and make the hero go all the way to the top of the page:
 
 ```scss
 // global.scss
-
 .nav-container {
   background-color: transparent !important;
 }
 .nav-container .inner {
   background-color: transparent !important;
-  border: none;
+  border: none !important;
 }
-
 .hero-wrapper {
   margin-top: -64px;
 }
@@ -51,29 +57,35 @@ Make the hero full bleed and under the header.
 
 <Canvas of={HeroHeadlineStories.TransparentHeader} />
 
-## With background graphic
+## Ai2svelte hero
 
-Reuters Graphics headline with ai2svelte graphic as background.
+To use an ai2svelte graphic as the hero, wrap your ai2svelte component in a `GraphicBlock` component and insert it inside the `HeroHeadline` component.
+
+To customise styles, use CSS to target the class passed to `HeroHeadline`.
+
+> **Note:** Pass `notes` and `ariaDescription` to the `GraphicBlock` component to provide additional information about the ai2svelte graphic.
 
 ```svelte
+<!-- App.svelte -->
 <script>
   import {
     HeroHeadline,
     GraphicBlock,
   } from '@reuters-graphics/graphics-components';
-  import QuakeMap from './ai2svelte/graphic.svelte';
-  import { assets } from '$app/paths';
 
-  export let embedded = false;
+  import QuakeMap from './ai2svelte/graphic.svelte'; // Your ai2svelte component
+
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+
+  export let embedded = false; // 👈 If using in the Graphics Kit...
 </script>
 
 <HeroHeadline
   {embedded}
-  hed={'Earthquake devastates Afghanistan'}
-  hedSize={'big'}
+  hed="Earthquake devastates Afghanistan"
+  hedSize="big"
   hedWidth="wide"
   class="custom-hero mb-0"
-  dek=""
   authors={[
     'Anand Katakam',
     'Vijdan Mohammad Kawoosa',
@@ -87,20 +99,18 @@ Reuters Graphics headline with ai2svelte graphic as background.
   ]}
   publishTime={new Date('2022-06-24').toISOString()}
 >
-  <div slot="background">
-    <GraphicBlock
-      width="widest"
-      role="figure"
-      class="my-0"
-      textWidth="normal"
-      notes=""
-      ariaDescription="Earthquake impact map"
-    >
-      <svelte:component this={QuakeMap} />
-    </GraphicBlock>
-  </div>
+  <GraphicBlock
+    width="widest"
+    role="figure"
+    class="my-0"
+    ariaDescription="Earthquake impact map"
+  >
+    <!-- Pass `assetsPath` if in Graphics Kit -->
+    <QuakeMap assetsPath={assets || '/'} />
+  </GraphicBlock>
 </HeroHeadline>
 
+<!-- Customise styles using the class (e.g. `custom-hero` here) passed to `HeroHeadline` -->
 <style lang="scss">
   .hero-wrapper {
     .custom-hero.headline {
@@ -113,7 +123,7 @@ Reuters Graphics headline with ai2svelte graphic as background.
       }
     }
 
-    // Make hero smaller than 100vh
+    // Make hero shorter than 100vh
     --heroHeight: 85svh;
 
     @media (max-width: 960px) {
@@ -138,48 +148,49 @@ Reuters Graphics headline with ai2svelte graphic as background.
 </style>
 ```
 
-<Canvas of={HeroHeadlineStories.BackgroundGraphic} />
+<Canvas of={HeroHeadlineStories.Ai2svelteHero} />
 
-## With background video
+## Video hero
 
-Add a cover video and position the title with ease.
+To add a video as the hero, use the [Video](?path=/docs/components-multimedia-video--docs) component. To customise styles, use CSS to target the class passed to `HeroHeadline`.
+
+> **Note:** Pass `notes` and `ariaDescription` to the `GraphicBlock` component to provide additional information about the video.
 
 ```svelte
 <script>
   import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
 
-  export let embedded = false;
+  export let embedded = false; // 👈 If using in the Graphics Kit...
 </script>
 
 <HeroHeadline
   {embedded}
-  class="custom-hero"
+  class="video-hero"
   hed="The conflict in Ethiopia"
   hedSize="bigger"
   hedWidth="wide"
   authors={['Aditi Bhandari ', 'David Lewis']}
   publishTime={new Date('2020-12-18').toISOString()}
 >
-  <div slot="background">
-    <Video
-      width="widest"
-      class="my-0"
-      showControls={false}
-      preloadVideo="auto"
-      playVideoWhenInView={false}
-      src="{assets}/videos/intro.mp4"
-      poster="{assets}/images/video-poster-intro.jpg"
-      notes="Drone footage from the Village 8 refugee camp in Sudan."
-      ariaDescription="Aerial footage of people houses in refugee camp"
-    />
-  </div>
+  <Video
+    width="widest"
+    class="my-0"
+    showControls={false}
+    preloadVideo="auto"
+    playVideoWhenInView={false}
+    src={`${assets}/videos/intro.mp4`}
+    poster={`${assets}/images/video-poster-intro.jpg`}
+    notes="Drone footage from the Village 8 refugee camp in Sudan."
+    ariaDescription="Aerial footage of people houses in refugee camp"
+  />
 </HeroHeadline>
 
+<!-- Customise styles using the class (e.g. `video-hero` here) passed to `HeroHeadline` -->
 <style lang="scss">
   .hero-wrapper {
     --heroHeight: calc(100svh - 60px);
-    .custom-hero.headline {
+    .video-hero.headline {
       header {
         // Adjust vertical position as offset from default center
         top: calc(50svh - 250px);
@@ -194,143 +205,61 @@ Add a cover video and position the title with ease.
 </style>
 ```
 
-<Canvas of={HeroHeadlineStories.BackgroundVideo} />
+<Canvas of={HeroHeadlineStories.VideoHero} />
 
-## With inline photo
+## Inline hero
 
-Reuters Graphics headline followed by a graphic or any media block.
+To use a photo, graphic, video, etc. as an inline hero -- i.e. to make the hero appear below or above the headline and dek, not on top -- set `stacked` to `false`. Otherwise add your hero media as documented above.
 
-```svelte
-<script>
-  import {
-    HeroHeadline,
-    FeaturePhoto,
-  } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
-
-  export let embedded = false;
-</script>
-
-<HeroHeadline
-  {embedded}
-  hed={'Buried under the bricks'}
-  hedWidth="wide"
-  class="mb-0"
-  dek={'How mud-brick housing made the Morocco earthquake so deadly'}
-  section={'Global news'}
-  authors={['Mariano Zafra']}
-  publishTime={new Date('2020-01-01').toISOString()}
->
-  <div slot="inline">
-    <FeaturePhoto
-      width="widest"
-      class="my-0"
-      src={`${assets}/images/myImage.jpg`}
-      caption="Photo by REUTERS/Nacho Doce."
-      altText="A photo of the town of Adassil, Morocco, showing severe damage to many houses, which have collapsed after the earthquake. The houses are all made of mud brick."
-    />
-  </div>
-</HeroHeadline>
-```
-
-<Canvas of={HeroHeadlineStories.InlinePhoto} />
-
-## With inline graphic
-
-Reuters Graphics headline followed by a graphic or any media block.
+> **Note:** Pass `notes` and `ariaDescription` to the component you're inserting into `HeroHeadline` to provide additional information.
 
 ```svelte
+<!-- App.svelte -->
 <script>
   import {
     HeroHeadline,
     GraphicBlock,
   } from '@reuters-graphics/graphics-components';
-  import Map from './ai2svelte/graphic.svelte';
-  import { assets } from '$app/paths';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
 
-  export let embedded = false;
+  export let embedded = false; // 👈 If using in the Graphics Kit...
 </script>
 
+<!-- Set `stacked` to `false` -->
 <HeroHeadline
   {embedded}
-  hed={'The plunge from 29,000 feet'}
-  hedWidth="wide"
+  stacked={false}
+  section="Global news"
+  hed="The plunge from 29,000 feet"
+  dek="How China Eastern Airlines flight MU5735 went from an uneventful flight at cruising altitude to disaster in just minutes."
   class="mb-0"
-  dek={'How China Eastern Airlines flight MU5735 went from an uneventful flight at cruising altitude to disaster in just minutes.'}
-  section={'Global news'}
   authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
   publishTime={new Date('2020-01-01').toISOString()}
 >
-  <div slot="inline">
-    <GraphicBlock
-      width="widest"
-      role="img"
-      class="my-0"
-      textWidth="normal"
-      notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
-      ariaDescription="Aerial map showing trajectory of crash"
-    >
-      <svelte:component this={Map} assetsPath={assets || '/'} />
-    </GraphicBlock>
-  </div>
+  <GraphicBlock
+    width="widest"
+    role="figure"
+    class="my-0"
+    ariaDescription="Earthquake impact map"
+    notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
+  >
+    <!-- Pass `assetsPath` if in Graphics Kit -->
+    <CrashMap assetsPath={assets || '/'} />
+  </GraphicBlock>
 </HeroHeadline>
 ```
 
-<Canvas of={HeroHeadlineStories.InlineGraphic} />
+<Canvas of={HeroHeadlineStories.InlineHero} />
 
-## With inline video
+## Custom hed and dek
 
-Add a cover video and position the title with ease.
+The `HeroHeadline` component internally uses the [Headline](?path=/docs/components-text-elements-headline--docs) component to render the headline and dek.
 
-```svelte
-<script>
-  import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
-
-  export let embedded = false;
-</script>
-
-<HeroHeadline
-  {embedded}
-  hed={'Devastation in Derna'}
-  hedWidth="wide"
-  class="mb-0"
-  dek={'How raging floods burst dams, destroyed neighbourhoods and killed thousands in Libya'}
-  section={'Global news'}
-  authors={['Simon Scarr']}
-  publishTime={new Date('2020-01-01').toISOString()}
->
-  <div slot="inline">
-    <Video
-      width="widest"
-      class="my-0"
-      showControls={false}
-      preloadVideo="auto"
-      playVideoWhenInView={false}
-      src="{assets}/videos/intro.mp4"
-      notes="Drone shots of Derna, Libya. September 14, 2023. REUTERS"
-      ariaDescription="alttext fot video"
-    />
-  </div>
-</HeroHeadline>
-```
-
-<Canvas of={HeroHeadlineStories.InlineVideo} />
-
-## Custom hed
-
-Add a custom styled headline.
+If `hed` and `dek` values are strings, they are rendered according to the default Reuters style. To customise the headline and dek, pass custom `hed` and `dek` elements as [snippets](https://svelte.dev/docs/svelte/snippet) to `HeroHeadline` -- the same way as you would with `Headline`.
 
 ```svelte
-<script>
-  import { HeroHeadline } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
-
-  export let embedded = false;
-</script>
-
+<!-- App.svelte -->
 <HeroHeadline
-  {embedded}
   class="custom-hed"
   authors={[
     'Prasanta Kumar Dutta',
@@ -339,28 +268,53 @@ Add a custom styled headline.
     'Anurag Rao',
   ]}
   publishTime={new Date('2023-05-11').toISOString()}
-  img={`${assets}/images/myImage.jpg`}
+  img={eurovisImgSrc}
 >
-  <h1 slot="hed">
-    <div class="body-note">A visual guide to</div>
-    <div class="title text-6xl font-light tracking-widest">EUROVISION</div>
-  </h1>
-</HeroHeadline>
+  <!-- Custom hed snippet -->
+  {#snippet hed()}
+    <h1>
+      <div class="body-note">A visual guide to</div>
+      <div class="title text-6xl font-light tracking-widest">EUROVISION</div>
+    </h1>
+  {/snippet}
 
-<style lang="scss">
-  .custom-hed {
-    h1 {
-      .body-note {
-        color: #ffffff;
+  <!-- Custom dek snippet -->
+  {#snippet dek()}
+    <div class="dek">
+      <p>
+        Performers from 37 countries are coming together May 9-13 in Liverpool,
+        England, for the 67th annual Eurovision Song Contest. The winner gets
+        the trophy and their country gets the right to host next year’s event,
+        produced by the European Broadcasting Union (EBU).
+      </p>
+    </div>
+  {/snippet}
+
+  <!-- Style your custom hed and dek -->
+  <style lang="scss">
+    .custom-hed {
+      h1 {
+        .body-note {
+          color: #ffffff;
+        }
+        .title {
+          color: #ffffff;
+          text-shadow: 1px 1px 8px #ff7c88;
+          filter: drop-shadow(0px 0px 12px #ff7c88);
+        }
       }
-      .title {
-        color: #ffffff;
-        text-shadow: 1px 1px 8px #ff7c88;
-        filter: drop-shadow(0px 0px 12px #ff7c88);
+
+      .dek {
+        margin-top: 1rem;
+        p {
+          color: #ffffff;
+          text-shadow: 1px 1px 8px #ff7c88;
+          filter: drop-shadow(0px 0px 12px #ff7c88);
+        }
       }
     }
-  }
-</style>
+  </style>
+</HeroHeadline>
 ```
 
-    <Canvas of={HeroHeadlineStories.CustomHed} />
+<Canvas of={HeroHeadlineStories.CustomHed} />
