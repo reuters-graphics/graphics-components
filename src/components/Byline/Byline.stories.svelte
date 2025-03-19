@@ -18,7 +18,6 @@
 <Story
   name="Demo"
   args={{
-    align: 'left',
     authors: [
       'Dea Bankova',
       'Prasanta Kumar Dutta',
@@ -43,3 +42,21 @@
     {/snippet}
   </Byline>
 </Story>
+
+<Story
+  name="Custom author page"
+  exportName="CustomAuthorPage"
+  args={{
+    authors: [
+      'Dea Bankova',
+      'Prasanta Kumar Dutta',
+      'Anurag Rao',
+      'Mariano Zafra',
+    ],
+    publishTime: '2021-09-12T00:00:00Z',
+    updateTime: '2021-09-12T13:57:00Z',
+    getAuthorPage: (author: string) => {
+      return `mailto:${author.replace(' ', '')}@example.com`;
+    },
+  }}
+/>

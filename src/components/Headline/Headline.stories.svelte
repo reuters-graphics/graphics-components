@@ -26,11 +26,9 @@
 <Story
   name="Demo"
   args={{
-    section: 'World News',
     hed: 'Reuters Graphics interactive',
-    hedSize: 'normal',
-    dek: '',
-    authors: [],
+    dek: 'The beginning of a beautiful page',
+    section: 'World News',
   }}
 />
 

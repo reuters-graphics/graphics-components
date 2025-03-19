@@ -26,6 +26,10 @@
     section?: string;
     /** Array of author names, which will be slugified to create links to Reuters author pages */
     authors?: string[];
+    /**
+     * Custom function that returns an author page URL.
+     */
+    getAuthorPage?: (author: string) => string;
     /** Publish time as a datetime string. */
     publishTime?: string;
     /** Update time as a datetime string. */
@@ -106,10 +110,7 @@
           </div>
         {/if}
       </div>
-      {#if byline}
-        <!-- Custom byline/dateline -->
-        {@render byline()}
-      {:else if authors.length > 0 || publishTime}
+      {#if authors.length > 0 || publishTime}
         <Byline
           cls="fmy-4"
           {authors}
@@ -117,6 +118,9 @@
           {updateTime}
           align="center"
         />
+      {:else if byline}
+        <!-- Custom byline/dateline -->
+        {@render byline()}
       {/if}
     </header>
   </Block>

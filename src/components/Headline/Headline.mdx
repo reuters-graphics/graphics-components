@@ -6,7 +6,7 @@ import * as HeadlineStories from './Headline.stories.svelte';
 
 # Headline
 
-The `Headline` component creates the Reuters Graphics headline.
+The `Headline` component creates headlines in the legacy Reuters Graphics style, with the text centred on the page.
 
 ```svelte
 <script>
@@ -14,29 +14,15 @@ The `Headline` component creates the Reuters Graphics headline.
 </script>
 
 <Headline
-  hed={'Reuters Graphics Interactive'}
-  dek={'The beginning of a beautiful page'}
-  section={'World News'}
+  hed="Reuters Graphics Interactive"
+  dek="The beginning of a beautiful page"
+  section="World News"
 />
 ```
 
 <Canvas of={HeadlineStories.Demo} />
 
-## Dek
-
-```svelte
-<script>
-  import { Headline } from '@reuters-graphics/graphics-components';
-</script>
-
-<Headline
-  hed={'Reuters Graphics Interactive'}
-  dek={'The beginning of a beautiful page'}
-  section={'Global news'}
-/>
-```
-
-## With byline
+## With authors and publish time
 
 ```svelte
 <script>
