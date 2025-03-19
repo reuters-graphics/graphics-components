@@ -46,6 +46,7 @@
 <Story
   name="Custom author page"
   exportName="CustomAuthorPage"
+  tags={['!autodocs', '!dev']}
   args={{
     authors: [
       'Dea Bankova',

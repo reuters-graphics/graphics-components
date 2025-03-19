@@ -32,25 +32,20 @@
   }}
 />
 
-<Story name="Dek">
+<Story name="With byline and dateline" exportName="Byline">
   <Headline
     hed={'Reuters Graphics Interactive'}
     dek={'The beginning of a beautiful page'}
     section={'Global news'}
-  />
-</Story>
-
-<Story name="Byline">
-  <Headline
-    hed={'Reuters Graphics Interactive'}
-    dek={'The beginning of a beautiful page'}
-    section={'Global news'}
-    authors={['Dea Bankova', 'Aditi Bhandari']}
+    authors={['Jane Doe']}
     publishTime={new Date('2020-01-01').toISOString()}
+    getAuthorPage={(author: string) => {
+      return `mailto:${author.replace(' ', '')}@example.com`;
+    }}
   />
 </Story>
 
-<Story name="Custom hed" exportName="CustomHed">
+<Story name="Custom hed and dek" exportName="CustomHedDek">
   <Headline width="wide">
     {#snippet hed()}
       <h1 class="custom-hed">
@@ -70,7 +65,11 @@
 </Story>
 
 <Story name="Crown image" exportName="CrownImage">
-  <Headline class="!fmt-3" publishTime={new Date('2020-01-01').toISOString()}>
+  <Headline
+    class="!fmt-3"
+    hed="Europa"
+    publishTime={new Date('2020-01-01').toISOString()}
+  >
     <!-- Add a crown -->
     {#snippet crown()}
       <img
@@ -79,10 +78,6 @@
         class="mx-auto mb-0"
         alt="Illustration of Europe"
       />
-    {/snippet}
-    <!-- Override the hed with a snippet -->
-    {#snippet hed()}
-      <h1 class="!font-serif !tracking-wide">Europa</h1>
     {/snippet}
   </Headline>
 </Story>
@@ -99,9 +94,7 @@
   >
     <!-- Add a crown graphic -->
     {#snippet crown()}
-      <div>
-        <Map />
-      </div>
+      <Map />
     {/snippet}
   </Headline>
 </Story>

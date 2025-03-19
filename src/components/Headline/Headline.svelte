@@ -12,44 +12,60 @@
   interface Props {
     /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */
     hed: string | Snippet;
-    /** Custom byline snippet */
-    byline?: Snippet;
+
     /** Add extra classes to the block tag to target it with custom CSS. */
     class?: string;
     /** Headline size: small, normal, big, bigger, biggest */
     hedSize?: HeadlineSize;
     /** Dek, parsed as a markdown string OR as a custom snippet. */
     dek?: string | Snippet;
-    /** Custom crown snippet */
-    crown?: Snippet;
+
     /** Section title */
     section?: string;
     /** Array of author names, which will be slugified to create links to Reuters author pages */
     authors?: string[];
-    /**
-     * Custom function that returns an author page URL.
-     */
-    getAuthorPage?: (author: string) => string;
+
     /** Publish time as a datetime string. */
     publishTime?: string;
     /** Update time as a datetime string. */
     updateTime?: string;
     /** Width of the headline: normal, wide, wider, widest */
     width?: 'normal' | 'wide' | 'wider' | 'widest';
+    /**
+     * Custom function that returns an author page URL.
+     */
+    getAuthorPage?: (author: string) => string;
+    /** Custom crown snippet */
+    crown?: Snippet;
+    /**
+     * Optional snippet for a custom byline.
+     */
+    byline?: Snippet;
+    /**
+     * Optional snippet for a custom published dateline.
+     */
+    published?: Snippet;
+    /**
+     * Optional snippet for a custom updated dateline.
+     */
+    updated?: Snippet;
   }
 
   let {
     hed = 'Reuters Graphics Interactive',
-    byline,
     class: cls = '',
     hedSize = 'normal',
     dek,
-    crown,
     section,
     authors = [],
     publishTime = '',
     updateTime = '',
     width = 'normal',
+    getAuthorPage,
+    crown,
+    byline,
+    published,
+    updated,
   }: Props = $props();
 
   // Set the headline text size class based on the `hedSize` prop
@@ -116,6 +132,9 @@
           {authors}
           {publishTime}
           {updateTime}
+          {getAuthorPage}
+          {published}
+          {updated}
           align="center"
         />
       {:else if byline}
