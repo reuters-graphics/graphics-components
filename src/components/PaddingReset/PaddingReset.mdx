@@ -14,7 +14,7 @@ Sometimes you want a visual element to be fluid, i.e., edge-to-edge, but keep pa
 </script>
 
 <Block width="fluid">
-  <!-- Image in `fluid` block is edge-to-edge -->
+  <!-- Edge-to-edge image -->
   <img src="https:..." alt="Alt text" />
 
   <!-- Wrap text in `PaddingReset`to add padding back in -->
@@ -39,9 +39,10 @@ You can add the padding conditionally by setting the `containerIsFluid` prop to 
 </script>
 
 <Block {width}>
-  <img {src} alt="Alt text" />
+  <!-- Edge-to-edge image -->
+  <img src="https:..." alt="Alt text" />
 
-  <!-- Set `containerIsFluid: true` if `width === 'fluid'` -->
+  <!-- Set conditional padding with the `containerIsFluid` prop -->
   <PaddingReset containerIsFluid={width === 'fluid'}>
     <p>A caption for the image that is padded when Block is fluid.</p>
   </PaddingReset>
