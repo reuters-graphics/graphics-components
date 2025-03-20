@@ -1,68 +1,41 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import customDocs from './stories/docs/withCustom.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import PhotoCarousel from './PhotoCarousel.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Multimedia/PhotoCarousel',
     component: PhotoCarousel,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import photosJson from './stories/photos.json';
+  import photosJson from './demo/photos.json';
+  // import { PhotoCarouselImage } from '../@types/global';
 
   const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <PhotoCarousel {...args} />
-  {/snippet}
-</Template>
-
 <Story
-  name="Default"
-  args="{{
-    width: 'wider',
+  name="Demo"
+  args={{
     photos,
-  }}"
+  }}
 />
 
-<Story
-  name="Custom credits and captions"
-  args="{{
-    width: 'wider',
-    photos,
-  }}"
-  {...withStoryDocs(customDocs)}
->
-  <PhotoCarousel
-    {...{
-      width: 'wider',
-      photos,
-    }}
-  >
-    {#snippet credit({ credit })}
-        <p class="custom-credit"  >{credit}</p>
-      {/snippet}
-    {#snippet caption({ caption })}
-        <p class="custom-caption"  >{caption}</p>
-      {/snippet}
+<Story name="Custom text" exportName="CustomText">
+  <PhotoCarousel {photos}>
+    {#snippet credit(photo)}
+      <p class="custom-credit">{photo.credit}</p>
+    {/snippet}
+    {#snippet caption(photo)}
+      <p class="custom-caption">{photo.caption}</p>
+    {/snippet}
   </PhotoCarousel>
 </Story>
 

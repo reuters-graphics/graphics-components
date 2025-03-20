@@ -30,10 +30,10 @@ Venison shoulder *ham hock ham leberkas*. Flank beef ribs fatback, jerky meatbal
 
 ## Using with ArchieML docs
 
-With the graphics kit, you'll likely get your text value from an ArchieML doc.
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
 
 ```yaml
-# Archie ML doc
+# ArchieML doc
 [blocks]
 
 type: text
@@ -49,6 +49,11 @@ text: Bacon ipsum ...
 
 ```svelte
 <!-- App.svelte -->
+<script>
+  import { BodyText } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
 {#each content.blocks as block}
   {#if block.type === 'text'}
     <BodyText text={block.text} />

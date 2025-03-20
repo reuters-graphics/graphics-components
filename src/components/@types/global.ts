@@ -48,3 +48,22 @@ export interface ScrollerStep {
    */
   foregroundProps?: object;
 }
+
+export interface PhotoCarouselImage {
+  /**
+   * Image source
+   */
+  src: string;
+  /**
+   * Image alt text
+   */
+  altText: string;
+  /** Optional caption */
+  caption?: string;
+  /** Optional credit */
+  credit?: string;
+  /** Optional object-fit rule */
+  objectFit?: string;
+  /** Optional object-position rule */
+  objectPosition?: string;
+}
