@@ -1,0 +1,49 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as PaddingResetStories from './PaddingReset.stories.svelte';
+
+<Meta of={PaddingResetStories} />
+
+# PaddingReset
+
+Sometimes you want a visual element to be fluid, i.e., edge-to-edge, but keep padding on surrouding text such as ntoes or captions. The `PaddingReset` component resets padding to `0 15px` on the `Article` well that's been cancelled by a `Block` with a `fluid` width.
+
+```svelte
+<script>
+  import { Block, PaddingReset } from '@reuters-graphics/graphics-components';
+</script>
+
+<Block width="fluid">
+  <!-- Image in `fluid` block is edge-to-edge -->
+  <img src="https:..." alt="Alt text" />
+
+  <!-- Wrap text in `PaddingReset`to add padding back in -->
+  <PaddingReset>
+    <p>A caption for the image that is padded when Block is fluid.</p>
+  </PaddingReset>
+</Block>
+```
+
+<Canvas of={PaddingResetStories.Demo} />
+
+## Conditional padding
+
+You can add the padding conditionally by setting the `containerIsFluid` prop to `true` when the `Block` width is `fluid`, which is what many other components in this library do.
+
+```svelte
+<script>
+  import { Block, PaddingReset } from '@reuters-graphics/graphics-components';
+
+  export let src = 'https://...';
+  export let width = 'fluid';
+</script>
+
+<Block {width}>
+  <img {src} alt="Alt text" />
+
+  <!-- Set `containerIsFluid: true` if `width === 'fluid'` -->
+  <PaddingReset containerIsFluid={width === 'fluid'}>
+    <p>A caption for the image that is padded when Block is fluid.</p>
+  </PaddingReset>
+</Block>
+```

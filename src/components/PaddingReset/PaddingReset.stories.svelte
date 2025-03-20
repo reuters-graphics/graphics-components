@@ -1,51 +1,49 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import PaddingReset from './PaddingReset.svelte';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Page layout/PaddingReset',
     component: PaddingReset,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
   import Block from '../Block/Block.svelte';
+  import type { ContainerWidth } from '../@types/global';
+
+  let width: ContainerWidth = 'fluid' as 'wide' | 'fluid';
+
+  import sharkSrc from './shark.jpg';
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <Block width="fluid">
-      <div class="outer"></div>
-      <PaddingReset {...args}>
-        <div class="inner"></div>
-      </PaddingReset>
-    </Block>
-  {/snippet}
-</Template>
-
-<Story
-  name="Default"
-  args="{{
-    containerIsFluid: true,
-  }}"
-/>
+<Story name="Demo">
+  <!-- Fluid block -->
+  <Block {width}>
+    <img src={sharkSrc} alt="shark" />
+    <PaddingReset containerIsFluid={width === 'fluid' ? true : false}>
+      <p>
+        A caption for the image that is padded when <code>Block</code> is fluid.
+      </p>
+    </PaddingReset>
+  </Block>
+</Story>
 
 <style lang="scss">
-  div {
-    height: 30px;
-    width: 100%;
-    margin-bottom: 2px;
-    &.outer {
-      background: grey;
-    }
-    &.inner {
-      background: salmon;
-    }
+  // Style span as code block with unicode font
+  code {
+    line-height: 1;
+    margin: 0px 2px;
+    padding: 3px 5px;
+    white-space: nowrap;
+    border-radius: 3px;
+    font-size: 13px;
+    border: 1px solid rgb(236, 244, 249);
+    color: rgba(46, 52, 56, 0.9);
+    background-color: rgb(247, 250, 252);
   }
+
+  // p {
+  //   background: rgb(222, 222, 222);
+  // }
 </style>
