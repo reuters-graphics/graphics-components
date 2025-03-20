@@ -4,7 +4,7 @@
 
   interface Props {
     /**
-     * If parent container is fluid, which resets the padding around contained elements.
+     * Set to `true` if the parent container is fluid.
      */
     containerIsFluid?: boolean;
     /**
