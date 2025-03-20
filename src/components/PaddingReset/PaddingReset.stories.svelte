@@ -10,9 +10,7 @@
 
 <script>
   import Block from '../Block/Block.svelte';
-  import type { ContainerWidth } from '../@types/global';
-
-  let width: ContainerWidth = 'fluid' as 'wide' | 'fluid';
+  let width: 'wide' | 'fluid' = 'fluid';
 
   import sharkSrc from './shark.jpg';
 </script>
