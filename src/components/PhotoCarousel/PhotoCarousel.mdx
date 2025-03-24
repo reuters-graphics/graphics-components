@@ -62,8 +62,6 @@ type: photo-carousel
 
 ... which you'll parse out of a ArchieML block object before passing to the `PhotoCarousel` component.
 
-> **Important❗:** If you're using the Graphics Kit and your photos are saved locally in `src/statics` instead of being on the web, pass the Svelte-kit `assets` string to `PhotoCarousel` to get the correct path. You can't mix and match, though -- all photos must be either local or web-hosted.
-
 ```svelte
 <!-- App.svelte -->
 <script>
@@ -71,12 +69,13 @@ type: photo-carousel
   import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
 
   import content from '$locales/en/content.json';
+
+  // @TODO - Update this doc once the util to derive `photos` with `assets` in the image src path is written and tested. See ticket: https://github.com/reuters-graphics/bluprint_graphics-kit/issues/164
 </script>
 
 {#each content.blocks as block}
   {#if block.type === 'photo-carousel'}
-  <!-- Pass `assets` if using photos saved in your Graphics Kit project folder -->
-    <PhotoCarousel {block.photos} {assets} />
+    <PhotoCarousel {block.photos}  />
   {/if}
 {/each}
 

@@ -20,7 +20,6 @@
   import type { MoveEventDetail } from '@splidejs/svelte-splide/types';
   import type { Snippet } from 'svelte';
   import type { PhotoCarouselImage } from '../@types/global';
-  import src from 'svelte-search/index.js';
 
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
@@ -29,8 +28,6 @@
   interface Props {
     /** Array of photos. */
     photos: PhotoCarouselImage[];
-    /** Pass Svelte-kit `assets`, if using local photo files instead of web-hosted ones*/
-    assets?: string;
     /** Width of the component within the text well: normal, wide, wider, widest, fluid */
     width?: ContainerWidth;
     /**
@@ -60,7 +57,6 @@
   }
 
   let {
-    assets,
     width = 'wider',
     textWidth = 'normal',
     id = '',
@@ -108,8 +104,6 @@
       <div class="image-container">
         <SplideTrack>
           {#each photos as photo}
-            <!-- Set source path if `assets` is passed, i.e the photos are local files -->
-            {@const src = assets ? `${assets}/${photo.src}` : photo.src}
             <SplideSlide>
               <div class="photo-slide w-full h-full relative">
                 <figure
@@ -118,7 +112,7 @@
                 >
                   <img
                     class="w-full h-full fmy-0"
-                    data-splide-lazy={src}
+                    data-splide-lazy={photo.src}
                     alt={photo.altText}
                     style:object-fit={photo.objectFit || defaultImageObjectFit}
                     style:object-position={photo.objectPosition ||
