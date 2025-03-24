@@ -11,16 +11,16 @@
       {#each sections as section}
         <section
           class="more-section-group"
-          class:has-children="{section.children}"
+          class:has-children={section.children}
         >
-          <a href="{normalizeUrl(section.url)}" class="section-link">
+          <a href={normalizeUrl(section.url)} class="section-link">
             {section.name}
           </a>
           {#if section.children}
             <ul class="subsections">
               {#each section.children as sub}
                 <li>
-                  <a class="subsection-link" href="{normalizeUrl(sub.url)}"
+                  <a class="subsection-link" href={normalizeUrl(sub.url)}
                     >{sub.name}</a
                   >
                 </li>

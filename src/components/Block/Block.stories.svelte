@@ -36,7 +36,7 @@
   import Article from '../Article/Article.svelte';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <Article id="block-demo-article">
       <div class="article-boundaries">
@@ -51,9 +51,9 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'normal',
-  }}"
+  }}
 />
 
 <Story name="Custom layouts" {...withStoryDocs(customLayoutsDocs)}>
@@ -77,42 +77,41 @@
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
-      <Block width="narrower" snap="{true}" class="block-snap-widths-demo"
+      <Block width="narrower" snap={true} class="block-snap-widths-demo"
         >narrower</Block
       >
-      <Block width="narrow" snap="{true}" class="block-snap-widths-demo"
+      <Block width="narrow" snap={true} class="block-snap-widths-demo"
         >narrow</Block
       >
-      <Block width="normal" snap="{true}" class="block-snap-widths-demo"
+      <Block width="normal" snap={true} class="block-snap-widths-demo"
         >normal</Block
       >
-      <Block width="wide" snap="{true}" class="block-snap-widths-demo"
-        >wide</Block
+      <Block width="wide" snap={true} class="block-snap-widths-demo">wide</Block
       >
-      <Block width="wider" snap="{true}" class="block-snap-widths-demo"
+      <Block width="wider" snap={true} class="block-snap-widths-demo"
         >wider</Block
       >
-      <Block width="narrower" snap="{true}" class="block-snap-widths-demo even"
+      <Block width="narrower" snap={true} class="block-snap-widths-demo even"
         >narrower</Block
       >
-      <Block width="narrow" snap="{true}" class="block-snap-widths-demo even"
+      <Block width="narrow" snap={true} class="block-snap-widths-demo even"
         >narrow</Block
       >
       <Block
         width="normal"
-        snap="{true}"
+        snap={true}
         class="block-snap-widths-demo even skip-narrow"
         >normal.skip-narrow</Block
       >
       <Block
         width="wide"
-        snap="{true}"
+        snap={true}
         class="block-snap-widths-demo even skip-normal skip-narrow"
         >wide.skip-normal.skip-narrow</Block
       >
       <Block
         width="wider"
-        snap="{true}"
+        snap={true}
         class="block-snap-widths-demo even skip-wide">wider.skip-wide</Block
       >
     </div>
@@ -145,9 +144,9 @@
     background: rgb(211, 132, 123);
   }
   :global(
-      #block-demo-article .label,
-      #block-demo-article div.article-block.block-snap-widths-demo
-    ) {
+    #block-demo-article .label,
+    #block-demo-article div.article-block.block-snap-widths-demo
+  ) {
     padding-left: 3px;
     color: white;
   }

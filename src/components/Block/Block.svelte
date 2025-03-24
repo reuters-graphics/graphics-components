@@ -26,9 +26,9 @@
 <div
   {id}
   class="article-block fmx-auto {width} {cls}"
-  class:snap="{snap && width !== 'fluid' && width !== 'widest'}"
+  class:snap={snap && width !== 'fluid' && width !== 'widest'}
   {role}
-  aria-label="{ariaLabel}"
+  aria-label={ariaLabel}
 >
   <!-- block content -->
   <slot />

@@ -1,0 +1,127 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as PhotoPackStories from './PhotoPack.stories.svelte';
+
+<Meta of={PhotoPackStories} />
+
+# PhotoPack
+
+The `PhotoPack` component makes simple photo grids with custom layouts at various breakpoints.
+
+`images` are defined with their src, alt text, captions and an optional `maxHeight`, which ensures that the images are no taller than that height in any layout.
+
+`layouts` describe how images will be laid out at different breakpoints. The default layout is one photo per row, stacked vertically -- i.e. mobile layout. You can customise the layouts and group images into `rows` above a certain `breakpoint` by specifying the number of images that should go in that row. For example:
+
+```javascript
+const layouts = [
+  {
+    breakpoint: 450,
+    rows: [1, 2, 1],
+  },
+];
+```
+
+... tells the component that when the `PhotoPack` container is 450 pixels or wider, it should group the 4 images in 3 rows: 1 in the first, 2 in the second and 1 in the last.
+
+You can define as many layouts for as many images as you like.
+
+```svelte
+<script>
+  import { PhotoPack } from '@reuters-graphics/graphics-components';
+
+  /** Array of photo metadata */
+  const images = [
+    {
+      src: 'https://...',
+      altText: 'Alt text',
+      caption: 'Lorem ipsum. REUTERS/Photog',
+      // Optional max-height of images across all layouts
+      maxHeight: 800,
+    },
+    // ...
+  ];
+
+  /** Set the number of photos in each row at various breakpoints */
+  const layouts = [
+    {
+      breakpoint: 450, // Applies to containers wider than 450px
+      rows: [1, 2, 1], // Number of photos in each row
+    },
+    // Another layout for containers wider than 750px
+    { breakpoint: 750, rows: [1, 3] },
+  ];
+</script>
+
+<PhotoPack {images} {layouts} />
+```
+
+<Canvas of={PhotoPackStories.Demo} />
+
+## ArchieML
+
+```yaml
+[blocks]
+# ...
+
+type: photo-pack
+id: my-photo-pack
+class: mb-2
+width: wide
+textWidth: normal
+gap: 10
+[.images]
+  src: images/my-img-1.jpg
+  altText: Alt text
+  caption: Lorem ipsum. REUTERS/Photog
+
+  src: images/my-img-2.jpg
+  altText: Alt text
+  caption: Lorem ipsum. REUTERS/Photog
+
+  src: images/my-img-3.jpg
+  altText: Alt text
+  caption: Lorem ipsum. REUTERS/Photog
+
+  src: images/my-img-4.jpg
+  altText: Alt text
+  caption: Lorem ipsum. REUTERS/Photog
+
+  src: images/my-img-5.jpg
+  altText: Alt text
+  caption: Lorem ipsum. REUTERS/Photog
+[]
+
+# ...
+[]
+```
+
+```svelte
+<!-- App.svelte -->
+{#each content.blocks as block}
+  {#if block.type === 'text'}
+    <!-- ... -->
+  {:else if block.type === 'photo-pack'}
+    <PhotoPack
+      id={block.id}
+      class={block.class}
+      width={block.width}
+      textWidth={block.textWidth}
+      images={block.images.map((img) => ({
+        src: `${assets}/${img.src}`,
+        altText: img.altText,
+        caption: img.caption,
+      }))}
+      layouts={[
+        { breakpoint: 750, rows: [2, 3] },
+        { breakpoint: 450, rows: [1, 2, 2] },
+      ]}
+    />
+
+    <!-- ... -->
+  {/if}
+{/each}
+```
+
+## Misisng alt text
+
+If any of your images is missing `altText` a small warning will overlay the photo.

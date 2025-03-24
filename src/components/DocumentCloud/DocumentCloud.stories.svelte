@@ -22,7 +22,7 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <DocumentCloud {...args} />
   {/snippet}
@@ -30,9 +30,9 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'normal',
     slug: '3259984-Trump-Intelligence-Allegations',
     altText: 'These Reports Allege Trump Has Deep Ties To Russia',
-  }}"
+  }}
 />

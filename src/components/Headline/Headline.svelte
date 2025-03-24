@@ -95,8 +95,8 @@
           <!-- Headline named slot -->
           <slot name="hed" />
         {:else}
-          <h1 class="{hedClass}">
-            <Markdown source="{hed}" parseInline />
+          <h1 class={hedClass}>
+            <Markdown source={hed} parseInline />
           </h1>
         {/if}
         {#if $$slots.dek}
@@ -106,7 +106,7 @@
           </div>
         {:else if dek}
           <div class="dek fmx-auto fmb-6">
-            <Markdown source="{dek}" />
+            <Markdown source={dek} />
           </div>
         {/if}
       </div>

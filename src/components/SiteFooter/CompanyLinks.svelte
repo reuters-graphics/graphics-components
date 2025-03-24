@@ -31,7 +31,7 @@
             {#each links.social_links as link}
               {@const SvelteComponent = symbols[link.type]}
               <li class="social-links symbol">
-                <a href="{normalizeUrl(link.url)}">
+                <a href={normalizeUrl(link.url)}>
                   <div class="button">
                     <div class="social">
                       <SvelteComponent />

@@ -76,23 +76,23 @@
 
 <Block {id} {snap} {role} {width} {ariaLabel} class="graphic fmy-6 {cls}">
   {#if $$slots.title}
-    <PaddingReset containerIsFluid="{width === 'fluid'}">
-      <TextBlock width="{textWidth}">
+    <PaddingReset containerIsFluid={width === 'fluid'}>
+      <TextBlock width={textWidth}>
         <!-- Custom title content -->
         <slot name="title" />
       </TextBlock>
     </PaddingReset>
   {:else if title}
-    <PaddingReset containerIsFluid="{width === 'fluid'}">
-      <TextBlock width="{textWidth}">
+    <PaddingReset containerIsFluid={width === 'fluid'}>
+      <TextBlock width={textWidth}>
         <h3>{title}</h3>
         {#if description}
-          <Markdown source="{description}" />
+          <Markdown source={description} />
         {/if}
       </TextBlock>
     </PaddingReset>
   {/if}
-  <AriaHidden hidden="{!!$$slots.aria || !!ariaDescription}">
+  <AriaHidden hidden={!!$$slots.aria || !!ariaDescription}>
     <!-- Graphic content -->
     <slot />
   </AriaHidden>
@@ -102,22 +102,22 @@
         <!-- Custom ARIA markup -->
         <slot name="aria" />
       {:else}
-        <Markdown source="{ariaDescription}" />
+        <Markdown source={ariaDescription} />
       {/if}
     </div>
   {/if}
   {#if $$slots.notes}
-    <PaddingReset containerIsFluid="{width === 'fluid'}">
-      <TextBlock width="{textWidth}">
+    <PaddingReset containerIsFluid={width === 'fluid'}>
+      <TextBlock width={textWidth}>
         <!-- Custom notes content -->
         <slot name="notes" />
       </TextBlock>
     </PaddingReset>
   {:else if notes}
-    <PaddingReset containerIsFluid="{width === 'fluid'}">
-      <TextBlock width="{textWidth}">
+    <PaddingReset containerIsFluid={width === 'fluid'}>
+      <TextBlock width={textWidth}>
         <aside>
-          <Markdown source="{notes}" />
+          <Markdown source={notes} />
         </aside>
       </TextBlock>
     </PaddingReset>

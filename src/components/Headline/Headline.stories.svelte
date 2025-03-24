@@ -44,7 +44,7 @@
   import Map from './stories/graphic.svelte';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <Headline {...args} />
   {/snippet}
@@ -52,49 +52,49 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     section: 'World News',
     hed: 'Reuters Graphics interactive',
     hedSize: 'normal',
     dek: '',
     authors: [],
-  }}"
+  }}
 />
 
 <Story name="With dek" {...withStoryDocs(withDekDocs)}>
   <Headline
-    hed="{'Reuters Graphics Interactive'}"
-    dek="{'The beginning of a beautiful page'}"
-    section="{'Global news'}"
+    hed={'Reuters Graphics Interactive'}
+    dek={'The beginning of a beautiful page'}
+    section={'Global news'}
   />
 </Story>
 
 <Story name="With byline" {...withStoryDocs(withBylineDocs)}>
   <Headline
-    hed="{'Reuters Graphics Interactive'}"
-    dek="{'The beginning of a beautiful page'}"
-    section="{'Global news'}"
-    authors="{['Dea Bankova', 'Aditi Bhandari']}"
-    publishTime="{new Date('2020-01-01').toISOString()}"
+    hed={'Reuters Graphics Interactive'}
+    dek={'The beginning of a beautiful page'}
+    section={'Global news'}
+    authors={['Dea Bankova', 'Aditi Bhandari']}
+    publishTime={new Date('2020-01-01').toISOString()}
   />
 </Story>
 
 <Story name="With custom hed" {...withStoryDocs(customHedDocs)}>
   <Headline width="wide">
     {#snippet hed()}
-        <h1 class="custom-hed" >
+      <h1 class="custom-hed">
         <span class="small block text-base">The secret to</span>
         “The Nutcracker's”
         <span class="small block text-base fpt-1">success</span>
       </h1>
-      {/snippet}
+    {/snippet}
     {#snippet dek()}
-        <p class="custom-dek !fmt-3" >
+      <p class="custom-dek !fmt-3">
         How “The Nutcracker” ballet became an<span
           class="font-medium mx-1 px-1.5 py-1">American holday staple</span
         >and a financial pillar of ballet companies across the country
       </p>
-      {/snippet}
+    {/snippet}
   </Headline>
   <style lang="scss">
     .custom-hed {
@@ -109,21 +109,20 @@
 </Story>
 
 <Story name="With crown image" {...withStoryDocs(withCrownImgDocs)}>
-  <Headline class="!fmt-3" publishTime="{new Date('2020-01-01').toISOString()}">
+  <Headline class="!fmt-3" publishTime={new Date('2020-01-01').toISOString()}>
     <!-- Add a crown -->
     {#snippet crown()}
-        <img
-        
-        src="{crownImgSrc}"
+      <img
+        src={crownImgSrc}
         width="100"
         class="mx-auto mb-0"
         alt="Illustration of Europe"
       />
-      {/snippet}
+    {/snippet}
     <!-- Override the hed with a named slot -->
     {#snippet hed()}
-        <h1  class="!font-serif !tracking-wide">Europa</h1>
-      {/snippet}
+      <h1 class="!font-serif !tracking-wide">Europa</h1>
+    {/snippet}
   </Headline>
 </Story>
 
@@ -131,17 +130,17 @@
   <Headline
     width="wider"
     class="!fmt-1"
-    hed="{'Unfriendly skies'}"
-    dek="{'How Russia’s invasion of Ukraine is redrawing air routes'}"
-    section="{'Ukraine Crisis'}"
-    authors="{['Simon Scarr', 'Vijdan Mohammad Kawoosa']}"
-    publishTime="{new Date('2022-03-04').toISOString()}"
+    hed={'Unfriendly skies'}
+    dek={'How Russia’s invasion of Ukraine is redrawing air routes'}
+    section={'Ukraine Crisis'}
+    authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+    publishTime={new Date('2022-03-04').toISOString()}
   >
     <!-- Add a crown graphic -->
     {#snippet crown()}
-        <div >
+      <div>
         <Map />
       </div>
-      {/snippet}
+    {/snippet}
   </Headline>
 </Story>

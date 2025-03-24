@@ -29,7 +29,7 @@
 </script>
 
 <button
-  onclick="{forwardBtnClick}"
+  onclick={forwardBtnClick}
   style="
     opacity: {controlsOpacity};
     top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?
@@ -50,18 +50,18 @@
   {#if resetCondition}
     <i class="play-pause-icon replay">
       {#if separateReplayIcon}
-        <Fa icon="{faReply}" size="2x" color="{controlsColour}" />
+        <Fa icon={faReply} size="2x" color={controlsColour} />
       {:else}
-        <Fa icon="{faPlay}" size="2x" color="{controlsColour}" />
+        <Fa icon={faPlay} size="2x" color={controlsColour} />
       {/if}
     </i>
   {:else if paused === false}
     <i class="play-pause-icon pause">
-      <Fa icon="{faPause}" size="2x" color="{controlsColour}" />
+      <Fa icon={faPause} size="2x" color={controlsColour} />
     </i>
   {:else if paused === true}
     <i class="play-pause-icon play">
-      <Fa icon="{faPlay}" size="2x" color="{controlsColour}" />
+      <Fa icon={faPlay} size="2x" color={controlsColour} />
     </i>
   {:else}
     error

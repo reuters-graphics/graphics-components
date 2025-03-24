@@ -17,7 +17,7 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <PymChild {...args} />
     <div>Nothing to see here. 😎</div>

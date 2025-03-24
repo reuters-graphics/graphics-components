@@ -1,5 +1,5 @@
 <script module lang="ts">
-    import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
   // @ts-ignore raw
   import componentDocs from './stories/docs/component.md?raw';
@@ -14,7 +14,6 @@
   //   withComponentDocs,
   //   withStoryDocs,
   // } from '$lib/docs/utils/withParams.js';
-
 
   const { Story } = defineMeta({
     title: 'Components/Multimedia/FeaturePhoto',
@@ -39,34 +38,33 @@
   import sharkSrc from './stories/shark.jpg';
 </script>
 
-
 <Story
   name="Default"
-  args="{{
+  args={{
     src: sharkSrc,
     altText: 'A shark!',
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS',
-  }}"
+  }}
 />
 
 <Story
   name="ArchieML"
-  args="{{
+  args={{
     src: sharkSrc,
     altText: 'A shark!',
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS',
-  }}"
+  }}
 />
 <!-- {...withStoryDocs(archieMLDocs)} -->
 
 <Story
   name="Missing altText"
-  args="{{
+  args={{
     src: sharkSrc,
     width: 'normal',
     caption: 'Carcharodon carcharias - REUTERS',
-  }}"
+  }}
 />
 <!-- {...withStoryDocs(missingAltTextDocs)} -->

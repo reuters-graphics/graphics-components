@@ -40,11 +40,11 @@
   import PlaceholderImg from './stories/placeholder.png';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <GraphicBlock {...args}>
       <div class="demo-graphic">
-        <img src="{PlaceholderImg}" alt="placeholder" />
+        <img src={PlaceholderImg} alt="placeholder" />
       </div>
     </GraphicBlock>
   {/snippet}
@@ -52,14 +52,14 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'normal',
     title: 'Bacon ipsum dolor amet t-bone',
     description:
       'Pork loin t-bone jowl prosciutto, short loin flank kevin tri-tip cupim pig pork. Meatloaf tri-tip frankfurter short ribs, cupim brisket bresaola chislic tail jerky burgdoggen pancetta.',
     notes:
       'Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)',
-  }}"
+  }}
 />
 
 <Story name="ArchieML" {...withStoryDocs(archieMLDocs)}>
@@ -76,18 +76,18 @@
 <Story name="Custom text" {...withStoryDocs(customTextDocs)}>
   <GraphicBlock width="normal">
     {#snippet title()}
-        <div >
+      <div>
         <h5>My smaller title</h5>
       </div>
-      {/snippet}
+    {/snippet}
     <div class="demo-graphic">
-      <img src="{PlaceholderImg}" alt="placeholder" />
+      <img src={PlaceholderImg} alt="placeholder" />
     </div>
     {#snippet notes()}
-        <aside >
+      <aside>
         <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
       </aside>
-      {/snippet}
+    {/snippet}
   </GraphicBlock>
 </Story>
 
