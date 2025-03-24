@@ -34,13 +34,12 @@
   name="Demo"
   args={{
     section: '/lifestyle/sports/',
-    number: 4,
     class: 'fmy-0',
     heading: 'More World Cup coverage',
   }}
 />
 
-<Story
+<!-- <Story
   name="By collection"
   exportName="ByCollection"
   args={{
@@ -49,4 +48,4 @@
     class: 'fmy-8',
     heading: 'The latest Trump coverage',
   }}
-/>
+/> -->
