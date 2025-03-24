@@ -7,7 +7,6 @@
   // Utils
   import { random4 } from '../../utils';
   import { groupRows } from './utils';
-  // import { groupRows } from './utils';
 
   // Types
   export interface Image {

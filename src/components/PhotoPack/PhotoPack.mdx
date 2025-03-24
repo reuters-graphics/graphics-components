@@ -57,60 +57,61 @@ You can define as many layouts for as many images as you like.
 
 <Canvas of={PhotoPackStories.Demo} />
 
-## ArchieML
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
 
 ```yaml
+# ArchieML doc
 [blocks]
-# ...
-
 type: photo-pack
-id: my-photo-pack
-class: mb-2
-width: wide
-textWidth: normal
-gap: 10
-[.images]
-  src: images/my-img-1.jpg
-  altText: Alt text
-  caption: Lorem ipsum. REUTERS/Photog
+id: my-photo-pack # Optional
+class: mb-2 # Optional
+width: wide # Optional
+textWidth: normal # Optional
+gap: 10 # Optional; must be a number.
 
-  src: images/my-img-2.jpg
-  altText: Alt text
-  caption: Lorem ipsum. REUTERS/Photog
+# Array of image metadata
+  [.images]
+    src: images/my-img-1.jpg
+    altText: Alt text
+    caption: Lorem ipsum. REUTERS/Photog
 
-  src: images/my-img-3.jpg
-  altText: Alt text
-  caption: Lorem ipsum. REUTERS/Photog
+    src: images/my-img-2.jpg
+    altText: Alt text
+    caption: Lorem ipsum. REUTERS/Photog
 
-  src: images/my-img-4.jpg
-  altText: Alt text
-  caption: Lorem ipsum. REUTERS/Photog
+    ...
+  []
 
-  src: images/my-img-5.jpg
-  altText: Alt text
-  caption: Lorem ipsum. REUTERS/Photog
-[]
-
-# ...
 []
 ```
 
+... which you'll parse out of a ArchieML block object before passing to the `PhotoPack` component.
+
+> **Important ❗**: The prop `gap` must be a number. ArchieML renders all values -- including numbers -- as strings, so convert the `prop` value to a number before passing it to `PhotoPack`.
+
 ```svelte
 <!-- App.svelte -->
+<script>
+  import { PhotoPack } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { fixSrcPathArray } from '$utils/paths'; // 👈 If using in the Graphics Kit...
+
+  import content from '$locales/en/content.json';
+</script>
+
 {#each content.blocks as block}
-  {#if block.type === 'text'}
-    <!-- ... -->
-  {:else if block.type === 'photo-pack'}
+  {#if block.type === 'photo-pack'}
+    <!-- Pass `assets` into the image source in Graphics Kit -->
+    <!-- @TODO - Update this doc once the util to derive `images` with `assets` in the image src path is written and tested. See ticket https://github.com/reuters-graphics/bluprint_graphics-kit/issues/164 -->
     <PhotoPack
       id={block.id}
       class={block.class}
       width={block.width}
       textWidth={block.textWidth}
-      images={block.images.map((img) => ({
-        src: `${assets}/${img.src}`,
-        altText: img.altText,
-        caption: img.caption,
-      }))}
+      gap={Number(block.gap)}
+      images={fixSrcPathArray(block.images)}
       layouts={[
         { breakpoint: 750, rows: [2, 3] },
         { breakpoint: 450, rows: [1, 2, 2] },
@@ -122,6 +123,4 @@ gap: 10
 {/each}
 ```
 
-## Misisng alt text
-
-If any of your images is missing `altText` a small warning will overlay the photo.
+<Canvas of={PhotoPackStories.ArchieML} />
