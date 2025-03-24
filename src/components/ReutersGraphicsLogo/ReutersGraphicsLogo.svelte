@@ -1,8 +1,5 @@
 <!-- @component `ReutersGraphicsLogo` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-reutersgraphicslogo--docs) -->
 <script lang="ts">
-  
-  
-  
   interface Props {
     /** "Kinesis" colour */
     logoColour?: string;
@@ -12,7 +9,11 @@
     width?: string;
   }
 
-  let { logoColour = '#D64000', textColour = '#212223', width = '100%' }: Props = $props();
+  let {
+    logoColour = '#D64000',
+    textColour = '#212223',
+    width = '100%',
+  }: Props = $props();
 </script>
 
 <svg

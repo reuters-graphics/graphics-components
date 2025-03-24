@@ -1,91 +1,60 @@
 <!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytic-seo--docs) -->
 <script lang="ts">
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-
   interface GraphicAuthor {
     name: string;
-    url: string;
+    link: string;
   }
 
-  
   interface Props {
     /**
-   * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path)
-   * is globally available as `import.meta.env.BASE_URL`.
-   * @requiredx
-   * @type {string}
-   */
-    baseUrl?: string;
+     * Base url for the page, which in [Vite-based projects](https://vitejs.dev/guide/build.html#public-base-path) is globally available as `import.meta.env.BASE_URL`.
+     */
+    baseUrl: string;
     /**
-   * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
-   * @required
-   * @type {URL}
-   */
-    pageUrl?: URL | null;
+     * [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object for the page.
+     */
+    pageUrl: URL;
     /**
-   * SEO title
-   * @required
-   * @type {string}
-   */
+     * SEO title
+     */
     seoTitle: string;
     /**
-   * SEO description
-   * @required
-   * @type {string}
-   */
+     * SEO description
+     */
     seoDescription: string;
     /**
-   * Share title
-   * @required
-   * @type {string}
-   */
+     * Share title
+     */
     shareTitle: string;
     /**
-   * Share description
-   * @required
-   * @type {string}
-   */
+     * Share description
+     */
     shareDescription: string;
     /**
-   * Share image path. **Must be an absolute path.**
-   * @required
-   * @type {string}
-   */
+     * Share image path. **Must be an absolute path.**
+     */
     shareImgPath: string;
     /**
-   * Share image alt text, up to 420 characters.
-   * @type {string}
-   */
+     * Share image alt text, up to 420 characters.
+     */
     shareImgAlt?: string;
     /**
-   * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * @type {string}
-   */
+     * Publish time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+     */
     publishTime?: string;
     /**
-   * Updated time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-   * @type {string}
-   */
+     * Updated time as an [ISO string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+     */
     updateTime?: string;
     /**
-   * Array of authors for the piece. Each author object must have `name` and `url` attributes.
-   */
+     * Array of authors for the piece. Each author object must have `name` and `link` attributes.
+     */
     authors?: GraphicAuthor[];
   }
 
   let {
-    baseUrl = '',
-    pageUrl = null,
+    baseUrl,
+    pageUrl,
     seoTitle,
     seoDescription,
     shareTitle,
@@ -94,9 +63,8 @@
     shareImgAlt = '',
     publishTime = '',
     updateTime = '',
-    authors = []
+    authors = [],
   }: Props = $props();
-
   const getOrigin = (baseUrl: string) => {
     try {
       return new URL(baseUrl).origin;
@@ -109,7 +77,9 @@
   };
 
   let origin = $derived(getOrigin(baseUrl));
-  let canonicalUrl = $derived((origin + pageUrl?.pathname).replace(/index\.html\/$/, ''));
+  let canonicalUrl = $derived(
+    (origin + (pageUrl?.pathname || '')).replace(/index\.html\/$/, '')
+  );
 
   const orgLdJson = {
     '@context': 'http://schema.org',
@@ -149,10 +119,10 @@
     dateCreated: publishTime,
     datePublished: publishTime,
     dateModified: updateTime,
-    author: authors.map(({ name, url }) => ({
+    author: authors.map(({ name, link }) => ({
       '@type': 'Person',
       name,
-      url,
+      url: link,
     })),
     creator: authors.map(({ name }) => name),
     articleSection: 'Graphics',
@@ -164,8 +134,8 @@
 <svelte:head>
   {#key canonicalUrl}
     <title>{seoTitle}</title>
-    <meta name="description" content="{seoDescription}" />
-    <link rel="canonical" href="{canonicalUrl}" />
+    <meta name="description" content={seoDescription} />
+    <link rel="canonical" href={canonicalUrl} />
     <link
       rel="shortcut icon"
       type="image/x-icon"
@@ -190,26 +160,26 @@
       sizes="96x96"
     />
 
-    <meta property="og:url" content="{canonicalUrl}" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="{shareTitle}" itemprop="name" />
+    <meta property="og:title" content={shareTitle} itemprop="name" />
     <meta
       property="og:description"
-      content="{shareDescription}"
+      content={shareDescription}
       itemprop="description"
     />
-    <meta property="og:image" content="{shareImgPath}" itemprop="image" />
+    <meta property="og:image" content={shareImgPath} itemprop="image" />
     <meta property="og:site_name" content="Reuters" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ReutersGraphics" />
     <meta name="twitter:creator" content="@ReutersGraphics" />
-    <meta name="twitter:domain" content="{origin}" />
-    <meta name="twitter:title" content="{shareTitle}" />
-    <meta name="twitter:description" content="{shareDescription}" />
-    <meta name="twitter:image" content="{shareImgPath}" />
+    <meta name="twitter:domain" content={origin} />
+    <meta name="twitter:title" content={shareTitle} />
+    <meta name="twitter:description" content={shareDescription} />
+    <meta name="twitter:image" content={shareImgPath} />
     {#if shareImgAlt}
-      <meta name="twitter:image:alt" content="{shareImgAlt}" />
+      <meta name="twitter:image:alt" content={shareImgAlt} />
     {/if}
 
     <meta property="fb:app_id" content="319194411438328" />

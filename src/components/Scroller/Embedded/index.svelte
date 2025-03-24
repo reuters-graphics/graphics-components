@@ -1,9 +1,7 @@
 <script lang="ts">
   import type { ContainerWidth, ScrollerStep } from '../../@types/global';
 
-
   type EmbeddedLayout = 'fb' | 'bf';
-
 
   import Background from './Background.svelte';
   import Foreground from './Foreground.svelte';
@@ -13,7 +11,11 @@
     backgroundWidth?: ContainerWidth;
   }
 
-  let { steps = [], embeddedLayout = 'fb', backgroundWidth = 'fluid' }: Props = $props();
+  let {
+    steps = [],
+    embeddedLayout = 'fb',
+    backgroundWidth = 'fluid',
+  }: Props = $props();
 </script>
 
 {#each steps as step, index}

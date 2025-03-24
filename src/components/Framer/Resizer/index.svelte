@@ -11,7 +11,11 @@
     minFrameWidth?: number;
   }
 
-  let { breakpoints = [330, 510, 660, 930, 1200], maxFrameWidth = 1200, minFrameWidth = 320 }: Props = $props();
+  let {
+    breakpoints = [330, 510, 660, 930, 1200],
+    maxFrameWidth = 1200,
+    minFrameWidth = 320,
+  }: Props = $props();
 
   let container = $state();
 
@@ -91,9 +95,9 @@
 </script>
 
 <svelte:window
-  onmousemove={move}
-  onmouseup={end}
-  onkeydown={handleKeyDown}
+  onmousemove="{move}"
+  onmouseup="{end}"
+  onkeydown="{handleKeyDown}"
   bind:innerWidth="{windowInnerWidth}"
 />
 
@@ -105,10 +109,10 @@
     <button
       class="icon left"
       disabled="{$width === minWidth}"
-      onclick={decrement}
-      onfocus={onFocus}
-      onmouseover={onFocus}
-      onmouseleave={onBlur}
+      onclick="{decrement}"
+      onfocus="{onFocus}"
+      onmouseover="{onFocus}"
+      onmouseleave="{onBlur}"
     >
       <Fa icon="{faMobileAlt}" fw />
     </button>
@@ -119,18 +123,18 @@
         tabindex="0"
         role="button"
         style="left: calc({offset * 100}% - 5px);"
-        onmousedown={start}
-        onfocus={onFocus}
-        onblur={onBlur}
+        onmousedown="{start}"
+        onfocus="{onFocus}"
+        onblur="{onBlur}"
       ></div>
     </div>
     <button
       class="icon right"
       disabled="{$width === maxWidth}"
-      onclick={increment}
-      onfocus={onFocus}
-      onmouseover={onFocus}
-      onmouseleave={onBlur}
+      onclick="{increment}"
+      onfocus="{onFocus}"
+      onmouseover="{onFocus}"
+      onmouseleave="{onBlur}"
     >
       <Fa icon="{faDesktop}" fw />
     </button>

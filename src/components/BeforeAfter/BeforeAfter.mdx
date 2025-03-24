@@ -1,0 +1,111 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BeforeAfterStories from './BeforeAfter.stories.svelte';
+
+<Meta of={BeforeAfterStories} />
+
+# BeforeAfter
+
+The `BeforeAfter` component shows a before-and-after comparison of an image.
+
+```svelte
+<script>
+  import { BeforeAfter } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // If using in the Graphics Kit
+</script>
+
+<BeforeAfter
+  beforeSrc={`${assets}/images/before-after/myrne-before.jpg`}
+  beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
+  afterSrc={`${assets}/images/before-after/myrne-after.jpg`}
+  afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
+/>
+```
+
+<Canvas of={BeforeAfterStories.Demo} />
+
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[blocks]
+
+type: before-after
+beforeSrc: images/before-after/myrne-before.jpg
+beforeAlt: Satellite image of Russian base at Myrne taken on July 7, 2020.
+afterSrc: images/before-after/myrne-after.jpg
+afterAlt: Satellite image of Russian base at Myrne taken on Oct. 20, 2020.
+
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `BeforeAfter` component.
+
+```svelte
+<!-- App.svelte -->
+{#each content.blocks as block}
+  {#if block.type === 'before-after'}
+    <BeforeAfter
+      beforeSrc={`${assets}/${block.beforeSrc}`}
+      beforeAlt={block.beforeAlt}
+      afterSrc={`${assets}/${block.afterSrc}`}
+      afterAlt={block.afterAlt}
+    />
+  {/if}
+{/each}
+```
+
+<Canvas of={BeforeAfterStories.Demo} />
+
+## Adding text
+
+To add text overlays and captions, use [snippets](https://svelte.dev/docs/svelte/snippet) for `beforeOverlay`, `afterOverlay` and `caption`. You can style the snippets to match your page design, like in [this demo](./?path=/story/components-multimedia-beforeafter--with-overlays).
+
+> 💡**NOTE:** The text in the overlays are used as [ARIA descriptions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby) for your before and after images. You must always use the `beforeAlt` / `afterAlt` props to label your image for visually impaired readers, but these ARIA descriptions provide additional information or context that the reader might need.
+
+```svelte
+<BeforeAfter
+  beforeSrc={beforeImg}
+  beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
+  afterSrc={afterImg}
+  afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
+>
+  <!-- Optional custom text overlay for the before image -->
+  {#snippet beforeOverlay()}
+    <div class="overlay p-3 before text-left">
+      <p class="h4 font-bold">July 7, 2020</p>
+      <p class="body-note">Initially, this site was far smaller.</p>
+    </div>
+  {/snippet}
+
+  <!-- Optional custom text overlay for the after image -->
+  {#snippet afterOverlay()}
+    <div class="overlay p-3 after text-right">
+      <p class="h4 font-bold">Oct. 20, 2020</p>
+      <p class="body-note">But then forces built up.</p>
+    </div>
+  {/snippet}
+
+  <!-- Optional custom caption for both images -->
+  {#snippet caption()}
+    <p class="body-note">Photos by MAXAR Technologies, 2021.</p>
+  {/snippet}
+</BeforeAfter>
+
+<style lang="scss">
+  .overlay {
+    background: rgba(0, 0, 0, 0.45);
+    max-width: 350px;
+    &.after {
+      text-align: right;
+    }
+    p {
+      color: #ffffff;
+    }
+  }
+</style>
+```
+
+<Canvas of={BeforeAfterStories.WithText} />

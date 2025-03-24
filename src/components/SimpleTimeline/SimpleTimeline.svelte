@@ -1,6 +1,10 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs) -->
 <script lang="ts">
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import { faLink } from '@fortawesome/free-solid-svg-icons';
+  import Block from '../Block/Block.svelte';
+  import Markdown from '../Markdown/Markdown.svelte';
+
   interface Event {
     title: string;
     titleLink?: string;
@@ -10,37 +14,37 @@
     date: string;
     events: Event[];
   }
-  /**
-   * An array of dates with events.
-   * @required
-   */
-  export let dates: EventDate[];
-  /**
-   * Set a colour for the timeline bullet symbols and line.
-   * @type {string}
-   */
-  export let symbolColour: string = 'var(--theme-colour-brand-rules)';
-  /**
-   * Set a colour for the date headings in the timeline.
-   * @type {string}
-   */
-  export let dateColour: string = 'var(--theme-colour-accent, red)';
-  /**
-   * Set a class to target with SCSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
-  /**
-   * Set an ID to target with SCSS.
-   * @type {string}
-   */
-  export let id: string = '';
 
-  import Block from '../Block/Block.svelte';
-  import Fa from 'svelte-fa/src/fa.svelte';
-  import { faLink } from '@fortawesome/free-solid-svg-icons';
-  import Markdown from '../Markdown/Markdown.svelte';
+  interface Props {
+    /**
+     * An array of dates with events.
+     */
+    dates: EventDate[];
+    /**
+     * Set a colour for the timeline bullet symbols and line.
+     */
+    symbolColour?: string;
+    /**
+     * Set a colour for the date headings in the timeline.
+     */
+    dateColour?: string;
+    /**
+     * Set a class to target with SCSS.
+     */
+    class?: string;
+    /**
+     * Set an ID to target with SCSS.
+     */
+    id?: string;
+  }
+
+  let {
+    dates,
+    symbolColour = 'var(--theme-colour-brand-rules)',
+    dateColour = 'var(--theme-colour-accent, red)',
+    class: cls = '',
+    id = '',
+  }: Props = $props();
 </script>
 
 <Block width="normal" {id} class="simple-timeline-container fmy-6 {cls}">
@@ -52,24 +56,24 @@
             cx="10"
             cy="12"
             r="5"
-            stroke="{symbolColour}"
+            stroke={symbolColour}
             stroke-width="2"
             fill="transparent"
           ></circle>
         </svg>
         <div
           class="timeline-date font-note text-xs uppercase font-black tracking-wide fmb-0"
-          style:color="{dateColour}"
+          style:color={dateColour}
         >
           {date.date}
         </div>
         {#each date.events as event}
           <div class="event pb-2">
             {#if event.titleLink}
-              <a href="{event.titleLink}" target="_blank">
+              <a href={event.titleLink} target="_blank">
                 <div class="title h3">
                   {event.title}
-                  <span class="text-sm"><Fa fw icon="{faLink}" /></span>
+                  <span class="text-sm"><Fa fw icon={faLink} /></span>
                 </div>
               </a>
             {:else}
@@ -78,7 +82,7 @@
               </div>
             {/if}
             {#if event.context}
-              <Markdown source="{event.context}" />
+              <Markdown source={event.context} />
             {/if}
           </div>
         {/each}
@@ -88,13 +92,13 @@
 </Block>
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
   .timeline {
     .date {
       border-left: 1px solid var(--symbol-colour);
       &:last-child {
-        border-left: 1px solid $theme-colour-background;
-        @include fpb-0;
+        border-left: 1px solid mixins.$theme-colour-background;
+        @include mixins.fpb-0;
       }
     }
     svg {
@@ -102,9 +106,9 @@
       left: -10px;
     }
     div.title {
-      @include fmt-2;
-      @include fmb-1;
-      @include font-medium;
+      @include mixins.fmt-2;
+      @include mixins.fmb-1;
+      @include mixins.font-medium;
     }
 
     div.event {
@@ -123,8 +127,8 @@
         }
       }
       :global(p) {
-        @include body-note;
-        @include font-light;
+        @include mixins.body-note;
+        @include mixins.font-light;
       }
     }
   }

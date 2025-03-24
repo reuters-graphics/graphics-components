@@ -35,27 +35,27 @@
           <!-- svelte-ignore a11y_click_events_have_key_events -->
           <li
             class="nav-item category link"
-            onmouseenter={() => {
+            onmouseenter="{() => {
               navTimeout = setTimeout(
                 () => activeSection.set(section.id),
                 timeout
               );
-            }}
-            onfocus={() => activeSection.set(section.id)}
-            onmouseleave={() => {
+            }}"
+            onfocus="{() => activeSection.set(section.id)}"
+            onmouseleave="{() => {
               clearTimeout(navTimeout);
               activeSection.set(null);
-            }}
-            onblur={() => {
+            }}"
+            onblur="{() => {
               clearTimeout(navTimeout);
               activeSection.set(null);
-            }}
-            onclick={() => {
+            }}"
+            onclick="{() => {
               if ($activeSection === section.id) {
                 clearTimeout(navTimeout);
                 activeSection.set(null);
               }
-            }}
+            }}"
           >
             <div
               class="nav-button link"
@@ -88,24 +88,24 @@
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <li
         class="nav-item"
-        onmouseenter={() => {
+        onmouseenter="{() => {
           navTimeout = setTimeout(() => activeSection.set('more'), timeout);
-        }}
-        onfocus={() => activeSection.set('more')}
-        onmouseleave={() => {
+        }}"
+        onfocus="{() => activeSection.set('more')}"
+        onmouseleave="{() => {
           clearTimeout(navTimeout);
           activeSection.set(null);
-        }}
-        onblur={() => {
+        }}"
+        onblur="{() => {
           clearTimeout(navTimeout);
           activeSection.set(null);
-        }}
-        onclick={() => {
+        }}"
+        onclick="{() => {
           if ($activeSection === 'more') {
             clearTimeout(navTimeout);
             activeSection.set(null);
           }
-        }}
+        }}"
       >
         <div
           class="nav-button more link"

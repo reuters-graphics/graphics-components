@@ -1,0 +1,46 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as MarkdownStories from './Markdown.stories.svelte';
+
+<Meta of={MarkdownStories} />
+
+# Markdown
+
+The `Markdown` component renders a markdown string into HTML.
+
+```svelte
+<script>
+  import { Markdown } from '@reuters-graphics/graphics-components';
+</script>
+
+<Markdown source={'My *awesome* text in **markdown** with "smart quotes".'} />
+```
+
+<Canvas of={MarkdownStories.Demo} />
+
+... well, almost.
+
+Owing to a weird quirk of Svelte's [`@html`](https://svelte.dev/docs/special-tags#html) directive (see [this issue](https://github.com/reuters-graphics/graphics-components/issues/148)), if you want your resulting HTML to be dynamic — e.g., update after a SvelteKit app [hydrates](https://kit.svelte.dev/docs/glossary#hydration) — then you may need to set the included `staticMarkdown` rune to `{ static: false }` in the browser.
+
+For example, if you're refreshing some data with markdown strings in a SvelteKit project using a [load function](https://kit.svelte.dev/docs/load), set the rune to reflect the [`building`](https://kit.svelte.dev/docs/modules#$app-environment-building) variable, which will correctly [prerender](https://kit.svelte.dev/docs/glossary#prerendering) your markdown content AND update it after fresh data is fetched in the browser.
+
+```javascript
+// +layout.js
+import { staticMarkdown } from '@reuters-graphics/graphics-components';
+import { building } from '$app/environment';
+
+/** @type {import('./$types').LayoutLoad} */
+export const load = async () => {
+  // Set the staticMarkdown rune with the value of building.
+  staticMarkdown.static = building;
+
+  // Now this content will correctly refresh when a reader loads your page.
+  const resp = await fetch(
+    'https://graphics.thomsonreuters.com/data/my-page-content.json'
+  );
+  const content = await resp.json();
+
+  return { content };
+};
+```
+
+If you're not updating your markdown content as above, you can safely leave the `staticMarkdown` rune alone and your page will do the right thing.
