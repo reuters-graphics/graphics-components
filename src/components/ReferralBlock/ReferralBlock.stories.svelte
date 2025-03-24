@@ -39,7 +39,7 @@
   }}
 />
 
-<!-- <Story
+<Story
   name="By collection"
   exportName="ByCollection"
   args={{
@@ -48,4 +48,4 @@
     class: 'fmy-8',
     heading: 'The latest Trump coverage',
   }}
-/> -->
+/>
