@@ -1,7 +1,5 @@
 <!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs) -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './Pagination.svelte';
@@ -10,9 +8,13 @@
   import SearchInput from '../SearchInput/SearchInput.svelte';
   import { filterArray, paginateArray, getOptions } from './utils';
 
+  // Types
+  import type { TableData } from '../@types/global';
+
   interface Props {
     /** Data for the table as an array of objects. */
-    data: object[];
+    data: TableData;
+
     /** A title that runs above the table. */
     title?: string;
     /** A block of text that runs above the table. */
@@ -184,15 +186,16 @@
     console.log('currentPageData', currentPageData);
   });
 
-  /** Boot it up. */
-  onMount(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data.forEach((d: any) => {
-      // Compose the string we will allow users to search
-      d.searchStr = includedFieldsDerived
-        .map((field) => d[field])
-        .join(' ')
-        .toLowerCase();
+  /** Add the `searchStr` field to data */
+  let searchableData = $derived.by(() => {
+    return data.map((d) => {
+      return {
+        ...d,
+        searchStr: includedFieldsDerived
+          .map((field) => d[field])
+          .join(' ')
+          .toLowerCase(),
+      };
     });
   });
 </script>
@@ -234,7 +237,9 @@
       <table
         class="w-full"
         class:paginated
-        class:truncated={truncated && !showAll && data.length > truncateLength}
+        class:truncated={truncated &&
+          !showAll &&
+          searchableData.length > truncateLength}
       >
         <thead class="table--thead">
           <tr>
@@ -310,7 +315,7 @@
         {/if}
       </table>
     </div>
-    {#if truncated && data.length > truncateLength}
+    {#if truncated && searchableData.length > truncateLength}
       <nav
         aria-label="Show all button"
         class="show-all flex items-center justify-center fmt-2"
@@ -319,7 +324,7 @@
           {#if showAll}
             Show fewer rows
           {:else}
-            Show {data.length - truncateLength}
+            Show {searchableData.length - truncateLength}
             more rows
           {/if}
         </button>

@@ -1,10 +1,17 @@
-export function filterArray(data, searchText, filterField, filterValue) {
+import type { TableData } from '../@types/global';
+
+export function filterArray(
+  data: TableData,
+  searchText: string,
+  filterField: string | undefined,
+  filterValue: string
+) {
   if (searchText) {
     data = data.filter((item) => {
-      return item.searchStr.includes(searchText.toLowerCase());
+      return item.searchStr?.includes(searchText.toLowerCase());
     });
   }
-  if (filterValue && filterValue) {
+  if (filterField && filterValue) {
     data = data.filter((item) => {
       return item[filterField] === filterValue;
     });
@@ -12,25 +19,34 @@ export function filterArray(data, searchText, filterField, filterValue) {
   return data;
 }
 
-export function paginateArray(array, pageSize, pageNumber) {
+export function paginateArray(
+  array: TableData,
+  pageSize: number,
+  pageNumber: number
+) {
   return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
 
-function uniqueAttr(array, attr) {
+function uniqueAttr(array: TableData, attr: string) {
   return array.map((e) => e[attr]).filter(unique);
 }
 
-function unique(value, index, array) {
+// rewrite this with types
+function unique(value: any, index: number, array: TableData) {
   return array.indexOf(value) === index;
 }
 
-export function getOptions(data, attr) {
+export function getOptions(data: TableData, attr: string) {
   // Get all the unique values in the provided field. Sort it.
-  const attrList = uniqueAttr(data, attr).sort((a, b) => a.localeCompare(b));
+
+  // @TODO - check if a and b need to be typed and sorted for non-strings
+  const attrList = uniqueAttr(data, attr).sort((a: any, b: any) =>
+    a.localeCompare(b)
+  );
 
   // Tack 'All' as the front as the first option.
   attrList.unshift('All');
 
   // Convert the list into Option typed objects ready for our Select component
-  return attrList.map((a) => ({ text: a, value: a }));
+  return attrList.map((a: string) => ({ text: a, value: a }));
 }
