@@ -2,9 +2,17 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  /** Import local helpers */
+  import Block from '../Block/Block.svelte';
+  import Pagination from './Pagination.svelte';
+  import Select from './Select.svelte';
+  import SortArrow from './SortArrow.svelte';
+  import SearchInput from '../SearchInput/SearchInput.svelte';
+  import { filterArray, paginateArray, getOptions } from './utils';
+
   interface Props {
-    /** Data for the table. */
-    data: [];
+    /** Data for the table as an array of objects. */
+    data: object[];
     /** A title that runs above the table. */
     title?: string;
     /** A block of text that runs above the table. */
@@ -55,48 +63,54 @@
     dek,
     notes,
     source,
-    includedFields = Object.keys(data?[0]).filter((f) => f !== 'searchStr'),
+    includedFields,
     truncated = false,
     truncateLength = 5,
-    paginated= false,
+    paginated = false,
     pageSize = 25,
     searchable = false,
     searchPlaceholder = 'Search in table',
     filterField,
     filterLabel,
     sortable = false,
-    sortField = Object.keys(data[0])[0],
-    sortableFields = Object.keys(data[0]).filter((f) => f !== 'searchStr'),
-    sortDirection = 'ascending',
+    sortField,
+    sortableFields,
+    sortDirection = $bindable('ascending'),
     fieldFormatters = {},
     width = 'normal',
     id = '',
     class: cls = '',
   }: Props = $props();
- 
 
-  /** Import local helpers */
-  import Block from '../Block/Block.svelte';
-  import Pagination from './Pagination.svelte';
-  import SearchInput from '../SearchInput/SearchInput.svelte';
-  import Select from './Select.svelte';
-  import SortArrow from './SortArrow.svelte';
-  import { filterArray, paginateArray, getOptions } from './utils.ts';
+  /** Derived variables */
+  let includedFieldsDerived = $derived.by(() => {
+    if (includedFields) return includedFields;
+    if (data.length > 0)
+      return Object.keys(data[0]).filter((f) => f !== 'searchStr');
+    return [];
+  });
+
+  let sortableFieldsDerived = $derived.by(() => {
+    if (sortableFields) return sortableFields;
+    if (data.length > 0)
+      return Object.keys(data[0]).filter((f) => f !== 'searchStr');
+    return [];
+  });
+
+  let sortFieldDerived = $derived.by(() => {
+    if (sortField) return sortField;
+    if (data.length > 0) return Object.keys(data[0])[0];
+    return '';
+  });
 
   /** Set truncate, filtering and pagination configuration */
-  let showAll = false;
-  let pageNumber = 1;
-  let searchText = '';
-  const filterList = filterField ? getOptions(data, filterField) : undefined;
+  let showAll = $state(false);
+  let pageNumber = $state(1);
+  let searchText = $state('');
+  let filterList = $derived(
+    filterField ? getOptions(data, filterField) : undefined
+  );
   let filterValue = '';
-  $: filteredData = filterArray(data, searchText, filterField, filterValue);
-  $: sortedData = sortArray(filteredData, sortField, sortDirection);
-  $: currentPageData =
-    truncated ?
-      showAll ? sortedData
-      : sortedData.slice(0, truncateLength + 1)
-    : paginated ? paginateArray(sortedData, pageSize, pageNumber)
-    : sortedData;
 
   //* * Handle show all, search, filter, sort and pagination events */
   function toggleTruncate(_event) {
@@ -143,12 +157,39 @@
     }
   }
 
+  /** Set up the data pipeline */
+  let filteredData = $derived.by(() =>
+    filterArray(data, searchText, filterField, filterValue)
+  );
+
+  let sortedData = $derived.by(() =>
+    sortArray(filteredData, sortField, sortDirection)
+  );
+
+  let currentPageData = $derived.by(() => {
+    if (truncated) {
+      return showAll ? sortedData : sortedData.slice(0, truncateLength + 1);
+    }
+    if (paginated) {
+      return paginateArray(sortedData, pageSize, pageNumber);
+    }
+    return sortedData;
+  });
+
+  $effect(() => {
+    console.log('includedFieldsDerived', includedFieldsDerived);
+    console.log('sortableFieldsDerived', sortableFieldsDerived);
+    console.log('sortFieldDerived', sortFieldDerived);
+    console.log('sortedData', sortedData);
+    console.log('currentPageData', currentPageData);
+  });
+
   /** Boot it up. */
   onMount(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data.forEach((d: any) => {
       // Compose the string we will allow users to search
-      d.searchStr = includedFields
+      d.searchStr = includedFieldsDerived
         .map((field) => d[field])
         .join(' ')
         .toLowerCase();
@@ -157,9 +198,9 @@
 </script>
 
 <Block {width} {id} class="fmy-6 {cls}">
-  <article class="table-wrapper">
+  <div class="table-wrapper">
     {#if title || dek || searchable || filterList}
-      <header class="table--header w-full">
+      <div class="table--header w-full">
         {#if title}
           <h3 class="table--header--title">{@html title}</h3>
         {/if}
@@ -187,9 +228,9 @@
             {/if}
           </nav>
         {/if}
-      </header>
+      </div>
     {/if}
-    <section class="table w-full">
+    <div class="table w-full">
       <table
         class="w-full"
         class:paginated
@@ -197,11 +238,12 @@
       >
         <thead class="table--thead">
           <tr>
-            {#each includedFields as field}
+            {#each includedFieldsDerived as field}
               <th
                 scope="col"
                 class="table--thead--th h4 pl-0 py-2 pr-2"
-                class:sortable={sortable && sortableFields.includes(field)}
+                class:sortable={sortable &&
+                  sortableFieldsDerived.includes(field)}
                 class:sort-ascending={sortable &&
                   sortField === field &&
                   sortDirection === 'ascending'}
@@ -209,15 +251,12 @@
                   sortField === field &&
                   sortDirection === 'descending'}
                 data-field={field}
-                on:click={handleSort}
+                onclick={handleSort}
               >
                 {field}
-                {#if sortable && sortableFields.includes(field)}
+                {#if sortable && sortableFieldsDerived.includes(field)}
                   <div class="table--thead--sortarrow fml-1 avoid-clicks">
-                    <SortArrow
-                      bind:sortDirection
-                      active={sortField === field}
-                    />
+                    <SortArrow {sortDirection} active={sortField === field} />
                   </div>
                 {/if}
               </th>
@@ -227,7 +266,7 @@
         <tbody class="table--tbody">
           {#each currentPageData as item, idx}
             <tr data-row-index={idx}>
-              {#each includedFields as field}
+              {#each includedFieldsDerived as field}
                 <td
                   class="body-note pl-0 py-2 pr-2"
                   data-row-index={idx}
@@ -241,7 +280,7 @@
           {/each}
           {#if searchable && searchText && currentPageData.length === 0}
             <tr>
-              <td class="no-results" colspan={includedFields.length}>
+              <td class="no-results" colspan={includedFieldsDerived.length}>
                 No results found for "{searchText}"
               </td>
             </tr>
@@ -251,7 +290,7 @@
           <tfoot class="table--tfoot">
             {#if notes}
               <tr>
-                <td class="" colspan={includedFields.length}>
+                <td class="" colspan={includedFieldsDerived.length}>
                   <div class="fmt-2">
                     {@html notes}
                   </div>
@@ -260,7 +299,7 @@
             {/if}
             {#if source}
               <tr>
-                <td class="" colspan={includedFields.length}>
+                <td class="" colspan={includedFieldsDerived.length}>
                   <div class="fmt-1">
                     {@html source}
                   </div>
@@ -270,16 +309,20 @@
           </tfoot>
         {/if}
       </table>
-    </section>
+    </div>
     {#if truncated && data.length > truncateLength}
       <nav
         aria-label="Show all button"
         class="show-all flex items-center justify-center fmt-2"
       >
-        <button class="body-caption" on:click={toggleTruncate}
-          >{#if showAll}Show fewer rows{:else}Show {data.length -
-              truncateLength} more rows{/if}</button
-        >
+        <button class="body-caption" onclick={toggleTruncate}>
+          {#if showAll}
+            Show fewer rows
+          {:else}
+            Show {data.length - truncateLength}
+            more rows
+          {/if}
+        </button>
       </nav>
     {/if}
     {#if paginated}
@@ -289,7 +332,7 @@
         bind:pageLength={currentPageData.length}
         bind:n={sortedData.length}
       />{/if}
-  </article>
+  </div>
 </Block>
 
 <style lang="scss">

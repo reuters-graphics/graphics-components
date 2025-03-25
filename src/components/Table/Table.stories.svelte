@@ -3,7 +3,7 @@
   import Table from './Table.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Text elements/Table',
+    title: 'Components/Graphics/Table',
     component: Table,
     argTypes: {
       width: {
