@@ -1,4 +1,12 @@
-Invite users to search for something.
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SearchInputStories from './SearchInput.stories.svelte';
+
+<Meta of={SearchInputStories} />
+
+# SearchInput
+
+The `SearchInput` component creates a search bar.
 
 ```svelte
 <script>
@@ -13,5 +21,7 @@ Invite users to search for something.
   }
 </script>
 
-<SearchInput on:search="{handleSearchInput}" />
+<SearchInput on:search={handleSearchInput} />
 ```
+
+<Canvas of={SearchInputStories.Demo} />

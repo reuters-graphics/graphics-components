@@ -1,14 +1,10 @@
 <!-- @component `SearchInput` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-controls-searchinput--docs) -->
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import MagnifyingGlass from './MagnifyingGlass.svelte';
-  import X from './X.svelte';
+  import MagnifyingGlass from './components/MagnifyingGlass.svelte';
+  import X from './components/X.svelte';
 
   interface Props {
-    /**
-     * The placeholder text that appears in the search box.
-     * @type {string}
-     */
+    /** The placeholder text that appears in the search box.*/
     searchPlaceholder?: string;
   }
 
@@ -17,16 +13,8 @@
   let value = $state('');
   let active = $derived(value !== '');
 
-  const dispatch = createEventDispatcher();
-
-  function input(event) {
-    value = event.target.value;
-    dispatch('search', { value });
-  }
-
   function clear() {
     value = '';
-    dispatch('search', { value: '' });
   }
 </script>
 
@@ -38,24 +26,23 @@
     id="search--input"
     class="search--input body-caption pl-8"
     type="text"
-    placeholder="{searchPlaceholder}"
-    oninput="{input}"
+    placeholder={searchPlaceholder}
     bind:value
   />
   <div
     class="search--x absolute"
     role="button"
     tabindex="0"
-    class:invisible="{!active}"
-    onclick="{clear}"
-    onkeyup="{clear}"
+    class:invisible={!active}
+    onclick={clear}
+    onkeyup={clear}
   >
     <X />
   </div>
 </div>
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
 
   .search {
     width: 250px;
@@ -64,11 +51,11 @@
       top: 0.55rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: $theme-colour-brand-rules;
+      fill: mixins.$theme-colour-brand-rules;
     }
     .search--input {
       height: 2.15rem;
-      border: 1px solid $theme-colour-brand-rules;
+      border: 1px solid mixins.$theme-colour-brand-rules;
       background: transparent;
       border-radius: 0.25rem;
       width: 100%;
@@ -78,7 +65,7 @@
       top: 0.55rem;
       width: 1.5rem;
       height: 1.5rem;
-      fill: $theme-colour-text-primary;
+      fill: mixins.$theme-colour-text-primary;
       cursor: pointer;
       &.invisible {
         display: none;
