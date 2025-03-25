@@ -1,138 +1,79 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs) -->
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  /**
-   * A source for the data.
-   * @type []
-   * @required
-   */
-  export let data: [];
+  interface Props {
+    /** Data for the table. */
+    data: [];
+    /** A title that runs above the table. */
+    title?: string;
+    /** A block of text that runs above the table. */
+    dek?: string;
+    /** A footnote that runs below the table. */
+    notes?: string;
+    /** A source line that runs below the table. */
+    source?: string;
+    /** List of the fields to include in the table. By default everything goes. */
+    includedFields?: string[];
+    /** Whether or not the table is cutoff after a set number of rows. */
+    truncated?: boolean;
+    /** If the table is truncated, how many rows to allow before the cutoff. */
+    truncateLength?: number;
+    /** Whether or not the table is paginated after a set number of rows. */
+    paginated?: boolean;
+    /** The default page size. */
+    pageSize?: number;
+    /** Whether or not searches are allowed. */
+    searchable?: boolean;
+    /** The placeholder text that appears in the search box. */
+    searchPlaceholder?: string;
+    /**  A field to offer uses as an interactive filter. */
+    filterField?: string;
+    /** The label to place above the filter box. */
+    filterLabel?: string;
+    /** Whether or not sorts are allowed. */
+    sortable?: boolean;
+    /** The column to sort by. By default it's the first header. */
+    sortField?: string;
+    /** The columns that are allowed to sort. It's all of them by default. */
+    sortableFields?: string[];
+    /** The direction of the sort. By default it's ascending. */
+    sortDirection?: 'ascending' | 'descending';
+    /** Custom field formatting functions. Should be keyed to the name of the field. */
+    fieldFormatters?: object;
+    /** Width of the component within the text well. */
+    width?: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+    /** Add an ID to target with SCSS. */
+    id?: string;
+    /** Add a class to target with SCSS. */
+    class?: string;
+  }
 
-  /**
-   * A title that runs above the table.
-   * @type {string}
-   */
-  export let title: string | null = null;
-
-  /**
-   * A block of text that runs above the table.
-   * @type {string}
-   */
-  export let dek: string | null = null;
-
-  /**
-   * A footnote that runs below the table.
-   * @type {string}
-   */
-  export let notes: string | null = null;
-
-  /**
-   * A source line that runs below the table.
-   * @type {string}
-   */
-  export let source: string | null = null;
-
-  /**
-   * list of the fields to include in the table. By default everything goes.
-   * @type []
-   */
-  export let includedFields: string[] = Object.keys(data[0]).filter(
-    (f) => f !== 'searchStr'
-  );
-
-  /**
-   * Whether or not the table is cutoff after a set number of rows.
-   * @type {boolean}
-   */
-  export let truncated: boolean = false;
-
-  /**
-   * If the table is truncated, how many rows to allow before the cutoff.
-   * @type {number}
-   */
-  export let truncateLength: number = 5;
-
-  /**
-   * Whether or not the table is paginated after a set number of rows.
-   * @type {boolean}
-   */
-  export let paginated: boolean = false;
-
-  /**
-   * The default page size.
-   * @type {number}
-   */
-  export let pageSize: number = 25;
-
-  /**
-   * Whether or not searches are allowed.
-   * @type {boolean}
-   */
-  export let searchable: boolean = false;
-
-  /**
-   * The placeholder text that appears in the search box.
-   * @type {string}
-   */
-  export let searchPlaceholder: string = 'Search in table';
-
-  /**
-   * A field to offer uses as an interactive filter.
-   * @type {string}
-   */
-  export let filterField: string;
-
-  /**
-   * The label to place above the filter box
-   * @type {string}
-   */
-  export let filterLabel: string;
-
-  /**
-   * Whether or not sorts are allowed.
-   * @type {boolean}
-   */
-  export let sortable: boolean = false;
-
-  /**
-   * The column to sort by. By default it's the first header.
-   * @type {string}
-   */
-  export let sortField: string = Object.keys(data[0])[0];
-
-  /**
-   * The columns that are allowed to sort. It's all of them by default.
-   * @type {string}
-   */
-  export let sortableFields: string[] = Object.keys(data[0]).filter(
-    (f) => f !== 'searchStr'
-  );
-
-  /**
-   * The direction of the sort. By default it's ascending.
-   * @type {SortDirection}
-   */
-  type SortDirection = 'ascending' | 'descending';
-  export let sortDirection: SortDirection = 'ascending';
-
-  /**
-   * Custom field formatting functions. Should be keyed to the name of the field.
-   * @type {object}
-   */
-  export let fieldFormatters: object = {};
-
-  /** Width of the component within the text well. */
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
-  export let width: ContainerWidth = 'normal';
-
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
-
-  /** Add a class to target with SCSS. */
-  let cls: string = '';
-  export { cls as class };
+  let {
+    data,
+    title,
+    dek,
+    notes,
+    source,
+    includedFields = Object.keys(data?[0]).filter((f) => f !== 'searchStr'),
+    truncated = false,
+    truncateLength = 5,
+    paginated= false,
+    pageSize = 25,
+    searchable = false,
+    searchPlaceholder = 'Search in table',
+    filterField,
+    filterLabel,
+    sortable = false,
+    sortField = Object.keys(data[0])[0],
+    sortableFields = Object.keys(data[0]).filter((f) => f !== 'searchStr'),
+    sortDirection = 'ascending',
+    fieldFormatters = {},
+    width = 'normal',
+    id = '',
+    class: cls = '',
+  }: Props = $props();
+ 
 
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
@@ -140,7 +81,7 @@
   import SearchInput from '../SearchInput/SearchInput.svelte';
   import Select from './Select.svelte';
   import SortArrow from './SortArrow.svelte';
-  import { filterArray, paginateArray, getOptions } from './utils.js';
+  import { filterArray, paginateArray, getOptions } from './utils.ts';
 
   /** Set truncate, filtering and pagination configuration */
   let showAll = false;
@@ -230,9 +171,9 @@
             {#if filterList}
               <div class="table--header--filter">
                 <Select
-                  label="{filterLabel || filterField}"
-                  options="{filterList}"
-                  on:select="{handleFilterInput}"
+                  label={filterLabel || filterField}
+                  options={filterList}
+                  on:select={handleFilterInput}
                 />
               </div>
             {/if}
@@ -240,7 +181,7 @@
               <div class="table--header--search">
                 <SearchInput
                   bind:searchPlaceholder
-                  on:search="{handleSearchInput}"
+                  on:search={handleSearchInput}
                 />
               </div>
             {/if}
@@ -252,9 +193,7 @@
       <table
         class="w-full"
         class:paginated
-        class:truncated="{truncated &&
-          !showAll &&
-          data.length > truncateLength}"
+        class:truncated={truncated && !showAll && data.length > truncateLength}
       >
         <thead class="table--thead">
           <tr>
@@ -262,22 +201,22 @@
               <th
                 scope="col"
                 class="table--thead--th h4 pl-0 py-2 pr-2"
-                class:sortable="{sortable && sortableFields.includes(field)}"
-                class:sort-ascending="{sortable &&
+                class:sortable={sortable && sortableFields.includes(field)}
+                class:sort-ascending={sortable &&
                   sortField === field &&
-                  sortDirection === 'ascending'}"
-                class:sort-descending="{sortable &&
+                  sortDirection === 'ascending'}
+                class:sort-descending={sortable &&
                   sortField === field &&
-                  sortDirection === 'descending'}"
-                data-field="{field}"
-                on:click="{handleSort}"
+                  sortDirection === 'descending'}
+                data-field={field}
+                on:click={handleSort}
               >
                 {field}
                 {#if sortable && sortableFields.includes(field)}
                   <div class="table--thead--sortarrow fml-1 avoid-clicks">
                     <SortArrow
                       bind:sortDirection
-                      active="{sortField === field}"
+                      active={sortField === field}
                     />
                   </div>
                 {/if}
@@ -287,13 +226,13 @@
         </thead>
         <tbody class="table--tbody">
           {#each currentPageData as item, idx}
-            <tr data-row-index="{idx}">
+            <tr data-row-index={idx}>
               {#each includedFields as field}
                 <td
                   class="body-note pl-0 py-2 pr-2"
-                  data-row-index="{idx}"
-                  data-field="{field}"
-                  data-value="{item[field]}"
+                  data-row-index={idx}
+                  data-field={field}
+                  data-value={item[field]}
                 >
                   {@html formatValue(item, field)}
                 </td>
@@ -302,7 +241,7 @@
           {/each}
           {#if searchable && searchText && currentPageData.length === 0}
             <tr>
-              <td class="no-results" colspan="{includedFields.length}">
+              <td class="no-results" colspan={includedFields.length}>
                 No results found for "{searchText}"
               </td>
             </tr>
@@ -312,7 +251,7 @@
           <tfoot class="table--tfoot">
             {#if notes}
               <tr>
-                <td class="" colspan="{includedFields.length}">
+                <td class="" colspan={includedFields.length}>
                   <div class="fmt-2">
                     {@html notes}
                   </div>
@@ -321,7 +260,7 @@
             {/if}
             {#if source}
               <tr>
-                <td class="" colspan="{includedFields.length}">
+                <td class="" colspan={includedFields.length}>
                   <div class="fmt-1">
                     {@html source}
                   </div>
@@ -337,7 +276,7 @@
         aria-label="Show all button"
         class="show-all flex items-center justify-center fmt-2"
       >
-        <button class="body-caption" on:click="{toggleTruncate}"
+        <button class="body-caption" on:click={toggleTruncate}
           >{#if showAll}Show fewer rows{:else}Show {data.length -
               truncateLength} more rows{/if}</button
         >
@@ -347,8 +286,8 @@
       <Pagination
         bind:pageNumber
         bind:pageSize
-        bind:pageLength="{currentPageData.length}"
-        bind:n="{sortedData.length}"
+        bind:pageLength={currentPageData.length}
+        bind:n={sortedData.length}
       />{/if}
   </article>
 </Block>
