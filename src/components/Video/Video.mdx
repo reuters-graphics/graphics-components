@@ -6,7 +6,7 @@ import * as VideoStories from './Video.stories.svelte';
 
 # Video
 
-The `Video` component adds video to your page. Can play on load or when the video comes into view and has play/pause controls. Supports videos with or without audio.
+The `Video` component adds a video with various controls to your page. The video can play on load or when the video comes into view. The component supports videos with or without audio, and has options to add a pause/play button or to allow the user to click on the video to pause and play it instead.
 
 ```svelte
 <script>
@@ -23,3 +23,77 @@ The `Video` component adds video to your page. Can play on load or when the vide
 ```
 
 <Canvas of={VideoStories.Demo} />
+
+## Playing and looping
+
+`playVideoWhenInView`, `playVideoThreshold`
+
+- By default, the video will **start playing when 50% of the video element's height is visible on the page**.
+  To control the threshold of visibility at which the video starts playing, add the prop `playVideoThreshold` and set it to a value between 0 and 1,
+  where 0 means that the video will start playing as soon as its top enters the viewport, while 1 means it will start when the whole video is in the viewport.
+
+- If you don't want the video to play when you scroll to it, but **on page load**, add the prop `playVideoWhenInView={false}`. The default of the prop is `true`,
+  which corresponds to the behaviour described above.
+
+`loopVideo`
+
+- By default, the video will **loop**. If you don't want that, add the prop `loopVideo={false}`.
+
+Here is an example of what the same video would look like with a visibility threshold of 0.9 and not looping. Scroll down slowly to observe the behaviour.
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+</script>
+
+<Video
+  ariaDescription={'Compulsory description of your video for screen readers.'}
+  src={'path-to-video-or-external-url'}
+  width={'normal'}
+  loopVideo={false}
+  playVideoThreshold={0.9}
+/>
+```
+
+<Canvas of={VideoStories.PlayingAndLooping} />
+
+## Audio controls
+
+If you've ever had to put sound on a page in recent years,
+you'll know that auto-playing sound is not allowed by browsers. The user will need to interact with the page first, and it will depend on your
+particular use case how and when you'd like this to happen. This component provides two options to deal with this.
+If you have a video with sound, make sure to add the prop `muteVideo={false}`.
+
+Then you can either:
+
+- `allowSoundToAutoplay={false}` (default) : Don't allow the video to autoplay under any circumstances other than when the user clicks the 'play' on the video. Note that this
+  works whether or not you have the controls visible, i.e. with `showControls` being `true` or `false`, as long as you allow
+  play/pause behaviour with `possibleToPlayPause={true}` (default).
+
+- `allowSoundToAutoplay={true}` : Allow the video to autoplay when it comes into view as long as the user has interacted with the page preivously, i.e. they have clicked/tapped
+  anywhere on the page.
+
+You should keep `playVideoWhenInView={true}` (default). There is no option to autoplay video with sound when the user clicks on the page
+elsewhere if the video is not in view. In other words, you can't start playing sound for a video which is not in view with this component.
+This is probably not a behaviour you'd want anyway.
+
+The example below allows for autoplay if the user has interacted with the page before the video comes into view. To see this, reload the page
+and go to the top. Click anywhere on the page before scrolling down to the video and you should see it autoplay when it comes into view.
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+</script>
+
+<Video
+  ariaDescription={'Compulsory description of your video for screen readers.'}
+  src={'path-to-video-or-external-url'}
+  width={'normal'}
+  controlsOpacity={1}
+  loopVideo={false}
+  muteVideo={false}
+  allowSoundToAutoplay={true}
+/>
+```
+
+<Canvas of={VideoStories.Audio} />

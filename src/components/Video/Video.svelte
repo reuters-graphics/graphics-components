@@ -81,7 +81,7 @@
     playVideoWhenInView = true,
     playVideoThreshold = 0.5,
     possibleToPlayPause = true,
-    showControls = false, // true
+    showControls = true,
     separateReplayIcon = false,
     controlsColour = '#333',
     controlsOpacity = 0.5,
@@ -162,7 +162,7 @@
       // clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
     }}
     style="
-    opacity: {controlsOpacity};
+    opacity: {interactiveControlsOpacity};
     top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?
       `${10}px`
     : controlsPosition === 'center' ?
@@ -338,5 +338,6 @@
     cursor: pointer;
     background-color: transparent;
     border: none;
+    transition: opacity 0.2s;
   }
 </style>

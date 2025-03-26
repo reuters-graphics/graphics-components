@@ -9,8 +9,8 @@
 </script>
 
 <script>
-  import SilentVideo from './demo/videos/silent-video.mp4';
-  import SoundVideo from './demo/videos/sound-video.mp4';
+  import SilentVideo from './demo/silent-video.mp4';
+  import SoundVideo from './demo/sound-video.mp4';
 </script>
 
 <Story
@@ -51,13 +51,12 @@
     controlsPosition: 'bottom right',
     separateReplayIcon: true,
     loopVideo: false,
-    hoverToSeeControls: true,
   }}
 />
 
 <Story
-  name="Videos with sound"
-  exportName="WithSound"
+  name="Audio controls"
+  exportName="Audio"
   args={{
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SoundVideo,
