@@ -96,7 +96,6 @@ gap: 10 # Optional; must be a number.
 <script>
   import { PhotoPack } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
-  import { fixSrcPathArray } from '$utils/paths'; // 👈 If using in the Graphics Kit...
 
   import content from '$locales/en/content.json';
 </script>
@@ -104,21 +103,21 @@ gap: 10 # Optional; must be a number.
 {#each content.blocks as block}
   {#if block.type === 'photo-pack'}
     <!-- Pass `assets` into the image source in Graphics Kit -->
-    <!-- @TODO - Update this doc once the util to derive `images` with `assets` in the image src path is written and tested. See ticket https://github.com/reuters-graphics/bluprint_graphics-kit/issues/164 -->
     <PhotoPack
       id={block.id}
       class={block.class}
       width={block.width}
       textWidth={block.textWidth}
       gap={Number(block.gap)}
-      images={fixSrcPathArray(block.images)}
+      images={block.images.map((img) => ({
+        ...img,
+        src: `${assets}/${img.src}`,
+      }))}
       layouts={[
         { breakpoint: 750, rows: [2, 3] },
         { breakpoint: 450, rows: [1, 2, 2] },
       ]}
     />
-
-    <!-- ... -->
   {/if}
 {/each}
 ```
