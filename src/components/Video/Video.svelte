@@ -107,8 +107,8 @@
 
   // For intersection observer
   let intersecting = $state(false);
-  let element: HTMLElement = $state(new HTMLElement()); // ; | null
-  let videoElement: HTMLVideoElement = $state(new HTMLVideoElement());
+  let element: HTMLElement | undefined = $state(undefined); // ; | null
+  let videoElement: HTMLVideoElement | undefined = $state(undefined);
 
   // For video with sound, check if there has been an interaction with the DOM
   let interactedWithDom = false;
@@ -118,6 +118,7 @@
 
   let interactiveControlsOpacity = $state(controlsOpacity);
 
+  /** Control play/pause */
   $effect(() => {
     // Play the video (with no sound) if it's intersecting; pause when it's no longer intersecting
     if (playVideoWhenInView && intersecting && muteVideo) paused = false;
@@ -141,7 +142,7 @@
   });
 
   // To get the pause state passed up from the Controls
-  const pausePlayEvent = (e) => {
+  const pausePlayEvent = (e: CustomEvent) => {
     const fwdPaused = e.detail.paused;
     const fwdClickedOnPauseBtn = e.detail.clickedOnPauseBtn;
     paused = fwdPaused;
@@ -317,8 +318,8 @@
       {/if}
     {/if}
   </div>
-  {#if notes}
+  {#if notes && typeof notes !== 'string'}
     <!-- Custom notes and source slot -->
-    <slot name="notes" />
+    {@render notes()}
   {/if}
 </GraphicBlock>
