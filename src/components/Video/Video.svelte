@@ -208,7 +208,7 @@
             {#if possibleToPlayPause}
               {#if showControls}
                 <Controls
-                  on:pausePlayEvent={pausePlayEvent}
+                  {pausePlayEvent}
                   {paused}
                   {clickedOnPauseBtn}
                   controlsOpacity={hoverToSeeControls ?
