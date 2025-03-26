@@ -26,8 +26,8 @@
   type ObjectFit = 'cover' | 'contain';
 
   interface Props {
-    /** Array of photos. */
-    photos: PhotoCarouselImage[];
+    /** Array of images. */
+    images: PhotoCarouselImage[];
     /** Width of the component within the text well: normal, wide, wider, widest, fluid */
     width?: ContainerWidth;
     /**
@@ -61,7 +61,7 @@
     textWidth = 'normal',
     id = '',
     cls = '',
-    photos,
+    images,
     maxHeight = 660,
     defaultImageObjectFit = 'cover',
     defaultImageObjectPosition = 'center center',
@@ -103,7 +103,7 @@
     >
       <div class="image-container">
         <SplideTrack>
-          {#each photos as photo}
+          {#each images as image}
             <SplideSlide>
               <div class="photo-slide w-full h-full relative">
                 <figure
@@ -112,23 +112,23 @@
                 >
                   <img
                     class="w-full h-full fmy-0"
-                    data-splide-lazy={photo.src}
-                    alt={photo.altText}
-                    style:object-fit={photo.objectFit || defaultImageObjectFit}
-                    style:object-position={photo.objectPosition ||
+                    data-splide-lazy={image.src}
+                    alt={image.altText}
+                    style:object-fit={image.objectFit || defaultImageObjectFit}
+                    style:object-position={image.objectPosition ||
                       defaultImageObjectPosition}
                   />
                   <!-- Render custom credit if credit snippet and string both exist -->
-                  {#if credit && photo.credit}
-                    {@render credit(photo)}
+                  {#if credit && image.credit}
+                    {@render credit(image)}
 
                     <!-- Otherwise, render with default credit style -->
-                  {:else if photo.credit}
+                  {:else if image.credit}
                     <span
                       class="credit absolute fmb-1 fml-1 leading-tighter font-note text-xxs"
-                      class:contain-fit={photo.objectFit === 'contain' ||
+                      class:contain-fit={image.objectFit === 'contain' ||
                         defaultImageObjectFit === 'contain'}
-                      >{photo.credit}</span
+                      >{image.credit}</span
                     >
                   {/if}
                 </figure>
@@ -137,8 +137,8 @@
           {/each}
         </SplideTrack>
 
-        {#if photos[activeImageIndex].caption}
-          {@const activePhoto = photos[activeImageIndex]}
+        {#if images[activeImageIndex].caption}
+          {@const activePhoto = images[activeImageIndex]}
           <PaddingReset containerIsFluid={width === 'fluid'}>
             <Block width={textWidth}>
               <!-- Render custom caption if caption snippet and string both exist -->

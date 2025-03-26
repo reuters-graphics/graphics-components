@@ -39,7 +39,7 @@ With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
 type: photo-carousel
 
 # List of photo data
-[.photos]
+[.images]
   # Photo 1
   src: 'images/myImage.jpg', # The source path can be a URL or a local path
   altText: 'A picture of...',
@@ -62,6 +62,8 @@ type: photo-carousel
 
 ... which you'll parse out of a ArchieML block object before passing to the `PhotoCarousel` component.
 
+> **Note:** If you're using local images files stored in your Graphics Kit project, prefix `assets` to the image source path, as in the example below.
+
 ```svelte
 <!-- App.svelte -->
 <script>
@@ -69,16 +71,18 @@ type: photo-carousel
   import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
 
   import content from '$locales/en/content.json';
-
-  // @TODO - Update this doc once the util to derive `photos` with `assets` in the image src path is written and tested. See ticket: https://github.com/reuters-graphics/bluprint_graphics-kit/issues/164
 </script>
 
 {#each content.blocks as block}
   {#if block.type === 'photo-carousel'}
-    <PhotoCarousel {block.photos}  />
+    <PhotoCarousel
+      images={block.images.map((img) => ({
+        ...img,
+        src: `${assets}/${img.src}`,
+      }))}
+    />
   {/if}
 {/each}
-
 ```
 
 <Canvas of={PhotoCarouselStories.Demo} />
@@ -88,15 +92,15 @@ type: photo-carousel
 To customise the credit and/or caption style, use the `credit` and `caption` [snippets](https://svelte.dev/docs/svelte/snippet) and pass `photo` as an argument.
 
 ```svelte
-<PhotoCarousel {photos}>
-  <!-- Pass `photo` and use the `photo.credit` string in the HTML -->
-  {#snippet credit(photo)}
-    <p class="custom-credit">{photo.credit}</p>
+<PhotoCarousel {images}>
+  <!-- Pass `image` and use the `image.credit` string in the HTML -->
+  {#snippet credit(image)}
+    <p class="custom-credit">{image.credit}</p>
   {/snippet}
 
-  <!-- Pass `photo` and use the `photo.caption` string in the HTML -->
-  {#snippet caption(photo)}
-    <p class="custom-caption">{photo.caption}</p>
+  <!-- Pass `image` and use the `image.caption` string in the HTML -->
+  {#snippet caption(image)}
+    <p class="custom-caption">{image.caption}</p>
   {/snippet}
 </PhotoCarousel>
 
