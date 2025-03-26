@@ -2,9 +2,9 @@
 <script lang="ts">
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
-  import Pagination from './Pagination.svelte';
-  import Select from './Select.svelte';
-  import SortArrow from './SortArrow.svelte';
+  import Pagination from './components/Pagination.svelte';
+  import Select from './components/Select.svelte';
+  import SortArrow from './components/SortArrow.svelte';
   import SearchInput from '../SearchInput/SearchInput.svelte';
   import { filterArray, paginateArray, getOptions } from './utils';
 
@@ -178,13 +178,13 @@
     return sortedData;
   });
 
-  $effect(() => {
-    console.log('includedFieldsDerived', includedFieldsDerived);
-    console.log('sortableFieldsDerived', sortableFieldsDerived);
-    console.log('sortFieldDerived', sortFieldDerived);
-    console.log('sortedData', sortedData);
-    console.log('currentPageData', currentPageData);
-  });
+  // $effect(() => {
+  //   console.log('includedFieldsDerived', includedFieldsDerived);
+  //   console.log('sortableFieldsDerived', sortableFieldsDerived);
+  //   console.log('sortFieldDerived', sortFieldDerived);
+  //   console.log('sortedData', sortedData);
+  //   console.log('currentPageData', currentPageData);
+  // });
 
   /** Add the `searchStr` field to data */
   let searchableData = $derived.by(() => {

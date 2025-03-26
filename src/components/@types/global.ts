@@ -51,7 +51,7 @@ export interface ScrollerStep {
 
 /** Datum type for data that goes into the Table component */
 type TableDatum = {
-  [key: string]: string | number | boolean | undefined | null;
+  [key: string]: unknown;
   searchStr?: string;
 };
 export type TableData = TableDatum[];
