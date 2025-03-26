@@ -54,8 +54,10 @@
     separateReplayIcon?: boolean;
     /** Change the colour of the play/pause button */
     controlsColour?: string;
-    /** Change the opacity of the play/pause button */
-    controlsOpacity?: number;
+    /** Change the minimum opacity of the play/pause button, which you see on mouseover. Must be between 0 and 1. */
+    controlsOpacityMin?: number;
+    /** Change the maximum opacity of the play/pause button, which you see on mouseout. Must be between 0 and 1. */
+    controlsOpacityMax?: number;
     /** Have four options for controls position - top right, top left, bottom right, bottom left */
     controlsPosition?: ControlsPosition;
     /** Offset for the controls from the border */
@@ -82,9 +84,10 @@
     possibleToPlayPause = true,
     showControls = true,
     separateReplayIcon = false,
-    controlsColour = 'red', // '#333',
-    controlsOpacity = 0.5,
-    controlsPosition = 'bottom left',
+    controlsColour = '#333',
+    controlsOpacityMin = 0,
+    controlsOpacityMax = 0.7,
+    controlsPosition = 'top left',
     controlsBorderOffset = 10,
   }: Props = $props();
 
@@ -117,7 +120,7 @@
   let interactedWithDom = false;
   const setInteractedWithDom = () => (interactedWithDom = true);
 
-  let interactiveControlsOpacity = $state(controlsOpacity);
+  let interactiveControlsOpacity = $state(controlsOpacityMax);
 
   // Get control button positioning
   let controlButtonPosition = $derived.by(() =>
@@ -221,16 +224,16 @@
   <div
     role="figure"
     onmouseover={() => {
-      interactiveControlsOpacity = controlsOpacity;
+      interactiveControlsOpacity = controlsOpacityMax;
     }}
     onfocus={() => {
-      interactiveControlsOpacity = controlsOpacity;
+      interactiveControlsOpacity = controlsOpacityMax;
     }}
     onmouseout={() => {
-      interactiveControlsOpacity = 1;
+      interactiveControlsOpacity = controlsOpacityMin;
     }}
     onblur={() => {
-      interactiveControlsOpacity = 1;
+      interactiveControlsOpacity = controlsOpacityMin;
     }}
   >
     {#if (hidden && ariaDescription) || !hidden}
