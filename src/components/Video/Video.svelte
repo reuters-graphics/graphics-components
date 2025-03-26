@@ -10,6 +10,8 @@
   // types
   import type { ContainerWidth } from '../@types/global';
   import type { Snippet } from 'svelte';
+  import type { ControlsPosition } from './types';
+  import { getButtonPosition } from './utils';
 
   interface Props {
     /** Video source */
@@ -55,12 +57,9 @@
     /** Change the opacity of the play/pause button */
     controlsOpacity?: number;
     /** Have four options for controls position - top right, top left, bottom right, bottom left */
-    controlsPosition?:
-      | 'top right'
-      | 'top left'
-      | 'center'
-      | 'bottom right'
-      | 'bottom left';
+    controlsPosition?: ControlsPosition;
+    /** Offset for the controls from the border */
+    controlsBorderOffset?: number;
   }
 
   let {
@@ -83,9 +82,10 @@
     possibleToPlayPause = true,
     showControls = true,
     separateReplayIcon = false,
-    controlsColour = '#333',
+    controlsColour = 'red', // '#333',
     controlsOpacity = 0.5,
-    controlsPosition = 'top left',
+    controlsPosition = 'bottom left',
+    controlsBorderOffset = 10,
   }: Props = $props();
 
   /// //////////////////////////////////
@@ -107,7 +107,6 @@
   let widthVideo = $state(0);
   let heightVideoContainer = $state(0);
   let widthVideoContainer = $state(0);
-  const controlsBorderOffset = 50;
 
   // For intersection observer
   let intersecting = $state(false);
@@ -116,11 +115,14 @@
 
   // For video with sound, check if there has been an interaction with the DOM
   let interactedWithDom = false;
-  const setInteractedWithDom = () => {
-    interactedWithDom = true;
-  };
+  const setInteractedWithDom = () => (interactedWithDom = true);
 
   let interactiveControlsOpacity = $state(controlsOpacity);
+
+  // Get control button positioning
+  let controlButtonPosition = $derived.by(() =>
+    getButtonPosition(controlsPosition, controlsBorderOffset)
+  );
 
   /** Control play/pause */
   $effect(() => {
@@ -159,23 +161,14 @@
     class="controls"
     onclick={() => {
       paused = !paused;
-      // clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
+      clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
     }}
     style="
     opacity: {interactiveControlsOpacity};
-    top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?
-      `${10}px`
-    : controlsPosition === 'center' ?
-      `${(heightVideoContainer - controlsBorderOffset) / 2}px`
-    : `${heightVideoContainer - controlsBorderOffset}px`};
-
-    left: {(
-      controlsPosition === 'top left' || controlsPosition === 'bottom left'
-    ) ?
-      `${10}px`
-    : controlsPosition === 'center' ?
-      `${(widthVideoContainer - controlsBorderOffset) / 2}px`
-    : `${widthVideoContainer - controlsBorderOffset}px`};
+    top: {controlButtonPosition.top}px;
+    bottom: {controlButtonPosition.bottom}px;
+    left: {controlButtonPosition.left}px;
+    right: {controlButtonPosition.right}px;
     "
   >
     {#if resetCondition}
@@ -234,10 +227,10 @@
       interactiveControlsOpacity = controlsOpacity;
     }}
     onmouseout={() => {
-      interactiveControlsOpacity = 0;
+      interactiveControlsOpacity = 1;
     }}
     onblur={() => {
-      interactiveControlsOpacity = 0;
+      interactiveControlsOpacity = 1;
     }}
   >
     {#if (hidden && ariaDescription) || !hidden}
