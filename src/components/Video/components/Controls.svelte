@@ -33,7 +33,7 @@
 
   let {
     pausePlayEvent,
-    paused = $bindable(),
+    paused,
     clickedOnPauseBtn = $bindable(),
     controlsOpacity,
     controlsPosition,
@@ -48,13 +48,15 @@
   function forwardBtnClick() {
     paused = !paused;
     clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
+
+    console.log('forwardBtnClick paused in controls', paused);
   }
 </script>
 
 <button
+  class="controls"
   onclick={() => {
     forwardBtnClick();
-    pausePlayEvent();
   }}
   style="
     opacity: {controlsOpacity};
@@ -95,7 +97,7 @@
 </button>
 
 <style lang="scss">
-  button {
+  button.controls {
     z-index: 2;
     position: absolute;
     cursor: pointer;

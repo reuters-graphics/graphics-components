@@ -1,8 +1,13 @@
 <!-- @component `Video` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-video--docs) -->
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
-  import Controls from './components/Controls.svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+
+  // Fa icons
+  import Fa from 'svelte-fa';
+  import { faReply, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+
+  // types
   import type { ContainerWidth } from '../@types/global';
   import type { Snippet } from 'svelte';
 
@@ -43,8 +48,6 @@
     possibleToPlayPause?: boolean;
     /** Whether to show the play / pause buttons */
     showControls?: boolean;
-    /** Whether you need to hover over the video to see the controls */
-    hoverToSeeControls?: boolean;
     /** Whether to use a separate replay icon or use the play icon for replay as well */
     separateReplayIcon?: boolean;
     /** Change the colour of the play/pause button */
@@ -55,6 +58,7 @@
     controlsPosition?:
       | 'top right'
       | 'top left'
+      | 'center'
       | 'bottom right'
       | 'bottom left';
   }
@@ -77,8 +81,7 @@
     playVideoWhenInView = true,
     playVideoThreshold = 0.5,
     possibleToPlayPause = true,
-    showControls = true,
-    hoverToSeeControls = false,
+    showControls = false, // true
     separateReplayIcon = false,
     controlsColour = '#333',
     controlsOpacity = 0.5,
@@ -92,9 +95,10 @@
   if (!possibleToPlayPause) showControls = false;
 
   // Internal props
+  let paused = $state(false);
   let time = $state(0);
   let duration = $state(0);
-  let paused = $state(true);
+  // let paused = $state(true);
   let clickedOnPauseBtn = $state(false); // special variable to track if user clicked on 'pause' btn to help with audio logic
   let resetCondition = $derived(time >= duration); // - 0.1;
 
@@ -141,14 +145,6 @@
     if (sountAutoplay && !muteVideo && !interactedWithDom) paused = true;
   });
 
-  // To get the pause state passed up from the Controls
-  const pausePlayEvent = (e: CustomEvent) => {
-    const fwdPaused = e.detail.paused;
-    const fwdClickedOnPauseBtn = e.detail.clickedOnPauseBtn;
-    paused = fwdPaused;
-    clickedOnPauseBtn = fwdClickedOnPauseBtn;
-  };
-
   // Warning to missing aria attributes
   if (hidden && !ariaDescription) {
     console.warn(
@@ -156,6 +152,65 @@
     );
   }
 </script>
+
+<!-- Controls button snippet -->
+{#snippet controls()}
+  <button
+    class="controls"
+    onclick={() => {
+      paused = !paused;
+      // clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
+    }}
+    style="
+    opacity: {controlsOpacity};
+    top: {controlsPosition === 'top left' || controlsPosition === 'top right' ?
+      `${10}px`
+    : controlsPosition === 'center' ?
+      `${(heightVideoContainer - controlsBorderOffset) / 2}px`
+    : `${heightVideoContainer - controlsBorderOffset}px`};
+
+    left: {(
+      controlsPosition === 'top left' || controlsPosition === 'bottom left'
+    ) ?
+      `${10}px`
+    : controlsPosition === 'center' ?
+      `${(widthVideoContainer - controlsBorderOffset) / 2}px`
+    : `${widthVideoContainer - controlsBorderOffset}px`};
+    "
+  >
+    {#if resetCondition}
+      <i class="play-pause-icon replay">
+        {#if separateReplayIcon}
+          <Fa icon={faReply} size="2x" color={controlsColour} />
+        {:else}
+          <Fa icon={faPlay} size="2x" color={controlsColour} />
+        {/if}
+      </i>
+    {:else if paused === false}
+      <i class="play-pause-icon pause">
+        <Fa icon={faPause} size="2x" color={controlsColour} />
+      </i>
+    {:else if paused === true}
+      <i class="play-pause-icon play">
+        <Fa icon={faPlay} size="2x" color={controlsColour} />
+      </i>
+    {:else}
+      error
+    {/if}
+  </button>
+{/snippet}
+
+<!-- Transparent, invisible button that will pause/play when the video is clicked -->
+{#snippet transparentButton()}
+  <button
+    class="border-0 m-0 p-0 bg-transparent absolute"
+    aria-label="Play or pause video"
+    onclick={() => {
+      paused = !paused;
+    }}
+    style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
+  ></button>
+{/snippet}
 
 <svelte:window
   on:click={setInteractedWithDom}
@@ -207,34 +262,9 @@
           >
             {#if possibleToPlayPause}
               {#if showControls}
-                <Controls
-                  {pausePlayEvent}
-                  {paused}
-                  {clickedOnPauseBtn}
-                  controlsOpacity={hoverToSeeControls ?
-                    interactiveControlsOpacity
-                  : controlsOpacity}
-                  {controlsPosition}
-                  {widthVideoContainer}
-                  {heightVideoContainer}
-                  {controlsBorderOffset}
-                  {resetCondition}
-                  {separateReplayIcon}
-                  {controlsColour}
-                />
+                {@render controls()}
               {:else}
-                <button
-                  class="border-0 m-0 p-0 bg-transparent absolute"
-                  aria-label="Play or pause video"
-                  onclick={() => {
-                    if (paused === true) {
-                      paused = false;
-                    } else {
-                      paused = true;
-                    }
-                  }}
-                  style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
-                ></button>
+                {@render transparentButton()}
               {/if}
             {/if}
             <video
@@ -267,32 +297,9 @@
         >
           {#if possibleToPlayPause}
             {#if showControls}
-              <Controls
-                on:pausePlayEvent={pausePlayEvent}
-                {paused}
-                {clickedOnPauseBtn}
-                {controlsOpacity}
-                {controlsPosition}
-                {widthVideoContainer}
-                {heightVideoContainer}
-                {controlsBorderOffset}
-                {resetCondition}
-                {separateReplayIcon}
-                {controlsColour}
-              />
+              {@render controls()}
             {:else}
-              <button
-                class="border-0 m-0 p-0 bg-transparent absolute"
-                aria-label="Play or pause video"
-                onclick={() => {
-                  if (paused === true) {
-                    paused = false;
-                  } else {
-                    paused = true;
-                  }
-                }}
-                style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
-              ></button>
+              {@render transparentButton()}
             {/if}
           {/if}
           <video
@@ -323,3 +330,13 @@
     {@render notes()}
   {/if}
 </GraphicBlock>
+
+<style lang="scss">
+  button.controls {
+    z-index: 2;
+    position: absolute;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+</style>
