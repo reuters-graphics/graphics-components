@@ -1,99 +1,70 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import customiseDocs from './stories/docs/customise.md?raw';
-  // @ts-ignore raw
-  import customiseFontDocs from './stories/docs/customise-font.md?raw';
-  // @ts-ignore raw
-  import patternDocs from './stories/docs/pattern.md?raw';
-  // @ts-ignore raw
-  import inheritanceDocs from './stories/docs/inheritance.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Theme, { themes } from './Theme.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '../../docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Theming/Theme',
     component: Theme,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       base: {
         control: 'select',
         options: ['light', 'dark'],
       },
-      themes: { control: false },
+      theme: { control: false },
     },
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import ThemedPage from './stories/ThemedPage.svelte';
+  import ThemedPage from './demo/ThemedPage.svelte';
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
 
   import Headline from './../Headline/Headline.svelte';
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <div class="reset-article">
-      <Theme {...args}>
-        <ThemedPage />
-      </Theme>
-    </div>
-  {/snippet}
-</Template>
-
-<Story
-  name="Default"
-  args="{{
-    theme: themes.light,
-    base: 'light',
-  }}"
-/>
-
-<Story name="Custom theme" {...withStoryDocs(customiseDocs)}>
+<Story name="Demo">
+  <div class="reset-article">
+    <Theme theme={themes.light} base="light">
+      <ThemedPage />
+    </Theme>
+  </div>
+</Story>
+<Story name="Custom theme">
   <Theme
     base="dark"
-    theme="{{
+    theme={{
       colour: { accent: 'var(--tr-light-orange)' },
       font: { family: { hed: 'FreightText, serif' } },
-    }}"
+    }}
   >
     <ThemedPage />
   </Theme>
 </Story>
 
-<Story name="Custom Google font" {...withStoryDocs(customiseFontDocs)}>
+<Story name="Custom Google font">
   <Theme
     base="light"
-    theme="{{
+    theme={{
       font: { family: { hed: 'Bebas Neue, sans-serif' } },
-    }}"
+    }}
   >
     <div class="gfont">
       <Headline
-        hed="{'Reuters Graphics Interactive'}"
-        dek="{'The beginning of a beautiful page'}"
-        section="{'Global news'}"
+        hed={'Reuters Graphics Interactive'}
+        dek={'The beginning of a beautiful page'}
+        section={'Global news'}
       />
     </div>
   </Theme>
 </Story>
 
-<Story name="Background patterns" {...withStoryDocs(patternDocs)}>
+<Story name="Background patterns">
   <div id="pattern-bg">
     <Theme
       base="dark"
-      theme="{{
+      theme={{
         colour: { background: 'transparent' },
-      }}"
+      }}
     >
       <SiteHeader />
       <ThemedPage />
@@ -101,23 +72,23 @@
   </div>
 </Story>
 
-<Story name="Inheritance" {...withStoryDocs(inheritanceDocs)}>
-  <Theme theme="{themes.light}">
+<Story name="Inheritance">
+  <Theme theme={themes.light}>
     <div class="themed">
       <p>Theme</p>
-      <Theme theme="{themes.dark}">
+      <Theme theme={themes.dark}>
         <div class="themed">
           <p>Sub-theme</p>
-          <Theme theme="{themes.light}">
+          <Theme theme={themes.light}>
             <div class="themed">
               <p>Sub-sub</p>
             </div>
           </Theme>
           <Theme
-            theme="{{
+            theme={{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
               font: { family: { note: 'FreightText, serif' } },
-            }}"
+            }}
             base="dark"
           >
             <div class="themed">
