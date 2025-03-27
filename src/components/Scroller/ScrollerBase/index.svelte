@@ -1,6 +1,16 @@
+<!-- This is a Svelte 5 version of [svelte-scroller](https://github.com/sveltejs/svelte-scroller) -->
 <script module lang="ts">
-  const handlers = [];
-  let manager;
+  const handlers: Array<() => void> = [];
+
+  interface ManagerParams {
+    outer: Element;
+    update: () => void;
+  }
+
+  let manager: {
+    add: (params: ManagerParams) => void;
+    remove: (params: ManagerParams) => void;
+  };
 
   if (typeof window !== 'undefined') {
     const run_all = () => handlers.forEach((fn) => fn());
@@ -13,7 +23,7 @@
     const map = new Map();
 
     const observer = new IntersectionObserver(
-      (entries, observer) => {
+      (entries) => {
         entries.forEach((entry) => {
           const update = map.get(entry.target);
           const index = handlers.indexOf(update);
@@ -67,14 +77,43 @@
   import { onMount } from 'svelte';
   import { type Snippet } from 'svelte';
 
+  interface Props {
+    /** Config */
+    /** The vertical position that the top of the foreground must scroll past before the background becomes fixed, as a proportion of window height. **Value between 0 and 1.** */
+    top?: number;
+    /** The inverse of top — once the bottom of the foreground passes this point, the background becomes unfixed. **Value between 0 and 1.** */
+    bottom?: number;
+    /** Once a section crosses this point, it becomes 'active'. **Value between 0 and 1.** */
+    threshold?: number;
+    /** A CSS selector that describes the individual sections of your foreground. */
+    query?: string;
+    /** If `true`, the background will scroll such that the bottom edge reaches the bottom at the same time as the foreground. This effect can be unpleasant for people with high motion sensitivity, so use it advisedly. */
+    parallax?: boolean;
+    /** The background snippet. */
+    backgroundSnippet: Snippet;
+    /** The foreground snippet. */
+    foregroundSnippet: Snippet;
+    /** Bindings */
+    /** The currently active section. **Bindable** */
+    index?: number;
+    /**  How far the section has scrolled past the threshold, as a value between 0 and 1. **Bindable**. */
+    offset?: number;
+    /** How far the foreground has travelled, where 0 is the top of the foreground crossing top, and 1 is the bottom crossing bottom. **Bindable**. */
+    progress?: number;
+    /** Number of sections */
+    count?: number;
+    /** Whether the foreground is visible */
+    visible?: boolean;
+  }
+
   let {
-    // bindings
+    // Bindings
     index = $bindable(0),
     count = $bindable(0),
     offset = $bindable(0),
     progress = $bindable(0),
     visible = $bindable(false),
-    // config
+    // Config
     top = 0,
     bottom = 1,
     threshold = 0.5,
@@ -82,19 +121,18 @@
     parallax = false,
     backgroundSnippet,
     foregroundSnippet,
-  } = $props();
+  }: Props = $props();
 
   let outer: HTMLElement;
   let foreground: HTMLElement;
   let background: HTMLElement;
   let left;
+  // Target compiler option to es6 or higher for NodeListOf<T> to be iterable.
   let sections: NodeListOf<HTMLElement>;
-  let wh = 0;
+  let wh = $state(0);
   let fixed = $state(false);
   let offset_top = 0;
   let width = 1;
-  let height;
-  let inverted;
 
   let top_px = Math.round(top * wh);
   let bottom_px = Math.round(bottom * wh);
@@ -102,9 +140,7 @@
 
   let style = $derived(`
 		position: ${fixed ? 'fixed' : 'absolute'};
-		top: 0;
 		transform: translate(0, ${offset_top}px);
-		z-index: ${inverted ? 3 : 1};
 	`);
 
   let widthStyle = $derived(fixed ? `width:${width}px;` : '');
@@ -120,10 +156,6 @@
     manager.add(scroller);
     return () => manager.remove(scroller);
   });
-
-  // $effect(() => {
-  //   console.log('index', index);
-  // });
 
   function update() {
     if (!foreground) return;
@@ -176,6 +208,10 @@
       }
     }
   }
+  // $effect(() => {
+  //   console.log('handlers', handlers, typeof handlers);
+  //   console.log('manager', manager, typeof manager);
+  // });
 </script>
 
 <svelte:window bind:innerHeight={wh} />
@@ -225,13 +261,13 @@
     width: 100%;
     max-width: 100%;
     pointer-events: none;
-    /* height: 100%; */
+    z-index: 1;
+    top: 0;
 
     /* in theory this helps prevent jumping */
     will-change: transform;
     /* -webkit-transform: translate3d(0, 0, 0);
 		-moz-transform: translate3d(0, 0, 0);
 		transform: translate3d(0, 0, 0); */
-    background-color: yellow;
   }
 </style>
