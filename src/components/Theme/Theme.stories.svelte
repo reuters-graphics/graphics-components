@@ -18,7 +18,6 @@
 <script lang="ts">
   import ThemedPage from './demo/ThemedPage.svelte';
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
-
   import Headline from './../Headline/Headline.svelte';
 </script>
 
@@ -29,7 +28,7 @@
     </Theme>
   </div>
 </Story>
-<Story name="Custom theme">
+<Story name="Custom theme" exportName="CustomTheme">
   <Theme
     base="dark"
     theme={{
@@ -41,7 +40,7 @@
   </Theme>
 </Story>
 
-<Story name="Custom Google font">
+<Story name="Custom Google font" exportName="CustomGoogleFont">
   <Theme
     base="light"
     theme={{
@@ -58,7 +57,7 @@
   </Theme>
 </Story>
 
-<Story name="Background patterns">
+<Story name="Background patterns" exportName="BackgroundPatterns">
   <div id="pattern-bg">
     <Theme
       base="dark"

@@ -6,9 +6,9 @@ import * as ThemeStories from './Theme.stories.svelte';
 
 # Theme
 
-The `Theme` component wraps your page content and uses [CSS variables](../?path=/docs/scss-css-variables--page) to set major colour and typography styles for your page. All of the components in this library will use those CSS variables for styling by default.
+The `Theme` component wraps your page content and uses [CSS variables](../?path=/docs/scss-css-variables--page) to set major colour and typography styles for your page. All the components from this library that are added to your page will use the CSS variables set by `Theme`.
 
-Use our [theme builder](../?path=/docs/theming-theme-builder--docs) to customise your page's theme.
+Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to test custom themes.
 
 ```svelte
 <script>
@@ -16,10 +16,167 @@ Use our [theme builder](../?path=/docs/theming-theme-builder--docs) to customise
 </script>
 
 <Theme base="light">
-  <!-- ...page stuff, now styled according to your theme! -->
+  <!-- Page content, now styled according to your theme! -->
 </Theme>
 ```
 
-> For Graphics Kit users, the `Theme` is set for you in your graphics homepage (`pages/+page.svelte`). You can customise it there for the whole page.
+> In Graphics Kit, the `Theme` is set in both `pages/+page.svelte` and in `App.svelte`.
 
 <Canvas of={ThemeStories.Demo} />
+
+## Custom theme
+
+You can customise the theme of your page in two ways:
+
+First, you can choose the `base` theme, either `light` or `dark`.
+
+From there, you can pass a custom theme object to the `theme` prop. Any custom styles you pass to `theme` will override styles in the `base` theme.
+
+Check out the "Control" column for `theme` in the properties table above to see what properties you can customise.
+
+> **Note:** The `Theme` component only styles child components or elements, so if you're changing the background colour of your page, it's still a good idea to set a `background-color` on your `body` element in global SCSS.
+>
+> ```scss
+> // global.scss
+> body {
+>   background-color: #2e3440;
+> }
+> ```
+
+```svelte
+<Theme
+  base="dark"
+  theme={{
+    colour: { accent: 'var(--tr-light-orange)' },
+    font: { family: { hed: 'FreightText, serif' } },
+  }}
+>
+  <!-- Page content -->
+</Theme>
+```
+
+<Canvas of={ThemeStories.CustomTheme} />
+
+## Custom Google font
+
+For some projects, you may need to use typefaces other than the defaults provided by the GraphicsKit.
+
+You will need to:
+
+- Import the fonts in your code.
+- Declare the `font-family` in the corresponding CSS variables in the Theme.
+
+There are many ways to load fonts, but care should be taken that the font files load first before page render, to avoid layout shifts during font swapping after the font is downloaded. For this reason, we will use `<link>` method in the page `head` instead of CSS imports.
+
+> ##### Importing custom fonts
+
+> In this sample from [Google Fonts](https://fonts.google.com/specimen/Bebas+Neue), once we have selected the font family, copy the `<link>` code.
+
+> ```html
+> <link rel="preconnect" href="https://fonts.googleapis.com" />
+> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+> <link
+>   href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+>   rel="stylesheet"
+> />
+> ```
+
+> In your project, navigate to `src` > `template.html` and add the copied code in `head` section :
+
+> ```svelte
+> <head>
+>   <!-- HTML meta -->
+>   <link rel="preconnect" href="https://fonts.googleapis.com" />
+>   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+>   <link
+>     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+>     rel="stylesheet"
+>   />
+>
+>   %sveltekit.head%
+> </head>
+> ```
+
+> Similarly, you can add fonts from [Adobe Typekit](https://fonts.adobe.com/) or custom local fonts with the correct paths to the URL.
+
+You can customise one or more of the pre-defined font families in the Theme. Do not directly apply the font family in your CSS. Always use the CSS variables defined in the Theme so that it configures and reflects across the page design.
+
+```svelte
+<Theme
+  base="light"
+  theme={{
+    font: { family: { hed: 'Bebas Neue, sans-serif' } },
+  }}
+>
+  <!-- Page content -->
+</Theme>
+```
+
+<Canvas of={ThemeStories.CustomGoogleFont} />
+
+## Background patterns
+
+To use a background pattern or image, set the background colour property in your custom theme to `transparent`...
+
+```svelte
+<Theme
+  base="dark"
+  theme={{
+    colour: { background: 'transparent' },
+  }}
+>
+  <!-- Page content -->
+</Theme>
+```
+
+... then set your background image in global SCSS:
+
+```scss
+/* global.scss */
+body {
+  background-color: darkblue;
+  background-image: url('$assets/images/my-pattern.png');
+}
+```
+
+You may also want to override the background on the header nav if it conflicts with your background, especially the dropdown menu:
+
+```scss
+/* global.scss
+Main nav container */
+.nav-container .inner {
+  background: darkblue !important;
+  /* Dropdown menu */
+  .dropdown {
+    background: darkblue !important;
+  }
+}
+/* Mobile nav overlay */
+header + .overlay {
+  background: darkblue !important;
+}
+```
+
+<Canvas of={ThemeStories.BackgroudPatterns} />
+
+## Inheritance
+
+Styles that use `Theme`'s CSS variables will always use those set by the nearest parent `Theme`. That lets you change the theme for parts of your page by simply wrapping that bit in a _new_ `Theme` with different styles.
+
+The demo below shows a more complex example of nesting themes, but more likely you'll so something like this:
+
+```svelte
+<script>
+  import { Theme } from '@reuters-graphics/graphics-components';
+</script>
+
+<Theme>
+  <!-- Page content styled with the default light theme. -->
+  <Theme theme={{ colour: { background: 'lightgrey' } }}>
+    <!-- A darker background for this section. -->
+  </Theme>
+  <!-- Back to normal here... -->
+</Theme>
+```
+
+<Canvas of={ThemeStories.Inheritance} />
