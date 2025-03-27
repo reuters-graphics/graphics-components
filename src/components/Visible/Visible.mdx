@@ -1,0 +1,31 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as VisibleStories from './Visible.stories.svelte';
+
+<Meta of={VisibleStories} />
+
+# Visible
+
+The `Visible` component wraps around other components or HTML elements and uses the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to determine if they are visible on the page.
+
+This is useful for lazy loading elements, especially expensive media files or components that fetch lots of data. You can also use it trigger animations or play media once a reader scrolls a component into view.
+
+By default, `visible` will switch between `false` and `true` whenever the element is in our out of view. To trigger this just once, set the prop `once` to `true`. This is useful for loading expensive media when they first come into view and then keeping them around once they're loaded.
+
+> **Note:** Don't use this for content that's "above the fold" at the top of the page. That'll just slow down the first load of important visible content.
+
+```svelte
+<script>
+  import { Visible } from '@reuters-graphics/graphics-components';
+</script>
+
+<Visible let:visible>
+  {#if visible}
+    <p>Visible!</p>
+  {:else}
+    <p>Not yet visible.</p>
+  {/if}
+</Visible>
+```
+
+<Canvas of={VisibleStories.Demo} />
