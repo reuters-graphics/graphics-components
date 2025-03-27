@@ -106,10 +106,10 @@
   let resetCondition = $derived(time >= duration); // - 0.1;
 
   // Dimensions etc other useful things
-  let heightVideo = $state(0);
-  let widthVideo = $state(0);
-  let heightVideoContainer = $state(0);
-  let widthVideoContainer = $state(0);
+  let videoHeight = $state(0);
+  let videoWidth = $state(0);
+  let videoHeightContainer = $state(0);
+  let videoWidthContainer = $state(0);
 
   // For intersection observer
   let intersecting = $state(false);
@@ -123,7 +123,7 @@
   let interactiveControlsOpacity = $state(controlsOpacityMax);
 
   // Get control button positioning
-  let controlButtonPosition = $derived.by(() =>
+  let controlButtonPosition = $derived(
     getButtonPosition(controlsPosition, controlsBorderOffset)
   );
 
@@ -168,10 +168,7 @@
     }}
     style="
     opacity: {interactiveControlsOpacity};
-    top: {controlButtonPosition.top}px;
-    bottom: {controlButtonPosition.bottom}px;
-    left: {controlButtonPosition.left}px;
-    right: {controlButtonPosition.right}px;
+    {controlButtonPosition}
     "
   >
     {#if resetCondition}
@@ -204,7 +201,7 @@
     onclick={() => {
       paused = !paused;
     }}
-    style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
+    style="top: 0; left: 0; width: {videoWidthContainer}px; height: {videoHeightContainer}px;"
   ></button>
 {/snippet}
 
@@ -253,8 +250,8 @@
             bind:this={element}
             class="video-wrapper relative block"
             aria-hidden={hidden}
-            bind:clientWidth={widthVideoContainer}
-            bind:clientHeight={heightVideoContainer}
+            bind:clientWidth={videoWidthContainer}
+            bind:clientHeight={videoHeightContainer}
           >
             {#if possibleToPlayPause}
               {#if showControls}
@@ -276,8 +273,8 @@
               bind:currentTime={time}
               bind:duration
               bind:paused
-              bind:clientWidth={widthVideo}
-              bind:clientHeight={heightVideo}
+              bind:clientWidth={videoWidth}
+              bind:clientHeight={videoHeight}
             >
               <track kind="captions" />
             </video>
@@ -288,8 +285,8 @@
         <div
           class="video-wrapper relative"
           aria-hidden={hidden}
-          bind:clientWidth={widthVideoContainer}
-          bind:clientHeight={heightVideoContainer}
+          bind:clientWidth={videoWidthContainer}
+          bind:clientHeight={videoHeightContainer}
         >
           {#if possibleToPlayPause}
             {#if showControls}
@@ -312,8 +309,8 @@
             bind:duration
             bind:paused
             autoplay
-            bind:clientWidth={widthVideo}
-            bind:clientHeight={heightVideo}
+            bind:clientWidth={videoWidth}
+            bind:clientHeight={videoHeight}
           >
             <track kind="captions" />
           </video>
