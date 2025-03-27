@@ -208,10 +208,6 @@
       }
     }
   }
-  // $effect(() => {
-  //   console.log('handlers', handlers, typeof handlers);
-  //   console.log('manager', manager, typeof manager);
-  // });
 </script>
 
 <svelte:window bind:innerHeight={wh} />
