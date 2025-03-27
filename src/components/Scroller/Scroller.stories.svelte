@@ -1,24 +1,10 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import interactiveDocs from './stories/docs/interactive.md?raw';
-  // @ts-ignore raw
-  import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
-  // @ts-ignore raw
-  import archieMLDocs from './stories/docs/archieML.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Scroller from './Scroller.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Graphics/Scroller',
     component: Scroller,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       steps: { control: false },
       backgroundWidth: {
@@ -34,17 +20,15 @@
         options: ['fb', 'bf'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import BasicStep from './stories/components/basic/Step.svelte';
-  import InteractiveForeground from './stories/components/basic/InteractiveForeground.svelte';
-  import AiMap1 from './stories/components/ai2svelte/ai-scroller-1.svelte';
-  import AiMap2 from './stories/components/ai2svelte/ai-scroller-2.svelte';
-  import AiMap3 from './stories/components/ai2svelte/ai-scroller-3.svelte';
+  import BasicStep from './demo/components/basic/Step.svelte';
+  import InteractiveForeground from './demo/components/basic/InteractiveForeground.svelte';
+  import AiMap1 from './demo/components/ai2svelte/ai-scroller-1.svelte';
+  import AiMap2 from './demo/components/ai2svelte/ai-scroller-2.svelte';
+  import AiMap3 from './demo/components/ai2svelte/ai-scroller-3.svelte';
 
   const aiCharts = {
     AiMap1,
@@ -79,15 +63,9 @@
   };
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <Scroller {...args} />
-  {/snippet}
-</Template>
-
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  args={{
     steps: [
       {
         background: BasicStep,
@@ -112,14 +90,14 @@
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}"
+  }}
 />
 
-<Story name="ArchieML" args="{docBlock}" {...withStoryDocs(archieMLDocs)} />
+<Story name="ArchieML" args={docBlock} />
 
 <Story
   name="Foreground components"
-  args="{{
+  args={{
     steps: [
       {
         background: BasicStep,
@@ -142,13 +120,12 @@
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}"
-  {...withStoryDocs(interactiveDocs)}
+  }}
 />
 
 <Story
   name="Ai2svelte"
-  args="{{
+  args={{
     steps: [
       {
         background: AiMap1,
@@ -175,6 +152,5 @@
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}"
-  {...withStoryDocs(ai2svelteDocs)}
+  }}
 />
