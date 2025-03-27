@@ -1,6 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Scroller from './Scroller.svelte';
+  import Scroller from './ScrollerStash.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/Scroller',
@@ -63,7 +63,9 @@
   };
 </script>
 
-<Story
+<Story name="Test"></Story>
+
+<!-- <Story
   name="Demo"
   args={{
     steps: [
@@ -153,4 +155,4 @@
     embeddedLayout: 'fb',
     embedded: false,
   }}
-/>
+/> -->
