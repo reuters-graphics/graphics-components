@@ -1,6 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Scroller from './ScrollerStash.svelte';
+  import Scroller from './Scroller.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/Scroller',

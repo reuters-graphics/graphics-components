@@ -1,4 +1,4 @@
-<script context="module">
+<script module lang="ts">
   const handlers = [];
   let manager;
 
@@ -63,49 +63,51 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
+  import { type Snippet } from 'svelte';
 
-  // config
-  export let top = 0;
-  export let bottom = 1;
-  export let threshold = 0.5;
-  export let query = 'section';
-  export let parallax = false;
+  let {
+    // bindings
+    index = $bindable(0),
+    count = $bindable(0),
+    offset = $bindable(0),
+    progress = $bindable(0),
+    visible = $bindable(false),
+    // config
+    top = 0,
+    bottom = 1,
+    threshold = 0.5,
+    query = 'section',
+    parallax = false,
+    backgroundSnippet,
+    foregroundSnippet,
+  } = $props();
 
-  // bindings
-  export let index = 0;
-  export let count = 0;
-  export let offset = 0;
-  export let progress = 0;
-  export let visible = false;
-
-  let outer;
-  let foreground;
-  let background;
+  let outer: HTMLElement;
+  let foreground: HTMLElement;
+  let background: HTMLElement;
   let left;
-  let sections;
+  let sections: NodeListOf<HTMLElement>;
   let wh = 0;
-  let fixed;
+  let fixed = $state(false);
   let offset_top = 0;
   let width = 1;
   let height;
   let inverted;
 
-  $: top_px = Math.round(top * wh);
-  $: bottom_px = Math.round(bottom * wh);
-  $: threshold_px = Math.round(threshold * wh);
+  let top_px = Math.round(top * wh);
+  let bottom_px = Math.round(bottom * wh);
+  let threshold_px = Math.round(threshold * wh);
 
-  $: top, bottom, threshold, parallax, update();
-
-  $: style = `
+  let style = $derived(`
 		position: ${fixed ? 'fixed' : 'absolute'};
 		top: 0;
 		transform: translate(0, ${offset_top}px);
 		z-index: ${inverted ? 3 : 1};
-	`;
+	`);
 
-  $: widthStyle = fixed ? `width:${width}px;` : '';
+  let widthStyle = $derived(fixed ? `width:${width}px;` : '');
 
   onMount(() => {
     sections = foreground.querySelectorAll(query);
@@ -118,6 +120,10 @@
     manager.add(scroller);
     return () => manager.remove(scroller);
   });
+
+  // $effect(() => {
+  //   console.log('index', index);
+  // });
 
   function update() {
     if (!foreground) return;
@@ -180,16 +186,16 @@
     style="{style}{widthStyle}"
   >
     <svelte-scroller-background bind:this={background}>
-      <slot name="background"></slot>
+      {@render backgroundSnippet()}
     </svelte-scroller-background>
   </svelte-scroller-background-container>
 
   <svelte-scroller-foreground bind:this={foreground}>
-    <slot name="foreground"></slot>
+    {@render foregroundSnippet()}
   </svelte-scroller-foreground>
 </svelte-scroller-outer>
 
-<style>
+<style lang="scss">
   svelte-scroller-outer {
     display: block;
     position: relative;
@@ -226,5 +232,6 @@
     /* -webkit-transform: translate3d(0, 0, 0);
 		-moz-transform: translate3d(0, 0, 0);
 		transform: translate3d(0, 0, 0); */
+    background-color: yellow;
   }
 </style>
