@@ -45,7 +45,7 @@ export interface ScrollerStep {
    */
   foregroundProps?: object;
   /**
-   * Optional alt text for the background, read aloud after the foregroud text. You can add it to each step or just to the first step to describe the entire scroller graphic.
+   * Optional alt text for the background, read aloud after the foreground text. You can add it to each step or just to the first step to describe the entire scroller graphic.
    */
   altText?: string;
 }

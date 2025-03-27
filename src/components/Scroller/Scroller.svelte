@@ -14,9 +14,6 @@
   } from '../@types/global';
 
   interface Props {
-    /** ID of the scroller container */
-    id?: string;
-
     /**
      * An array of step objects that define the steps in your scroller.
      *
@@ -26,7 +23,7 @@
      * - `backgroundProps` Optional props for background component.
      * - `foreground` A component or markdown-formatted string. **REQUIRED**
      * - `foregroundProps` Optional props for foreground component.
-     * - `altText` Optional alt text for the background, read aloud after the foregroud text. You can add it to each step or just to the first step to describe the entire scroller graphic. **RECOMMENDED**
+     * - `altText` Optional alt text for the background, read aloud after the foreground text. You can add it to each step or just to the first step to describe the entire scroller graphic. **RECOMMENDED**
      *
      */
     steps: ScrollerStep[];
@@ -73,6 +70,8 @@
      * Parallax prop passed to [svelte-scroller](https://github.com/sveltejs/svelte-scroller#parameters)
      */
     parallax?: boolean;
+    /** ID of the scroller container */
+    id?: string;
     /** Set a class to target with SCSS */
     class?: string;
   }

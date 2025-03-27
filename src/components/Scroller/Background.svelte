@@ -3,17 +3,12 @@
 
   interface Props {
     index: number;
-    steps?: ScrollerStep[];
+    steps: ScrollerStep[];
     preload?: number;
     stackBackground?: boolean;
   }
 
-  let {
-    index,
-    steps = [],
-    preload = 1,
-    stackBackground = true,
-  }: Props = $props();
+  let { index, steps, preload = 1, stackBackground = true }: Props = $props();
 </script>
 
 {#each steps as step, i}
@@ -22,8 +17,8 @@
   {#if preload === 0 || (i >= (stackBackground ? 0 : index - preload) && i <= index + preload)}
     <div
       class="step-background step-{i + 1} w-full absolute"
-      class:visible="{stackBackground ? i <= index : i === index}"
-      class:invisible="{stackBackground ? i > index : i !== index}"
+      class:visible={stackBackground ? i <= index : i === index}
+      class:invisible={stackBackground ? i > index : i !== index}
     >
       <step.background {...step.backgroundProps || {}}></step.background>
     </div>

@@ -6,14 +6,274 @@ import * as ScrollerStories from './Scroller.stories.svelte';
 
 # Scroller
 
-The `Scroller` component TK.
+The `Scroller` component creates a basic scrollytelling graphic with layout options.
+
+> This component is designed to handle most common layouts for scrollytelling. To make something more complex, customise [ScrollerBase](https://github.com/reuters-graphics/graphics-components/blob/main/src/components/Scroller/ScrollerBase/index.svelte), which is a Svelte 5 version of the [svelte-scroller](https://github.com/sveltejs/svelte-scroller).
 
 [Demo](?path=/story/components-graphics-scroller--demo)
 
 ```svelte
 <script>
   import { Scroller } from '@reuters-graphics/graphics-components';
+
+  import MyBackground from './MyBackground.svelte'; // Your own background component
+
+// Array of step objects that define the steps in your scroller.
+  const steps = [
+      {
+        background: MyBackground,
+        backgroundProps: { colour: 'red' }, // Optional props for your background component
+        foreground: '#### Step 1\n\nLorem ipsum red',
+        altText: 'Red background',
+      },
+      {
+        background: MyBackground,
+        backgroundProps: { colour: 'blue' },
+        foreground: '#### Step 2\n\nLorem ipsum blue',
+        altText: 'Blue background',
+      },
+      {
+        background: MyBackground,
+        backgroundProps: { colour: 'green' },
+        foreground: '#### Step 3\n\nLorem ipsum green',
+        altText: 'Green background',
+      },
+    ],
 </script>
 
-<Scroller />
+<Scroller {steps} foregroundPosition="middle" backgroundWidth="fluid" />
 ```
+
+## Using with ArchieML and ai2svelte
+
+[Demo](?path=/story/components-graphics-scroller--archie-ml)
+
+In your Graphics Kit project, import your ai2svelte graphics in `App.svelte` and add them to the `aiCharts` object:
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import AiMap1 from './ai2svelte/my-map-1.svelte';
+  import AiMap2 from './ai2svelte/my-map-2.svelte';
+  import AiMap3 from './ai2svelte/my-map-3.svelte';
+
+  import content from '$locales/en/content.json';
+
+  // Graphics Kit only
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the Graphics Kit...
+
+  const aiCharts = {
+    AiMap1,
+    AiMap2,
+    AiMap3,
+    // Other charts...
+  };
+</script>
+```
+
+Then add the following structure to your ArchieML Doc, making sure that the names of your charts in the `aiCharts` object match the names of each step's `background` in the ArchieML doc:
+
+```yaml
+# ArchieML doc
+[blocks]
+type: ai-scroller
+id: my-map-scroller
+width: fluid
+foregroundPosition: right
+stackBackground: true
+
+# Array of step objects
+  [.steps]
+    background: AiMap1
+    foreground: #### Step 1
+
+    Here's where something happend.
+    :end
+    altText: A map showing the Upper West side in New York City.
+
+    Can add paragraphs of alt text if you want to break up sentences.
+    :end
+
+    background: AiMap2
+    foreground: #### Step 2
+
+    Something happened on some street...
+    :end
+    altText: The same map now highlights 98th Street.
+    :end
+
+    background: AiMap3
+    foreground: #### Step 3
+
+    ... and now there are multiple protests.
+    :end
+    altText: The same map now highlights three locations near 98th Street where something particulary important happened.
+    :end
+  []
+[]
+```
+
+Then parse the relevant ArchieML block object before passing to the `Scroller` component.
+
+```svelte
+<!-- App.svelte -->
+{#each content.blocks as block}
+  {#if block.type === 'ai-scroller'}
+    <Scroller
+      id={block.id}
+      backgroundWidth={block.width}
+      foregroundPosition={block.foregroundPosition}
+      stackBackground={truthy(block.stackBackground)}
+      steps={block.steps.map((step) => ({
+        background: aiCharts[step.background],
+        backgroundProps: { assetsPath: assets || '/' },
+        foreground: step.foreground,
+        altText: step.altText,
+      }))}
+    />
+  {/if}
+{/each}
+```
+
+> **Note:** Some props, like `stackBackground`, expect boolean values. If you're using the Graphics Kit, use the `truthy()` util function to convert a string value to a boolean.
+
+> **Note:** In Graphics Kit, the image source paths in ai2svelte components have to be fixed by passing `assets` to each step object, like in the example above.
+
+## Custom foreground
+
+[Demo](?path=/story/components-graphics-scroller--custom-foreground)
+
+Instead of just text, you can use components as foregrounds, and optionally pass props to it.
+
+If you're customising your own foreground component, remember to add alt text that describes the background graphic.
+
+```svelte
+<script>
+  import MyBackground from './MyBackground.svelte'; // Your own background component
+  import MyInteractiveForeground from './MyInteractiveForeground.svelte'; // Your custom foreground component
+
+  const steps = [
+    {
+      background: MyBackground,
+      backgroundProps: { colour: 'red' }, // Props for your background component, if needed
+      foreground: MyInteractiveForeground, // Custom foreground component
+    },
+    {
+      background: MyBackground,
+      backgroundProps: { colour: 'blue' },
+      foreground: '#### Step 2\n\nLorem ipsum blue', // You can still add a markdown string as foreground; you can mix and match
+    },
+    {
+      background: MyBackground,
+      backgroundProps: { colour: 'green' },
+      foreground: MyInteractiveForeground,
+      foregroundProps: { count: 100 }, // Props for your custom foreground component, if needed
+    },
+  ];
+</script>
+
+<Scroller {steps} />
+```
+
+## Custom foreground with ArchieML
+
+[Demo](?path=/story/components-graphics-scroller--customforeground-archie-ml)
+
+You can use custom foreground components with ArchieML with a few additional steps.
+
+In your Graphics Kit project's `App.svelte`, import your custom foregroud components and add them to a `foregroundComponents` object, just as you import ai2svelte background graphics and add them to the `aiCharts` object:
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import content from '$locales/en/content.json';
+
+  // Background ai2svelte graphics
+  import AiMap1 from './ai2svelte/my-map-1.svelte';
+  import AiMap2 from './ai2svelte/my-map-2.svelte';
+  import AiMap3 from './ai2svelte/my-map-3.svelte';
+
+  // Foreground components, which can be ai2svelte or not.
+  import Foreground1 from './ai2svelte/my-foreground-1.svelte';
+
+  // Graphics Kit only
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the Graphics Kit...
+
+  // Background ai2svelte graphics components
+  const aiCharts = {
+    AiMap1,
+    AiMap2,
+    AiMap3,
+    // Other charts...
+  };
+
+  // Foreground components
+  const foregroundComponents = {
+    Foreground1,
+    // Other components...
+  };
+</script>
+```
+
+Then add the following structure to your ArchieML Doc, making sure that the names of your charts in the `aiCharts` and `foregroundComponents` objects match the names of each step's `background` and `foreground` in the ArchieML doc:
+
+```yaml
+# ArchieML doc
+[blocks]
+type: ai-scroller
+id: my-map-scroller
+foregroundPosition: left
+stackBackground: true
+
+# Array of step objects
+  [.steps]
+    background: AiMap1
+    # You can still use a markdown string even if other step/s use a custom foreground component
+    foreground: #### Step 1
+
+    Here's where something happend.
+    :end
+    altText: A map showing the Upper West side in New York City.
+    :end
+
+    background: AiMap2
+    foreground: Foreground1 # The name of your custom foreground component
+    altText: The same map now highlights 98th Street.
+    :end
+    background: AiMap3
+    foreground: #### Step 3
+
+    ... and now there are multiple protests.
+    :end
+    altText: The same map now highlights three locations near 98th Street where something particulary important happened.
+    :end
+  []
+[]
+```
+
+Then parse the relevant ArchieML block object before passing to the `Scroller` component.
+
+```svelte
+<!-- App.svelte -->
+{#each content.blocks as block}
+  {#if block.type === 'ai-scroller'}
+    <Scroller
+      id={block.id}
+      backgroundWidth={block.width}
+      foregroundPosition={block.foregroundPosition}
+      stackBackground={truthy(block.stackBackground)}
+      steps={block.steps.map((step) => ({
+        background: aiCharts[step.background],
+        backgroundProps: { assetsPath: assets || '/' },
+        foreground: foregroundComponents[step.foreground] || step.foreground,
+        foregroundProps: { assetsPath: assets || '/' },
+        altText: step.altText,
+      }))}
+    />
+  {/if}
+{/each}
+```
+
+> **Note:** You only need to pass `foregroundProps: { assetsPath: assets || '/' }` in Graphics Kit if your foreground components are ai2svelte graphicss.
