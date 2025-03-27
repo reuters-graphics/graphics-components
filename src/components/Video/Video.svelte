@@ -18,16 +18,14 @@
     src: string;
     /** Image to be shown while the video is downloading */
     poster?: string;
-    /** Whether to wrap the graphic with an aria hidden tag. */
-    hidden?: boolean;
     /** ARIA description, passed in as a markdown string. */
-    ariaDescription?: string;
+    ariaDescription: string;
     /** Add extra classes to the block tag to target it with custom CSS. */
     class?: string;
     /** Title of the graphic */
     title?: string;
     /** Notes to the graphic, passed in as a markdown string OR a custom snippet. */
-    notes: string | Snippet;
+    notes?: string | Snippet;
     /** Description of the graphic, passed in as a markdown string. */
     description?: string;
     /** Width of the block within the article well. */
@@ -41,10 +39,10 @@
     /** Whether video should have sound or not. */
     muteVideo?: boolean;
     /** If `true`, this allow videos with sound to autoplay if the user has previously interacted with DOM */
-    sountAutoplay?: boolean;
+    soundAutoplay?: boolean;
     /** Whether the video should play when it comes into view or just on page load */
     playVideoWhenInView?: boolean;
-    /** If video plays with intersection observer, how much of it should be into view to start playing */
+    /** Controls how much of the video should be visible when it starts playing. This is a number between 0 and 1, where 0 means the video will start playing as soon as its top enters the viewport, and 1 means it will start when the whole video is in the viewport. */
     playVideoThreshold?: number;
     /** Whether to have the option to pause and play video */
     possibleToPlayPause?: boolean;
@@ -67,7 +65,6 @@
   let {
     src,
     poster = '',
-    hidden = true,
     ariaDescription,
     class: cls = '',
     title,
@@ -78,7 +75,7 @@
     preloadVideo = 'auto',
     loopVideo = false,
     muteVideo = true,
-    sountAutoplay = false,
+    soundAutoplay = false,
     playVideoWhenInView = true,
     playVideoThreshold = 0.5,
     possibleToPlayPause = true,
@@ -138,7 +135,7 @@
     // Special case for video with sound
     // Only ff you've clicked on play button or interacted with DOM in any way previously, video with audio will play
     if (
-      sountAutoplay &&
+      soundAutoplay &&
       playVideoWhenInView &&
       intersecting &&
       !muteVideo &&
@@ -147,19 +144,13 @@
     )
       paused = false;
 
-    if (sountAutoplay && !muteVideo && !interactedWithDom) paused = true;
+    if (soundAutoplay && !muteVideo && !interactedWithDom) paused = true;
   });
-
-  // Warning to missing aria attributes
-  if (hidden && !ariaDescription) {
-    console.warn(
-      'Must provide aria description for video components if hidden is true.'
-    );
-  }
 </script>
 
 <!-- Controls button snippet -->
 {#snippet controls()}
+  clickedOnPauseBtn:{clickedOnPauseBtn}
   <button
     class="controls"
     onclick={() => {
@@ -233,58 +224,17 @@
       interactiveControlsOpacity = controlsOpacityMin;
     }}
   >
-    {#if (hidden && ariaDescription) || !hidden}
-      {#if ariaDescription}
-        <p class="visually-hidden">{ariaDescription}</p>
-      {/if}
-
-      {#if playVideoWhenInView}
-        <!-- Video element with Intersection Observer -->
-        <IntersectionObserver
-          {element}
-          bind:intersecting
-          threshold={playVideoThreshold}
-          once={false}
-        >
-          <div
-            bind:this={element}
-            class="video-wrapper relative block"
-            aria-hidden={hidden}
-            bind:clientWidth={videoWidthContainer}
-            bind:clientHeight={videoHeightContainer}
-          >
-            {#if possibleToPlayPause}
-              {#if showControls}
-                {@render controls()}
-              {:else}
-                {@render transparentButton()}
-              {/if}
-            {/if}
-            <video
-              bind:this={videoElement}
-              {src}
-              {poster}
-              class="pointer-events-none relative"
-              width="100%"
-              muted={muteVideo}
-              playsinline
-              preload={preloadVideo}
-              loop={loopVideo}
-              bind:currentTime={time}
-              bind:duration
-              bind:paused
-              bind:clientWidth={videoWidth}
-              bind:clientHeight={videoHeight}
-            >
-              <track kind="captions" />
-            </video>
-          </div>
-        </IntersectionObserver>
-      {:else}
-        <!-- Video element without Intersection observer -->
+    {#if playVideoWhenInView}
+      <!-- Video element with Intersection Observer -->
+      <IntersectionObserver
+        {element}
+        bind:intersecting
+        threshold={playVideoThreshold}
+        once={false}
+      >
         <div
-          class="video-wrapper relative"
-          aria-hidden={hidden}
+          bind:this={element}
+          class="video-wrapper relative block"
           bind:clientWidth={videoWidthContainer}
           bind:clientHeight={videoHeightContainer}
         >
@@ -305,21 +255,55 @@
             playsinline
             preload={preloadVideo}
             loop={loopVideo}
+            aria-label={ariaDescription}
             bind:currentTime={time}
             bind:duration
             bind:paused
-            autoplay
             bind:clientWidth={videoWidth}
             bind:clientHeight={videoHeight}
           >
             <track kind="captions" />
           </video>
         </div>
-      {/if}
+      </IntersectionObserver>
+    {:else}
+      <!-- Video element without Intersection observer -->
+      <div
+        class="video-wrapper relative"
+        bind:clientWidth={videoWidthContainer}
+        bind:clientHeight={videoHeightContainer}
+      >
+        {#if possibleToPlayPause}
+          {#if showControls}
+            {@render controls()}
+          {:else}
+            {@render transparentButton()}
+          {/if}
+        {/if}
+        <video
+          bind:this={videoElement}
+          {src}
+          {poster}
+          class="pointer-events-none relative"
+          width="100%"
+          muted={muteVideo}
+          playsinline
+          preload={preloadVideo}
+          loop={loopVideo}
+          bind:currentTime={time}
+          bind:duration
+          bind:paused
+          autoplay
+          bind:clientWidth={videoWidth}
+          bind:clientHeight={videoHeight}
+        >
+          <track kind="captions" />
+        </video>
+      </div>
     {/if}
   </div>
+  <!-- Custom notes snippet -->
   {#if notes && typeof notes !== 'string'}
-    <!-- Custom notes and source slot -->
     {@render notes()}
   {/if}
 </GraphicBlock>

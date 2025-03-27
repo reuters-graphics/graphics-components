@@ -16,7 +16,7 @@
 <Story
   name="Demo"
   args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
+    ariaDescription: 'Required description of your video for screen readers.',
     src: SilentVideo,
     width: 'wide',
     notes: 'Optional caption for your video.',
@@ -24,12 +24,11 @@
 />
 
 <Story
-  name="Playing and looping"
-  exportName="PlayingAndLooping"
+  name="Autoplay controls"
+  exportName="Autoplay"
   args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
+    ariaDescription: 'Required description of your video for screen readers.',
     src: SilentVideo,
-    width: 'normal',
     loopVideo: true,
     notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
@@ -38,36 +37,60 @@
 />
 
 <Story
+  name="Audio controls"
+  exportName="Audio"
+  args={{
+    ariaDescription: 'Required description of your video for screen readers.',
+    src: SoundVideo,
+    notes:
+      "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
+    controlsColour: '#152a1c',
+    controlsOpacityMax: 1,
+    controlsOpacityMin: 0.5,
+    playVideoThreshold: 0.9,
+    muteVideo: false,
+    soundAutoplay: true,
+  }}
+/>
+
+<Story
   name="Controls"
   args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
+    ariaDescription: 'Required description of your video for screen readers.',
     src: SilentVideo,
     width: 'normal',
     notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
     controlsColour: 'white',
-    controlsOpacity: 1,
+    controlsOpacityMax: 1,
+    controlsOpacityMin: 0.5,
     controlsPosition: 'bottom right',
     separateReplayIcon: true,
     loopVideo: false,
+    soundAutoplay: true,
   }}
 />
 
-<Story
-  name="Audio controls"
-  exportName="Audio"
-  args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
-    src: SoundVideo,
-    width: 'normal',
-    notes:
-      "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
-    playVideoThreshold: 0.9,
-    showControls: true,
-    loopVideo: false,
-    muteVideo: false,
-    playVideoWhenInView: true,
-    allowSoundToAutoplay: true,
-  }}
-/>
+<Story name="Text elements" exportName="Text">
+  <Video
+    src={SilentVideo}
+    ariaDescription="Required description of your video for screen readers."
+    title="Title for your video"
+    description="Description for your video"
+  >
+    {#snippet notes()}
+      <aside>
+        <p class="notes">Custom-styled notes for the video.</p>
+      </aside>
+    {/snippet}
+  </Video>
+</Story>
+
+<style lang="scss">
+  @use '../../scss/mixins' as mixins;
+
+  p.notes {
+    @include mixins.body-note;
+  }
+</style>
