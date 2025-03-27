@@ -63,9 +63,7 @@
   };
 </script>
 
-<Story name="Test"></Story>
-
-<!-- <Story
+<Story
   name="Demo"
   args={{
     steps: [
@@ -94,7 +92,6 @@
     embedded: false,
   }}
 />
-
 <Story name="ArchieML" args={docBlock} />
 
 <Story
@@ -155,4 +152,4 @@
     embeddedLayout: 'fb',
     embedded: false,
   }}
-/> -->
+/>
