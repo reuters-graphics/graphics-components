@@ -63,3 +63,60 @@ export function getOptions<T>(data: T[], attr: keyof T) {
   // Convert the list into Option typed objects ready for our Select component
   return attrList.map((a) => ({ text: a, value: a }));
 }
+interface SortableItem {
+  [key: string]: unknown; // Or more specific types if known
+}
+
+/**
+ * Sorts an array of objects based on a specified column and direction.
+ */
+export function sortArray<T extends SortableItem>(
+  /** The array to sort. */
+  array: T[],
+  /** The column to sort by. */
+  column: keyof T,
+  /** The sorting direction ('ascending' or 'descending'). */
+  direction: 'ascending' | 'descending',
+  /** Whether or not sorting is turned on */
+  sortable: boolean
+) {
+  if (!sortable) return array;
+
+  const sorted = [...array].sort((a, b) => {
+    if (a[column] < b[column]) {
+      return direction === 'ascending' ? -1 : 1;
+    } else if (a[column] > b[column]) {
+      return direction === 'ascending' ? 1 : -1;
+    } else {
+      return 0;
+    }
+  });
+
+  return sorted;
+}
+
+export type Formatter<T> = (value: T) => string;
+
+export type FieldFormatters<T> = {
+  [K in keyof T]?: Formatter<T[K]>;
+};
+/**
+ * Formats a value based on a field and a dictionary of formatters.
+ */
+export function formatValue<T extends Record<string, unknown>>(
+  /** The object containing the field. */
+  item: FilterableDatum<T>,
+  /** The field to format. */
+  field: keyof T,
+  /** An optional dictionary of formatters. */
+  fieldFormatters?: FieldFormatters<T>
+) {
+  const value = item[field];
+
+  if (fieldFormatters && field in fieldFormatters && fieldFormatters[field]) {
+    const formatter = fieldFormatters[field];
+    return formatter(value);
+  } else {
+    return value;
+  }
+}

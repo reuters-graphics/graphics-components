@@ -1,42 +1,37 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import type { Option } from '../@types/global';
+  import type { Option } from '$lib/components/@types/global';
 
   interface Props {
     /**
      * The label that appears above the select input.
-     * @type {string}
      */
     label?: string;
     /**
      * The label that appears above the select input.
-     * @type {Array}
      */
     options?: Option[];
+    /** Optional function that runs when the selected value changes. */
+    onselect?: (newValue: string) => void;
   }
 
-  let { label = '', options = [] }: Props = $props();
+  let { label = '', options = [], onselect }: Props = $props();
 
-  const dispatch = createEventDispatcher();
+  function input(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
 
-  function input(event) {
-    const value = event.target.value;
-    dispatch('select', { value });
+    if (onselect) onselect(value); // Call the prop to update the parent when selected
   }
 </script>
 
 <div class="select">
-  {#if label}
-    <label class="body-caption block" for="select--input">{label}</label>
-  {/if}
   <select
     class="select--input body-caption fpx-2"
     name="select--input"
     id="select--input"
-    oninput="{input}"
+    oninput={input}
   >
     {#each options as obj}
-      <option value="{obj.value}">{obj.text}</option>
+      <option value={obj.value}>{obj.text} {label.toLowerCase()}</option>
     {/each}
   </select>
 </div>

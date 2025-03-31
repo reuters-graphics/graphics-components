@@ -6,7 +6,17 @@
   import Select from './components/Select.svelte';
   import SortArrow from './components/SortArrow.svelte';
   import SearchInput from '../SearchInput/SearchInput.svelte';
-  import { filterArray, paginateArray, getOptions } from './utils';
+  import {
+    filterArray,
+    paginateArray,
+    getOptions,
+    sortArray,
+    formatValue,
+    type FieldFormatters,
+  } from './utils';
+
+  // Types
+  import type { Option } from '$lib/components/@types/global';
 
   interface Props<T extends Record<string, unknown>> {
     /** Data for the table as an array. */
@@ -47,7 +57,7 @@
     /** The direction of the sort. By default it's ascending. */
     sortDirection?: 'ascending' | 'descending';
     /** Custom field formatting functions. Should be keyed to the name of the field. */
-    fieldFormatters?: object;
+    fieldFormatters?: FieldFormatters<T>;
     /** Width of the component within the text well. */
     width?: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
     /** Add an ID to target with SCSS. */
@@ -75,32 +85,11 @@
     sortField = Object.keys(data[0])[0],
     sortableFields = Object.keys(data[0]).filter((f) => f !== 'searchStr'),
     sortDirection = $bindable('ascending'),
-    fieldFormatters = {},
+    fieldFormatters,
     width = 'normal',
     id = '',
     class: cls = '',
   }: Props<Record<string, unknown>> = $props();
-
-  /** Derived variables */
-  // let includedFieldsDerived = $derived.by(() => {
-  //   if (includedFields) return includedFields;
-  //   if (data.length > 0)
-  //     return Object.keys(data[0]).filter((f) => f !== 'searchStr');
-  //   return [];
-  // });
-
-  // let sortableFieldsDerived = $derived.by(() => {
-  //   if (sortableFields) return sortableFields;
-  //   if (data.length > 0)
-  //     return Object.keys(data[0]).filter((f) => f !== 'searchStr');
-  //   return [];
-  // });
-
-  // let sortFieldDerived = $derived.by(() => {
-  //   if (sortField) return sortField;
-  //   if (data.length > 0) return Object.keys(data[0])[0];
-  //   return '';
-  // });
 
   /** Set truncate, filtering and pagination configuration */
   let showAll = $state(false);
@@ -109,19 +98,13 @@
   let filterList = $derived(
     filterField ? getOptions(data, filterField) : undefined
   );
-  let filterValue = '';
+  let filterValue = $state('');
 
+  /** Helper functions that modify variables within this component */
   //* * Handle show all, search, filter, sort and pagination events */
-  function toggleTruncate(_event) {
+  function toggleTruncate() {
     showAll = !showAll;
   }
-
-  // function handleSearchInput(event: CustomEvent<string>) {
-  //   searchText = event.detail;
-
-  //   console.log('searchText', searchText);
-  //   pageNumber = 1;
-  // }
 
   /** Filters table data based on the input value in the search bar */
   function handleSearchInput(newSearchText: string) {
@@ -129,39 +112,15 @@
     pageNumber = 1;
   }
 
-  function handleFilterInput(event) {
-    const value = event.detail.value;
-    filterValue = value === 'All' ? '' : value;
+  function handleFilterInput(newSearchText: string) {
+    filterValue = newSearchText === 'All' ? '' : newSearchText;
     pageNumber = 1;
   }
 
-  function handleSort(event) {
+  function handleSort(event: MouseEvent) {
     if (!sortable) return;
-    sortField = event.target.getAttribute('data-field');
+    sortField = (event.target as HTMLElement).getAttribute('data-field') || '';
     sortDirection = sortDirection === 'ascending' ? 'descending' : 'ascending';
-  }
-
-  function sortArray(array, column, direction) {
-    if (!sortable) return array;
-    return array.sort((a, b) => {
-      if (a[column] < b[column]) {
-        return direction === 'ascending' ? -1 : 1;
-      } else if (a[column] > b[column]) {
-        return direction === 'ascending' ? 1 : -1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
-  function formatValue(item, field) {
-    const value = item[field];
-    if (field in fieldFormatters) {
-      const func = fieldFormatters[field];
-      return func(value);
-    } else {
-      return value;
-    }
   }
 
   /** Add the `searchStr` field to data */
@@ -182,7 +141,7 @@
   );
 
   let sortedData = $derived.by(() =>
-    sortArray(filteredData, sortField, sortDirection)
+    sortArray(filteredData, sortField, sortDirection, sortable)
   );
 
   let currentPageData = $derived.by(() => {
@@ -212,8 +171,8 @@
               <div class="table--header--filter">
                 <Select
                   label={filterLabel || filterField}
-                  options={filterList}
-                  on:select={handleFilterInput}
+                  options={filterList as Option[]}
+                  onselect={handleFilterInput}
                 />
               </div>
             {/if}
@@ -270,7 +229,7 @@
                   data-field={field}
                   data-value={item[field]}
                 >
-                  {@html formatValue(item, field)}
+                  {@html formatValue(item, field, fieldFormatters)}
                 </td>
               {/each}
             </tr>

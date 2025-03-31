@@ -18,8 +18,9 @@
   import pressFreedom from './demo/pressFreedom.json';
   import homeRuns from './demo/homeRuns.json';
   import richestWomen from './demo/richestWomen.json';
+  import type { Formatter } from './utils';
 
-  const currencyFormat = (v: number) => '$' + v.toFixed(1);
+  const currencyFormat: Formatter<number> = (v: number) => '$' + v.toFixed(1);
 </script>
 
 <Story
@@ -31,9 +32,9 @@
 />
 
 <Story
-  name="Metadata"
+  name="Text elements"
+  exportName="Text"
   args={{
-    width: 'normal',
     data: homeRuns,
     title: 'Career home run leaders',
     dek: 'In baseball, a home run (also known as a "dinger" or "tater") occurs when a batter hits the ball over the outfield fence. When a home run is hit, the batter and any runners on base are able to score.',
@@ -43,7 +44,7 @@
 />
 
 <Story
-  name="Truncate"
+  name="Truncated"
   args={{
     data: homeRuns,
     truncated: true,
@@ -52,21 +53,23 @@
 />
 
 <Story
-  name="Paginate"
+  name="Paginated"
   args={{
     data: pressFreedom,
-    title: 'Press Freedom Index',
     paginated: true,
+    title: 'Press Freedom Index',
     source: 'Source: Reporters Without Borders',
   }}
 />
 
 <Story
-  name="Search"
+  name="Search bar"
+  exportName="Search"
   args={{
     data: pressFreedom,
     searchable: true,
     paginated: true,
+    searchPlaceholder: 'Search press freedom data',
     title: 'Press Freedom Index',
     source: 'Source: Reporters Without Borders',
   }}
@@ -78,6 +81,7 @@
     data: pressFreedom,
     paginated: true,
     filterField: 'Region',
+    filterLabel: 'regions',
     title: 'Press Freedom Index',
     notes: 'Source: Reporters Without Borders',
   }}
@@ -85,11 +89,13 @@
 
 <Story
   name="Search and filter"
+  exportName="SearchAndFilter"
   args={{
     data: pressFreedom,
     searchable: true,
-    filterField: 'Region',
     paginated: true,
+    filterField: 'Region',
+    filterLabel: 'regions',
     title: 'Press Freedom Index',
     dek: 'Reporters Without Borders ranks countries based on their level of press freedom using criteria such as the degree of media pluralism and violence against journalists.',
     source: 'Source: Reporters Without Borders',
@@ -101,9 +107,9 @@
   args={{
     data: pressFreedom,
     sortable: true,
+    paginated: true,
     sortField: 'Score',
     sortDirection: 'descending',
-    paginated: true,
     title: 'Press Freedom Index',
     notes: 'Note: data as of 2018',
     source: 'Source: Reporters Without Borders',
@@ -114,20 +120,12 @@
   name="Format"
   args={{
     data: richestWomen,
-    title: 'The Richest Women in the World',
-    source: 'Source: Forbes',
+    fieldFormatters: {
+      'Net worth (in billions)': currencyFormat as Formatter<unknown>,
+    },
     sortable: true,
     sortField: 'Net worth (in billions)',
     sortDirection: 'descending',
-    fieldFormatters: { 'Net worth (in billions)': currencyFormat },
-  }}
-/>
-
-<Story
-  name="Style"
-  args={{
-    id: 'custom-table',
-    data: richestWomen,
     title: 'The Richest Women in the World',
     source: 'Source: Forbes',
   }}

@@ -6,22 +6,18 @@
   interface Props {
     /**
      * The current page number.
-     * @type {number}
      */
     pageNumber?: number;
     /**
      * The default page size.
-     * @type {number}
      */
     pageSize?: number;
     /**
      * The number of records in the current page.
-     * @type {number}
      */
     pageLength?: number;
     /**
      * The total number of records in the data set.
-     * @type {number}
      */
     n?: number;
   }
@@ -29,8 +25,8 @@
   let {
     pageNumber = $bindable(1),
     pageSize = $bindable(25),
-    pageLength = $bindable(null),
-    n = $bindable(null),
+    pageLength = $bindable(1),
+    n = $bindable(1),
   }: Props = $props();
 
   let minRow = $derived(pageNumber * pageSize - pageSize + 1);

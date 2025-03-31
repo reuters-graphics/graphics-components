@@ -6,7 +6,7 @@
   interface Props {
     /** The placeholder text that appears in the search box.*/
     searchPlaceholder?: string;
-
+    /** Optional function that runs when the input value changes. */
     onsearch?: (newValue: string) => void;
   }
 

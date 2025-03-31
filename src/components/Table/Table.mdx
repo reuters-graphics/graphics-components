@@ -6,14 +6,172 @@ import * as TableStories from './Table.stories.svelte';
 
 # Table
 
-The `Table` component TKTK
+The `Table` component presents data as a table that you can make searchable, filtereable, sortable, or paginated.
 
 ```svelte
 <script>
   import { Table } from '@reuters-graphics/graphics-components';
+
+  import data from './data.json'; // Import your data
 </script>
 
-<Table />
+<Table {data} />
 ```
 
 <Canvas of={TableStories.Demo} />
+
+## Text elements
+
+Set the `title`, `dek`, `notes` and `source` options to add supporting metadata above and below the table.
+
+```svelte
+<Table
+  data={yourData}
+  title='Career home run leaders'
+  dek=`In baseball,
+a home run (also known as a "dinger" or "tater") occurs when a batter hits the
+ball over the outfield fence. When a home run is hit, the batter and any runners
+on base are able to score.`
+  notes='Note: As of Opening Day 2023'
+  source='Source: Baseball Reference'
+/>
+```
+
+<Canvas of={TableStories.Text} />
+
+## Truncated
+
+When your table has 10 or more rows, consider clipping it by setting the `truncated` option. When it is enabled, the table is clipped and readers must click a button below the table to see all rows.
+
+By default, this configuration will limit the table to 5 records. Change the cutoff point by adjusting the `truncateLength` option.
+
+This is a good option for simple tables with between 10 and 30 rows. It works best when the table doesn't require interactivity.
+
+```svelte
+<Table data={yourData} truncated={true} source="Source: Baseball Reference" />
+```
+
+<Canvas of={TableStories.Truncated} />
+
+## Paginated
+
+When your table has many rows, you should consider breaking it up into pages by setting `paginated` to `true`. When it is enabled, readers can leaf through the data using a set of buttons below the table.
+
+By default, there are 25 records per page. Change the number by adjusting the `pageSize` option.
+
+This is a good option when publishing large tables for readers to explore. It works well with interactive features like searching and filters.
+
+```svelte
+<Table
+  data={yourData}
+  paginated={true}
+  title="Press Freedom Index"
+  source="Reporters Without Borders"
+/>
+```
+
+<Canvas of={TableStories.Paginated} />
+
+## Search bar
+
+Allow users to search the table by setting the optional `searchable` option to `true`. Modify the default text that appears in the box by setting `searchPlaceholder` to a different placeholder text.
+
+```svelte
+<Table
+  data={yourData}
+  searchable={true}
+  paginated={true}
+  searchPlaceholder="Search press freedom data"
+  ,
+  title="Press Freedom Index"
+  notes="Source: Reporters Without Borders"
+/>
+```
+
+<Canvas of={TableStories.Search} />
+
+## Filter
+
+Allow users to filter the table by providing one of the attributes as the `filterField`. This works best with categorical columns.
+
+Set `filterLabel` to make the category name more readable. For example, if the column is `Region`, set `filterLabel` to `regions` or `regions of the world`.
+
+```svelte
+<Table
+  data={yourData}
+  filterField="Region"
+  filterLabel="regions"
+  paginated={true}
+  title="Press Freedom Index"
+  notes="Source: Reporters Without Borders"
+/>
+```
+
+<Canvas of={TableStories.Filter} />
+
+## Search and filter
+
+Feel free to both search and filter.
+
+```svelte
+<Table
+  data={yourData}
+  searchable={true}
+  paginated={true}
+  filterField="Region"
+  filterLabel="regions"
+  title="Press Freedom Index"
+  dek="Reporters Without Borders ranks countries based on their level of press freedom using criteria such as the degree of media pluralism and violence against journalists."
+  source="Source: Reporters Without Borders"
+/>
+```
+
+<Canvas of={TableStories.SearchAndFilter} />
+```
+
+## Sort
+
+Allow users to sort the table by setting `sortable` to `true`. Specify the starting order by setting `sortField` to a column name and `sortDirection` to `ascending` or `descending`.
+
+By default, all fields are sortable. If you'd like to limit the columns where sorting is allowed, provide a list to the `sortableFields` option.
+
+```svelte
+<Table
+  data={yourData}
+  sortable={true}
+  paginated={true}
+  sortField="Score"
+  sortDirection="descending"
+  title="Press Freedom Index"
+  source="Source: Reporters Without Borders"
+/>
+```
+
+<Canvas of={TableStories.Sort} />
+
+## Format
+
+Format column values by supplying functions keyed to field names with the `fieldFormatters` option. Columns are still sorted using the raw, underlying values.
+
+Among other things, this feature can be used to provide a unit of measurement, such as `$` or `%`, with numeric fields.
+
+```svelte
+<script lang="ts">
+  const fieldFormatters = {
+    // The key must match the column name in the data exactly
+    'Net worth (in billions)': (v) => '$' + v.toFixed(1),
+  };
+</script>
+
+<Table
+  data={yourData}
+  {fieldFormatters}
+  sortable={true}
+  sortField="Net worth (in billions)"
+  sortDirection="descending"
+  title="The Richest Women in the World"
+  source="Source: Forbes"
+/>
+```
+
+<Canvas of={TableStories.Format} />
