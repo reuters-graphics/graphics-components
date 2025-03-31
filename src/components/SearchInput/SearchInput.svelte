@@ -6,15 +6,23 @@
   interface Props {
     /** The placeholder text that appears in the search box.*/
     searchPlaceholder?: string;
+    /** Optional function that runs when the input value changes. */
+    onsearch?: (newValue: string) => void;
   }
 
-  let { searchPlaceholder = 'Search...' }: Props = $props();
+  let { searchPlaceholder = 'Search...', onsearch }: Props = $props();
 
   let value = $state('');
   let active = $derived(value !== '');
 
   function clear() {
     value = '';
+    if (onsearch) onsearch(value); // Call the prop to update the parent when cleared
+  }
+
+  function oninput(event: Event) {
+    value = (event.target as HTMLInputElement).value;
+    if (onsearch) onsearch(value); // Update the parent on every input change
   }
 </script>
 
@@ -22,12 +30,14 @@
   <div class="search--icon absolute">
     <MagnifyingGlass />
   </div>
+
   <input
     id="search--input"
     class="search--input body-caption pl-8"
     type="text"
     placeholder={searchPlaceholder}
     bind:value
+    {oninput}
   />
   <div
     class="search--x absolute"
