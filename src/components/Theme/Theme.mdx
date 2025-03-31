@@ -26,22 +26,12 @@ Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to t
 
 ## Custom theme
 
-You can customise the theme of your page in two ways:
+You can customise your page's theme in two ways:
 
-First, you can choose the `base` theme, either `light` or `dark`.
+- Choose the `base` theme, either `light` or `dark`
+- Pass a custom theme object to the `theme` prop, which will override styles in the `base` theme.
 
-From there, you can pass a custom theme object to the `theme` prop. Any custom styles you pass to `theme` will override styles in the `base` theme.
-
-Check out the "Control" column for `theme` in the properties table above to see what properties you can customise.
-
-> **Note:** The `Theme` component only styles child components or elements, so if you're changing the background colour of your page, it's still a good idea to set a `background-color` on your `body` element in global SCSS.
->
-> ```scss
-> // global.scss
-> body {
->   background-color: #2e3440;
-> }
-> ```
+Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to see what properties you can customise.
 
 ```svelte
 <Theme
@@ -55,68 +45,61 @@ Check out the "Control" column for `theme` in the properties table above to see 
 </Theme>
 ```
 
+> **Note:** The `Theme` component only styles child components or elements, so if you're changing the background colour of your page, make sure to also set the `background-color` on your `body` element in global SCSS.
+>
+> ```scss
+> // global.scss
+> body {
+>   background-color: #2e3440;
+> }
+> ```
+
 <Canvas of={ThemeStories.CustomTheme} />
 
-## Custom Google font
+## Custom font
 
-For some projects, you may need to use typefaces other than the defaults provided by the GraphicsKit.
+To use typefaces other than the defaults provided by the Graphics Kit, download the font files from services such as [Google Fonts](https://fonts.google.com/) or [Adobe Typekit](https://fonts.adobe.com/). Make a folder called `fonts` inside `statics/` and put the font file -- for example, `IndieFlower-Regular.ttf` downloaded from [Google Fonts](https://fonts.google.com/share?selection.family=Indie+Flower) -- in `statics/fonts/`.
 
-You will need to:
+Then, declare it as a `@font-face` in `global.scss`:
 
-- Import the fonts in your code.
-- Declare the `font-family` in the corresponding CSS variables in the Theme.
+```scss
+/* global.scss in Graphics Kit */
+@font-face {
+  // If you're unsure of the font-family name,
+  // click on "Get embed code" on the Google font page and check the CSS class.
+  font-family: 'Indie Flower';
 
-There are many ways to load fonts, but care should be taken that the font files load first before page render, to avoid layout shifts during font swapping after the font is downloaded. For this reason, we will use `<link>` method in the page `head` instead of CSS imports.
+  // Path to the font file. Change format depending on the font file type.
+  src: url('/fonts/IndieFlower-Regular.ttf') format('truetype');
+  font-weight: normal; // Optional
+  font-style: normal; // Optional
+}
+```
 
-> ##### Importing custom fonts
-
-> In this sample from [Google Fonts](https://fonts.google.com/specimen/Bebas+Neue), once we have selected the font family, copy the `<link>` code.
-
-> ```html
-> <link rel="preconnect" href="https://fonts.googleapis.com" />
-> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-> <link
->   href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
->   rel="stylesheet"
-> />
-> ```
-
-> In your project, navigate to `src` > `template.html` and add the copied code in `head` section :
-
-> ```svelte
-> <head>
->   <!-- HTML meta -->
->   <link rel="preconnect" href="https://fonts.googleapis.com" />
->   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
->   <link
->     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
->     rel="stylesheet"
->   />
->
->   %sveltekit.head%
-> </head>
-> ```
-
-> Similarly, you can add fonts from [Adobe Typekit](https://fonts.adobe.com/) or custom local fonts with the correct paths to the URL.
-
-You can customise one or more of the pre-defined font families in the Theme. Do not directly apply the font family in your CSS. Always use the CSS variables defined in the Theme so that it configures and reflects across the page design.
+Finally, pass the font to the appropriate text type in `Theme`:
 
 ```svelte
 <Theme
   base="light"
   theme={{
-    font: { family: { hed: 'Bebas Neue, sans-serif' } },
+    font: {
+      family: {
+        hed: 'IndieFlower', // Set header text font to `IndieFlower`
+        body: 'IndieFlower', // Set body text font to `IndieFlower`
+        // etc...
+      },
+    },
   }}
 >
   <!-- Page content -->
 </Theme>
 ```
 
-<Canvas of={ThemeStories.CustomGoogleFont} />
+<Canvas of={ThemeStories.CustomFont} />
 
 ## Background patterns
 
-To use a background pattern or image, set the background colour property in your custom theme to `transparent`...
+To use a background pattern or image, set the background colour property in `Theme` to `transparent`:
 
 ```svelte
 <Theme
@@ -129,13 +112,12 @@ To use a background pattern or image, set the background colour property in your
 </Theme>
 ```
 
-... then set your background image in global SCSS:
+Then in `global.scss`, set your image, which should be stored in `statics/images/`, as `background-image`:
 
 ```scss
 /* global.scss */
 body {
-  background-color: darkblue;
-  background-image: url('$assets/images/my-pattern.png');
+  background-image: url('/images/my-pattern.png');
 }
 ```
 
@@ -157,11 +139,11 @@ header + .overlay {
 }
 ```
 
-<Canvas of={ThemeStories.BackgroudPatterns} />
+<Canvas of={ThemeStories.BackgroundPatterns} />
 
 ## Inheritance
 
-Styles that use `Theme`'s CSS variables will always use those set by the nearest parent `Theme`. That lets you change the theme for parts of your page by simply wrapping that bit in a _new_ `Theme` with different styles.
+Styles that use `Theme`'s CSS variables will always use those set by the nearest parent `Theme`. That lets you change the theme for parts of your page by simply wrapping that bit in a new `Theme` with different styles.
 
 The demo below shows a more complex example of nesting themes, but more likely you'll so something like this:
 

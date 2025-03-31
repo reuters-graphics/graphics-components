@@ -10,7 +10,9 @@
         control: 'select',
         options: ['light', 'dark'],
       },
-      theme: { control: false },
+      theme: {
+        control: { expanded: true },
+      },
     },
   });
 </script>
@@ -19,6 +21,7 @@
   import ThemedPage from './demo/ThemedPage.svelte';
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
   import Headline from './../Headline/Headline.svelte';
+  import BodyText from '../BodyText/BodyText.svelte';
 </script>
 
 <Story name="Demo">
@@ -28,6 +31,7 @@
     </Theme>
   </div>
 </Story>
+
 <Story name="Custom theme" exportName="CustomTheme">
   <Theme
     base="dark"
@@ -40,11 +44,11 @@
   </Theme>
 </Story>
 
-<Story name="Custom Google font" exportName="CustomGoogleFont">
+<Story name="Custom font" exportName="CustomFont">
   <Theme
     base="light"
     theme={{
-      font: { family: { hed: 'Bebas Neue, sans-serif' } },
+      font: { family: { hed: 'Indie Flower', body: 'Indie Flower' } },
     }}
   >
     <div class="gfont">
@@ -52,6 +56,9 @@
         hed={'Reuters Graphics Interactive'}
         dek={'The beginning of a beautiful page'}
         section={'Global news'}
+      />
+      <BodyText
+        text={'Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.'}
       />
     </div>
   </Theme>
@@ -66,12 +73,19 @@
       }}
     >
       <SiteHeader />
-      <ThemedPage />
+      <Headline
+        hed={'Reuters Graphics Interactive'}
+        dek={'The beginning of a beautiful page'}
+        section={'Global news'}
+      />
+      <BodyText
+        text={'Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.'}
+      />
     </Theme>
   </div>
 </Story>
 
-<Story name="Inheritance">
+<Story name="Inheritance" tags={['!autodocs', '!dev']}>
   <Theme theme={themes.light}>
     <div class="themed">
       <p>Theme</p>
@@ -101,7 +115,7 @@
 </Story>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
   div.themed {
     background-color: var(--theme-colour-background);

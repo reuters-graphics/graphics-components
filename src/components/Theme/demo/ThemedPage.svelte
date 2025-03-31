@@ -14,14 +14,7 @@
     publishTime={new Date('2021-09-12').toISOString()}
   />
   <BodyText
-    text={`Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.
-
-Prosciutto kevin brisket sirloin pork loin shoulder cupim sausage chicken jowl strip steak rump pork ball tip ham hock. Swine pork belly fatback alcatra jowl.
-
-## Brisket sirloin
-
-Shank strip steak turkey shoulder shankle leberkas pork chop, t-bone picanha buffalo ground round burgdoggen ribeye.   
-  `}
+    text={`Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.`}
   />
   <GraphicBlock
     title="Steak tar-tar"
