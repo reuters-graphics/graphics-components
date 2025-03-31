@@ -1,5 +1,5 @@
 <!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs) -->
-<script lang="ts" generics="T">
+<script lang="ts">
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './components/Pagination.svelte';
@@ -69,7 +69,7 @@
     pageSize = 25,
     searchable = false,
     searchPlaceholder = 'Search in table',
-    filterField,
+    filterField = '',
     filterLabel,
     sortable = false,
     sortField = Object.keys(data[0])[0],
@@ -116,8 +116,16 @@
     showAll = !showAll;
   }
 
-  function handleSearchInput(event) {
-    searchText = event.detail.value;
+  // function handleSearchInput(event: CustomEvent<string>) {
+  //   searchText = event.detail;
+
+  //   console.log('searchText', searchText);
+  //   pageNumber = 1;
+  // }
+
+  /** Filters table data based on the input value in the search bar */
+  function handleSearchInput(newSearchText: string) {
+    searchText = newSearchText;
     pageNumber = 1;
   }
 
@@ -156,9 +164,21 @@
     }
   }
 
+  /** Add the `searchStr` field to data */
+  let searchableData = $derived.by(() => {
+    return data.map((d) => {
+      return {
+        ...d,
+        searchStr: includedFields
+          .map((field) => d[field])
+          .join(' ')
+          .toLowerCase(),
+      };
+    });
+  });
   /** Set up the data pipeline */
   let filteredData = $derived.by(() =>
-    filterArray(data, searchText, filterField, filterValue)
+    filterArray(searchableData, searchText, filterField, filterValue)
   );
 
   let sortedData = $derived.by(() =>
@@ -173,19 +193,6 @@
       return paginateArray(sortedData, pageSize, pageNumber);
     }
     return sortedData;
-  });
-
-  /** Add the `searchStr` field to data */
-  let searchableData = $derived.by(() => {
-    return data.map((d) => {
-      return {
-        ...d,
-        searchStr: includedFields
-          .map((field) => d[field])
-          .join(' ')
-          .toLowerCase(),
-      };
-    });
   });
 </script>
 
@@ -212,10 +219,7 @@
             {/if}
             {#if searchable}
               <div class="table--header--search">
-                <SearchInput
-                  bind:searchPlaceholder
-                  on:search={handleSearchInput}
-                />
+                <SearchInput {searchPlaceholder} onsearch={handleSearchInput} />
               </div>
             {/if}
           </nav>

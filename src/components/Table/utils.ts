@@ -1,8 +1,12 @@
-export function filterArray<T extends { searchStr: string }>(
-  data: T[],
+type FilterableDatum<T extends Record<string, unknown>> = T & {
+  searchStr: string;
+};
+
+export function filterArray<T extends Record<string, unknown>>(
+  data: FilterableDatum<T>[],
   searchText: string,
-  filterField: keyof T,
-  filterValue: T[keyof T]
+  filterField: keyof FilterableDatum<T>,
+  filterValue: FilterableDatum<T>[keyof FilterableDatum<T>]
 ) {
   if (searchText) {
     data = data.filter((item) => {
@@ -12,13 +16,14 @@ export function filterArray<T extends { searchStr: string }>(
 
   if (filterValue) {
     data = data.filter((item) => {
+      if (!filterField) return true; // or handle the undefined case as appropriate
+
       return item[filterField] === filterValue;
     });
   }
 
   return data;
 }
-
 export function paginateArray<T>(
   array: T[],
   pageSize: number,
