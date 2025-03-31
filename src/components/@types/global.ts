@@ -48,10 +48,3 @@ export interface ScrollerStep {
    */
   foregroundProps?: object;
 }
-
-/** Datum type for data that goes into the Table component */
-type TableDatum = {
-  [key: string]: unknown;
-  searchStr?: string;
-};
-export type TableData = TableDatum[];

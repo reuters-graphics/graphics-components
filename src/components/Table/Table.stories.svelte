@@ -30,7 +30,7 @@
   }}
 />
 
-<!-- <Story
+<Story
   name="Metadata"
   args={{
     width: 'normal',
@@ -131,4 +131,4 @@
     title: 'The Richest Women in the World',
     source: 'Source: Forbes',
   }}
-/> -->
+/>

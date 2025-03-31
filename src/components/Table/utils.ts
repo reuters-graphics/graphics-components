@@ -1,56 +1,60 @@
-import type { TableData } from '../@types/global';
-
-export function filterArray(
-  data: TableData,
+export function filterArray<T extends { searchStr: string }>(
+  data: T[],
   searchText: string,
-  filterField: string | undefined,
-  filterValue: string
+  filterField: keyof T,
+  filterValue: T[keyof T]
 ) {
   if (searchText) {
     data = data.filter((item) => {
-      return item.searchStr?.includes(searchText.toLowerCase());
+      return item.searchStr.includes(searchText.toLowerCase());
     });
   }
-  if (filterField && filterValue) {
+
+  if (filterValue) {
     data = data.filter((item) => {
       return item[filterField] === filterValue;
     });
   }
+
   return data;
 }
 
-export function paginateArray(
-  array: TableData,
+export function paginateArray<T>(
+  array: T[],
   pageSize: number,
   pageNumber: number
 ) {
   return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
 
-function uniqueAttr(array: TableData, attr: string) {
+/**
+ *  We specify the output type here by adding `string` to the union because we want to explicitly define the output array as accepting strings.
+ *
+ * This is to get rid of the type error from `attrList.unshift('All')`
+ */
+function uniqueAttr<T>(array: T[], attr: keyof T): (T[keyof T] | string)[] {
   return array.map((e) => e[attr]).filter(unique);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function unique(value: any, index: number, array: TableData) {
-  console.log('unique', value, index, array);
+function unique<T>(value: T, index: number, array: T[]) {
   return array.indexOf(value) === index;
 }
 
-export function getOptions(data: TableData, attr: string) {
+export function getOptions<T>(data: T[], attr: keyof T) {
   // Get all the unique values in the provided field. Sort it.
+  const attrList = uniqueAttr(data, attr).sort((a, b) => {
+    // Throw errors if a and b are not strings.
+    // a and b should be strings since they are keys of T.
+    if (typeof a !== 'string' || typeof b !== 'string') {
+      throw new Error(`Expected string, got ${typeof a} and ${typeof b}`);
+    }
 
-  // @TODO - check if a and b need to be typed and sorted for non-strings
-  const attrList = uniqueAttr(data, attr).sort((a: string, b: string) =>
-    a.localeCompare(b)
-  );
+    return a.localeCompare(b);
+  });
 
-  console.log('attrList', attrList);
-
-  // Tack 'All' as the front as the first option.
+  // Tack 'All' at the start of `attrList`, making it the first option.
   attrList.unshift('All');
 
   // Convert the list into Option typed objects ready for our Select component
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return attrList.map((a: any) => ({ text: a, value: a }));
+  return attrList.map((a) => ({ text: a, value: a }));
 }

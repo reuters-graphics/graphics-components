@@ -1,5 +1,5 @@
 <!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs) -->
-<script lang="ts">
+<script lang="ts" generics="T">
   /** Import local helpers */
   import Block from '../Block/Block.svelte';
   import Pagination from './components/Pagination.svelte';
@@ -8,12 +8,9 @@
   import SearchInput from '../SearchInput/SearchInput.svelte';
   import { filterArray, paginateArray, getOptions } from './utils';
 
-  // Types
-  import type { TableData } from '../@types/global';
-
-  interface Props {
-    /** Data for the table as an array of objects. */
-    data: TableData;
+  interface Props<T extends Record<string, unknown>> {
+    /** Data for the table as an array. */
+    data: T[];
 
     /** A title that runs above the table. */
     title?: string;
@@ -65,7 +62,7 @@
     dek,
     notes,
     source,
-    includedFields,
+    includedFields = Object.keys(data[0]).filter((f) => f !== 'searchStr'),
     truncated = false,
     truncateLength = 5,
     paginated = false,
@@ -75,35 +72,35 @@
     filterField,
     filterLabel,
     sortable = false,
-    sortField,
-    sortableFields,
+    sortField = Object.keys(data[0])[0],
+    sortableFields = Object.keys(data[0]).filter((f) => f !== 'searchStr'),
     sortDirection = $bindable('ascending'),
     fieldFormatters = {},
     width = 'normal',
     id = '',
     class: cls = '',
-  }: Props = $props();
+  }: Props<Record<string, unknown>> = $props();
 
   /** Derived variables */
-  let includedFieldsDerived = $derived.by(() => {
-    if (includedFields) return includedFields;
-    if (data.length > 0)
-      return Object.keys(data[0]).filter((f) => f !== 'searchStr');
-    return [];
-  });
+  // let includedFieldsDerived = $derived.by(() => {
+  //   if (includedFields) return includedFields;
+  //   if (data.length > 0)
+  //     return Object.keys(data[0]).filter((f) => f !== 'searchStr');
+  //   return [];
+  // });
 
-  let sortableFieldsDerived = $derived.by(() => {
-    if (sortableFields) return sortableFields;
-    if (data.length > 0)
-      return Object.keys(data[0]).filter((f) => f !== 'searchStr');
-    return [];
-  });
+  // let sortableFieldsDerived = $derived.by(() => {
+  //   if (sortableFields) return sortableFields;
+  //   if (data.length > 0)
+  //     return Object.keys(data[0]).filter((f) => f !== 'searchStr');
+  //   return [];
+  // });
 
-  let sortFieldDerived = $derived.by(() => {
-    if (sortField) return sortField;
-    if (data.length > 0) return Object.keys(data[0])[0];
-    return '';
-  });
+  // let sortFieldDerived = $derived.by(() => {
+  //   if (sortField) return sortField;
+  //   if (data.length > 0) return Object.keys(data[0])[0];
+  //   return '';
+  // });
 
   /** Set truncate, filtering and pagination configuration */
   let showAll = $state(false);
@@ -178,20 +175,12 @@
     return sortedData;
   });
 
-  // $effect(() => {
-  //   console.log('includedFieldsDerived', includedFieldsDerived);
-  //   console.log('sortableFieldsDerived', sortableFieldsDerived);
-  //   console.log('sortFieldDerived', sortFieldDerived);
-  //   console.log('sortedData', sortedData);
-  //   console.log('currentPageData', currentPageData);
-  // });
-
   /** Add the `searchStr` field to data */
   let searchableData = $derived.by(() => {
     return data.map((d) => {
       return {
         ...d,
-        searchStr: includedFieldsDerived
+        searchStr: includedFields
           .map((field) => d[field])
           .join(' ')
           .toLowerCase(),
@@ -243,12 +232,11 @@
       >
         <thead class="table--thead">
           <tr>
-            {#each includedFieldsDerived as field}
+            {#each includedFields as field}
               <th
                 scope="col"
                 class="table--thead--th h4 pl-0 py-2 pr-2"
-                class:sortable={sortable &&
-                  sortableFieldsDerived.includes(field)}
+                class:sortable={sortable && sortableFields.includes(field)}
                 class:sort-ascending={sortable &&
                   sortField === field &&
                   sortDirection === 'ascending'}
@@ -259,7 +247,7 @@
                 onclick={handleSort}
               >
                 {field}
-                {#if sortable && sortableFieldsDerived.includes(field)}
+                {#if sortable && sortableFields.includes(field)}
                   <div class="table--thead--sortarrow fml-1 avoid-clicks">
                     <SortArrow {sortDirection} active={sortField === field} />
                   </div>
@@ -271,7 +259,7 @@
         <tbody class="table--tbody">
           {#each currentPageData as item, idx}
             <tr data-row-index={idx}>
-              {#each includedFieldsDerived as field}
+              {#each includedFields as field}
                 <td
                   class="body-note pl-0 py-2 pr-2"
                   data-row-index={idx}
@@ -285,7 +273,7 @@
           {/each}
           {#if searchable && searchText && currentPageData.length === 0}
             <tr>
-              <td class="no-results" colspan={includedFieldsDerived.length}>
+              <td class="no-results" colspan={includedFields.length}>
                 No results found for "{searchText}"
               </td>
             </tr>
@@ -295,7 +283,7 @@
           <tfoot class="table--tfoot">
             {#if notes}
               <tr>
-                <td class="" colspan={includedFieldsDerived.length}>
+                <td class="" colspan={includedFields.length}>
                   <div class="fmt-2">
                     {@html notes}
                   </div>
@@ -304,7 +292,7 @@
             {/if}
             {#if source}
               <tr>
-                <td class="" colspan={includedFieldsDerived.length}>
+                <td class="" colspan={includedFields.length}>
                   <div class="fmt-1">
                     {@html source}
                   </div>
@@ -343,10 +331,10 @@
 <style lang="scss">
   @use '../../scss/mixins' as mixins;
 
-  section.table {
+  .table {
     overflow-x: auto;
   }
-  section.table table {
+  .table table {
     background-color: transparent;
     border-collapse: separate;
     border-spacing: 0;
