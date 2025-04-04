@@ -36,8 +36,6 @@
     class="h-screen"
     src="https://embed.documentcloud.org/documents/{slug}/?embed=1&amp;responsive=1&amp;title=1"
     title={altText}
-    width="700"
-    height="540"
     sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox"
   ></iframe>
 </Block>
