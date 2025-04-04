@@ -27,7 +27,7 @@
   <GraphicBlock
     title="Title for my chart"
     description="Some description for your chart."
-    notes="Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)"
+    notes={`Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)`}
   >
     <div id="my-chart">
       <img src={PlaceholderImg} alt="placeholder" />

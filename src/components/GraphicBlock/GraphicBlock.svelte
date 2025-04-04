@@ -74,72 +74,75 @@
   }: Props = $props();
 </script>
 
-<Block {id} {snap} {role} {width} {ariaLabel} class="graphic fmy-6 {cls}">
-  <!-- Check if `title` is a snippet -->
-  {#if typeof title === 'string'}
-    <PaddingReset containerIsFluid={width === 'fluid'}>
-      <TextBlock width={textWidth}>
-        <h3>{title}</h3>
-        {#if description}
-          <Markdown source={description} />
+<div class="container">
+  <Block {id} {snap} {role} {width} {ariaLabel} class="graphic fmy-6 {cls}">
+    <!-- Check if `title` is a snippet -->
+    {#if typeof title === 'string'}
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <TextBlock width={textWidth}>
+          <h3>{title}</h3>
+          {#if description}
+            <Markdown source={description} />
+          {/if}
+        </TextBlock>
+      </PaddingReset>
+    {:else if title}
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <TextBlock width={textWidth}>
+          <!-- Custom title snippet -->
+          {@render title()}
+        </TextBlock>
+      </PaddingReset>
+    {/if}
+    <AriaHidden hidden={!!ariaDescription}>
+      <!-- Graphic content -->
+      {@render children()}
+    </AriaHidden>
+    {#if ariaDescription}
+      <div class="visually-hidden">
+        {#if typeof ariaDescription === 'string'}
+          <Markdown source={ariaDescription} />
+        {:else}
+          <!-- Custom ARIA snippet -->
+          {@render ariaDescription()}
         {/if}
-      </TextBlock>
-    </PaddingReset>
-  {:else if title}
-    <PaddingReset containerIsFluid={width === 'fluid'}>
-      <TextBlock width={textWidth}>
-        <!-- Custom title snippet -->
-        {@render title()}
-      </TextBlock>
-    </PaddingReset>
-  {/if}
-  <AriaHidden hidden={!!ariaDescription}>
-    <!-- Graphic content -->
-    {@render children()}
-  </AriaHidden>
-  {#if ariaDescription}
-    <div class="visually-hidden">
-      {#if typeof ariaDescription === 'string'}
-        <Markdown source={ariaDescription} />
-      {:else}
-        <!-- Custom ARIA snippet -->
-        {@render ariaDescription()}
-      {/if}
-    </div>
-  {/if}
-  {#if typeof notes === 'string'}
-    <PaddingReset containerIsFluid={width === 'fluid'}>
-      <TextBlock width={textWidth}>
-        <aside>
-          <Markdown source={notes} />
-        </aside>
-      </TextBlock>
-    </PaddingReset>
-  {:else if notes}
-    <PaddingReset containerIsFluid={width === 'fluid'}>
-      <TextBlock width={textWidth}>
-        <!-- Custom notes content -->
-        {@render notes()}
-      </TextBlock>
-    </PaddingReset>
-  {/if}
-</Block>
+      </div>
+    {/if}
+    {#if typeof notes === 'string'}
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <TextBlock width={textWidth}>
+          <aside>
+            <Markdown source={notes} />
+          </aside>
+        </TextBlock>
+      </PaddingReset>
+    {:else if notes}
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <TextBlock width={textWidth}>
+          <!-- Custom notes content -->
+          {@render notes()}
+        </TextBlock>
+      </PaddingReset>
+    {/if}
+  </Block>
+</div>
 
-<style lang="scss" global>
+<style lang="scss">
   @use '../../scss/mixins' as mixins;
 
-  .article-block.graphic {
+  div.container {
+    display: contents;
+
     // Dek
-    p {
+    :global(.article-block.graphic p) {
       @include mixins.body-note;
       @include mixins.font-light;
     }
+
     // Caption and Sources
-    aside {
-      p {
-        @include mixins.body-caption;
-        @include mixins.fmy-1;
-      }
+    :global(.article-block.graphic aside p) {
+      @include mixins.body-caption;
+      @include mixins.fmy-1;
     }
   }
 </style>
