@@ -1,0 +1,21 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ReutersGraphicsLogoStories from './ReutersGraphicsLogo.stories.svelte';
+
+<Meta of={ReutersGraphicsLogoStories} />
+
+# ReutersGraphicsLogo
+
+The `ReutersGraphicsLogo` component contains the Reuters Graphics team logo.
+
+> Generally, used only for internal tools. For public pages, use the [ReutersLogo](./?path=/docs/components-logos-reuterslogo--docs) component.
+
+```svelte
+<script>
+  import { ReutersGraphicsLogo } from '@reuters-graphics/graphics-components';
+</script>
+
+<ReutersGraphicsLogo />
+```
+
+<Canvas of={ReutersGraphicsLogoStories.Demo} />
