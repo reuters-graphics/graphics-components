@@ -1,8 +1,8 @@
 <!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `Byline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-byline--docs) -->
 <script lang="ts">
+  import { getAuthorPageUrl } from '../../utils';
   import Block from '../Block/Block.svelte';
-  import slugify from 'slugify';
   import { apdate } from 'journalize';
   import type { Snippet } from 'svelte';
 
@@ -46,7 +46,6 @@
     /**
      * Optional snippet for a custom published dateline.
      */
-    // Specify that this prop should have the type of a Svelte snippet, i.e. basic html
     published?: Snippet;
     /**
      * Optional snippet for a custom updated dateline.
@@ -61,10 +60,7 @@
     align = 'left',
     id = '',
     cls = '',
-    getAuthorPage = (author: string): string => {
-      const authorSlug = slugify(author.trim(), { lower: true });
-      return `https://www.reuters.com/authors/${authorSlug}/`;
-    },
+    getAuthorPage = getAuthorPageUrl,
     byline,
     published,
     updated,
