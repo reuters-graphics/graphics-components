@@ -31,7 +31,7 @@ export { default as PhotoCarousel } from './components/PhotoCarousel/PhotoCarous
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
 export { pymChildStore } from './components/PymChild/stores.js';
-export { staticMarkdown } from './components/Markdown/stores.js';
+export { staticMarkdown } from './components/Markdown/state.svelte.js';
 export { default as ReferralBlock } from './components/ReferralBlock/ReferralBlock.svelte';
 export { default as ReutersGraphicsLogo } from './components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';

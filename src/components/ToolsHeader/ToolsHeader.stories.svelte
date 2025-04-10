@@ -17,7 +17,7 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <div>
       <ToolsHeader {...args} />
@@ -25,7 +25,7 @@
   {/snippet}
 </Template>
 
-<Story name="Default" args="{{}}" />
+<Story name="Default" args={{}} />
 
 <style>
   div {

@@ -50,13 +50,9 @@ export interface ScrollerStep {
 }
 
 export interface PhotoCarouselImage {
-  /**
-   * Image source
-   */
+  /**  Image source */
   src: string;
-  /**
-   * Image alt text
-   */
+  /** Image alt text  */
   altText: string;
   /** Optional caption */
   caption?: string;

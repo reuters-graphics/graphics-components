@@ -9,20 +9,24 @@
     releaseMobileMenu?: any;
   }
 
-  let { data = [], isMobileMenuOpen = false, releaseMobileMenu = () => {} }: Props = $props();
+  let {
+    data = [],
+    isMobileMenuOpen = false,
+    releaseMobileMenu = () => {},
+  }: Props = $props();
 </script>
 
 {#if isMobileMenuOpen}
   <div
     class="overlay"
     aria-modal="true"
-    style="{`
+    style={`
       --nav-background: var(--theme-colour-background, #fff);
       --nav-primary: var(--theme-colour-text-primary, #404040);
       --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
       --nav-accent: var(--theme-colour-brand-logo, #fa6400);
       --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgba(64,64,64,.08));
-    `}"
+    `}
   >
     <header class="header">
       <div class="logo">
@@ -39,14 +43,14 @@
     </header>
     {#each data.sections as section}
       <section class="section">
-        <a class="section-link" href="{normalizeUrl(section.url)}"
+        <a class="section-link" href={normalizeUrl(section.url)}
           >{section.name}</a
         >
         {#if section.children}
           <ul class="subsections">
             {#each section.children as sub}
               <li>
-                <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+                <a class="subsection-link" href={normalizeUrl(sub.url)}>
                   {sub.name}
                 </a>
               </li>

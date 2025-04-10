@@ -1,25 +1,18 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import SimpleTimeline from './SimpleTimeline.svelte';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Text elements/SimpleTimeline',
     component: SimpleTimeline,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       symbolColour: { control: 'color' },
       dateColour: { control: 'color' },
     },
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
+<script lang="ts">
   const dates = [
     {
       date: 'May 18',
@@ -56,20 +49,9 @@
         },
       ],
     },
-    {
-      date: 'Feb. 27',
-      events: [
-        {
-          title: 'Russians push into Kharkiv',
-          titleLink:
-            'https://www.reuters.com/world/europe/western-allies-expel-key-russian-banks-global-system-ukraine-fights-2022-02-27/',
-        },
-        {
-          title:
-            'Human rights groups and Ukrainian ambassador accuse Russia of using cluster and vacuum bombs',
-        },
-      ],
-    },
+  ];
+
+  const datesMultipleEvents = [
     {
       date: 'Feb. 25',
       events: [
@@ -96,15 +78,18 @@
   ];
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <SimpleTimeline {...args} />
-  {/snippet}
-</Template>
+<Story
+  name="Demo"
+  args={{
+    dates,
+  }}
+/>
 
 <Story
-  name="Default"
-  args="{{
-    dates,
-  }}"
+  name="Multiple events"
+  exportName="MultipleEvents"
+  tags={['!autodocs', '!dev']}
+  args={{
+    dates: datesMultipleEvents,
+  }}
 />
