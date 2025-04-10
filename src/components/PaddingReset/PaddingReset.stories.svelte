@@ -18,11 +18,13 @@
 <Story name="Demo">
   <!-- Fluid block -->
   <Block {width}>
-    <img src={sharkSrc} alt="shark" />
+    <img src={sharkSrc} alt="shark" class="fmb-1" />
     <PaddingReset containerIsFluid={width === 'fluid' ? true : false}>
-      <p>
-        A caption for the image that is padded when <code>Block</code> is fluid.
-      </p>
+      <div class="body-note">
+        A caption for the image that is padded when its containing <code
+          >Block</code
+        > is fluid.
+      </div>
     </PaddingReset>
   </Block>
 </Story>
