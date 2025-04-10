@@ -95,48 +95,48 @@
 </script>
 
 <svelte:window
-  onmousemove="{move}"
-  onmouseup="{end}"
-  onkeydown="{handleKeyDown}"
-  bind:innerWidth="{windowInnerWidth}"
+  onmousemove={move}
+  onmouseup={end}
+  onkeydown={handleKeyDown}
+  bind:innerWidth={windowInnerWidth}
 />
 
 <div id="resizer">
   <div class="slider">
-    <div class="label" style="{`opacity: ${sliding || isFocused ? 1 : 0};`}">
+    <div class="label" style={`opacity: ${sliding || isFocused ? 1 : 0};`}>
       {pixelLabel || $width}px
     </div>
     <button
       class="icon left"
-      disabled="{$width === minWidth}"
-      onclick="{decrement}"
-      onfocus="{onFocus}"
-      onmouseover="{onFocus}"
-      onmouseleave="{onBlur}"
+      disabled={$width === minWidth}
+      onclick={decrement}
+      onfocus={onFocus}
+      onmouseover={onFocus}
+      onmouseleave={onBlur}
     >
-      <Fa icon="{faMobileAlt}" fw />
+      <Fa icon={faMobileAlt} fw />
     </button>
-    <div class="slider-container" bind:this="{container}">
+    <div class="slider-container" bind:this={container}>
       <div class="track"></div>
       <div
         class="handle"
         tabindex="0"
         role="button"
         style="left: calc({offset * 100}% - 5px);"
-        onmousedown="{start}"
-        onfocus="{onFocus}"
-        onblur="{onBlur}"
+        onmousedown={start}
+        onfocus={onFocus}
+        onblur={onBlur}
       ></div>
     </div>
     <button
       class="icon right"
-      disabled="{$width === maxWidth}"
-      onclick="{increment}"
-      onfocus="{onFocus}"
-      onmouseover="{onFocus}"
-      onmouseleave="{onBlur}"
+      disabled={$width === maxWidth}
+      onclick={increment}
+      onfocus={onFocus}
+      onmouseover={onFocus}
+      onmouseleave={onBlur}
     >
-      <Fa icon="{faDesktop}" fw />
+      <Fa icon={faDesktop} fw />
     </button>
   </div>
 </div>

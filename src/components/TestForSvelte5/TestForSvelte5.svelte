@@ -36,8 +36,8 @@
 
 <Block {width} {id} class="photo {cls}">
   <div
-    style:background-image="{`url(${src})`}"
-    style:height="{`${height}px`}"
+    style:background-image={`url(${src})`}
+    style:height={`${height}px`}
   ></div>
   <p class="visually-hidden">{altText}</p>
 </Block>

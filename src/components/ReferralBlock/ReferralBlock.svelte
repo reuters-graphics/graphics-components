@@ -96,33 +96,33 @@
   <Block {width} {id} class="referrals-block {cls}">
     <div
       class="block-container"
-      class:stacked="{clientWidth && clientWidth < 750}"
+      class:stacked={clientWidth && clientWidth < 750}
       bind:clientWidth
     >
       {#if heading}
         <div
           class="heading h4 font-bold"
-          class:stacked="{clientWidth && clientWidth < 750}"
+          class:stacked={clientWidth && clientWidth < 750}
         >
           {heading}
         </div>
       {/if}
       <div
         class="referral-container inline-flex flex-wrap w-full justify-between"
-        class:stacked="{clientWidth && clientWidth < 750}"
-        class:xs="{clientWidth && clientWidth < 450}"
+        class:stacked={clientWidth && clientWidth < 750}
+        class:xs={clientWidth && clientWidth < 450}
       >
         {#each referrals as referral}
           <div class="referral">
             <a
               href="https://www.reuters.com{referral.canonical_url}"
-              target="{linkTarget}"
-              rel="{linkTarget === '_blank' ? 'noreferrer' : null}"
+              target={linkTarget}
+              rel={linkTarget === '_blank' ? 'noreferrer' : null}
             >
               <div class="referral-pack flex justify-around my-0 mx-auto">
                 <div
                   class="headline"
-                  class:xs="{clientWidth && clientWidth < 450}"
+                  class:xs={clientWidth && clientWidth < 450}
                 >
                   <div
                     class="kicker m-0 body-caption leading-tighter"
@@ -145,14 +145,14 @@
                 </div>
                 <div
                   class="image-container block m-0 overflow-hidden relative"
-                  class:xs="{clientWidth && clientWidth < 450}"
+                  class:xs={clientWidth && clientWidth < 450}
                 >
                   <img
                     class="block object-cover m-0 w-full"
                     data-chromatic="ignore"
-                    src="{referral.thumbnail.renditions.landscape['240w']}"
-                    alt="{referral.thumbnail.caption ||
-                      referral.thumbnail.alt_text}"
+                    src={referral.thumbnail.renditions.landscape['240w']}
+                    alt={referral.thumbnail.caption ||
+                      referral.thumbnail.alt_text}
                   />
                 </div>
               </div>

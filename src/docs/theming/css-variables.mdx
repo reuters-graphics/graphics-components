@@ -37,12 +37,12 @@ You can redefine any of the above CSS variables in the `<Theme>` component. Read
 ```svelte
 <Theme
   base="light"
-  theme="{{
+  theme={{
     colour: {
       // This replaces the default text-secondary colour '#666666' for light theme
       'text-secondary': '#213310',
     },
-  }}"
+  }}
 >
   <!-- page stuff -->
 </Theme>
@@ -57,11 +57,11 @@ For example, let's say you want to define a border radius for some card elements
 ```svelte
 <Theme
   base="light"
-  theme="{{
+  theme={{
     style: {
       'border-radius': '22px',
     },
-  }}"
+  }}
 >
   <!-- page stuff -->
 </Theme>
@@ -90,15 +90,15 @@ You can also change a variable's value based on some condition. For example, to 
   let windowWidth;
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 <Theme
   base="light"
-  theme="{{
+  theme={{
     style: {
       'border-radius': windowWidth > 475 ? '22px' : '11px',
     },
-  }}"
+  }}
 >
   <!-- page stuff -->
 </Theme>

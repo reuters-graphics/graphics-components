@@ -2,7 +2,7 @@
   import { Visible } from '@reuters-graphics/graphics-components';
 </script>
 
-<Visible >
+<Visible>
   {#snippet children({ visible })}
     {#if visible}
       <p>Visible!</p>

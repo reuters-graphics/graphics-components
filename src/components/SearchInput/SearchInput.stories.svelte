@@ -17,10 +17,10 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <SearchInput {...args} />
   {/snippet}
 </Template>
 
-<Story name="Default" args="{{}}" />
+<Story name="Default" args={{}} />
