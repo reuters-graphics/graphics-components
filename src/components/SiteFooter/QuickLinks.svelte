@@ -17,7 +17,7 @@
   const mobileBreakpoint = 745;
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 {#if links.latest_links}
   <section class="quick-links">
@@ -30,7 +30,7 @@
             <ul>
               {#each links.latest_links as link}
                 <li>
-                  <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                  <a href={normalizeUrl(link.url)}>{link.text}</a>
                 </li>
               {/each}
             </ul>
@@ -44,7 +44,7 @@
                   <div class="symbol">
                     <SvelteComponent />
                   </div>
-                  <a href="{normalizeUrl(link.url)}">
+                  <a href={normalizeUrl(link.url)}>
                     {link.text}
                   </a>
                 </li>
@@ -58,7 +58,7 @@
           <ul>
             {#each links.latest_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href={normalizeUrl(link.url)}>{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -70,7 +70,7 @@
         <ul>
           {#each links.browse_links as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">{link.text}</a>
+              <a href={normalizeUrl(link.url)}>{link.text}</a>
             </li>
           {/each}
         </ul>
@@ -85,7 +85,7 @@
                 <div class="symbol">
                   <SvelteComponent_1 />
                 </div>
-                <a href="{normalizeUrl(link.url)}">
+                <a href={normalizeUrl(link.url)}>
                   {link.text}
                 </a>
               </li>
@@ -99,7 +99,7 @@
           <ul>
             {#each links.about_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href={normalizeUrl(link.url)}>{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -109,7 +109,7 @@
           <ul>
             {#each links.stay_informed_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href={normalizeUrl(link.url)}>{link.text}</a>
               </li>
             {/each}
           </ul>

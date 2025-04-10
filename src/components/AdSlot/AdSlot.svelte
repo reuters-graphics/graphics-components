@@ -55,7 +55,7 @@
   });
 </script>
 
-<div data-freestar-ad="{dataFreestarAd || null}" id="{adId}"></div>
+<div data-freestar-ad={dataFreestarAd || null} id={adId}></div>
 
 <style>
   :global(div.freestar-adslot:has(.unfulfilled-ad)) {

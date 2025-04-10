@@ -8,7 +8,7 @@
 
 <svg
   class="arrow"
-  class:rotated="{rotate}"
+  class:rotated={rotate}
   focusable="false"
   aria-hidden="true"
   xmlns="http://www.w3.org/2000/svg"

@@ -14,7 +14,7 @@ An action you can use to easily to check when a DOM element's dimensions change 
   let elementWidth = 0;
 </script>
 
-<div use:resizeObserver="{(element) => (elementWidth = element.clientWidth)}">
+<div use:resizeObserver={(element) => (elementWidth = element.clientWidth)}>
   My width is: {elementWidth}
 </div>
 ```

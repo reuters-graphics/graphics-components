@@ -20,7 +20,7 @@ Once you've setup the `Meta` and `Template` components as below, you can write a
   import YourComponent from './YourComponent.svelte';
 </script>
 
-<Meta title="Components/YourComponent" component="{YourComponent}" />
+<Meta title="Components/YourComponent" component={YourComponent} />
 
 <Template let:args>
   <YourComponent {...args} />
@@ -28,9 +28,9 @@ Once you've setup the `Meta` and `Template` components as below, you can write a
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'normal',
-  }}"
+  }}
 />
 ```
 
@@ -47,16 +47,16 @@ You can define additional stories with _different_ args to show how your compone
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'normal',
-  }}"
+  }}
 />
 
 <Story
   name="Extra wide"
-  args="{{
+  args={{
     width: 'wider',
-  }}"
+  }}
 />
 ```
 
@@ -66,10 +66,10 @@ If you want even more control, you can skip the `args` and pass your component d
 <Story name="Super custom">
   <YourComponent
     width="fluid"
-    data="{[
+    data={[
       { id: 'UK', value: 65 },
       { id: 'USA', value: 265 },
-    ]}"
+    ]}
   />
 </Story>
 ```

@@ -51,7 +51,7 @@
 </script>
 
 <nav aria-label="pagination" class="pagination fmt-4">
-  <button onclick="{goToPreviousPage}" disabled="{pageNumber === 1}"
+  <button onclick={goToPreviousPage} disabled={pageNumber === 1}
     ><div class="icon-wrapper">
       <LeftArrow />
       <span class="visually-hidden">Previous page</span>
@@ -63,8 +63,8 @@
     </div>
   </div>
   <button
-    onclick="{goToNextPage}"
-    disabled="{pageNumber === Math.ceil(n / pageSize)}"
+    onclick={goToNextPage}
+    disabled={pageNumber === Math.ceil(n / pageSize)}
     ><div class="icon-wrapper">
       <RightArrow />
       <span class="visually-hidden">Next page</span>

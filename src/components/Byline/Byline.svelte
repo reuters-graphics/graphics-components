@@ -17,12 +17,10 @@
     publishTime: string;
     /**
      * Update time as a datetime string.
-     * @type {string}
      */
     updateTime?: string;
     /**
      * Alignment of the byline.
-     * @type {string}
      */
     align?: 'left' | 'center';
     /**
