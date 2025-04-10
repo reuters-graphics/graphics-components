@@ -109,43 +109,46 @@ To customise styles, use CSS to target the class passed to `HeroHeadline`.
     <QuakeMap assetsPath={assets || '/'} />
   </GraphicBlock>
 </HeroHeadline>
+```
 
-<!-- Customise styles using the class (e.g. `custom-hero` here) passed to `HeroHeadline` -->
-<style lang="scss">
-  .hero-wrapper {
-    .custom-hero.headline {
-      // Adjust vertical positioning
-      align-items: flex-end !important;
+Add styles in `global.scss`:
 
-      @media (max-width: 1100px) {
-        // Adjust line length of title
-        max-width: var(--normal-column-width) !important;
-      }
-    }
+```scss
+// global.scss
+// Customise styles using the class (e.g. `custom-hero` here) passed to `HeroHeadline`
+.hero-wrapper {
+  .custom-hero.headline {
+    // Adjust vertical positioning
+    align-items: flex-end !important;
 
-    // Make hero shorter than 100vh
-    --heroHeight: 85svh;
-
-    @media (max-width: 960px) {
-      --heroHeight: 65svh;
-    }
-
-    // For small height
-    @media (max-height: 850px) {
-      --heroHeight: 100svh;
-    }
-
-    // Custom hero sizing for landscape mobile
-    @media (max-width: 960px) and (orientation: landscape) {
-      --heroHeight: 200svh;
+    @media (max-width: 1100px) {
+      // Adjust line length of title
+      max-width: var(--normal-column-width) !important;
     }
   }
 
-  // Override default fixed height for hero layout in embeds
-  .hero-wrapper.embedded {
-    --heroHeight: 1000px;
+  // Make hero shorter than 100vh
+  --heroHeight: 85svh;
+
+  @media (max-width: 960px) {
+    --heroHeight: 65svh;
   }
-</style>
+
+  // For small height
+  @media (max-height: 850px) {
+    --heroHeight: 100svh;
+  }
+
+  // Custom hero sizing for landscape mobile
+  @media (max-width: 960px) and (orientation: landscape) {
+    --heroHeight: 200svh;
+  }
+}
+
+// Override default fixed height for hero layout in embeds
+.hero-wrapper.embedded {
+  --heroHeight: 1000px;
+}
 ```
 
 <Canvas of={HeroHeadlineStories.Ai2svelteHero} />
@@ -185,24 +188,27 @@ To add a video as the hero, use the [Video](?path=/docs/components-multimedia-vi
     ariaDescription="Aerial footage of people houses in refugee camp"
   />
 </HeroHeadline>
+```
 
-<!-- Customise styles using the class (e.g. `video-hero` here) passed to `HeroHeadline` -->
-<style lang="scss">
-  .hero-wrapper {
-    --heroHeight: calc(100svh - 60px);
-    .video-hero.headline {
-      header {
-        // Adjust vertical position as offset from default center
-        top: calc(50svh - 250px);
-      }
+Add styles in `global.scss`:
 
-      h1 {
-        color: #ffd430;
-        text-shadow: 3px 4px 7px rgba(81, 67, 21, 0.8);
-      }
+```scss
+// global.scss
+// Customise styles using the class (e.g. `video-hero` here) passed to `HeroHeadline`
+.hero-wrapper {
+  --heroHeight: calc(100svh - 60px);
+  .video-hero.headline {
+    header {
+      // Adjust vertical position as offset from default center
+      top: calc(50svh - 250px);
+    }
+
+    h1 {
+      color: #ffd430;
+      text-shadow: 3px 4px 7px rgba(81, 67, 21, 0.8);
     }
   }
-</style>
+}
 ```
 
 <Canvas of={HeroHeadlineStories.VideoHero} />
@@ -291,32 +297,33 @@ Since `Headline` internally uses the [Byline](?path=/docs/components-text-elemen
     </div>
   {/snippet}
 </HeroHeadline>
-
-  <!-- Style your custom hed and dek -->
-  <style lang="scss">
-    .custom-hed {
-      h1 {
-        .body-note {
-          color: #ffffff;
-        }
-        .title {
-          color: #ffffff;
-          text-shadow: 1px 1px 8px #ff7c88;
-          filter: drop-shadow(0px 0px 12px #ff7c88);
-        }
-      }
-
-      .dek {
-        margin-top: 1rem;
-        p {
-          color: #ffffff;
-          text-shadow: 1px 1px 8px #ff7c88;
-          filter: drop-shadow(0px 0px 12px #ff7c88);
-        }
-      }
-    }
-  </style>
-</HeroHeadline>
 ```
 
-<Canvas of={HeroHeadlineStories.CustomHed} />
+Add styles in `global.scss`:
+
+```scss
+// global.scss
+.custom-hed {
+  h1 {
+    .body-note {
+      color: #ffffff;
+    }
+    .title {
+      color: #ffffff;
+      text-shadow: 1px 1px 8px #ff7c88;
+      filter: drop-shadow(0px 0px 12px #ff7c88);
+    }
+  }
+
+  .dek {
+    margin-top: 1rem;
+    p {
+      color: #ffffff;
+      text-shadow: 1px 1px 8px #ff7c88;
+      filter: drop-shadow(0px 0px 12px #ff7c88);
+    }
+  }
+}
+```
+
+<Canvas of={HeroHeadlineStories.CustomHed} />{' '}
