@@ -15,26 +15,25 @@
 </script>
 
 <script>
-  import photosJson from './demo/photos.json';
-  // import { PhotoCarouselImage } from '../@types/global';
+  import imagesJson from './demo/images.json';
 
-  const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
+  const images = imagesJson.map((img) => ({ ...img, altText: img.caption }));
 </script>
 
 <Story
   name="Demo"
   args={{
-    photos,
+    images,
   }}
 />
 
 <Story name="Custom text" exportName="CustomText">
-  <PhotoCarousel {photos}>
-    {#snippet credit(photo)}
-      <p class="custom-credit">{photo.credit}</p>
+  <PhotoCarousel {images}>
+    {#snippet credit(image)}
+      <p class="custom-credit">{image.credit}</p>
     {/snippet}
-    {#snippet caption(photo)}
-      <p class="custom-caption">{photo.caption}</p>
+    {#snippet caption(image)}
+      <p class="custom-caption">{image.caption}</p>
     {/snippet}
   </PhotoCarousel>
 </Story>

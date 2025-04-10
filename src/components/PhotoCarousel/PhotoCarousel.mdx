@@ -6,7 +6,7 @@ import * as PhotoCarouselStories from './PhotoCarousel.stories.svelte';
 
 # PhotoCarousel
 
-The `PhotoCarousel` component creates a simple, accessible photo carousel with lazy-loading and mobile swipe built in.
+The `PhotoCarousel` component creates a simple and accessible photo carousel with built-in lazy-loading and mobile swipe.
 
 ```svelte
 <script>
@@ -21,7 +21,6 @@ The `PhotoCarousel` component creates a simple, accessible photo carousel with l
       objectFit: 'contain', // Optional
       objectPosition: '50% 50%', // Optional
     },
-    // ...
   ];
 </script>
 
@@ -30,16 +29,82 @@ The `PhotoCarousel` component creates a simple, accessible photo carousel with l
 
 <Canvas of={PhotoCarouselStories.Demo} />
 
-## Custom text
+## Using with ArchieML docs
 
-Use named slots to style your own custom credits and/or captions.
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[blocks]
+type: photo-carousel
+
+# List of photo data
+[.images]
+  # Photo 1
+  src: 'images/myImage.jpg', # The source path can be a URL or a local path
+  altText: 'A picture of...',
+  caption: 'My caption...', // Optional
+  credit: 'REUTERS/Jane Doe', // Optional
+  objectFit: 'contain', // Optional
+  objectPosition: '50% 50%', // Optional
+
+  # Photo 2
+  src: 'images/myImage2.jpg',
+  altText: 'A picture of...',
+  caption: 'My caption...', // Optional
+  credit: 'REUTERS/Jane Doe', // Optional
+  objectFit: 'contain', // Optional
+  objectPosition: '50% 50%', // Optional
+  ...
+[]
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `PhotoCarousel` component.
+
+> **Note:** If you're using local images files stored in your Graphics Kit project, prefix `assets` to the image source path, as in the example below.
 
 ```svelte
-<PhotoCarousel {photos}>
-  <p slot="credit" class="custom-credit" let:credit>{credit}</p>
-  <p slot="caption" class="custom-caption" let:caption>{caption}</p>
+<!-- App.svelte -->
+<script>
+  import { PhotoCarousel } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+
+  import content from '$locales/en/content.json';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'photo-carousel'}
+    <PhotoCarousel
+      images={block.images.map((img) => ({
+        ...img,
+        src: `${assets}/${img.src}`,
+      }))}
+    />
+  {/if}
+{/each}
+```
+
+<Canvas of={PhotoCarouselStories.Demo} />
+
+## Custom text
+
+To customise the credit and/or caption style, use the `credit` and `caption` [snippets](https://svelte.dev/docs/svelte/snippet) and pass `photo` as an argument.
+
+```svelte
+<PhotoCarousel {images}>
+  <!-- Pass `image` and use the `image.credit` string in the HTML -->
+  {#snippet credit(image)}
+    <p class="custom-credit">{image.credit}</p>
+  {/snippet}
+
+  <!-- Pass `image` and use the `image.caption` string in the HTML -->
+  {#snippet caption(image)}
+    <p class="custom-caption">{image.caption}</p>
+  {/snippet}
 </PhotoCarousel>
 
+<!-- Customise credit and caption styles -->
 <style lang="scss">
   p {
     position: absolute;
