@@ -35,7 +35,7 @@
   };
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <SiteHeadline {...args} />
   {/snippet}
@@ -43,7 +43,7 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     section: 'Graphics',
     sectionUrl: 'https://graphics.reuters.com',
     hed: 'Ukraine makes surprising gains in counteroffensive',
@@ -55,15 +55,15 @@
     ],
     publishTime: new Date('2021-09-12').toISOString(),
     updateTime: new Date('2021-09-12T13:57:00').toISOString(),
-  }}"
+  }}
 />
 
 <Story name="ArchieML" {...withStoryDocs(archieML)}>
   <SiteHeadline
-    hed="{content.Hed}"
-    section="{content.Section}"
-    sectionUrl="{content.SectionUrl}"
-    authors="{content.Authors.split(',')}"
-    publishTime="{content.Published}"
+    hed={content.Hed}
+    section={content.Section}
+    sectionUrl={content.SectionUrl}
+    authors={content.Authors.split(',')}
+    publishTime={content.Published}
   />
 </Story>

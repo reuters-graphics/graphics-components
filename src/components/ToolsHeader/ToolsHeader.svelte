@@ -41,13 +41,13 @@
 
 <header
   {id}
-  class="{cls}"
+  class={cls}
   class:sticky
   style:background
-  style:border-bottom="{borderBottom}"
+  style:border-bottom={borderBottom}
 >
   <div class="logo-container">
-    <a href="{homeLink}">
+    <a href={homeLink}>
       <ReutersGraphicsLogo {...{ ...logoProps, ...{ width: '100%' } }} />
     </a>
   </div>

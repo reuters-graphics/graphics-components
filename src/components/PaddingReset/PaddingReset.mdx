@@ -6,7 +6,7 @@ import * as PaddingResetStories from './PaddingReset.stories.svelte';
 
 # PaddingReset
 
-Sometimes you want a visual element to be fluid, i.e., edge-to-edge, but keep padding on surrouding text such as ntoes or captions. The `PaddingReset` component resets padding to `0 15px` on the `Article` well that's been cancelled by a `Block` with a `fluid` width.
+Sometimes you want a visual element to be fluid, i.e., edge-to-edge, but keep padding on adjacent text such as notes or captions. The `PaddingReset` component resets our normal well padding inside a `fluid` container.
 
 ```svelte
 <script>
@@ -15,11 +15,13 @@ Sometimes you want a visual element to be fluid, i.e., edge-to-edge, but keep pa
 
 <Block width="fluid">
   <!-- Edge-to-edge image -->
-  <img src="https:..." alt="Alt text" />
+  <img src="https:..." alt="Alt text" class="fmb-1" />
 
   <!-- Wrap text in `PaddingReset`to add padding back in -->
   <PaddingReset>
-    <p>A caption for the image that is padded when Block is fluid.</p>
+    <div class="body-note">
+      A caption for the image that is padded when Block is fluid.
+    </div>
   </PaddingReset>
 </Block>
 ```
@@ -40,11 +42,13 @@ You can add the padding conditionally by setting the `containerIsFluid` prop to 
 
 <Block {width}>
   <!-- Edge-to-edge image -->
-  <img src="https:..." alt="Alt text" />
+  <img src="https:..." alt="Alt text" class="fmb-1" />
 
   <!-- Set conditional padding with the `containerIsFluid` prop -->
   <PaddingReset containerIsFluid={width === 'fluid'}>
-    <p>A caption for the image that is padded when Block is fluid.</p>
+    <div class="body-note">
+      A caption for the image that is padded when Block is fluid.
+    </div>
   </PaddingReset>
 </Block>
 ```

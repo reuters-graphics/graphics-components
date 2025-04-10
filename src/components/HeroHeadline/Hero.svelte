@@ -96,7 +96,7 @@
         {#if $$slots.hed}
           <Headline
             class="{cls} !text-{hedAlign}"
-            width="{hedWidth}"
+            width={hedWidth}
             {section}
             {hedSize}
             {hed}
@@ -110,7 +110,7 @@
         {:else}
           <Headline
             class="{cls} !text-{hedAlign}"
-            width="{hedWidth}"
+            width={hedWidth}
             {section}
             {hedSize}
             {hed}
@@ -144,11 +144,11 @@
     <!-- Inline hero -->
     {#if $$slots.inline}
       <Block width="fluid" class="hero-headline inline-hero">
-        <PaddingReset containerIsFluid="{true}">
+        <PaddingReset containerIsFluid={true}>
           {#if $$slots.hed}
             <Headline
               class="{cls} !text-{hedAlign}"
-              width="{hedWidth}"
+              width={hedWidth}
               {section}
               {hedSize}
               {hed}
@@ -162,7 +162,7 @@
           {:else}
             <Headline
               class="{cls} !text-{hedAlign}"
-              width="{hedWidth}"
+              width={hedWidth}
               {section}
               {hedSize}
               {hed}
