@@ -47,19 +47,19 @@ Now, import your markdown file in your story page component and attach it to eit
   };
 </script>
 
-<Meta title="Components/YourComponent" component="{YourComponent}" {...meta} />
+<Meta title="Components/YourComponent" component={YourComponent} {...meta} />
 
 <template let:args>
   <YourComponent {...args} />
 </template>
 
 <!-- The first story will use the component docs in Meta... -->
-<Story name="Basic" args="{{ width: 'normal' }}" />
+<Story name="Basic" args={{ width: 'normal' }} />
 
 <!-- Additional stories can use other docs now. -->
 <Story
   name="Another story"
-  args="{{ width: 'normal' }}"
+  args={{ width: 'normal' }}
   {...withStoryDocs(someStoryDocs)}
 />
 ```
@@ -110,7 +110,7 @@ Now, import your snippet file in your story page component and attach it to any 
 <!-- Pass source in inside an object keyed by your snippet's language, e.g., svelte, scss, etc. -->
 <Story
   name="Basic"
-  args="{{ width: 'normal' }}"
+  args={{ width: 'normal' }}
   {...withSource({ svelte: defaultSnippet })}
 />
 ```
@@ -124,7 +124,7 @@ If you're adding source code AND custom docs to a story, you can chain `withSour
 
 <Story
   name="Extra wide"
-  args="{{ width: 'wider' }}"
+  args={{ width: 'wider' }}
   {...withComponentDocs(componentDocs, withSource({ svelte: defaultSnippet }))}
 />
 ```

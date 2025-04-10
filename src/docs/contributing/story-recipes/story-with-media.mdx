@@ -34,7 +34,7 @@ Now, import your media file directly in your code, which will resolve to the URL
   import myImageSrc from './stories/imgs/myImage.jpg';
 </script>
 
-<Meta title="Components/YourComponent" component="{YourComponent}" />
+<Meta title="Components/YourComponent" component={YourComponent} />
 
 <template let:args>
   <YourComponent {...args} />
@@ -42,9 +42,9 @@ Now, import your media file directly in your code, which will resolve to the URL
 
 <Story
   name="Basic"
-  args="{{
+  args={{
     src: myImageSrc,
     altText: 'My image in the component',
-  }}"
+  }}
 />
 ```

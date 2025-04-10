@@ -1,7 +1,5 @@
 <!-- @component `PymChild` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-pymchild--docs) -->
 <script lang="ts">
-  
-
   import { onMount } from 'svelte';
   import pym from 'pym.js';
   import { pymChildStore } from './stores.js';

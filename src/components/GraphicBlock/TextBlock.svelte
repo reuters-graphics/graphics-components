@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
 
-  
   import Block from '../Block/Block.svelte';
   interface Props {
     /** Width of the component within the text well. */

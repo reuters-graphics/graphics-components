@@ -24,7 +24,7 @@
   let hiddenSections = $derived(sections.slice(displayCount));
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 <div class="nav-bar">
   <nav aria-label="Main navigation">
@@ -59,26 +59,26 @@
           >
             <div
               class="nav-button link"
-              class:open="{section.id === $activeSection}"
+              class:open={section.id === $activeSection}
             >
-              <a href="{normalizeUrl(section.url)}">
+              <a href={normalizeUrl(section.url)}>
                 {section.name}
               </a>
               <button class="button">
-                <DownArrow rotate="{section.id === $activeSection}" />
+                <DownArrow rotate={section.id === $activeSection} />
               </button>
             </div>
             {#if $activeSection === section.id}
               <SectionDropdown
                 {section}
-                headingText="{`Latest in ${section.name}`}"
+                headingText={`Latest in ${section.name}`}
               />
             {/if}
           </li>
         {:else}
           <li class="nav-item category link">
             <div class="nav-button link">
-              <a href="{normalizeUrl(section.url)}">
+              <a href={normalizeUrl(section.url)}>
                 {section.name}
               </a>
             </div>
@@ -109,14 +109,14 @@
       >
         <div
           class="nav-button more link"
-          class:open="{$activeSection === 'more'}"
+          class:open={$activeSection === 'more'}
         >
           <button class="button">
-            <span>More <DownArrow rotate="{$activeSection === 'more'}" /></span>
+            <span>More <DownArrow rotate={$activeSection === 'more'} /></span>
           </button>
         </div>
         {#if $activeSection === 'more'}
-          <MoreDropdown sections="{hiddenSections}" />
+          <MoreDropdown sections={hiddenSections} />
         {/if}
       </li>
     </ul>

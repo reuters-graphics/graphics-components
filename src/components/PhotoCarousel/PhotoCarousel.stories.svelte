@@ -29,7 +29,7 @@
   const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <PhotoCarousel {...args} />
   {/snippet}
@@ -37,18 +37,18 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'wider',
     photos,
-  }}"
+  }}
 />
 
 <Story
   name="Custom credits and captions"
-  args="{{
+  args={{
     width: 'wider',
     photos,
-  }}"
+  }}
   {...withStoryDocs(customDocs)}
 >
   <PhotoCarousel
@@ -58,11 +58,11 @@
     }}
   >
     {#snippet credit({ credit })}
-        <p class="custom-credit"  >{credit}</p>
-      {/snippet}
+      <p class="custom-credit">{credit}</p>
+    {/snippet}
     {#snippet caption({ caption })}
-        <p class="custom-caption"  >{caption}</p>
-      {/snippet}
+      <p class="custom-caption">{caption}</p>
+    {/snippet}
   </PhotoCarousel>
 </Story>
 

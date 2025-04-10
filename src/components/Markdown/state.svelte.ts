@@ -1,5 +1,3 @@
-import { writable } from 'svelte/store';
-
 /**
  * Set to `false` in the browser to ensure Markdown content correctly updates
  * when a SvelteKit app hyrates.
@@ -12,7 +10,7 @@ import { writable } from 'svelte/store';
  *
  * export const load = async() => {
  *   // Set the store with the value of building.
- *   staticMarkdown.set(building);
+ *   staticMarkdown.static = building;
  *
  *   // Markdown using this content will correctly refresh when
  *   // a reader loads your page.
@@ -22,4 +20,4 @@ import { writable } from 'svelte/store';
  * }
  * ```
  */
-export const staticMarkdown = writable(true);
+export const staticMarkdown = $state({ static: true });

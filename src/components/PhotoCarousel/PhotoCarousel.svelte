@@ -111,17 +111,17 @@
 </script>
 
 <Block {width} {id} class="photo-carousel fmy-6 {cls}">
-  <div class="carousel-container" bind:clientWidth="{containerWidth}">
+  <div class="carousel-container" bind:clientWidth={containerWidth}>
     <Splide
-      hasTrack="{false}"
-      options="{{
+      hasTrack={false}
+      options={{
         height: carouselHeight,
         fixedHeight: carouselHeight,
         lazyLoad: 'nearby',
         preloadPages: preloadImages,
-      }}"
-      aria-label="{carouselAriaLabel}"
-      on:move="{handleActiveChange}"
+      }}
+      aria-label={carouselAriaLabel}
+      on:move={handleActiveChange}
     >
       <div class="image-container">
         <SplideTrack>
@@ -134,20 +134,19 @@
                 >
                   <img
                     class="w-full h-full fmy-0"
-                    data-splide-lazy="{photo.src}"
-                    alt="{photo.altText}"
-                    style:object-fit="{photo.objectFit ||
-                      defaultImageObjectFit}"
-                    style:object-position="{photo.objectPosition ||
-                      defaultImageObjectPosition}"
+                    data-splide-lazy={photo.src}
+                    alt={photo.altText}
+                    style:object-fit={photo.objectFit || defaultImageObjectFit}
+                    style:object-position={photo.objectPosition ||
+                      defaultImageObjectPosition}
                   />
                   {#if $$slots.credit}
-                    <slot name="credit" credit="{photo.credit}" />
+                    <slot name="credit" credit={photo.credit} />
                   {:else}
                     <span
                       class="credit absolute fmb-1 fml-1 leading-tighter font-note text-xxs"
-                      class:contain-fit="{photo.objectFit === 'contain' ||
-                        defaultImageObjectFit === 'contain'}"
+                      class:contain-fit={photo.objectFit === 'contain' ||
+                        defaultImageObjectFit === 'contain'}
                       >{photo.credit}</span
                     >
                   {/if}
@@ -158,18 +157,18 @@
         </SplideTrack>
 
         {#if photos[activeImageIndex].caption}
-          <PaddingReset containerIsFluid="{width === 'fluid'}">
-            <Block width="{textWidth}">
+          <PaddingReset containerIsFluid={width === 'fluid'}>
+            <Block width={textWidth}>
               {#if $$slots.caption}
                 <slot
                   name="caption"
-                  caption="{photos[activeImageIndex].caption}"
+                  caption={photos[activeImageIndex].caption}
                 />
               {:else}
                 {#key activeImageIndex}
                   <p
                     class="caption body-caption text-center"
-                    in:fly|local="{{ x: 20, duration: 175 }}"
+                    in:fly|local={{ x: 20, duration: 175 }}
                   >
                     {photos[activeImageIndex].caption}
                   </p>
@@ -185,10 +184,10 @@
 
         <div class="splide__arrows fp-1">
           <button class="splide__arrow splide__arrow--prev">
-            <Fa icon="{faChevronLeft}" fw />
+            <Fa icon={faChevronLeft} fw />
           </button>
           <button class="splide__arrow splide__arrow--next">
-            <Fa icon="{faChevronRight}" fw />
+            <Fa icon={faChevronRight} fw />
           </button>
         </div>
       </div>

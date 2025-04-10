@@ -11,7 +11,11 @@
     minFrameWidth?: number;
   }
 
-  let { breakpoints = [330, 510, 660, 930, 1200], maxFrameWidth = 1200, minFrameWidth = 320 }: Props = $props();
+  let {
+    breakpoints = [330, 510, 660, 930, 1200],
+    maxFrameWidth = 1200,
+    minFrameWidth = 320,
+  }: Props = $props();
 
   let container = $state();
 
@@ -94,25 +98,25 @@
   onmousemove={move}
   onmouseup={end}
   onkeydown={handleKeyDown}
-  bind:innerWidth="{windowInnerWidth}"
+  bind:innerWidth={windowInnerWidth}
 />
 
 <div id="resizer">
   <div class="slider">
-    <div class="label" style="{`opacity: ${sliding || isFocused ? 1 : 0};`}">
+    <div class="label" style={`opacity: ${sliding || isFocused ? 1 : 0};`}>
       {pixelLabel || $width}px
     </div>
     <button
       class="icon left"
-      disabled="{$width === minWidth}"
+      disabled={$width === minWidth}
       onclick={decrement}
       onfocus={onFocus}
       onmouseover={onFocus}
       onmouseleave={onBlur}
     >
-      <Fa icon="{faMobileAlt}" fw />
+      <Fa icon={faMobileAlt} fw />
     </button>
-    <div class="slider-container" bind:this="{container}">
+    <div class="slider-container" bind:this={container}>
       <div class="track"></div>
       <div
         class="handle"
@@ -126,13 +130,13 @@
     </div>
     <button
       class="icon right"
-      disabled="{$width === maxWidth}"
+      disabled={$width === maxWidth}
       onclick={increment}
       onfocus={onFocus}
       onmouseover={onFocus}
       onmouseleave={onBlur}
     >
-      <Fa icon="{faDesktop}" fw />
+      <Fa icon={faDesktop} fw />
     </button>
   </div>
 </div>

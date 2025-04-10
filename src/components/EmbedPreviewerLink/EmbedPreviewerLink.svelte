@@ -1,5 +1,4 @@
 <script lang="ts">
-
   import Fa from 'svelte-fa/src/fa.svelte';
   import { faWindowRestore } from '@fortawesome/free-regular-svg-icons';
   interface Props {
@@ -12,7 +11,7 @@
 {#if dev}
   <div>
     <a rel="external" href="/embed-previewer">
-      <Fa icon="{faWindowRestore}" />
+      <Fa icon={faWindowRestore} />
     </a>
   </div>
 {/if}

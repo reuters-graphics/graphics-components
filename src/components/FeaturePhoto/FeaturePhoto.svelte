@@ -93,18 +93,18 @@
 
 <Block {width} class="photo fmy-6 {cls}" {id}>
   <figure
-    bind:this="{container}"
+    bind:this={container}
     aria-label="media"
     class="w-full flex flex-col relative"
   >
     {#if !lazy || (intersectable && intersecting)}
-      <img class="w-full my-0" {src} alt="{altText}" />
+      <img class="w-full my-0" {src} alt={altText} />
     {:else}
-      <div class="placeholder w-full" style="{`height: ${height}px;`}"></div>
+      <div class="placeholder w-full" style={`height: ${height}px;`}></div>
     {/if}
     {#if caption}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <Block width="{textWidth}" class="notes w-full fmy-0">
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <Block width={textWidth} class="notes w-full fmy-0">
           <figcaption>
             {caption}
           </figcaption>
