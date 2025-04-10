@@ -3,33 +3,26 @@
   import LeftArrow from './LeftArrow.svelte';
   import RightArrow from './RightArrow.svelte';
 
-  
-
-  
-
-  
-
-  
   interface Props {
     /**
-   * The current page number.
-   * @type {number}
-   */
+     * The current page number.
+     * @type {number}
+     */
     pageNumber?: number;
     /**
-   * The default page size.
-   * @type {number}
-   */
+     * The default page size.
+     * @type {number}
+     */
     pageSize?: number;
     /**
-   * The number of records in the current page.
-   * @type {number}
-   */
+     * The number of records in the current page.
+     * @type {number}
+     */
     pageLength?: number;
     /**
-   * The total number of records in the data set.
-   * @type {number}
-   */
+     * The total number of records in the data set.
+     * @type {number}
+     */
     n?: number;
   }
 
@@ -37,7 +30,7 @@
     pageNumber = $bindable(1),
     pageSize = 25,
     pageLength = null,
-    n = null
+    n = null,
   }: Props = $props();
 
   let minRow = $derived(pageNumber * pageSize - pageSize + 1);
@@ -58,7 +51,7 @@
 </script>
 
 <nav aria-label="pagination" class="pagination fmt-4">
-  <button onclick={goToPreviousPage} disabled="{pageNumber === 1}"
+  <button onclick="{goToPreviousPage}" disabled="{pageNumber === 1}"
     ><div class="icon-wrapper">
       <LeftArrow />
       <span class="visually-hidden">Previous page</span>
@@ -70,7 +63,7 @@
     </div>
   </div>
   <button
-    onclick={goToNextPage}
+    onclick="{goToNextPage}"
     disabled="{pageNumber === Math.ceil(n / pageSize)}"
     ><div class="icon-wrapper">
       <RightArrow />

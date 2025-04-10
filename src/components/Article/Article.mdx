@@ -41,13 +41,13 @@ You can set custom column widths by passing an object to the `columnWidths` prop
 ```svelte
 <!-- Set custom column widths -->
 <Article
-  columnWidths={{
+  columnWidths="{{
     narrower: 310,
     narrow: 450,
     normal: 550,
     wide: 675,
     wider: 1400,
-  }}
+  }}"
 >
   <!-- Custom column widths get passed down to the `Block` component -->
   <Block width="narrower" />

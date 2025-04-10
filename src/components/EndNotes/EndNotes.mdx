@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as EndNotesStories from './EndNotes.stories.svelte';
+
+<Meta of={EndNotesStories} />
+
+# EndNotes
+
+The `EndNotes` component adds notes such as sources, clarifiying notes and minor corrections that come at the end of a story.
+
+```svelte
+<script>
+  import { EndNotes } from '@reuters-graphics/graphics-components';
+
+  const notes = [
+    {
+      title: 'Note',
+      text: 'Data is current as of today.',
+    },
+    {
+      title: 'Sources',
+      text: 'Data, Inc.',
+    },
+    {
+      title: 'Edited by',
+      text: '<a href="https://www.reuters.com/graphics/">Editor</a>, Copyeditor',
+    },
+  ];
+</script>
+
+<EndNotes {notes} />
+```
+
+<Canvas of={EndNotesStories.Demo} />
+
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[endNotes]
+title: Note
+text: Data is current as of today
+
+title: Sources
+text: Data, Inc.
+
+title: Edited by
+text: Editor, Copyeditor
+[]
+```
+
+... which you'll pass to the `EndNotes` component.
+
+```svelte
+<!-- Graphics Kit -->
+<script>
+  import { EndNotes } from '@reuters-graphics/graphics-components';
+
+  import content from '$locales/en/content.json';
+</script>
+
+<EndNotes notes={content.endNotes} />
+```
+
+<Canvas of={EndNotesStories.Demo} />

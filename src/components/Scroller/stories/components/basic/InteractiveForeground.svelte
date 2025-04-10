@@ -11,7 +11,7 @@
 <p>The count is {count}</p>
 
 <button
-  onclick={() => {
+  onclick="{() => {
     count += 1;
-  }}>Click Me</button
+  }}">Click Me</button
 >
