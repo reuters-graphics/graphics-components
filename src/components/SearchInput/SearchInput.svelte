@@ -38,17 +38,17 @@
     id="search--input"
     class="search--input body-caption pl-8"
     type="text"
-    placeholder="{searchPlaceholder}"
-    oninput="{input}"
+    placeholder={searchPlaceholder}
+    oninput={input}
     bind:value
   />
   <div
     class="search--x absolute"
     role="button"
     tabindex="0"
-    class:invisible="{!active}"
-    onclick="{clear}"
-    onkeyup="{clear}"
+    class:invisible={!active}
+    onclick={clear}
+    onkeyup={clear}
   >
     <X />
   </div>

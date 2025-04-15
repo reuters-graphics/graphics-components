@@ -27,7 +27,7 @@
   import Theme from '../Theme/Theme.svelte';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <div>
       <SiteHeader {...args} />
