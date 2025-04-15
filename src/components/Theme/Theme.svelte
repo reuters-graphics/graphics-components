@@ -11,23 +11,21 @@
 
 <script lang="ts">
   import type { CustomTheme } from './@types/component';
-  
 
   type Base = 'light' | 'dark';
-  
 
   import flatten from './utils/flatten';
   import mergeThemes from './utils/merge';
   interface Props {
     /** Custom theme object. Can be a partial theme with just
-   * what you want to change.
-   */
+     * what you want to change.
+     */
     theme?: CustomTheme;
     /**
-   * Base theme is one of `light` or `dark` and will be merged
-   * with your custom theme to fill in any values you don't
-   * explicitly set.
-   */
+     * Base theme is one of `light` or `dark` and will be merged
+     * with your custom theme to fill in any values you don't
+     * explicitly set.
+     */
     base?: Base;
     children?: import('svelte').Snippet;
   }
@@ -35,14 +33,18 @@
   let { theme = {}, base = 'light', children }: Props = $props();
 
   /** @type {Theme} */
-  let mergedTheme = $derived(mergeThemes({}, themes[base] || themes.light, theme));
+  let mergedTheme = $derived(
+    mergeThemes({}, themes[base] || themes.light, theme)
+  );
 
-  let cssVariables = $derived(Object.entries(flatten({ theme: mergedTheme }))
-    .map(([key, value]) => `--${key}: ${value};`)
-    .join(' '));
+  let cssVariables = $derived(
+    Object.entries(flatten({ theme: mergedTheme }))
+      .map(([key, value]) => `--${key}: ${value};`)
+      .join(' ')
+  );
 </script>
 
-<div class="theme" style="{cssVariables}" style:display="contents">
+<div class="theme" style={cssVariables} style:display="contents">
   <!-- Clients can override the theme above by attaching custom properties to this element. -->
   <div class="theme-client-override" style="display: contents;">
     <!-- Themed content -->

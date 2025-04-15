@@ -165,8 +165,8 @@
 </script>
 
 <svelte:window
-  on:click="{setInteractedWithDom}"
-  on:touchstart="{setInteractedWithDom}"
+  on:click={setInteractedWithDom}
+  on:touchstart={setInteractedWithDom}
 />
 
 <GraphicBlock
@@ -179,18 +179,18 @@
 >
   <div
     role="figure"
-    on:mouseover="{() => {
+    on:mouseover={() => {
       interactiveControlsOpacity = controlsOpacity;
-    }}"
-    on:focus="{() => {
+    }}
+    on:focus={() => {
       interactiveControlsOpacity = controlsOpacity;
-    }}"
-    on:mouseout="{() => {
+    }}
+    on:mouseout={() => {
       interactiveControlsOpacity = 0;
-    }}"
-    on:blur="{() => {
+    }}
+    on:blur={() => {
       interactiveControlsOpacity = 0;
-    }}"
+    }}
   >
     {#if (hidden && ariaDescription) || !hidden}
       {#if ariaDescription}
@@ -202,25 +202,25 @@
         <IntersectionObserver
           {element}
           bind:intersecting
-          threshold="{playVideoThreshold}"
-          once="{false}"
+          threshold={playVideoThreshold}
+          once={false}
         >
           <div
-            bind:this="{element}"
+            bind:this={element}
             class="video-wrapper relative block"
-            aria-hidden="{hidden}"
-            bind:clientWidth="{widthVideoContainer}"
-            bind:clientHeight="{heightVideoContainer}"
+            aria-hidden={hidden}
+            bind:clientWidth={widthVideoContainer}
+            bind:clientHeight={heightVideoContainer}
           >
             {#if possibleToPlayPause}
               {#if showControls}
                 <Controls
-                  on:pausePlayEvent="{pausePlayEvent}"
+                  on:pausePlayEvent={pausePlayEvent}
                   {paused}
                   {clickedOnPauseBtn}
-                  controlsOpacity="{hoverToSeeControls ?
+                  controlsOpacity={hoverToSeeControls ?
                     interactiveControlsOpacity
-                  : controlsOpacity}"
+                  : controlsOpacity}
                   {controlsPosition}
                   {widthVideoContainer}
                   {heightVideoContainer}
@@ -232,32 +232,32 @@
               {:else}
                 <button
                   class="border-0 m-0 p-0 bg-transparent absolute"
-                  on:click="{() => {
+                  on:click={() => {
                     if (paused === true) {
                       paused = false;
                     } else {
                       paused = true;
                     }
-                  }}"
+                  }}
                   style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
                 ></button>
               {/if}
             {/if}
             <video
-              bind:this="{videoElement}"
+              bind:this={videoElement}
               {src}
               {poster}
               class="pointer-events-none relative"
               width="100%"
-              muted="{muteVideo}"
+              muted={muteVideo}
               playsinline
-              preload="{preloadVideo}"
-              loop="{loopVideo}"
-              bind:currentTime="{time}"
+              preload={preloadVideo}
+              loop={loopVideo}
+              bind:currentTime={time}
               bind:duration
               bind:paused
-              bind:clientWidth="{widthVideo}"
-              bind:clientHeight="{heightVideo}"
+              bind:clientWidth={widthVideo}
+              bind:clientHeight={heightVideo}
             >
               <track kind="captions" />
             </video>
@@ -267,14 +267,14 @@
         <!-- Video element without Intersection observer -->
         <div
           class="video-wrapper relative"
-          aria-hidden="{hidden}"
-          bind:clientWidth="{widthVideoContainer}"
-          bind:clientHeight="{heightVideoContainer}"
+          aria-hidden={hidden}
+          bind:clientWidth={widthVideoContainer}
+          bind:clientHeight={heightVideoContainer}
         >
           {#if possibleToPlayPause}
             {#if showControls}
               <Controls
-                on:pausePlayEvent="{pausePlayEvent}"
+                on:pausePlayEvent={pausePlayEvent}
                 {paused}
                 {clickedOnPauseBtn}
                 {controlsOpacity}
@@ -289,33 +289,33 @@
             {:else}
               <button
                 class="border-0 m-0 p-0 bg-transparent absolute"
-                on:click="{() => {
+                on:click={() => {
                   if (paused === true) {
                     paused = false;
                   } else {
                     paused = true;
                   }
-                }}"
+                }}
                 style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
               ></button>
             {/if}
           {/if}
           <video
-            bind:this="{videoElement}"
+            bind:this={videoElement}
             {src}
             {poster}
             class="pointer-events-none relative"
             width="100%"
-            muted="{muteVideo}"
+            muted={muteVideo}
             playsinline
-            preload="{preloadVideo}"
-            loop="{loopVideo}"
-            bind:currentTime="{time}"
+            preload={preloadVideo}
+            loop={loopVideo}
+            bind:currentTime={time}
             bind:duration
             bind:paused
             autoplay
-            bind:clientWidth="{widthVideo}"
-            bind:clientHeight="{heightVideo}"
+            bind:clientWidth={widthVideo}
+            bind:clientHeight={heightVideo}
           >
             <track kind="captions" />
           </video>
