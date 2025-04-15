@@ -1,18 +1,13 @@
 <!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-visible--docs) -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  
-  
-  
-  
-  
-  
+
   interface Props {
     /**
-   * Whether to change visibility just once.
-   *
-   * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
-   */
+     * Whether to change visibility just once.
+     *
+     * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
+     */
     once?: boolean;
     /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
     top?: number;
@@ -34,7 +29,7 @@
     left = 0,
     right = 0,
     threshold = 0,
-    children
+    children,
   }: Props = $props();
 
   let visible = $state(false);
@@ -74,7 +69,7 @@
   });
 </script>
 
-<div bind:this="{container}">
+<div bind:this={container}>
   <!-- An element or component -->
-  {@render children?.({ visible, })}
+  {@render children?.({ visible })}
 </div>

@@ -13,7 +13,7 @@
 </script>
 
 <NavDropdown {headingText}>
-  <a href="{normalizeUrl(section.url)}">
+  <a href={normalizeUrl(section.url)}>
     <span class="heading">
       Browse {section.name}
     </span>
@@ -23,7 +23,7 @@
       <ul class="sections-group">
         {#each section.children.slice(0, splitCount) as sub}
           <li>
-            <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+            <a class="subsection-link" href={normalizeUrl(sub.url)}>
               {sub.name}
             </a>
           </li>
@@ -33,7 +33,7 @@
     <ul class="sections-group">
       {#each section.children.slice(splitCount) as sub}
         <li>
-          <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+          <a class="subsection-link" href={normalizeUrl(sub.url)}>
             {sub.name}
           </a>
         </li>

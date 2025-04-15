@@ -40,14 +40,14 @@
 </script>
 
 <header
-  style="{`
+  style={`
     --nav-background: var(--theme-colour-background, #fff);
     --nav-primary: var(--theme-colour-text-primary, #404040);
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
     --nav-accent: var(--theme-colour-brand-logo, #fa6400);
     --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
     --theme-font-family-sans-serif: Knowledge, sans-serif;
-  `}"
+  `}
 >
   <a href="#main-content" class="skip-link"> Skip to main content </a>
   <div class="nav-container show-nav">
@@ -76,10 +76,10 @@
                 class="menu-button"
                 aria-label="Menu"
                 aria-haspopup="true"
-                aria-expanded="{isMobileMenuOpen}"
-                onclick="{() => {
+                aria-expanded={isMobileMenuOpen}
+                onclick={() => {
                   isMobileMenuOpen = !isMobileMenuOpen;
-                }}"
+                }}
               >
                 <div class="button-container">
                   <MenuIcon />
@@ -95,10 +95,10 @@
 
 <MobileMenu
   {isMobileMenuOpen}
-  releaseMobileMenu="{() => {
+  releaseMobileMenu={() => {
     isMobileMenuOpen = false;
-  }}"
-  data="{data[0]}"
+  }}
+  data={data[0]}
 />
 
 <style lang="scss">

@@ -19,16 +19,16 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
-    <Visible {...args} >
+    <Visible {...args}>
       {#snippet children({ visible })}
         {#if visible}
           <p>Visible!</p>
         {:else}
           <p>Not yet visible.</p>
         {/if}
-            {/snippet}
+      {/snippet}
     </Visible>
   {/snippet}
 </Template>

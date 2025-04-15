@@ -27,9 +27,8 @@
   <GraphicBlock
     title="Title for my chart"
     description="Some description for your chart."
-    notes="Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)"
+    notes={`Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)`}
   >
-    <!-- Graphic content -->
     <div id="my-chart">
       <img src={PlaceholderImg} alt="placeholder" />
     </div>
@@ -42,23 +41,21 @@
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   >
-    <!-- Graphic content -->
     <AiMap />
   </GraphicBlock>
 </Story>
 
 <Story name="Custom text" exportName="CustomText">
   <GraphicBlock>
-    <!-- Graphic content -->
     <div class="demo-graphic">
       <img src={PlaceholderImg} alt="placeholder" />
     </div>
 
-    {#snippet customTitle()}
+    {#snippet title()}
       <h5>My smaller title</h5>
     {/snippet}
 
-    {#snippet customNotes()}
+    {#snippet notes()}
       <aside>
         <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
       </aside>
@@ -73,7 +70,6 @@
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
     ariaDescription="A map showing the shake intensity produced by the earthquake."
   >
-    <!-- Graphic content -->
     <AiMap />
   </GraphicBlock>
 </Story>
@@ -84,9 +80,8 @@
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
     notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   >
-    <!-- Graphic content -->
     <AiMap />
-    {#snippet customAria()}
+    {#snippet ariaDescription()}
       <p>
         A shakemap shows the intensity of the 7.2-magnitude earthquake that
         struck Haiti at 8:29 a.m. EST, Aug. 14, 2021.
