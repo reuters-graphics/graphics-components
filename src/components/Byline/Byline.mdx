@@ -58,7 +58,7 @@ updateTime: 2021-09-12T12:57:00.000Z
 
 <Canvas of={BylineStories.Demo} />
 
-## Cutomisation
+## Custom byline, published and updated datelines
 
 Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, published and updated datelines.
 
@@ -82,3 +82,25 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, 
 ```
 
 <Canvas of={BylineStories.Customised} />
+
+## Custom author page
+
+By default, the `Byline` component will hyperlink each author's byline to their Reuters.com page, formatted `https://www.reuters.com/authors/{author-slug}/`.
+
+To hyperlink to different pages or email addresses, pass a custom function to the `getAuthorPage` prop.
+
+```svelte
+<!-- Pass a custom function as `getAuthorPage` -->
+<Byline
+  authors={['Dea Bankova', 'Prasanta Kumar Dutta', 'Anurag Rao', 'Mariano Zafra']}
+  publishTime="2021-09-12T00:00:00Z"
+  updateTime="2021-09-12T13:57:00Z"
+  getAuthorPage={(author: string) => {
+      return `mailto:${author.replace(' ', '')}@example.com`;
+    }}
+/>
+
+```
+
+<Canvas of={BylineStories.CustomAuthorPage} />
+````

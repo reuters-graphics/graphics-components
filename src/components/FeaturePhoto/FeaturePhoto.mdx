@@ -1,0 +1,72 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as FeaturePhotoStories from './FeaturePhoto.stories.svelte';
+
+<Meta of={FeaturePhotoStories} />
+
+# FeaturePhoto
+
+The `FeaturePhoto` component adds a full-width photo.
+
+```svelte
+<script>
+  import { FeaturePhoto } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+</script>
+
+<FeaturePhoto
+  src={`${assets}/images/myImage.jpg`}
+  altText="Some alt text"
+  caption="A caption"
+/>
+```
+
+<Canvas of={FeaturePhotoStories.Demo} />
+
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[blocks]
+
+type: photo
+width: normal
+src: images/shark.jpg
+altText: The king of the sea
+caption: Carcharodon carcharias - REUTERS
+
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `FeaturePhoto` component.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { FeaturePhoto } from '@reuters-graphics/graphics-components';
+
+  import content from '$locales/en/content.json';
+  import { assets } from '$app/paths';
+</script>
+
+{#each content.blocks as block}
+  {#if block.Type === 'text'}
+    <!-- ... -->
+  {:else if block.type === 'photo'}
+    <FeaturePhoto
+      width={block.width}
+      src={`${assets}/${block.src}`}
+      altText={block.altText}
+      caption={block.caption}
+    />
+  {/if}
+{/each}
+```
+
+## Missing alt text
+
+`altText` is required in this component. If your photo is missing it, a small red text box will overlay the image.
+
+<Canvas of={FeaturePhotoStories.MissingAltText} />
