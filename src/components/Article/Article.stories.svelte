@@ -2,36 +2,25 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Block from '../Block/Block.svelte';
   import Article from './Article.svelte';
-  // @ts-ignore raw
-  import customWellWidthsDocs from './stories/docs/customWellWidths.md?raw';
-
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
 
   const { Story } = defineMeta({
-    title: 'Components/Page Layout/Article',
+    title: 'Components/Page layout/Article',
     component: Article,
   });
 </script>
 
-<script lang="ts">
-</script>
-
-<Story
-  name="Demo"
-  args={{
-    embedded: false,
-    id: '',
-  }}
->
+<Story name="Demo">
   <Article id="article-story-basic">
     <div class="demo-container">
-      <div class="background-label">Article container</div>
+      <div class="background-label">Article well</div>
       <div class="padding-label"><span>⇤</span>15px padding</div>
     </div>
   </Article>
 </Story>
 
-<Story name="Custom columns" {...withStoryDocs(customWellWidthsDocs)}>
+<Story name="Custom columns" exportName="CustomColumns">
+  <h3>Default column widths</h3>
+
   <Article id="article-column-widths-demo">
     <div class="article-boundaries">
       <Block id="section-demo" width="narrower">narrower</Block>
@@ -43,22 +32,23 @@
       <Block id="section-demo" width="fluid">fluid</Block>
     </div>
   </Article>
+  <h3>Custom column widths</h3>
   <Article
     id="article-column-widths-demo"
     columnWidths={{
-      narrower: 310,
-      narrow: 450,
-      normal: 550,
+      narrower: 250,
+      narrow: 400,
+      normal: 500,
       wide: 675,
       wider: 1400,
     }}
   >
     <div class="article-boundaries custom">
-      <Block id="section-demo" width="narrower">narrower*</Block>
-      <Block id="section-demo" width="narrow">narrow*</Block>
-      <Block id="section-demo">normal*</Block>
-      <Block id="section-demo" width="wide">wide*</Block>
-      <Block id="section-demo" width="wider">wider*</Block>
+      <Block id="section-demo" width="narrower">narrower</Block>
+      <Block id="section-demo" width="narrow">narrow</Block>
+      <Block id="section-demo">normal</Block>
+      <Block id="section-demo" width="wide">wide</Block>
+      <Block id="section-demo" width="wider">wider</Block>
       <Block id="section-demo" width="widest">widest</Block>
       <Block id="section-demo" width="fluid">fluid</Block>
     </div>
@@ -66,6 +56,13 @@
 </Story>
 
 <style lang="scss">
+  h3 {
+    text-align: center;
+  }
+  :global(span.custom) {
+    color: rgb(211, 132, 123);
+    font-weight: 600;
+  }
   :global(#article-story-basic, #article-column-widths-demo) {
     width: calc(100% + 30px);
     margin-left: -15px;
@@ -93,21 +90,22 @@
     height: 50px;
     padding-left: 3px;
     color: white;
-    font-size: 12px;
+    font-size: 1rem;
   }
 
   div.demo-container {
     height: 300px;
     background: #ccc;
     position: relative;
-    font-size: 12px;
     .background-label {
+      font-size: 1.5rem;
       position: absolute;
-      bottom: 0;
-      left: 5px;
+      top: 40%;
+      left: 40%;
       color: #666;
     }
     .padding-label {
+      font-size: 1rem;
       position: absolute;
       top: 0;
       left: -17px;

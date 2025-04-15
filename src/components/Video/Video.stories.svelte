@@ -31,7 +31,7 @@
   import SoundVideo from './stories/videos/sound-video.mp4';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <Video {...args} />
   {/snippet}
@@ -39,17 +39,17 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SilentVideo,
     width: 'wide',
     notes: 'Optional caption for your video.',
-  }}"
+  }}
 />
 
 <Story
   name="Playing and looping"
-  args="{{
+  args={{
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SilentVideo,
     width: 'normal',
@@ -57,13 +57,13 @@
     notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
-  }}"
+  }}
   {...withStoryDocs(playAndLoopDocs)}
 />
 
 <Story
   name="Controls"
-  args="{{
+  args={{
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SilentVideo,
     width: 'normal',
@@ -76,13 +76,13 @@
     separateReplayIcon: true,
     loopVideo: false,
     hoverToSeeControls: true,
-  }}"
+  }}
   {...withStoryDocs(controlsDocs)}
 />
 
 <Story
   name="Videos with sound"
-  args="{{
+  args={{
     ariaDescription: 'Compulsory description of your video for screen readers.',
     src: SoundVideo,
     width: 'normal',
@@ -94,6 +94,6 @@
     muteVideo: false,
     playVideoWhenInView: true,
     allowSoundToAutoplay: true,
-  }}"
+  }}
   {...withStoryDocs(controlsDocs)}
 />

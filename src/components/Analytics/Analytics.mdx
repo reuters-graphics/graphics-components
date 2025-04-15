@@ -6,7 +6,7 @@ import * as AnalyticsStories from './Analytics.stories.svelte';
 
 # Analytics
 
-Add Google and Chartbeat analytics to your page.
+The `Analytics` component adds Google and Chartbeat analytics to your page.
 
 ```svelte
 <script>
@@ -42,7 +42,7 @@ For example, the following excludes analytics from pages in development or hoste
 
 If you're using analytics to measure a multipage newsapp that uses [client-side routing](https://kit.svelte.dev/docs/glossary#routing), then you may need to trigger analytics after virtual page navigation.
 
-This component also exports a function you can call to register pageviews.
+This component exports a function you can call to register pageviews.
 
 For example, here's how you can use SvelteKit's [`afterNavigate`](https://kit.svelte.dev/docs/modules#$app-navigation-afternavigate) lifecycle to capture additional pageviews:
 

@@ -40,7 +40,7 @@
   import Headline from './../Headline/Headline.svelte';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <div class="reset-article">
       <Theme {...args}>
@@ -52,19 +52,19 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     theme: themes.light,
     base: 'light',
-  }}"
+  }}
 />
 
 <Story name="Custom theme" {...withStoryDocs(customiseDocs)}>
   <Theme
     base="dark"
-    theme="{{
+    theme={{
       colour: { accent: 'var(--tr-light-orange)' },
       font: { family: { hed: 'FreightText, serif' } },
-    }}"
+    }}
   >
     <ThemedPage />
   </Theme>
@@ -73,15 +73,15 @@
 <Story name="Custom Google font" {...withStoryDocs(customiseFontDocs)}>
   <Theme
     base="light"
-    theme="{{
+    theme={{
       font: { family: { hed: 'Bebas Neue, sans-serif' } },
-    }}"
+    }}
   >
     <div class="gfont">
       <Headline
-        hed="{'Reuters Graphics Interactive'}"
-        dek="{'The beginning of a beautiful page'}"
-        section="{'Global news'}"
+        hed={'Reuters Graphics Interactive'}
+        dek={'The beginning of a beautiful page'}
+        section={'Global news'}
       />
     </div>
   </Theme>
@@ -91,9 +91,9 @@
   <div id="pattern-bg">
     <Theme
       base="dark"
-      theme="{{
+      theme={{
         colour: { background: 'transparent' },
-      }}"
+      }}
     >
       <SiteHeader />
       <ThemedPage />
@@ -102,22 +102,22 @@
 </Story>
 
 <Story name="Inheritance" {...withStoryDocs(inheritanceDocs)}>
-  <Theme theme="{themes.light}">
+  <Theme theme={themes.light}>
     <div class="themed">
       <p>Theme</p>
-      <Theme theme="{themes.dark}">
+      <Theme theme={themes.dark}>
         <div class="themed">
           <p>Sub-theme</p>
-          <Theme theme="{themes.light}">
+          <Theme theme={themes.light}>
             <div class="themed">
               <p>Sub-sub</p>
             </div>
           </Theme>
           <Theme
-            theme="{{
+            theme={{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
               font: { family: { note: 'FreightText, serif' } },
-            }}"
+            }}
             base="dark"
           >
             <div class="themed">
