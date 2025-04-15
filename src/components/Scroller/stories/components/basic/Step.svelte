@@ -6,7 +6,7 @@
   let { colour = 'lightblue' }: Props = $props();
 </script>
 
-<div class="step" style="{`background: ${colour};`}"></div>
+<div class="step" style={`background: ${colour};`}></div>
 
 <style lang="scss">
   .step {

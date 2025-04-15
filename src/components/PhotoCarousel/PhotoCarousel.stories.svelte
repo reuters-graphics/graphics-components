@@ -1,68 +1,40 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import customDocs from './stories/docs/withCustom.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import PhotoCarousel from './PhotoCarousel.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Multimedia/PhotoCarousel',
     component: PhotoCarousel,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import imagesJson from './demo/images.json';
 
-  import photosJson from './stories/photos.json';
-
-  const photos = photosJson.map((p) => ({ ...p, altText: p.caption }));
+  const images = imagesJson.map((img) => ({ ...img, altText: img.caption }));
 </script>
 
-<Template >
-  {#snippet children({ args })}
-    <PhotoCarousel {...args} />
-  {/snippet}
-</Template>
-
 <Story
-  name="Default"
-  args="{{
-    width: 'wider',
-    photos,
-  }}"
+  name="Demo"
+  args={{
+    images,
+  }}
 />
 
-<Story
-  name="Custom credits and captions"
-  args="{{
-    width: 'wider',
-    photos,
-  }}"
-  {...withStoryDocs(customDocs)}
->
-  <PhotoCarousel
-    {...{
-      width: 'wider',
-      photos,
-    }}
-  >
-    {#snippet credit({ credit })}
-        <p class="custom-credit"  >{credit}</p>
-      {/snippet}
-    {#snippet caption({ caption })}
-        <p class="custom-caption"  >{caption}</p>
-      {/snippet}
+<Story name="Custom text" exportName="CustomText">
+  <PhotoCarousel {images}>
+    {#snippet credit(image)}
+      <p class="custom-credit">{image.credit}</p>
+    {/snippet}
+    {#snippet caption(image)}
+      <p class="custom-caption">{image.caption}</p>
+    {/snippet}
   </PhotoCarousel>
 </Story>
 
