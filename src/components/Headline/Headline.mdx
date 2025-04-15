@@ -1,0 +1,152 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as HeadlineStories from './Headline.stories.svelte';
+
+<Meta of={HeadlineStories} />
+
+# Headline
+
+The `Headline` component creates headlines in the legacy Reuters Graphics style, with the text centred on the page.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline
+  hed="Reuters Graphics Interactive"
+  dek="The beginning of a beautiful page"
+  section="World News"
+/>
+```
+
+<Canvas of={HeadlineStories.Demo} />
+
+## With bylines and dateline
+
+Optionally, you can add authors and a publish time to the headline, which the `Headline` component internally renders with the [Byline](./?path=/docs/components-text-elements-byline--docs) component.
+
+> **Note**: Since `Headline` uses `Byline`, you can customise the author page hyperlink and bylines with the `getAuthorPage`, `byline`, `published` and `updated` props.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline
+  hed={'Reuters Graphics Interactive'}
+  dek={'The beginning of a beautiful page'}
+  section={'Global news'}
+  authors={['Jane Doe']}
+  publishTime={new Date('2020-01-01').toISOString()}
+    getAuthorPage={(author: string) => {
+      return `mailto:${author.replace(' ', '')}@example.com`;
+    }}
+/>
+```
+
+<Canvas of={HeadlineStories.Byline} />
+
+## Custom hed and dek
+
+Use the `hed` and/or `dek` [snippets](https://svelte.dev/docs/svelte/snippet) to override those elements with custom elements.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+</script>
+
+<Headline width="wide">
+  <!-- Custom hed snippet -->
+  {#snippet hed()}
+    <h1 class="custom-hed">
+      <span class="small block text-base">The secret to</span>
+      “The Nutcracker's”
+      <span class="small block text-base fpt-1">success</span>
+    </h1>
+  {/snippet}
+
+  <!-- Custom dek snippet -->
+  {#snippet dek()}
+    <p class="custom-dek !fmt-3">
+      How “The Nutcracker” ballet became an<span
+        class="font-medium mx-1 px-1.5 py-1">American holday staple</span
+      >and a financial pillar of ballet companies across the country
+    </p>
+  {/snippet}
+</Headline>
+
+<!-- Custom styles -->
+<style lang="scss">
+  .custom-hed {
+    line-height: 0.9;
+  }
+  .custom-dek {
+    span {
+      background-color: #fde68a;
+    }
+  }
+</style>
+```
+
+<Canvas of={HeadlineStories.CustomHedDek} />
+
+## With crown image
+
+To add a crown image, use the `crown` [snippet](https://svelte.dev/docs/svelte/snippet).
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
+</script>
+
+<Headline
+  class="!fmt-3"
+  hed="Europa"
+  publishTime={new Date('2020-01-01').toISOString()}
+>
+  <!-- Add a crown -->
+  {#snippet crown()}
+    <img
+      src={crownImgSrc}
+      width="100"
+      class="mx-auto mb-0"
+      alt="Illustration of Europe"
+    />
+  {/snippet}
+</Headline>
+```
+
+<Canvas of={HeadlineStories.CrownImage} />
+
+## With crown graphic
+
+Add a full graphic or any other component in the crown.
+
+```svelte
+<script>
+  import { Headline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // If in Graphis Kit
+
+  import Map from './ai2svelte/graphic.svelte'; // Import the crown graphic component
+</script>
+
+<Headline
+  width="wider"
+  class="!fmt-1"
+  hed={'Unfriendly skies'}
+  dek={'How Russia’s invasion of Ukraine is redrawing air routes'}
+  section={'Ukraine Crisis'}
+  authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+  publishTime={new Date('2022-03-04').toISOString()}
+>
+  <!-- Add a crown graphic -->
+  {#snippet crown()}
+    <!-- Pass `assetsPath` if in Graphics Kit -->
+    <Map assetsPath={assets || '/'} />
+  {/snippet}
+</Headline>
+```
+
+<Canvas of={HeadlineStories.CrownGraphic} />

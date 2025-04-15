@@ -1,3 +1,5 @@
+<!-- @component `Analytics` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-analytics--docs) -->
+
 <script module>
   import { registerPageview as registerChartbeatPageview } from './providers/chartbeat';
   import { registerPageview as registerGAPageview } from './providers/ga';
@@ -13,7 +15,6 @@
   export { registerPageview };
 </script>
 
-<!-- @component `Analytics` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-analytics--docs) -->
 <script lang="ts">
   interface Author {
     name: string;

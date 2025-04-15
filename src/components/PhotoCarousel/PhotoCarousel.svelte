@@ -1,108 +1,86 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `PhotoCarousel` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-photocarousel--docs) -->
 <script lang="ts">
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
-
-  /** Width of the component within the text well. */
-  export let width: ContainerWidth = 'wider';
-
-  /**
-   * Set a different width for captions within the text well, for example,
-   * "normal" to keep captions inline with the rest of the text well.
-   * Can't ever be wider than `width`.
-   * @type {string}
-   */
-  export let textWidth: ContainerWidth = 'normal';
-
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
-
-  /** Add a class to target with SCSS. */
-  let cls: string = '';
-  export { cls as class };
-
-  interface Image {
-    /**
-     * Image src
-     * @required
-     */
-    src: string;
-    /**
-     * Image alt-text
-     * @required
-     */
-    altText: string;
-    /** Optional caption */
-    caption?: string;
-    /** Optional credit */
-    credit?: string;
-    /** Optional object-fit rule */
-    objectFit?: string;
-    /** Optional object-position rule */
-    objectPosition?: string;
-  }
-
-  /**
-   * Array of photos.
-   * @required
-   */
-  export let photos: Image[] = [];
-
-  /**
-   * Max height of the carousel
-   */
-  export let maxHeight: number = 660;
-
-  type ObjectFit = 'cover' | 'contain';
-
-  /**
-   * Default Image object-fit style, either `cover` or `contain`.
-   */
-  export let defaultImageObjectFit: ObjectFit = 'cover';
-
-  /**
-   * Default image object-position style, e.g., `center center` or `50% 50%`.
-   */
-  export let defaultImageObjectPosition: string = 'center center';
-
-  /**
-   * ARIA label for the carousel.
-   * @required
-   */
-  export let carouselAriaLabel: string = 'Photo gallery';
-
-  /**
-   * Set height of the carousel as a ratio of its width
-   * as long as its below whatever you set in `maxHeight`.
-   */
-  export let heightRatio: number = 0.68;
-
-  /**
-   * Number of images to preload ahead of the active image.
-   */
-  export let preloadImages: number = 1;
-
-  import Block from '../Block/Block.svelte';
-  import { Splide, SplideSlide, SplideTrack } from '@splidejs/svelte-splide';
+  // Utils
   import '@splidejs/svelte-splide/css/core';
-  // @ts-ignore no types
+  import { fly } from 'svelte/transition';
+  import { Splide, SplideSlide, SplideTrack } from '@splidejs/svelte-splide';
+
+  // Icons
   import Fa from 'svelte-fa/src/fa.svelte';
   import {
     faChevronLeft,
     faChevronRight,
   } from '@fortawesome/free-solid-svg-icons';
-  import { fly } from 'svelte/transition';
+
+  // Components
+  import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
+
+  // Types
   import type { MoveEventDetail } from '@splidejs/svelte-splide/types';
+  import type { Snippet } from 'svelte';
+  import type { PhotoCarouselImage } from '../@types/global';
 
-  let containerWidth: number;
+  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
-  let activeImageIndex = 0;
+  type ObjectFit = 'cover' | 'contain';
 
-  $: carouselHeight =
+  interface Props {
+    /** Array of images. */
+    images: PhotoCarouselImage[];
+    /** Width of the component within the text well: normal, wide, wider, widest, fluid */
+    width?: ContainerWidth;
+    /**
+     * Set a different width for captions within the text well, e.g. "normal," to keep captions inline with the rest of the text well. Can't ever be wider than `width`.
+     */
+    textWidth?: ContainerWidth;
+    /** Add an ID to target with SCSS. */
+    id?: string;
+    /** Add a class to target with SCSS. */
+    cls?: string;
+    /** Max height of the carousel */
+    maxHeight?: number;
+    /** Default Image object-fit style: cover, contain */
+    defaultImageObjectFit?: ObjectFit;
+    /** Default image object-position style, e.g., `center center` or `50% 50%`. */
+    defaultImageObjectPosition?: string;
+    /** ARIA label for the carousel. */
+    carouselAriaLabel?: string;
+    /** Set height of the carousel as a ratio of its width as long as its below whatever you set in `maxHeight`. */
+    heightRatio?: number;
+    /** Number of images to preload ahead of the active image. */
+    preloadImages?: number;
+    /** Optional custom credit format as a snippet, which takes the argument `photo`. */
+    credit?: Snippet<[PhotoCarouselImage]>;
+    /** Optional custom caption format as a snippet, which takes the argument `photo`. */
+    caption?: Snippet<[PhotoCarouselImage]>;
+  }
+
+  let {
+    width = 'wider',
+    textWidth = 'normal',
+    id = '',
+    cls = '',
+    images,
+    maxHeight = 660,
+    defaultImageObjectFit = 'cover',
+    defaultImageObjectPosition = 'center center',
+    carouselAriaLabel = 'Photo gallery',
+    heightRatio = 0.68,
+    preloadImages = 1,
+    credit,
+    caption,
+  }: Props = $props();
+
+  let containerWidth: number | undefined = $state(undefined);
+  let activeImageIndex = $state(0);
+
+  // Derive carousel height based on container width
+  let carouselHeight = $derived(
     containerWidth ?
       Math.min(containerWidth * heightRatio, maxHeight)
-    : maxHeight;
+    : maxHeight
+  );
 
   const handleActiveChange = (e?: CustomEvent<MoveEventDetail>) => {
     if (!e) return;
@@ -111,21 +89,21 @@
 </script>
 
 <Block {width} {id} class="photo-carousel fmy-6 {cls}">
-  <div class="carousel-container" bind:clientWidth="{containerWidth}">
+  <div class="carousel-container" bind:clientWidth={containerWidth}>
     <Splide
-      hasTrack="{false}"
-      options="{{
+      hasTrack={false}
+      options={{
         height: carouselHeight,
         fixedHeight: carouselHeight,
         lazyLoad: 'nearby',
         preloadPages: preloadImages,
-      }}"
-      aria-label="{carouselAriaLabel}"
-      on:move="{handleActiveChange}"
+      }}
+      aria-label={carouselAriaLabel}
+      on:move={handleActiveChange}
     >
       <div class="image-container">
         <SplideTrack>
-          {#each photos as photo}
+          {#each images as image}
             <SplideSlide>
               <div class="photo-slide w-full h-full relative">
                 <figure
@@ -134,21 +112,23 @@
                 >
                   <img
                     class="w-full h-full fmy-0"
-                    data-splide-lazy="{photo.src}"
-                    alt="{photo.altText}"
-                    style:object-fit="{photo.objectFit ||
-                      defaultImageObjectFit}"
-                    style:object-position="{photo.objectPosition ||
-                      defaultImageObjectPosition}"
+                    data-splide-lazy={image.src}
+                    alt={image.altText}
+                    style:object-fit={image.objectFit || defaultImageObjectFit}
+                    style:object-position={image.objectPosition ||
+                      defaultImageObjectPosition}
                   />
-                  {#if $$slots.credit}
-                    <slot name="credit" credit="{photo.credit}" />
-                  {:else}
+                  <!-- Render custom credit if credit snippet and string both exist -->
+                  {#if credit && image.credit}
+                    {@render credit(image)}
+
+                    <!-- Otherwise, render with default credit style -->
+                  {:else if image.credit}
                     <span
                       class="credit absolute fmb-1 fml-1 leading-tighter font-note text-xxs"
-                      class:contain-fit="{photo.objectFit === 'contain' ||
-                        defaultImageObjectFit === 'contain'}"
-                      >{photo.credit}</span
+                      class:contain-fit={image.objectFit === 'contain' ||
+                        defaultImageObjectFit === 'contain'}
+                      >{image.credit}</span
                     >
                   {/if}
                 </figure>
@@ -157,21 +137,24 @@
           {/each}
         </SplideTrack>
 
-        {#if photos[activeImageIndex].caption}
-          <PaddingReset containerIsFluid="{width === 'fluid'}">
-            <Block width="{textWidth}">
-              {#if $$slots.caption}
-                <slot
-                  name="caption"
-                  caption="{photos[activeImageIndex].caption}"
-                />
-              {:else}
+        {#if images[activeImageIndex].caption}
+          {@const activePhoto = images[activeImageIndex]}
+          <PaddingReset containerIsFluid={width === 'fluid'}>
+            <Block width={textWidth}>
+              <!-- Render custom caption if caption snippet and string both exist -->
+              {#if caption && activePhoto.caption}
+                {#key activeImageIndex}
+                  {@render caption(activePhoto)}
+                {/key}
+
+                <!-- Otherwise, render with default caption style -->
+              {:else if activePhoto.caption}
                 {#key activeImageIndex}
                   <p
                     class="caption body-caption text-center"
-                    in:fly|local="{{ x: 20, duration: 175 }}"
+                    in:fly|local={{ x: 20, duration: 175 }}
                   >
-                    {photos[activeImageIndex].caption}
+                    {activePhoto.caption}
                   </p>
                 {/key}
               {/if}
@@ -185,10 +168,10 @@
 
         <div class="splide__arrows fp-1">
           <button class="splide__arrow splide__arrow--prev">
-            <Fa icon="{faChevronLeft}" fw />
+            <Fa icon={faChevronLeft} fw />
           </button>
           <button class="splide__arrow splide__arrow--next">
-            <Fa icon="{faChevronRight}" fw />
+            <Fa icon={faChevronRight} fw />
           </button>
         </div>
       </div>

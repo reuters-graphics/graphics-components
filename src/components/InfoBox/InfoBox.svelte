@@ -1,47 +1,59 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `InfoBox` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-infobox--docs) -->
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import type { ContainerWidth } from '../@types/global';
 
   type Theme = 'light' | 'dark';
 
-  /**
-   * Title of the box
-   */
-  export let title: string | null = null;
+  interface Props {
+    /**
+     * Title of the box
+     */
+    title?: string | null;
+    /**
+     * Contents of the note as a markdown string
+     */
+    text?: string;
+    /**
+     * Additional footnotes
+     */
+    notes?: string | null;
+    /**
+     * Width of the component within the text well.
+     */
+    width?: ContainerWidth;
+    /**
+     * Add extra classes to the block tag to target it with custom CSS.
+     */
+    class?: string;
+    /**
+     * Add an id to the block tag to target it with custom CSS.
+     */
+    id?: string;
+    /**
+     * Page theme
+     */
+    theme?: Theme;
+    /** Optional custom header snippet */
+    header?: Snippet;
+    /** Optional custom body snippet */
+    body?: Snippet;
+    /** Optional custom footer snippet */
+    footer?: Snippet;
+  }
 
-  /**
-   * Contents of the note as a markdown string
-   */
-  export let text: string = '';
-
-  /**
-   * Additional footnotes
-   */ export let notes: string | null = null;
-
-  /**
-   * Width of the component within the text well.
-   * @type {string}
-   */
-  export let width: ContainerWidth = 'normal';
-
-  /**
-   * Add extra classes to the block tag to target it with custom CSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
-
-  /**
-   * Add an id to the block tag to target it with custom CSS.
-   * @type {string}
-   */
-  export let id: string = '';
-
-  /**
-   * Page theme
-   */
-  export let theme: Theme = 'light';
+  let {
+    title = null,
+    text,
+    notes = null,
+    width = 'normal',
+    class: cls = '',
+    id = '',
+    theme = 'light',
+    header,
+    body,
+    footer,
+  }: Props = $props();
 
   import Block from '../Block/Block.svelte';
   import Markdown from '../Markdown/Markdown.svelte';
@@ -53,36 +65,36 @@
     {id}
     class="{cls} fmy-6 fpx-6 fpy-5 border border-solid rounded"
   >
-    {#if $$slots.header}
+    {#if header}
       <div class="header fmb-2">
-        <!-- Custom title content -->
-        <slot name="header" />
+        <!-- Custom header content -->
+        {@render header()}
       </div>
     {:else if title}
       <div class="header fmb-2">
-        <Markdown source="{title}" />
+        <Markdown source={title} />
       </div>
     {/if}
 
-    {#if $$slots.body}
+    {#if body}
       <div class="body">
-        <!-- Custom content -->
-        <slot name="body" />
+        <!-- Custom body content -->
+        {@render body()}
       </div>
     {:else}
       <div class="body">
-        <Markdown source="{text}" />
+        <Markdown source={text} />
       </div>
     {/if}
 
-    {#if $$slots.footer}
+    {#if footer}
       <div class="footer fmt-2">
         <!-- Custom footer content -->
-        <slot name="footer" />
+        {@render footer()}
       </div>
     {:else if notes}
       <div class="footer fmt-2">
-        <Markdown source="{notes}" />
+        <Markdown source={notes} />
       </div>
     {/if}
   </Block>

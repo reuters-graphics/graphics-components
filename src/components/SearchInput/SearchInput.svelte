@@ -4,12 +4,11 @@
   import MagnifyingGlass from './MagnifyingGlass.svelte';
   import X from './X.svelte';
 
-  
   interface Props {
     /**
-   * The placeholder text that appears in the search box.
-   * @type {string}
-   */
+     * The placeholder text that appears in the search box.
+     * @type {string}
+     */
     searchPlaceholder?: string;
   }
 
@@ -39,7 +38,7 @@
     id="search--input"
     class="search--input body-caption pl-8"
     type="text"
-    placeholder="{searchPlaceholder}"
+    placeholder={searchPlaceholder}
     oninput={input}
     bind:value
   />
@@ -47,7 +46,7 @@
     class="search--x absolute"
     role="button"
     tabindex="0"
-    class:invisible="{!active}"
+    class:invisible={!active}
     onclick={clear}
     onkeyup={clear}
   >
