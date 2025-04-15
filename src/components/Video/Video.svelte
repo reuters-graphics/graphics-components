@@ -150,7 +150,6 @@
 
 <!-- Controls button snippet -->
 {#snippet controls()}
-  clickedOnPauseBtn:{clickedOnPauseBtn}
   <button
     class="controls"
     onclick={() => {
