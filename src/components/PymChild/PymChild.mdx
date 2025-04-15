@@ -1,0 +1,36 @@
+import { Meta } from '@storybook/blocks';
+
+import * as PymChildStories from './PymChild.stories.svelte';
+
+<Meta of={PymChildStories} />
+
+# PymChild
+
+The `PymChild` component creates a [Pym.js](https://blog.apps.npr.org/pym.js/) child instance for embeddables.
+
+```svelte
+<script>
+  import { PymChild } from '@reuters-graphics/graphics-components';
+</script>
+
+<PymChild polling={500} />
+```
+
+You can access the Pym.js child via `pymChildState` in other components to send custom height updates to parent frames:
+
+```svelte
+<script>
+  import {
+    PymChild,
+    pymChildState,
+  } from '@reuters-graphics/graphics-components';
+
+  const updateHeight = () => {
+    if (pymChildState.pymChild) pymChildState.pymChild.sendHeight();
+  };
+</script>
+
+<PymChild />
+
+<button onclick={updateHeight}>Update height</button>
+```

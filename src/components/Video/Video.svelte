@@ -205,7 +205,7 @@
   {textWidth}
   {title}
   {description}
-  notes={typeof notes === 'string' ? notes : null}
+  notes={typeof notes === 'string' ? notes : undefined}
   {width}
   class="video {cls}"
 >

@@ -33,10 +33,10 @@
     class="select--input body-caption fpx-2"
     name="select--input"
     id="select--input"
-    oninput="{input}"
+    oninput={input}
   >
     {#each options as obj}
-      <option value="{obj.value}">{obj.text}</option>
+      <option value={obj.value}>{obj.text}</option>
     {/each}
   </select>
 </div>

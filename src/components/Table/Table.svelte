@@ -230,9 +230,9 @@
             {#if filterList}
               <div class="table--header--filter">
                 <Select
-                  label="{filterLabel || filterField}"
-                  options="{filterList}"
-                  on:select="{handleFilterInput}"
+                  label={filterLabel || filterField}
+                  options={filterList}
+                  on:select={handleFilterInput}
                 />
               </div>
             {/if}
@@ -240,7 +240,7 @@
               <div class="table--header--search">
                 <SearchInput
                   bind:searchPlaceholder
-                  on:search="{handleSearchInput}"
+                  on:search={handleSearchInput}
                 />
               </div>
             {/if}
@@ -252,9 +252,7 @@
       <table
         class="w-full"
         class:paginated
-        class:truncated="{truncated &&
-          !showAll &&
-          data.length > truncateLength}"
+        class:truncated={truncated && !showAll && data.length > truncateLength}
       >
         <thead class="table--thead">
           <tr>
@@ -262,22 +260,22 @@
               <th
                 scope="col"
                 class="table--thead--th h4 pl-0 py-2 pr-2"
-                class:sortable="{sortable && sortableFields.includes(field)}"
-                class:sort-ascending="{sortable &&
+                class:sortable={sortable && sortableFields.includes(field)}
+                class:sort-ascending={sortable &&
                   sortField === field &&
-                  sortDirection === 'ascending'}"
-                class:sort-descending="{sortable &&
+                  sortDirection === 'ascending'}
+                class:sort-descending={sortable &&
                   sortField === field &&
-                  sortDirection === 'descending'}"
-                data-field="{field}"
-                on:click="{handleSort}"
+                  sortDirection === 'descending'}
+                data-field={field}
+                on:click={handleSort}
               >
                 {field}
                 {#if sortable && sortableFields.includes(field)}
                   <div class="table--thead--sortarrow fml-1 avoid-clicks">
                     <SortArrow
                       bind:sortDirection
-                      active="{sortField === field}"
+                      active={sortField === field}
                     />
                   </div>
                 {/if}
@@ -287,13 +285,13 @@
         </thead>
         <tbody class="table--tbody">
           {#each currentPageData as item, idx}
-            <tr data-row-index="{idx}">
+            <tr data-row-index={idx}>
               {#each includedFields as field}
                 <td
                   class="body-note pl-0 py-2 pr-2"
-                  data-row-index="{idx}"
-                  data-field="{field}"
-                  data-value="{item[field]}"
+                  data-row-index={idx}
+                  data-field={field}
+                  data-value={item[field]}
                 >
                   {@html formatValue(item, field)}
                 </td>
@@ -302,7 +300,7 @@
           {/each}
           {#if searchable && searchText && currentPageData.length === 0}
             <tr>
-              <td class="no-results" colspan="{includedFields.length}">
+              <td class="no-results" colspan={includedFields.length}>
                 No results found for "{searchText}"
               </td>
             </tr>
@@ -312,7 +310,7 @@
           <tfoot class="table--tfoot">
             {#if notes}
               <tr>
-                <td class="" colspan="{includedFields.length}">
+                <td class="" colspan={includedFields.length}>
                   <div class="fmt-2">
                     {@html notes}
                   </div>
@@ -321,7 +319,7 @@
             {/if}
             {#if source}
               <tr>
-                <td class="" colspan="{includedFields.length}">
+                <td class="" colspan={includedFields.length}>
                   <div class="fmt-1">
                     {@html source}
                   </div>
@@ -337,7 +335,7 @@
         aria-label="Show all button"
         class="show-all flex items-center justify-center fmt-2"
       >
-        <button class="body-caption" on:click="{toggleTruncate}"
+        <button class="body-caption" on:click={toggleTruncate}
           >{#if showAll}Show fewer rows{:else}Show {data.length -
               truncateLength} more rows{/if}</button
         >
@@ -347,8 +345,8 @@
       <Pagination
         bind:pageNumber
         bind:pageSize
-        bind:pageLength="{currentPageData.length}"
-        bind:n="{sortedData.length}"
+        bind:pageLength={currentPageData.length}
+        bind:n={sortedData.length}
       />{/if}
   </article>
 </Block>

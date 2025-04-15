@@ -123,13 +123,13 @@
       <div
         slot="background"
         class="background min-h-screen relative p-0 flex justify-center"
-        class:right="{foregroundPosition === 'left opposite'}"
-        class:left="{foregroundPosition === 'right opposite'}"
+        class:right={foregroundPosition === 'left opposite'}
+        class:left={foregroundPosition === 'right opposite'}
         aria-hidden="true"
       >
         <div class="scroller-graphic-well w-full">
           <Block
-            width="{backgroundWidth}"
+            width={backgroundWidth}
             class="background-container step-{index +
               1} my-0 min-h-screen flex justify-center items-center relative"
           >

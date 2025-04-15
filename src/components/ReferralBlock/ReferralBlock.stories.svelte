@@ -41,7 +41,7 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <ReferralBlock {...args} />
   {/snippet}
@@ -49,21 +49,21 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     section: '/lifestyle/sports/',
     number: 4,
     class: 'fmy-0',
     heading: 'More World Cup coverage',
-  }}"
+  }}
 />
 
 <Story
   name="By collection"
-  args="{{
+  args={{
     collection: 'x-trump',
     number: 6,
     class: 'fmy-8',
     heading: 'The latest Trump coverage',
-  }}"
+  }}
   {...withStoryDocs(collectionDocs)}
 />

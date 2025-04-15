@@ -17,7 +17,7 @@
   import { Template, Story } from '@storybook/addon-svelte-csf';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <Framer {...args} />
   {/snippet}
@@ -25,9 +25,9 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     embeds: [
       'https://graphics.reuters.com/USA-CONGRESS/FUNDRAISING/zjvqkawjlvx/embeds/en/embed/?zzz',
     ],
-  }}"
+  }}
 />

@@ -79,7 +79,7 @@
   };
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <Scroller {...args} />
   {/snippet}
@@ -87,7 +87,7 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     steps: [
       {
         background: BasicStep,
@@ -112,14 +112,14 @@
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}"
+  }}
 />
 
-<Story name="ArchieML" args="{docBlock}" {...withStoryDocs(archieMLDocs)} />
+<Story name="ArchieML" args={docBlock} {...withStoryDocs(archieMLDocs)} />
 
 <Story
   name="Foreground components"
-  args="{{
+  args={{
     steps: [
       {
         background: BasicStep,
@@ -142,13 +142,13 @@
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}"
+  }}
   {...withStoryDocs(interactiveDocs)}
 />
 
 <Story
   name="Ai2svelte"
-  args="{{
+  args={{
     steps: [
       {
         background: AiMap1,
@@ -175,6 +175,6 @@
     backgroundWidth: 'fluid',
     embeddedLayout: 'fb',
     embedded: false,
-  }}"
+  }}
   {...withStoryDocs(ai2svelteDocs)}
 />

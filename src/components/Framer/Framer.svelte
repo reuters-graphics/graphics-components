@@ -62,25 +62,20 @@
 
   <div id="typeahead-container">
     <div class="embed-link">
-      <a
-        rel="external"
-        target="_blank"
-        href="{activeEmbed}"
-        title="{activeEmbed}"
-      >
-        Live link <Fa icon="{faLink}" />
+      <a rel="external" target="_blank" href={activeEmbed} title={activeEmbed}>
+        Live link <Fa icon={faLink} />
       </a>
     </div>
     <Typeahead
       label="Select an embed"
-      value="{embedTitles[embeds.indexOf(activeEmbed)] ||
+      value={embedTitles[embeds.indexOf(activeEmbed)] ||
         embedTitles[activeEmbedIndex] ||
-        embedTitles[0]}"
-      extract="{(d) => embedTitles[d.index]}"
-      data="{embeds.map((embed, index) => ({ index, embed }))}"
-      placeholder="{'Search'}"
-      showDropdownOnFocus="{true}"
-      on:select="{({ detail }) => {
+        embedTitles[0]}
+      extract={(d) => embedTitles[d.index]}
+      data={embeds.map((embed, index) => ({ index, embed }))}
+      placeholder={'Search'}
+      showDropdownOnFocus={true}
+      on:select={({ detail }) => {
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(
             'framer-active-embed',
@@ -89,7 +84,7 @@
         }
         activeEmbed = detail.original.embed;
         activeEmbedIndex = detail.original.index;
-      }}"
+      }}
     />
   </div>
 
@@ -101,7 +96,7 @@
 
 <div id="home-link">
   <a rel="external" href="./../">
-    <Fa icon="{faDesktop}" />
+    <Fa icon={faDesktop} />
   </a>
 </div>
 
