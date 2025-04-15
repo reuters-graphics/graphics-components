@@ -26,7 +26,7 @@
   import Theme from '../Theme/Theme.svelte';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ args })}
     <div>
       <SiteFooter {...args} />
@@ -46,7 +46,7 @@
 
 <Story
   name="Remove referrals"
-  args="{{ includeReferrals: false }}"
+  args={{ includeReferrals: false }}
   {...withStoryDocs(removeReferralsDocs)}
 />
 

@@ -158,55 +158,55 @@
 </script>
 
 <svelte:window
-  on:click="{({ target }) => {
+  on:click={({ target }) => {
     if (!hideDropdown && !comboboxRef?.contains(target)) {
       close();
     }
-  }}"
+  }}
 />
 
 <div
   data-svelte-typeahead
-  bind:this="{comboboxRef}"
+  bind:this={comboboxRef}
   role="combobox"
   aria-haspopup="listbox"
   aria-owns="{id}-listbox"
-  class:dropdown="{results.length > 0}"
+  class:dropdown={results.length > 0}
   aria-controls="{id}-listbox"
-  aria-expanded="{showResults ||
-    (isFocused && value.length > 0 && results.length === 0)}"
+  aria-expanded={showResults ||
+    (isFocused && value.length > 0 && results.length === 0)}
   id="{id}-typeahead"
 >
   <Search
     {id}
-    removeFormAriaAttributes="{true}"
+    removeFormAriaAttributes={true}
     {...$$restProps}
-    bind:ref="{searchRef}"
+    bind:ref={searchRef}
     aria-autocomplete="list"
     aria-controls="{id}-listbox"
     aria-labelledby="{id}-label"
-    aria-activedescendant="{(
+    aria-activedescendant={(
       selectedIndex >= 0 && !hideDropdown && results.length > 0
     ) ?
       `${id}-result-${selectedIndex}`
-    : null}"
+    : null}
     bind:value
     on:type
     on:input
     on:change
     on:focus
-    on:focus="{() => {
+    on:focus={() => {
       open();
       if (showDropdownOnFocus) {
         showResults = true;
         isFocused = true;
       }
-    }}"
+    }}
     on:clear
-    on:clear="{open}"
+    on:clear={open}
     on:blur
     on:keydown
-    on:keydown="{(e) => {
+    on:keydown={(e) => {
       if (results.length === 0) return;
 
       switch (e.key) {
@@ -228,10 +228,10 @@
           close();
           break;
       }
-    }}"
+    }}
   />
   <ul
-    class:svelte-typeahead-list="{true}"
+    class:svelte-typeahead-list={true}
     role="listbox"
     aria-labelledby="{id}-label"
     id="{id}-listbox"
@@ -241,24 +241,24 @@
         <li
           role="option"
           id="{id}-result-{index}"
-          class:selected="{selectedIndex === index}"
-          class:disabled="{result.disabled}"
-          aria-selected="{selectedIndex === index}"
-          on:click="{() => {
+          class:selected={selectedIndex === index}
+          class:disabled={result.disabled}
+          aria-selected={selectedIndex === index}
+          on:click={() => {
             if (result.disabled) return;
             selectedIndex = index;
             select();
-          }}"
-          on:keyup="{(e) => {
+          }}
+          on:keyup={(e) => {
             if (e.key !== 'Enter') return;
             if (result.disabled) return;
             selectedIndex = index;
             select();
-          }}"
-          on:mouseenter="{() => {
+          }}
+          on:mouseenter={() => {
             if (result.disabled) return;
             selectedIndex = index;
-          }}"
+          }}
         >
           <slot {result} {index} {value}>
             {@html result.string}

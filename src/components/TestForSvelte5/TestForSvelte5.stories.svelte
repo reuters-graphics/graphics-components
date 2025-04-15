@@ -28,7 +28,7 @@
   import SharkImg from './stories/shark.jpg';
 </script>
 
-<Template >
+<Template>
   {#snippet children({ ...args })}
     <TestForSvelte5 {...args} />
   {/snippet}
@@ -36,9 +36,9 @@
 
 <Story
   name="Default"
-  args="{{
+  args={{
     width: 'normal',
     src: SharkImg,
     altText: "Duh dum! It's a shark!!",
-  }}"
+  }}
 />

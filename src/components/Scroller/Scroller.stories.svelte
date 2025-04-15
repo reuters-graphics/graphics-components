@@ -67,7 +67,7 @@
           'The same map now highlights three locations near 98th Street where something particulary important happened.',
       },
     ],
-  };
+  } as const;
 
   const docBlockCustomForeground = {
     foregroundPosition: 'left',
@@ -91,7 +91,7 @@
           'The same map now highlights three locations near 98th Street where something particulary important happened.',
       },
     ],
-  };
+  } as const;
 </script>
 
 <Story
@@ -125,7 +125,6 @@
 <Story name="ArchieML and ai2svelte" exportName="ArchieML">
   <Scroller
     id={docBlock.id}
-    backgroundWidth={docBlock.width}
     foregroundPosition={docBlock.foregroundPosition}
     stackBackground={docBlock.stackBackground === 'true'}
     steps={docBlock.steps.map((step) => ({
@@ -167,7 +166,6 @@
 >
   <Scroller
     id={docBlockCustomForeground.id}
-    backgroundWidth={docBlockCustomForeground.width}
     foregroundPosition={docBlockCustomForeground.foregroundPosition}
     stackBackground={docBlockCustomForeground.stackBackground === 'true'}
     steps={docBlockCustomForeground.steps.map((step) => ({

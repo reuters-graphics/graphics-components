@@ -21,11 +21,11 @@ Let's look at a basic component, a `ProfileCard`, with a demo that looks like th
 
 <ProfileCard
   name="Kitty"
-  age="{2}"
+  age={2}
   img="https://cats.com/cat1.jpg"
-  birthday="{new Date('2020-09-25')}"
+  birthday={new Date('2020-09-25')}
   bio="Some notes.\n\nWith multiple paragraphs."
-  isGood="{true}"
+  isGood={true}
 />
 ```
 
@@ -100,12 +100,12 @@ Notice all the values in the data are **strings**. More on that soon.
     <!-- ... -->
   {:else if block.type === 'profile-card'}
     <ProfileCard
-      name="{block.name}"
-      age="{parseInt(block.age)}"
-      img="{`${assets}/${block.picture}`}"
-      birthday="{new Date(block.birthday)}"
-      bio="{block.bio}"
-      isGood="{block.isGood === 'true'}"
+      name={block.name}
+      age={parseInt(block.age)}
+      img={`${assets}/${block.picture}`}
+      birthday={new Date(block.birthday)}
+      bio={block.bio}
+      isGood={block.isGood === 'true'}
     />
     <!-- ... -->
   {/if}
@@ -136,12 +136,12 @@ Once we've identified we have the right block for our component, we need to conv
 
 ```svelte
 <ProfileCard
-  name="{block.name}"
-  age="{parseInt(block.age)}"
-  img="{`${assets}/${block.picture}`}"
-  birthday="{new Date(block.birthday)}"
-  bio="{block.bio}"
-  isGood="{block.isGood === 'true'}"
+  name={block.name}
+  age={parseInt(block.age)}
+  img={`${assets}/${block.picture}`}
+  birthday={new Date(block.birthday)}
+  bio={block.bio}
+  isGood={block.isGood === 'true'}
 />
 ```
 
@@ -191,7 +191,7 @@ Let's look at another example component:
 ```svelte
 <Timeline
   title="A brief history of BitCoin"
-  dates="{[
+  dates={[
     {
       date: new Date('1992-01-01'),
       subhed:
@@ -208,7 +208,7 @@ Let's look at another example component:
       subhed: 'The Winklevoss twins buy in',
       img: `${assets}/images/winkle-boys.jpeg`,
     },
-  ]}"
+  ]}
 />
 ```
 

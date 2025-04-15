@@ -8,16 +8,16 @@
 </script>
 
 <div class="story-card">
-  <a href="{normalizeUrl(story.canonical_url)}">
-    <div class="story-text" class:has-thumbnail="{thumbnail}">
+  <a href={normalizeUrl(story.canonical_url)}>
+    <div class="story-text" class:has-thumbnail={thumbnail}>
       <span>{story.title}</span>
-      <time datetime="{story.display_time}">{getTime(story.display_time)}</time>
+      <time datetime={story.display_time}>{getTime(story.display_time)}</time>
     </div>
     {#if thumbnail}
       <div class="thumbnail">
         <img
-          src="{thumbnail.renditions.square['120w']}"
-          alt="{thumbnail.alt_text}"
+          src={thumbnail.renditions.square['120w']}
+          alt={thumbnail.alt_text}
         />
       </div>
     {/if}
