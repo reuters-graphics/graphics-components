@@ -1,26 +1,24 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import SearchInput from './SearchInput.svelte';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Controls/SearchInput',
     component: SearchInput,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+<script lang="ts">
+  function filterData(newSearchText: string) {
+    /** This function would typically filter a dataset based on the search input.*/
+    console.log('Filtering data with:', newSearchText);
+  }
+  function handleSearchInput(newSearchText: string) {
+    /** Here's where you might update a variable, filter a dataset or make an API call based on the user's input.*/
+    filterData(newSearchText);
+  }
 </script>
 
-<Template>
-  {#snippet children({ args })}
-    <SearchInput {...args} />
-  {/snippet}
-</Template>
-
-<Story name="Default" args={{}} />
+<Story name="Demo">
+  <SearchInput onsearch={handleSearchInput} />
+</Story>
