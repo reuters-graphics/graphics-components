@@ -1,75 +1,62 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `SiteHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-siteheadline--docs) -->
 <script lang="ts">
+  import Block from '../Block/Block.svelte';
+  import Byline from '../Byline/Byline.svelte';
+
   /**
    * Used to set headline class fluid size from text-2xl to text-4xl
    */
   type HeadlineSize = 'small' | 'normal' | 'big';
 
-  /**
-   * Headline
-   * @type {string}
-   * @required
-   */
-  export let hed: string = 'Reuters Graphics Interactive';
-  /**
-   * Headline size
-   * @type {string}
-   * @
-   */
-  export let hedSize: HeadlineSize = 'normal';
-  /**
-   * Section title.
-   * @type {string}
-   */
-  export let section: string = 'Graphics';
-  /**
-   * Section url, parsed as a string. Set to blank to remove link.
-   * @type {string}
-   */
-  export let sectionUrl: string = 'https://graphics.reuters.com';
-  /**
-   * Array of author names, which will be slugified to create links to Reuters author pages
-   */
-  export let authors: string[] = [];
-  /**
-   * Publish time as a datetime string.
-   * @type {string}
-   */
-  export let publishTime: string = '';
-  /**
-   * Update time as a datetime string.
-   * @type {string}
-   */
-  export let updateTime: string = '';
-  /**
-   * Add an id to to target with custom CSS.
-   * @type {string}
-   */
-  export let id: string = '';
-  /**
-   * Add extra classes to target with custom CSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
+  interface Props {
+    /** Headline */
+    hed?: string;
+    /** Headline size */
+    hedSize?: HeadlineSize;
+    /** Section title */
+    section?: string;
+    /** Section URL, parsed as a string. Set to blank to remove link */
+    sectionUrl?: string;
+    /** Array of author names, which will be slugified to create links to Reuters author pages */
+    authors: string[];
+    /** Publish time as a datetime string */
+    publishTime: string;
+    /** Update time as a datetime string */
+    updateTime?: string;
+    /** Add an id to to target with custom CSS */
+    id?: string;
+    /** Add extra classes to target with custom CSS */
+    class?: string;
+    /**
+     * Custom function that returns an author page URL.
+     */
+    getAuthorPage?: (author: string) => string;
+  }
 
-  import Block from '../Block/Block.svelte';
-  import Byline from '../Byline/Byline.svelte';
+  let {
+    hed,
+    hedSize = 'normal',
+    section = 'Graphics',
+    sectionUrl = 'https://graphics.reuters.com',
+    authors,
+    publishTime,
+    updateTime = '',
+    id = '',
+    class: cls = '',
+    getAuthorPage,
+  }: Props = $props();
 
-  let hedClass;
-  $: {
+  // Set the headline text size class based on the `hedSize` prop
+  let hedClass = $derived.by(() => {
     switch (hedSize) {
       case 'big':
-        hedClass = 'text-4xl';
-        break;
+        return 'text-4xl';
       case 'small':
-        hedClass = 'text-2xl';
-        break;
+        return 'text-2xl';
       default:
-        hedClass = 'text-3xl';
+        return 'text-3xl';
     }
-  }
+  });
 </script>
 
 <Block {id} class="headline-container fmt-7 fmb-6 {cls}" width="normal">
@@ -94,6 +81,6 @@
         </h1>
       {/if}
     </div>
-    <Byline {authors} {publishTime} {updateTime} />
+    <Byline {authors} {publishTime} {updateTime} {getAuthorPage} />
   </header>
 </Block>

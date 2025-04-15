@@ -1,0 +1,66 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SiteHeadlineStories from './SiteHeadline.stories.svelte';
+
+<Meta of={SiteHeadlineStories} />
+
+# SiteHeadline
+
+The `SiteHeadline` component creates a simplified Reuters Graphics headline, loosely modelled off the Reuters.com styles.
+
+Styles for this headline are intentionally restricted. It is meant to serve as a unifying style for quick-turnaround breaking news pages.
+
+```svelte
+<script>
+  import { SiteHeadline } from '@reuters-graphics/graphics-components';
+</script>
+
+<SiteHeadline
+  hed="Ukraine makes suprising gains in swift counteroffensive"
+  authors={[
+    'Dea Bankova',
+    'Michael Ovaska',
+    'Samuel Granados',
+    'Prasanta Kumar Dutta',
+  ]}
+  publishTime="2021-09-12T00:00:00.000Z"
+  updateTime="2021-09-12T12:57:00.000Z"
+/>
+```
+
+<Canvas of={SiteHeadlineStories.Demo} />
+
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+section: Global News # Optional
+sectionUrl: https://www.reuters.com/graphics/ # Optional
+hed: A beautiful page
+authors: Samuel Granados, Dea Bankova
+published: 2022-09-12T08:30:00.000Z
+updated:
+```
+
+... which you'll pass to the `SiteHeadline` component.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { SiteHeadline } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
+<SiteHeadline
+  section={content.section}
+  sectionUrl={content.sectionUrl}
+  hed={content.hed}
+  authors={content.authors.split(',')}
+  publishTime={content.published}
+  updateTime={content.updated}
+/>
+```
+
+<Canvas of={SiteHeadlineStories.ArchieML} />
