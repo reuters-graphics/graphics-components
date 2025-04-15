@@ -9,6 +9,7 @@
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
   import Headline from '../Headline/Headline.svelte';
   import Byline from '../Byline/Byline.svelte';
+  import FeaturePhoto from '../FeaturePhoto/FeaturePhoto.svelte';
 
   export interface Props {
     /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */
@@ -182,10 +183,13 @@
               {notes}
               {ariaDescription}
             >
-              <div
-                class="background-image"
-                style="background-image: url({img})"
-              ></div>
+              <FeaturePhoto
+                class="my-0"
+                width="fluid"
+                src={img}
+                caption={notes}
+                altText={ariaDescription || ''}
+              />
             </GraphicBlock>
           {/if}
         </div>

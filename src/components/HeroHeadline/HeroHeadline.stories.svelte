@@ -33,7 +33,6 @@
   import Block from '../Block/Block.svelte';
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
-  import FeaturePhoto from '../FeaturePhoto/FeaturePhoto.svelte';
   import Video from '../Video/Video.svelte';
 
   import CrashMap from './demo/graphics/crash.svelte';
@@ -54,27 +53,6 @@
     notes="Photo by REUTERS"
     ariaDescription="A photo of a polar bear"
   />
-</Story>
-
-<Story name="Feature photo hero" exportName="FeaturePhotoHero">
-  <Block width="fluid" class="chromatic-ignore">
-    <SiteHeader />
-  </Block>
-  <HeroHeadline
-    section="World News"
-    hed="Reuters Graphics Interactive"
-    dek="The beginning of a beautiful page"
-    authors={['Jane Doe', 'John Doe']}
-    publishTime={new Date('2022-03-04').toISOString()}
-  >
-    <FeaturePhoto
-      width="widest"
-      class="my-0"
-      src={polarImgSrc}
-      caption="Photo by REUTERS."
-      altText="A photo of a polar bear."
-    />
-  </HeroHeadline>
 </Story>
 
 <Story name="Transparent header" exportName="TransparentHeader">
