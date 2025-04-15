@@ -3,10 +3,10 @@
 
   import Markdown from '../Markdown/Markdown.svelte';
   interface Props {
-    steps?: ScrollerStep[];
+    steps: ScrollerStep[];
   }
 
-  let { steps = [] }: Props = $props();
+  let { steps }: Props = $props();
 </script>
 
 {#each steps as step, i}

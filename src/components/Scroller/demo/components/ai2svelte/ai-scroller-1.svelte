@@ -1,14 +1,9 @@
 <script>
   // Hard-coding for demo purposes only...
-  // @ts-ignore img
   import stepXl from './images/step-1-xl.png';
-  // @ts-ignore img
   import stepLg from './images/step-1-lg.png';
-  // @ts-ignore img
   import stepMd from './images/step-1-md.png';
-  // @ts-ignore img
   import stepSm from './images/step-1-sm.png';
-  // @ts-ignore img
   import stepXs from './images/step-1-xs.png';
   let width = $state();
 </script>

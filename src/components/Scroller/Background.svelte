@@ -3,17 +3,12 @@
 
   interface Props {
     index: number;
-    steps?: ScrollerStep[];
+    steps: ScrollerStep[];
     preload?: number;
     stackBackground?: boolean;
   }
 
-  let {
-    index,
-    steps = [],
-    preload = 1,
-    stackBackground = true,
-  }: Props = $props();
+  let { index, steps, preload = 1, stackBackground = true }: Props = $props();
 </script>
 
 {#each steps as step, i}

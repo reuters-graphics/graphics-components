@@ -106,7 +106,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@splidejs/svelte-splide": "^0.2.9",
     "@sveltejs/kit": "^2.15.3",
-    "@sveltejs/svelte-scroller": "^2.0.7",
     "dayjs": "^1.11.13",
     "journalize": "^2.6.0",
     "lodash-es": "^4.17.21",

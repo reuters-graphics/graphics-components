@@ -6,13 +6,13 @@
   import Background from './Background.svelte';
   import Foreground from './Foreground.svelte';
   interface Props {
-    steps?: ScrollerStep[];
+    steps: ScrollerStep[];
     embeddedLayout?: EmbeddedLayout;
     backgroundWidth?: ContainerWidth;
   }
 
   let {
-    steps = [],
+    steps,
     embeddedLayout = 'fb',
     backgroundWidth = 'fluid',
   }: Props = $props();

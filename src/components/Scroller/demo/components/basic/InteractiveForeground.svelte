@@ -8,7 +8,7 @@
 
 <h4>Interactive step</h4>
 
-<p>The count is {count}</p>
+<p class="font-sans">The count is <strong>{count}</strong></p>
 
 <button
   onclick={() => {
