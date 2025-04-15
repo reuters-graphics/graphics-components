@@ -49,6 +49,11 @@ text: Bacon ipsum ...
 
 ```svelte
 <!-- App.svelte -->
+<script>
+  import { BodyText } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
 {#each content.blocks as block}
   {#if block.type === 'text'}
     <BodyText text={block.text} />

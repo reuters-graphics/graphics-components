@@ -13,7 +13,7 @@
   import chartXl from '././quake-map-top-xl.jpeg';
 </script>
 
-<div id="g-quake-map-top-box" bind:clientWidth="{width}">
+<div id="g-quake-map-top-box" bind:clientWidth={width}>
   <!-- Artboard: xs -->
   {#if width && width >= 0 && width < 510}
     <div id="g-quake-map-top-xs" class="g-artboard" style="">
@@ -21,7 +21,7 @@
       <div
         id="g-quake-map-top-xs-img"
         class="g-aiImg"
-        style="{`background-image: url(${chartXs});`}"
+        style={`background-image: url(${chartXs});`}
       ></div>
       <div
         id="g-ai0-1"
@@ -102,7 +102,7 @@
       <div
         id="g-quake-map-top-sm-img"
         class="g-aiImg"
-        style="{`background-image: url(${chartSm});`}"
+        style={`background-image: url(${chartSm});`}
       ></div>
       <div
         id="g-ai1-1"
@@ -183,7 +183,7 @@
       <div
         id="g-quake-map-top-md-img"
         class="g-aiImg"
-        style="{`background-image: url(${chartMd});`}"
+        style={`background-image: url(${chartMd});`}
       ></div>
       <div
         id="g-ai2-1"
@@ -271,7 +271,7 @@
       <div
         id="g-quake-map-top-lg-img"
         class="g-aiImg"
-        style="{`background-image: url(${chartLg});`}"
+        style={`background-image: url(${chartLg});`}
       ></div>
       <div
         id="g-ai3-1"
@@ -359,7 +359,7 @@
       <div
         id="g-quake-map-top-xl-img"
         class="g-aiImg"
-        style="{`background-image: url(${chartXl});`}"
+        style={`background-image: url(${chartXl});`}
       ></div>
       <div
         id="g-ai4-1"
