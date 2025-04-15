@@ -6,31 +6,27 @@
   interface Props {
     /**
      * The current page number.
-     * @type {number}
      */
     pageNumber?: number;
     /**
      * The default page size.
-     * @type {number}
      */
     pageSize?: number;
     /**
      * The number of records in the current page.
-     * @type {number}
      */
     pageLength?: number;
     /**
      * The total number of records in the data set.
-     * @type {number}
      */
     n?: number;
   }
 
   let {
     pageNumber = $bindable(1),
-    pageSize = 25,
-    pageLength = null,
-    n = null,
+    pageSize = $bindable(25),
+    pageLength = $bindable(1),
+    n = $bindable(1),
   }: Props = $props();
 
   let minRow = $derived(pageNumber * pageSize - pageSize + 1);
@@ -73,7 +69,7 @@
 </nav>
 
 <style lang="scss">
-  @import '../../scss/mixins';
+  @use '../../../scss/mixins' as mixins;
 
   nav.pagination {
     display: flex;
@@ -83,8 +79,8 @@
     button {
       border: 1px solid var(--theme-colour-text-secondary, var(--tr-light-grey));
       border-radius: 50%;
-      @include bg;
-      @include text-secondary;
+      @include mixins.bg;
+      @include mixins.text-secondary;
       cursor: pointer;
       width: 35px;
       height: 35px;
@@ -103,7 +99,7 @@
         justify-content: center;
         white-space: nowrap;
         &:hover {
-          @include text-primary;
+          @include mixins.text-primary;
           border-color: var(--theme-colour-text-primary, var(--tr-medium-grey));
         }
       }
