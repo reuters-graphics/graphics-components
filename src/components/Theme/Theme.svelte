@@ -10,12 +10,15 @@
 </script>
 
 <script lang="ts">
-  import type { CustomTheme } from './@types/component';
-
-  type Base = 'light' | 'dark';
-
+  // Utils
   import flatten from './utils/flatten';
   import mergeThemes from './utils/merge';
+
+  // Types
+  import type { CustomTheme } from './@types/component';
+  import type { Snippet } from 'svelte';
+  type Base = 'light' | 'dark';
+
   interface Props {
     /** Custom theme object. Can be a partial theme with just
      * what you want to change.
@@ -27,12 +30,12 @@
      * explicitly set.
      */
     base?: Base;
-    children?: import('svelte').Snippet;
+    /** Content wrapped inside `Theme` */
+    children: Snippet;
   }
 
   let { theme = {}, base = 'light', children }: Props = $props();
 
-  /** @type {Theme} */
   let mergedTheme = $derived(
     mergeThemes({}, themes[base] || themes.light, theme)
   );
@@ -48,6 +51,6 @@
   <!-- Clients can override the theme above by attaching custom properties to this element. -->
   <div class="theme-client-override" style="display: contents;">
     <!-- Themed content -->
-    {@render children?.()}
+    {@render children()}
   </div>
 </div>

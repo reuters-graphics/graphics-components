@@ -1,64 +1,38 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import customiseDocs from './stories/docs/customise.md?raw';
-  // @ts-ignore raw
-  import customiseFontDocs from './stories/docs/customise-font.md?raw';
-  // @ts-ignore raw
-  import patternDocs from './stories/docs/pattern.md?raw';
-  // @ts-ignore raw
-  import inheritanceDocs from './stories/docs/inheritance.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Theme, { themes } from './Theme.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '../../docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Theming/Theme',
     component: Theme,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       base: {
         control: 'select',
         options: ['light', 'dark'],
       },
-      themes: { control: false },
+      theme: {
+        control: { expanded: true },
+      },
     },
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import ThemedPage from './stories/ThemedPage.svelte';
+  import ThemedPage from './demo/ThemedPage.svelte';
   import SiteHeader from '../SiteHeader/SiteHeader.svelte';
-
   import Headline from './../Headline/Headline.svelte';
+  import BodyText from '../BodyText/BodyText.svelte';
 </script>
 
-<Template>
-  {#snippet children({ args })}
-    <div class="reset-article">
-      <Theme {...args}>
-        <ThemedPage />
-      </Theme>
-    </div>
-  {/snippet}
-</Template>
+<Story name="Demo">
+  <div class="reset-article">
+    <Theme theme={themes.light} base="light">
+      <ThemedPage />
+    </Theme>
+  </div>
+</Story>
 
-<Story
-  name="Default"
-  args={{
-    theme: themes.light,
-    base: 'light',
-  }}
-/>
-
-<Story name="Custom theme" {...withStoryDocs(customiseDocs)}>
+<Story name="Custom theme" exportName="CustomTheme">
   <Theme
     base="dark"
     theme={{
@@ -70,11 +44,11 @@
   </Theme>
 </Story>
 
-<Story name="Custom Google font" {...withStoryDocs(customiseFontDocs)}>
+<Story name="Custom font" exportName="CustomFont">
   <Theme
     base="light"
     theme={{
-      font: { family: { hed: 'Bebas Neue, sans-serif' } },
+      font: { family: { hed: 'Indie Flower', body: 'Indie Flower' } },
     }}
   >
     <div class="gfont">
@@ -83,11 +57,14 @@
         dek={'The beginning of a beautiful page'}
         section={'Global news'}
       />
+      <BodyText
+        text={'Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.'}
+      />
     </div>
   </Theme>
 </Story>
 
-<Story name="Background patterns" {...withStoryDocs(patternDocs)}>
+<Story name="Background patterns" exportName="BackgroundPatterns">
   <div id="pattern-bg">
     <Theme
       base="dark"
@@ -96,12 +73,19 @@
       }}
     >
       <SiteHeader />
-      <ThemedPage />
+      <Headline
+        hed={'Reuters Graphics Interactive'}
+        dek={'The beginning of a beautiful page'}
+        section={'Global news'}
+      />
+      <BodyText
+        text={'Bacon ipsum dolor amet cupim porchetta chuck buffalo sirloin beef. Biltong ham brisket tenderloin hamburger doner.'}
+      />
     </Theme>
   </div>
 </Story>
 
-<Story name="Inheritance" {...withStoryDocs(inheritanceDocs)}>
+<Story name="Inheritance" tags={['!autodocs', '!dev']}>
   <Theme theme={themes.light}>
     <div class="themed">
       <p>Theme</p>
@@ -131,7 +115,7 @@
 </Story>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
   div.themed {
     background-color: var(--theme-colour-background);
