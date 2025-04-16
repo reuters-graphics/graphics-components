@@ -1,0 +1,155 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as VideoStories from './Video.stories.svelte';
+
+<Meta of={VideoStories} />
+
+# Video
+
+The `Video` component adds a video with various controls to your page such as:
+
+- Play/pause button
+- Autoplay controls, i.e. whether the video plays when it comes into view or on page load
+- Looping
+- Audio controls
+- Text elements such as notes and titles
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+</script>
+
+<Video
+  ariaDescription="Required description of your video for screen readers."
+  src="my-video.mp4"
+  width="wide"
+  notes="Optional caption for your video."
+/>
+```
+
+<Canvas of={VideoStories.Demo} />
+
+## Using with ArchieML docs
+
+With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[blocks]
+type: video
+src: videos/my-video.mp4
+width: wide
+ariaDescription: Required description of your video for screen readers.
+notes: Optional caption for your video.
+loopVideo: true
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `Video` component.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the Graphics Kit...
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'video'}
+    <Video
+      ariaDescription={block.ariaDescription}
+      src={`${assets}/${block.src}`}
+      width={block.width}
+      loopVideo={truthy(block.loopVideo)}
+      notes={block.notes}
+    />
+  {/if}
+{/each}
+```
+
+> **Note:** Some props, like `loopVideo`, expect boolean values. If you're using the Graphics Kit, you can use the `truthy()` util function to convert a string value to a boolean.
+
+## Autoplay controls
+
+By default, the video starts playing when 50% (0.5) of the video element's height comes into view. Adjust this with `playVideoThreshold`, which is a value between 0 and 1, where 0 means the video will start playing as soon as its top enters the viewport, and 1 means it will start when the whole video is in the viewport.
+
+To make the video play on page load regardless of whether it is in view, set the prop `playVideoWhenInView` to `false`.
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+</script>
+
+<Video
+  ariaDescription="Required description of your video for screen readers."
+  src="https://..."
+  loopVideo={true}
+  playVideoThreshold={0.9}
+  notes="World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters"
+/>
+```
+
+<Canvas of={VideoStories.Autoplay} />
+
+## Audio controls
+
+On most browsers, [autoplaying videos with sound](https://developer.chrome.com/blog/autoplay#:~:text=Muted%20autoplay%20is%20always%20allowed,to%20allow%20autoplay%20with%20sound.) is allowed only if the user has interacted with the page. (Autoplay is allowed with muted videos.)
+
+By default, this component will not autoplay videos with sound. To change this, set `soundAutoplay` to `true`. This will allow the video to autoplay with sound when it comes into view, but only if the user has already interacted with the page by clicking or tapping on it.
+
+Test this with the example below: the video will autoplay when it comes into view _only if_ you have clicked or tapped on the page before scrolling down to it.
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+</script>
+
+<Video
+  ariaDescription="Required description of your video for screen readers."
+  src="https://..."
+  controlsColour="#152a1c"
+  controlsOpacityMax={1}
+  controlsOpacityMin={0.5}
+  muteVideo={false}
+  soundAutoplay={true}
+/>
+```
+
+<Canvas of={VideoStories.Audio} />
+
+## Adding text
+
+The `Video` component allows you to add a title, description and notes to your video, which are rendered by the `GraphicBlock` component.
+
+Customise the `notes` section by passing a [snippet](https://svelte.dev/docs/svelte/snippet) instead of a string.
+
+```svelte
+<script>
+  import { Video } from '@reuters-graphics/graphics-components';
+</script>
+
+<Video
+  src="https://..."
+  ariaDescription="Required description of your video for screen readers."
+  title="Title for your video"
+  description="Description for your video"
+>
+  <!-- Custom notes snippet -->
+  {#snippet notes()}
+    <aside>
+      <p class="notes">Custom-styled notes for the video.</p>
+    </aside>
+  {/snippet}
+</Video>
+
+<style lang="scss">
+  @use '@reuters-graphics/graphics-components/dist/scss/mixins' as mixins;
+
+  p.notes {
+    @include mixins.body-note;
+  }
+</style>
+```
+
+<Canvas of={VideoStories.Text} />

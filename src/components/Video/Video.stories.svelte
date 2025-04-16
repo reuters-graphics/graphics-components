@@ -1,46 +1,22 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import playAndLoopDocs from './stories/docs/playAndLoop.md?raw';
-  // @ts-ignore raw
-  import controlsDocs from './stories/docs/controls.md?raw';
-  // @ts-ignore raw
-  // import withSoundDocs from './stories/docs/withSound.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Video from './Video.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Multimedia/Video',
     component: Video,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  // @ts-ignore raw
-  import SilentVideo from './stories/videos/silent-video.mp4';
-  // @ts-ignore raw
-  import SoundVideo from './stories/videos/sound-video.mp4';
+  import SilentVideo from './demo/silent-video.mp4';
+  import SoundVideo from './demo/sound-video.mp4';
 </script>
 
-<Template>
-  {#snippet children({ args })}
-    <Video {...args} />
-  {/snippet}
-</Template>
-
 <Story
-  name="Default"
+  name="Demo"
   args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
+    ariaDescription: 'Required description of your video for screen readers.',
     src: SilentVideo,
     width: 'wide',
     notes: 'Optional caption for your video.',
@@ -48,52 +24,73 @@
 />
 
 <Story
-  name="Playing and looping"
+  name="Autoplay controls"
+  exportName="Autoplay"
   args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
+    ariaDescription: 'Required description of your video for screen readers.',
     src: SilentVideo,
-    width: 'normal',
     loopVideo: true,
     notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
   }}
-  {...withStoryDocs(playAndLoopDocs)}
+/>
+
+<Story
+  name="Audio controls"
+  exportName="Audio"
+  args={{
+    ariaDescription: 'Required description of your video for screen readers.',
+    src: SoundVideo,
+    notes:
+      "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
+    controlsColour: '#152a1c',
+    controlsOpacityMax: 1,
+    controlsOpacityMin: 0.5,
+    playVideoThreshold: 0.9,
+    muteVideo: false,
+    soundAutoplay: true,
+  }}
 />
 
 <Story
   name="Controls"
   args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
+    ariaDescription: 'Required description of your video for screen readers.',
     src: SilentVideo,
     width: 'normal',
     notes:
       "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
     playVideoThreshold: 0.9,
     controlsColour: 'white',
-    controlsOpacity: 1,
+    controlsOpacityMax: 1,
+    controlsOpacityMin: 0.5,
     controlsPosition: 'bottom right',
     separateReplayIcon: true,
     loopVideo: false,
-    hoverToSeeControls: true,
+    soundAutoplay: true,
   }}
-  {...withStoryDocs(controlsDocs)}
 />
 
-<Story
-  name="Videos with sound"
-  args={{
-    ariaDescription: 'Compulsory description of your video for screen readers.',
-    src: SoundVideo,
-    width: 'normal',
-    notes:
-      "World's longest glass bridge opens to public in Vietnam. (c) 2022 Thomson Reuters",
-    playVideoThreshold: 0.9,
-    showControls: true,
-    loopVideo: false,
-    muteVideo: false,
-    playVideoWhenInView: true,
-    allowSoundToAutoplay: true,
-  }}
-  {...withStoryDocs(controlsDocs)}
-/>
+<Story name="Text elements" exportName="Text">
+  <Video
+    src={SilentVideo}
+    ariaDescription="Required description of your video for screen readers."
+    title="Title for your video"
+    description="Description for your video"
+  >
+    {#snippet notes()}
+      <aside>
+        <p class="notes">Custom-styled notes for the video.</p>
+      </aside>
+    {/snippet}
+  </Video>
+</Story>
+
+<style lang="scss">
+  @use '../../scss/mixins' as mixins;
+
+  p.notes {
+    @include mixins.body-note;
+  }
+</style>
