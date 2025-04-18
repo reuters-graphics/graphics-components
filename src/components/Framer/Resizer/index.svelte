@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+  // @ts-ignore Temporary
   import Fa from 'svelte-fa/src/fa.svelte';
-  import { width } from './../stores.js';
+  import { width } from '../stores.js';
 
   interface Props {
-    breakpoints?: any;
+    breakpoints?: number[];
     maxFrameWidth?: number;
     minFrameWidth?: number;
   }
@@ -17,36 +16,36 @@
     minFrameWidth = 320,
   }: Props = $props();
 
-  let container = $state();
+  let container: HTMLElement | undefined = $state();
 
   const sliderWidth = 90;
   let windowInnerWidth = $state(1200);
   let minWidth = $derived(minFrameWidth);
   let maxWidth = $derived(Math.min(windowInnerWidth - 70, maxFrameWidth));
   let pixelRange = $derived(maxWidth - minWidth);
-  run(() => {
+
+  $effect(() => {
     if ($width > maxWidth) width.set(maxWidth);
   });
-  let offset;
-  run(() => {
-    offset = ($width - minWidth) / pixelRange;
-  });
+
+  // svelte-ignore state_referenced_locally
+  let offset = $state(($width - minWidth) / pixelRange);
 
   let sliding = $state(false);
   let isFocused = $state(false);
 
-  const roundToNearestFive = (d) => Math.ceil(d / 5) * 5;
+  const roundToNearestFive = (d: number) => Math.ceil(d / 5) * 5;
   const getPx = () => Math.round(pixelRange * offset + minWidth);
 
-  let pixelLabel = $state(null);
+  let pixelLabel: null | number = $state(null);
 
-  const move = (e) => {
+  const move = (e: MouseEvent) => {
     if (!sliding || !container) return;
     const { left } = container.getBoundingClientRect();
     offset = Math.min(Math.max(0, e.pageX - left), sliderWidth) / sliderWidth;
     pixelLabel = roundToNearestFive(getPx());
   };
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (!isFocused) return;
     const { keyCode } = e;
     const pixelWidth = sliderWidth / pixelRange;
@@ -59,7 +58,7 @@
     }
     width.set(getPx());
   };
-  const start = (e) => {
+  const start = (e: MouseEvent) => {
     sliding = true;
     move(e);
   };
