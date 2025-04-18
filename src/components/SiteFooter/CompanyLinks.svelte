@@ -14,7 +14,17 @@
     linkedin: LinkedIn,
   };
 
-  let { links = {} } = $props();
+  interface Props {
+    links: {
+      company_description?: string;
+      social_links?: {
+        type: string;
+        url: string;
+      }[];
+    };
+  }
+
+  let { links = {} }: Props = $props();
 </script>
 
 {#if links.social_links}
@@ -29,7 +39,8 @@
         <div>
           <ul class="links">
             {#each links.social_links as link}
-              {@const SvelteComponent = symbols[link.type]}
+              {@const SvelteComponent =
+                symbols[link.type as keyof typeof symbols]}
               <li class="social-links symbol">
                 <a href={normalizeUrl(link.url)}>
                   <div class="button">
