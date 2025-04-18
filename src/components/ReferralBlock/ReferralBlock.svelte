@@ -31,11 +31,11 @@
     /**
      * Link [target](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target), e.g., `_blank` or `_parent`.
      */
-    linkTarget: string;
+    linkTarget?: string;
     /**
      * Add a heading to the referral block.
      */
-    heading: string;
+    heading?: string;
     /**
      * Width of the component within the text well: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid'
      */

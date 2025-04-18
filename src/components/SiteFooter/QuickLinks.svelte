@@ -11,7 +11,33 @@
     videos: Videos,
   };
 
-  let { links = {} } = $props();
+  interface Props {
+    links: {
+      latest_links: {
+        url: string;
+        text: string;
+      }[];
+      media_links: {
+        symbol: string;
+        url: string;
+        text: string;
+      }[];
+      browse_links: {
+        url: string;
+        text: string;
+      }[];
+      about_links: {
+        url: string;
+        text: string;
+      }[];
+      stay_informed_links: {
+        url: string;
+        text: string;
+      }[];
+    };
+  }
+
+  let { links }: Props = $props();
 
   let windowWidth = $state(1200);
   const mobileBreakpoint = 745;
@@ -39,7 +65,8 @@
             <h3>Media</h3>
             <ul>
               {#each links.media_links as link}
-                {@const SvelteComponent = symbols[link.symbol]}
+                {@const SvelteComponent =
+                  symbols[link.symbol as keyof typeof symbols]}
                 <li>
                   <div class="symbol">
                     <SvelteComponent />
@@ -80,7 +107,8 @@
           <h3>Media</h3>
           <ul>
             {#each links.media_links as link}
-              {@const SvelteComponent_1 = symbols[link.symbol]}
+              {@const SvelteComponent_1 =
+                symbols[link.symbol as keyof typeof symbols]}
               <li>
                 <div class="symbol">
                   <SvelteComponent_1 />

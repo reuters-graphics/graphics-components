@@ -1,7 +1,24 @@
 <script lang="ts">
   import { normalizeUrl } from '../SiteHeader/NavBar/utils';
 
-  let { links = {} } = $props();
+  interface Props {
+    links: {
+      ad_links?: {
+        url: string;
+        text: string;
+      }[];
+      misc_links: {
+        self?: boolean;
+        url: string;
+        text: string;
+      }[];
+      disclaimer_link?: string;
+      copyright_year: string;
+      copyright_link: string;
+    };
+  }
+
+  let { links }: Props = $props();
 </script>
 
 {#if links.ad_links}
@@ -36,8 +53,8 @@
         </ul>
       </section>
       <p class="copyright">
-        © {links.copyright_year} Reuters.
-        <a href={normalizeUrl(links.copyright_link)}>All rights reserved</a>
+        © {new Date().getFullYear()} Reuters.
+        <a href={normalizeUrl(links.copyright_link)}>All rights reserved.</a>
       </p>
     </div>
   </section>
