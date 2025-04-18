@@ -8,7 +8,7 @@
   import MenuIcon from './svgs/Menu.svelte';
   import MobileMenu from './MobileMenu/index.svelte';
 
-  setContext('nav-active-section', writable(null));
+  setContext('nav-active-section', writable<null | string>(null));
 
   let data = $state(starterData);
 

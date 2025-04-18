@@ -1,43 +1,24 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import darkThemeDocs from './stories/docs/darkTheme.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import SiteHeader from './SiteHeader.svelte';
+  import Theme from '../Theme/Theme.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Page furniture/SiteHeader',
     component: SiteHeader,
-    ...withComponentDocs(componentDocs),
-    argsTypes: {
+    argTypes: {
       themes: { control: { disable: true } },
     },
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+<Story name="Demo">
+  <div>
+    <SiteHeader />
+  </div>
+</Story>
 
-  import Theme from '../Theme/Theme.svelte';
-</script>
-
-<Template>
-  {#snippet children({ args })}
-    <div>
-      <SiteHeader {...args} />
-    </div>
-  {/snippet}
-</Template>
-
-<Story name="Default" />
-
-<Story name="Customised theme" {...withStoryDocs(darkThemeDocs)}>
+<Story name="Customised theme">
   <div>
     <Theme base="dark">
       <SiteHeader />

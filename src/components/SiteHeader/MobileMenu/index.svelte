@@ -4,13 +4,15 @@
   import { normalizeUrl } from '../NavBar/utils/index.js';
 
   interface Props {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any;
     isMobileMenuOpen?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     releaseMobileMenu?: any;
   }
 
   let {
-    data = [],
+    data = {},
     isMobileMenuOpen = false,
     releaseMobileMenu = () => {},
   }: Props = $props();

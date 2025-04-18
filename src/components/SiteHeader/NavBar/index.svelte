@@ -4,10 +4,12 @@
   import MoreDropdown from './NavDropdown/MoreDropdown.svelte';
   import { normalizeUrl } from './utils/index';
   import { getContext } from 'svelte';
+  import type { Writable } from 'svelte/store';
 
   let { sections = [] } = $props();
 
-  const activeSection = getContext('nav-active-section');
+  const activeSection =
+    getContext<Writable<null | string>>('nav-active-section');
 
   let windowWidth = $state(1200);
 
@@ -16,7 +18,7 @@
     return 5;
   });
 
-  let navTimeout = $state();
+  let navTimeout = $state<ReturnType<typeof setTimeout>>();
   const timeout = 250;
 
   let displayCount = $derived(getDisplayCount());
