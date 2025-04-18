@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot making the component unusable -->
 <!-- @component `DatawrapperChart` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-datawrapperchart--docs) -->
 <script lang="ts">
   import { onMount, onDestroy, type Snippet } from 'svelte';
@@ -9,9 +8,9 @@
 
   interface Props {
     /** Title of the graphic */
-    title: string | null;
+    title?: string;
     /** Description of the graphic, passed in as a markdown string. */
-    description: string | null;
+    description?: string;
     /**
      * iframe title
      */
@@ -19,7 +18,7 @@
     /**
      * Notes to the graphic, passed in as a markdown string.
      */
-    notes: string | null;
+    notes?: string;
     /**
      * iframe aria label
      */
@@ -49,10 +48,10 @@
   }
 
   let {
-    title = null,
-    description = null,
+    title,
+    description,
     frameTitle = '',
-    notes = null,
+    notes,
     ariaLabel = '',
     id = '',
     src,
@@ -65,11 +64,13 @@
 
   let frameElement: HTMLElement;
 
+  // eslint-disable-next-line
   const frameFiller = (e: any) => {
     if (void 0 !== e.data['datawrapper-height']) {
       const t = [frameElement];
       for (const a in e.data['datawrapper-height']) {
         for (let r = 0; r < t.length; r++) {
+          // @ts-ignore OK here
           if (t[r].contentWindow === e.source) {
             t[r].style.height = e.data['datawrapper-height'][a] + 'px';
           }

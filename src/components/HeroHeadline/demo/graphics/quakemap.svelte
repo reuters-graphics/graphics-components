@@ -1,5 +1,5 @@
 <script>
-  let width = $state(null);
+  let width = $state();
 
   // @ts-ignore raw
   import chartXs from './quake-map-top-xs.jpeg';

@@ -11,7 +11,7 @@
   import chartXl from './graphic-xl.png';
 
   // export let assetsPath = './';
-  let width = $state(null);
+  let width = $state();
 </script>
 
 <div id="g-graphic-box" bind:clientWidth={width}>

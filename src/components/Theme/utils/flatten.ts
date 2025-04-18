@@ -1,4 +1,5 @@
-function isBuffer(obj) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isBuffer(obj: any): boolean {
   return (
     obj &&
     obj.constructor &&
@@ -7,13 +8,20 @@ function isBuffer(obj) {
   );
 }
 
-const transformKey = (key) => key.replace(/[^a-z0-9-]/gi, '');
+const transformKey = (key: string): string => key.replace(/[^a-z0-9-]/gi, '');
 
-export default function flatten(target) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function flatten<T extends Record<string, any>>(target: T) {
   const delimiter = '-';
-  const output = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const output: Record<string, any> = {};
 
-  function step(object, prev, currentDepth = 1) {
+  function step(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    object: Record<string, any>,
+    prev?: string,
+    currentDepth = 1
+  ): void {
     Object.keys(object).forEach(function (key) {
       const value = object[key];
       const isArray = Array.isArray(value);

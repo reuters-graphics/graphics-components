@@ -1,8 +1,8 @@
 // Shamelessly stolen from https://github.com/sveltejs/svelte/issues/7583#issue-1260717165
-let observer;
-let callbacks;
+let observer: ResizeObserver;
+let callbacks: WeakMap<Element, (el: Element) => unknown>;
 
-export default (element, onResize) => {
+export default (element: HTMLElement, onResize: (el: Element) => unknown) => {
   if (!observer) {
     callbacks = new WeakMap();
     observer = new ResizeObserver((entries) => {

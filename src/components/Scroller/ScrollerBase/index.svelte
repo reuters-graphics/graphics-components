@@ -128,15 +128,16 @@
   let background: HTMLElement;
   let left;
   // Target compiler option to es6 or higher for NodeListOf<T> to be iterable.
-  let sections: NodeListOf<HTMLElement>;
+  let sections: ReturnType<typeof document.querySelectorAll> | undefined =
+    $state();
   let wh = $state(0);
   let fixed = $state(false);
   let offset_top = 0;
   let width = 1;
 
-  let top_px = Math.round(top * wh);
-  let bottom_px = Math.round(bottom * wh);
-  let threshold_px = Math.round(threshold * wh);
+  let top_px = $derived(Math.round(top * wh));
+  let bottom_px = $derived(Math.round(bottom * wh));
+  let threshold_px = $derived(Math.round(threshold * wh));
 
   let style = $derived(`
 		position: ${fixed ? 'fixed' : 'absolute'};
@@ -194,11 +195,11 @@
       fixed = true;
     }
 
-    for (let i = 0; i < sections.length; i++) {
-      const section = sections[i];
+    for (let i = 0; i < sections!.length; i++) {
+      const section = sections![i];
       const { top } = section.getBoundingClientRect();
 
-      const next = sections[i + 1];
+      const next = sections![i + 1];
       const bottom = next ? next.getBoundingClientRect().top : fg.bottom;
 
       offset = (threshold_px - top) / (bottom - top);

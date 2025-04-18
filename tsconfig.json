@@ -1,6 +1,7 @@
 {
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
     "module": "ESNext",
     "target": "ESNext",
     "declaration": true,
@@ -30,6 +31,7 @@
     "*.ts",
     "*.js",
     "*.cjs",
+    "src/journalize.d.ts",
     "src/docs/**/*.css"
   ],
   "exclude": ["dist", "eslint.config.js", "bin/newComponent/template/**/*"]

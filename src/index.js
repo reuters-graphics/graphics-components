@@ -1,6 +1,6 @@
 // Actions
-export { default as cssVariables } from './actions/cssVariables/index.js';
-export { default as resizeObserver } from './actions/resizeObserver/index.js';
+export { default as cssVariables } from './actions/cssVariables/index';
+export { default as resizeObserver } from './actions/resizeObserver/index';
 
 // Components
 export {
@@ -28,7 +28,7 @@ export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svel
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
-export { pym } from './components/PymChild/state.svelte.js';
+export { pym } from './components/PymChild/state.svelte';
 export { default as ReferralBlock } from './components/ReferralBlock/ReferralBlock.svelte';
 export { default as ReutersGraphicsLogo } from './components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';

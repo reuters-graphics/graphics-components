@@ -1,4 +1,4 @@
-interface Colour {
+export interface Colour {
   background: string;
   'text-primary': string;
   'text-secondary': string;
@@ -8,7 +8,7 @@ interface Colour {
   'brand-shadow': string;
 }
 
-interface FontFamily {
+export interface FontFamily {
   serif: string;
   'sans-serif': string;
   monospace: string;
@@ -18,7 +18,7 @@ interface FontFamily {
   note: string;
 }
 
-interface FontSize {
+export interface FontSize {
   xxs: string;
   xs: string;
   sm: string;
@@ -32,12 +32,12 @@ interface FontSize {
   '6xl': string;
 }
 
-interface Font {
+export interface Font {
   family: FontFamily;
   size: FontSize;
 }
 
-interface CustomFont {
+export interface CustomFont {
   family?: Partial<FontFamily>;
   size?: Partial<FontSize>;
 }

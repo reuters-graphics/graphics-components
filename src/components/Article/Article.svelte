@@ -13,7 +13,7 @@
     wider: number;
   }
 
-  import cssVariables from '../../actions/cssVariables/index.js';
+  import cssVariables from '../../actions/cssVariables/index';
   interface Props {
     /** Set to true for embeddables. */
     embedded?: boolean;

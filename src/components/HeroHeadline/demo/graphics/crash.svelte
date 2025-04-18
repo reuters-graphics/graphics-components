@@ -1,6 +1,6 @@
 <script>
   // export let assetsPath = './';
-  let width = $state(null);
+  let width = $state();
 
   // @ts-ignore img
   import chartXs from './CRASH_1-xs.jpeg';
@@ -26,7 +26,6 @@
       <div
         id="g-CRASH_1-xs-img"
         class="g-aiImg"
-        alt=""
         style={`background-image: url(${chartXs});`}
       ></div>
       <div
@@ -79,7 +78,6 @@
       <div
         id="g-CRASH_1-sm-img"
         class="g-aiImg"
-        alt=""
         style={`background-image: url(${chartSm});`}
       ></div>
       <div
@@ -132,7 +130,6 @@
       <div
         id="g-CRASH_1-md-img"
         class="g-aiImg"
-        alt=""
         style={`background-image: url(${chartMd});`}
       ></div>
       <div
@@ -193,7 +190,6 @@
       <div
         id="g-CRASH_1-lg-img"
         class="g-aiImg"
-        alt=""
         style={`background-image: url(${chartLg});`}
       ></div>
       <div
@@ -254,7 +250,6 @@
       <div
         id="g-CRASH_1-xl-img"
         class="g-aiImg"
-        alt=""
         style={`background-image: url(${chartXl});`}
       ></div>
       <div
@@ -315,7 +310,6 @@
       <div
         id="g-CRASH_1-xl_copy-img"
         class="g-aiImg"
-        alt=""
         style={`background-image: url(${chartXxl});`}
       ></div>
       <div

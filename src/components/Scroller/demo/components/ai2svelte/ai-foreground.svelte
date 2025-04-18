@@ -12,7 +12,6 @@
       <div
         id="g-Body-issues-key-xs-img"
         class="g-aiImg"
-        alt=""
         style="background-image: url({stepXs});"
       ></div>
       <div
@@ -109,9 +108,5 @@
   #g-Body-issues-key-xs .g-pstyle1 {
     font-weight: 400;
     height: 19px;
-  }
-
-  /* Custom CSS */
-  .text {
   }
 </style>

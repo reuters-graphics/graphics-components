@@ -1,4 +1,3 @@
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `Byline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-byline--docs) -->
 <script lang="ts">
   import { getAuthorPageUrl } from '../../utils';
@@ -145,14 +144,16 @@
             {@render updated()}
           </time>
         </div>
-      {:else if isValidDate(publishTime) && isValidDate(updateTime)}
+      {:else if isValidDate(publishTime) && isValidDate(updateTime || '')}
         <div class="whitespace-nowrap inline-block">
           Last updated
           <time datetime={updateTime}>
-            {#if areSameDay(new Date(publishTime), new Date(updateTime))}
-              {formatTime(updateTime)}
+            {#if areSameDay(new Date(publishTime), new Date(updateTime || new Date()))}
+              {formatTime(updateTime || '')}
             {:else}
-              {apdate(new Date(updateTime))}&nbsp;&nbsp;{formatTime(updateTime)}
+              {apdate(
+                new Date(updateTime || new Date())
+              )}&nbsp;&nbsp;{formatTime(updateTime || '')}
             {/if}
           </time>
         </div>
@@ -164,7 +165,7 @@
 <style lang="scss">
   @use '../../scss/mixins' as *;
 
-  .byline-container {
+  .byline {
     a {
       &:hover {
         text-decoration-line: underline;

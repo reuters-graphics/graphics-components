@@ -37,7 +37,7 @@
       </section>
       <p class="disclaimer">
         All quotes delayed a minimum of 15 minutes. <a
-          href={normalizeUrl(links.disclaimer_link)}
+          href={normalizeUrl(links.disclaimer_link || '')}
           >See here for a complete list of exchanges and delays</a
         >.
       </p>

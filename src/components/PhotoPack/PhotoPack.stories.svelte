@@ -18,7 +18,7 @@
   });
 </script>
 
-<script>
+<script lang="ts">
   const defaultImages = [
     {
       src: 'https://graphics.thomsonreuters.com/cdn/django-tools/media/graphics-gallery/galleries/world-cup-2022/spain-germany-11-27/2022-11-27T194630Z_544493697_UP1E.jpeg',
@@ -85,8 +85,8 @@
   const archieMLBlock = {
     id: 'my-photo-pack',
     class: 'mb-2',
-    width: 'wide',
-    textWidth: 'normal',
+    width: 'wide' as const,
+    textWidth: 'normal' as const,
     gap: Number('15'),
     images: archieMLImages,
     layouts: [

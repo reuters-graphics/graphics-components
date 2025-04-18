@@ -4,15 +4,14 @@
   import dark from './themes/dark.js';
   /**
    * Pre-made themes you can import.
-   * @type {{ light, dark }}
    */
   export const themes = { light, dark };
 </script>
 
 <script lang="ts">
   // Utils
-  import flatten from './utils/flatten';
-  import mergeThemes from './utils/merge';
+  import flatten from './utils/flatten.js';
+  import mergeThemes from './utils/merge.js';
 
   // Types
   import type { CustomTheme } from './@types/component';
