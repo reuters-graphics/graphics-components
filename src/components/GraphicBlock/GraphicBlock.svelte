@@ -9,7 +9,7 @@
   import TextBlock from './components/TextBlock.svelte';
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   interface Props {
     /** Content to place inside `GraphicBlock` */

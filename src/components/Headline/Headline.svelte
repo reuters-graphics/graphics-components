@@ -7,7 +7,7 @@
   // Components
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   interface Props {
     /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */

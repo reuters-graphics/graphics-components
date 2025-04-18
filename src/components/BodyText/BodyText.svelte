@@ -1,6 +1,6 @@
 <!-- @component `BodyText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-bodytext--docs) -->
 <script lang="ts">
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
   import Block from '../Block/Block.svelte';
   interface Props {
     /** A markdown text string. */

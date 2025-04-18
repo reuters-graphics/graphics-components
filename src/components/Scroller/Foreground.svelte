@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { ScrollerStep } from '../@types/global';
 
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
+
   interface Props {
     steps: ScrollerStep[];
   }

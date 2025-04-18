@@ -2,7 +2,7 @@
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   // Utils
   import { random4 } from '../../utils';

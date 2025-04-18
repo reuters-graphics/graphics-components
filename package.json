@@ -105,6 +105,7 @@
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@reuters-graphics/svelte-markdown": "^0.0.3",
     "@sveltejs/kit": "^2.20.7",
     "dayjs": "^1.11.13",
     "es-toolkit": "^1.35.0",

@@ -2,7 +2,8 @@
   import type { ScrollerStep } from '../../@types/global';
 
   import Block from '../../Block/Block.svelte';
-  import Markdown from '../../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
+
   interface Props {
     step: ScrollerStep;
     index: number;

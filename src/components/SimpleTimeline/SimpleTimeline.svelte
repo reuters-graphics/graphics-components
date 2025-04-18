@@ -3,7 +3,7 @@
   import Fa from 'svelte-fa';
   import { faLink } from '@fortawesome/free-solid-svg-icons';
   import Block from '../Block/Block.svelte';
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   interface Event {
     title: string;
