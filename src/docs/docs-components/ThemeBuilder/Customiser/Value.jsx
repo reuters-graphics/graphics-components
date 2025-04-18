@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cloneDeep, set } from 'lodash-es';
+import { cloneDeep, set } from 'es-toolkit';
 
 import ColourPicker from './ColourPicker.jsx';
 

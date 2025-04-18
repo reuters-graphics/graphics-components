@@ -1,7 +1,7 @@
 <!-- @component `BeforeAfter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-beforeafter--docs) -->
 <script lang="ts">
   import { type Snippet } from 'svelte';
-  import { throttle } from 'lodash-es';
+  import { throttle } from 'es-toolkit';
 
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
