@@ -1,4 +1,4 @@
-export default (embeds) => {
+export default (embeds: string[]) => {
   const nakedEmbeds = embeds
     .map((e) => e.replace(/\?.+$/, ''))
     .map((e) => e.replace(/index\.html$/, ''))

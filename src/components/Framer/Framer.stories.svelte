@@ -1,33 +1,19 @@
 <script module lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Framer from './Framer.svelte';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Utilities/Framer',
     component: Framer,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
-
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template>
-  {#snippet children({ args })}
-    <Framer {...args} />
-  {/snippet}
-</Template>
 
 <Story
-  name="Default"
+  name="Demo"
   args={{
     embeds: [
       'https://graphics.reuters.com/USA-CONGRESS/FUNDRAISING/zjvqkawjlvx/embeds/en/embed/?zzz',
+      'https://www.reuters.com/graphics/UKRAINE-CRISIS/MAP/klvymdzdrvg/embeds/en/map/',
     ],
   }}
 />

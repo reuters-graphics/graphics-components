@@ -1,86 +1,106 @@
-<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
-<script>
-  /**
-   * @typedef {Object} TItem
-   * @property {number} index
-   * @property {string} embed
-   */
+<script lang="ts">
+  type TItem = {
+    index: number;
+    embed: string;
+    disabled?: boolean;
+  };
 
-  export let id = 'typeahead-' + Math.random().toString(36);
-  export let value = '';
+  type SelectedItem = {
+    selectedIndex: number;
+    searched: string;
+    selected: string;
+    original: TItem;
+    originalIndex: number;
+  };
 
-  /** @type {TItem[]} */
-  export let data = [];
-
-  /** @type {(item: TItem) => any} */
-  export let extract = (item) => item;
-
-  /** @type {(item: TItem) => boolean} */
-  export let disable = (_item) => false;
-
-  /** @type {(item: TItem) => boolean} */
-  export let filter = (_item) => false;
-
-  /** Set to `false` to prevent the first result from being selected */
-  export let autoselect = true;
-
-  /**
-   * Set to `keep` to keep the search field unchanged after select, set to `clear` to auto-clear search field
-   * @type {"update" | "clear" | "keep"}
-   */
-  export let inputAfterSelect = 'update';
-
-  /** @type {{ original: TItem; index: number; score: number; string: string; disabled?: boolean; }[]} */
-  export let results = [];
-
-  /** Set to `true` to re-focus the input after selecting a result */
-  export let focusAfterSelect = false;
-
-  /** Set to `true` to only show results when the input is focused */
-  export let showDropdownOnFocus = false;
-
-  /**
-   * Specify the maximum number of results to return
-   * @type {number}
-   */
-  export let limit = Infinity;
-
-  import fuzzy from './fuzzy.js';
-  import Search from 'svelte-search';
-  import { tick, createEventDispatcher, afterUpdate } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
-  let comboboxRef = null;
-  let searchRef = null;
-  let hideDropdown = false;
-  let selectedIndex = -1;
-  let prevResults = '';
-  let isFocused = false;
-
-  $: options = { pre: '<mark>', post: '</mark>', extract };
-  $: results =
-    value !== '' ?
-      fuzzy
-        .filter(value, data, options)
-        .filter(({ score }) => score > 0)
-        .slice(0, limit)
-        .filter((result) => !filter(result.original))
-        .map((result) => ({ ...result, disabled: disable(result.original) }))
-    : data.map((d) => ({ string: extract(d), original: d }));
-
-  $: resultsId = results.map((result) => extract(result.original)).join('');
-  $: showResults = !hideDropdown && results.length > 0 && isFocused;
-  $: if (showDropdownOnFocus) {
-    showResults = showResults && isFocused;
+  interface Props {
+    id?: string;
+    value: string;
+    label: string;
+    data: TItem[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    extract?: (item: TItem) => any;
+    disable?: (item: TItem) => boolean;
+    filter?: (item: TItem) => boolean;
+    onselect: (item: SelectedItem) => void;
+    autoselect?: boolean;
+    inputAfterSelect?: 'update' | 'clear' | 'keep';
+    focusAfterSelect?: boolean;
+    showDropdownOnFocus?: boolean;
+    limit?: number;
+    noResults?: Snippet;
   }
 
-  afterUpdate(() => {
+  let {
+    id = 'typeahead-' + Math.random().toString(36),
+    value = '',
+    label = '',
+    data = [],
+    extract = (item) => item,
+    disable = (_item) => false,
+    filter = (_item) => false,
+    autoselect = true,
+    // Set to `keep` to keep the search field unchanged after select, set to `clear` to auto-clear search field
+    inputAfterSelect = 'update',
+    /** Set to `true` to re-focus the input after selecting a result */
+    focusAfterSelect = false,
+    /** Set to `true` to only show results when the input is focused */
+    showDropdownOnFocus = false,
+    /** Specify the maximum number of results to return */
+    limit = Infinity,
+    noResults,
+    onselect,
+    ...restProps
+  }: Props = $props();
+
+  import fuzzy from './fuzzy';
+  import Search from './Search.svelte';
+  import { tick, type Snippet } from 'svelte';
+
+  let comboboxRef: HTMLElement | null = $state(null);
+  let searchRef: HTMLElement | null = $state(null);
+  let hideDropdown = $state(true);
+  let selectedIndex = $state(-1);
+  let prevResults = $state('');
+  let isFocused = $state(false);
+
+  let options = $derived({ pre: '<mark>', post: '</mark>', extract });
+  let results = $derived.by(() => {
+    return value !== '' ?
+        fuzzy
+          .filter(value, data, options)
+          .filter(({ score }) => score > 0)
+          .slice(0, limit)
+          .filter((result) => !filter(result.original))
+          .map((result) => ({ ...result, disabled: disable(result.original) }))
+      : data.map((d, index) => ({
+          index,
+          string: extract(d),
+          original: d,
+          disabled: disable(d),
+        }));
+  });
+
+  let resultsId = $derived(
+    results.map((result) => extract(result.original)).join('')
+  );
+
+  let showResults: boolean = $state(
+    // svelte-ignore state_referenced_locally
+    !hideDropdown && results.length > 0 && isFocused
+  );
+  $effect(() => {
+    if (showDropdownOnFocus) {
+      showResults = showResults && isFocused;
+    }
+  });
+
+  $effect(() => {
     if (prevResults !== resultsId && autoselect) {
       selectedIndex = getNextNonDisabledIndex();
     }
 
-    if (prevResults !== resultsId && !$$slots['no-results']) {
+    if (prevResults !== resultsId && !noResults) {
       hideDropdown = results.length === 0;
     }
 
@@ -90,7 +110,7 @@
   async function select() {
     const result = results[selectedIndex];
 
-    if (result.disabled) return;
+    if (result.original.disabled) return;
 
     const selectedValue = extract(result.original);
     const searchedValue = value;
@@ -98,7 +118,7 @@
     if (inputAfterSelect === 'clear') value = '';
     if (inputAfterSelect === 'update') value = selectedValue;
 
-    dispatch('select', {
+    onselect({
       selectedIndex,
       searched: searchedValue,
       selected: selectedValue,
@@ -108,11 +128,10 @@
 
     await tick();
 
-    if (focusAfterSelect) searchRef.focus();
+    if (focusAfterSelect) searchRef?.focus();
     close();
   }
 
-  /** @type {() => number} */
   function getNextNonDisabledIndex() {
     let index = 0;
     let disabled = results[index]?.disabled ?? false;
@@ -130,8 +149,7 @@
     return index;
   }
 
-  /** @type {(direction: -1 | 1) => void} */
-  function change(direction) {
+  function change(direction: -1 | 1) {
     let index =
       direction === 1 && selectedIndex === results.length - 1 ?
         0
@@ -158,8 +176,9 @@
 </script>
 
 <svelte:window
-  on:click={({ target }) => {
-    if (!hideDropdown && !comboboxRef?.contains(target)) {
+  onclick={({ target }) => {
+    console.log('HELLO', !comboboxRef?.contains(target as Node));
+    if (!hideDropdown && !comboboxRef?.contains(target as Node)) {
       close();
     }
   }}
@@ -178,10 +197,11 @@
   id="{id}-typeahead"
 >
   <Search
+    bind:value
     {id}
+    {label}
     removeFormAriaAttributes={true}
-    {...$$restProps}
-    bind:ref={searchRef}
+    bind:ref={searchRef!}
     aria-autocomplete="list"
     aria-controls="{id}-listbox"
     aria-labelledby="{id}-label"
@@ -190,23 +210,15 @@
     ) ?
       `${id}-result-${selectedIndex}`
     : null}
-    bind:value
-    on:type
-    on:input
-    on:change
-    on:focus
-    on:focus={() => {
+    onfocus={() => {
       open();
       if (showDropdownOnFocus) {
         showResults = true;
         isFocused = true;
       }
     }}
-    on:clear
-    on:clear={open}
-    on:blur
-    on:keydown
-    on:keydown={(e) => {
+    onclear={open}
+    onkeydown={(e: KeyboardEvent) => {
       if (results.length === 0) return;
 
       switch (e.key) {
@@ -229,6 +241,7 @@
           break;
       }
     }}
+    {...restProps}
   />
   <ul
     class:svelte-typeahead-list={true}
@@ -236,7 +249,7 @@
     aria-labelledby="{id}-label"
     id="{id}-listbox"
   >
-    {#if showResults}
+    {#if showResults && !hideDropdown}
       {#each results as result, index}
         <li
           role="option"
@@ -244,25 +257,23 @@
           class:selected={selectedIndex === index}
           class:disabled={result.disabled}
           aria-selected={selectedIndex === index}
-          on:click={() => {
+          onclick={() => {
             if (result.disabled) return;
             selectedIndex = index;
             select();
           }}
-          on:keyup={(e) => {
+          onkeyup={(e) => {
             if (e.key !== 'Enter') return;
             if (result.disabled) return;
             selectedIndex = index;
             select();
           }}
-          on:mouseenter={() => {
+          onmouseenter={() => {
             if (result.disabled) return;
             selectedIndex = index;
           }}
         >
-          <slot {result} {index} {value}>
-            {@html result.string}
-          </slot>
+          {@html result.string}
         </li>
       {/each}
     {/if}
