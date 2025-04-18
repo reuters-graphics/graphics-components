@@ -175,22 +175,13 @@
 
             <!-- Otherwise render the image if it exists -->
           {:else if img}
-            <GraphicBlock
+            <FeaturePhoto
               {width}
-              role="img"
               class="my-0"
-              textWidth="normal"
-              {notes}
-              {ariaDescription}
-            >
-              <FeaturePhoto
-                class="my-0"
-                width="fluid"
-                src={img}
-                caption={notes}
-                altText={ariaDescription || ''}
-              />
-            </GraphicBlock>
+              src={img}
+              caption={notes}
+              altText={ariaDescription || ''}
+            />
           {/if}
         </div>
       </Block>
