@@ -39,9 +39,7 @@ Optionally, you can add authors and a publish time to the headline, which the `H
   section={'Global news'}
   authors={['Jane Doe']}
   publishTime={new Date('2020-01-01').toISOString()}
-  getAuthorPage={(author: string) => {
-      return `mailto:${author.replace(' ', '')}@example.com`;
-    }}
+  getAuthorPage={(author: string) => `mailto:${author.replace(' ', '')}@example.com`}
 />
 ```
 
