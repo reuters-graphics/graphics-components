@@ -108,7 +108,7 @@
         {/if}
         {#if typeof hed === 'string'}
           <h1 class={hedClass}>
-            <Markdown source={hed} parseInline />
+            <Markdown source={hed} inline />
           </h1>
         {:else if hed}
           <!-- Headline snippet -->

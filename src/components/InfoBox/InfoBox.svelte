@@ -83,7 +83,7 @@
       </div>
     {:else}
       <div class="body">
-        <Markdown source={text} />
+        <Markdown source={text || ''} />
       </div>
     {/if}
 

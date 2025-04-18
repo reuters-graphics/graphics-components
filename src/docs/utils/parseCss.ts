@@ -16,9 +16,8 @@ export const cssStringToTableArray = (cssString = '', withInclude = false) => {
         )};`;
       })
       .join('\n');
-    return withInclude ?
-        [className, className, properties]
-      : [className, properties];
+    if (withInclude) return [className, className, properties];
+    return [className, properties];
   });
 };
 
@@ -35,7 +34,7 @@ export const extractCssColourVariables = (cssString = '') => {
   const cssVariables = [...cssString.matchAll(variableRegexp)].map(
     ([_, g1, g2]) => [g2, g1]
   );
-  const colours = {};
+  const colours: Record<string, string[]> = {};
   for (const variable of cssVariables) {
     const [colour, css] = variable;
     if (colours[colour]) {
