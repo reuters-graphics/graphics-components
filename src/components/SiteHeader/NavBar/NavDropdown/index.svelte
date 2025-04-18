@@ -1,20 +1,34 @@
-<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
-<script>
-  import { afterUpdate } from 'svelte';
+<script lang="ts">
   import StoryCard from './StoryCard/index.svelte';
   import Spinner from './Spinner/index.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, type Snippet } from 'svelte';
+  import type { Writable } from 'svelte/store';
 
-  const activeSection = getContext('nav-active-section');
+  interface Props {
+    headingText?: string;
+    children: Snippet;
+  }
 
-  export let headingText = 'Trending Stories';
+  let { headingText = 'Trending Stories', children }: Props = $props();
 
-  let stories = [];
-  let lastFetched = null;
+  const activeSection =
+    getContext<Writable<null | string>>('nav-active-section');
 
-  afterUpdate(async () => {
-    if (lastFetched === $activeSection) return;
-    if ($activeSection === 'more') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let stories = $state<any[]>([]);
+  let lastFetched = $state<null | string>(null);
+
+  $effect(() => {
+    try {
+      fetchSection($activeSection);
+    } catch {
+      console.log('Error fetching articles');
+    }
+  });
+
+  const fetchSection = async (activeSection: null | string) => {
+    if (lastFetched === activeSection) return;
+    if (activeSection === 'more') {
       await fetch(
         'https://www.reuters.com/pf/api/v3/content/fetch/articles-by-trends-v1?' +
           new URLSearchParams({
@@ -27,14 +41,17 @@
         .then((response) => response.json())
         .then((data) => {
           stories = data.result.articles;
-          lastFetched = $activeSection;
+          lastFetched = activeSection;
+        })
+        .catch(() => {
+          console.log('Error fetching articles');
         });
     } else {
       await fetch(
         'https://www.reuters.com/pf/api/v3/content/fetch/recent-stories-by-sections-v1?' +
           new URLSearchParams({
             query: JSON.stringify({
-              section_ids: $activeSection,
+              section_ids: activeSection,
               size: 4,
               website: 'reuters',
             }),
@@ -43,10 +60,13 @@
         .then((response) => response.json())
         .then((data) => {
           stories = data.result.articles;
-          lastFetched = $activeSection;
+          lastFetched = activeSection;
+        })
+        .catch(() => {
+          console.log('Error fetching articles');
         });
     }
-  });
+  };
 </script>
 
 <div class="dropdown">
@@ -54,7 +74,7 @@
     <div class="inner">
       <div class="submenu">
         <div class="inner">
-          <slot />
+          {@render children?.()}
         </div>
       </div>
       <div class="stories-container">

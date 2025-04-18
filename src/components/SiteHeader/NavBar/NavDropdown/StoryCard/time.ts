@@ -31,7 +31,7 @@ dayjs.updateLocale('en', {
   },
 });
 
-const getTimeZone = (local) => {
+const getTimeZone = (local: boolean) => {
   if (local) {
     return dayjs.tz.guess();
   }
@@ -39,15 +39,19 @@ const getTimeZone = (local) => {
   return 'UTC';
 };
 
-const diff = (dateFrom, dateTo, measurement = 'day') => {
+const diff = (
+  dateFrom: Date,
+  dateTo: number,
+  measurement: 'day' | 'hour' = 'day'
+) => {
   return dayjs(dateFrom).diff(dayjs(dateTo), measurement, true);
 };
 
-const olderThanHour = (dateFrom, dateTo, hours = 1) => {
+const olderThanHour = (dateFrom: Date, dateTo: number, hours = 1) => {
   return diff(dateFrom, dateTo, 'hour') < -hours;
 };
 
-const isSameDay = (dateFrom, dateTo) => {
+const isSameDay = (dateFrom: Date, dateTo: number) => {
   const first = new Date(dateFrom);
   const second = new Date(dateTo);
   return (
@@ -57,10 +61,10 @@ const isSameDay = (dateFrom, dateTo) => {
   );
 };
 
-export const getTime = (datetime) => {
+export const getTime = (datetime: dayjs.ConfigType) => {
   const publishTime = dayjs(datetime, { utc: true });
-  const showRelativeTime = !olderThanHour(publishTime, Date.now());
-  const showTime = isSameDay(publishTime, Date.now());
+  const showRelativeTime = !olderThanHour(publishTime.toDate(), Date.now());
+  const showTime = isSameDay(publishTime.toDate(), Date.now());
   const timezone = getTimeZone(false);
   if (showRelativeTime) {
     return dayjs().to(publishTime);
