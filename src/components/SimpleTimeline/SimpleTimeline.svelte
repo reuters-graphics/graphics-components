@@ -1,6 +1,6 @@
 <!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs) -->
 <script lang="ts">
-  import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import { faLink } from '@fortawesome/free-solid-svg-icons';
   import Block from '../Block/Block.svelte';
   import Markdown from '../Markdown/Markdown.svelte';

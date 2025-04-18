@@ -1,7 +1,6 @@
 <script lang="ts">
   import { faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
-  // @ts-ignore Temporary
-  import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import { width } from '../stores.js';
 
   interface Props {

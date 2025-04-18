@@ -23,7 +23,7 @@
   });
 </script>
 
-<script>
+<script lang="ts">
   import MyBackground from './demo/components/basic/Step.svelte';
   import MyInteractiveForeground from './demo/components/basic/InteractiveForeground.svelte';
 

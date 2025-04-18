@@ -1,6 +1,5 @@
 <script lang="ts">
-  // @ts-ignore Temporary
-  import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import { faDesktop, faLink } from '@fortawesome/free-solid-svg-icons';
   import pym from 'pym.js';
   import urljoin from 'proper-url-join';

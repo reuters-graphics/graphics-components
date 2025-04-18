@@ -6,7 +6,7 @@
   import { Splide, SplideSlide, SplideTrack } from '@splidejs/svelte-splide';
 
   // Icons
-  import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import {
     faChevronLeft,
     faChevronRight,

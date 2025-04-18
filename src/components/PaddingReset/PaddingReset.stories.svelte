@@ -8,7 +8,7 @@
   });
 </script>
 
-<script>
+<script lang="ts">
   import Block from '../Block/Block.svelte';
   let width: 'wide' | 'fluid' = 'fluid';
 
