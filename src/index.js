@@ -30,7 +30,7 @@ export { default as PaddingReset } from './components/PaddingReset/PaddingReset.
 export { default as PhotoCarousel } from './components/PhotoCarousel/PhotoCarousel.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
-export { pymChildStore } from './components/PymChild/stores.js';
+export { pym } from './components/PymChild/state.svelte.js';
 export { staticMarkdown } from './components/Markdown/state.svelte.js';
 export { default as ReferralBlock } from './components/ReferralBlock/ReferralBlock.svelte';
 export { default as ReutersGraphicsLogo } from './components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';

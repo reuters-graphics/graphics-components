@@ -1,5 +1,5 @@
-import pym from 'pym.js';
+import type p from 'pym.js';
 
-type PymChildState = { pymChild: pym.Child | null };
+type PymChild = { child: p.Child | null };
 
-export const pymChildState: PymChildState = $state({ pymChild: null });
+export const pym = $state<PymChild>({ child: null });
