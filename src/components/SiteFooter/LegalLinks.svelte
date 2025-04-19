@@ -61,16 +61,15 @@
 {/if}
 
 <style lang="scss">
-  @import '../SiteHeader/scss/_breakpoints.scss';
-  @import '../SiteHeader/scss/_grids.scss';
+  @use '../SiteHeader/scss/_breakpoints.scss' as breakpoints;
+  @use '../SiteHeader/scss/_grids.scss' as grids;
 
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
 
   .content-container {
-    @include max-width;
-
     width: 100%;
     margin: 0 auto;
+    @include breakpoints.max-width;
   }
 
   .legal {
@@ -79,7 +78,7 @@
     box-sizing: border-box;
 
     .content-container {
-      @include responsive-columns(12);
+      @include grids.responsive-columns(12);
     }
   }
 
@@ -87,14 +86,13 @@
     border-top: 1px solid var(--nav-rules);
 
     .content-container {
-      @include spacing-single(padding-left padding-right);
-
       box-sizing: border-box;
+      @include grids.spacing-single(padding-left padding-right);
     }
   }
 
   .legal .content-container {
-    @include spacing-50(grid-row-gap);
+    @include grids.spacing-50(grid-row-gap);
 
     .ad-links {
       grid-column: 1 / span 5;
@@ -118,8 +116,8 @@
       justify-self: end;
     }
 
-    @include at-4-columns {
-      @include spacing-single(grid-row-gap);
+    @include grids.at-4-columns {
+      @include grids.spacing-single(grid-row-gap);
 
       .ad-links,
       .misc-links,

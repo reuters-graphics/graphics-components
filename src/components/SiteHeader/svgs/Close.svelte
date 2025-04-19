@@ -11,7 +11,7 @@
 >
 
 <style lang="scss">
-  @import './../scss/_colors.scss';
+  @use './../scss/_colors.scss' as *;
   svg {
     fill: var(--nav-primary, var(--tr-dark-grey));
   }

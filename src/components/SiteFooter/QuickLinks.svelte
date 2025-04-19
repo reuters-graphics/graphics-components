@@ -148,15 +148,15 @@
 {/if}
 
 <style lang="scss">
-  @import '../SiteHeader/scss/_breakpoints.scss';
-  @import '../SiteHeader/scss/_grids.scss';
+  @use '../SiteHeader/scss/_breakpoints.scss' as breakpoints;
+  @use '../SiteHeader/scss/_grids.scss' as grids;
 
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
 
   .content-container {
-    @include max-width;
     width: 100%;
     margin: 0 auto;
+    @include breakpoints.max-width;
   }
 
   .quick-links {
@@ -165,7 +165,7 @@
     box-sizing: border-box;
 
     .content-container {
-      @include responsive-columns(12);
+      @include grids.responsive-columns(12);
     }
 
     ul {
@@ -192,9 +192,8 @@
     max-width: 100%;
 
     .content-container {
-      @include spacing-single(padding-left padding-right);
-
       box-sizing: border-box;
+      @include grids.spacing-single(padding-left padding-right);
     }
 
     h3 {
@@ -206,13 +205,13 @@
   }
 
   .quick-links .content-container {
-    @include spacing-single(grid-row-gap);
+    @include grids.spacing-single(grid-row-gap);
 
     section.link-group {
       grid-column: auto / span 2;
       margin: 0;
 
-      @include above-4-columns {
+      @include grids.above-4-columns {
         &:last-child {
           grid-column: 10 / span 3;
         }
@@ -232,11 +231,11 @@
       grid-column: 7 / span 3;
       grid-row: 1;
 
-      @include for-tablet-down {
+      @include breakpoints.for-tablet-down {
         grid-column: 9 / span 3;
       }
 
-      @include for-mobile {
+      @include breakpoints.for-mobile {
         grid-column: 1 / span 2;
         grid-row: 2;
       }

@@ -102,11 +102,11 @@
 />
 
 <style lang="scss">
-  @import './scss/_grids.scss';
-  @import './scss/_colors.scss';
-  @import './scss/_eases.scss';
-  @import './scss/_breakpoints.scss';
-  @import './scss/_z-indexes.scss';
+  @use './scss/_grids.scss' as grids;
+  @use './scss/_colors.scss' as *;
+  @use './scss/_eases.scss' as *;
+  @use './scss/_breakpoints.scss' as *;
+  @use './scss/_z-indexes.scss' as *;
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;
@@ -149,13 +149,13 @@
   }
 
   .main-bar {
-    @include spacing-single(padding-left padding-right);
     margin: 0 auto;
     box-sizing: border-box;
     display: flex;
     height: $nav-height;
     justify-content: space-between;
     @include max-width;
+    @include grids.spacing-single(padding-left padding-right);
 
     @include for-mobile {
       height: $mobile-nav-height;
@@ -209,10 +209,10 @@
   }
 
   .mobile-menu {
+    margin-left: 8px;
     @include for-tablet-up {
       display: none;
     }
-    margin-left: 8px;
     .menu-button {
       width: 40px;
       height: 40px;

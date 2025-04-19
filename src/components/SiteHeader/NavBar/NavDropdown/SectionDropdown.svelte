@@ -43,8 +43,8 @@
 </NavDropdown>
 
 <style lang="scss">
-  @import '../../scss/_colors.scss';
-  @import '../../scss/_breakpoints.scss';
+  @use '../../scss/_colors.scss' as *;
+  @use '../../scss/_breakpoints.scss' as *;
 
   a {
     text-decoration: none;

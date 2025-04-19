@@ -34,11 +34,11 @@
 </NavDropdown>
 
 <style lang="scss">
-  @import '../../scss/_colors.scss';
-  @import '../../scss/_breakpoints.scss';
-  @import '../../scss/_eases.scss';
-  @import '../../scss/_grids.scss';
-  @import '../../scss/_z-indexes.scss';
+  @use '../../scss/_colors.scss' as *;
+  @use '../../scss/_breakpoints.scss' as breakpoints;
+  @use '../../scss/_eases.scss' as *;
+  @use '../../scss/_grids.scss' as grids;
+  @use '../../scss/_z-indexes.scss' as *;
 
   a {
     text-decoration: none;
@@ -52,7 +52,7 @@
   .more-sections {
     position: relative;
 
-    @include for-tablet-down {
+    @include breakpoints.for-tablet-down {
       display: flex;
       flex-direction: row;
       column-gap: 64px;
@@ -67,10 +67,10 @@
     .subsections {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      @include spacing-single(grid-column-gap);
       padding: 0;
       margin: 0;
       list-style: none;
+      @include grids.spacing-single(grid-column-gap);
 
       li {
         margin: 0;
@@ -98,10 +98,10 @@
       font-size: 16px;
       display: inline-block;
       color: var(--nav-primary, var(--tr-dark-grey));
+      text-decoration: none;
       @media (min-width: 1300px) {
         font-size: 18px;
       }
-      text-decoration: none;
       &:hover {
         text-decoration: underline !important;
       }

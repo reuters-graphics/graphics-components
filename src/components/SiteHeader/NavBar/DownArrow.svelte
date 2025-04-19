@@ -20,7 +20,7 @@
 </svg>
 
 <style lang="scss">
-  @import './../scss/_colors.scss';
+  @use './../scss/_colors.scss' as *;
   svg {
     margin-left: 4px;
     width: 10px;

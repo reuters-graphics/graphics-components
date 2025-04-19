@@ -217,7 +217,6 @@
     }
 
     :global(.background-hero .headline) {
-      @include mixins.fmt-0;
       z-index: 1;
       display: flex;
       align-items: center;
@@ -229,6 +228,7 @@
       height: var(--heroHeight, 100svh);
       max-height: 1800px;
       transform: translateX(-50%);
+      @include mixins.fmt-0;
 
       @media (max-width: 690px) {
         padding: 0 15px;

@@ -126,10 +126,10 @@
 </div>
 
 <style lang="scss">
-  @import './../scss/_colors.scss';
-  @import './../scss/_breakpoints.scss';
-  @import './../scss/_z-indexes.scss';
-  @import '../../../scss/mixins';
+  @use './../scss/_colors.scss' as *;
+  @use './../scss/_breakpoints.scss' as *;
+  @use './../scss/_z-indexes.scss' as *;
+  @use '../../../scss/mixins' as *;
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;

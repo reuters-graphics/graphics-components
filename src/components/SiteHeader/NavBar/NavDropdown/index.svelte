@@ -100,11 +100,11 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/_colors.scss';
-  @import '../../scss/_breakpoints.scss';
-  @import '../../scss/_eases.scss';
-  @import '../../scss/_grids.scss';
-  @import '../../scss/_z-indexes.scss';
+  @use '../../scss/_colors.scss' as *;
+  @use '../../scss/_breakpoints.scss' as breakpoints;
+  @use '../../scss/_eases.scss' as *;
+  @use '../../scss/_grids.scss' as grids;
+  @use '../../scss/_z-indexes.scss' as *;
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;
@@ -116,7 +116,7 @@
     top: $nav-height;
     width: 100%;
 
-    @include for-mobile {
+    @include breakpoints.for-mobile {
       top: $mobile-nav-height;
     }
   }
@@ -128,10 +128,10 @@
     background: var(--nav-background, $white);
 
     > .inner {
-      @include responsive-columns(12);
-      @include spacing-single(padding-left padding-right);
-      @include max-width;
       margin: 0 auto;
+      @include breakpoints.max-width;
+      @include grids.responsive-columns(12);
+      @include grids.spacing-single(padding-left padding-right);
     }
   }
 
@@ -149,11 +149,11 @@
   .submenu {
     grid-column: 1 / span 4;
 
-    @include for-extra-wide-desktop {
+    @include breakpoints.for-extra-wide-desktop {
       grid-column: 2 / span 3;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       grid-column: 1 / span 2;
     }
   }
@@ -163,15 +163,15 @@
     min-height: 300px;
 
     .inner {
-      @include spacing-single(padding-left);
       border-left: 1px solid var(--nav-rules, var(--tr-muted-grey));
+      @include grids.spacing-single(padding-left);
     }
 
-    @include for-extra-wide-desktop {
+    @include breakpoints.for-extra-wide-desktop {
       grid-column: 5 / span 7;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       grid-column: 3 / span 2;
     }
   }
@@ -179,7 +179,6 @@
   .story-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    @include spacing-single(grid-column-gap);
     list-style: none;
     padding: 0;
     margin: 20px 0 0 0;
@@ -190,7 +189,8 @@
     line-height: 1.5;
     color: var(--nav-primary, #404040);
 
-    @include at-4-columns {
+    @include grids.spacing-single(grid-column-gap);
+    @include grids.at-4-columns {
       grid-template-columns: repeat(1, 1fr);
     }
   }
@@ -210,7 +210,7 @@
       padding-top: 20px;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       &:nth-child(2) {
         padding-top: 20px;
       }

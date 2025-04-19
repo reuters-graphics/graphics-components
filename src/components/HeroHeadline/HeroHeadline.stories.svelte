@@ -106,16 +106,6 @@
   </HeroHeadline>
   <style lang="scss">
     .hero-wrapper {
-      .custom-hero.headline {
-        // Adjust vertical positioning
-        align-items: flex-end !important;
-
-        @media (max-width: 1100px) {
-          // Adjust line length of title
-          max-width: var(--normal-column-width) !important;
-        }
-      }
-
       // Make hero shorter than 100vh
       --heroHeight: 85svh;
 
@@ -131,6 +121,16 @@
       // Custom hero sizing for landscape mobile
       @media (max-width: 960px) and (orientation: landscape) {
         --heroHeight: 200svh;
+      }
+
+      .custom-hero.headline {
+        // Adjust vertical positioning
+        align-items: flex-end !important;
+
+        @media (max-width: 1100px) {
+          // Adjust line length of title
+          max-width: var(--normal-column-width) !important;
+        }
       }
     }
 

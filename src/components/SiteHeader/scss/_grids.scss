@@ -1,99 +1,131 @@
 @use 'sass:math';
 
-@import '_breakpoints.scss';
+@use '_breakpoints.scss' as *;
 
 @mixin spacing-single($properties, $delta: 1) {
   @each $property in $properties {
-    #{$property}: (math.div(32, 1440) * 100vw * $delta);
+    & {
+      #{$property}: (math.div(32, 1440) * 100vw * $delta);
+    }
   }
 
   @include for-tablet-down {
     @each $property in $properties {
-      #{$property}: (math.div(16, 375) * 100vw * $delta);
+      & {
+        #{$property}: (math.div(16, 375) * 100vw * $delta);
+      }
     }
   }
 
   @include above-max {
     @each $property in $properties {
-      #{$property}: (32px * $delta);
+      & {
+        #{$property}: (32px * $delta);
+      }
     }
   }
 }
 
 @mixin spacing-single-half($properties, $delta: 1) {
   @each $property in $properties {
-    #{$property}: (calc(16 / 1440) * 100vw * $delta);
+    & {
+      #{$property}: (calc(16 / 1440) * 100vw * $delta);
+    }
   }
 
   @include for-tablet-down {
     @each $property in $properties {
-      #{$property}: (math.div(8, 375) * 100vw * $delta);
+      & {
+        #{$property}: (math.div(8, 375) * 100vw * $delta);
+      }
     }
   }
 
   @include above-max {
     @each $property in $properties {
-      #{$property}: (16px * $delta);
+      & {
+        #{$property}: (16px * $delta);
+      }
     }
   }
 }
 
 @mixin spacing-single-34($properties, $delta: 1) {
   @each $property in $properties {
-    #{$property}: (math.div(24, 1440) * 100vw * $delta);
+    & {
+      #{$property}: (math.div(24, 1440) * 100vw * $delta);
+    }
   }
 
   @include for-tablet-down {
     @each $property in $properties {
-      #{$property}: (math.div(12, 375) * 100vw * $delta);
+      & {
+        #{$property}: (math.div(12, 375) * 100vw * $delta);
+      }
     }
   }
 
   @include above-max {
     @each $property in $properties {
-      #{$property}: (24px * $delta);
+      & {
+        #{$property}: (24px * $delta);
+      }
     }
   }
 }
 
 @mixin spacing-150($properties, $delta: 1) {
   @each $property in $properties {
-    #{$property}: (math.div(48, 1440) * 100vw * $delta);
+    & {
+      #{$property}: (math.div(48, 1440) * 100vw * $delta);
+    }
   }
 
   @include for-tablet-down {
     @each $property in $properties {
-      #{$property}: (math.div(24, 375) * 100vw * $delta);
+      & {
+        #{$property}: (math.div(24, 375) * 100vw * $delta);
+      }
     }
   }
 
   @include above-max {
     @each $property in $properties {
-      #{$property}: (48px * $delta);
+      & {
+        #{$property}: (48px * $delta);
+      } 
     }
   }
 }
 
 @mixin spacing-75($properties, $delta: 1) {
   @each $property in $properties {
-    #{$property}: (math.div(24, 1440) * 100vw * $delta);
+    & {
+      #{$property}: (math.div(24, 1440) * 100vw * $delta);
+    }
   }
 
   @include above-max {
     @each $property in $properties {
-      #{$property}: (24px * $delta);
+      & {
+        #{$property}: (24px * $delta);
+      }
     }
   }
 }
 
 @mixin spacing-50($properties, $delta: 1) {
   @each $property in $properties {
-    #{$property}: (math.div(16, 1440) * 100vw * $delta);
+    & {
+      #{$property}: (math.div(16, 1440) * 100vw * $delta);
+    }
   }
 
   @include above-max {
     @each $property in $properties {
-      #{$property}: (16px * $delta);
+      & {
+        #{$property}: (16px * $delta);
+      }
     }
   }
 }

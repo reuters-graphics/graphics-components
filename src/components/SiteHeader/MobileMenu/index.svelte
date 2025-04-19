@@ -65,10 +65,10 @@
 {/if}
 
 <style lang="scss">
-  @import '../scss/_grids.scss';
-  @import '../scss/_colors.scss';
-  @import '../scss/_z-indexes.scss';
-  @import '../../../scss/mixins';
+  @use '../scss/_grids.scss' as *;
+  @use '../scss/_colors.scss' as *;
+  @use '../scss/_z-indexes.scss' as *;
+  @use '../../../scss/mixins' as *;
 
   $mobile-nav-height: 56px;
 
@@ -140,17 +140,17 @@
   }
 
   .header {
-    @include spacing-single(padding-left padding-right);
     border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
+    @include spacing-single(padding-left padding-right);
   }
 
   .section {
-    @include spacing-single(padding-left padding-right);
     padding-top: 16px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--tr-muted-grey);
     width: 100%;
     max-width: 100%;
+    @include spacing-single(padding-left padding-right);
 
     .subsections {
       margin: 20px 0 0;

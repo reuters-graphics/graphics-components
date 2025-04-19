@@ -32,7 +32,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../../../../scss/mixins';
+  @use '../../../../../scss/mixins' as *;
 
   .story-card a {
     display: flex;
