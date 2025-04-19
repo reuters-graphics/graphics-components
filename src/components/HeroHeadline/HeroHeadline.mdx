@@ -273,9 +273,9 @@ Since `Headline` internally uses the [Byline](?path=/docs/components-text-elemen
   ]}
   publishTime={new Date('2023-05-11').toISOString()}
   img={eurovisImgSrc}
-  getAuthorPage={(author: string) => {
-      return `mailto:${author.replace(' ', '')}@example.com`;
-    }}
+  getAuthorPage={(author) => {
+    return `mailto:${author.replace(' ', '')}@example.com`;
+  }}
 >
   <!-- Custom hed snippet -->
   {#snippet hed()}

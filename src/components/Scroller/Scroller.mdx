@@ -18,27 +18,27 @@ The `Scroller` component creates a basic scrollytelling graphic with layout opti
 
   import MyBackground from './MyBackground.svelte'; // Your own background component
 
-// Array of step objects that define the steps in your scroller.
+  // Array of step objects that define the steps in your scroller.
   const steps = [
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'red' }, // Optional props for your background component
-        foreground: '#### Step 1\n\nLorem ipsum red',
-        altText: 'Red background',
-      },
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'blue' },
-        foreground: '#### Step 2\n\nLorem ipsum blue',
-        altText: 'Blue background',
-      },
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'green' },
-        foreground: '#### Step 3\n\nLorem ipsum green',
-        altText: 'Green background',
-      },
-    ],
+    {
+      background: MyBackground,
+      backgroundProps: { colour: 'red' }, // Optional props for your background component
+      foreground: '#### Step 1\n\nLorem ipsum red',
+      altText: 'Red background',
+    },
+    {
+      background: MyBackground,
+      backgroundProps: { colour: 'blue' },
+      foreground: '#### Step 2\n\nLorem ipsum blue',
+      altText: 'Blue background',
+    },
+    {
+      background: MyBackground,
+      backgroundProps: { colour: 'green' },
+      foreground: '#### Step 3\n\nLorem ipsum green',
+      altText: 'Green background',
+    },
+  ];
 </script>
 
 <Scroller {steps} foregroundPosition="middle" backgroundWidth="fluid" />

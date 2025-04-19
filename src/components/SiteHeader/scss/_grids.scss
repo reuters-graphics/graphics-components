@@ -93,7 +93,7 @@
     @each $property in $properties {
       & {
         #{$property}: (48px * $delta);
-      } 
+      }
     }
   }
 }
