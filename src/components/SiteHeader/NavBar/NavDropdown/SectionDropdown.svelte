@@ -18,7 +18,7 @@
       Browse {section.name}
     </span>
   </a>
-  <div class="sections">
+  <div class="sections" data-chromatic="ignore">
     {#if splitCount > 0}
       <ul class="sections-group">
         {#each section.children.slice(0, splitCount) as sub}

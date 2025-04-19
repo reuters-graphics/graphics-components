@@ -6,7 +6,7 @@
 </script>
 
 <NavDropdown>
-  <div class="more-sections">
+  <div class="more-sections" data-chromatic="ignore">
     <div class="groupContainer">
       {#each sections as section}
         <section

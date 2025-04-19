@@ -7,7 +7,7 @@
   let thumbnail = $derived(story.thumbnail);
 </script>
 
-<div class="story-card">
+<div class="story-card" data-chromatic="ignore">
   <a href={normalizeUrl(story.canonical_url)}>
     <div class="story-text" class:has-thumbnail={thumbnail}>
       <span>{story.title}</span>
