@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="stories-container">
-        <div class="inner">
+        <div class="inner" data-chromatic="ignore">
           {#if stories.length > 0}
             <span class="latest">{headingText}</span>
             <ul class="story-list">
