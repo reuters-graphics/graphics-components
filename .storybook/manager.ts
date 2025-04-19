@@ -1,5 +1,6 @@
 import { addons } from '@storybook/manager-api';
 import theme from './Theme';
+import './add-ons/canvas-docs';
 
 addons.setConfig({
   isFullscreen: false,
