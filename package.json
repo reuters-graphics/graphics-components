@@ -15,7 +15,6 @@
   },
   "scripts": {
     "start": "storybook dev -p 3000",
-    "new": "node ./bin/newComponent/index.cjs",
     "lint": "eslint --fix",
     "format": "prettier . --write",
     "build": "rimraf ./dist && svelte-package -i ./src && publint",
