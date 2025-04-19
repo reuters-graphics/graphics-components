@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { cloneDeep, set } from 'es-toolkit';
+import { cloneDeep } from 'es-toolkit';
+import { set } from 'es-toolkit/compat';
 
 import ColourPicker from './ColourPicker.jsx';
 
