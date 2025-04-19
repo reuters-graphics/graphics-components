@@ -27,7 +27,7 @@
   import Article from '../Article/Article.svelte';
 </script>
 
-{#snippet template()}
+<Story name="Demo">
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
@@ -36,9 +36,7 @@
       </Block>
     </div>
   </Article>
-{/snippet}
-
-<Story name="Demo" children={template} />
+</Story>
 
 <Story name="Custom layout" exportName="CustomLayout">
   <Block width="fluid">
