@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { expect, userEvent, within, waitFor } from '@storybook/test';
   import SiteHeader from './SiteHeader.svelte';
   import Theme from '../Theme/Theme.svelte';
 
@@ -12,7 +13,18 @@
   });
 </script>
 
-<Story name="Demo">
+<Story
+  name="Demo"
+  play={async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByText('More'));
+    await waitFor(() =>
+      expect(canvas.getByText('Graphics')).toBeInTheDocument()
+    );
+    await userEvent.click(canvas.getByText('World'));
+    await waitFor(() => expect(canvas.getByText('Europe')).toBeInTheDocument());
+  }}
+>
   <div>
     <SiteHeader />
   </div>

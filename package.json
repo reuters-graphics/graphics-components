@@ -41,6 +41,7 @@
     "@chromatic-com/storybook": "^3.2.6",
     "@reuters-graphics/yaks-eslint": "^0.1.1",
     "@reuters-graphics/yaks-prettier": "^0.1.1",
+    "@storybook/addon-a11y": "^8.6.12",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-svelte-csf": "5.0.0-next.28",
