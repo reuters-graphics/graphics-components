@@ -25,7 +25,7 @@ Add programmatic ads inline on your page.
 <script>
   import { InlineAd } from '@reuters-graphics/graphics-components';
 
-  export let embedded = false;
+  let { embedded = false } = $props();
 </script>
 
 {#each content.blocks as block}

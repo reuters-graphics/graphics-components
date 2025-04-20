@@ -20,7 +20,7 @@ By default, component's are written in TypeScript, which adds robust type-checki
 
 ### Typing and documenting component props
 
-Document props using [JSDoc comments](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) (be sure to mark required props) and type props with TypeScript.
+Document props using [JSDoc comments](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) and type props with TypeScript.
 
 Here are a few examples:
 
@@ -28,27 +28,16 @@ Here are a few examples:
 
 ```svelte
 <script lang="ts">
-  /** Height of the component */
-  export let height: number = 250;
-  /** Text colour */
-  export let colour: string = 'blue';
-</script>
-```
+  interface Props {
+    /** Required text content */
+    text: string;
+    /** Optional height of the component */
+    height?: number;
+    /** Optional text colour */
+    colour?: string;
+  }
 
-#### Documenting required props
-
-```svelte
-<script lang="ts">
-  /**
-   * Image source
-   * @required
-   */
-  export let src: string;
-  /**
-   * AltText for the image
-   * @required
-   */
-  export let altText: string;
+  let { text, height = 250, colour = 'blue' }: Props = $props();
 </script>
 ```
 
@@ -58,39 +47,21 @@ Here are a few examples:
 <script lang="ts">
   type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
 
-  /** Width of the component within the text well. */
-  export let width: ContainerWidth = 'normal';
-
   interface Person {
     name: string;
     age: number;
   }
 
-  /**
-   * Array of people
-   * @required
-   */
-  export let people: Person[];
+  interface Props {
+    /** Array of people */
+    people: Person[];
+    /** Optional width of the component within the text well. */
+    width?: ContainerWidth;
+  }
+
+  let { people, width = 'normal' }: Props = $props();
 </script>
 ```
-
-#### Future syntax
-
-Using some future syntax like [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) in your components currently breaks the automatic discovery of JSDoc comments in your component, which are used to fill in the [ArgsTable](https://storybook.js.org/docs/react/writing-docs/doc-block-argstable).
-
-So instead of...
-
-```javascript
-const prop = myObject?.myOptionalProp;
-```
-
-...unfortunately, use something old-fashioned like...
-
-```javascript
-const prop = myObject.myOptionalProp ? myObject.myOptionalProp : null;
-```
-
-If your component docs still aren't working, check if you're using other future-JS sytax, for now.
 
 ## Styles
 
@@ -148,7 +119,7 @@ Use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_c
 
 ```svelte
 <script>
-  export let textColour = '#333';
+  let { textColour = '#333' } = $props();
 </script>
 
 <div style="--textColour: {textColour};">

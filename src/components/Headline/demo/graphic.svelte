@@ -10,7 +10,6 @@
   // @ts-ignore img
   import chartXl from './graphic-xl.png';
 
-  // export let assetsPath = './';
   let width = $state();
 </script>
 

@@ -36,8 +36,7 @@ You can add the padding conditionally by setting the `containerIsFluid` prop to 
 <script>
   import { Block, PaddingReset } from '@reuters-graphics/graphics-components';
 
-  export let src = 'https://...';
-  export let width = 'fluid';
+  let { src = 'https://...', width = 'fluid' } = $props();
 </script>
 
 <Block {width}>

@@ -25,7 +25,7 @@ Add a sponsorship ad to your page.
 <script>
   import { SponsorshipAd } from '@reuters-graphics/graphics-components';
 
-  export let embedded = false;
+  let { embedded = false } = $props();
 </script>
 
 <!-- Check if in an embed context! -->

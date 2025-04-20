@@ -1,5 +1,4 @@
 <script>
-  // export let assetsPath = './';
   let width = $state();
 
   // @ts-ignore img

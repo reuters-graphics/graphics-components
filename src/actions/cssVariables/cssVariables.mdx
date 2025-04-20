@@ -11,14 +11,13 @@ An action you can use to easily set [CSS variables](https://developer.mozilla.or
 <script>
   import { cssVariables } from '@reuters-graphics/graphics-components';
 
-  export let height = 300;
-  export let textColour = 'red';
+  let { height = 300, textColour = 'red' } = $props();
 
   // Create an object of variable names and CSS values...
-  $: variables = {
+  let variables = $derived({
     height: height + 'px',
     textColour: textColour,
-  };
+  });
 </script>
 
 <!-- Attach it to a parent element with the action -->

@@ -78,7 +78,7 @@ If you're not using our `Block` component, you can still inherit the column widt
 
 ```svelte
 <script>
-  export let width = 'normal';
+  let { width = 'normal' } = $props();
 </script>
 
 <div class="my-special-container {width}">
