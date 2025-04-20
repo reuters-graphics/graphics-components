@@ -2,9 +2,6 @@ name: Manually publish docs
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   docs:
