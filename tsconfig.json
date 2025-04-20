@@ -34,5 +34,5 @@
     "src/journalize.d.ts",
     "src/docs/**/*.css"
   ],
-  "exclude": ["dist", "eslint.config.js", "bin/newComponent/template/**/*"]
+  "exclude": ["dist", "eslint.config.js"]
 }
