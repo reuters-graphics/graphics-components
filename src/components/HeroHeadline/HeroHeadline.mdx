@@ -18,9 +18,9 @@ To use a photo as the hero, simply pass the image source to the `img` prop.
 <!-- App.svelte -->
 <script>
   import { HeroHeadline } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 
-  let { embedded = false } = $props(); // 👈 If using in the Graphics Kit...
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
 
 <HeroHeadline
@@ -75,9 +75,9 @@ To customise styles, use CSS to target the class passed to `HeroHeadline`.
 
   import QuakeMap from './ai2svelte/graphic.svelte'; // Your ai2svelte component
 
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 
-  let { embedded = false } = $props(); // 👈 If using in the Graphics Kit...
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
 
 <HeroHeadline
@@ -105,7 +105,7 @@ To customise styles, use CSS to target the class passed to `HeroHeadline`.
     class="my-0"
     ariaDescription="Earthquake impact map"
   >
-    <!-- Pass `assetsPath` if in Graphics Kit -->
+    <!-- Pass `assetsPath` if in graphics kit -->
     <QuakeMap assetsPath={assets || '/'} />
   </GraphicBlock>
 </HeroHeadline>
@@ -162,9 +162,9 @@ To add a video as the hero, use the [Video](?path=/docs/components-multimedia-vi
 ```svelte
 <script>
   import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 
-  let { embedded = false } = $props(); // 👈 If using in the Graphics Kit...
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
 
 <HeroHeadline
@@ -224,9 +224,9 @@ To use a photo, graphic, video, etc. as an inline hero -- i.e., to make the hero
     HeroHeadline,
     GraphicBlock,
   } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 
-  let { embedded = false } = $props(); // 👈 If using in the Graphics Kit...
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
 
 <!-- Set `stacked` to `false` -->
@@ -247,7 +247,7 @@ To use a photo, graphic, video, etc. as an inline hero -- i.e., to make the hero
     ariaDescription="Earthquake impact map"
     notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
   >
-    <!-- Pass `assetsPath` if in Graphics Kit -->
+    <!-- Pass `assetsPath` if in graphics kit -->
     <CrashMap assetsPath={assets || '/'} />
   </GraphicBlock>
 </HeroHeadline>

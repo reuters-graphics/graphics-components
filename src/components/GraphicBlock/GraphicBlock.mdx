@@ -29,7 +29,7 @@ Many other Reuters Graphics components use `GraphicBlock` to wrap graphics with 
 
 ## Using with ai2svelte and ArchieML docs
 
-The `GraphicBlock` component is built to handle [ai2svelte](https://github.com/reuters-graphics/ai2svelte) graphics in Graphics Kit.
+The `GraphicBlock` component is built to handle [ai2svelte](https://github.com/reuters-graphics/ai2svelte) graphics in graphics kit.
 
 You'll likely get your text value from an ArchieML doc...
 
@@ -64,7 +64,7 @@ To pass your ai2svelte graphic into `GraphicBlock` component, import your ai2sve
   // Error handler for missing ai2svelte charts
   import LogBlock from './components/dev/LogBlock.svelte';
 
-  // If using with the Graphics Kit
+  // If using with the graphics kit
   import { assets } from '$app/paths';
 
   // A built-in helper function in Graphis Kit for validating container width
@@ -94,7 +94,7 @@ To pass your ai2svelte graphic into `GraphicBlock` component, import your ai2sve
         notes={block.notes}
         ariaDescription={block.altText}
       >
-        <!-- In Graphics Kit, pass the `assetsPath` prop -->
+        <!-- In graphics kit, pass the `assetsPath` prop -->
         <AiChart assetsPath={assets || '/'} />
       </GraphicBlock>
     {/if}
@@ -144,7 +144,7 @@ The `ariaDescription` string will be processed as markdown, so you can add multi
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
   ariaDescription="A map showing the shake intensity produced by the earthquake."
 >
-  <!-- In Graphics Kit, pass the `assetsPath` prop -->
+  <!-- In graphics kit, pass the `assetsPath` prop -->
   <AiChart assetsPath={assets || '/'} />
 </GraphicBlock>
 ```
@@ -165,7 +165,7 @@ Sometimes, instead of a simple sentence, we want to provide a data table or some
   description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
 >
-  <!-- In Graphics Kit, pass the `assetsPath` prop -->
+  <!-- In graphics kit, pass the `assetsPath` prop -->
   <AiChart assetsPath={assets || '/'} />
 
   <!-- Custom ARIA description snippet -->

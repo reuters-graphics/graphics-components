@@ -31,7 +31,7 @@ The `Video` component adds a video with various controls to your page such as:
 
 ## Using with ArchieML docs
 
-With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+With the graphics kit, you'll likely get your text value from an ArchieML doc...
 
 ```yaml
 # ArchieML doc
@@ -51,8 +51,8 @@ loopVideo: true
 <!-- App.svelte -->
 <script>
   import { Video } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
-  import { truthy } from '$utils/propValidators'; // 👈 If using in the Graphics Kit...
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 </script>
 
 {#each content.blocks as block}
@@ -68,7 +68,7 @@ loopVideo: true
 {/each}
 ```
 
-> **Note:** Some props, like `loopVideo`, expect boolean values. If you're using the Graphics Kit, you can use the `truthy()` util function to convert a string value to a boolean.
+> **Note:** Some props, like `loopVideo`, expect boolean values. If you're using the graphics kit, you can use the `truthy()` util function to convert a string value to a boolean.
 
 ## Autoplay controls
 

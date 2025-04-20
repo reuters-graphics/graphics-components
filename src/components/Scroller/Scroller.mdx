@@ -48,7 +48,7 @@ The `Scroller` component creates a basic scrollytelling graphic with layout opti
 
 [Demo](?path=/story/components-graphics-scroller--archie-ml)
 
-In your Graphics Kit project, import your ai2svelte graphics in `App.svelte` and add them to the `aiCharts` object:
+In your graphics kit project, import your ai2svelte graphics in `App.svelte` and add them to the `aiCharts` object:
 
 ```svelte
 <!-- App.svelte -->
@@ -59,9 +59,9 @@ In your Graphics Kit project, import your ai2svelte graphics in `App.svelte` and
 
   import content from '$locales/en/content.json';
 
-  // Graphics Kit only
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
-  import { truthy } from '$utils/propValidators'; // 👈 If using in the Graphics Kit...
+  // Graphics kit only
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 
   const aiCharts = {
     AiMap1,
@@ -136,9 +136,9 @@ Then parse the relevant ArchieML block object before passing to the `Scroller` c
 {/each}
 ```
 
-> **Note:** Some props, like `stackBackground`, expect boolean values. If you're using the Graphics Kit, use the `truthy()` util function to convert a string value to a boolean.
+> **Note:** Some props, like `stackBackground`, expect boolean values. If you're using the graphics kit, use the `truthy()` util function to convert a string value to a boolean.
 
-> **Note:** In Graphics Kit, the image source paths in ai2svelte components have to be fixed by passing `assets` to each step object, like in the example above.
+> **Note:** In the graphics kit, the image source paths in ai2svelte components have to be fixed by passing `assets` to each step object, like in the example above.
 
 ## Custom foreground
 
@@ -182,7 +182,7 @@ If you're customising your own foreground component, remember to add alt text th
 
 You can use custom foreground components with ArchieML with a few additional steps.
 
-In your Graphics Kit project's `App.svelte`, import your custom foregroud components and add them to a `foregroundComponents` object, just as you import ai2svelte background graphics and add them to the `aiCharts` object:
+In your graphics kit project's `App.svelte`, import your custom foregroud components and add them to a `foregroundComponents` object, just as you import ai2svelte background graphics and add them to the `aiCharts` object:
 
 ```svelte
 <!-- App.svelte -->
@@ -197,9 +197,9 @@ In your Graphics Kit project's `App.svelte`, import your custom foregroud compon
   // Foreground components, which can be ai2svelte or not.
   import Foreground1 from './ai2svelte/my-foreground-1.svelte';
 
-  // Graphics Kit only
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
-  import { truthy } from '$utils/propValidators'; // 👈 If using in the Graphics Kit...
+  // Graphics kit only
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 
   // Background ai2svelte graphics components
   const aiCharts = {
@@ -276,4 +276,4 @@ Then parse the relevant ArchieML block object before passing to the `Scroller` c
 {/each}
 ```
 
-> **Note:** You only need to pass `foregroundProps: { assetsPath: assets || '/' }` in Graphics Kit if your foreground components are ai2svelte graphicss.
+> **Note:** You only need to pass `foregroundProps: { assetsPath: assets || '/' }` in the graphics kit if your foreground components are ai2svelte graphicss.

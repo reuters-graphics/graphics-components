@@ -59,7 +59,7 @@ You can define as many layouts for as many images as you like.
 
 ## Using with ArchieML docs
 
-With the Graphics Kit, you'll likely get your text value from an ArchieML doc...
+With the graphics kit, you'll likely get your text value from an ArchieML doc...
 
 ```yaml
 # ArchieML doc
@@ -95,14 +95,14 @@ gap: 10 # Optional; must be a number.
 <!-- App.svelte -->
 <script>
   import { PhotoPack } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the Graphics Kit...
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 
   import content from '$locales/en/content.json';
 </script>
 
 {#each content.blocks as block}
   {#if block.type === 'photo-pack'}
-    <!-- Pass `assets` into the image source in Graphics Kit -->
+    <!-- Pass `assets` into the image source in graphics kit -->
     <PhotoPack
       id={block.id}
       class={block.class}

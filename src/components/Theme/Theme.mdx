@@ -20,7 +20,7 @@ Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to t
 </Theme>
 ```
 
-> In Graphics Kit, the `Theme` is set in both `pages/+page.svelte` and in `App.svelte`.
+> In the graphics kit, the `Theme` is set in both `pages/+page.svelte` and in `App.svelte`.
 
 <Canvas of={ThemeStories.Demo} />
 
@@ -58,12 +58,12 @@ Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to s
 
 ## Custom font
 
-To use typefaces other than the defaults provided by the Graphics Kit, download the font files from services such as [Google Fonts](https://fonts.google.com/) or [Adobe Typekit](https://fonts.adobe.com/). Make a folder called `fonts` inside `statics/` and put the font file -- for example, `IndieFlower-Regular.ttf` downloaded from [Google Fonts](https://fonts.google.com/share?selection.family=Indie+Flower) -- in `statics/fonts/`.
+To use typefaces other than the defaults provided by the graphics kit, download the font files from services such as [Google Fonts](https://fonts.google.com/) or [Adobe Typekit](https://fonts.adobe.com/). Make a folder called `fonts` inside `statics/` and put the font file -- for example, `IndieFlower-Regular.ttf` downloaded from [Google Fonts](https://fonts.google.com/share?selection.family=Indie+Flower) -- in `statics/fonts/`.
 
 Then, declare it as a `@font-face` in `global.scss`:
 
 ```scss
-/* global.scss in Graphics Kit */
+/* global.scss in the graphics kit */
 @font-face {
   // If you're unsure of the font-family name,
   // click on "Get embed code" on the Google font page and check the CSS class.

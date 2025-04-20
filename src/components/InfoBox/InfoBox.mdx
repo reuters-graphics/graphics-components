@@ -43,13 +43,13 @@ notes: [Read more about our methodology](https://www.reuters.com/world-coronavir
 ... which you'll parse out of a ArchieML block object before passing to the `InfoBox` component.
 
 ```svelte
-<!-- Graphics Kit -->
+<!-- graphics kit -->
 <script>
   import { InfoBox } from '@reuters-graphics/graphics-components';
   import content from '$locales/en/content.json';
 </script>
 
-# Graphics Kit
+# Graphics kit
 {#each content.blocks as block}
   {#if block.type === 'info-box'}
     <InfoBox title={block.title} text={block.text} notes={block.notes} />
