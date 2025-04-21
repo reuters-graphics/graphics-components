@@ -1,74 +1,89 @@
 <!-- @component `FeaturePhoto` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-featurephoto--docs) -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Block from '../Block/Block.svelte';
   import type { ContainerWidth } from '../@types/global';
+
+  import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';
 
-  /**
-   * Photo src
-   * @type {string}
-   * @required
-   */
-  export let src: string;
-  /**
-   * Photo altText
-   * @type {string}
-   * @required
-   */
-  export let altText: string;
-  /**
-   * Add an id to target with custom CSS.
-   * @type {string}
-   */
-  export let id: string = '';
-  /**
-   * Add extra classes to target with custom CSS.
-   * @type {string}
-   */
-  let cls: string = '';
-  export { cls as class };
-  /**
-   * Caption below the photo
-   * @type {string}
-   */
-  export let caption: string;
-  /**
-   * Height of the photo placeholder when lazy-loading
-   */
-  export let height: number = 100;
-  /**
-   * Width of the container, one of: normal, wide, wider, widest or fluid
-   */
-  export let width: ContainerWidth = 'normal';
+  interface Props {
+    /**
+     * Photo source
+     */
+    src: string;
+    /**
+     * Photo altText
+     */
+    altText: string;
+    /**
+     * Add an id to target with custom CSS.
+     */
+    id?: string;
+    /**
+     * Add classes to target with custom CSS.
+     */
+    class?: string;
+    /**
+     * Photo caption
+     */
+    caption?: string;
+    /**
+     * Height of the photo placeholder when lazy-loading
+     */
+    height?: number;
+    /**
+     * Width of the container: normal, wide, wider, widest or fluid
+     */
+    width?: ContainerWidth;
+    /**
+     * Set a different width for the text vs the photo. For example, "normal" to keep the title, description and notes inline with the rest of the text well. Can't ever be wider than `width`.
+     */
+    textWidth?: ContainerWidth;
+    /**
+     * Whether to lazy load the photo using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+     */
+    lazy?: boolean;
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top` when lazy loading.
+     */
+    top?: number;
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom` when lazy loading.
+     */
+    bottom?: number;
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left` when lazy loading.
+     */
+    left?: number;
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right` when lazy loading.
+     */
+    right?: number;
+  }
 
-  /**
-   * Set a different width for the text within the text well, for example,
-   * "normal" to keep the title, description and notes inline with the rest
-   * of the text well. Can't ever be wider than `width`.
-   * @type {string}
-   */
-  export let textWidth: ContainerWidth | null = 'normal';
+  let {
+    src,
+    altText,
+    id = '',
+    class: cls = '',
+    caption,
+    height = 100,
+    width = 'normal',
+    textWidth = 'normal',
+    lazy = true,
+    top = 0,
+    bottom = 0,
+    left = 0,
+    right = 0,
+  }: Props = $props();
 
-  /**
-   * Whether to lazy load the photo using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-   */
-  export let lazy: boolean = false;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top` when lazy loading. */
-  export let top = 0;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom` when lazy loading. */
-  export let bottom = 0;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left` when lazy loading. */
-  export let left = 0;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right` when lazy loading. */
-  export let right = 0;
-
-  let intersecting = false;
-  let container;
+  let intersecting = $state(false);
+  let container: HTMLElement;
   const intersectable = typeof IntersectionObserver !== 'undefined';
 
   onMount(() => {
     if (!lazy) return;
+
     if (intersectable) {
       const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
 
@@ -92,18 +107,18 @@
 
 <Block {width} class="photo fmy-6 {cls}" {id}>
   <figure
-    bind:this="{container}"
+    bind:this={container}
     aria-label="media"
     class="w-full flex flex-col relative"
   >
     {#if !lazy || (intersectable && intersecting)}
-      <img class="w-full my-0" {src} alt="{altText}" />
+      <img class="w-full my-0" {src} alt={altText} />
     {:else}
-      <div class="placeholder w-full" style="{`height: ${height}px;`}"></div>
+      <div class="placeholder w-full" style={`height: ${height}px;`}></div>
     {/if}
     {#if caption}
-      <PaddingReset containerIsFluid="{width === 'fluid'}">
-        <Block width="{textWidth}" class="notes w-full fmy-0">
+      <PaddingReset containerIsFluid={width === 'fluid'}>
+        <Block width={textWidth} class="notes w-full fmy-0">
           <figcaption>
             {caption}
           </figcaption>

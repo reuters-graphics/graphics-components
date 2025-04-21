@@ -1,0 +1,164 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ThemeStories from './Theme.stories.svelte';
+
+<Meta of={ThemeStories} />
+
+# Theme
+
+The `Theme` component wraps your page content and uses [CSS variables](../?path=/docs/scss-css-variables--page) to set major colour and typography styles for your page. All the components from this library that are added to your page will use the CSS variables set by `Theme`.
+
+Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to test custom themes.
+
+```svelte
+<script>
+  import { Theme } from '@reuters-graphics/graphics-components';
+</script>
+
+<Theme base="light">
+  <!-- Page content, now styled according to your theme! -->
+</Theme>
+```
+
+> In the graphics kit, the `Theme` is set in both `pages/+page.svelte` and in `App.svelte`.
+
+<Canvas of={ThemeStories.Demo} />
+
+## Custom theme
+
+You can customise your page's theme in two ways:
+
+- Choose the `base` theme, either `light` or `dark`
+- Pass a custom theme object to the `theme` prop, which will override styles in the `base` theme.
+
+Use the [theme builder](?path=/docs/components-theming-theme-builder--docs) to see what properties you can customise.
+
+```svelte
+<Theme
+  base="dark"
+  theme={{
+    colour: { accent: 'var(--tr-light-orange)' },
+    font: { family: { hed: 'FreightText, serif' } },
+  }}
+>
+  <!-- Page content -->
+</Theme>
+```
+
+> **Note:** The `Theme` component only styles child components or elements, so if you're changing the background colour of your page, make sure to also set the `background-color` on your `body` element in global SCSS.
+>
+> ```scss
+> // global.scss
+> body {
+>   background-color: #2e3440;
+> }
+> ```
+
+<Canvas of={ThemeStories.CustomTheme} />
+
+## Custom font
+
+To use typefaces other than the defaults provided by the graphics kit, download the font files from services such as [Google Fonts](https://fonts.google.com/) or [Adobe Typekit](https://fonts.adobe.com/). Make a folder called `fonts` inside `statics/` and put the font file -- for example, `IndieFlower-Regular.ttf` downloaded from [Google Fonts](https://fonts.google.com/share?selection.family=Indie+Flower) -- in `statics/fonts/`.
+
+Then, declare it as a `@font-face` in `global.scss`:
+
+```scss
+/* global.scss in the graphics kit */
+@font-face {
+  // If you're unsure of the font-family name,
+  // click on "Get embed code" on the Google font page and check the CSS class.
+  font-family: 'Indie Flower';
+
+  // Path to the font file. Change format depending on the font file type.
+  src: url('/fonts/IndieFlower-Regular.ttf') format('truetype');
+  font-weight: normal; // Optional
+  font-style: normal; // Optional
+}
+```
+
+Finally, pass the font to the appropriate text type in `Theme`:
+
+```svelte
+<Theme
+  base="light"
+  theme={{
+    font: {
+      family: {
+        hed: 'IndieFlower', // Set header text font to `IndieFlower`
+        body: 'IndieFlower', // Set body text font to `IndieFlower`
+        // etc...
+      },
+    },
+  }}
+>
+  <!-- Page content -->
+</Theme>
+```
+
+<Canvas of={ThemeStories.CustomFont} />
+
+## Background patterns
+
+To use a background pattern or image, set the background colour property in `Theme` to `transparent`:
+
+```svelte
+<Theme
+  base="dark"
+  theme={{
+    colour: { background: 'transparent' },
+  }}
+>
+  <!-- Page content -->
+</Theme>
+```
+
+Then in `global.scss`, set your image, which should be stored in `statics/images/`, as `background-image`:
+
+```scss
+/* global.scss */
+body {
+  background-image: url('/images/my-pattern.png');
+}
+```
+
+You may also want to override the background on the header nav if it conflicts with your background, especially the dropdown menu:
+
+```scss
+/* global.scss
+Main nav container */
+.nav-container .inner {
+  background: darkblue !important;
+  /* Dropdown menu */
+  .dropdown {
+    background: darkblue !important;
+  }
+}
+/* Mobile nav overlay */
+header + .overlay {
+  background: darkblue !important;
+}
+```
+
+<Canvas of={ThemeStories.BackgroundPatterns} />
+
+## Inheritance
+
+Styles that use `Theme`'s CSS variables will always use those set by the nearest parent `Theme`. That lets you change the theme for parts of your page by simply wrapping that bit in a new `Theme` with different styles.
+
+The demo below shows a more complex example of nesting themes, but more likely you'll so something like this:
+
+```svelte
+<script>
+  import { Theme } from '@reuters-graphics/graphics-components';
+</script>
+
+<Theme>
+  <!-- Page content styled with the default light theme. -->
+  <Theme theme={{ colour: { background: 'lightgrey' } }}>
+    <!-- A darker background for this section. -->
+  </Theme>
+  <!-- Back to normal here... -->
+</Theme>
+```
+
+<Canvas of={ThemeStories.Inheritance} />

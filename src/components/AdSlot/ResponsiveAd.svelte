@@ -7,10 +7,14 @@
   } from './@types/ads';
   import AdSlot from './AdSlot.svelte';
 
-  export let desktopPlacementName: DesktopPlacementName;
-  export let mobileBreakpoint = 1024;
+  interface Props {
+    desktopPlacementName: DesktopPlacementName;
+    mobileBreakpoint?: number;
+  }
 
-  let windowWidth: number;
+  let { desktopPlacementName, mobileBreakpoint = 1024 }: Props = $props();
+
+  let windowWidth: number | undefined = $state();
 
   const getMobilePlacementName = (
     desktopPlacementName: DesktopPlacementName
@@ -57,14 +61,15 @@
     }
   };
 
-  $: placementName =
+  let placementName = $derived(
     windowWidth && windowWidth < mobileBreakpoint ?
       getMobilePlacementName(desktopPlacementName)
-    : desktopPlacementName;
-  $: adType = getAdType(placementName);
+    : desktopPlacementName
+  );
+  let adType = $derived(getAdType(placementName));
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 {#if windowWidth}
   {#key placementName}

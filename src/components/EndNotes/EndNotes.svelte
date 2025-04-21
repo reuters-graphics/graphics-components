@@ -7,35 +7,33 @@
     title: string;
     /**
      * Contents of the note as a markdown string
-     * @required
      */
     text: string;
   }
 
-  /**
-   * An array of endnote items.
-   * @required
-   */
-  export let notes: EndNote[] = [];
-
   import Block from '../Block/Block.svelte';
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
+  interface Props {
+    /**
+     * An array of endnote items.
+     */
+    notes: EndNote[];
+  }
+
+  let { notes }: Props = $props();
 </script>
 
 <Block class="notes fmt-6 fmb-8">
-  {#if notes}
-    {#each notes as note}
-      <div class="note-title">
-        <Markdown source="{note.title}" />
-      </div>
-      <div class="note-content">
-        <Markdown source="{note.text}" />
-      </div>
-    {/each}
-  {/if}
+  {#each notes as note}
+    <div class="note-title">
+      <Markdown source={note.title} />
+    </div>
+    <div class="note-content">
+      <Markdown source={note.text} />
+    </div>
+  {/each}
 </Block>
 
-<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
   @use '../../scss/mixins' as mixins;
 

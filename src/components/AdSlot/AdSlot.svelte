@@ -8,13 +8,16 @@
   import { onMount } from 'svelte';
   import { getRandomAdId } from './utils';
 
-  export let placementName: DesktopPlacementName | MobilePlacementName;
-  export let adType: DesktopAdType | MobileAdType;
+  interface Props {
+    placementName: DesktopPlacementName | MobilePlacementName;
+    adType: DesktopAdType | MobileAdType;
+    /**
+     * @TODO Unclear at what level this bit of config is used with placements...
+     */
+    dataFreestarAd?: string;
+  }
 
-  /**
-   * @TODO Unclear at what level this bit of config is used with placements...
-   */
-  export let dataFreestarAd: string = '__970x250';
+  let { placementName, adType, dataFreestarAd = '__970x250' }: Props = $props();
 
   const adId = getRandomAdId();
 
@@ -52,7 +55,7 @@
   });
 </script>
 
-<div data-freestar-ad="{dataFreestarAd || null}" id="{adId}"></div>
+<div data-freestar-ad={dataFreestarAd || null} id={adId}></div>
 
 <style>
   :global(div.freestar-adslot:has(.unfulfilled-ad)) {

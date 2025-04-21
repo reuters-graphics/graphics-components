@@ -8,13 +8,13 @@
   import MenuIcon from './svgs/Menu.svelte';
   import MobileMenu from './MobileMenu/index.svelte';
 
-  setContext('nav-active-section', writable(null));
+  setContext('nav-active-section', writable<null | string>(null));
 
-  let data = starterData;
+  let data = $state(starterData);
 
-  $: sections = data[0].sections;
+  let sections = $derived(data[0].sections);
 
-  let isMobileMenuOpen = false;
+  let isMobileMenuOpen = $state(false);
 
   onMount(async () => {
     // Only fire on prod...
@@ -40,14 +40,14 @@
 </script>
 
 <header
-  style="{`
+  style={`
     --nav-background: var(--theme-colour-background, #fff);
     --nav-primary: var(--theme-colour-text-primary, #404040);
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
     --nav-accent: var(--theme-colour-brand-logo, #fa6400);
     --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgb(255 255 255 / 10%));
     --theme-font-family-sans-serif: Knowledge, sans-serif;
-  `}"
+  `}
 >
   <a href="#main-content" class="skip-link"> Skip to main content </a>
   <div class="nav-container show-nav">
@@ -76,10 +76,10 @@
                 class="menu-button"
                 aria-label="Menu"
                 aria-haspopup="true"
-                aria-expanded="{isMobileMenuOpen}"
-                on:click="{() => {
+                aria-expanded={isMobileMenuOpen}
+                onclick={() => {
                   isMobileMenuOpen = !isMobileMenuOpen;
-                }}"
+                }}
               >
                 <div class="button-container">
                   <MenuIcon />
@@ -95,18 +95,18 @@
 
 <MobileMenu
   {isMobileMenuOpen}
-  releaseMobileMenu="{() => {
+  releaseMobileMenu={() => {
     isMobileMenuOpen = false;
-  }}"
-  data="{data[0]}"
+  }}
+  data={data[0]}
 />
 
 <style lang="scss">
-  @import './scss/_grids.scss';
-  @import './scss/_colors.scss';
-  @import './scss/_eases.scss';
-  @import './scss/_breakpoints.scss';
-  @import './scss/_z-indexes.scss';
+  @use './scss/_grids.scss' as grids;
+  @use './scss/_colors.scss' as *;
+  @use './scss/_eases.scss' as *;
+  @use './scss/_breakpoints.scss' as *;
+  @use './scss/_z-indexes.scss' as *;
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;
@@ -149,13 +149,13 @@
   }
 
   .main-bar {
-    @include spacing-single(padding-left padding-right);
     margin: 0 auto;
     box-sizing: border-box;
     display: flex;
     height: $nav-height;
     justify-content: space-between;
     @include max-width;
+    @include grids.spacing-single(padding-left padding-right);
 
     @include for-mobile {
       height: $mobile-nav-height;
@@ -209,10 +209,10 @@
   }
 
   .mobile-menu {
+    margin-left: 8px;
     @include for-tablet-up {
       display: none;
     }
-    margin-left: 8px;
     .menu-button {
       width: 40px;
       height: 40px;

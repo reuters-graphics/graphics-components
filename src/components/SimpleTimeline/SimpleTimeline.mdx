@@ -1,0 +1,119 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SimpleTimelineStories from './SimpleTimeline.stories.svelte';
+
+<Meta of={SimpleTimelineStories} />
+
+# SimpleTimeline
+
+The `SimpleTimeline` component creates a basic timeline with dates, titles and descriptions of events.
+
+```svelte
+<script>
+  import { SimpleTimeline } from '@reuters-graphics/graphics-components';
+
+  const dates = [
+    {
+      date: 'May 18',
+      events: [
+        {
+          title: 'A title for the event',
+          titleLink: 'https://...', // optional
+          context: 'Lorem ipsum...', // optional
+        },
+        // More events...
+      ],
+    },
+    // More dates...
+  ];
+</script>
+
+<SimpleTimeline {dates} />
+```
+
+<Canvas of={SimpleTimelineStories.Demo} />
+
+## Using with ArchieML docs
+
+With the graphics kit, you'll likely get your text value from an ArchieML doc.
+
+```yaml
+# Archie ML doc
+
+[timeline]
+
+# date object with events
+date: May 18
+[.events]
+title: Mariupol defenders surrender to Russia but their fate is uncertain
+context:  More than 250 Ukrainian fighters surrendered to Russian forces at the Azovstal steelworks in Mariupol after weeks of desperate resistance, bringing an end to the most devastating siege of Russia's war in Ukraine and allowing President Vladimir Putin to claim a rare victory in his faltering campaign.
+titleLink: https://www.reuters.com/world/europe/ukrainian-troops-evacuate-mariupol-ceding-control-russia-2022-05-17/
+
+# More events...
+[]
+
+date: May 10
+[.events]
+title: U.S. House passes $40 bln bill to bolster Ukraine against Russian invasion
+context:  The U.S. House of Representatives approved more than $40 billion more aid for Ukraine on Tuesday, as Congress races to keep military aid flowing and boost the government in Kyiv as it grapples with the Russian invasion.
+titleLink: https://www.reuters.com/world/us-house-vote-40-billion-ukraine-aid-package-tuesday-pelosi-2022-05-10/
+[]
+
+# More dates and events...
+[]
+```
+
+... which you'll pass to the `SimpleTimeline` component.
+
+```svelte
+<!-- Graphics kit -->
+<script>
+  import { SimpleTimeline } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
+<EndNotes SimpleTimeline={content.timeline} />
+```
+
+<Canvas of={SimpleTimelineStories.Demo} />
+
+# Multiple events
+
+You can add multiple events to a single date by adding objects to the `events` array.
+
+```svelte
+<script>
+  import { SimpleTimeline } from '@reuters-graphics/graphics-components';
+
+  const dates = [
+    {
+      date: 'Feb. 25',
+      // Multiple events for this date
+      events: [
+        {
+          title: 'NATO deploys more troops',
+          context:
+            'NATO leaders said on Friday they were deploying more troops to eastern Europe after Russia invaded Ukraine, saying that Moscow had lied about its intentions.',
+        },
+        {
+          title: 'Invasion continues',
+          context:
+            'Missiles pounded the Ukrainian capital as Russian forces pressed their advance and Ukrainian President Volodymyr Zelenskiy pleaded with the international community to do more, saying sanctions announced so far were not enough.\n\nRussian forces battered Ukrainian cities with artillery and cruise missiles but a defiant Zelenskiy said the capital Kyiv remained in Ukrainian hands.',
+        },
+      ],
+    },
+    {
+      date: 'Feb. 24',
+      events: [
+        {
+          title: 'Russia invades Ukraine',
+        },
+      ],
+    },
+  ];
+</script>
+
+<SimpleTimeline {dates} />
+```
+
+<Canvas of={SimpleTimelineStories.MultipleEvents} />

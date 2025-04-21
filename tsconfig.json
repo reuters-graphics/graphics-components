@@ -1,5 +1,7 @@
 {
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
     "module": "ESNext",
     "target": "ESNext",
     "declaration": true,
@@ -11,16 +13,9 @@
     "checkJs": true,
     "emitDeclarationOnly": true,
     "jsx": "react",
-    "baseUrl": ".",
     "rootDir": ".",
     "rootDirs": [".", "docs/docs-components"],
     "outDir": "dist",
-    "paths": {
-      "$lib": ["src"],
-      "$lib/*": ["src/*"],
-      "$docs": ["src/docs"],
-      "$docs/*": ["src/docs/*"]
-    },
     "sourceMap": true,
     "strict": true,
     "skipLibCheck": true,
@@ -36,7 +31,8 @@
     "*.ts",
     "*.js",
     "*.cjs",
+    "src/journalize.d.ts",
     "src/docs/**/*.css"
   ],
-  "exclude": ["dist", "eslint.config.js", "bin/newComponent/template/**/*"]
+  "exclude": ["dist", "eslint.config.js"]
 }

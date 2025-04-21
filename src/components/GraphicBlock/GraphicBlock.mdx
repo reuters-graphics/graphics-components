@@ -1,0 +1,215 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as GraphicBlockStories from './GraphicBlock.stories.svelte';
+
+<Meta of={GraphicBlockStories} />
+
+# GraphicBlock
+
+The `GraphicBlock` component is a special derivative of the [Block](?path=/docs/components-page-layout-block--docs) component that wraps around your graphic. It also adds a title, description, notes and other text elements.
+
+Many other Reuters Graphics components use `GraphicBlock` to wrap graphics with styled text.
+
+```svelte
+<script>
+  import { GraphicBlock } from '@reuters-graphics/graphics-components';
+</script>
+
+<GraphicBlock
+  title="Title for my chart"
+  description="Some description for your chart."
+  notes={`Note: Data current as of Aug. 2, 2022.\n\nSource: [Google research](https://google.com)`}
+>
+  <!-- Your chart goes here -->
+  <div id="my-chart" />
+</GraphicBlock>
+```
+
+<Canvas of={GraphicBlockStories.Demo} />
+
+## Using with ai2svelte and ArchieML docs
+
+The `GraphicBlock` component is built to handle [ai2svelte](https://github.com/reuters-graphics/ai2svelte) graphics in graphics kit.
+
+You'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[blocks]
+type: ai-graphic
+width: normal
+chart: AiMap # IMPORTANT: This must match the name of the ai2svelte chart you import in App.svelte
+title: Earthquake in Haiti
+description: The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021.
+notes: \Note: A shakemap represents the ground shaking produced by an earthquake.
+
+\Source: USGIS
+:end
+altText: A map that shows the shake intensity of the earthquake, which was worst in central Haiti.
+:end
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `GraphicBlock` component.
+
+To pass your ai2svelte graphic into `GraphicBlock` component, import your ai2svelte graphic at the top of `App.svelte` and add it to the `aiCharts` object.
+
+> **Important❗:** Make sure that the value for `chart` in the ArchieML doc matches the name of the ai2svelte file imported in `App.svelte`.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  // IMPORTANT: The name of your ai2svelte chart must match `chart` in your ArchieML doc
+  import AiMap from './ai2svelte/my-map.svelte';
+  // Error handler for missing ai2svelte charts
+  import LogBlock from './components/dev/LogBlock.svelte';
+
+  // If using with the graphics kit
+  import { assets } from '$app/paths';
+
+  // A built-in helper function in Graphis Kit for validating container width
+  import { containerWidth } from '$utils/propValidators';
+
+  // Add your imported ai2svelte charts to this object
+  const aiCharts = {
+    AiMap,
+    // Other ai2svelte graphics...
+  };
+</script>
+
+<!-- Loop through ArchieML blocks -->
+{#each content.blocks as block}
+  {#if block.type === 'ai-graphic'}
+    {#if !aiCharts[block.chart]}
+      <!-- Error message for when the ai2svelte chart is missing -->
+      <LogBlock message={`Unable to find "${block.chart}" in aiCharts`} />
+    {:else}
+      <!-- Get the ai2svelte graphic specified by `chart` in ArchieML -->
+      {@const AiChart = aiCharts[block.chart]}
+      <GraphicBlock
+        id={block.chart}
+        width={containerWidth(block.width)}
+        title={block.title}
+        description={block.description}
+        notes={block.notes}
+        ariaDescription={block.altText}
+      >
+        <!-- In graphics kit, pass the `assetsPath` prop -->
+        <AiChart assetsPath={assets || '/'} />
+      </GraphicBlock>
+    {/if}
+  {/if}
+{/each}
+```
+
+<Canvas of={GraphicBlockStories.Ai2SvelteAndArchieML} />
+
+## Custom text
+
+You can override the default styles for title and notes by making your own custom elements and passing them as `title` and `notes` [snippets](https://svelte.dev/docs/svelte/snippet) instead of as strings:
+
+```svelte
+<GraphicBlock>
+  <!-- Custom title snippet -->
+  {#snippet title()}
+    <h5>My smaller title</h5>
+  {/snippet}
+
+  <!-- Your graphic -->
+  <div id="my-chart"></div>
+
+  <!-- Custom notes snippet -->
+  {#snippet notes()}
+    <aside>
+      <p><strong>Note:</strong> Data current as of Aug. 2, 2022.</p>
+    </aside>
+  {/snippet}
+</GraphicBlock>
+```
+
+<Canvas of={GraphicBlockStories.CustomText} />
+
+## ARIA descriptions
+
+If the text in your chart isn't easily read by screen readers — for example, a map with annotations that wouldn't make sense without the visual — add an `ariaDescription` that describes the chart.
+
+The `ariaDescription` string will be processed as markdown, so you can add multiple paragraphs, links, headers, etc. in markdown.
+
+> **Note:** When you set an `ariaDescription`, your graphic will be automatically wrapped in a div with [aria-hidden="true"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-hidden), which tells screen readers to read the hidden ARIA description and skip the text in the graphic.
+
+```svelte
+<GraphicBlock
+  title="Earthquake in Haiti"
+  description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
+  notes="Note: A shakemap represents the ground shaking produced by an earthquake."
+  ariaDescription="A map showing the shake intensity produced by the earthquake."
+>
+  <!-- In graphics kit, pass the `assetsPath` prop -->
+  <AiChart assetsPath={assets || '/'} />
+</GraphicBlock>
+```
+
+<Canvas of={GraphicBlockStories.AriaDescription} />
+
+## Custom ARIA descriptions
+
+Sometimes, instead of a simple sentence, we want to provide a data table or something more complex as an ARIA description. To do this, pass the custom elements as an `ariaDescription` [snippet](https://svelte.dev/docs/svelte/snippet) instead of as a string, as in the [example above](?path=/docs/components-graphics-graphicblock--docs#aria-descriptions).
+
+[Read this](https://accessibility.psu.edu/images/charts/) for more information on using screen reader data tables for charts.
+
+> **Note:** The `customAria` snippet will override the `ariaDescription` and will also hide the text in your graphic from screen readers.
+
+```svelte
+<GraphicBlock
+  title="Earthquake in Haiti"
+  description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
+  notes="Note: A shakemap represents the ground shaking produced by an earthquake."
+>
+  <!-- In graphics kit, pass the `assetsPath` prop -->
+  <AiChart assetsPath={assets || '/'} />
+
+  <!-- Custom ARIA description snippet -->
+  {#snippet ariaDescription()}
+    <p>
+      A shakemap shows the intensity of the 7.2-magnitude earthquake that struck
+      Haiti at 8:29 a.m. EST, Aug. 14, 2021.
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <th>City</th>
+          <th>Felt shake strength</th>
+        </tr>
+        <tr>
+          <td>Les Cayes</td>
+          <td>Very strong</td>
+        </tr>
+        <tr>
+          <td>Jeremie</td>
+          <td>Strong</td>
+        </tr>
+      </tbody>
+    </table>
+  {/snippet}
+</GraphicBlock>
+
+<!-- Optionally, style the visually hidden table nicely for sighted readers who use screen readers -->
+<style lang="scss">
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  }
+</style>
+```
+
+<Canvas of={GraphicBlockStories.CustomAriaDescription} />

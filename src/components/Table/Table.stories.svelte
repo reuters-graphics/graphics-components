@@ -1,172 +1,132 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import metadataDocs from './stories/docs/metadata.md?raw';
-  // @ts-ignore raw
-  import truncateDocs from './stories/docs/truncate.md?raw';
-  // @ts-ignore raw
-  import paginateDocs from './stories/docs/paginate.md?raw';
-  // @ts-ignore raw
-  import searchDocs from './stories/docs/search.md?raw';
-  // @ts-ignore raw
-  import filterDocs from './stories/docs/filter.md?raw';
-  // @ts-ignore raw
-  import bothDocs from './stories/docs/both.md?raw';
-  // @ts-ignore raw
-  import sortDocs from './stories/docs/sort.md?raw';
-  // @ts-ignore raw
-  import formatDocs from './stories/docs/format.md?raw';
-  // @ts-ignore raw
-  import styleDocs from './stories/docs/style.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Table from './Table.svelte';
 
-  import { withComponentDocs, withStoryDocs } from '$docs/utils/withParams.js';
-
-  export const meta = {
-    title: 'Components/Text elements/Table',
+  const { Story } = defineMeta({
+    title: 'Components/Graphics/Table',
     component: Table,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       width: {
         control: 'select',
         options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
     },
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+  import pressFreedom from './demo/pressFreedom.json';
+  import homeRuns from './demo/homeRuns.json';
+  import richestWomen from './demo/richestWomen.json';
+  import type { Formatter } from './utils';
 
-  import pressFreedom from './stories/pressFreedom.json';
-  import homeRuns from './stories/homeRuns.json';
-  import richestWomen from './stories/richestWomen.json';
-
-  const currencyFormat = (v: number) => '$' + v.toFixed(1);
+  const currencyFormat: Formatter<number> = (v: number) => '$' + v.toFixed(1);
 </script>
 
-<Template let:args>
-  <Table {...args} />
-</Template>
-
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  args={{
     width: 'normal',
     data: homeRuns,
-  }}"
+  }}
 />
 
 <Story
-  name="Metadata"
-  {...withStoryDocs(metadataDocs)}
-  args="{{
-    width: 'normal',
+  name="Text elements"
+  exportName="Text"
+  args={{
     data: homeRuns,
     title: 'Career home run leaders',
     dek: 'In baseball, a home run (also known as a "dinger" or "tater") occurs when a batter hits the ball over the outfield fence. When a home run is hit, the batter and any runners on base are able to score.',
     notes: 'Note: As of Opening Day 2023',
     source: 'Source: Baseball Reference',
-  }}"
+  }}
 />
 
 <Story
-  name="Truncate"
-  {...withStoryDocs(truncateDocs)}
-  args="{{
+  name="Truncated"
+  args={{
     data: homeRuns,
     truncated: true,
     source: 'Source: Baseball Reference',
-  }}"
+  }}
 />
 
 <Story
-  name="Paginate"
-  {...withStoryDocs(paginateDocs)}
-  args="{{
+  name="Paginated"
+  args={{
     data: pressFreedom,
-    title: 'Press Freedom Index',
     paginated: true,
+    title: 'Press Freedom Index',
     source: 'Source: Reporters Without Borders',
-  }}"
+  }}
 />
 
 <Story
-  name="Search"
-  {...withStoryDocs(searchDocs)}
-  args="{{
+  name="Search bar"
+  exportName="Search"
+  args={{
     data: pressFreedom,
     searchable: true,
     paginated: true,
+    searchPlaceholder: 'Search press freedom data',
     title: 'Press Freedom Index',
     source: 'Source: Reporters Without Borders',
-  }}"
+  }}
 />
 
 <Story
   name="Filter"
-  {...withStoryDocs(filterDocs)}
-  args="{{
+  args={{
     data: pressFreedom,
     paginated: true,
     filterField: 'Region',
+    filterLabel: 'regions',
     title: 'Press Freedom Index',
     notes: 'Source: Reporters Without Borders',
-  }}"
+  }}
 />
 
 <Story
   name="Search and filter"
-  {...withStoryDocs(bothDocs)}
-  args="{{
+  exportName="SearchAndFilter"
+  args={{
     data: pressFreedom,
     searchable: true,
-    filterField: 'Region',
     paginated: true,
+    filterField: 'Region',
+    filterLabel: 'regions',
     title: 'Press Freedom Index',
     dek: 'Reporters Without Borders ranks countries based on their level of press freedom using criteria such as the degree of media pluralism and violence against journalists.',
     source: 'Source: Reporters Without Borders',
-  }}"
+  }}
 />
 
 <Story
   name="Sort"
-  {...withStoryDocs(sortDocs)}
-  args="{{
+  args={{
     data: pressFreedom,
     sortable: true,
+    paginated: true,
     sortField: 'Score',
     sortDirection: 'descending',
-    paginated: true,
     title: 'Press Freedom Index',
     notes: 'Note: data as of 2018',
     source: 'Source: Reporters Without Borders',
-  }}"
+  }}
 />
 
 <Story
   name="Format"
-  {...withStoryDocs(formatDocs)}
-  args="{{
+  args={{
     data: richestWomen,
-    title: 'The Richest Women in the World',
-    source: 'Source: Forbes',
+    fieldFormatters: {
+      'Net worth (in billions)': currencyFormat as Formatter<unknown>,
+    },
     sortable: true,
     sortField: 'Net worth (in billions)',
     sortDirection: 'descending',
-    fieldFormatters: { 'Net worth (in billions)': currencyFormat },
-  }}"
-/>
-
-<Story
-  name="Style"
-  {...withStoryDocs(styleDocs)}
-  args="{{
-    id: 'custom-table',
-    data: richestWomen,
     title: 'The Richest Women in the World',
     source: 'Source: Forbes',
-  }}"
+  }}
 />

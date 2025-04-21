@@ -1,5 +1,9 @@
-<script>
-  export let width = 20;
+<script lang="ts">
+  interface Props {
+    width?: number;
+  }
+
+  let { width = 20 }: Props = $props();
 </script>
 
 <svg
@@ -14,7 +18,7 @@
 >
 
 <style lang="scss">
-  @import './../../SiteHeader/scss/_colors.scss';
+  @use './../../SiteHeader/scss/_colors.scss' as *;
   svg {
     fill: var(--nav-primary, var(--tr-dark-grey));
   }

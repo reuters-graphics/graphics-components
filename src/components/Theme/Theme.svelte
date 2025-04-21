@@ -1,44 +1,55 @@
 <!-- @component `Theme` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-theming-theme--docs) -->
-<script context="module" lang="ts">
+<script module lang="ts">
   import light from './themes/light.js';
   import dark from './themes/dark.js';
   /**
    * Pre-made themes you can import.
-   * @type {{ light, dark }}
    */
   export const themes = { light, dark };
 </script>
 
 <script lang="ts">
+  // Utils
+  import flatten from './utils/flatten.js';
+  import mergeThemes from './utils/merge.js';
+
+  // Types
   import type { CustomTheme } from './@types/component';
-  /** Custom theme object. Can be a partial theme with just
-   * what you want to change.
-   */
-  export let theme: CustomTheme = {};
-
+  import type { Snippet } from 'svelte';
   type Base = 'light' | 'dark';
-  /**
-   * Base theme is one of `light` or `dark` and will be merged
-   * with your custom theme to fill in any values you don't
-   * explicitly set.
-   */
-  export let base: Base = 'light';
 
-  import flatten from './utils/flatten';
-  import mergeThemes from './utils/merge';
+  interface Props {
+    /** Custom theme object. Can be a partial theme with just
+     * what you want to change.
+     */
+    theme?: CustomTheme;
+    /**
+     * Base theme is one of `light` or `dark` and will be merged
+     * with your custom theme to fill in any values you don't
+     * explicitly set.
+     */
+    base?: Base;
+    /** Content wrapped inside `Theme` */
+    children: Snippet;
+  }
 
-  /** @type {Theme} */
-  $: mergedTheme = mergeThemes({}, themes[base] || themes.light, theme);
+  let { theme = {}, base = 'light', children }: Props = $props();
 
-  $: cssVariables = Object.entries(flatten({ theme: mergedTheme }))
-    .map(([key, value]) => `--${key}: ${value};`)
-    .join(' ');
+  let mergedTheme = $derived(
+    mergeThemes({}, themes[base] || themes.light, theme)
+  );
+
+  let cssVariables = $derived(
+    Object.entries(flatten({ theme: mergedTheme }))
+      .map(([key, value]) => `--${key}: ${value};`)
+      .join(' ')
+  );
 </script>
 
-<div class="theme" style="{cssVariables}" style:display="contents">
+<div class="theme" style={cssVariables} style:display="contents">
   <!-- Clients can override the theme above by attaching custom properties to this element. -->
   <div class="theme-client-override" style="display: contents;">
     <!-- Themed content -->
-    <slot />
+    {@render children()}
   </div>
 </div>

@@ -19,14 +19,16 @@ A component is usually composed of several parts: JavaScript for managing data, 
 ```svelte
 <!-- JavaScript -->
 <script>
-  export let imgSrc = 'https://reuters.com/image.jpg';
-  export let altText = 'A cat';
-  export let caption = 'Mousing all day is hard work ...';
+  let {
+    imgSrc = 'https://reuters.com/image.jpg',
+    altText = 'A cat',
+    caption = 'Mousing all day is hard work ...',
+  } = $props();
 </script>
 
 <!-- HTML -->
 <figure>
-  <img src="{imgSrc}" alt="{altText}" />
+  <img src={imgSrc} alt={altText} />
   <figcaption>{caption}</figcaption>
 </figure>
 
@@ -47,11 +49,11 @@ A component is usually composed of several parts: JavaScript for managing data, 
 To use a component, you first need to import it. For example, below is a component called `Button.svelte`:
 
 ```svelte
+<!-- Button.svelte -->
 <script>
-  export let text = 'Click me';
+  let { text = 'Click me' } = $props();
 </script>
 
-<!-- Button.svelte -->
 <button>{text}</button>
 ```
 
@@ -131,8 +133,6 @@ The component's props are `src`, `altTtext`, `caption` and `width` and each show
 
 ## Next steps
 
-To learn more about Svelte, you're not short of great tutorials. There are dozens of YouTube videos, online courses and articles to introduce you to more advanced features of the framework. Watch out for our own training courses on the Graphics Team to learn more about Svelte or JavaScript. But in a pinch, each desk has at least one developer who can help you through any problems as you're working with Svelte.
+To learn more about Svelte, check out the [official interactive tutorial](https://svelte.dev/tutorial/svelte/welcome-to-svelte).
 
 All are also welcome to join the "⚙️ Graphics Dev Group" channel in Teams, where we occasionally chat about code tips or tricks.
-
-> **NOTE:** As of now, we are using version 4 Svelte syntax. We will soon upgrade to version 5, but for now, we recommend looking for older tutorials online and not the official guides for the latest version.

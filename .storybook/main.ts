@@ -1,36 +1,17 @@
-import type { StorybookConfig } from '@storybook/svelte-vite';
-import remarkGfm from 'remark-gfm';
+import type { StorybookConfig } from '@storybook/sveltekit';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
-  staticDirs: ['../public'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|ts|svelte)'],
   addons: [
     '@storybook/addon-svelte-csf',
-    '@storybook/addon-links',
-    '@storybook/addon-actions',
-    '@storybook/addon-viewport',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm],
-          },
-        },
-      },
-    },
-    '@storybook/addon-controls',
-    '@storybook/addon-backgrounds',
-    '@storybook/addon-toolbars',
-    '@storybook/addon-measure',
-    '@storybook/addon-outline',
-    '@storybook/addon-interactions',
+    '@storybook/addon-essentials',
     '@chromatic-com/storybook',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
   ],
-  framework: '@storybook/svelte-vite',
-  core: {
-    disableTelemetry: true,
+  framework: {
+    name: '@storybook/sveltekit',
+    options: {},
   },
-  docs: {},
 };
 export default config;

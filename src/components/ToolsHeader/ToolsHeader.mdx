@@ -1,0 +1,23 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ToolsHeaderStories from './ToolsHeader.stories.svelte';
+
+<Meta of={ToolsHeaderStories} />
+
+# ToolsHeader
+
+The `ToolsHeader` component adds a header with the Reuters Graphics logo for internal tooling sites.
+
+> **Note:** Don't use this component for public pages.
+
+```svelte
+<script>
+  import { ToolsHeader } from '@reuters-graphics/graphics-components';
+</script>
+
+<ToolsHeader>
+  <!-- Anything else goes to the right of the logo -->
+</ToolsHeader>
+```
+
+<Canvas of={ToolsHeaderStories.Demo} />

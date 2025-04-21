@@ -1,7 +1,7 @@
 <!-- This component manages the OneTrust prefs button, so it's not permanently fixed on page... -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import throttle from 'lodash-es/throttle';
+  import { throttle } from 'es-toolkit';
 
   let lastScroll = 0;
   let showManagePreferences = true;

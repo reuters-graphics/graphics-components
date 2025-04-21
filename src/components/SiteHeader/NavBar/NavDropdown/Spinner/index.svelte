@@ -5,7 +5,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../../scss/_colors.scss';
+  @use '../../../scss/_colors.scss' as *;
 
   @keyframes spinner {
     to {

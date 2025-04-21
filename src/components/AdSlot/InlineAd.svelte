@@ -1,18 +1,20 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-inlinead--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import type { InlineAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
+  interface Props {
+    /** Add an ID to target with SCSS. */
+    id?: string;
+    /** Number of the inline ad in sequence. Use to add multiple inline ads to a page. */
+    n?: 1 | 2 | 3 | '1' | '2' | '3';
+    /** Add a class to target with SCSS. Defaults to `my-12`. */
+    class?: string;
+  }
 
-  /** Number of the inline ad in sequence. Use to add multiple inline ads to a page. */
-  export let n: 1 | 2 | 3 | '1' | '2' | '3' = 1;
-
-  /** Add a class to target with SCSS. */
-  let cls: string = 'my-12';
-  export { cls as class };
+  let { id = '', class: cls = 'my-12', n = 1 }: Props = $props();
 
   const desktopPlacementName: InlineAd['desktop']['placementName'] = `reuters_desktop_native_${n}`;
 </script>

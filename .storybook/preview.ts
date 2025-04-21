@@ -16,7 +16,7 @@ SyntaxHighlighter.registerLanguage('markdown', markdown);
 const preview: Preview = {
   // @ts-ignore Is OK
   decorators: [() => Wrapper],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'autodocs', 'autodocs', 'autodocs'],
   parameters: {
     viewMode: 'docs',
     previewTabs: { 'storybook/docs/panel': { index: -1 } },
@@ -30,7 +30,7 @@ const preview: Preview = {
     },
     layout: 'fullscreen',
     options: {
-      // https://storybook.js.org/docs/svelte/writing-stories/naming-components-and-hierarchy#sorting-stories
+      // https://storybook.js.org/docs/writing-stories/naming-components-and-hierarchy#sorting-stories
       storySort: {
         method: 'alphabetical-by-kind',
         includeNames: false,
@@ -39,14 +39,14 @@ const preview: Preview = {
           'Guides',
           [
             'Using these docs',
-            'Using with the Graphics Kit',
+            'Using with the graphics kit',
             'Using with ArchieML docs',
             'Customising components with SCSS',
             '*',
             'Getting help',
           ],
           'Components',
-          '*',
+          ['*', ['Intro', '*']],
           'Styles',
           [
             'Intro',
@@ -58,18 +58,7 @@ const preview: Preview = {
           'Actions',
           ['Intro', '*'],
           'Contributing',
-          [
-            'Quickstart',
-            'Component Basics',
-            '*',
-            'Writing Stories',
-            'Recipes: Basic story',
-            'Recipes: Story with custom docs',
-            'Recipes: Story with custom controls',
-            'Recipes: Story with media',
-            'Recipes: Story for a component with slots',
-            'Writing docs pages',
-          ],
+          ['Quickstart', 'Component Basics', 'Writing Stories', '*'],
         ],
       },
     },

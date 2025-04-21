@@ -1,20 +1,22 @@
+<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-sponsorshipad--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import type { SponsorshipAd } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
+  interface Props {
+    /** Add an ID to target with SCSS. */
+    id?: string;
+    /** Add a class to target with SCSS. */
+    class?: string;
+    /**
+     * Label placed directly above the sponsorship ad
+     */
+    adLabel?: string;
+  }
 
-  /** Add a class to target with SCSS. */
-  let cls: string = 'my-12';
-  export { cls as class };
-
-  /**
-   * Label placed directly above the sponsorship ad
-   */
-  export let adLabel = '';
+  let { id = '', class: cls = 'my-12', adLabel = '' }: Props = $props();
 
   const desktopPlacementName: SponsorshipAd['desktop']['placementName'] =
     'reuters_sponsorlogo';

@@ -1,329 +1,319 @@
 <!-- @component `Video` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-video--docs) -->
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
-  import Controls from './Controls.svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
+
+  // Fa icons
+  import Fa from 'svelte-fa';
+  import { faReply, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+
+  // types
   import type { ContainerWidth } from '../@types/global';
+  import type { Snippet } from 'svelte';
+  import type { ControlsPosition } from './types';
+  import { getButtonPosition } from './utils';
 
-  /// //////////////////////////////////
-  /// /////////// Props ////////////////
-  /// //////////////////////////////////
+  interface Props {
+    /** Video source */
+    src: string;
+    /** Image to be shown while the video is downloading */
+    poster?: string;
+    /** ARIA description, passed in as a markdown string. */
+    ariaDescription: string;
+    /** Add extra classes to the block tag to target it with custom CSS. */
+    class?: string;
+    /** Title of the graphic */
+    title?: string;
+    /** Notes to the graphic, passed in as a markdown string OR a custom snippet. */
+    notes?: string | Snippet;
+    /** Description of the graphic, passed in as a markdown string. */
+    description?: string;
+    /** Width of the block within the article well. */
+    width?: ContainerWidth;
+    /** Set a different width for the text within the text well, for example, "normal" to keep the title, description and notes inline with the rest of the text well. Can't ever be wider than `width`. */
+    textWidth?: ContainerWidth;
+    /** Preload options. `auto` is ignored if `autoplay` is true. Can also be `none` or `metadata`. */
+    preloadVideo?: 'auto' | 'none' | 'metadata';
+    /** Whether the video should loop. */
+    loopVideo?: boolean;
+    /** Whether video should have sound or not. */
+    muteVideo?: boolean;
+    /** If `true`, this allow videos with sound to autoplay if the user has previously interacted with DOM */
+    soundAutoplay?: boolean;
+    /** Whether the video should play when it comes into view or just on page load */
+    playVideoWhenInView?: boolean;
+    /** Controls how much of the video should be visible when it starts playing. This is a number between 0 and 1, where 0 means the video will start playing as soon as its top enters the viewport, and 1 means it will start when the whole video is in the viewport. */
+    playVideoThreshold?: number;
+    /** Whether to have the option to pause and play video */
+    possibleToPlayPause?: boolean;
+    /** Whether to show the play / pause buttons */
+    showControls?: boolean;
+    /** Whether to use a separate replay icon or use the play icon for replay as well */
+    separateReplayIcon?: boolean;
+    /** Change the colour of the play/pause button */
+    controlsColour?: string;
+    /** Change the minimum opacity of the play/pause button, which you see on mouseover. Must be between 0 and 1. */
+    controlsOpacityMin?: number;
+    /** Change the maximum opacity of the play/pause button, which you see on mouseout. Must be between 0 and 1. */
+    controlsOpacityMax?: number;
+    /** Have four options for controls position - top right, top left, bottom right, bottom left */
+    controlsPosition?: ControlsPosition;
+    /** Offset for the controls from the border */
+    controlsBorderOffset?: number;
+  }
 
-  /**
-   * Video src
-   * @type {string}
-   * @required
-   */
-  export let src: string;
-
-  /**
-   * Image to be shown while the video is downloading
-   */
-  export let poster: string = '';
-
-  /**
-   * Whether to wrap the graphic with an aria hidden tag.
-   */
-  export let hidden: boolean = true;
-
-  /**
-   * ARIA description, passed in as a markdown string.
-   * @type {string}
-   */
-  export let ariaDescription: string | null = null;
-
-  /** Add extra classes to the block tag to target it with custom CSS. */
-  let cls: string = '';
-  export { cls as class };
-
-  /**
-   * Title of the graphic
-   * @type {string}
-   */
-  export let title: string | null = null;
-
-  /**
-   * Notes to the graphic, passed in as a markdown string.
-   * @type {string}
-   */
-  export let notes: string | null = null;
-
-  /**
-   * Description of the graphic, passed in as a markdown string.
-   * @type {string}
-   */
-  export let description: string | null = null;
-
-  /**
-   * Width of the block within the article well.
-   * @type {string}
-   */
-  export let width: ContainerWidth = 'normal';
-
-  type PreloadOptions = 'auto' | 'none' | 'metadata';
-
-  /**
-   * Set a different width for the text within the text well, for example,
-   * "normal" to keep the title, description and notes inline with the rest
-   * of the text well. Can't ever be wider than `width`.
-   * @type {string}
-   */
-  export let textWidth: ContainerWidth | null = 'normal';
-
-  /**
-   * Preload options. `auto` is ignored if `autoplay` is true. Can also be `none` or `metadata`.
-   * @type {string}
-   */
-  export let preloadVideo: PreloadOptions = 'auto';
-  /**
-   * Whether the video should loop.
-   */
-  export let loopVideo: boolean = true;
-  /**
-   * Whether video should have sound or not.
-   */
-  export let muteVideo: boolean = true;
-  export let allowSoundToAutoplay = false; // for video with sound, whether video should be allowed to autoplay if the user has previously interacted with DOM
-
-  export let playVideoWhenInView = true; // whether the video should play when it comes into view or just on page load
-  export let playVideoThreshold = 0.5; // if video plays with intersection observer, how much of it should be into view to start playing
-  export let possibleToPlayPause = true; // whether to have the option to pause and play video
-
-  export let showControls = true; // whetner to show the play / pause buttons
-  export let hoverToSeeControls = false; // whether you need to hover over the video to see the controls
-  export let separateReplayIcon = false; // whether to use a separate replay icon or use the play icon for replay as well
-  export let controlsColour = '#333'; // change the colour of the play/pause button
-  export let controlsOpacity = 0.5; // change the opacity of the play/pause button
-  $: interactiveControlsOpacity = 0;
-  export let controlsPosition = 'top left'; // have four options for controls position - top right, top left, bottom right, bottom left
+  let {
+    src,
+    poster = '',
+    ariaDescription,
+    class: cls = '',
+    title,
+    notes,
+    description,
+    width = 'normal',
+    textWidth = 'normal',
+    preloadVideo = 'auto',
+    loopVideo = false,
+    muteVideo = true,
+    soundAutoplay = false,
+    playVideoWhenInView = true,
+    playVideoThreshold = 0.5,
+    possibleToPlayPause = true,
+    showControls = true,
+    separateReplayIcon = false,
+    controlsColour = '#333',
+    controlsOpacityMin = 0,
+    controlsOpacityMax = 0.7,
+    controlsPosition = 'top left',
+    controlsBorderOffset = 10,
+  }: Props = $props();
 
   /// //////////////////////////////////
   /// /////// Internal Logic ///////////
   /// //////////////////////////////////
+  // If it's not possible to play/pause, then hide the controls
+  if (!possibleToPlayPause) showControls = false;
+
   // Internal props
-  let time = 0;
-  let duration;
-  let paused = true;
-  let clickedOnPauseBtn = false; // special variable to track if user clicked on 'pause' btn to help with audio logic
-  $: resetCondition = time >= duration; // - 0.1;
+  let paused = $state(false);
+  let time = $state(0);
+  let duration = $state(0);
+  // let paused = $state(true);
+  let clickedOnPauseBtn = $state(false); // special variable to track if user clicked on 'pause' btn to help with audio logic
+  let resetCondition = $derived(time >= duration); // - 0.1;
 
   // Dimensions etc other useful things
-  let heightVideo;
-  let widthVideo;
-  let heightVideoContainer;
-  let widthVideoContainer;
-  const controlsBorderOffset = 50;
+  let videoHeight = $state(0);
+  let videoWidth = $state(0);
+  let videoHeightContainer = $state(0);
+  let videoWidthContainer = $state(0);
 
   // For intersection observer
-  let intersecting;
-  let element;
-  let videoElement;
+  let intersecting = $state(false);
+  let element: HTMLElement | undefined = $state(undefined); // ; | null
+  let videoElement: HTMLVideoElement | undefined = $state(undefined);
 
   // For video with sound, check if there has been an interaction with the DOM
   let interactedWithDom = false;
-  const setInteractedWithDom = () => {
-    interactedWithDom = true;
-  };
+  const setInteractedWithDom = () => (interactedWithDom = true);
 
-  // Play the video (with no sound) if it's intersecting; pause when it's no longer intersecting
-  $: if (playVideoWhenInView && intersecting && muteVideo) paused = false;
-  $: if (playVideoWhenInView && !intersecting) paused = true;
-  // Special case for video with sound
-  // Only ff you've clicked on play button or interacted with DOM in any way previously, video with audio will play
-  $: if (
-    allowSoundToAutoplay &&
-    playVideoWhenInView &&
-    intersecting &&
-    !muteVideo &&
-    interactedWithDom &&
-    !clickedOnPauseBtn // so video doesn't autoplay when coming into view again if paused previously
-  ) {
-    paused = false;
-  }
+  let interactiveControlsOpacity = $state(controlsOpacityMax);
 
-  $: if (allowSoundToAutoplay && !muteVideo && !interactedWithDom) {
-    paused = true;
-  }
+  // Get control button positioning
+  let controlButtonPosition = $derived(
+    getButtonPosition(controlsPosition, controlsBorderOffset)
+  );
 
-  $: if (!possibleToPlayPause) showControls = true;
+  /** Control play/pause */
+  $effect(() => {
+    // Play the video (with no sound) if it's intersecting; pause when it's no longer intersecting
+    if (playVideoWhenInView && intersecting && muteVideo) paused = false;
 
-  // To get the pause state passed up from the Controls
-  const pausePlayEvent = (e) => {
-    const fwdPaused = e.detail.paused;
-    const fwdClickedOnPauseBtn = e.detail.clickedOnPauseBtn;
-    paused = fwdPaused;
-    clickedOnPauseBtn = fwdClickedOnPauseBtn;
-  };
+    // Pause the video if it's no longer intersecting
+    if (playVideoWhenInView && !intersecting) paused = true;
 
-  // Warning to missing aria attributes
-  if (hidden && !ariaDescription) {
-    console.warn(
-      'Must provide aria description for video components if hidden is true.'
-    );
-  }
+    // Special case for video with sound
+    // Only ff you've clicked on play button or interacted with DOM in any way previously, video with audio will play
+    if (
+      soundAutoplay &&
+      playVideoWhenInView &&
+      intersecting &&
+      !muteVideo &&
+      interactedWithDom &&
+      !clickedOnPauseBtn // so video doesn't autoplay when coming into view again if paused previously
+    )
+      paused = false;
+
+    if (soundAutoplay && !muteVideo && !interactedWithDom) paused = true;
+  });
 </script>
 
+<!-- Controls button snippet -->
+{#snippet controls()}
+  <button
+    class="controls"
+    onclick={() => {
+      paused = !paused;
+      clickedOnPauseBtn = paused === true; // so video doesn't autoplay when coming into view again if paused previously
+    }}
+    style="
+    opacity: {interactiveControlsOpacity};
+    {controlButtonPosition}
+    "
+  >
+    {#if resetCondition}
+      <i class="play-pause-icon replay">
+        {#if separateReplayIcon}
+          <Fa icon={faReply} size="2x" color={controlsColour} />
+        {:else}
+          <Fa icon={faPlay} size="2x" color={controlsColour} />
+        {/if}
+      </i>
+    {:else if paused === false}
+      <i class="play-pause-icon pause">
+        <Fa icon={faPause} size="2x" color={controlsColour} />
+      </i>
+    {:else if paused === true}
+      <i class="play-pause-icon play">
+        <Fa icon={faPlay} size="2x" color={controlsColour} />
+      </i>
+    {:else}
+      error
+    {/if}
+  </button>
+{/snippet}
+
+<!-- Transparent, invisible button that will pause/play when the video is clicked -->
+{#snippet transparentButton()}
+  <button
+    class="border-0 m-0 p-0 bg-transparent absolute"
+    aria-label="Play or pause video"
+    onclick={() => {
+      paused = !paused;
+    }}
+    style="top: 0; left: 0; width: {videoWidthContainer}px; height: {videoHeightContainer}px;"
+  ></button>
+{/snippet}
+
 <svelte:window
-  on:click="{setInteractedWithDom}"
-  on:touchstart="{setInteractedWithDom}"
+  on:click={setInteractedWithDom}
+  on:touchstart={setInteractedWithDom}
 />
 
 <GraphicBlock
   {textWidth}
   {title}
   {description}
-  {notes}
+  notes={typeof notes === 'string' ? notes : undefined}
   {width}
   class="video {cls}"
 >
   <div
     role="figure"
-    on:mouseover="{() => {
-      interactiveControlsOpacity = controlsOpacity;
-    }}"
-    on:focus="{() => {
-      interactiveControlsOpacity = controlsOpacity;
-    }}"
-    on:mouseout="{() => {
-      interactiveControlsOpacity = 0;
-    }}"
-    on:blur="{() => {
-      interactiveControlsOpacity = 0;
-    }}"
+    onmouseover={() => {
+      interactiveControlsOpacity = controlsOpacityMax;
+    }}
+    onfocus={() => {
+      interactiveControlsOpacity = controlsOpacityMax;
+    }}
+    onmouseout={() => {
+      interactiveControlsOpacity = controlsOpacityMin;
+    }}
+    onblur={() => {
+      interactiveControlsOpacity = controlsOpacityMin;
+    }}
   >
-    {#if (hidden && ariaDescription) || !hidden}
-      {#if ariaDescription}
-        <p class="visually-hidden">{ariaDescription}</p>
-      {/if}
-
-      {#if playVideoWhenInView}
-        <!-- Video element with Intersection Observer -->
-        <IntersectionObserver
-          {element}
-          bind:intersecting
-          threshold="{playVideoThreshold}"
-          once="{false}"
-        >
-          <div
-            bind:this="{element}"
-            class="video-wrapper relative block"
-            aria-hidden="{hidden}"
-            bind:clientWidth="{widthVideoContainer}"
-            bind:clientHeight="{heightVideoContainer}"
-          >
-            {#if possibleToPlayPause}
-              {#if showControls}
-                <Controls
-                  on:pausePlayEvent="{pausePlayEvent}"
-                  {paused}
-                  {clickedOnPauseBtn}
-                  controlsOpacity="{hoverToSeeControls ?
-                    interactiveControlsOpacity
-                  : controlsOpacity}"
-                  {controlsPosition}
-                  {widthVideoContainer}
-                  {heightVideoContainer}
-                  {controlsBorderOffset}
-                  {resetCondition}
-                  {separateReplayIcon}
-                  {controlsColour}
-                />
-              {:else}
-                <button
-                  class="border-0 m-0 p-0 bg-transparent absolute"
-                  on:click="{() => {
-                    if (paused === true) {
-                      paused = false;
-                    } else {
-                      paused = true;
-                    }
-                  }}"
-                  style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
-                ></button>
-              {/if}
-            {/if}
-            <video
-              bind:this="{videoElement}"
-              {src}
-              {poster}
-              class="pointer-events-none relative"
-              width="100%"
-              muted="{muteVideo}"
-              playsinline
-              preload="{preloadVideo}"
-              loop="{loopVideo}"
-              bind:currentTime="{time}"
-              bind:duration
-              bind:paused
-              bind:clientWidth="{widthVideo}"
-              bind:clientHeight="{heightVideo}"
-            >
-              <track kind="captions" />
-            </video>
-          </div>
-        </IntersectionObserver>
-      {:else}
-        <!-- Video element without Intersection observer -->
+    {#if playVideoWhenInView}
+      <!-- Video element with Intersection Observer -->
+      <IntersectionObserver
+        {element}
+        bind:intersecting
+        threshold={playVideoThreshold}
+        once={false}
+      >
         <div
-          class="video-wrapper relative"
-          aria-hidden="{hidden}"
-          bind:clientWidth="{widthVideoContainer}"
-          bind:clientHeight="{heightVideoContainer}"
+          bind:this={element}
+          class="video-wrapper relative block"
+          bind:clientWidth={videoWidthContainer}
+          bind:clientHeight={videoHeightContainer}
         >
           {#if possibleToPlayPause}
             {#if showControls}
-              <Controls
-                on:pausePlayEvent="{pausePlayEvent}"
-                {paused}
-                {clickedOnPauseBtn}
-                {controlsOpacity}
-                {controlsPosition}
-                {widthVideoContainer}
-                {heightVideoContainer}
-                {controlsBorderOffset}
-                {resetCondition}
-                {separateReplayIcon}
-                {controlsColour}
-              />
+              {@render controls()}
             {:else}
-              <button
-                class="border-0 m-0 p-0 bg-transparent absolute"
-                on:click="{() => {
-                  if (paused === true) {
-                    paused = false;
-                  } else {
-                    paused = true;
-                  }
-                }}"
-                style="top: 0; left: 0; width: {widthVideoContainer}px; height: {heightVideoContainer}px;"
-              ></button>
+              {@render transparentButton()}
             {/if}
           {/if}
           <video
-            bind:this="{videoElement}"
+            bind:this={videoElement}
             {src}
             {poster}
             class="pointer-events-none relative"
             width="100%"
-            muted="{muteVideo}"
+            muted={muteVideo}
             playsinline
-            preload="{preloadVideo}"
-            loop="{loopVideo}"
-            bind:currentTime="{time}"
+            preload={preloadVideo}
+            loop={loopVideo}
+            aria-label={ariaDescription}
+            bind:currentTime={time}
             bind:duration
             bind:paused
-            autoplay
-            bind:clientWidth="{widthVideo}"
-            bind:clientHeight="{heightVideo}"
+            bind:clientWidth={videoWidth}
+            bind:clientHeight={videoHeight}
           >
             <track kind="captions" />
           </video>
         </div>
-      {/if}
+      </IntersectionObserver>
+    {:else}
+      <!-- Video element without Intersection observer -->
+      <div
+        class="video-wrapper relative"
+        bind:clientWidth={videoWidthContainer}
+        bind:clientHeight={videoHeightContainer}
+      >
+        {#if possibleToPlayPause}
+          {#if showControls}
+            {@render controls()}
+          {:else}
+            {@render transparentButton()}
+          {/if}
+        {/if}
+        <video
+          bind:this={videoElement}
+          {src}
+          {poster}
+          class="pointer-events-none relative"
+          width="100%"
+          muted={muteVideo}
+          playsinline
+          preload={preloadVideo}
+          loop={loopVideo}
+          bind:currentTime={time}
+          bind:duration
+          bind:paused
+          autoplay
+          bind:clientWidth={videoWidth}
+          bind:clientHeight={videoHeight}
+        >
+          <track kind="captions" />
+        </video>
+      </div>
     {/if}
   </div>
-  {#if $$slots.notes}
-    <!-- Custom notes and source slot -->
-    <slot name="notes" />
+  <!-- Custom notes snippet -->
+  {#if notes && typeof notes !== 'string'}
+    {@render notes()}
   {/if}
 </GraphicBlock>
+
+<style lang="scss">
+  button.controls {
+    z-index: 2;
+    position: absolute;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    transition: opacity 0.2s;
+  }
+</style>

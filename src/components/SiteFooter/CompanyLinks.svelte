@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Twitter from './svgs/Twitter.svelte';
   import YouTube from './svgs/YouTube.svelte';
   import Facebook from './svgs/Facebook.svelte';
@@ -14,7 +14,17 @@
     linkedin: LinkedIn,
   };
 
-  export let links = {};
+  interface Props {
+    links: {
+      company_description?: string;
+      social_links?: {
+        type: string;
+        url: string;
+      }[];
+    };
+  }
+
+  let { links = {} }: Props = $props();
 </script>
 
 {#if links.social_links}
@@ -29,11 +39,13 @@
         <div>
           <ul class="links">
             {#each links.social_links as link}
+              {@const SvelteComponent =
+                symbols[link.type as keyof typeof symbols]}
               <li class="social-links symbol">
-                <a href="{normalizeUrl(link.url)}">
+                <a href={normalizeUrl(link.url)}>
                   <div class="button">
                     <div class="social">
-                      <svelte:component this="{symbols[link.type]}" />
+                      <SvelteComponent />
                     </div>
                   </div>
                 </a>
@@ -47,15 +59,14 @@
 {/if}
 
 <style lang="scss">
-  @import '../SiteHeader/scss/_breakpoints.scss';
-  @import '../SiteHeader/scss/_grids.scss';
+  @use '../SiteHeader/scss/_breakpoints.scss' as breakpoints;
+  @use '../SiteHeader/scss/_grids.scss' as grids;
 
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
   .content-container {
-    @include max-width;
-
     width: 100%;
     margin: 0 auto;
+    @include breakpoints.max-width;
   }
 
   .company {
@@ -64,7 +75,7 @@
     box-sizing: border-box;
 
     .content-container {
-      @include responsive-columns(12);
+      @include grids.responsive-columns(12);
     }
   }
 
@@ -72,9 +83,8 @@
     border-top: 1px solid var(--nav-rules);
 
     .content-container {
-      @include spacing-single(padding-left padding-right);
-
       box-sizing: border-box;
+      @include grids.spacing-single(padding-left padding-right);
     }
   }
   .company .content-container {
@@ -88,7 +98,7 @@
       grid-column: 7 / span 5;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       .company-info,
       .social {
         grid-column: 1 / span 4;

@@ -1,59 +1,75 @@
 <!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-headline--docs) -->
 <script lang="ts">
+  // Types
   import type { HeadlineSize } from './../@types/global';
+  import type { Snippet } from 'svelte';
 
-  /**
-   * Headline, parsed as an _inline_ markdown string in an `h1` element.
-   * @type {string}
-   */
-  export let hed: string = 'Reuters Graphics Interactive';
-
-  /** Add extra classes to the block tag to target it with custom CSS. */
-  let cls: string = '';
-  export { cls as class };
-
-  /**
-   * Headline size
-   * @type {string}
-   */
-  export let hedSize: HeadlineSize = 'normal';
-
-  /**
-   * Dek, parsed as a markdown string.
-   * @type {string}
-   */
-  export let dek: string | null = null;
-  /**
-   * Section title
-   * @type {string}
-   */
-  export let section: string | null = null;
-  /**
-   * Array of author names, which will be slugified to create links to Reuters author pages
-   */
-  export let authors: string[] = [];
-  /**
-   * Publish time as a datetime string.
-   * @type {string}
-   */
-  export let publishTime: string = '';
-  /**
-   * Update time as a datetime string.
-   * @type {string}
-   */
-  export let updateTime: string = '';
-
-  /**
-   * Width of the headline.
-   */
-  export let width: 'normal' | 'wide' | 'wider' | 'widest' = 'normal';
-
+  // Components
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';
-  import Markdown from '../Markdown/Markdown.svelte';
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
-  let hedClass: string;
-  $: {
+  interface Props {
+    /** Headline, parsed as an _inline_ markdown string in an `h1` element OR as a custom snippet. */
+    hed: string | Snippet;
+    /** Add extra classes to the block tag to target it with custom CSS. */
+    class?: string;
+    /** Headline size: small, normal, big, bigger, biggest */
+    hedSize?: HeadlineSize;
+    /** Dek, parsed as a markdown string OR as a custom snippet. */
+    dek?: string | Snippet;
+
+    /** Section title */
+    section?: string;
+    /** Array of author names, which will be slugified to create links to Reuters author pages */
+    authors?: string[];
+
+    /** Publish time as a datetime string. */
+    publishTime?: string;
+    /** Update time as a datetime string. */
+    updateTime?: string;
+    /** Width of the headline: normal, wide, wider, widest */
+    width?: 'normal' | 'wide' | 'wider' | 'widest';
+    /**
+     * Custom function that returns an author page URL.
+     */
+    getAuthorPage?: (author: string) => string;
+    /** Custom crown snippet */
+    crown?: Snippet;
+    /**
+     * Optional snippet for a custom byline.
+     */
+    byline?: Snippet;
+    /**
+     * Optional snippet for a custom published dateline.
+     */
+    published?: Snippet;
+    /**
+     * Optional snippet for a custom updated dateline.
+     */
+    updated?: Snippet;
+  }
+
+  let {
+    hed = 'Reuters Graphics Interactive',
+    class: cls = '',
+    hedSize = 'normal',
+    dek,
+    section,
+    authors = [],
+    publishTime = '',
+    updateTime = '',
+    width = 'normal',
+    getAuthorPage,
+    crown,
+    byline,
+    published,
+    updated,
+  }: Props = $props();
+
+  // Set the headline text size class based on the `hedSize` prop
+  let hedClass = $state('text-3xl');
+  $effect(() => {
     switch (hedSize) {
       case 'biggest':
         hedClass = 'text-6xl';
@@ -70,16 +86,16 @@
       default:
         hedClass = 'text-3xl';
     }
-  }
+  });
 </script>
 
 <div class="headline-wrapper" style="display:contents;">
   <Block {width} class="headline text-center fmt-7 fmb-6 {cls}">
     <header class="relative">
-      {#if $$slots.crown}
+      {#if crown}
         <div class="crown-container">
-          <!-- Crown named slot -->
-          <slot name="crown" />
+          <!-- Crown snippet -->
+          {@render crown()}
         </div>
       {/if}
       <div class="title">
@@ -90,53 +106,56 @@
             {section}
           </p>
         {/if}
-        {#if $$slots.hed}
-          <!-- Headline named slot -->
-          <slot name="hed" />
-        {:else}
-          <h1 class="{hedClass}">
-            <Markdown source="{hed}" parseInline />
+        {#if typeof hed === 'string'}
+          <h1 class={hedClass}>
+            <Markdown source={hed} inline />
           </h1>
+        {:else if hed}
+          <!-- Headline snippet -->
+          {@render hed()}
         {/if}
-        {#if $$slots.dek}
-          <!-- Dek named slot-->
+        {#if typeof dek === 'string'}
           <div class="dek fmx-auto fmb-6">
-            <slot name="dek" />
+            <Markdown source={dek} />
           </div>
         {:else if dek}
+          <!-- Dek snippet-->
           <div class="dek fmx-auto fmb-6">
-            <Markdown source="{dek}" />
+            {@render dek()}
           </div>
         {/if}
       </div>
-      {#if $$slots.byline}
-        <!-- Custom byline/dateline -->
-        <slot name="byline" />
-      {:else if authors.length > 0 || publishTime}
+      {#if authors.length > 0 || publishTime}
         <Byline
-          class="fmy-4"
+          cls="fmy-4"
           {authors}
           {publishTime}
           {updateTime}
+          {getAuthorPage}
+          {published}
+          {updated}
           align="center"
         />
+      {:else if byline}
+        <!-- Custom byline/dateline -->
+        {@render byline()}
       {/if}
     </header>
   </Block>
 </div>
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
   .headline-wrapper {
     :global(.dek) {
-      max-width: $column-width-normal;
+      max-width: mixins.$column-width-normal;
     }
     :global(.dek p) {
-      @include fmt-0;
-      @include font-note;
-      @include leading-tight;
-      @include font-light;
-      @include fmb-3;
+      @include mixins.fmt-0;
+      @include mixins.font-note;
+      @include mixins.leading-tight;
+      @include mixins.font-light;
+      @include mixins.fmb-3;
     }
   }
 </style>

@@ -1,24 +1,34 @@
-<script>
+<script lang="ts">
   import ReutersLogo from '../../ReutersLogo/ReutersLogo.svelte';
   import CloseIcon from '../svgs/Close.svelte';
   import { normalizeUrl } from '../NavBar/utils/index.js';
 
-  export let data = [];
-  export let isMobileMenuOpen = false;
-  export let releaseMobileMenu = () => {};
+  interface Props {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data?: any;
+    isMobileMenuOpen?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    releaseMobileMenu?: any;
+  }
+
+  let {
+    data = {},
+    isMobileMenuOpen = false,
+    releaseMobileMenu = () => {},
+  }: Props = $props();
 </script>
 
 {#if isMobileMenuOpen}
   <div
     class="overlay"
     aria-modal="true"
-    style="{`
+    style={`
       --nav-background: var(--theme-colour-background, #fff);
       --nav-primary: var(--theme-colour-text-primary, #404040);
       --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
       --nav-accent: var(--theme-colour-brand-logo, #fa6400);
       --nav-shadow: 0 1px 4px 2px var(--theme-colour-brand-shadow, rgba(64,64,64,.08));
-    `}"
+    `}
   >
     <header class="header">
       <div class="logo">
@@ -27,7 +37,7 @@
           textColour="var(--nav-primary)"
         />
       </div>
-      <button class="button close-button" on:click="{releaseMobileMenu}">
+      <button class="button close-button" onclick={releaseMobileMenu}>
         <div class="button-container">
           <CloseIcon />
         </div>
@@ -35,14 +45,14 @@
     </header>
     {#each data.sections as section}
       <section class="section">
-        <a class="section-link" href="{normalizeUrl(section.url)}"
+        <a class="section-link" href={normalizeUrl(section.url)}
           >{section.name}</a
         >
         {#if section.children}
           <ul class="subsections">
             {#each section.children as sub}
               <li>
-                <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+                <a class="subsection-link" href={normalizeUrl(sub.url)}>
                   {sub.name}
                 </a>
               </li>
@@ -55,10 +65,10 @@
 {/if}
 
 <style lang="scss">
-  @import '../scss/_grids.scss';
-  @import '../scss/_colors.scss';
-  @import '../scss/_z-indexes.scss';
-  @import '../../../scss/mixins';
+  @use '../scss/_grids.scss' as *;
+  @use '../scss/_colors.scss' as *;
+  @use '../scss/_z-indexes.scss' as *;
+  @use '../../../scss/mixins' as *;
 
   $mobile-nav-height: 56px;
 
@@ -130,17 +140,17 @@
   }
 
   .header {
-    @include spacing-single(padding-left padding-right);
     border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
+    @include spacing-single(padding-left padding-right);
   }
 
   .section {
-    @include spacing-single(padding-left padding-right);
     padding-top: 16px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--tr-muted-grey);
     width: 100%;
     max-width: 100%;
+    @include spacing-single(padding-left padding-right);
 
     .subsections {
       margin: 20px 0 0;

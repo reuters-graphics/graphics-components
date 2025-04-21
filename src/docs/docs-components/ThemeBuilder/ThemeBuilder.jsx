@@ -6,7 +6,7 @@ import ThemeSwitch from './ThemeSwitch/Switch';
 import { Unstyled } from '@storybook/blocks';
 // @ts-ignore scss
 import classes from './styles.module.scss';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep } from 'es-toolkit';
 import darkTheme from '../../../components/Theme/themes/dark';
 import lightTheme from '../../../components/Theme/themes/light';
 

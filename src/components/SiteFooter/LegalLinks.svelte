@@ -1,7 +1,24 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../SiteHeader/NavBar/utils';
 
-  export let links = {};
+  interface Props {
+    links: {
+      ad_links?: {
+        url: string;
+        text: string;
+      }[];
+      misc_links: {
+        self?: boolean;
+        url: string;
+        text: string;
+      }[];
+      disclaimer_link?: string;
+      copyright_year: string;
+      copyright_link: string;
+    };
+  }
+
+  let { links }: Props = $props();
 </script>
 
 {#if links.ad_links}
@@ -11,7 +28,7 @@
         <ul class="link-group">
           {#each links.ad_links as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">
+              <a href={normalizeUrl(link.url)}>
                 {link.text}
               </a>
             </li>
@@ -20,7 +37,7 @@
       </section>
       <p class="disclaimer">
         All quotes delayed a minimum of 15 minutes. <a
-          href="{normalizeUrl(links.disclaimer_link)}"
+          href={normalizeUrl(links.disclaimer_link || '')}
           >See here for a complete list of exchanges and delays</a
         >.
       </p>
@@ -28,7 +45,7 @@
         <ul class="link-group">
           {#each links.misc_links.filter((d) => !d.self) as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">
+              <a href={normalizeUrl(link.url)}>
                 {link.text}
               </a>
             </li>
@@ -36,24 +53,23 @@
         </ul>
       </section>
       <p class="copyright">
-        © {links.copyright_year} Reuters.
-        <a href="{normalizeUrl(links.copyright_link)}">All rights reserved</a>
+        © {new Date().getFullYear()} Reuters.
+        <a href={normalizeUrl(links.copyright_link)}>All rights reserved.</a>
       </p>
     </div>
   </section>
 {/if}
 
 <style lang="scss">
-  @import '../SiteHeader/scss/_breakpoints.scss';
-  @import '../SiteHeader/scss/_grids.scss';
+  @use '../SiteHeader/scss/_breakpoints.scss' as breakpoints;
+  @use '../SiteHeader/scss/_grids.scss' as grids;
 
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
 
   .content-container {
-    @include max-width;
-
     width: 100%;
     margin: 0 auto;
+    @include breakpoints.max-width;
   }
 
   .legal {
@@ -62,7 +78,7 @@
     box-sizing: border-box;
 
     .content-container {
-      @include responsive-columns(12);
+      @include grids.responsive-columns(12);
     }
   }
 
@@ -70,14 +86,13 @@
     border-top: 1px solid var(--nav-rules);
 
     .content-container {
-      @include spacing-single(padding-left padding-right);
-
       box-sizing: border-box;
+      @include grids.spacing-single(padding-left padding-right);
     }
   }
 
   .legal .content-container {
-    @include spacing-50(grid-row-gap);
+    @include grids.spacing-50(grid-row-gap);
 
     .ad-links {
       grid-column: 1 / span 5;
@@ -101,8 +116,8 @@
       justify-self: end;
     }
 
-    @include at-4-columns {
-      @include spacing-single(grid-row-gap);
+    @include grids.at-4-columns {
+      @include grids.spacing-single(grid-row-gap);
 
       .ad-links,
       .misc-links,

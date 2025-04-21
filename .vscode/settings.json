@@ -11,6 +11,8 @@
   "[mdx]": {
     "editor.wordWrap": "on"
   },
-
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
   "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,40 +1,17 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import darkThemeDocs from './stories/docs/darkTheme.md?raw';
-  // @ts-ignore raw
-  import removeReferralsDocs from './stories/docs/removeReferrals.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import SiteFooter from './SiteFooter.svelte';
+  import Theme from '../Theme/Theme.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Page furniture/SiteFooter',
     component: SiteFooter,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+<Story name="Demo" />
 
-  import Theme from '../Theme/Theme.svelte';
-</script>
-
-<Template let:args>
-  <div>
-    <SiteFooter {...args} />
-  </div>
-</Template>
-
-<Story name="Default" />
-
-<Story name="Customised theme" {...withStoryDocs(darkThemeDocs)}>
+<Story name="Customised theme">
   <div>
     <Theme base="dark">
       <SiteFooter />
@@ -42,11 +19,7 @@
   </div>
 </Story>
 
-<Story
-  name="Remove referrals"
-  args="{{ includeReferrals: false }}"
-  {...withStoryDocs(removeReferralsDocs)}
-/>
+<Story name="Remove referrals" args={{ includeReferrals: false }} />
 
 <style>
   div {

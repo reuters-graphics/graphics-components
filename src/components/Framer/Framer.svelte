@@ -1,20 +1,30 @@
-<script>
-  import Fa from 'svelte-fa/src/fa.svelte';
+<script lang="ts">
+  import Fa from 'svelte-fa';
   import { faDesktop, faLink } from '@fortawesome/free-solid-svg-icons';
-  import { onMount, afterUpdate } from 'svelte';
   import pym from 'pym.js';
   import urljoin from 'proper-url-join';
   import Resizer from './Resizer/index.svelte';
-  import { width } from './stores.js';
-  import getUniqNames from './uniqNames.js';
+  import { width } from './stores';
+  import getUniqNames from './uniqNames';
   import Typeahead from './Typeahead/index.svelte';
+  import ReutersGraphicsLogo from '../ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
 
-  export let embeds;
-  export let breakpoints = [330, 510, 660, 930, 1200];
-  export let minFrameWidth = 320;
-  export let maxFrameWidth = 1200;
+  interface Props {
+    embeds: string[];
+    breakpoints?: number[];
+    minFrameWidth?: number;
+    maxFrameWidth?: number;
+  }
 
-  const getDefaultEmbed = () => {
+  let {
+    embeds = [],
+    breakpoints = [330, 510, 660, 930, 1200],
+    minFrameWidth = 320,
+    maxFrameWidth = 1200,
+  }: Props = $props();
+
+  const getDefaultEmbed = (embeds: Props['embeds']) => {
+    if (embeds.length === 0) return '';
     if (typeof window === 'undefined') return embeds[0];
     const lastActiveEmbed = window.localStorage.getItem('framer-active-embed');
     if (!lastActiveEmbed) return embeds[0];
@@ -22,12 +32,16 @@
     return embeds[0];
   };
 
-  let activeEmbed = getDefaultEmbed();
-  let activeEmbedIndex = embeds.indexOf(activeEmbed);
+  let activeEmbed = $state(getDefaultEmbed(embeds));
+  let activeEmbedIndex = $derived(embeds.indexOf(activeEmbed));
 
-  $: embedTitles = getUniqNames(embeds);
+  let embedTitles = $derived.by(() => {
+    if (embeds.length === 0) return '';
+    return getUniqNames(embeds);
+  });
 
-  const reframe = (embed) => {
+  const reframe = (embed: string) => {
+    if (!embed) return;
     // Bit of hack for handling adding query strings dynamically to embeds.
     // cf. also the value prop on the Typeahead component...
     const activeEmbed =
@@ -42,78 +56,87 @@
     );
   };
 
-  onMount(() => {
-    reframe(activeEmbed);
-  });
-
-  afterUpdate(() => {
+  $effect(() => {
     reframe(activeEmbed);
   });
 </script>
 
 <div class="container">
   <header>
-    <img
-      src="https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-dark.svg"
-      alt=""
-    />
+    <ReutersGraphicsLogo width="120px" />
   </header>
 
-  <div id="typeahead-container">
-    <div class="embed-link">
-      <a
-        rel="external"
-        target="_blank"
-        href="{activeEmbed}"
-        title="{activeEmbed}"
-      >
-        Live link <Fa icon="{faLink}" />
-      </a>
+  {#if embeds.length === 0}
+    <div class="no-embeds">
+      <p>No embeds to show.</p>
     </div>
-    <Typeahead
-      label="Select an embed"
-      value="{embedTitles[embeds.indexOf(activeEmbed)] ||
-        embedTitles[activeEmbedIndex] ||
-        embedTitles[0]}"
-      extract="{(d) => embedTitles[d.index]}"
-      data="{embeds.map((embed, index) => ({ index, embed }))}"
-      placeholder="{'Search'}"
-      showDropdownOnFocus="{true}"
-      on:select="{({ detail }) => {
-        if (typeof window !== 'undefined') {
-          window.localStorage.setItem(
-            'framer-active-embed',
-            detail.original.embed
-          );
-        }
-        activeEmbed = detail.original.embed;
-        activeEmbedIndex = detail.original.index;
-      }}"
-    />
-  </div>
+  {:else}
+    <div id="typeahead-container">
+      <div class="embed-link">
+        <a
+          rel="external"
+          target="_blank"
+          href={activeEmbed}
+          title={activeEmbed}
+        >
+          Live link <Fa icon={faLink} />
+        </a>
+      </div>
+      <Typeahead
+        label="Select an embed"
+        value={embedTitles[embeds.indexOf(activeEmbed)] ||
+          embedTitles[activeEmbedIndex] ||
+          embedTitles[0]}
+        extract={(d) => embedTitles[d.index]}
+        data={embeds.map((embed, index) => ({ index, embed }))}
+        showDropdownOnFocus={true}
+        onselect={(detail) => {
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem(
+              'framer-active-embed',
+              detail.original.embed
+            );
+          }
+          activeEmbed = detail.original.embed;
+          // activeEmbedIndex = detail.original.index;
+        }}
+      />
+    </div>
 
-  <div id="preview-label" style="width:{$width}px;">
-    <p>Preview</p>
-  </div>
-  <div id="frame-parent" style="width:{$width}px;"></div>
+    <div id="preview-label" style="width:{$width}px;">
+      <p>Preview</p>
+    </div>
+    <div id="frame-parent" style="width:{$width}px;"></div>
+  {/if}
 </div>
 
 <div id="home-link">
   <a rel="external" href="./../">
-    <Fa icon="{faDesktop}" />
+    <Fa icon={faDesktop} />
   </a>
 </div>
 
-<Resizer {breakpoints} {minFrameWidth} {maxFrameWidth} />
+{#if embeds.length > 0}
+  <Resizer {breakpoints} {minFrameWidth} {maxFrameWidth} />
+{/if}
 
 <style lang="scss">
+  @use '../../scss/mixins' as mixins;
+
   header {
-    font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
-    font-size: 50px;
     text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
     margin: 20px 0;
+  }
+
+  .no-embeds {
+    background-color: #efefef;
+    border-radius: 4px;
+    padding: 5px 10px;
+    p {
+      text-align: center;
+      margin: 0;
+      @include mixins.font-note;
+    }
   }
 
   div#typeahead-container {

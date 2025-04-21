@@ -1,28 +1,17 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import EmbedPreviewerLink from './EmbedPreviewerLink.svelte';
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Utilities/EmbedPreviewerLink',
     component: EmbedPreviewerLink,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
-
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template let:args>
-  <EmbedPreviewerLink {...args} />
-</Template>
 
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  tags={['!autodocs', '!dev']}
+  args={{
     dev: true,
-  }}"
+  }}
 />

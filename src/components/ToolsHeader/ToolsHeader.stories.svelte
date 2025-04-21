@@ -1,29 +1,18 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import ToolsHeader from './ToolsHeader.svelte';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Page furniture/ToolsHeader',
     component: ToolsHeader,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template let:args>
+<Story name="Demo" tags={['!autodocs', '!dev']}>
   <div>
-    <ToolsHeader {...args} />
+    <ToolsHeader />
   </div>
-</Template>
-
-<Story name="Default" args="{{}}" />
+</Story>
 
 <style>
   div {

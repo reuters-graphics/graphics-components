@@ -1,47 +1,23 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import archieMLDocs from './stories/docs/archieML.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import SEO from './SEO.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Ads & analytics/SEO',
     component: SEO,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template let:args>
-  <SEO {...args} />
-  <div>Nothing to see here. 😎</div>
-</Template>
-
+<div>View page source to see the SEO metadata.</div>
 <Story
-  name="Default"
-  args="{{
-    baseUrl: 'https://graphics.reuters.com',
-    pageUrl: new URL('https://graphics.reuters.com/hello-world/'),
-    publishTime: new Date('2020-09-15').toISOString(),
-  }}"
-/>
-
-<Story
-  name="ArchieML"
-  args="{{
-    baseUrl: 'https://graphics.reuters.com',
-    pageUrl: new URL('https://graphics.reuters.com/hello-world/'),
-    publishTime: new Date('2020-09-15').toISOString(),
-  }}"
-  {...withStoryDocs(archieMLDocs)}
+  name="Demo"
+  args={{
+    baseUrl: 'https://www.reuters.com',
+    seoTitle: 'A title for Google',
+    seoDescription: 'A description for Google',
+    shareTitle: 'A title for Twitter/Facebook',
+    shareDescription: 'A description for Twitter/Facebook',
+    shareImgPath:
+      'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/assets/images/share.jpg',
+  }}
 />

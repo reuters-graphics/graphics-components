@@ -1,24 +1,10 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import interactiveDocs from './stories/docs/interactive.md?raw';
-  // @ts-ignore raw
-  import ai2svelteDocs from './stories/docs/ai2svelte.md?raw';
-  // @ts-ignore raw
-  import archieMLDocs from './stories/docs/archieML.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import Scroller from './Scroller.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Graphics/Scroller',
     component: Scroller,
-    ...withComponentDocs(componentDocs),
     argTypes: {
       steps: { control: false },
       backgroundWidth: {
@@ -34,17 +20,20 @@
         options: ['fb', 'bf'],
       },
     },
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
+<script lang="ts">
+  import MyBackground from './demo/components/basic/Step.svelte';
+  import MyInteractiveForeground from './demo/components/basic/InteractiveForeground.svelte';
 
-  import BasicStep from './stories/components/basic/Step.svelte';
-  import InteractiveForeground from './stories/components/basic/InteractiveForeground.svelte';
-  import AiMap1 from './stories/components/ai2svelte/ai-scroller-1.svelte';
-  import AiMap2 from './stories/components/ai2svelte/ai-scroller-2.svelte';
-  import AiMap3 from './stories/components/ai2svelte/ai-scroller-3.svelte';
+  // ai2svelte backgrounds
+  import AiMap1 from './demo/components/ai2svelte/ai-scroller-1.svelte';
+  import AiMap2 from './demo/components/ai2svelte/ai-scroller-2.svelte';
+  import AiMap3 from './demo/components/ai2svelte/ai-scroller-3.svelte';
+
+  // ai2svelte foreground
+  import AiForeground from './demo/components/ai2svelte/ai-foreground.svelte';
 
   const aiCharts = {
     AiMap1,
@@ -52,55 +41,77 @@
     AiMap3,
   };
 
+  const foregroundComponents = {
+    AiForeground,
+  };
+
   const docBlock = {
-    type: 'scroller',
-    width: 'fluid',
-    foregroundPosition: 'middle',
+    foregroundPosition: 'right',
     id: 'my-scroller',
-    stackBackground: true,
+    stackBackground: 'true',
     steps: [
       {
         background: aiCharts.AiMap1,
-        text: '#### Step 1\n\nLorem ipsum',
+        foreground: "#### Step 1\n\nHere's where something happend.",
         altText: 'A map showing the Upper West side in New York City.',
       },
       {
         background: aiCharts.AiMap2,
-        text: '#### Step 2\n\nLorem ipsum',
+        foreground: '#### Step 2\n\nSomething happened on some street...',
         altText: 'The same map now highlights 98th Street.',
       },
       {
         background: aiCharts.AiMap3,
-        text: '#### Step 3\n\nLorem ipsum',
+        foreground: '#### Step 3\n\n... and now there are multiple protests.',
         altText:
           'The same map now highlights three locations near 98th Street where something particulary important happened.',
       },
     ],
-  };
-</script>
+  } as const;
 
-<Template let:args>
-  <Scroller {...args} />
-</Template>
-
-<Story
-  name="Default"
-  args="{{
+  const docBlockCustomForeground = {
+    foregroundPosition: 'left',
+    id: 'my-scroller',
+    stackBackground: 'true',
     steps: [
       {
-        background: BasicStep,
+        background: aiCharts.AiMap1,
+        foreground: "#### Step 1\n\nHere's where something happend.",
+        altText: 'A map showing the Upper West side in New York City.',
+      },
+      {
+        background: aiCharts.AiMap2,
+        foreground: foregroundComponents.AiForeground,
+        altText: 'The same map now highlights 98th Street.',
+      },
+      {
+        background: aiCharts.AiMap3,
+        foreground: '#### Step 3\n\n... and now there are multiple protests.',
+        altText:
+          'The same map now highlights three locations near 98th Street where something particulary important happened.',
+      },
+    ],
+  } as const;
+</script>
+
+<Story
+  name="Demo"
+  args={{
+    steps: [
+      {
+        background: MyBackground,
         backgroundProps: { colour: 'red' },
         foreground: '#### Step 1\n\nLorem ipsum red',
         altText: 'Red background',
       },
       {
-        background: BasicStep,
+        background: MyBackground,
         backgroundProps: { colour: 'blue' },
         foreground: '#### Step 2\n\nLorem ipsum blue',
         altText: 'Blue background',
       },
       {
-        background: BasicStep,
+        background: MyBackground,
         backgroundProps: { colour: 'green' },
         foreground: '#### Step 3\n\nLorem ipsum green',
         altText: 'Green background',
@@ -108,71 +119,59 @@
     ],
     foregroundPosition: 'middle',
     backgroundWidth: 'fluid',
-    embeddedLayout: 'fb',
-    embedded: false,
-  }}"
+  }}
 />
 
-<Story name="ArchieML" args="{docBlock}" {...withStoryDocs(archieMLDocs)} />
+<Story name="ArchieML and ai2svelte" exportName="ArchieML">
+  <Scroller
+    id={docBlock.id}
+    foregroundPosition={docBlock.foregroundPosition}
+    stackBackground={docBlock.stackBackground === 'true'}
+    steps={docBlock.steps.map((step) => ({
+      background: step.background,
+      foreground: step.foreground,
+      altText: step.altText,
+    }))}
+  />
+</Story>
 
 <Story
-  name="Foreground components"
-  args="{{
+  name="Custom foreground"
+  exportName="CustomForeground"
+  args={{
     steps: [
       {
-        background: BasicStep,
+        background: MyBackground,
         backgroundProps: { colour: 'red' },
-        foreground: InteractiveForeground,
+        foreground: MyInteractiveForeground,
       },
       {
-        background: BasicStep,
+        background: MyBackground,
         backgroundProps: { colour: 'blue' },
         foreground: '#### Step 2\n\nLorem ipsum blue',
       },
       {
-        background: BasicStep,
+        background: MyBackground,
         backgroundProps: { colour: 'green' },
-        foreground: InteractiveForeground,
+        foreground: MyInteractiveForeground,
         foregroundProps: { count: 100 },
       },
     ],
-    foregroundPosition: 'middle',
-    backgroundWidth: 'fluid',
-    embeddedLayout: 'fb',
-    embedded: false,
-  }}"
-  {...withStoryDocs(interactiveDocs)}
+  }}
 />
 
 <Story
-  name="Ai2svelte"
-  args="{{
-    steps: [
-      {
-        background: AiMap1,
-        backgroundProps: { colour: 'red' },
-        foreground: '#### Step 1\n\nLorem ipsum',
-        altText: 'A map showing the Upper West side in New York City.',
-      },
-      {
-        background: AiMap2,
-        backgroundProps: { colour: 'blue' },
-        foreground: '#### Step 2\n\nLorem ipsum',
-        altText:
-          'The same map now highlights 98th Street where something interesting happened.',
-      },
-      {
-        background: AiMap3,
-        backgroundProps: { colour: 'green' },
-        foreground: '#### Step 3\n\nLorem ipsum',
-        altText:
-          'The same map now highlights three locations near 98th Street where something particulary important happened.',
-      },
-    ],
-    foregroundPosition: 'middle',
-    backgroundWidth: 'fluid',
-    embeddedLayout: 'fb',
-    embedded: false,
-  }}"
-  {...withStoryDocs(ai2svelteDocs)}
-/>
+  name="Custom foreground with ArchiemL"
+  exportName="CustomforegroundArchieML"
+>
+  <Scroller
+    id={docBlockCustomForeground.id}
+    foregroundPosition={docBlockCustomForeground.foregroundPosition}
+    stackBackground={docBlockCustomForeground.stackBackground === 'true'}
+    steps={docBlockCustomForeground.steps.map((step) => ({
+      background: step.background,
+      foreground: step.foreground,
+      altText: step.altText,
+    }))}
+  />
+</Story>

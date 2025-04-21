@@ -1,0 +1,25 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SpinnerStories from './Spinner.stories.svelte';
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+The `Spinner` component creates a simple loading spinner. Use it to hide long loading times for components that may be loading expensive media files or crunching through lots of data.
+
+```svelte
+<script>
+  import { Spinner } from '@reuters-graphics/graphics-components';
+
+  let somethingsLoading = true;
+</script>
+
+{#if somethingsLoading}
+  <Spinner />
+{:else}
+  <p>The real deal is here.</p>
+{/if}
+```
+
+<Canvas of={SpinnerStories.Demo} />

@@ -1,29 +1,29 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../utils';
 
   import NavDropdown from './index.svelte';
 
-  export let section = {};
-  export let headingText;
+  let { section = {}, headingText } = $props();
 
-  $: splitCount =
+  let splitCount = $derived(
     section.children && section.children.length > 7 ?
       Math.ceil(section.children.length / 2)
-    : 0;
+    : 0
+  );
 </script>
 
 <NavDropdown {headingText}>
-  <a href="{normalizeUrl(section.url)}">
+  <a href={normalizeUrl(section.url)}>
     <span class="heading">
       Browse {section.name}
     </span>
   </a>
-  <div class="sections">
+  <div class="sections" data-chromatic="ignore">
     {#if splitCount > 0}
       <ul class="sections-group">
         {#each section.children.slice(0, splitCount) as sub}
           <li>
-            <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+            <a class="subsection-link" href={normalizeUrl(sub.url)}>
               {sub.name}
             </a>
           </li>
@@ -33,7 +33,7 @@
     <ul class="sections-group">
       {#each section.children.slice(splitCount) as sub}
         <li>
-          <a class="subsection-link" href="{normalizeUrl(sub.url)}">
+          <a class="subsection-link" href={normalizeUrl(sub.url)}>
             {sub.name}
           </a>
         </li>
@@ -43,8 +43,8 @@
 </NavDropdown>
 
 <style lang="scss">
-  @import '../../scss/_colors.scss';
-  @import '../../scss/_breakpoints.scss';
+  @use '../../scss/_colors.scss' as *;
+  @use '../../scss/_breakpoints.scss' as *;
 
   a {
     text-decoration: none;

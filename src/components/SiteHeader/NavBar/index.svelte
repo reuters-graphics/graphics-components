@@ -1,122 +1,124 @@
-<script>
+<script lang="ts">
   import DownArrow from './DownArrow.svelte';
   import SectionDropdown from './NavDropdown/SectionDropdown.svelte';
   import MoreDropdown from './NavDropdown/MoreDropdown.svelte';
   import { normalizeUrl } from './utils/index';
   import { getContext } from 'svelte';
+  import type { Writable } from 'svelte/store';
 
-  export let sections = [];
+  let { sections = [] } = $props();
 
-  const activeSection = getContext('nav-active-section');
+  const activeSection =
+    getContext<Writable<null | string>>('nav-active-section');
 
-  let windowWidth = 1200;
+  let windowWidth = $state(1200);
 
-  $: getDisplayCount = () => {
+  let getDisplayCount = $derived(() => {
     if (windowWidth >= 1300) return 7;
     return 5;
-  };
+  });
 
-  let navTimeout;
+  let navTimeout = $state<ReturnType<typeof setTimeout>>();
   const timeout = 250;
 
-  $: displayCount = getDisplayCount();
-  $: displaySections = sections.slice(0, displayCount);
-  $: hiddenSections = sections.slice(displayCount);
+  let displayCount = $derived(getDisplayCount());
+  let displaySections = $derived(sections.slice(0, displayCount));
+  let hiddenSections = $derived(sections.slice(displayCount));
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 <div class="nav-bar">
   <nav aria-label="Main navigation">
-    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <ul class="nav-list">
       {#each displaySections as section}
         {#if section.children}
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
           <li
             class="nav-item category link"
-            on:mouseenter="{() => {
+            onmouseenter={() => {
               navTimeout = setTimeout(
                 () => activeSection.set(section.id),
                 timeout
               );
-            }}"
-            on:focus="{() => activeSection.set(section.id)}"
-            on:mouseleave="{() => {
+            }}
+            onfocus={() => activeSection.set(section.id)}
+            onmouseleave={() => {
               clearTimeout(navTimeout);
               activeSection.set(null);
-            }}"
-            on:blur="{() => {
+            }}
+            onblur={() => {
               clearTimeout(navTimeout);
               activeSection.set(null);
-            }}"
-            on:click="{() => {
+            }}
+            onclick={() => {
               if ($activeSection === section.id) {
                 clearTimeout(navTimeout);
                 activeSection.set(null);
               }
-            }}"
+            }}
           >
             <div
               class="nav-button link"
-              class:open="{section.id === $activeSection}"
+              class:open={section.id === $activeSection}
             >
-              <a href="{normalizeUrl(section.url)}">
+              <a href={normalizeUrl(section.url)}>
                 {section.name}
               </a>
               <button class="button">
-                <DownArrow rotate="{section.id === $activeSection}" />
+                <DownArrow rotate={section.id === $activeSection} />
               </button>
             </div>
             {#if $activeSection === section.id}
               <SectionDropdown
                 {section}
-                headingText="{`Latest in ${section.name}`}"
+                headingText={`Latest in ${section.name}`}
               />
             {/if}
           </li>
         {:else}
           <li class="nav-item category link">
             <div class="nav-button link">
-              <a href="{normalizeUrl(section.url)}">
+              <a href={normalizeUrl(section.url)}>
                 {section.name}
               </a>
             </div>
           </li>
         {/if}
       {/each}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
       <li
         class="nav-item"
-        on:mouseenter="{() => {
+        onmouseenter={() => {
           navTimeout = setTimeout(() => activeSection.set('more'), timeout);
-        }}"
-        on:focus="{() => activeSection.set('more')}"
-        on:mouseleave="{() => {
+        }}
+        onfocus={() => activeSection.set('more')}
+        onmouseleave={() => {
           clearTimeout(navTimeout);
           activeSection.set(null);
-        }}"
-        on:blur="{() => {
+        }}
+        onblur={() => {
           clearTimeout(navTimeout);
           activeSection.set(null);
-        }}"
-        on:click="{() => {
+        }}
+        onclick={() => {
           if ($activeSection === 'more') {
             clearTimeout(navTimeout);
             activeSection.set(null);
           }
-        }}"
+        }}
       >
         <div
           class="nav-button more link"
-          class:open="{$activeSection === 'more'}"
+          class:open={$activeSection === 'more'}
         >
           <button class="button">
-            <span>More <DownArrow rotate="{$activeSection === 'more'}" /></span>
+            <span>More <DownArrow rotate={$activeSection === 'more'} /></span>
           </button>
         </div>
         {#if $activeSection === 'more'}
-          <MoreDropdown sections="{hiddenSections}" />
+          <MoreDropdown sections={hiddenSections} />
         {/if}
       </li>
     </ul>
@@ -124,10 +126,10 @@
 </div>
 
 <style lang="scss">
-  @import './../scss/_colors.scss';
-  @import './../scss/_breakpoints.scss';
-  @import './../scss/_z-indexes.scss';
-  @import '../../../scss/mixins';
+  @use './../scss/_colors.scss' as *;
+  @use './../scss/_breakpoints.scss' as *;
+  @use './../scss/_z-indexes.scss' as *;
+  @use '../../../scss/mixins' as *;
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;

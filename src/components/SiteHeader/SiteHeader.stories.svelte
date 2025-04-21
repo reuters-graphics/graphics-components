@@ -1,41 +1,36 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-  // @ts-ignore raw
-  import darkThemeDocs from './stories/docs/darkTheme.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { expect, userEvent, within, waitFor } from '@storybook/test';
   import SiteHeader from './SiteHeader.svelte';
+  import Theme from '../Theme/Theme.svelte';
 
-  import {
-    withComponentDocs,
-    withStoryDocs,
-  } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Page furniture/SiteHeader',
     component: SiteHeader,
-    ...withComponentDocs(componentDocs),
-    argsTypes: {
+    argTypes: {
       themes: { control: { disable: true } },
     },
-  };
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
-  import Theme from '../Theme/Theme.svelte';
-</script>
-
-<Template let:args>
+<Story
+  name="Demo"
+  play={async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByText('More'));
+    await waitFor(() =>
+      expect(canvas.getByText('Graphics')).toBeInTheDocument()
+    );
+    await userEvent.click(canvas.getByText('World'));
+    await waitFor(() => expect(canvas.getByText('Europe')).toBeInTheDocument());
+  }}
+>
   <div>
-    <SiteHeader {...args} />
+    <SiteHeader />
   </div>
-</Template>
+</Story>
 
-<Story name="Default" />
-
-<Story name="Customised theme" {...withStoryDocs(darkThemeDocs)}>
+<Story name="Customised theme">
   <div>
     <Theme base="dark">
       <SiteHeader />

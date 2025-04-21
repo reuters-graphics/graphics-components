@@ -1,14 +1,5 @@
 <!-- @component `Article` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-article--docs) -->
 <script lang="ts">
-  /** Set to true for embeddables. */
-  export let embedded: boolean = false;
-
-  /** Add an id to the article tag to target it with custom CSS. */
-  export let id: string | null = null;
-
-  /** ARIA role of the article */
-  export let role: string | null = null;
-
   interface ColumnWidths {
     /** Narrower column width */
     narrower: number;
@@ -22,30 +13,46 @@
     wider: number;
   }
 
-  /** Set custom widths for the normal, wide and wider column dimensions */
-  export let columnWidths: ColumnWidths = {
-    narrower: 330,
-    narrow: 510,
-    normal: 660,
-    wide: 930,
-    wider: 1200,
-  };
+  import cssVariables from '../../actions/cssVariables/index';
+  interface Props {
+    /** Set to true for embeddables. */
+    embedded?: boolean;
+    /** Add an id to the article tag to target it with custom CSS. */
+    id?: string;
+    /** ARIA role of the article */
+    role?: string | null;
+    /** Set custom widths for the normal, wide and wider column dimensions */
+    columnWidths?: ColumnWidths;
+    children?: import('svelte').Snippet;
+  }
 
-  import cssVariables from '../../actions/cssVariables/index.js';
+  let {
+    embedded = false,
+    id = '',
+    role = null,
+    columnWidths = {
+      narrower: 330,
+      narrow: 510,
+      normal: 660,
+      wide: 930,
+      wider: 1200,
+    },
+    children,
+  }: Props = $props();
 
-  $: columnWidthVars = {
+  let columnWidthVars = $derived({
     'narrower-column-width': columnWidths.narrower + 'px',
     'narrow-column-width': columnWidths.narrow + 'px',
     'normal-column-width': columnWidths.normal + 'px',
     'wide-column-width': columnWidths.wide + 'px',
     'wider-column-width': columnWidths.wider + 'px',
-  };
+  });
 </script>
 
 <main id="main-content">
-  <article {id} class:embedded {role} use:cssVariables="{columnWidthVars}">
+  <article {id} class:embedded {role} use:cssVariables={columnWidthVars}>
     <!-- Article content -->
-    <slot />
+    {@render children?.()}
   </article>
 </main>
 

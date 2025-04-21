@@ -1,10 +1,14 @@
 <script lang="ts">
   import type { ScrollerStep } from '../@types/global';
 
-  export let index: number;
-  export let steps: ScrollerStep[] = [];
-  export let preload: number = 1;
-  export let stackBackground: boolean = true;
+  interface Props {
+    index: number;
+    steps: ScrollerStep[];
+    preload?: number;
+    stackBackground?: boolean;
+  }
+
+  let { index, steps, preload = 1, stackBackground = true }: Props = $props();
 </script>
 
 {#each steps as step, i}
@@ -13,13 +17,10 @@
   {#if preload === 0 || (i >= (stackBackground ? 0 : index - preload) && i <= index + preload)}
     <div
       class="step-background step-{i + 1} w-full absolute"
-      class:visible="{stackBackground ? i <= index : i === index}"
-      class:invisible="{stackBackground ? i > index : i !== index}"
+      class:visible={stackBackground ? i <= index : i === index}
+      class:invisible={stackBackground ? i > index : i !== index}
     >
-      <svelte:component
-        this="{step.background}"
-        {...step.backgroundProps || {}}
-      />
+      <step.background {...step.backgroundProps || {}}></step.background>
     </div>
   {/if}
 {/each}

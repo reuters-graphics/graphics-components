@@ -1,4 +1,4 @@
-An embed tool for development in the Graphics Kit.
+An embed tool for development in the graphics kit.
 
 ```svelte
 <script>

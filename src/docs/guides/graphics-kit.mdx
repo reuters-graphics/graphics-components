@@ -3,13 +3,13 @@ import { parameters } from '../utils/docsPage.js';
 import Highlight from '../docs-components/Highlight/Highlight';
 
 <Meta
-  title="Guides/Using with the Graphics Kit"
+  title="Guides/Using with the graphics kit"
   parameters={{ ...parameters }}
 />
 
-# Using with the Graphics Kit
+# Using with the graphics kit
 
-Our graphics components are designed to work seemlessly with the [Graphics Kit](https://github.com/reuters-graphics/bluprint_graphics-kit) as well as just about any Svelte-based page builder.
+Our graphics components are designed to work seemlessly with the [graphics kit](https://reuters-graphics.github.io/bluprint_graphics-kit/) as well as just about any Svelte-based page builder.
 
 **There is, however, one gotcha to watch out for:**
 
@@ -19,7 +19,7 @@ When working with multimedia files like images or videos, components expect all 
 
 ❌ `./myImage.jpg`
 
-In the Graphics Kit, that means you'll need to prefix relative paths with the special [`assets`](https://svelte.dev/docs/kit/$app-paths#assets) SvelteKit module that contains the root URL for your project. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
+In the graphics kit, that means you'll need to prefix relative paths with the special [`assets`](https://svelte.dev/docs/kit/$app-paths#assets) SvelteKit module that contains the root URL for your project. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
 
 ```svelte
 <script>
@@ -30,5 +30,5 @@ In the Graphics Kit, that means you'll need to prefix relative paths with the sp
 </script>
 
 <!-- Use the assets module to prefix the path to your image. -->
-<FeautrePhoto src="{`${assets}/imgs/myImage.jpg`}" />
+<FeautrePhoto src="{assets}/imgs/myImage.jpg" />
 ```

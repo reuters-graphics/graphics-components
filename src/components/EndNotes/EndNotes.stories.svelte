@@ -1,20 +1,15 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import EndNotes from './EndNotes.svelte';
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
 
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Text elements/EndNotes',
     component: EndNotes,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
 
 <script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-
   const notes = [
     {
       title: 'Note',
@@ -31,8 +26,4 @@
   ];
 </script>
 
-<Template let:args>
-  <EndNotes {...args} />
-</Template>
-
-<Story name="Default" args="{{ notes }}" />
+<Story name="Demo" args={{ notes }} />

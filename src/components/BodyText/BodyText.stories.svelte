@@ -1,28 +1,16 @@
-<script context="module" lang="ts">
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import BodyText from './BodyText.svelte';
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
 
-  import { withComponentDocs } from '$docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Text elements/BodyText',
     component: BodyText,
-    ...withComponentDocs(componentDocs),
-  };
+  });
 </script>
-
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template let:args>
-  <BodyText {...args} />
-</Template>
 
 <Story
-  name="Default"
-  args="{{
+  name="Demo"
+  args={{
     text: `Bacon ipsum **dolor amet** cow tongue tri-tip.
   
   Biltong turducken ground round kevin [hamburger turkey](https://reuters.com) pig.
@@ -32,12 +20,14 @@
   - Fillet
   
   Venison shoulder *ham hock ham leberkas*. Flank beef ribs fatback, jerky meatball ham hock.`,
-  }}"
+  }}
 />
 
 <Story
   name="Typography sample"
-  args="{{
+  exportName="TypographySample"
+  tags={['!autodocs', '!dev']}
+  args={{
     class: 'body-text-typography-example-story',
     text: `<span class='drop-cap'>R</span>eprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock [tempor meatball](https://baconipsum.com/) alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.
 
@@ -91,94 +81,22 @@ Ham hock id porchetta elit. Sint spare ribs aute buffalo.
 
 <p class='body-correction'>Correction: Lorem ispsum dolor sit amet ameno dorime.</p>
 `,
-  }}"
+  }}
 />
 
-<!-- svelte-ignore css-unused-selector -->
-<style lang="scss" global>
-  @mixin heading-tag {
-    position: absolute;
-    top: 0;
-    left: -50px;
-    text-align: right;
-    display: block;
-    width: 40px;
-    color: #ddd;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-weight: 800;
-    line-height: 1;
-    &:hover {
-      color: #999;
-    }
-    @media (max-width: 800px) {
-      color: white !important;
-    }
-  }
-  .body-text-typography-example-story {
-    h2 {
-      position: relative;
-      &:before {
-        content: 'H2';
-        @include heading-tag;
-        & {
-          font-size: 22px;
-        }
-      }
-      h3 {
-        position: relative;
-        &:before {
-          content: 'H3';
-          @include heading-tag;
-          & {
-            font-size: 19px;
-          }
-        }
-      }
-      h4 {
-        position: relative;
-        &:before {
-          content: 'H4';
-          @include heading-tag;
-          & {
-            font-size: 16px;
-          }
-        }
-      }
-      h5 {
-        position: relative;
-        &:before {
-          content: 'H5';
-          @include heading-tag;
-          & {
-            font-size: 15px;
-          }
-        }
-      }
-      h6 {
-        position: relative;
-        &:before {
-          content: 'H6';
-          @include heading-tag;
-          & {
-            font-size: 12px;
-          }
-        }
-      }
-      blockquote {
-        position: relative;
-        &:before {
-          @include heading-tag;
-          & {
-            content: '“';
-            font-size: 3rem;
-            line-height: 3rem;
-          }
-        }
-        blockquote:before {
-          display: none;
-        }
-      }
-    }
+<Story
+  name="Custom styles"
+  exportName="CustomStyles"
+  tags={['!autodocs', '!dev']}
+  args={{
+    class: 'body-text-custom-styles-story',
+    text: `Venison shoulder <span class="highlight">ham hock</span> ham leberkas.`,
+  }}
+/>
+
+<style lang="scss">
+  :global(.body-text-custom-styles-story span.highlight) {
+    background: palegoldenrod;
+    padding: 2px 4px;
   }
 </style>

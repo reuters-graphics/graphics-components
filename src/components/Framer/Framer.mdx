@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+
+import * as FramerStories from './Framer.stories.svelte';
+
+<Meta of={FramerStories} />
+
+# FeaturePhoto
+
+An embed tool for development in the graphics kit.
+
+```svelte
+<script>
+  import { Framer } from '@reuters-graphics/graphics-components';
+
+  const embeds = ['/embeds/my-chart/index.html'];
+</script>
+
+<Framer {embeds} />
+```

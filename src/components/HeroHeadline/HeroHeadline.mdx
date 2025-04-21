@@ -1,0 +1,329 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as HeroHeadlineStories from './HeroHeadline.stories.svelte';
+
+<Meta of={HeroHeadlineStories} />
+
+# HeroHeadline
+
+The `HeroHeadline` component creates a Reuters Graphics headline with a hero media, which can be a graphic, photo, video or other media.
+
+By default, the hero is in the background, i.e., the headline and dek are stacked on top of the hero. You can unstack and insert the hero media inline -- i.e., before or after the headline -- by setting `stacked: false`. [Read more.](?/iframe.html?viewMode=docs&id=components-text-elements-heroheadline--docs&globals=&args=#inline-hero)
+
+## Photo hero
+
+To use a photo as the hero, simply pass the image source to the `img` prop.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { HeroHeadline } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
+</script>
+
+<HeroHeadline
+  {embedded}
+  img={`${assets}/images/polar-bear.jpg`}
+  ariaDescription="A photo of a polar bear"
+  notes="Photo by REUTERS"
+  section={'World News'}
+  hed={'Reuters Graphics Interactive'}
+  dek={'The beginning of a beautiful page'}
+  authors={['Jane Doe', 'John Doe']}
+/>
+```
+
+<Canvas of={HeroHeadlineStories.PhotoHero} />
+
+## Transparent site header
+
+In the graphics kit, set styles in `global.scss` to make the Reuters site header transparent and make the hero go all the way to the top of the page:
+
+```scss
+// global.scss
+.nav-container {
+  background-color: transparent !important;
+}
+.nav-container .inner {
+  background-color: transparent !important;
+  border: none !important;
+}
+.hero-wrapper {
+  margin-top: -64px;
+}
+```
+
+<Canvas of={HeroHeadlineStories.TransparentHeader} />
+
+## Ai2svelte hero
+
+To use an ai2svelte graphic as the hero, wrap your ai2svelte component in a `GraphicBlock` component and insert it inside `HeroHeadline`.
+
+To customise styles, use CSS to target the class passed to `HeroHeadline`.
+
+> **Note:** Pass `notes` and `ariaDescription` to the `GraphicBlock` component to provide additional information about the ai2svelte graphic.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import {
+    HeroHeadline,
+    GraphicBlock,
+  } from '@reuters-graphics/graphics-components';
+
+  import QuakeMap from './ai2svelte/graphic.svelte'; // Your ai2svelte component
+
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
+</script>
+
+<HeroHeadline
+  {embedded}
+  hed="Earthquake devastates Afghanistan"
+  hedSize="big"
+  hedWidth="wide"
+  class="custom-hero mb-0"
+  authors={[
+    'Anand Katakam',
+    'Vijdan Mohammad Kawoosa',
+    'Adolfo Arranz',
+    'Wen Foo',
+    'Simon Scarr',
+    'Aman Bhargava',
+    'Jitesh Chowdhury',
+    'Manas Sharma',
+    'Aditi Bhandari',
+  ]}
+  publishTime={new Date('2022-06-24').toISOString()}
+>
+  <GraphicBlock
+    width="widest"
+    role="figure"
+    class="my-0"
+    ariaDescription="Earthquake impact map"
+  >
+    <!-- Pass `assetsPath` if in graphics kit -->
+    <QuakeMap assetsPath={assets || '/'} />
+  </GraphicBlock>
+</HeroHeadline>
+```
+
+Add styles in `global.scss`:
+
+```scss
+// global.scss
+// Customise styles using the class (e.g. `custom-hero` here) passed to `HeroHeadline`
+.hero-wrapper {
+  .custom-hero.headline {
+    // Adjust vertical positioning
+    align-items: flex-end !important;
+
+    @media (max-width: 1100px) {
+      // Adjust line length of title
+      max-width: var(--normal-column-width) !important;
+    }
+  }
+
+  // Make hero shorter than 100vh
+  --heroHeight: 85svh;
+
+  @media (max-width: 960px) {
+    --heroHeight: 65svh;
+  }
+
+  // For small height
+  @media (max-height: 850px) {
+    --heroHeight: 100svh;
+  }
+
+  // Custom hero sizing for landscape mobile
+  @media (max-width: 960px) and (orientation: landscape) {
+    --heroHeight: 200svh;
+  }
+}
+
+// Override default fixed height for hero layout in embeds
+.hero-wrapper.embedded {
+  --heroHeight: 1000px;
+}
+```
+
+<Canvas of={HeroHeadlineStories.Ai2svelteHero} />
+
+## Video hero
+
+To add a video as the hero, use the [Video](?path=/docs/components-multimedia-video--docs) component. To customise styles, use CSS to target the class passed to `HeroHeadline`.
+
+> **Note:** Pass `notes` and `ariaDescription` to the `GraphicBlock` component to provide additional information about the video.
+
+```svelte
+<script>
+  import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
+</script>
+
+<HeroHeadline
+  {embedded}
+  class="video-hero"
+  hed="The conflict in Ethiopia"
+  hedSize="bigger"
+  hedWidth="wide"
+  authors={['Aditi Bhandari ', 'David Lewis']}
+  publishTime={new Date('2020-12-18').toISOString()}
+>
+  <Video
+    width="widest"
+    class="my-0"
+    showControls={false}
+    preloadVideo="auto"
+    playVideoWhenInView={false}
+    src={`${assets}/videos/intro.mp4`}
+    poster={`${assets}/images/video-poster-intro.jpg`}
+    notes="Drone footage from the Village 8 refugee camp in Sudan."
+    ariaDescription="Aerial footage of people houses in refugee camp"
+  />
+</HeroHeadline>
+```
+
+Add styles in `global.scss`:
+
+```scss
+// global.scss
+// Customise styles using the class (e.g. `video-hero` here) passed to `HeroHeadline`
+.hero-wrapper {
+  --heroHeight: calc(100svh - 60px);
+  .video-hero.headline {
+    header {
+      // Adjust vertical position as offset from default center
+      top: calc(50svh - 250px);
+    }
+
+    h1 {
+      color: #ffd430;
+      text-shadow: 3px 4px 7px rgba(81, 67, 21, 0.8);
+    }
+  }
+}
+```
+
+<Canvas of={HeroHeadlineStories.VideoHero} />
+
+## Inline hero
+
+To use a photo, graphic, video, etc. as an inline hero -- i.e., to make the hero appear _after_ the headline and dek, instead of stacked underneath -- set `stacked` to `false`. Otherwise, add your hero media in the same way as documented above.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import {
+    HeroHeadline,
+    GraphicBlock,
+  } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+
+  let { embedded = false } = $props(); // 👈 If using in the graphics kit...
+</script>
+
+<!-- Set `stacked` to `false` -->
+<HeroHeadline
+  {embedded}
+  stacked={false}
+  section="Global news"
+  hed="The plunge from 29,000 feet"
+  dek="How China Eastern Airlines flight MU5735 went from an uneventful flight at cruising altitude to disaster in just minutes."
+  class="mb-0"
+  authors={['Simon Scarr', 'Vijdan Mohammad Kawoosa']}
+  publishTime={new Date('2020-01-01').toISOString()}
+>
+  <GraphicBlock
+    width="widest"
+    role="figure"
+    class="my-0"
+    ariaDescription="Earthquake impact map"
+    notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
+  >
+    <!-- Pass `assetsPath` if in graphics kit -->
+    <CrashMap assetsPath={assets || '/'} />
+  </GraphicBlock>
+</HeroHeadline>
+```
+
+<Canvas of={HeroHeadlineStories.InlineHero} />
+
+## Custom hed, dek and byline
+
+The `HeroHeadline` component internally uses the [Headline](?path=/docs/components-text-elements-headline--docs) component to render the headline and dek, which lets you to customise the headline and dek by passing [snippets](https://svelte.dev/docs/svelte/snippet) into the `hed` and `dek` props.
+
+Since `Headline` internally uses the [Byline](?path=/docs/components-text-elements-headline--docs) component, you can also customise the author page hyperlink and bylines with the `getAuthorPage`, `byline`, `published` and `updated` props.
+
+```svelte
+<!-- App.svelte -->
+<HeroHeadline
+  class="custom-hed"
+  authors={[
+    'Prasanta Kumar Dutta',
+    'Dea Bankova',
+    'Aditi Bhandari',
+    'Anurag Rao',
+  ]}
+  publishTime={new Date('2023-05-11').toISOString()}
+  img={eurovisImgSrc}
+  getAuthorPage={(author) => {
+    return `mailto:${author.replace(' ', '')}@example.com`;
+  }}
+>
+  <!-- Custom hed snippet -->
+  {#snippet hed()}
+    <h1>
+      <div class="body-note">A visual guide to</div>
+      <div class="title text-6xl font-light tracking-widest">EUROVISION</div>
+    </h1>
+  {/snippet}
+
+  <!-- Custom dek snippet -->
+  {#snippet dek()}
+    <div class="dek">
+      <p>
+        Performers from 37 countries are coming together May 9-13 in Liverpool,
+        England, for the 67th annual Eurovision Song Contest. The winner gets
+        the trophy and their country gets the right to host next year’s event,
+        produced by the European Broadcasting Union (EBU).
+      </p>
+    </div>
+  {/snippet}
+</HeroHeadline>
+```
+
+Add styles in `global.scss`:
+
+```scss
+// global.scss
+.custom-hed {
+  h1 {
+    .body-note {
+      color: #ffffff;
+    }
+    .title {
+      color: #ffffff;
+      text-shadow: 1px 1px 8px #ff7c88;
+      filter: drop-shadow(0px 0px 12px #ff7c88);
+    }
+  }
+
+  .dek {
+    margin-top: 1rem;
+    p {
+      color: #ffffff;
+      text-shadow: 1px 1px 8px #ff7c88;
+      filter: drop-shadow(0px 0px 12px #ff7c88);
+    }
+  }
+}
+```
+
+<Canvas of={HeroHeadlineStories.CustomHed} />

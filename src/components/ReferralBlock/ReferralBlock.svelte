@@ -1,64 +1,70 @@
 <!-- @component `ReferralBlock` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-referralblock--docs) -->
 <script lang="ts">
-  /** ✏️ DOCUMENT your chart's props using TypeScript and JSDoc comments like below! */
-
-  /**
-   * Section ID, which is often the URL path to the section page on reuters.com.
-   *
-   * Note that not all section pages will be available in the recent stories by section API.
-   */
-  export let section: string | undefined = '/world/';
-
-  /**
-   * Collection alias, as defined in Arc Collections editor.
-   */
-  export let collection: string | undefined;
-
-  /**
-   * Number of referrals to show.
-   * @required
-   */
-  export let number: number = 4;
-
-  /**
-   * Link [target](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target), e.g., `_blank` or `_parent`.
-   */
-  export let linkTarget: string = '_self';
-
-  /**
-   * Add a heading to the referral block.
-   */
-  export let heading: string = '';
-
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
-
-  /**
-   * Width of the component within the text well.
-   * @required
-   */
-  export let width: ContainerWidth = 'wide';
-
-  /** Add an ID to target with SCSS. */
-  export let id: string = '';
-
-  /** Add a class to target with SCSS. */
-  let cls: string = 'fmy-8';
-  export { cls as class };
-
-  import Block from '../Block/Block.svelte';
-
+  // Utils
   import { onMount } from 'svelte';
   import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
-  import type { Referrals } from './types';
   import { articleIsNotCurrentPage } from './filterCurrentPage';
-  import type { Article } from './types';
 
-  let clientWidth: number;
+  // Components
+  import Block from '../Block/Block.svelte';
+
+  // Types
+  import type { Article } from './types';
+  import type { Referrals } from './types';
+  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+
+  interface Props {
+    /**
+     * Section ID, which is often the URL path to the section page on reuters.com.
+     *
+     * Note that not all section pages will be available in the recent stories by section API.
+     */
+    section?: string;
+    /**
+     * Collection alias, as defined in Arc Collections editor.
+     */
+    collection?: string;
+    /**
+     * Number of referrals to show.
+     */
+    number?: number;
+    /**
+     * Link [target](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target), e.g., `_blank` or `_parent`.
+     */
+    linkTarget?: string;
+    /**
+     * Add a heading to the referral block.
+     */
+    heading?: string;
+    /**
+     * Width of the component within the text well: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid'
+     */
+    width?: ContainerWidth;
+    /** Add an ID to target with SCSS. */
+    id?: string;
+    /** Add a class to target with SCSS. */
+    class?: string;
+  }
+
+  let {
+    section = '/world/',
+    collection,
+    number = 4,
+    linkTarget = '_self',
+    heading = '',
+    width = 'wide',
+    id = '',
+    class: cls = 'fmy-8',
+  }: Props = $props();
+
+  let clientWidth = $state(0);
 
   const SECTION_API = 'recent-stories-by-sections-v1';
+
+  /** @TODO - Check if collections alias API still exists*/
   const COLLECTION_API = 'articles-by-collection-alias-or-id-v1';
 
-  let referrals: Article[] = [];
+  let referrals: Article[] = $state([]);
 
   const getReferrals = async () => {
     const isCollection = Boolean(collection);
@@ -75,17 +81,16 @@
             }),
           })
       );
+
       const data = (await response.json()) as Referrals;
+
       const articles = data.result.articles
         .filter((a) => a?.headline_category || a?.kicker?.name)
-        .filter(
-          (a) =>
-            a?.thumbnail?.renditions?.landscape?.['240w'] ||
-            a?.thumbnail?.resizer_url
-        )
+        .filter((a) => a?.thumbnail?.url)
         .filter((a) => !a?.content?.third_party)
         .filter(articleIsNotCurrentPage)
         .slice(0, number);
+
       referrals = articles;
     } catch {
       console.warn('Unable to fetch referral links.');
@@ -99,33 +104,33 @@
   <Block {width} {id} class="referrals-block {cls}">
     <div
       class="block-container"
-      class:stacked="{clientWidth && clientWidth < 750}"
+      class:stacked={clientWidth && clientWidth < 750}
       bind:clientWidth
     >
       {#if heading}
         <div
           class="heading h4 font-bold"
-          class:stacked="{clientWidth && clientWidth < 750}"
+          class:stacked={clientWidth && clientWidth < 750}
         >
           {heading}
         </div>
       {/if}
       <div
         class="referral-container inline-flex flex-wrap w-full justify-between"
-        class:stacked="{clientWidth && clientWidth < 750}"
-        class:xs="{clientWidth && clientWidth < 450}"
+        class:stacked={clientWidth && clientWidth < 750}
+        class:xs={clientWidth && clientWidth < 450}
       >
         {#each referrals as referral}
           <div class="referral">
             <a
               href="https://www.reuters.com{referral.canonical_url}"
-              target="{linkTarget}"
-              rel="{linkTarget === '_blank' ? 'noreferrer' : null}"
+              target={linkTarget}
+              rel={linkTarget === '_blank' ? 'noreferrer' : null}
             >
               <div class="referral-pack flex justify-around my-0 mx-auto">
                 <div
                   class="headline"
-                  class:xs="{clientWidth && clientWidth < 450}"
+                  class:xs={clientWidth && clientWidth < 450}
                 >
                   <div
                     class="kicker m-0 body-caption leading-tighter"
@@ -148,26 +153,15 @@
                 </div>
                 <div
                   class="image-container block m-0 overflow-hidden relative"
-                  class:xs="{clientWidth && clientWidth < 450}"
+                  class:xs={clientWidth && clientWidth < 450}
                 >
-                  {#if referral.thumbnail.resizer_url}
-                    <img
-                      class="block object-cover m-0 w-full"
-                      data-chromatic="ignore"
-                      src="{referral.thumbnail
-                        .resizer_url}&width=120&quality=80"
-                      alt="{referral.thumbnail.caption ||
-                        referral.thumbnail.alt_text}"
-                    />
-                  {:else}
-                    <img
-                      class="block object-cover m-0 w-full"
-                      data-chromatic="ignore"
-                      src="{referral.thumbnail.renditions.landscape['240w']}"
-                      alt="{referral.thumbnail.caption ||
-                        referral.thumbnail.alt_text}"
-                    />
-                  {/if}
+                  <img
+                    class="block object-cover m-0 w-full"
+                    data-chromatic="ignore"
+                    src={referral.thumbnail.url}
+                    alt={referral.thumbnail.alt_text ||
+                      referral.thumbnail.caption}
+                  />
                 </div>
               </div>
             </a>
@@ -179,7 +173,7 @@
 {/if}
 
 <style lang="scss">
-  @use '../../scss/mixins' as *;
+  @use '../../scss/mixins' as mixins;
 
   div.block-container.stacked {
     display: flex;
@@ -212,7 +206,7 @@
       display: block;
       width: calc(50% - 30px);
       max-width: 450px;
-      @include fmy-1;
+      @include mixins.fmy-1;
 
       &:hover {
         .title {
@@ -226,25 +220,25 @@
       .headline {
         display: inline-block;
         width: calc(100% - 9rem);
-        @include fpr-2;
+        @include mixins.fpr-2;
         .kicker {
-          @include text-xxs;
+          @include mixins.text-xxs;
           font-family: Knowledge, sans-serif;
         }
         .title {
-          @include font-medium;
-          @include text-sm;
-          @include text-primary;
+          @include mixins.font-medium;
+          @include mixins.text-sm;
+          @include mixins.text-primary;
           font-family: Knowledge, sans-serif;
         }
         .publish-time {
-          @include text-xxs;
+          @include mixins.text-xxs;
           font-family: Knowledge, sans-serif;
         }
       }
       .image-container {
         border-radius: 0.25rem;
-        border: 1px solid $theme-colour-brand-rules;
+        border: 1px solid mixins.$theme-colour-brand-rules;
         width: 9rem;
         &.xs {
           width: 7rem;

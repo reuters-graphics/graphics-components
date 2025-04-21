@@ -8,13 +8,7 @@ const config: KnipConfig = {
     '.storybook/**/*.{js,ts,svelte}',
   ],
   ignore: ['**/*.d.ts'],
-  ignoreDependencies: [
-    /@types\/.*/,
-    /@storybook\/.*/,
-    'chromatic',
-    'prop-types',
-    'postcss',
-  ],
+  ignoreDependencies: [/@types\/.*/, 'chromatic', 'prop-types', 'postcss'],
 };
 
 export default config;

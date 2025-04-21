@@ -1,0 +1,80 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as SEOStories from './SEO.stories.svelte';
+
+<Meta of={SEOStories} />
+
+# SEO
+
+The `SEO` component adds essential metadata to pages.
+
+```svelte
+<script>
+  import { SEO } from '@reuters-graphics/graphics-components';
+</script>
+
+<SEO
+  baseUrl="https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps"
+  pageUrl={new URL(
+    'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/countries/united-kingdom/'
+  )}
+  seoTitle="A title for Google"
+  seoDescription="A description for Google"
+  shareTitle="A title for Twitter/Facebook"
+  shareDescription="A description for Twitter/Facebook"
+  shareImgPath="https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/assets/images/share.jpg"
+  shareImgAlt="An image showing global COVID infection rates"
+  publishTime="2020-09-15T00:00:00.000Z"
+  updateTime="2021-01-10T12:30:00.000Z"
+  authors={[
+    { name: 'Jane Doe', link: 'https://www.reuters.com/authors/jane-doe/' },
+    { name: 'John Doe', link: 'https://www.reuters.com/authors/john-doe/' },
+  ]}
+/>
+```
+
+## Using with ArchieML docs
+
+With the graphics kit, you'll likely get many of your text values from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+slug: ROOT-SLUG/WILD
+seoTitle: Page title for search
+seoDescription: Page description for search
+shareTitle: Page title for social media
+shareDescription: Page description for social media
+shareImgPath: images/reuters-graphics.jpg
+shareImgAlt: Alt text for share image.
+```
+
+... which you'll pass to the `SEO` component.
+
+```svelte
+<script>
+  import { SEO } from '@reuters-graphics/graphics-components';
+  import pkg from '$pkg';
+  import content from '$locales/en/content.json';
+  import { assets } from '$app/paths';
+  import { page } from '$app/stores';
+</script>
+
+<SEO
+  baseUrl={VITE_BASE_URL}
+  pageUrl={$page.url}
+  seoTitle={content.seoTitle}
+  seoDescription={content.seoDescription}
+  shareTitle={content.shareTitle}
+  shareDescription={content.shareDescription}
+  shareImgPath={`${assets}/${content.shareImgPath}`}
+  shareImgAlt={content.shareImgAlt}
+  publishTime={pkg?.reuters?.graphic?.published}
+  updateTime={pkg?.reuters?.graphic?.updated}
+  authors={pkg?.reuters?.graphic?.authors}
+/>
+```
+
+> **Note:** For _reasons_, we can't document the value of `VITE_BASE_URL` below. It's `import` + `.meta.env.BASE_URL` (concatenate all that) in the graphics kit and other Vite-based rigs.
+
+<Canvas of={SEOStories.Demo} />
+```

@@ -12,7 +12,7 @@ const attachScript = () => {
   e.type = 'text/javascript';
   e.async = true;
   e.src = URL;
-  n.parentNode.insertBefore(e, n);
+  n.parentNode!.insertBefore(e, n);
 };
 
 export default () => {

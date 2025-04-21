@@ -1,29 +1,29 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../../utils';
   import { getTime } from './time';
 
-  export let story;
+  let { story } = $props();
 
-  $: thumbnail = story.thumbnail;
+  let thumbnail = $derived(story.thumbnail);
 </script>
 
-<div class="story-card">
-  <a href="{normalizeUrl(story.canonical_url)}">
-    <div class="story-text" class:has-thumbnail="{thumbnail}">
+<div class="story-card" data-chromatic="ignore">
+  <a href={normalizeUrl(story.canonical_url)}>
+    <div class="story-text" class:has-thumbnail={thumbnail}>
       <span>{story.title}</span>
-      <time datetime="{story.display_time}">{getTime(story.display_time)}</time>
+      <time datetime={story.display_time}>{getTime(story.display_time)}</time>
     </div>
     {#if thumbnail && (thumbnail.resizer_url || thumbnail?.renditions?.square?.['120w'])}
       <div class="thumbnail">
         {#if thumbnail.resizer_url}
           <img
             src="{thumbnail.resizer_url}&width=120&quality=80"
-            alt="{thumbnail.alt_text}"
+            alt={thumbnail.alt_text}
           />
         {:else}
           <img
-            src="{thumbnail.renditions.square['120w']}"
-            alt="{thumbnail.alt_text}"
+            src={thumbnail.renditions.square['120w']}
+            alt={thumbnail.alt_text}
           />
         {/if}
       </div>
@@ -32,7 +32,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../../../../scss/mixins';
+  @use '../../../../../scss/mixins' as *;
 
   .story-card a {
     display: flex;
@@ -46,9 +46,6 @@
       text-decoration: none;
       .story-text span {
         text-decoration: underline;
-        &.label {
-          text-decoration: none;
-        }
       }
     }
 
@@ -67,14 +64,6 @@
         @media (min-width: 1300px) {
           font-size: 18px;
         }
-      }
-
-      span.label {
-        font-size: 14px;
-        line-height: 1.1;
-        margin-bottom: 8px;
-        display: block;
-        font-weight: 200;
       }
 
       time {

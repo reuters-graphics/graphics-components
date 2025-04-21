@@ -1,9 +1,13 @@
 <script lang="ts">
   import type { ScrollerStep } from '../@types/global';
 
-  export let steps: ScrollerStep[] = [];
+  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
-  import Markdown from '../Markdown/Markdown.svelte';
+  interface Props {
+    steps: ScrollerStep[];
+  }
+
+  let { steps }: Props = $props();
 </script>
 
 {#each steps as step, i}
@@ -16,23 +20,20 @@
       <div class="empty-step-foreground"></div>
       {#if typeof step.altText === 'string'}
         <div class="background-alt-text visually-hidden">
-          <Markdown source="{step.altText}" />
+          <Markdown source={step.altText} />
         </div>
       {/if}
     {:else}
       <div class="step-foreground w-full">
         {#if typeof step.foreground === 'string'}
-          <Markdown source="{step.foreground}" />
+          <Markdown source={step.foreground} />
         {:else}
-          <svelte:component
-            this="{step.foreground}"
-            {...step.foregroundProps || {}}
-          />
+          <step.foreground {...step.foregroundProps || {}}></step.foreground>
         {/if}
       </div>
       {#if typeof step.altText === 'string'}
         <div class="background-alt-text visually-hidden">
-          <Markdown source="{step.altText}" />
+          <Markdown source={step.altText} />
         </div>
       {/if}
     {/if}

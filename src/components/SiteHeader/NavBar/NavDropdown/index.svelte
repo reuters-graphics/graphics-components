@@ -1,19 +1,34 @@
-<script>
-  import { afterUpdate } from 'svelte';
+<script lang="ts">
   import StoryCard from './StoryCard/index.svelte';
   import Spinner from './Spinner/index.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, type Snippet } from 'svelte';
+  import type { Writable } from 'svelte/store';
 
-  const activeSection = getContext('nav-active-section');
+  interface Props {
+    headingText?: string;
+    children: Snippet;
+  }
 
-  export let headingText = 'Trending Stories';
+  let { headingText = 'Trending Stories', children }: Props = $props();
 
-  let stories = [];
-  let lastFetched = null;
+  const activeSection =
+    getContext<Writable<null | string>>('nav-active-section');
 
-  afterUpdate(async () => {
-    if (lastFetched === $activeSection) return;
-    if ($activeSection === 'more') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let stories = $state<any[]>([]);
+  let lastFetched = $state<null | string>(null);
+
+  $effect(() => {
+    try {
+      fetchSection($activeSection);
+    } catch {
+      console.log('Error fetching articles');
+    }
+  });
+
+  const fetchSection = async (activeSection: null | string) => {
+    if (lastFetched === activeSection) return;
+    if (activeSection === 'more') {
       await fetch(
         'https://www.reuters.com/pf/api/v3/content/fetch/articles-by-trends-v1?' +
           new URLSearchParams({
@@ -26,14 +41,17 @@
         .then((response) => response.json())
         .then((data) => {
           stories = data.result.articles;
-          lastFetched = $activeSection;
+          lastFetched = activeSection;
+        })
+        .catch(() => {
+          console.log('Error fetching articles');
         });
     } else {
       await fetch(
         'https://www.reuters.com/pf/api/v3/content/fetch/recent-stories-by-sections-v1?' +
           new URLSearchParams({
             query: JSON.stringify({
-              section_ids: $activeSection,
+              section_ids: activeSection,
               size: 4,
               website: 'reuters',
             }),
@@ -42,10 +60,13 @@
         .then((response) => response.json())
         .then((data) => {
           stories = data.result.articles;
-          lastFetched = $activeSection;
+          lastFetched = activeSection;
+        })
+        .catch(() => {
+          console.log('Error fetching articles');
         });
     }
-  });
+  };
 </script>
 
 <div class="dropdown">
@@ -53,11 +74,11 @@
     <div class="inner">
       <div class="submenu">
         <div class="inner">
-          <slot />
+          {@render children?.()}
         </div>
       </div>
       <div class="stories-container">
-        <div class="inner">
+        <div class="inner" data-chromatic="ignore">
           {#if stories.length > 0}
             <span class="latest">{headingText}</span>
             <ul class="story-list">
@@ -79,11 +100,11 @@
 </div>
 
 <style lang="scss">
-  @import '../../scss/_colors.scss';
-  @import '../../scss/_breakpoints.scss';
-  @import '../../scss/_eases.scss';
-  @import '../../scss/_grids.scss';
-  @import '../../scss/_z-indexes.scss';
+  @use '../../scss/_colors.scss' as *;
+  @use '../../scss/_breakpoints.scss' as breakpoints;
+  @use '../../scss/_eases.scss' as *;
+  @use '../../scss/_grids.scss' as grids;
+  @use '../../scss/_z-indexes.scss' as *;
 
   $nav-height: 64px;
   $mobile-nav-height: 56px;
@@ -95,7 +116,7 @@
     top: $nav-height;
     width: 100%;
 
-    @include for-mobile {
+    @include breakpoints.for-mobile {
       top: $mobile-nav-height;
     }
   }
@@ -107,10 +128,10 @@
     background: var(--nav-background, $white);
 
     > .inner {
-      @include responsive-columns(12);
-      @include spacing-single(padding-left padding-right);
-      @include max-width;
       margin: 0 auto;
+      @include breakpoints.max-width;
+      @include grids.responsive-columns(12);
+      @include grids.spacing-single(padding-left padding-right);
     }
   }
 
@@ -128,11 +149,11 @@
   .submenu {
     grid-column: 1 / span 4;
 
-    @include for-extra-wide-desktop {
+    @include breakpoints.for-extra-wide-desktop {
       grid-column: 2 / span 3;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       grid-column: 1 / span 2;
     }
   }
@@ -142,15 +163,15 @@
     min-height: 300px;
 
     .inner {
-      @include spacing-single(padding-left);
       border-left: 1px solid var(--nav-rules, var(--tr-muted-grey));
+      @include grids.spacing-single(padding-left);
     }
 
-    @include for-extra-wide-desktop {
+    @include breakpoints.for-extra-wide-desktop {
       grid-column: 5 / span 7;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       grid-column: 3 / span 2;
     }
   }
@@ -158,7 +179,6 @@
   .story-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    @include spacing-single(grid-column-gap);
     list-style: none;
     padding: 0;
     margin: 20px 0 0 0;
@@ -169,7 +189,8 @@
     line-height: 1.5;
     color: var(--nav-primary, #404040);
 
-    @include at-4-columns {
+    @include grids.spacing-single(grid-column-gap);
+    @include grids.at-4-columns {
       grid-template-columns: repeat(1, 1fr);
     }
   }
@@ -189,7 +210,7 @@
       padding-top: 20px;
     }
 
-    @include at-4-columns {
+    @include grids.at-4-columns {
       &:nth-child(2) {
         padding-top: 20px;
       }

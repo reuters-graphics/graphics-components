@@ -1,33 +1,48 @@
 <!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-visible--docs) -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  /**
-   * Whether to change visibility just once.
-   *
-   * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
-   */
-  export let once: boolean = false;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
-  export let top = 0;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`. */
-  export let bottom = 0;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`. */
-  export let left = 0;
-  /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`. */
-  export let right = 0;
-  /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
-  export let threshold = 0;
+  import { onMount, type Snippet } from 'svelte';
 
-  let visible = false;
-  let container: HTMLElement;
+  interface Props {
+    /**
+     * Whether to change visibility just once.
+     *
+     * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
+     */
+    once?: boolean;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
+    top?: number;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`. */
+    bottom?: number;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`. */
+    left?: number;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`. */
+    right?: number;
+    /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
+    threshold?: number;
+    children?: Snippet<[boolean]>;
+  }
+
+  let {
+    once = false,
+    top = 0,
+    bottom = 0,
+    left = 0,
+    right = 0,
+    threshold = 0,
+    children,
+  }: Props = $props();
+
+  let visible = $state(false);
+  let container: HTMLElement | undefined = $state(undefined);
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
       const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+
       const observer = new IntersectionObserver(
         (entries) => {
           visible = entries[0].isIntersecting;
-          if (visible && once) {
+          if (visible && once && container) {
             observer.unobserve(container);
           }
         },
@@ -36,16 +51,20 @@
           threshold,
         }
       );
-      observer.observe(container);
-      return () => observer.unobserve(container);
+      if (container) observer.observe(container);
+      return () => {
+        if (container) observer.observe(container);
+      };
     }
     function handler() {
-      const bcr = container.getBoundingClientRect();
-      visible =
-        bcr.bottom + bottom > 0 &&
-        bcr.right + right > 0 &&
-        bcr.top - top < window.innerHeight &&
-        bcr.left - left < window.innerWidth;
+      if (container) {
+        const bcr = container.getBoundingClientRect();
+        visible =
+          bcr.bottom + bottom > 0 &&
+          bcr.right + right > 0 &&
+          bcr.top - top < window.innerHeight &&
+          bcr.left - left < window.innerWidth;
+      }
       if (visible && once) {
         window.removeEventListener('scroll', handler);
       }
@@ -55,7 +74,8 @@
   });
 </script>
 
-<div bind:this="{container}">
-  <!-- An element or component -->
-  <slot {visible} />
+<div bind:this={container}>
+  {#if children}
+    {@render children(visible)}
+  {/if}
 </div>

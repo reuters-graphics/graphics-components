@@ -1,0 +1,122 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as InfoBoxStories from './InfoBox.stories.svelte';
+
+<Meta of={InfoBoxStories} />
+
+# InfoBox
+
+The `InfoBox` component creates a stylised text box that provides additional information that needs to be visually separate from the main content flow, such as methodology, detailed notes about data and extra context.
+
+```svelte
+<script>
+  import { InfoBox } from '@reuters-graphics/graphics-components';
+</script>
+
+<InfoBox
+  title="About this data"
+  text={'Reuters is collecting daily COVID-19 infections and deaths data for 240 countries and territories around the world, updated regularly throughout each day. \n\n Every country reports those figures a little differently and, inevitably, misses undiagnosed infections and deaths. With this project we are focusing on the trends within countries as they try to contain the virus’ spread, whether they are approaching or past peak infection rates, or if they are seeing a resurgence of infections or deaths.'}
+  notes={'[Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)'}
+/>
+```
+
+<Canvas of={InfoBoxStories.Demo} />
+
+## Using with ArchieML docs
+
+With the graphics kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: info-box
+title: What you need to know about the war
+text: Reuters is collecting daily COVID-19 infections and deaths data for 240 countries and territories around the world, updated regularly throughout each day.
+
+Every country reports those figures a little differently and, inevitably, misses undiagnosed infections and deaths. With this project we are focusing on the trends within countries as they try to contain the virus’ spread, whether they are approaching or past peak infection rates, or if they are seeing a resurgence of infections or deaths.
+:end
+notes: [Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `InfoBox` component.
+
+```svelte
+<!-- graphics kit -->
+<script>
+  import { InfoBox } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
+# Graphics kit
+{#each content.blocks as block}
+  {#if block.type === 'info-box'}
+    <InfoBox title={block.title} text={block.text} notes={block.notes} />
+    <!-- ... -->
+  {/if}
+{/each}
+```
+
+<Canvas of={InfoBoxStories.Demo} />
+
+## Lists
+
+Use markdown to add lists to `InfoBox`.
+
+```svelte
+<script>
+  import { InfoBox } from '@reuters-graphics/graphics-components';
+</script>
+
+<InfoBox
+  title="What you need to know about the war"
+  text={"- **Food crisis**: [Russia's invasion of Ukraine](#) in late February dramatically worsened the outlook for already inflated global food prices.\n- **Under fire**: Civillian homes destroyed in the conflict and Russia accused of war crimes.\n- **Nordstream sabotage**: A series of clandestine bombings and subsequent underwater gas leaks occurred on the Nord Stream 1 and Nord Stream 2 natural gas pipelines."}
+  notes={'[Read more about our methodology](https://www.reuters.com/world-coronavirus-tracker-and-maps/en/methodology/)'}
+/>
+```
+
+<Canvas of={InfoBoxStories.Lists} />
+## Customisation
+
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the `InfoBox`, such as adding tables, icons and thumbnail images.
+
+```svelte
+<InfoBox title="About this data">
+  <!-- Optional custom header -->
+  {#snippet header()}
+    <h3>Global video game market</h3>
+  {/snippet}
+  <!-- Optional custom body -->
+  {#snippet body()}
+    <table>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Market size ($bln)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024</td>
+          <td>274.63</td>
+        </tr>
+        <tr>
+          <td>2023</td>
+          <td>281.77</td>
+        </tr>
+        <tr>
+          <td>2022</td>
+          <td>249.55</td>
+        </tr>
+      </tbody>
+    </table>
+  {/snippet}
+  <!-- Optional custom footer -->
+  {#snippet updated()}
+    <div class="text-xs font-note">Source: Precedence Research</div>
+  {/snippet}
+</InfoBox>
+```
+
+<Canvas of={InfoBoxStories.Customised} />

@@ -1,10 +1,14 @@
-<script>
-  export let rotate = false;
+<script lang="ts">
+  interface Props {
+    rotate?: boolean;
+  }
+
+  let { rotate = false }: Props = $props();
 </script>
 
 <svg
   class="arrow"
-  class:rotated="{rotate}"
+  class:rotated={rotate}
   focusable="false"
   aria-hidden="true"
   xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +20,7 @@
 </svg>
 
 <style lang="scss">
-  @import './../scss/_colors.scss';
+  @use './../scss/_colors.scss' as *;
   svg {
     margin-left: 4px;
     width: 10px;

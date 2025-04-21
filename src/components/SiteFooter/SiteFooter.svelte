@@ -9,12 +9,16 @@
   import starterData from './data.json';
   import { onMount } from 'svelte';
 
-  /**
-   * Set to `false` to remove graphics referrals
-   */
-  export let includeReferrals = true;
+  interface Props {
+    /**
+     * Set to `false` to remove graphics referrals
+     */
+    includeReferrals?: boolean;
+  }
 
-  let data = starterData;
+  let { includeReferrals = true }: Props = $props();
+
+  let data = $state(starterData);
 
   onMount(async () => {
     if (new URL(document.location.href).origin !== 'https://www.reuters.com') {
@@ -40,12 +44,12 @@
 
 <footer
   class="my-0"
-  style="{`
+  style={`
     --nav-background: var(--theme-colour-background, #fff);
     --nav-primary: var(--theme-colour-text-primary, #404040);
     --nav-rules: var(--theme-colour-brand-rules, #d0d0d0);
     --theme-font-family-sans-serif: Knowledge, sans-serif;
-  `}"
+  `}
 >
   <div>
     {#if includeReferrals}
@@ -57,9 +61,9 @@
         />
       </PaddingReset>
     {/if}
-    <QuickLinks links="{data[0]}" />
-    <CompanyLinks links="{data[0]}" />
-    <LegalLinks links="{data[0]}" />
+    <QuickLinks links={data[0]} />
+    <CompanyLinks links={data[0]} />
+    <LegalLinks links={data[0]} />
   </div>
 </footer>
 

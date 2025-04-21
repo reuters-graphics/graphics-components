@@ -1,37 +1,50 @@
-<script>
+<script lang="ts">
   import { faDesktop, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
-  import Fa from 'svelte-fa/src/fa.svelte';
-  import { width } from './../stores.js';
+  import Fa from 'svelte-fa';
+  import { width } from '../stores.js';
 
-  export let breakpoints = [330, 510, 660, 930, 1200];
-  export let maxFrameWidth = 1200;
-  export let minFrameWidth = 320;
+  interface Props {
+    breakpoints?: number[];
+    maxFrameWidth?: number;
+    minFrameWidth?: number;
+  }
 
-  let container;
+  let {
+    breakpoints = [330, 510, 660, 930, 1200],
+    maxFrameWidth = 1200,
+    minFrameWidth = 320,
+  }: Props = $props();
+
+  let container: HTMLElement | undefined = $state();
 
   const sliderWidth = 90;
-  let windowInnerWidth = 1200;
-  $: minWidth = minFrameWidth;
-  $: maxWidth = Math.min(windowInnerWidth - 70, maxFrameWidth);
-  $: pixelRange = maxWidth - minWidth;
-  $: if ($width > maxWidth) width.set(maxWidth);
-  $: offset = ($width - minWidth) / pixelRange;
+  let windowInnerWidth = $state(1200);
+  let minWidth = $derived(minFrameWidth);
+  let maxWidth = $derived(Math.min(windowInnerWidth - 70, maxFrameWidth));
+  let pixelRange = $derived(maxWidth - minWidth);
 
-  let sliding = false;
-  let isFocused = false;
+  $effect(() => {
+    if ($width > maxWidth) width.set(maxWidth);
+  });
 
-  const roundToNearestFive = (d) => Math.ceil(d / 5) * 5;
+  // svelte-ignore state_referenced_locally
+  let offset = $state(($width - minWidth) / pixelRange);
+
+  let sliding = $state(false);
+  let isFocused = $state(false);
+
+  const roundToNearestFive = (d: number) => Math.ceil(d / 5) * 5;
   const getPx = () => Math.round(pixelRange * offset + minWidth);
 
-  let pixelLabel = null;
+  let pixelLabel: null | number = $state(null);
 
-  const move = (e) => {
+  const move = (e: MouseEvent) => {
     if (!sliding || !container) return;
     const { left } = container.getBoundingClientRect();
     offset = Math.min(Math.max(0, e.pageX - left), sliderWidth) / sliderWidth;
     pixelLabel = roundToNearestFive(getPx());
   };
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (!isFocused) return;
     const { keyCode } = e;
     const pixelWidth = sliderWidth / pixelRange;
@@ -44,7 +57,7 @@
     }
     width.set(getPx());
   };
-  const start = (e) => {
+  const start = (e: MouseEvent) => {
     sliding = true;
     move(e);
   };
@@ -80,48 +93,48 @@
 </script>
 
 <svelte:window
-  on:mousemove="{move}"
-  on:mouseup="{end}"
-  on:keydown="{handleKeyDown}"
-  bind:innerWidth="{windowInnerWidth}"
+  onmousemove={move}
+  onmouseup={end}
+  onkeydown={handleKeyDown}
+  bind:innerWidth={windowInnerWidth}
 />
 
 <div id="resizer">
   <div class="slider">
-    <div class="label" style="{`opacity: ${sliding || isFocused ? 1 : 0};`}">
+    <div class="label" style={`opacity: ${sliding || isFocused ? 1 : 0};`}>
       {pixelLabel || $width}px
     </div>
     <button
       class="icon left"
-      disabled="{$width === minWidth}"
-      on:click="{decrement}"
-      on:focus="{onFocus}"
-      on:mouseover="{onFocus}"
-      on:mouseleave="{onBlur}"
+      disabled={$width === minWidth}
+      onclick={decrement}
+      onfocus={onFocus}
+      onmouseover={onFocus}
+      onmouseleave={onBlur}
     >
-      <Fa icon="{faMobileAlt}" fw />
+      <Fa icon={faMobileAlt} fw />
     </button>
-    <div class="slider-container" bind:this="{container}">
+    <div class="slider-container" bind:this={container}>
       <div class="track"></div>
       <div
         class="handle"
         tabindex="0"
         role="button"
         style="left: calc({offset * 100}% - 5px);"
-        on:mousedown="{start}"
-        on:focus="{onFocus}"
-        on:blur="{onBlur}"
+        onmousedown={start}
+        onfocus={onFocus}
+        onblur={onBlur}
       ></div>
     </div>
     <button
       class="icon right"
-      disabled="{$width === maxWidth}"
-      on:click="{increment}"
-      on:focus="{onFocus}"
-      on:mouseover="{onFocus}"
-      on:mouseleave="{onBlur}"
+      disabled={$width === maxWidth}
+      onclick={increment}
+      onfocus={onFocus}
+      onmouseover={onFocus}
+      onmouseleave={onBlur}
     >
-      <Fa icon="{faDesktop}" fw />
+      <Fa icon={faDesktop} fw />
     </button>
   </div>
 </div>

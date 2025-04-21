@@ -1,4 +1,4 @@
-import type { ComponentType } from 'svelte';
+import type { Component } from 'svelte';
 
 /**
  * Used for the list of <option> tags nested in a <select> input.
@@ -28,23 +28,31 @@ export type HeadlineSize = 'small' | 'normal' | 'big' | 'bigger' | 'biggest';
  * A step in the Scroller component.
  */
 export interface ScrollerStep {
-  altText?: string;
   /**
    * A background component
-   * @required
    */
-  background: ComponentType;
+  background: Component;
   /**
    * Optional props for background component
    */
   backgroundProps?: object;
   /**
-   * Foreground can either be a component or markdown-formatted string.
-   * @required
+   * A component or markdown-formatted string
    */
-  foreground: ComponentType | string;
+  foreground: Component | string;
   /**
    * Optional props for foreground component
    */
   foregroundProps?: object;
+  /**
+   * Optional alt text for the background, read aloud after the foreground text. You can add it to each step or just to the first step to describe the entire scroller graphic.
+   */
+  altText?: string;
 }
+
+export type ForegroundPosition =
+  | 'middle'
+  | 'left'
+  | 'right'
+  | 'left opposite'
+  | 'right opposite';

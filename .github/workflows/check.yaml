@@ -1,0 +1,29 @@
+name: Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  svelte-check:
+    name: Run svelte-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: |
+          pnpm i
+          pnpm svelte-kit sync
+      - name: Run svelte-check
+        run: pnpm svelte-check --output machine

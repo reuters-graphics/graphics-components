@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { normalizeUrl } from '../SiteHeader/NavBar/utils';
 
   import Graphics from './svgs/Graphics.svelte';
@@ -11,13 +11,39 @@
     videos: Videos,
   };
 
-  export let links = {};
+  interface Props {
+    links: {
+      latest_links: {
+        url: string;
+        text: string;
+      }[];
+      media_links: {
+        symbol: string;
+        url: string;
+        text: string;
+      }[];
+      browse_links: {
+        url: string;
+        text: string;
+      }[];
+      about_links: {
+        url: string;
+        text: string;
+      }[];
+      stay_informed_links: {
+        url: string;
+        text: string;
+      }[];
+    };
+  }
 
-  let windowWidth = 1200;
+  let { links }: Props = $props();
+
+  let windowWidth = $state(1200);
   const mobileBreakpoint = 745;
 </script>
 
-<svelte:window bind:innerWidth="{windowWidth}" />
+<svelte:window bind:innerWidth={windowWidth} />
 
 {#if links.latest_links}
   <section class="quick-links">
@@ -30,7 +56,7 @@
             <ul>
               {#each links.latest_links as link}
                 <li>
-                  <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                  <a href={normalizeUrl(link.url)}>{link.text}</a>
                 </li>
               {/each}
             </ul>
@@ -39,11 +65,13 @@
             <h3>Media</h3>
             <ul>
               {#each links.media_links as link}
+                {@const SvelteComponent =
+                  symbols[link.symbol as keyof typeof symbols]}
                 <li>
                   <div class="symbol">
-                    <svelte:component this="{symbols[link.symbol]}" />
+                    <SvelteComponent />
                   </div>
-                  <a href="{normalizeUrl(link.url)}">
+                  <a href={normalizeUrl(link.url)}>
                     {link.text}
                   </a>
                 </li>
@@ -57,7 +85,7 @@
           <ul>
             {#each links.latest_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href={normalizeUrl(link.url)}>{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -69,7 +97,7 @@
         <ul>
           {#each links.browse_links as link}
             <li>
-              <a href="{normalizeUrl(link.url)}">{link.text}</a>
+              <a href={normalizeUrl(link.url)}>{link.text}</a>
             </li>
           {/each}
         </ul>
@@ -79,11 +107,13 @@
           <h3>Media</h3>
           <ul>
             {#each links.media_links as link}
+              {@const SvelteComponent_1 =
+                symbols[link.symbol as keyof typeof symbols]}
               <li>
                 <div class="symbol">
-                  <svelte:component this="{symbols[link.symbol]}" />
+                  <SvelteComponent_1 />
                 </div>
-                <a href="{normalizeUrl(link.url)}">
+                <a href={normalizeUrl(link.url)}>
                   {link.text}
                 </a>
               </li>
@@ -97,7 +127,7 @@
           <ul>
             {#each links.about_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href={normalizeUrl(link.url)}>{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -107,7 +137,7 @@
           <ul>
             {#each links.stay_informed_links as link}
               <li>
-                <a href="{normalizeUrl(link.url)}">{link.text}</a>
+                <a href={normalizeUrl(link.url)}>{link.text}</a>
               </li>
             {/each}
           </ul>
@@ -118,15 +148,15 @@
 {/if}
 
 <style lang="scss">
-  @import '../SiteHeader/scss/_breakpoints.scss';
-  @import '../SiteHeader/scss/_grids.scss';
+  @use '../SiteHeader/scss/_breakpoints.scss' as breakpoints;
+  @use '../SiteHeader/scss/_grids.scss' as grids;
 
-  @import '../../scss/mixins';
+  @use '../../scss/mixins' as *;
 
   .content-container {
-    @include max-width;
     width: 100%;
     margin: 0 auto;
+    @include breakpoints.max-width;
   }
 
   .quick-links {
@@ -135,7 +165,7 @@
     box-sizing: border-box;
 
     .content-container {
-      @include responsive-columns(12);
+      @include grids.responsive-columns(12);
     }
 
     ul {
@@ -162,9 +192,8 @@
     max-width: 100%;
 
     .content-container {
-      @include spacing-single(padding-left padding-right);
-
       box-sizing: border-box;
+      @include grids.spacing-single(padding-left padding-right);
     }
 
     h3 {
@@ -176,13 +205,13 @@
   }
 
   .quick-links .content-container {
-    @include spacing-single(grid-row-gap);
+    @include grids.spacing-single(grid-row-gap);
 
     section.link-group {
       grid-column: auto / span 2;
       margin: 0;
 
-      @include above-4-columns {
+      @include grids.above-4-columns {
         &:last-child {
           grid-column: 10 / span 3;
         }
@@ -202,11 +231,11 @@
       grid-column: 7 / span 3;
       grid-row: 1;
 
-      @include for-tablet-down {
+      @include breakpoints.for-tablet-down {
         grid-column: 9 / span 3;
       }
 
-      @include for-mobile {
+      @include breakpoints.for-mobile {
         grid-column: 1 / span 2;
         grid-row: 2;
       }

@@ -1,24 +1,14 @@
-<script context="module" lang="ts">
-  // @ts-ignore raw
-  import componentDocs from './stories/docs/component.md?raw';
-
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import ReutersGraphicsLogo from './ReutersGraphicsLogo.svelte';
-
-  import { withComponentDocs } from '$lib/docs/utils/withParams.js';
-
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Logos/ReutersGraphicsLogo',
     component: ReutersGraphicsLogo,
-    ...withComponentDocs(componentDocs),
-  };
+    argTypes: {
+      logoColour: { control: 'color' },
+      textColour: { control: 'color' },
+    },
+  });
 </script>
 
-<script>
-  import { Template, Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Template let:args>
-  <ReutersGraphicsLogo {...args} />
-</Template>
-
-<Story name="Default" args="{{}}" />
+<Story name="Demo" />
