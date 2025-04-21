@@ -25,8 +25,8 @@
   let {
     pageNumber = $bindable(1),
     pageSize = $bindable(25),
-    pageLength = $bindable(1),
-    n = $bindable(1),
+    pageLength = 1,
+    n = 1,
   }: Props = $props();
 
   let minRow = $derived(pageNumber * pageSize - pageSize + 1);

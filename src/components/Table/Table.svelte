@@ -285,8 +285,8 @@
       <Pagination
         bind:pageNumber
         bind:pageSize
-        bind:pageLength={currentPageData.length}
-        bind:n={sortedData.length}
+        pageLength={currentPageData.length}
+        n={sortedData.length}
       />{/if}
   </div>
 </Block>
