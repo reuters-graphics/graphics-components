@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.1
+
+### Patch Changes
+
+- 93a41f3: Exposes bindable props for the Scroller component
+
 ## 3.0.0
 
 ### Major Changes
