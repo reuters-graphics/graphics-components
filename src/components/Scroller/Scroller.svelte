@@ -74,6 +74,12 @@
     id?: string;
     /** Set a class to target with SCSS */
     class?: string;
+    /** The currently active section */
+    index?: number;
+    /**  How far the section has scrolled past the threshold, as a value between 0 and 1 */
+    offset?: number;
+    /** How far the foreground has travelled, where 0 is the top of the foreground crossing top, and 1 is the bottom crossing bottom */
+    progress?: number;
   }
 
   let {
@@ -90,12 +96,10 @@
     bottom = 1,
     parallax = false,
     class: cls = '',
+    index = $bindable(0),
+    offset = $bindable(0),
+    progress = $bindable(0),
   }: Props = $props();
-
-  // Bindable variables passed to ScrollerBase
-  let index = $state(0);
-  let offset = $state(0);
-  let progress = $state(0);
 </script>
 
 {#if !embedded}
