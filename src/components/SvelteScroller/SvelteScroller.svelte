@@ -211,7 +211,7 @@
   }
 </script>
 
-<svelte:window bind:innerHeight={wh} />
+<svelte:window bind:setinnerHeight={wh} />
 
 <svelte-scroller-outer bind:this={outer}>
   <svelte-scroller-background-container
