@@ -94,36 +94,29 @@
   } as const;
 </script>
 
-<Story
-  name="Demo"
-  args={{
-    steps: [
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'red' },
-        foreground: '#### Step 1\n\nLorem ipsum red',
-        altText: 'Red background',
-      },
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'blue' },
-        foreground: '#### Step 2\n\nLorem ipsum blue',
-        altText: 'Blue background',
-      },
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'green' },
-        foreground: '#### Step 3\n\nLorem ipsum green',
-        altText: 'Green background',
-      },
-    ],
-    foregroundPosition: 'middle',
-    backgroundWidth: 'fluid',
-  }}
-/>
+<Story name="Demo">
+  <SvelteScroller>
+    {#snippet backgroundSnippet(index)}
+      <div class="custom-background">
+        <p>
+          This is the background content. It will stay fixed in place while the
+          foreground scrolls over the top.
+        </p>
 
+        <p>Section {index + 1} is currently active.</p>
+      </div>
+    {/snippet}
+    {#snippet foregroundSnippet(index)}
+      <div class="foreground">Index {index}: This is the first section.</div>
+      <div class="foreground">Index {index}: This is the second section.</div>
+      <div class="foreground">Index {index}: This is the third section.</div>
+    {/snippet}
+  </SvelteScroller>
+</Story>
+
+<!--  
 <Story name="ArchieML and ai2svelte" exportName="ArchieML">
-  <Scroller
+  <SvelteScroller
     id={docBlock.id}
     foregroundPosition={docBlock.foregroundPosition}
     stackBackground={docBlock.stackBackground === 'true'}
@@ -133,34 +126,9 @@
       altText: step.altText,
     }))}
   />
-</Story>
+</Story> -->
 
-<Story
-  name="Custom foreground"
-  exportName="CustomForeground"
-  args={{
-    steps: [
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'red' },
-        foreground: MyInteractiveForeground,
-      },
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'blue' },
-        foreground: '#### Step 2\n\nLorem ipsum blue',
-      },
-      {
-        background: MyBackground,
-        backgroundProps: { colour: 'green' },
-        foreground: MyInteractiveForeground,
-        foregroundProps: { count: 100 },
-      },
-    ],
-  }}
-/>
-
-<Story
+<!-- <Story
   name="Custom foreground with ArchiemL"
   exportName="CustomforegroundArchieML"
 >
@@ -174,4 +142,18 @@
       altText: step.altText,
     }))}
   />
-</Story>
+</Story> -->
+<style lang="scss">
+  .custom-background {
+    padding: 20px;
+    border-radius: 5px;
+    height: 100vh;
+  }
+  .foreground {
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1em;
+    margin: 0 0 2em 0;
+  }
+</style>
