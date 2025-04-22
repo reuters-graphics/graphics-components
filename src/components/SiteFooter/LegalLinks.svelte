@@ -151,7 +151,7 @@
 
     li {
       display: inline-flex;
-      margin-right: 16px;
+      margin-inline-end: 16px;
       list-style: none;
       align-items: center;
       a {

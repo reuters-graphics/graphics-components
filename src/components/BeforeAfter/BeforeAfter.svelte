@@ -296,10 +296,10 @@
     .overlay-container {
       top: 0;
       :global(:first-child) {
-        margin-top: 0;
+        margin-block-start: 0;
       }
       :global(:last-child) {
-        margin-bottom: 0;
+        margin-block-end: 0;
       }
       &.before {
         left: 0;

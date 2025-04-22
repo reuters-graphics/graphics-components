@@ -61,7 +61,7 @@
 
   .more-section-group {
     &.has-children {
-      margin-bottom: 20px;
+      margin-block-end: 20px;
     }
 
     .subsections {
@@ -83,7 +83,7 @@
         font-weight: 400;
         display: inline-block;
         padding: 4px 0;
-        margin-bottom: 2px;
+        margin-block-end: 2px;
         text-decoration: none;
         &:hover {
           text-decoration: underline !important;
@@ -93,7 +93,7 @@
 
     .section-link {
       grid-column: 1 / -1;
-      margin-bottom: 16px;
+      margin-block-end: 16px;
       line-height: 18px;
       font-size: 16px;
       display: inline-block;

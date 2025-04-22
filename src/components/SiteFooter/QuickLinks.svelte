@@ -223,7 +223,7 @@
       grid-row: 1;
 
       .media {
-        margin-top: 24px;
+        margin-block-start: 24px;
       }
     }
 
@@ -242,13 +242,13 @@
     }
 
     .stay-informed {
-      margin-top: 24px;
+      margin-block-start: 24px;
     }
   }
 
   .symbol {
     width: 20px;
-    margin-right: 16px;
+    margin-inline-end: 16px;
   }
 
   .visually-hidden {

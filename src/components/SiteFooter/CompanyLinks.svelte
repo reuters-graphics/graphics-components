@@ -148,7 +148,7 @@
   section.company {
     max-width: 100%;
     h2 {
-      margin-bottom: 12px;
+      margin-block-end: 12px;
       line-height: 1.333;
       font-size: 16px;
       color: var(--nav-primary);

@@ -50,7 +50,7 @@
     }
 
     .story-text {
-      margin-right: 10px;
+      margin-inline-end: 10px;
       width: 100%;
       &.has-thumbnail {
         width: calc(100% - 84px);
@@ -68,7 +68,7 @@
 
       time {
         @include font-sans;
-        margin-top: 8px;
+        margin-block-start: 8px;
         display: block;
         font-size: 12px;
         font-weight: 400;

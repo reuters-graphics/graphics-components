@@ -142,7 +142,7 @@
     background: #81a1c1;
   }
   :global(#block-demo-article div.article-block.block-snap-widths-demo) {
-    margin-bottom: 2px;
+    margin-block-end: 2px;
     height: 40px;
     font-size: 11px;
   }
