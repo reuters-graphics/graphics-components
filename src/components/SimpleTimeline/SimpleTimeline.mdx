@@ -40,24 +40,20 @@ With the graphics kit, you'll likely get your text value from an ArchieML doc.
 ```yaml
 # Archie ML doc
 
-[timeline]
-
-# date object with events
-date: May 18
-[.events]
-title: Mariupol defenders surrender to Russia but their fate is uncertain
-context:  More than 250 Ukrainian fighters surrendered to Russian forces at the Azovstal steelworks in Mariupol after weeks of desperate resistance, bringing an end to the most devastating siege of Russia's war in Ukraine and allowing President Vladimir Putin to claim a rare victory in his faltering campaign.
-titleLink: https://www.reuters.com/world/europe/ukrainian-troops-evacuate-mariupol-ceding-control-russia-2022-05-17/
-
-# More events...
-[]
-
-date: May 10
-[.events]
-title: U.S. House passes $40 bln bill to bolster Ukraine against Russian invasion
-context:  The U.S. House of Representatives approved more than $40 billion more aid for Ukraine on Tuesday, as Congress races to keep military aid flowing and boost the government in Kyiv as it grapples with the Russian invasion.
-titleLink: https://www.reuters.com/world/us-house-vote-40-billion-ukraine-aid-package-tuesday-pelosi-2022-05-10/
-[]
+type: timeline
+# Optional
+class: timeline
+id: timeline-1
+symbolColour: var(--theme-colour-brand-rules, grey)
+dateColour: var(--theme-colour-accent, red)
+[.dates]
+    # date object with events
+    date: May 10
+    [.events]
+    title: U.S. House passes $40 bln bill to bolster Ukraine against Russian invasion
+    context:  The U.S. House of Representatives approved more than $40 billion more aid for Ukraine on Tuesday, as Congress races to keep military aid flowing and boost the government in Kyiv as it grapples with the Russian invasion.
+    titleLink: https://www.reuters.com/world/us-house-vote-40-billion-ukraine-aid-package-tuesday-pelosi-2022-05-10/
+    []
 
 # More dates and events...
 []
@@ -72,7 +68,13 @@ titleLink: https://www.reuters.com/world/us-house-vote-40-billion-ukraine-aid-pa
   import content from '$locales/en/content.json';
 </script>
 
-<EndNotes SimpleTimeline={content.timeline} />
+<SimpleTimeline
+  dates={block.dates}
+  class={block.class}
+  symbolColour={block.symbolColour}
+  id={block.id}
+  dateColour={block.dateColour}
+/>
 ```
 
 <Canvas of={SimpleTimelineStories.Demo} />
