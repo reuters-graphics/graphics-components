@@ -40,6 +40,7 @@ export { default as SiteFooter } from './components/SiteFooter/SiteFooter.svelte
 export { default as SiteHeader } from './components/SiteHeader/SiteHeader.svelte';
 export { default as SiteHeadline } from './components/SiteHeadline/SiteHeadline.svelte';
 export { default as Spinner } from './components/Spinner/Spinner.svelte';
+export { default as SvelteScroller } from './components/SvelteScroller/SvelteScroller.svelte';
 export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svelte';
 export { default as Table } from './components/Table/Table.svelte';
 export { default as Theme, themes } from './components/Theme/Theme.svelte';
