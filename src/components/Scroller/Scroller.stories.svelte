@@ -19,6 +19,24 @@
         control: 'select',
         options: ['fb', 'bf'],
       },
+      index: {
+        control: false,
+        table: {
+          category: 'Bindable states (Read-only)',
+        },
+      },
+      offset: {
+        control: false,
+        table: {
+          category: 'Bindable states (Read-only)',
+        },
+      },
+      progress: {
+        control: false,
+        table: {
+          category: 'Bindable states (Read-only)',
+        },
+      },
     },
   });
 </script>
