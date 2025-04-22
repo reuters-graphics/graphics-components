@@ -199,10 +199,10 @@
       }
       &.left {
         text-align: right;
-        padding-right: 3px;
+        padding-inline-end: 3px;
       }
       &.right {
-        padding-left: 6px;
+        padding-inline-start: 6px;
         text-align: left;
       }
     }

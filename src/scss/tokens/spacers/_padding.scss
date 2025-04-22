@@ -40,47 +40,47 @@ $padding-levels: (
     padding: $value;
   }
   .pt-#{$level} {
-    padding-top: $value;
+    padding-block-start: $value;
   }
   .pr-#{$level} {
-    padding-right: $value;
+    padding-inline-end: $value;
   }
   .pb-#{$level} {
-    padding-bottom: $value;
+    padding-block-end: $value;
   }
   .pl-#{$level} {
-    padding-left: $value;
+    padding-inline-start: $value;
   }
   .px-#{$level} {
-    padding-right: $value;
-    padding-left: $value;
+    padding-inline-end: $value;
+    padding-inline-start: $value;
   }
   .py-#{$level} {
-    padding-top: $value;
-    padding-bottom: $value;
+    padding-block-start: $value;
+    padding-block-end: $value;
   }
 
   .\!p-#{$level} {
     padding: $value !important;
   }
   .\!pt-#{$level} {
-    padding-top: $value !important;
+    padding-block-start: $value !important;
   }
   .\!pr-#{$level} {
-    padding-right: $value !important;
+    padding-inline-end: $value !important;
   }
   .\!pb-#{$level} {
-    padding-bottom: $value !important;
+    padding-block-end: $value !important;
   }
   .\!pl-#{$level} {
-    padding-left: $value !important;
+    padding-inline-start: $value !important;
   }
   .\!px-#{$level} {
-    padding-right: $value !important;
-    padding-left: $value !important;
+    padding-inline-end: $value !important;
+    padding-inline-start: $value !important;
   }
   .\!py-#{$level} {
-    padding-top: $value !important;
-    padding-bottom: $value !important;
+    padding-block-start: $value !important;
+    padding-block-end: $value !important;
   }
 }

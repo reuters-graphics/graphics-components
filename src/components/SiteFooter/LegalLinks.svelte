@@ -73,8 +73,8 @@
   }
 
   .legal {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-block-start: 24px;
+    padding-block-end: 24px;
     box-sizing: border-box;
 
     .content-container {
@@ -87,7 +87,7 @@
 
     .content-container {
       box-sizing: border-box;
-      @include grids.spacing-single(padding-left padding-right);
+      @include grids.spacing-single(padding-inline-start padding-inline-end);
     }
   }
 

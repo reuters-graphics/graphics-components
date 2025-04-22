@@ -40,48 +40,48 @@ $margin-levels: (
     margin: $value;
   }
   .mt-#{$level} {
-    margin-top: $value;
+    margin-block-start: $value;
   }
   .mr-#{$level} {
-    margin-right: $value;
+    margin-inline-end: $value;
   }
   .mb-#{$level} {
-    margin-bottom: $value;
+    margin-block-end: $value;
   }
   .ml-#{$level} {
-    margin-left: $value;
+    margin-inline-start: $value;
   }
   .mx-#{$level} {
-    margin-right: $value;
-    margin-left: $value;
+    margin-inline-end: $value;
+    margin-inline-start: $value;
   }
   .my-#{$level} {
-    margin-top: $value;
-    margin-bottom: $value;
+    margin-block-start: $value;
+    margin-block-end: $value;
   }
 
   .\!m-#{$level} {
     margin: $value !important;
   }
   .\!mt-#{$level} {
-    margin-top: $value !important;
+    margin-block-start: $value !important;
   }
   .\!mr-#{$level} {
-    margin-right: $value !important;
+    margin-inline-end: $value !important;
   }
   .\!mb-#{$level} {
-    margin-bottom: $value !important;
+    margin-block-end: $value !important;
   }
   .\!ml-#{$level} {
-    margin-left: $value !important;
+    margin-inline-start: $value !important;
   }
   .\!mx-#{$level} {
-    margin-right: $value !important;
-    margin-left: $value !important;
+    margin-inline-end: $value !important;
+    margin-inline-start: $value !important;
   }
   .\!my-#{$level} {
-    margin-top: $value !important;
-    margin-bottom: $value !important;
+    margin-block-start: $value !important;
+    margin-block-end: $value !important;
   }
 }
 
@@ -89,21 +89,21 @@ $margin-levels: (
   margin: auto;
 }
 .mx-auto {
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
 }
 .my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
+  margin-block-start: auto;
+  margin-block-end: auto;
 }
 .\!m-auto {
   margin: auto !important;
 }
 .\!mx-auto {
-  margin-right: auto !important;
-  margin-left: auto !important;
+  margin-inline-end: auto !important;
+  margin-inline-start: auto !important;
 }
 .\!my-auto {
-  margin-top: auto !important;
-  margin-bottom: auto !important;
+  margin-block-start: auto !important;
+  margin-block-end: auto !important;
 }

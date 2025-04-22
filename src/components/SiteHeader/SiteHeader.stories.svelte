@@ -42,6 +42,6 @@
   div {
     min-height: 625px;
     width: calc(100% + 30px);
-    margin-left: -15px;
+    margin-inline-start: -15px;
   }
 </style>
