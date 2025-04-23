@@ -66,7 +66,7 @@
               <a href={normalizeUrl(section.url)}>
                 {section.name}
               </a>
-              <button class="button">
+              <button class="button" aria-label="{section.name} menu">
                 <DownArrow rotate={section.id === $activeSection} />
               </button>
             </div>

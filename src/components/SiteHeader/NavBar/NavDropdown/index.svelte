@@ -69,7 +69,7 @@
   };
 </script>
 
-<div class="dropdown">
+<div class="dropdown" data-chromatic="ignore">
   <div class="dropdown-container">
     <div class="inner">
       <div class="submenu">
@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="stories-container">
-        <div class="inner" data-chromatic="ignore">
+        <div class="inner">
           {#if stories.length > 0}
             <span class="latest">{headingText}</span>
             <ul class="story-list">
