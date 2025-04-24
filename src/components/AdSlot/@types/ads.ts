@@ -22,16 +22,16 @@ export type InlineAdType = {
   mobile: {
     adType: 'mpu' | 'native' | 'mpu2';
     placementName:
-    | 'reuters_mobile_mpu_1'
-    | 'reuters_mobile_mpu_2'
-    | 'reuters_mobile_mpu_3';
+      | 'reuters_mobile_mpu_1'
+      | 'reuters_mobile_mpu_2'
+      | 'reuters_mobile_mpu_3';
   };
   desktop: {
     adType: 'native' | 'canvas' | 'flex';
     placementName:
-    | 'reuters_desktop_native_1'
-    | 'reuters_desktop_native_2'
-    | 'reuters_desktop_native_3';
+      | 'reuters_desktop_native_1'
+      | 'reuters_desktop_native_2'
+      | 'reuters_desktop_native_3';
   };
 };
 export type DesktopPlacementName =
