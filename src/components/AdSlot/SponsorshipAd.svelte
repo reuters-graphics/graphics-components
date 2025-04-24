@@ -2,7 +2,7 @@
 <!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-sponsorshipad--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import type { SponsorshipAd } from './@types/ads';
+  import type { SponsorshipAdType } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   interface Props {
@@ -18,7 +18,7 @@
 
   let { id = '', class: cls = 'my-12', adLabel = '' }: Props = $props();
 
-  const desktopPlacementName: SponsorshipAd['desktop']['placementName'] =
+  const desktopPlacementName: SponsorshipAdType['desktop']['placementName'] =
     'reuters_sponsorlogo';
 </script>
 
