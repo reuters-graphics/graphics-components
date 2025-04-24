@@ -1,4 +1,4 @@
-export type LeaderboardAd = {
+export type LeaderboardAdType = {
   mobile: {
     adType: 'leaderboard';
     placementName: 'reuters_mobile_leaderboard';
@@ -8,8 +8,7 @@ export type LeaderboardAd = {
     placementName: 'reuters_desktop_leaderboard_atf';
   };
 };
-
-export type SponsorshipAd = {
+export type SponsorshipAdType = {
   mobile: {
     adType: 'sponsorlogo';
     placementName: 'reuters_sponsorlogo';
@@ -19,40 +18,35 @@ export type SponsorshipAd = {
     placementName: 'reuters_sponsorlogo';
   };
 };
-
-export type InlineAd = {
+export type InlineAdType = {
   mobile: {
     adType: 'mpu' | 'native' | 'mpu2';
     placementName:
-      | 'reuters_mobile_mpu_1'
-      | 'reuters_mobile_mpu_2'
-      | 'reuters_mobile_mpu_3';
+    | 'reuters_mobile_mpu_1'
+    | 'reuters_mobile_mpu_2'
+    | 'reuters_mobile_mpu_3';
   };
   desktop: {
     adType: 'native' | 'canvas' | 'flex';
     placementName:
-      | 'reuters_desktop_native_1'
-      | 'reuters_desktop_native_2'
-      | 'reuters_desktop_native_3';
+    | 'reuters_desktop_native_1'
+    | 'reuters_desktop_native_2'
+    | 'reuters_desktop_native_3';
   };
 };
-
 export type DesktopPlacementName =
-  | LeaderboardAd['desktop']['placementName']
-  | SponsorshipAd['desktop']['placementName']
-  | InlineAd['desktop']['placementName'];
-
+  | LeaderboardAdType['desktop']['placementName']
+  | SponsorshipAdType['desktop']['placementName']
+  | InlineAdType['desktop']['placementName'];
 export type MobilePlacementName =
-  | LeaderboardAd['mobile']['placementName']
-  | SponsorshipAd['mobile']['placementName']
-  | InlineAd['mobile']['placementName'];
-
+  | LeaderboardAdType['mobile']['placementName']
+  | SponsorshipAdType['mobile']['placementName']
+  | InlineAdType['mobile']['placementName'];
 export type DesktopAdType =
-  | LeaderboardAd['desktop']['adType']
-  | SponsorshipAd['desktop']['adType']
-  | InlineAd['desktop']['adType'];
-
+  | LeaderboardAdType['desktop']['adType']
+  | SponsorshipAdType['desktop']['adType']
+  | InlineAdType['desktop']['adType'];
 export type MobileAdType =
-  | LeaderboardAd['mobile']['adType']
-  | SponsorshipAd['mobile']['adType']
-  | InlineAd['mobile']['adType'];
+  | LeaderboardAdType['mobile']['adType']
+  | SponsorshipAdType['mobile']['adType']
+  | InlineAdType['mobile']['adType'];
