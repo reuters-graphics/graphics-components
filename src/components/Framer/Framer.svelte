@@ -7,6 +7,7 @@
   import { width } from './stores';
   import getUniqNames from './uniqNames';
   import Typeahead from './Typeahead/index.svelte';
+  import Dropdown from './Dropdown/index.svelte';
   import ReutersGraphicsLogo from '../ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
 
   interface Props {
@@ -14,6 +15,7 @@
     breakpoints?: number[];
     minFrameWidth?: number;
     maxFrameWidth?: number;
+    searchType?: 'dropdown' | 'typeahead';
   }
 
   let {
@@ -21,6 +23,7 @@
     breakpoints = [330, 510, 660, 930, 1200],
     minFrameWidth = 320,
     maxFrameWidth = 1200,
+    searchType = 'dropdown',
   }: Props = $props();
 
   const getDefaultEmbed = (embeds: Props['embeds']) => {
@@ -71,37 +74,62 @@
       <p>No embeds to show.</p>
     </div>
   {:else}
-    <div id="typeahead-container">
-      <div class="embed-link">
-        <a
-          rel="external"
-          target="_blank"
-          href={activeEmbed}
-          title={activeEmbed}
-        >
-          Live link <Fa icon={faLink} />
-        </a>
+    {#if searchType === 'typeahead'}
+      <div id="typeahead-container">
+        <div class="embed-link">
+          <a
+            rel="external"
+            target="_blank"
+            href={activeEmbed}
+            title={activeEmbed}
+          >
+            Live link <Fa icon={faLink} />
+          </a>
+        </div>
+        <Typeahead
+          label="Select an embed"
+          value={embedTitles[embeds.indexOf(activeEmbed)] ||
+            embedTitles[activeEmbedIndex] ||
+            embedTitles[0]}
+          extract={(d) => embedTitles[d.index]}
+          data={embeds.map((embed, index) => ({ index, embed }))}
+          showDropdownOnFocus={true}
+          onselect={(detail) => {
+            if (typeof window !== 'undefined') {
+              window.localStorage.setItem(
+                'framer-active-embed',
+                detail.original.embed
+              );
+            }
+            activeEmbed = detail.original.embed;
+            // activeEmbedIndex = detail.original.index;
+          }}
+        />
       </div>
-      <Typeahead
-        label="Select an embed"
-        value={embedTitles[embeds.indexOf(activeEmbed)] ||
-          embedTitles[activeEmbedIndex] ||
-          embedTitles[0]}
-        extract={(d) => embedTitles[d.index]}
-        data={embeds.map((embed, index) => ({ index, embed }))}
-        showDropdownOnFocus={true}
-        onselect={(detail) => {
-          if (typeof window !== 'undefined') {
-            window.localStorage.setItem(
-              'framer-active-embed',
-              detail.original.embed
-            );
-          }
-          activeEmbed = detail.original.embed;
-          // activeEmbedIndex = detail.original.index;
-        }}
-      />
-    </div>
+    {:else}
+      <div id="dropdown-container">
+        <div>
+          <div class="embed-link">
+            <a
+              rel="external"
+              target="_blank"
+              href={activeEmbed}
+              title={activeEmbed}
+            >
+              Live link <Fa icon={faLink} />
+            </a>
+          </div>
+        </div>
+        <Dropdown
+          data={embeds.map((embed, index) => ({
+            index,
+            embed,
+            title: embedTitles[index],
+          }))}
+          bind:selected={activeEmbed}
+        />
+      </div>
+    {/if}
 
     <div id="preview-label" style="width:{$width}px;">
       <p>Preview</p>
@@ -139,26 +167,27 @@
     }
   }
 
-  div#typeahead-container {
+  div#typeahead-container,
+  div#dropdown-container {
     max-width: 660px;
     margin: 0 auto 15px;
     position: relative;
-  }
-  div#typeahead-container div.embed-link {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
-    z-index: 2;
-  }
-  div#typeahead-container div.embed-link a {
-    font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
-    color: #bbb;
-    font-size: 12px;
-    text-decoration: none !important;
-  }
-  div#typeahead-container div.embed-link a:hover {
-    color: #666;
+    div.embed-link {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      z-index: 2;
+      a {
+        font-family: 'Knowledge', 'Source Sans Pro', Arial, sans-serif;
+        color: #bbb;
+        font-size: 12px;
+        text-decoration: none !important;
+        &:hover {
+          color: #666;
+        }
+      }
+    }
   }
 
   div#preview-label {
