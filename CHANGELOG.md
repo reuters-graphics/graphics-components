@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.3
+
+### Patch Changes
+
+- c074a18: Allows step.background to be undefined
+
 ## 3.0.2
 
 ### Patch Changes
