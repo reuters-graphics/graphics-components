@@ -31,7 +31,7 @@ export interface ScrollerStep {
   /**
    * A background component
    */
-  background: Component;
+  background: Component | undefined;
   /**
    * Optional props for background component
    */
