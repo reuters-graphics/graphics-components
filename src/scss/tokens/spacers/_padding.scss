@@ -52,8 +52,8 @@ $padding-levels: (
     padding-inline-start: $value;
   }
   .px-#{$level} {
-    padding-inline-end: $value;
     padding-inline-start: $value;
+    padding-inline-end: $value;
   }
   .py-#{$level} {
     padding-block-start: $value;
@@ -76,8 +76,8 @@ $padding-levels: (
     padding-inline-start: $value !important;
   }
   .\!px-#{$level} {
-    padding-inline-end: $value !important;
     padding-inline-start: $value !important;
+    padding-inline-end: $value !important;
   }
   .\!py-#{$level} {
     padding-block-start: $value !important;

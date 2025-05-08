@@ -17,8 +17,8 @@
     padding-inline-start: $value;
   }
   %fpx-#{$level} {
-    padding-inline-end: $value;
     padding-inline-start: $value;
+    padding-inline-end: $value;
   }
   %fpy-#{$level} {
     padding-block-start: $value;
@@ -41,8 +41,8 @@
     padding-inline-start: $value !important;
   }
   %\!fpx-#{$level} {
-    padding-inline-end: $value !important;
     padding-inline-start: $value !important;
+    padding-inline-end: $value !important;
   }
   %\!fpy-#{$level} {
     padding-block-start: $value !important;

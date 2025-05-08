@@ -450,8 +450,8 @@ $fluid-padding-levels: (
   padding: auto;
 }
 %fpx-auto {
-  padding-inline-end: auto;
   padding-inline-start: auto;
+  padding-inline-end: auto;
 }
 %fpy-auto {
   padding-block-start: auto;
@@ -461,8 +461,8 @@ $fluid-padding-levels: (
   padding: auto !important;
 }
 %\!fpx-auto {
-  padding-inline-end: auto !important;
   padding-inline-start: auto !important;
+  padding-inline-end: auto !important;
 }
 %\!fpy-auto {
   padding-block-start: auto !important;

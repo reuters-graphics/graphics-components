@@ -52,8 +52,8 @@ $margin-levels: (
     margin-inline-start: $value;
   }
   .mx-#{$level} {
-    margin-inline-end: $value;
     margin-inline-start: $value;
+    margin-inline-end: $value;
   }
   .my-#{$level} {
     margin-block-start: $value;
@@ -76,8 +76,8 @@ $margin-levels: (
     margin-inline-start: $value !important;
   }
   .\!mx-#{$level} {
-    margin-inline-end: $value !important;
     margin-inline-start: $value !important;
+    margin-inline-end: $value !important;
   }
   .\!my-#{$level} {
     margin-block-start: $value !important;
@@ -89,8 +89,8 @@ $margin-levels: (
   margin: auto;
 }
 .mx-auto {
-  margin-inline-end: auto;
   margin-inline-start: auto;
+  margin-inline-end: auto;
 }
 .my-auto {
   margin-block-start: auto;
@@ -100,8 +100,8 @@ $margin-levels: (
   margin: auto !important;
 }
 .\!mx-auto {
-  margin-inline-end: auto !important;
   margin-inline-start: auto !important;
+  margin-inline-end: auto !important;
 }
 .\!my-auto {
   margin-block-start: auto !important;
