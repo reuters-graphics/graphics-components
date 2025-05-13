@@ -200,7 +200,7 @@
         {getAuthorPage}
         {published}
         {updated}
-        align="left"
+        align="auto"
       />
     {/if}
   </div>
