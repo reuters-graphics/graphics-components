@@ -323,6 +323,7 @@
       td {
         @include mixins.text-sm;
         @include mixins.font-regular;
+        font-variant-numeric: tabular-nums;
         vertical-align: top;
         border-bottom: 1px solid
           var(--theme-colour-brand-rules, var(--tr-muted-grey));
