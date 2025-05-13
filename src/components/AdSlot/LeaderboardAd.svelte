@@ -1,6 +1,6 @@
 <!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-leaderboardad--docs) -->
 <script lang="ts">
-  import type { LeaderboardAd } from './@types/ads';
+  import type { LeaderboardAdType } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
   import { onMount } from 'svelte';
 
@@ -16,7 +16,7 @@
   let windowWidth = $state(1200);
   let adSize = $derived(windowWidth < 1024 ? 110 : 275);
 
-  const desktopPlacementName: LeaderboardAd['desktop']['placementName'] =
+  const desktopPlacementName: LeaderboardAdType['desktop']['placementName'] =
     'reuters_desktop_leaderboard_atf';
 
   let sticky = $state(false);

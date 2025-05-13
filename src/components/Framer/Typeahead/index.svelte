@@ -177,7 +177,6 @@
 
 <svelte:window
   onclick={({ target }) => {
-    console.log('HELLO', !comboboxRef?.contains(target as Node));
     if (!hideDropdown && !comboboxRef?.contains(target as Node)) {
       close();
     }

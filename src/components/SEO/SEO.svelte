@@ -185,9 +185,11 @@
     <meta property="fb:admins" content="625796953" />
     <meta property="fb:admins" content="571759798" />
 
+    <!-- svelte-ignore hydration_html_changed -->
     {@html `<${'script'} type="application/ld+json">${JSON.stringify(
       orgLdJson
     )}</script>`}
+    <!-- svelte-ignore hydration_html_changed -->
     {@html `<${'script'} type="application/ld+json">${JSON.stringify(
       articleLdJson
     )}</script>`}

@@ -25,6 +25,11 @@
   }
 
   let { links = {} }: Props = $props();
+
+  const normaliseSocialName = (name: string) => {
+    if (name === 'twitter') return 'X';
+    return name;
+  };
 </script>
 
 {#if links.social_links}
@@ -42,7 +47,10 @@
               {@const SvelteComponent =
                 symbols[link.type as keyof typeof symbols]}
               <li class="social-links symbol">
-                <a href={normalizeUrl(link.url)}>
+                <a
+                  href={normalizeUrl(link.url)}
+                  aria-label="Visit Reuters on {normaliseSocialName(link.type)}"
+                >
                   <div class="button">
                     <div class="social">
                       <SvelteComponent />

@@ -37,7 +37,11 @@
           textColour="var(--nav-primary)"
         />
       </div>
-      <button class="button close-button" onclick={releaseMobileMenu}>
+      <button
+        class="button close-button"
+        aria-label="Close menu"
+        onclick={releaseMobileMenu}
+      >
         <div class="button-container">
           <CloseIcon />
         </div>
