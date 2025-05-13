@@ -40,13 +40,13 @@
     afterAlt="Satellite image of Russian base at Myrne taken on Oct. 20, 2020."
   >
     {#snippet beforeOverlay()}
-      <div class="overlay p-3 before text-left">
+      <div class="overlay p-3 before">
         <p class="h4 font-bold">July 7, 2020</p>
         <p class="body-note">Initially, this site was far smaller.</p>
       </div>
     {/snippet}
     {#snippet afterOverlay()}
-      <div class="overlay p-3 after text-right">
+      <div class="overlay p-3 after">
         <p class="h4 font-bold">Oct. 20, 2020</p>
         <p class="body-note">But then forces built up.</p>
       </div>

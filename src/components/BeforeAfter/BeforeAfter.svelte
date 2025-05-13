@@ -280,6 +280,7 @@
 
   button.before-after-container {
     box-sizing: content-box;
+    text-align: inherit;
 
     img {
       top: 0;
@@ -352,18 +353,18 @@
       height: 0;
       user-select: none;
       position: relative;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
+      border-block-start: 10px solid transparent;
+      border-block-end: 10px solid transparent;
     }
     .arrow-right {
-      left: 19px;
-      bottom: 14px;
-      border-left: 10px solid var(--before-after-handle-colour);
+      inset-inline-start: 19px;
+      inset-block-end: 14px;
+      border-inline-start: 10px solid var(--before-after-handle-colour);
     }
     .arrow-left {
-      left: 3px;
-      top: 6px;
-      border-right: 10px solid var(--before-after-handle-colour);
+      inset-inline-start: 3px;
+      inset-block-start: 6px;
+      border-inline-end: 10px solid var(--before-after-handle-colour);
     }
   }
 
