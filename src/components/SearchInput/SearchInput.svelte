@@ -57,8 +57,8 @@
   .search {
     width: 250px;
     .search--icon {
-      left: 0.5rem;
-      top: 0.55rem;
+      inset-inline-start: 0.5rem;
+      inset-block-start: 0.55rem;
       width: 1.5rem;
       height: 1.5rem;
       fill: mixins.$theme-colour-brand-rules;
@@ -71,8 +71,8 @@
       width: 100%;
     }
     .search--x {
-      right: 0;
-      top: 0.55rem;
+      inset-inline-end: 0;
+      inset-block-start: 0.55rem;
       width: 1.5rem;
       height: 1.5rem;
       fill: mixins.$theme-colour-text-primary;

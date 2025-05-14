@@ -95,15 +95,15 @@
   @use '../../scss/mixins' as mixins;
   .timeline {
     .date {
-      border-left: 1px solid var(--symbol-colour);
+      border-inline-start: 1px solid var(--symbol-colour);
       &:last-child {
-        border-left: 1px solid mixins.$theme-colour-background;
+        border-inline-start: 1px solid mixins.$theme-colour-background;
         @include mixins.fpb-0;
       }
     }
     svg {
-      top: -1px;
-      left: -10px;
+      inset-block-start: -1px;
+      inset-inline-start: -10px;
     }
     div.title {
       @include mixins.fmt-2;

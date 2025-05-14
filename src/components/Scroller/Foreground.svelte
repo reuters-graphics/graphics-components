@@ -54,10 +54,10 @@
       background: rgba(255, 255, 255, 0.9);
 
       :global(p:last-child) {
-        margin-bottom: 0;
+        margin-block-end: 0;
       }
       :global(*:first-child) {
-        margin-top: 0;
+        margin-block-start: 0;
       }
     }
   }

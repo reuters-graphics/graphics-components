@@ -61,7 +61,7 @@
 
   .spinner-container {
     height: 0;
-    padding-bottom: 100%;
+    padding-block-end: 100%;
     color: var(--spinner-colour, #666);
   }
 

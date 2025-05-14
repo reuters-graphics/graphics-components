@@ -5,48 +5,48 @@
     margin: $value;
   }
   %fmt-#{$level} {
-    margin-top: $value;
+    margin-block-start: $value;
   }
   %fmr-#{$level} {
-    margin-right: $value;
+    margin-inline-end: $value;
   }
   %fmb-#{$level} {
-    margin-bottom: $value;
+    margin-block-end: $value;
   }
   %fml-#{$level} {
-    margin-left: $value;
+    margin-inline-start: $value;
   }
   %fmx-#{$level} {
-    margin-left: $value;
-    margin-right: $value;
+    margin-inline-start: $value;
+    margin-inline-end: $value;
   }
   %fmy-#{$level} {
-    margin-top: $value;
-    margin-bottom: $value;
+    margin-block-start: $value;
+    margin-block-end: $value;
   }
 
   %\!fm-#{$level} {
     margin: $value !important;
   }
   %\!fmt-#{$level} {
-    margin-top: $value !important;
+    margin-block-start: $value !important;
   }
   %\!fmr-#{$level} {
-    margin-right: $value !important;
+    margin-inline-end: $value !important;
   }
   %\!fmb-#{$level} {
-    margin-bottom: $value !important;
+    margin-block-end: $value !important;
   }
   %\!fml-#{$level} {
-    margin-left: $value !important;
+    margin-inline-start: $value !important;
   }
   %\!fmx-#{$level} {
-    margin-left: $value !important;
-    margin-right: $value !important;
+    margin-inline-start: $value !important;
+    margin-inline-end: $value !important;
   }
   %\!fmy-#{$level} {
-    margin-top: $value !important;
-    margin-bottom: $value !important;
+    margin-block-start: $value !important;
+    margin-block-end: $value !important;
   }
 }
 

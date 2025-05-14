@@ -69,7 +69,7 @@
 
 <style lang="scss">
   footer {
-    margin-top: 0;
+    margin-block-start: 0;
     background-color: var(--nav-background, #fff);
     div {
       max-width: 1400px;

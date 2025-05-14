@@ -185,7 +185,7 @@
   }
 
   div.heading {
-    margin-top: 0;
+    margin-block-start: 0;
     font-family: Knowledge, sans-serif;
     &.stacked {
       max-width: 450px;

@@ -9,7 +9,7 @@
     argTypes: {
       align: {
         control: 'select',
-        options: ['left', 'center'],
+        options: ['auto', 'center'],
       },
     },
   });

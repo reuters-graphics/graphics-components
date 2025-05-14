@@ -304,7 +304,7 @@
     thead {
       tr {
         th {
-          border-bottom: 1px solid var(--theme-colour-text-primary);
+          border-block-end: 1px solid var(--theme-colour-text-primary);
           @include mixins.bg;
           text-align: inherit;
           &.sortable {
@@ -314,7 +314,7 @@
           .table--thead--sortarrow {
             display: inline-block;
             position: relative;
-            top: 5px;
+            inset-inline-start: 5px;
           }
         }
       }
@@ -323,8 +323,9 @@
       td {
         @include mixins.text-sm;
         @include mixins.font-regular;
+        font-variant-numeric: tabular-nums;
         vertical-align: top;
-        border-bottom: 1px solid
+        border-block-end: 1px solid
           var(--theme-colour-brand-rules, var(--tr-muted-grey));
         &.no-results {
           @include mixins.text-secondary;
@@ -333,7 +334,7 @@
     }
     tfoot.table--tfoot {
       tr {
-        border-bottom: 0;
+        border-block-end: 0;
       }
       td {
         @include mixins.body-caption;
@@ -341,7 +342,7 @@
     }
     &.truncated {
       tbody tr:last-child:not(:first-child) {
-        border-bottom: none;
+        border-block-end: none;
         mask-image: linear-gradient(
           to bottom,
           var(--theme-colour-text-primary) 0%,

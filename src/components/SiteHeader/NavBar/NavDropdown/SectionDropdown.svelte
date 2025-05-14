@@ -78,12 +78,12 @@
       }
 
       &:first-child {
-        margin-right: 16px;
+        margin-inline-end: 16px;
       }
 
       @include for-tablet-down {
         &:nth-child(2) {
-          margin-top: 0;
+          margin-block-start: 0;
         }
       }
     }
@@ -94,7 +94,7 @@
     font-weight: 400;
     display: inline-block;
     padding: 4px 0;
-    margin-bottom: 2px;
+    margin-block-end: 2px;
     font-family: var(--theme-font-family-sans-serif);
     &:hover {
       text-decoration: underline;

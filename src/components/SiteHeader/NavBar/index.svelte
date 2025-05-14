@@ -135,7 +135,7 @@
   $mobile-nav-height: 56px;
 
   .nav-bar {
-    margin-left: auto;
+    margin-inline-start: auto;
 
     @include for-mobile {
       display: none;

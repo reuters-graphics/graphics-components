@@ -160,8 +160,8 @@
   }
 
   .quick-links {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-block-start: 24px;
+    padding-block-end: 24px;
     box-sizing: border-box;
 
     .content-container {
@@ -193,7 +193,7 @@
 
     .content-container {
       box-sizing: border-box;
-      @include grids.spacing-single(padding-left padding-right);
+      @include grids.spacing-single(padding-inline-start padding-inline-end);
     }
 
     h3 {
@@ -223,7 +223,7 @@
       grid-row: 1;
 
       .media {
-        margin-top: 24px;
+        margin-block-start: 24px;
       }
     }
 
@@ -242,13 +242,13 @@
     }
 
     .stay-informed {
-      margin-top: 24px;
+      margin-block-start: 24px;
     }
   }
 
   .symbol {
     width: 20px;
-    margin-right: 16px;
+    margin-inline-end: 16px;
   }
 
   .visually-hidden {

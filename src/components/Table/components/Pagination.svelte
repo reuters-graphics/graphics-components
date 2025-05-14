@@ -1,7 +1,7 @@
 <script lang="ts">
   import { intcomma } from 'journalize';
-  import LeftArrow from './LeftArrow.svelte';
-  import RightArrow from './RightArrow.svelte';
+  import PrevArrow from './PrevArrow.svelte';
+  import NextArrow from './NextArrow.svelte';
 
   interface Props {
     /**
@@ -49,7 +49,7 @@
 <nav aria-label="pagination" class="pagination fmt-4">
   <button onclick={goToPreviousPage} disabled={pageNumber === 1}
     ><div class="icon-wrapper">
-      <LeftArrow />
+      <PrevArrow />
       <span class="visually-hidden">Previous page</span>
     </div></button
   >
@@ -62,7 +62,7 @@
     onclick={goToNextPage}
     disabled={pageNumber === Math.ceil(n / pageSize)}
     ><div class="icon-wrapper">
-      <RightArrow />
+      <NextArrow />
       <span class="visually-hidden">Next page</span>
     </div></button
   >
@@ -75,6 +75,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
 
     button {
       border: 1px solid var(--theme-colour-text-secondary, var(--tr-light-grey));

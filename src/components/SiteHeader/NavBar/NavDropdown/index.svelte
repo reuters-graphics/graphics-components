@@ -131,7 +131,7 @@
       margin: 0 auto;
       @include breakpoints.max-width;
       @include grids.responsive-columns(12);
-      @include grids.spacing-single(padding-left padding-right);
+      @include grids.spacing-single(padding-inline-start padding-inline-end);
     }
   }
 
@@ -164,7 +164,7 @@
 
     .inner {
       border-left: 1px solid var(--nav-rules, var(--tr-muted-grey));
-      @include grids.spacing-single(padding-left);
+      @include grids.spacing-single(padding-inline-start);
     }
 
     @include breakpoints.for-extra-wide-desktop {
@@ -196,7 +196,7 @@
   }
 
   .story-item {
-    padding-bottom: 20px;
+    padding-block-end: 20px;
     margin: 0;
     animation: fadein 0.5s both $easeOutExpo;
 
@@ -207,12 +207,12 @@
 
     &:nth-child(3),
     &:nth-child(4) {
-      padding-top: 20px;
+      padding-block-start: 20px;
     }
 
     @include grids.at-4-columns {
       &:nth-child(2) {
-        padding-top: 20px;
+        padding-block-start: 20px;
       }
       &:nth-child(3) {
         border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
@@ -222,7 +222,7 @@
 
   .spinner {
     width: 40px;
-    margin-left: -20px;
+    margin-inline-start: -20px;
     position: absolute;
     top: 60px;
     left: 50%;

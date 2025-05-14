@@ -129,7 +129,7 @@
     background-color: #ddd;
     position: relative;
     width: calc(100% + 30px);
-    margin-left: -15px;
+    margin-inline-start: -15px;
   }
   :global(#block-demo-article .article-boundaries) {
     padding: 0 0 18px;
@@ -142,7 +142,7 @@
     background: #81a1c1;
   }
   :global(#block-demo-article div.article-block.block-snap-widths-demo) {
-    margin-bottom: 2px;
+    margin-block-end: 2px;
     height: 40px;
     font-size: 11px;
   }
@@ -153,7 +153,7 @@
     #block-demo-article .label,
     #block-demo-article div.article-block.block-snap-widths-demo
   ) {
-    padding-left: 3px;
+    padding-inline-start: 3px;
     color: white;
     font-weight: 500;
   }

@@ -65,12 +65,12 @@
   }
   :global(#article-story-basic, #article-column-widths-demo) {
     width: calc(100% + 30px);
-    margin-left: -15px;
+    margin-inline-start: -15px;
   }
   :global(#article-column-widths-demo) {
     background-color: #ddd;
     position: relative;
-    margin-bottom: 10px;
+    margin-block-end: 10px;
   }
   :global(#article-column-widths-demo .article-boundaries) {
     padding: 0;
@@ -86,9 +86,9 @@
   :global(#article-column-widths-demo div.article-block) {
     height: 300px;
     background: #81a1c1;
-    margin-bottom: 2px;
+    margin-block-end: 2px;
     height: 50px;
-    padding-left: 3px;
+    padding-inline-start: 3px;
     color: white;
     font-size: 1rem;
   }

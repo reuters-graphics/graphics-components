@@ -85,7 +85,7 @@
       <div
         class="photopack-row flex justify-between"
         style:gap="0 {gap}px"
-        style:margin-bottom={ri < rows.length - 1 ? gap + 'px' : ''}
+        style:margin-block-end={ri < rows.length - 1 ? gap + 'px' : ''}
       >
         {#each row as img, i}
           <figure

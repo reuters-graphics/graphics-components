@@ -167,7 +167,7 @@
       background-color: rgba(255, 255, 255, 0.8);
       padding: 4px 8px;
       border-radius: 4px;
-      margin-right: 5px;
+      margin-inline-end: 5px;
     }
     button.icon {
       font-size: 14px;
@@ -198,10 +198,10 @@
       }
       &.left {
         text-align: right;
-        padding-right: 3px;
+        padding-inline-end: 3px;
       }
       &.right {
-        padding-left: 6px;
+        padding-inline-start: 6px;
         text-align: left;
       }
     }
