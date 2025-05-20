@@ -6,10 +6,9 @@ import * as ScrollerBaseStories from './ScrollerBase.stories.svelte';
 
 # ScrollerBase
 
-The `ScrollerBase` component powers the [`Scroller` component](?path=/story/components-graphics-scroller--docs), which creates a basic storytelling graphic with preset layout options.  The `ScrollerBase` component contains the bare minimum code necessary for a scrollytelling section, and allows for customisation beyond what the [`Scroller` component](?path=/story/components-graphics-scroller--docs) allows.
+The `ScrollerBase` component powers the [`Scroller` component](?path=/story/components-graphics-scroller--docs), which creates a basic storytelling graphic with preset layout options. The `ScrollerBase` component contains the bare minimum code necessary for a scrollytelling section, and allows for customisation beyond what the [`Scroller` component](?path=/story/components-graphics-scroller--docs) allows.
 
 `ScrollerBase` is a Svelte 5 version of the [svelte-scroller](https://github.com/sveltejs/svelte-scroller).
-
 
 [Demo](?path=/story/components-graphics-scrollerbase--demo)
 
@@ -23,33 +22,33 @@ The `ScrollerBase` component powers the [`Scroller` component](?path=/story/comp
   let myProgress = $state(0);
 </script>
 
- <ScrollerBase
-    bind:index={myIndex}
-    bind:progress={myProgress}
-    query="div.step-foreground-container"
-  >
-    {#snippet backgroundSnippet()}
+<ScrollerBase
+  bind:index={myIndex}
+  bind:progress={myProgress}
+  query="div.step-foreground-container"
+>
+  {#snippet backgroundSnippet()}
     <!-- Add custom backgroud as a snippet -->
-      <div class="custom-background">
-        <p>
-          This is the background content. It will stay fixed in place while the
-          foreground scrolls over the top.
-        </p>
-      </div>
-    {/snippet}
-    {#snippet foregroundSnippet()}
-        <!-- Add custom foreground as a snippet -->
-      <div class="step-foreground-container flex items-center justify-center">
-        <p>Index {myIndex}: This is the first section.</p>
-      </div>
-      <div class="step-foreground-container flex items-center justify-center">
-        <p>Index {myIndex}: This is the second section.</p>
-      </div>
-      <div class="step-foreground-container flex items-center justify-center">
-        <p>Index {myIndex}: This is the third section.</p>
-      </div>
-    {/snippet}
-  </ScrollerBase>
+    <div class="custom-background">
+      <p>
+        This is the background content. It will stay fixed in place while the
+        foreground scrolls over the top.
+      </p>
+    </div>
+  {/snippet}
+  {#snippet foregroundSnippet()}
+    <!-- Add custom foreground as a snippet -->
+    <div class="step-foreground-container flex items-center justify-center">
+      <p>Index {myIndex}: This is the first section.</p>
+    </div>
+    <div class="step-foreground-container flex items-center justify-center">
+      <p>Index {myIndex}: This is the second section.</p>
+    </div>
+    <div class="step-foreground-container flex items-center justify-center">
+      <p>Index {myIndex}: This is the third section.</p>
+    </div>
+  {/snippet}
+</ScrollerBase>
 ```
 
 > **Important❗:** Make sure the HTML element containing each foreground is a div with the class `step-foreground-container`. If you're modifying this to something else, pass the appropriate selector to the `query` prop.
@@ -58,18 +57,17 @@ To add your own styling, you can write styles in a global SCSS stylesheet:
 
 ```scss
 // global.scss
-  .custom-background {
-    padding: 20px;
-    border-radius: 5px;
-    height: 100vh;
-  }
+.custom-background {
+  padding: 20px;
+  border-radius: 5px;
+  height: 100vh;
+}
 
-  .step-foreground-container {
-    height: 100vh;
-    p {
-      padding: 1em;
-      background-color: rgba(162, 220, 231, 0.5);
-    }
+.step-foreground-container {
+  height: 100vh;
+  p {
+    padding: 1em;
+    background-color: rgba(162, 220, 231, 0.5);
   }
-
+}
 ```
