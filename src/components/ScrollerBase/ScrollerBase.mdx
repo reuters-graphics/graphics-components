@@ -1,31 +1,29 @@
 import { Meta } from '@storybook/blocks';
 
-import * as SvelteScrollerStories from './SvelteScroller.stories.svelte';
+import * as ScrollerBaseStories from './ScrollerBase.stories.svelte';
 
-<Meta of={SvelteScrollerStories} />
+<Meta of={ScrollerBaseStories} />
 
-# SvelteScroller
+# ScrollerBase
 
-The `SvelteScroller` component is the base Scroller component that powers the [`Scroller` component](?path=/story/components-graphics-scroller--docs). It is a Svelte 5 version of the [svelte-scroller](https://github.com/sveltejs/svelte-scroller).
+The `ScrollerBase` component powers the [`Scroller` component](?path=/story/components-graphics-scroller--docs), which creates a basic storytelling graphic with preset layout options.  The `ScrollerBase` component contains the bare minimum code necessary for a scrollytelling section, and allows for customisation beyond what the [`Scroller` component](?path=/story/components-graphics-scroller--docs) allows.
 
-This component allows for customisation that the [`Scroller` component](?path=/story/components-graphics-scroller--docs) can't handle.
-
-> **Important❗:** Make sure each foreground step's container is a div with the class `step-foreground-container`. If you're modifying the class, pass the appropriate selector to the `query` prop.
+`ScrollerBase` is a Svelte 5 version of the [svelte-scroller](https://github.com/sveltejs/svelte-scroller).
 
 
-[Demo](?path=/story/components-graphics-sveltescroller--demo)
+[Demo](?path=/story/components-graphics-scrollerbase--demo)
 
 ```svelte
 <!-- App.svelte -->
 <script>
-  import { SvelteScroller } from '@reuters-graphics/graphics-components';
+  import { ScrollerBase } from '@reuters-graphics/graphics-components';
 
   // Optional: Bind your own `index`, `progress`, and other bindable variables to use them in your code.
   let myIndex = $state(0);
   let myProgress = $state(0);
 </script>
 
- <SvelteScroller
+ <ScrollerBase
     bind:index={myIndex}
     bind:progress={myProgress}
     query="div.step-foreground-container"
@@ -51,8 +49,10 @@ This component allows for customisation that the [`Scroller` component](?path=/s
         <p>Index {myIndex}: This is the third section.</p>
       </div>
     {/snippet}
-  </SvelteScroller>
+  </ScrollerBase>
 ```
+
+> **Important❗:** Make sure the HTML element containing each foreground is a div with the class `step-foreground-container`. If you're modifying this to something else, pass the appropriate selector to the `query` prop.
 
 To add your own styling, you can write styles in a global SCSS stylesheet:
 

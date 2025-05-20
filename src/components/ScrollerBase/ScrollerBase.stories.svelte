@@ -1,10 +1,10 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import SvelteScroller from './SvelteScroller.svelte';
+  import ScrollerBase from './ScrollerBase.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/SvelteScroller',
-    component: SvelteScroller,
+    title: 'Components/Graphics/ScrollerBase',
+    component: ScrollerBase,
   });
 </script>
 
@@ -14,7 +14,7 @@
 </script>
 
 <Story name="Demo">
-  <SvelteScroller
+  <ScrollerBase
     bind:index={myIndex}
     bind:progress={myProgress}
     query="div.step-foreground-container"
@@ -38,7 +38,7 @@
         <p>Index {myIndex}: This is the third section.</p>
       </div>
     {/snippet}
-  </SvelteScroller>
+  </ScrollerBase>
 </Story>
 
 <style lang="scss">
