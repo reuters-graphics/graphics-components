@@ -50,7 +50,7 @@ export interface Theme {
 export interface CustomProperties {
   [key: string]: string | number | boolean | object | [];
 }
- 
+
 export interface CustomTheme {
   colour?: Partial<Colour>;
   font?: Partial<CustomFont>;
