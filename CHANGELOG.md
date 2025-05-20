@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.4
+
+### Patch Changes
+
+- 06beea8: Update tokens and component layouts to accomodate margins and paddings for RTL webpages
+
 ## 3.0.3
 
 ### Patch Changes
