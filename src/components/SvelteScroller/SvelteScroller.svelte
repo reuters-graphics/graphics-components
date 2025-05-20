@@ -117,7 +117,7 @@
     top = 0,
     bottom = 1,
     threshold = 0.5,
-    query = 'section',
+    query = 'div.step-foreground-container',
     parallax = false,
     backgroundSnippet,
     foregroundSnippet,
@@ -211,7 +211,7 @@
   }
 </script>
 
-<svelte:window bind:setinnerHeight={wh} />
+<svelte:window bind:innerHeight={wh} />
 
 <svelte-scroller-outer bind:this={outer}>
   <svelte-scroller-background-container
@@ -219,12 +219,12 @@
     style="{style}{widthStyle}"
   >
     <svelte-scroller-background bind:this={background}>
-      {@render backgroundSnippet(index)}
+      {@render backgroundSnippet()}
     </svelte-scroller-background>
   </svelte-scroller-background-container>
 
   <svelte-scroller-foreground bind:this={foreground}>
-    {@render foregroundSnippet(index)}
+    {@render foregroundSnippet()}
   </svelte-scroller-foreground>
 </svelte-scroller-outer>
 
