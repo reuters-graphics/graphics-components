@@ -50,5 +50,5 @@ export interface Theme {
 export interface CustomTheme {
   colour?: Partial<Colour>;
   font?: Partial<CustomFont>;
-  [customProperty: string]: unknown;
+  customProperties?: unknown;
 }
