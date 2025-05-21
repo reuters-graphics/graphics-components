@@ -259,7 +259,7 @@
       }
 
       .dek {
-        margin-top: 1rem;
+        margin-block-start: 1rem;
         p {
           color: #ffffff;
           text-shadow: 1px 1px 8px #ff7c88;
@@ -281,7 +281,7 @@
     }
 
     :global(.hero-wrapper) {
-      margin-top: -64px;
+      margin-block-start: -64px;
     }
   }
 </style>

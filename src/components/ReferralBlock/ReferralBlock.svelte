@@ -67,6 +67,9 @@
   let referrals: Article[] = $state([]);
 
   const getReferrals = async () => {
+    if (typeof window === 'undefined') return;
+    // fetch only reliably works on prod sites
+    if (window?.location?.hostname !== 'www.reuters.com') return;
     const isCollection = Boolean(collection);
     const API = isCollection ? COLLECTION_API : SECTION_API;
     try {
@@ -182,7 +185,7 @@
   }
 
   div.heading {
-    margin-top: 0;
+    margin-block-start: 0;
     font-family: Knowledge, sans-serif;
     &.stacked {
       max-width: 450px;

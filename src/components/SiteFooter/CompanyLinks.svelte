@@ -25,6 +25,11 @@
   }
 
   let { links = {} }: Props = $props();
+
+  const normaliseSocialName = (name: string) => {
+    if (name === 'twitter') return 'X';
+    return name;
+  };
 </script>
 
 {#if links.social_links}
@@ -42,7 +47,10 @@
               {@const SvelteComponent =
                 symbols[link.type as keyof typeof symbols]}
               <li class="social-links symbol">
-                <a href={normalizeUrl(link.url)}>
+                <a
+                  href={normalizeUrl(link.url)}
+                  aria-label="Visit Reuters on {normaliseSocialName(link.type)}"
+                >
                   <div class="button">
                     <div class="social">
                       <SvelteComponent />
@@ -70,8 +78,8 @@
   }
 
   .company {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-block-start: 24px;
+    padding-block-end: 24px;
     box-sizing: border-box;
 
     .content-container {
@@ -84,7 +92,7 @@
 
     .content-container {
       box-sizing: border-box;
-      @include grids.spacing-single(padding-left padding-right);
+      @include grids.spacing-single(padding-inline-start padding-inline-end);
     }
   }
   .company .content-container {
@@ -138,17 +146,17 @@
     list-style: none;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 16px;
+    margin-inline-start: 16px;
 
     &:first-child {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 
   section.company {
     max-width: 100%;
     h2 {
-      margin-bottom: 12px;
+      margin-block-end: 12px;
       line-height: 1.333;
       font-size: 16px;
       color: var(--nav-primary);

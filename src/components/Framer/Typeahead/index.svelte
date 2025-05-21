@@ -177,7 +177,6 @@
 
 <svelte:window
   onclick={({ target }) => {
-    console.log('HELLO', !comboboxRef?.contains(target as Node));
     if (!hideDropdown && !comboboxRef?.contains(target as Node)) {
       close();
     }
@@ -350,7 +349,7 @@
   }
 
   :global([data-svelte-search] label) {
-    margin-bottom: 0.25rem;
+    margin-block-end: 0.25rem;
     display: inline-flex;
     font-size: 0.75rem;
     color: #aaa;

@@ -16,7 +16,7 @@
   .spinner-container {
     position: relative;
     height: 0;
-    padding-bottom: 100%;
+    padding-block-end: 100%;
     color: var(--nav-primary, var(--tr-dark-grey));
   }
 

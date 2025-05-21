@@ -42,7 +42,7 @@
 <style lang="scss">
   div.embedded-foreground {
     :global(p:last-child) {
-      margin-bottom: 0;
+      margin-block-end: 0;
     }
   }
 </style>

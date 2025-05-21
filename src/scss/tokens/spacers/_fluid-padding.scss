@@ -5,48 +5,48 @@
     padding: $value;
   }
   %fpt-#{$level} {
-    padding-top: $value;
+    padding-block-start: $value;
   }
   %fpr-#{$level} {
-    padding-right: $value;
+    padding-inline-end: $value;
   }
   %fpb-#{$level} {
-    padding-bottom: $value;
+    padding-block-end: $value;
   }
   %fpl-#{$level} {
-    padding-left: $value;
+    padding-inline-start: $value;
   }
   %fpx-#{$level} {
-    padding-right: $value;
-    padding-left: $value;
+    padding-inline-start: $value;
+    padding-inline-end: $value;
   }
   %fpy-#{$level} {
-    padding-top: $value;
-    padding-bottom: $value;
+    padding-block-start: $value;
+    padding-block-end: $value;
   }
 
   %\!fp-#{$level} {
     padding: $value !important;
   }
   %\!fpt-#{$level} {
-    padding-top: $value !important;
+    padding-block-start: $value !important;
   }
   %\!fpr-#{$level} {
-    padding-right: $value !important;
+    padding-inline-end: $value !important;
   }
   %\!fpb-#{$level} {
-    padding-bottom: $value !important;
+    padding-block-end: $value !important;
   }
   %\!fpl-#{$level} {
-    padding-left: $value !important;
+    padding-inline-start: $value !important;
   }
   %\!fpx-#{$level} {
-    padding-right: $value !important;
-    padding-left: $value !important;
+    padding-inline-start: $value !important;
+    padding-inline-end: $value !important;
   }
   %\!fpy-#{$level} {
-    padding-top: $value !important;
-    padding-bottom: $value !important;
+    padding-block-start: $value !important;
+    padding-block-end: $value !important;
   }
 }
 

@@ -15,4 +15,7 @@
     width: 1rem;
     fill: currentColor;
   }
+  :global([dir='rtl']) .icon {
+    transform: rotate(180deg);
+  }
 </style>

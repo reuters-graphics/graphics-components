@@ -44,7 +44,7 @@
       @include mixins.font-medium;
       @include mixins.tracking-normal;
       @include mixins.fmt-3;
-      margin-bottom: 0.125rem;
+      margin-block-end: 0.125rem;
       text-transform: none;
     }
   }

@@ -1,5 +1,34 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.4
+
+### Patch Changes
+
+- 06beea8: Update tokens and component layouts to accomodate margins and paddings for RTL webpages
+
+## 3.0.3
+
+### Patch Changes
+
+- c074a18: Allows step.background to be undefined
+
+## 3.0.2
+
+### Patch Changes
+
+- 737f2e1: Adds a simple dropdown option to search embeds for Framer
+- a032218: Don't fetch referrals on non-dotcom domains
+- 2d4a641: Cleans up a spare console log left in
+- c91807e: a11y fixes for SiteHeader and SiteFooter
+- b13463f: fixes for Ad types that were colliding with their component names and a bug in the Framer Resizer
+- a48d333: Ignore hydration mismatch in SEO component ld+json
+
+## 3.0.1
+
+### Patch Changes
+
+- 93a41f3: Exposes bindable props for the Scroller component
+
 ## 3.0.0
 
 ### Major Changes

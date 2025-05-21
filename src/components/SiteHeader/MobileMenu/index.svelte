@@ -37,7 +37,11 @@
           textColour="var(--nav-primary)"
         />
       </div>
-      <button class="button close-button" onclick={releaseMobileMenu}>
+      <button
+        class="button close-button"
+        aria-label="Close menu"
+        onclick={releaseMobileMenu}
+      >
         <div class="button-container">
           <CloseIcon />
         </div>
@@ -79,7 +83,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding-bottom: 60px;
+    padding-block-end: 60px;
     box-sizing: border-box;
     background: var(--nav-background);
     color: var(--nav-primary);
@@ -106,7 +110,7 @@
   .close-button {
     width: 40px;
     height: 40px;
-    margin-left: auto;
+    margin-inline-start: auto;
     display: inline-block;
     vertical-align: top;
     outline: none;
@@ -141,16 +145,16 @@
 
   .header {
     border-bottom: 1px solid var(--nav-rules, var(--tr-muted-grey));
-    @include spacing-single(padding-left padding-right);
+    @include spacing-single(padding-inline-start padding-inline-end);
   }
 
   .section {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-block-start: 16px;
+    padding-block-end: 16px;
     border-bottom: 1px solid var(--tr-muted-grey);
     width: 100%;
     max-width: 100%;
-    @include spacing-single(padding-left padding-right);
+    @include spacing-single(padding-inline-start padding-inline-end);
 
     .subsections {
       margin: 20px 0 0;

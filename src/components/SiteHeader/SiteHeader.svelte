@@ -155,7 +155,7 @@
     height: $nav-height;
     justify-content: space-between;
     @include max-width;
-    @include grids.spacing-single(padding-left padding-right);
+    @include grids.spacing-single(padding-inline-start padding-inline-end);
 
     @include for-mobile {
       height: $mobile-nav-height;
@@ -180,7 +180,7 @@
   }
 
   .spacer-container {
-    margin-left: auto;
+    margin-inline-start: auto;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -199,7 +199,7 @@
   }
 
   .mobile-button-group {
-    margin-left: auto;
+    margin-inline-start: auto;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -209,7 +209,7 @@
   }
 
   .mobile-menu {
-    margin-left: 8px;
+    margin-inline-start: 8px;
     @include for-tablet-up {
       display: none;
     }

@@ -22,7 +22,7 @@
 <style lang="scss">
   @use './../scss/_colors.scss' as *;
   svg {
-    margin-left: 4px;
+    margin-inline-start: 4px;
     width: 10px;
     fill: var(--nav-primary, var(--tr-dark-grey));
     transition: transform 0.15s ease;

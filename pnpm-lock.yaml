@@ -38,6 +38,9 @@ importers:
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
+      storybook-addon-rtl:
+        specifier: ^1.1.0
+        version: 1.1.0
       svelte-fa:
         specifier: ^4.0.3
         version: 4.0.3(svelte@5.28.1)
@@ -3538,6 +3541,9 @@ packages:
 
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+
+  storybook-addon-rtl@1.1.0:
+    resolution: {integrity: sha512-L8JljF1M+30rcSuM4JjeIi4ZRmg9WZi/1u4T/5/EQvpDKCMOAq7uHeOKj4YS1InC4Zksnz3DrggXmO3mISXKcQ==}
 
   storybook@8.6.12:
     resolution: {integrity: sha512-Z/nWYEHBTLK1ZBtAWdhxC0l5zf7ioJ7G4+zYqtTdYeb67gTnxNj80gehf8o8QY9L2zA2+eyMRGLC2V5fI7Z3Tw==}
@@ -8080,6 +8086,8 @@ snapshots:
   split-on-first@1.1.0: {}
 
   sprintf-js@1.0.3: {}
+
+  storybook-addon-rtl@1.1.0: {}
 
   storybook@8.6.12(prettier@3.5.3):
     dependencies:

@@ -200,7 +200,7 @@
         {getAuthorPage}
         {published}
         {updated}
-        align="left"
+        align="auto"
       />
     {/if}
   </div>
@@ -251,7 +251,7 @@
       @media (max-width: 690px) {
         width: 100%;
         padding: 0 15px;
-        margin-left: 0;
+        margin-inline-start: 0;
       }
     }
   }

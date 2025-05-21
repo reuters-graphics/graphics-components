@@ -66,7 +66,7 @@
               <a href={normalizeUrl(section.url)}>
                 {section.name}
               </a>
-              <button class="button">
+              <button class="button" aria-label="{section.name} menu">
                 <DownArrow rotate={section.id === $activeSection} />
               </button>
             </div>
@@ -135,7 +135,7 @@
   $mobile-nav-height: 56px;
 
   .nav-bar {
-    margin-left: auto;
+    margin-inline-start: auto;
 
     @include for-mobile {
       display: none;

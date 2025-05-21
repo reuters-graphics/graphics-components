@@ -21,7 +21,7 @@
     /**
      * Alignment of the byline.
      */
-    align?: 'left' | 'center';
+    align?: 'auto' | 'center';
     /**
      * Add an id to to target with custom CSS.
      * @type {string}
@@ -54,7 +54,7 @@
     authors = [],
     publishTime,
     updateTime,
-    align = 'left',
+    align = 'auto',
     id = '',
     cls = '',
     getAuthorPage = getAuthorPageUrl,
@@ -63,7 +63,7 @@
     updated,
   }: Props = $props();
 
-  let alignmentClass = $derived(align === 'left' ? 'text-left' : 'text-center');
+  let alignmentClass = $derived(align === 'center' ? 'text-center' : '');
 
   /**
   /* Date validation and formatter functions

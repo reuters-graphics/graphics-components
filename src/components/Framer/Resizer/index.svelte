@@ -27,8 +27,7 @@
     if ($width > maxWidth) width.set(maxWidth);
   });
 
-  // svelte-ignore state_referenced_locally
-  let offset = $state(($width - minWidth) / pixelRange);
+  let offset = $derived(($width - minWidth) / pixelRange);
 
   let sliding = $state(false);
   let isFocused = $state(false);
@@ -55,7 +54,7 @@
     } else if (keyCode === 37) {
       offset = Math.max(0, offset - pixelWidth / sliderWidth);
     }
-    width.set(getPx());
+    $width = getPx();
   };
   const start = (e: MouseEvent) => {
     sliding = true;
@@ -77,17 +76,17 @@
       .filter((b) => b <= maxWidth)
       .filter((b) => b > $width);
     if (availableBreakpoints.length === 0) {
-      width.set(maxWidth);
+      $width = maxWidth;
     } else {
-      width.set(availableBreakpoints[0]);
+      $width = availableBreakpoints[0];
     }
   };
   const decrement = () => {
     const availableBreakpoints = breakpoints.filter((b) => b < $width);
     if (availableBreakpoints.length === 0) {
-      width.set(minWidth);
+      $width = minWidth;
     } else {
-      width.set(availableBreakpoints.slice(-1)[0]);
+      $width = availableBreakpoints.slice(-1)[0];
     }
   };
 </script>
@@ -168,7 +167,7 @@
       background-color: rgba(255, 255, 255, 0.8);
       padding: 4px 8px;
       border-radius: 4px;
-      margin-right: 5px;
+      margin-inline-end: 5px;
     }
     button.icon {
       font-size: 14px;
@@ -199,10 +198,10 @@
       }
       &.left {
         text-align: right;
-        padding-right: 3px;
+        padding-inline-end: 3px;
       }
       &.right {
-        padding-left: 6px;
+        padding-inline-start: 6px;
         text-align: left;
       }
     }

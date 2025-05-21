@@ -2,7 +2,7 @@
 <!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-inlinead--docs) -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import type { InlineAd } from './@types/ads';
+  import type { InlineAdType } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';
 
   interface Props {
@@ -16,7 +16,7 @@
 
   let { id = '', class: cls = 'my-12', n = 1 }: Props = $props();
 
-  const desktopPlacementName: InlineAd['desktop']['placementName'] = `reuters_desktop_native_${n}`;
+  const desktopPlacementName: InlineAdType['desktop']['placementName'] = `reuters_desktop_native_${n}`;
 </script>
 
 <Block {id} class="freestar-adslot {cls}">
