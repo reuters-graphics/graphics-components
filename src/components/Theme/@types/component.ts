@@ -47,12 +47,8 @@ export interface Theme {
   font: Font;
 }
 
-export interface CustomProperties {
-  [key: string]: string | number | boolean | object | [];
-}
-
 export interface CustomTheme {
   colour?: Partial<Colour>;
   font?: Partial<CustomFont>;
-  customProperties?: CustomProperties;
+  customProperties?: unknown;
 }
