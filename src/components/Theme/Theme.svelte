@@ -14,7 +14,7 @@
   import mergeThemes from './utils/merge.js';
 
   // Types
-  import type { CustomTheme } from './@types/component';
+  import type { CustomTheme, Theme } from './@types/component';
   import type { Snippet } from 'svelte';
   type Base = 'light' | 'dark';
 
@@ -22,7 +22,7 @@
     /** Custom theme object. Can be a partial theme with just
      * what you want to change.
      */
-    theme?: CustomTheme;
+    theme?: CustomTheme | Theme;
     /**
      * Base theme is one of `light` or `dark` and will be merged
      * with your custom theme to fill in any values you don't
