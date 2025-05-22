@@ -9,14 +9,26 @@
      * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
      */
     once?: boolean;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
-    top?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`. */
-    bottom?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`. */
-    left?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`. */
-    right?: number;
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`.
+     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     */
+    top?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`.
+     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     */
+    bottom?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`.
+     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     */
+    left?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`.
+     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     */
+    right?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
     /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
     threshold?: number;
     children?: Snippet<[boolean]>;
@@ -24,10 +36,10 @@
 
   let {
     once = false,
-    top = 0,
-    bottom = 0,
-    left = 0,
-    right = 0,
+    top = { value: 0, unit: 'px' },
+    bottom = { value: 0, unit: 'px' },
+    left = { value: 0, unit: 'px' },
+    right = { value: 0, unit: 'px' },
     threshold = 0,
     children,
   }: Props = $props();
@@ -37,7 +49,7 @@
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+      const rootMargin = `${bottom.value}${bottom.unit} ${left.value}${left.unit} ${top.value}${top.unit} ${right.value}${right.unit}`;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -53,17 +65,17 @@
       );
       if (container) observer.observe(container);
       return () => {
-        if (container) observer.observe(container);
+        if (container) observer.unobserve(container);
       };
     }
     function handler() {
       if (container) {
         const bcr = container.getBoundingClientRect();
         visible =
-          bcr.bottom + bottom > 0 &&
-          bcr.right + right > 0 &&
-          bcr.top - top < window.innerHeight &&
-          bcr.left - left < window.innerWidth;
+          bcr.bottom + bottom.value > 0 &&
+          bcr.right + right.value > 0 &&
+          bcr.top - top.value < window.innerHeight &&
+          bcr.left - left.value < window.innerWidth;
       }
       if (visible && once) {
         window.removeEventListener('scroll', handler);

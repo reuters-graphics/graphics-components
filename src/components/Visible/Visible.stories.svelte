@@ -9,8 +9,9 @@
   });
 </script>
 
-<Story name="Demo" tags={['!autodocs', '!dev']}>
-  <Visible>
+<Story name="Demo">
+  <!-- Optionally set your own `top`, `bottom`, `right` and `left` values with units -->
+  <Visible top={{ value: 10, unit: 'px' }}>
     {#snippet children(visible)}
       {#if visible}
         <p>Visible!</p>
