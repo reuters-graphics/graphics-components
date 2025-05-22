@@ -9,16 +9,25 @@
   }
 
   let { index, steps, preload = 1, stackBackground = true }: Props = $props();
+
+  function showStep(i: number) {
+    if (preload === 0) return true;
+    if (stackBackground) return i >= 0;
+    return i >= index - preload && i <= index + preload;
+  }
+
+  function isVisible(i: number) {
+    if (stackBackground) return i <= index;
+    return i === index;
+  }
 </script>
 
 {#each steps as step, i}
-  <!-- Load the step(s) before and after the active one, only -->
-  <!-- Unless stackBackground is true. If so, keep all steps before the current one loaded. -->
-  {#if preload === 0 || (i >= (stackBackground ? 0 : index - preload) && i <= index + preload)}
+  {#if showStep(i)}
     <div
-      class="step-background step-{i + 1} w-full absolute"
-      class:visible={stackBackground ? i <= index : i === index}
-      class:invisible={stackBackground ? i > index : i !== index}
+      class={`step step-${i + 1} w-full absolute`}
+      class:visible={isVisible(i)}
+      class:invisible={!isVisible(i)}
     >
       <step.background {...step.backgroundProps || {}}></step.background>
     </div>

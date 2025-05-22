@@ -1,6 +1,6 @@
 <!-- @component `Scroller` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-scroller--docs) -->
 <script lang="ts">
-  import ScrollerBase from './ScrollerBase/index.svelte';
+  import ScrollerBase from '../ScrollerBase/ScrollerBase.svelte';
   import Background from './Background.svelte';
   import Foreground from './Foreground.svelte';
   import Embedded from './Embedded/index.svelte';
