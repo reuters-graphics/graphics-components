@@ -10,18 +10,17 @@
 
   let { index, steps, preload = 1, stackBackground = true }: Props = $props();
 
-    function shouldShowStep(i:number) {
+  function shouldShowStep(i: number) {
     if (preload === 0) return true;
     if (stackBackground) return i <= index;
     return i >= index - preload && i <= index + preload;
   }
 
-  function isStepVisible(i:number) {
+  function isStepVisible(i: number) {
     if (stackBackground) return i <= index;
     return i === index;
   }
 </script>
-
 
 {#each steps as step, i}
   {#if shouldShowStep(i)}
