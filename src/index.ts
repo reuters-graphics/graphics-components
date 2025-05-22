@@ -20,6 +20,7 @@ export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.
 export { default as Framer } from './components/Framer/Framer.svelte';
 export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.svelte';
 export { default as Headline } from './components/Headline/Headline.svelte';
+export { default as Headpile } from './components/Headpile/Headpile.svelte';
 export { default as HeroHeadline } from './components/HeroHeadline/HeroHeadline.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
