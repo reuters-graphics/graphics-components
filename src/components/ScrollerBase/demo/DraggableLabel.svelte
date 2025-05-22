@@ -3,7 +3,7 @@
   export let label = 'label';
 
   function drag(node: HTMLElement) {
-    function handleMousedown(event: MouseEvent) {
+    function handleMousedown() {
       function handleMousemove(event: MouseEvent) {
         event.preventDefault();
 
@@ -16,7 +16,7 @@
         );
       }
 
-      function handleMouseup(event: MouseEvent) {
+      function handleMouseup() {
         window.removeEventListener('mousemove', handleMousemove);
         window.removeEventListener('mouseup', handleMouseup);
       }
