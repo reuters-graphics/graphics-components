@@ -12,7 +12,7 @@
 
   function showStep(i: number) {
     if (preload === 0) return true;
-    if (stackBackground) return i <= index;
+    if (stackBackground) return i >= 0;
     return i >= index - preload && i <= index + preload;
   }
 
