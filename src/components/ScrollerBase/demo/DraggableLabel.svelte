@@ -1,10 +1,10 @@
 <script lang="ts">
-  let { value = $bindable(0), label = 'label' } = $props();
-  let isDragging = false;
+  export let value = 0;
+  export let label = 'label';
 
-  function drag(node, callback) {
-    function handleMousedown(event) {
-      function handleMousemove(event) {
+  function drag(node: HTMLElement) {
+    function handleMousedown(event: MouseEvent) {
+      function handleMousemove(event: MouseEvent) {
         event.preventDefault();
 
         node.dispatchEvent(
@@ -16,7 +16,7 @@
         );
       }
 
-      function handleMouseup(event) {
+      function handleMouseup(event: MouseEvent) {
         window.removeEventListener('mousemove', handleMousemove);
         window.removeEventListener('mouseup', handleMouseup);
       }
@@ -35,7 +35,7 @@
   }
 
   // Round to 2 decimal places
-  function round(value) {
+  function round(value: number): number {
     return Math.round(value * 100) / 100;
   }
 </script>
@@ -44,7 +44,15 @@
   class="label"
   style="top: {value * 100}%"
   use:drag
-  on:drag={(e) => (value = e.detail.value)}
+  ondrag={(event: DragEvent) => {
+    const customEvent = event as unknown as { detail: { value: number } };
+    value = customEvent.detail.value;
+  }}
+  role="slider"
+  aria-valuemin="0"
+  aria-valuemax="1"
+  aria-valuenow={value}
+  tabindex="0"
 >
   <div class="drag-target"></div>
   <hr />
