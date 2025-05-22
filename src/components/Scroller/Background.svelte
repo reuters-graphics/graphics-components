@@ -10,24 +10,24 @@
 
   let { index, steps, preload = 1, stackBackground = true }: Props = $props();
 
-  function shouldShowStep(i: number) {
+  function showStep(i: number) {
     if (preload === 0) return true;
     if (stackBackground) return i <= index;
     return i >= index - preload && i <= index + preload;
   }
 
-  function isStepVisible(i: number) {
+  function isVisible(i: number) {
     if (stackBackground) return i <= index;
     return i === index;
   }
 </script>
 
 {#each steps as step, i}
-  {#if shouldShowStep(i)}
+  {#if showStep(i)}
     <div
       class={`step step-${i + 1} w-full absolute`}
-      class:visible={isStepVisible(i)}
-      class:invisible={!isStepVisible(i)}
+      class:visible={isVisible(i)}
+      class:invisible={!isVisible(i)}
     >
       <step.background {...step.backgroundProps || {}}></step.background>
     </div>
