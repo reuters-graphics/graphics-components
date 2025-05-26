@@ -9,22 +9,22 @@
 
 <style lang="scss">
   .headshot-wrapper {
-    width: 100px;
-    height: 120px;
+    width: 7rem;
+    height: 6.75rem;
     position: relative;
-    margin-top: -46px;
-    margin-bottom: -46px;
-    border-radius: 4px;
+    margin-block-start: -1.75rem;
+    margin-block-end: -1.75rem;
+    border-radius: 0.25rem;
     overflow: hidden;
   }
   .background {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100px;
-    height: 70px;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    width: 7rem;
+    height: 4.75rem;
     display: inline-block;
-    border-radius: 4px;
+    border-radius: 0.25rem;
   }
   .headshot {
     display: inline-block;
@@ -34,8 +34,8 @@
     background-position: center bottom;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    inset-block-end: 0;
+    inset-inline-start: 0;
     overflow: hidden;
   }
 </style>

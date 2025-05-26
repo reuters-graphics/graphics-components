@@ -63,7 +63,7 @@
 </script>
 
 <Block class={cls} {id} {width}>
-  <div class="figures">
+  <div class="figures fmy-6">
     {#each figures as figure}
       <KeyFigure {...{ ...figure, colour: figure.colour ?? colour }} />
     {/each}
@@ -76,11 +76,6 @@
   div.figures {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    @include mixins.fpt-4;
-    @media (max-width: 600px) {
-      gap: 0px;
-      padding-block-start: 0;
-    }
+    gap: 2rem;
   }
 </style>

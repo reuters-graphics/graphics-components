@@ -22,8 +22,12 @@
       <Headshot {img} {colour} />
     </div>
     <div class="text">
-      <div class="title">{name}</div>
-      <div class="role">{role || ''}</div>
+      <div class="title font-bold text-base leading-none">{name}</div>
+      <div
+        class="role font-note text-secondary text-sm font-light leading-tighter fmb-4 mt-1 pt-1"
+      >
+        {role || ''}
+      </div>
       {#if !mobile.current}
         <div class="description desktop">
           <Markdown source={text} />
@@ -46,57 +50,40 @@
     display: flex;
     align-items: flex-start;
     justify-content: start;
-    gap: 20px;
+    gap: 1rem;
     width: 100%;
-    min-height: 100px;
-    @media (max-width: 600px) {
-      align-items: center;
-      margin-bottom: 10px;
-      .text {
-        flex-grow: 1;
-        margin-top: 20px;
-      }
-    }
+    min-height: 5.5rem;
   }
 
   .title {
-    @include mixins.font-bold;
-    @include mixins.text-base;
-    line-height: 1.125;
+    @media (max-width: 450px) {
+      font-size: calc(0.9 * var(--theme-font-size-base, 1rem));
+    }
   }
 
   .role {
-    border-top: 1px solid #dedede;
-    margin-top: 5px;
-    padding-top: 5px;
-    margin-left: -10px;
-    padding-left: 10px;
-    @include mixins.fmb-2;
-    @include mixins.font-note;
-    @include mixins.text-sm;
-    @include mixins.text-secondary;
-    font-weight: 300;
-    line-height: 1.25;
-    @media (max-width: 600px) {
-      margin-left: 0px;
-      padding-left: 0;
-      @include mixins.fmb-4;
+    border-block-start: 0.5px solid var(--tr-muted-grey);
+    margin-inline-start: -0.75rem;
+    padding-inline-start: 0.75rem;
+
+    @media (max-width: 450px) {
+      @include mixins.text-xs;
     }
   }
 
   .description {
-    @include mixins.fmb-3;
     :global(p) {
       @include mixins.font-note;
-      font-size: calc(0.925 * var(--theme-font-size-base, 1rem));
+      font-size: calc(0.9 * var(--theme-font-size-base, 1rem));
       font-weight: 300;
+      @include mixins.fmb-0;
+      text-wrap: pretty;
     }
     &.desktop {
       display: block;
     }
     &.mobile {
       display: none;
-      @include mixins.fmt-2;
     }
     @media (max-width: 600px) {
       &.desktop {
@@ -106,9 +93,5 @@
         display: block;
       }
     }
-  }
-
-  .text {
-    margin-bottom: -20px;
   }
 </style>
