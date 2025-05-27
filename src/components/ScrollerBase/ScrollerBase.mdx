@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/blocks';
+
+import * as ScrollerBaseStories from './ScrollerBase.stories.svelte';
+
+<Meta of={ScrollerBaseStories} />
+
+# ScrollerBase
+
+The `ScrollerBase` component powers the [`Scroller` component](?path=/story/components-graphics-scroller--docs), which creates a basic storytelling graphic with preset layout options. `ScrollerBase` contains the bare minimum code necessary for a scrollytelling section, and allows for customisation beyond what the [`Scroller` component](?path=/story/components-graphics-scroller--docs) allows.
+
+`ScrollerBase` is a Svelte 5 version of the [svelte-scroller](https://github.com/sveltejs/svelte-scroller).
+
+> **Important❗:** Make sure the HTML element containing each foreground is a div with the class `step-foreground-container`. If you're modifying this to something else, pass the appropriate selector to the `query` prop.
+
+[Demo](?path=/story/components-graphics-scrollerbase--demo)
+
+```svelte
+<script lang="ts">
+  import { ScrollerBase } from '@reuters-graphics/graphics-components';
+
+  // Optional: Bind your own variables to use them in your code.
+  let count = $state(1);
+  let index = $state(0);
+  let offset = $state(0);
+  let progress = $state(0);
+  let top = $state(0.1);
+  let threshold = $state(0.5);
+  let bottom = $state(0.9);
+</script>
+
+<ScrollerBase
+  {top}
+  {threshold}
+  {bottom}
+  bind:count
+  bind:index
+  bind:offset
+  bind:progress
+  query="div.step-foreground-container"
+>
+  {#snippet backgroundSnippet()}
+    <!-- Add custom background HTML or component -->
+    <p class="mb-0">
+      Current step: <strong>{index + 1}/{count}</strong>
+    </p>
+    <progress class="mb-4" value={(index + 1) / count}></progress>
+
+    <p class="mb-0">Offset in current step</p>
+    <progress class="mb-4" value={offset}></progress>
+
+    <p class="mb-0">Total progress</p>
+    <progress class="mb-4" value={progress}></progress>
+  {/snippet}
+  {#snippet foregroundSnippet()}
+    <!-- Add custom foreground HTML or component -->
+    <div class="step-foreground-container">Step 1</div>
+    <div class="step-foreground-container">Step 2</div>
+    <div class="step-foreground-container">Step 3</div>
+    <div class="step-foreground-container">Step 4</div>
+    <div class="step-foreground-container">Step 5</div>
+  {/snippet}
+</ScrollerBase>
+
+<style lang="scss">
+  @use '@reuters-graphics/graphics-components/dist/scss/mixins' as mixins;
+
+  .scroller-demo-container {
+    width: mixins.$column-width-normal;
+    margin: auto;
+  }
+
+  .step-foreground-container {
+    height: 100vh;
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    margin: 0 0 2em 0;
+    position: relative;
+    left: 50%;
+  }
+</style>
+```

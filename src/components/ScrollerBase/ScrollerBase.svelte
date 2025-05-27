@@ -117,7 +117,7 @@
     top = 0,
     bottom = 1,
     threshold = 0.5,
-    query = 'section',
+    query = 'div.step-foreground-container',
     parallax = false,
     backgroundSnippet,
     foregroundSnippet,
