@@ -62,8 +62,8 @@
   }: Props = $props();
 </script>
 
-<Block class={cls} {id} {width}>
-  <div class="figures fmy-6">
+<Block class="fmy-6 {cls} {id} {width}">
+  <div class="figures">
     {#each figures as figure}
       <KeyFigure {...{ ...figure, colour: figure.colour ?? colour }} />
     {/each}

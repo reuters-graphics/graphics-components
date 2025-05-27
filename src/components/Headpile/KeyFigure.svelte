@@ -22,10 +22,8 @@
       <Headshot {img} {colour} />
     </div>
     <div class="text">
-      <div class="title font-bold text-base leading-none">{name}</div>
-      <div
-        class="role font-note text-secondary text-sm font-light leading-tighter fmb-4 mt-1 pt-1"
-      >
+      <div class="title">{name}</div>
+      <div class="role">
         {role || ''}
       </div>
       {#if !mobile.current}
@@ -56,6 +54,10 @@
   }
 
   .title {
+    @include mixins.font-bold;
+    @include mixins.text-base;
+    @include mixins.leading-none;
+
     @media (max-width: 450px) {
       font-size: calc(0.9 * var(--theme-font-size-base, 1rem));
     }
@@ -65,6 +67,15 @@
     border-block-start: 0.5px solid var(--tr-muted-grey);
     margin-inline-start: -0.75rem;
     padding-inline-start: 0.75rem;
+    margin-block-start: 0.25rem;
+    padding-block-start: 0.25rem;
+
+    @include mixins.font-note;
+    @include mixins.text-secondary;
+    @include mixins.text-sm;
+    @include mixins.font-light;
+    @include mixins.leading-tighter;
+    @include mixins.fmb-4;
 
     @media (max-width: 450px) {
       @include mixins.text-xs;
