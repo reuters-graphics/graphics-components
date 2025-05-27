@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.5
+
+### Patch Changes
+
+- f41f79b: Creates ScrollerBase component, which is used in Scroller and can be used to make custom scrollytelling components.
+
 ## 3.0.4
 
 ### Patch Changes
