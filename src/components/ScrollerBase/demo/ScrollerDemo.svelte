@@ -10,11 +10,12 @@
   let top = $state(0.1);
   let threshold = $state(0.5);
   let bottom = $state(0.9);
+
+  const text =
+    'Read the documentation on the props `progress`, `top`, `threshold`, `bottom` under **Controls** to understand how they work. \n\nAdjust the red sliders on the right to see how changes in these values affect scrolling behaviour.';
 </script>
 
-<BodyText
-  text="Read the documentation on the props `progress`, `top`, `threshold`, `bottom` under **Controls** to understand how they work."
-/>
+<BodyText {text} />
 
 <div class="scroller-demo-container">
   <ScrollerBase
