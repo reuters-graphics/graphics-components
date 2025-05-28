@@ -62,7 +62,7 @@
   }: Props = $props();
 </script>
 
-<Block class={cls} {id} {width}>
+<Block class="fmy-6 {cls} {id} {width}">
   <div class="figures">
     {#each figures as figure}
       <KeyFigure {...{ ...figure, colour: figure.colour ?? colour }} />
@@ -76,11 +76,6 @@
   div.figures {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    @include mixins.fpt-4;
-    @media (max-width: 600px) {
-      gap: 0px;
-      padding-block-start: 0;
-    }
+    gap: 2rem;
   }
 </style>
