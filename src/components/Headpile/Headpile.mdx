@@ -1,0 +1,37 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as HeadpileStories from './Headpile.stories.svelte';
+
+<Meta of={HeadpileStories} />
+
+# Headpile
+
+The `Headpile` component is a headshot-bulleted list of people, identifying them with their names, roles and a short description of their significance to a story.
+
+It's designed to be used with headshots that have had their background removed, which can be done in the [Preview app](https://support.apple.com/en-gb/guide/preview/prvw15636/mac?#apd320b3b1b750a4) on macOS.
+
+```svelte
+<script>
+  import { Headpile } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+</script>
+
+<Headpile
+  figures={[
+    {
+      img: `${assets}/images/person-A.jpg`,
+      name: 'General Abdel Fattah al-Burhan',
+      role: "Sudan's Sovereign Council Chief and military commander",
+      text: 'Burhan was little known in public life until taking part in the coup ...',
+    },
+    {
+      img: `${assets}/images/person-B.jpg`,
+      name: 'General Mohamed Hamdan Dagalo',
+      role: 'Leader of the Sudanese paramilitary Rapid Support Forces (RSF)',
+      text: 'Popularly known as Hemedti, Dagalo rose from lowly beginnings ...',
+    },
+  ]}
+/>
+```
+
+<Canvas of={HeadpileStories.Demo} />
