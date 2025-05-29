@@ -9,13 +9,25 @@
      * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
      */
     once?: boolean;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`.
+     * Specify a pixel value.
+     */
     top?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`.
+     * Specify a pixel value.
+     */
     bottom?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`.
+     * Specify a pixel value.
+     */
     left?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`.
+     * Specify a pixel value.
+     */
     right?: number;
     /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
     threshold?: number;
@@ -37,7 +49,7 @@
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+      const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -53,12 +65,13 @@
       );
       if (container) observer.observe(container);
       return () => {
-        if (container) observer.observe(container);
+        if (container) observer.unobserve(container);
       };
     }
     function handler() {
       if (container) {
         const bcr = container.getBoundingClientRect();
+
         visible =
           bcr.bottom + bottom > 0 &&
           bcr.right + right > 0 &&
@@ -74,7 +87,7 @@
   });
 </script>
 
-<div bind:this={container}>
+<div class="visibility-tracker" bind:this={container}>
   {#if children}
     {@render children(visible)}
   {/if}

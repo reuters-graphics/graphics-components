@@ -2,6 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
 
   import Visible from './Visible.svelte';
+  import VisibleDemo from './demo/VisibleDemo.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Utilities/Visible',
@@ -9,14 +10,6 @@
   });
 </script>
 
-<Story name="Demo" tags={['!autodocs', '!dev']}>
-  <Visible>
-    {#snippet children(visible)}
-      {#if visible}
-        <p>Visible!</p>
-      {:else}
-        <p>Not yet visible.</p>
-      {/if}
-    {/snippet}
-  </Visible>
+<Story name="Demo">
+  <VisibleDemo />
 </Story>
