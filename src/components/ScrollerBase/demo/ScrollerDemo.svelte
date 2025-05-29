@@ -63,8 +63,9 @@
   @use '../../../scss/mixins' as mixins;
 
   .scroller-demo-container {
-    width: mixins.$column-width-normal;
+    max-width: mixins.$column-width-normal;
     margin: auto;
+    background: #c5dfe8;
   }
 
   .step-foreground-container {
