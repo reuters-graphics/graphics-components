@@ -11,24 +11,24 @@
     once?: boolean;
     /**
      * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`.
-     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     * Specify a pixel value.
      */
-    top?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    top?: number;
     /**
      * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`.
-     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     * Specify a pixel value.
      */
-    bottom?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    bottom?: number;
     /**
      * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`.
-     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     * Specify a pixel value.
      */
-    left?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    left?: number;
     /**
      * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`.
-     * Specify a value and unit (e.g. `px`, `%`, `vw`, `vh`, `rem`, `em`).
+     * Specify a pixel value.
      */
-    right?: { value: number; unit: 'px' | '%' | 'vw' | 'vh' | 'rem' | 'em' };
+    right?: number;
     /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
     threshold?: number;
     children?: Snippet<[boolean]>;
@@ -36,10 +36,10 @@
 
   let {
     once = false,
-    top = { value: 0, unit: 'px' },
-    bottom = { value: 0, unit: 'px' },
-    left = { value: 0, unit: 'px' },
-    right = { value: 0, unit: 'px' },
+    top = 0,
+    bottom = 0,
+    left = 0,
+    right = 0,
     threshold = 0,
     children,
   }: Props = $props();
@@ -49,7 +49,7 @@
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${bottom.value}${bottom.unit} ${left.value}${left.unit} ${top.value}${top.unit} ${right.value}${right.unit}`;
+      const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -71,11 +71,12 @@
     function handler() {
       if (container) {
         const bcr = container.getBoundingClientRect();
+
         visible =
-          bcr.bottom + bottom.value > 0 &&
-          bcr.right + right.value > 0 &&
-          bcr.top - top.value < window.innerHeight &&
-          bcr.left - left.value < window.innerWidth;
+          bcr.bottom + bottom > 0 &&
+          bcr.right + right > 0 &&
+          bcr.top - top < window.innerHeight &&
+          bcr.left - left < window.innerWidth;
       }
       if (visible && once) {
         window.removeEventListener('scroll', handler);
@@ -86,7 +87,7 @@
   });
 </script>
 
-<div bind:this={container}>
+<div class="visibility-tracker" bind:this={container}>
   {#if children}
     {@render children(visible)}
   {/if}
