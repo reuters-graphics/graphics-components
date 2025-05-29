@@ -6,7 +6,7 @@
   import sharkSrc from '../../FeaturePhoto/images/shark.jpg';
 
   const demoText =
-    "Adjust the window dimension to see what happens when `<div class=\'visibility-tracker\'>` comes into <a href=\'https://codepen.io/michellebarker/full/xxwLpRG\'>Internsection Observer's</a> view.";
+    "Adjust the window dimension to see what happens when `<div class='visibility-tracker'>` comes into <a href='https://codepen.io/michellebarker/full/xxwLpRG'>Internsection Observer's</a> view.";
 
   const text =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
