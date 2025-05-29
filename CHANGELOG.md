@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.6
+
+### Patch Changes
+
+- a205a35: Adds new Headpile component.
+
 ## 3.0.5
 
 ### Patch Changes
