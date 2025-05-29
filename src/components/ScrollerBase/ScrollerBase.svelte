@@ -133,7 +133,7 @@
   let wh = $state(0);
   let fixed = $state(false);
   let offset_top = 0;
-  let width = 1;
+  let width = $state(1);
 
   let top_px = $derived(Math.round(top * wh));
   let bottom_px = $derived(Math.round(bottom * wh));
