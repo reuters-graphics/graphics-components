@@ -43,7 +43,7 @@
       </div>
 
       <ScrollyVideo
-        src={`src/components/ScrollyVideo/videos/goldengate.mp4`}
+        src={`../videos/goldengate.mp4`}
         height="100svh"
         trackScroll={false}
         videoPercentage={progress}

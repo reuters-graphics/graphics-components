@@ -134,17 +134,17 @@
   {#if width < 600}
     <ScrollyVideo
       {...args}
-      src={'src/components/ScrollyVideo/videos/v_9_16.mp4'}
+      src={'./src/components/ScrollyVideo/videos/v_9_16.mp4'}
     />
   {:else if width < 1200}
     <ScrollyVideo
       {...args}
-      src={'src/components/ScrollyVideo/videos/v_1_1.mp4'}
+      src={'./src/components/ScrollyVideo/videos/v_1_1.mp4'}
     />
   {:else}
     <ScrollyVideo
       {...args}
-      src={'src/components/ScrollyVideo/videos/v_16_9.mp4'}
+      src={'./src/components/ScrollyVideo/videos/v_16_9.mp4'}
     />
   {/if}
 </Story>
@@ -152,7 +152,7 @@
 <Story name="Autoplay" {args}>
   <ScrollyVideo
     {...args}
-    src={'src/components/ScrollyVideo/videos/goldengate.mp4'}
+    src={'./src/components/ScrollyVideo/videos/goldengate.mp4'}
     autoplay={true}
   />
 </Story>
