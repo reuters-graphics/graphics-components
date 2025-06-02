@@ -117,8 +117,19 @@
   });
 
   let width: number = $state(0);
+</script>
+
+<script>
+  import V_9_16 from './videos/v_9_16.mp4';
+  import V_1_1 from './videos/v_1_1.mp4';
+  import V_16_9 from './videos/v_16_9.mp4';
+  import Goldengate from './videos/goldengate.mp4';
 
   const args = $state({
+    V_9_16,
+    V_1_1,
+    V_16_9,
+    Goldengate,
     trackScroll: true,
     height: '500svh',
     showDebugInfo: true,
@@ -130,31 +141,26 @@
 
 <Story name="Basic" {args}></Story>
 
-<Story name="Multiple Videos" {args}>
+<Story
+  name="Multiple Videos"
+  args={{
+    trackScroll: true,
+    height: '500svh',
+    showDebugInfo: true,
+    autoplay: false,
+  }}
+>
   {#if width < 600}
-    <ScrollyVideo
-      {...args}
-      src={'./src/components/ScrollyVideo/videos/v_9_16.mp4'}
-    />
+    <ScrollyVideo {...args} src={args.V_9_16} />
   {:else if width < 1200}
-    <ScrollyVideo
-      {...args}
-      src={'./src/components/ScrollyVideo/videos/v_1_1.mp4'}
-    />
+    <ScrollyVideo {...args} src={args.V_1_1} />
   {:else}
-    <ScrollyVideo
-      {...args}
-      src={'./src/components/ScrollyVideo/videos/v_16_9.mp4'}
-    />
+    <ScrollyVideo {...args} src={args.V_16_9} />
   {/if}
 </Story>
 
 <Story name="Autoplay" {args}>
-  <ScrollyVideo
-    {...args}
-    src={'./src/components/ScrollyVideo/videos/goldengate.mp4'}
-    autoplay={true}
-  />
+  <ScrollyVideo {...args} src={args.Goldengate} autoplay={true} />
 </Story>
 
 <Story name="inside ScrollerBase" {args}>

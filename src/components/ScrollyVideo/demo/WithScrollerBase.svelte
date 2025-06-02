@@ -4,6 +4,7 @@
   import Headline from '../../Headline/Headline.svelte';
   import GraphicBlock from '../../GraphicBlock/GraphicBlock.svelte';
   import AiMap from './graphic/ai2svelte/ai-chart.svelte';
+  import Goldengate from '../videos/goldengate.mp4';
 
   // ScrollerBase props
   let count = $state(1);
@@ -43,7 +44,7 @@
       </div>
 
       <ScrollyVideo
-        src={`../videos/goldengate.mp4`}
+        src={Goldengate}
         height="100svh"
         trackScroll={false}
         videoPercentage={progress}
