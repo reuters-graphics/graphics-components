@@ -125,11 +125,14 @@
   import V_16_9 from './videos/v_16_9.mp4';
   import Goldengate from './videos/goldengate.mp4';
 
-  const args = $state({
+  const videoSrc = {
     V_9_16,
     V_1_1,
     V_16_9,
     Goldengate,
+  };
+
+  const args = $state({
     trackScroll: true,
     height: '500svh',
     showDebugInfo: true,
@@ -151,16 +154,16 @@
   }}
 >
   {#if width < 600}
-    <ScrollyVideo {...args} src={args.V_9_16} />
+    <ScrollyVideo {...args} src={videoSrc.V_9_16} />
   {:else if width < 1200}
-    <ScrollyVideo {...args} src={args.V_1_1} />
+    <ScrollyVideo {...args} src={videoSrc.V_1_1} />
   {:else}
-    <ScrollyVideo {...args} src={args.V_16_9} />
+    <ScrollyVideo {...args} src={videoSrc.V_16_9} />
   {/if}
 </Story>
 
 <Story name="Autoplay" {args}>
-  <ScrollyVideo {...args} src={args.Goldengate} autoplay={true} />
+  <ScrollyVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 
 <Story name="inside ScrollerBase" {args}>
