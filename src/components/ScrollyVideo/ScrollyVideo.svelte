@@ -44,6 +44,10 @@
     height?: string;
     /** Whether the video should autoplay */
     autoplay?: boolean;
+    /** Variable to control component rendering on embed page */
+    embedded?: boolean;
+    /** Source for the embedded video. If not provided, defaults to `src` */
+    embeddedSrc?: string;
   }
 
   let {
@@ -55,6 +59,8 @@
     showDebugInfo = false,
     class: cls = '',
     id = '',
+    embedded = false,
+    embeddedSrc = '',
     ...restProps
   }: Props = $props();
 
@@ -102,22 +108,36 @@
   });
 </script>
 
-<div
-  {id}
-  class="scrolly-video-container {cls}"
-  style="height: {heightChange}; width: 100%; min-height: 100svh;"
->
-  <div bind:this={scrollyVideoContainer} data-scrolly-container>
-    {#if showDebugInfo}
-      <p class="debug-info text-xxs font-sans">
-        {@html JSON.stringify(flattenObject([scrollyVideoState]))
-          .replace(/[{}"]/g, '')
-          .split(',')
-          .join('<br>')}
-      </p>
-    {/if}
+{#if embedded && (embeddedSrc || restProps.src)}
+  <div class="scrolly-video-container" style="width: 100%;">
+    <video
+      class="scrolly-video-embedded"
+      src={embeddedSrc || restProps.src}
+      autoplay
+      loop
+      muted
+      playsinline
+      style="width: 100%;"
+    ></video>
   </div>
-</div>
+{:else}
+  <div
+    {id}
+    class="scrolly-video-container {cls}"
+    style="height: {heightChange}; width: 100%; min-height: 100svh;"
+  >
+    <div bind:this={scrollyVideoContainer} data-scrolly-container>
+      {#if showDebugInfo}
+        <p class="debug-info text-xxs font-sans">
+          {@html JSON.stringify(flattenObject([scrollyVideoState]))
+            .replace(/[{}"]/g, '')
+            .split(',')
+            .join('<br>')}
+        </p>
+      {/if}
+    </div>
+  </div>
+{/if}
 
 <style lang="scss">
   .debug-info {
