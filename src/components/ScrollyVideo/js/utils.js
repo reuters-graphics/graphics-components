@@ -1,15 +1,13 @@
 export function debounce(func, delay = 0) {
   let timeoutId;
 
-  return function (...args) {
-    const context = this;
-
+  return (...args) => {
     // Clear the previous timeout if it exists
     clearTimeout(timeoutId);
 
     // Set a new timeout to call the function later
     timeoutId = setTimeout(() => {
-      func.apply(context, args);
+      func.apply(this, args);
     }, delay);
   };
 }
@@ -20,8 +18,6 @@ export const isScrollPositionAtTarget = (
 ) => {
   const currentScrollPosition = window.pageYOffset;
   const difference = Math.abs(currentScrollPosition - targetScrollPosition);
-
-  console.log(targetScrollPosition, currentScrollPosition, difference);
 
   return difference < threshold;
 };

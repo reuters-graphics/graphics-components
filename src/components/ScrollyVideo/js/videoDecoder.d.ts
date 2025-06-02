@@ -1,6 +1,6 @@
 declare function _default(
-  src: any,
-  emitFrame: any,
-  debug: any
-): Promise<never> | Promise<void> | any;
+  src: string,
+  emitFrame: (frame: ImageBitmap) => void,
+  debug: boolean
+): Promise<never> | Promise<void>;
 export default _default;

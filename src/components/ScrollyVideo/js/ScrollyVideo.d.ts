@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default ScrollyVideo;
 /**
  *   ____                 _ _     __     ___     _
@@ -29,8 +29,8 @@ declare class ScrollyVideo {
     debug,
     autoplay,
   }: {
-    src?: any;
-    scrollyVideoContainer: any;
+    src?: string;
+    scrollyVideoContainer: string | HTMLDivElement | undefined;
     objectFit?: string;
     sticky?: boolean;
     full?: boolean;
@@ -45,7 +45,7 @@ declare class ScrollyVideo {
     autoplay?: boolean;
   });
   container: Element;
-  src: any;
+  src: string;
   transitionSpeed: number;
   frameThreshold: number;
   useWebCodecs: boolean;
@@ -63,11 +63,11 @@ declare class ScrollyVideo {
   targetTime: number;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
-  frames: any[];
+  frames: ImageBitmap[] | null;
   frameRate: number;
   currentFrameNumber: number;
-  updateScrollPercentage: (jump: any) => void;
-  targetScrollPosition: any;
+  updateScrollPercentage: (jump: boolean) => void;
+  targetScrollPosition: number | null;
   resize: () => void;
   /**
    * Sets the currentTime of the video as a specified percentage of its total duration.
@@ -78,13 +78,13 @@ declare class ScrollyVideo {
    *    - transitionSpeed: number - Defines the speed of the transition when `jump` is false. Represents the duration of the transition in milliseconds. Default is 8.
    *    - easing: (progress: number) => number - A function that defines the easing curve for the transition. It takes the progress ratio (a number between 0 and 1) as an argument and returns the eased value, affecting the playback speed during the transition.
    */
-  setVideoPercentage(percentage: any, options?: {}): void;
+  setVideoPercentage(percentage: number, options?: {}): void;
   /**
    * Sets the style of the video or canvas to "cover" it's container
    *
    * @param el
    */
-  setCoverStyle(el: any): void;
+  setCoverStyle(el: string): void;
   /**
    * Uses webCodecs to decode the video into frames
    */
@@ -94,7 +94,7 @@ declare class ScrollyVideo {
    *
    * @param frameNum
    */
-  paintCanvasFrame(frameNum: any): void;
+  paintCanvasFrame(frameNum: number): void;
   /**
    * Transitions the video or the canvas to the proper frame.
    *
@@ -108,9 +108,9 @@ declare class ScrollyVideo {
     transitionSpeed,
     easing,
   }: {
-    jump: any;
+    jump: boolean;
     transitionSpeed?: number;
-    easing?: any;
+    easing?: (progress: number) => number;
   }): void;
   transitioningRaf: number;
   /**
@@ -122,13 +122,13 @@ declare class ScrollyVideo {
    *    - transitionSpeed: number - Defines the speed of the transition when `jump` is false. Represents the duration of the transition in milliseconds. Default is 8.
    *    - easing: (progress: number) => number - A function that defines the easing curve for the transition. It takes the progress ratio (a number between 0 and 1) as an argument and returns the eased value, affecting the playback speed during the transition.
    */
-  setTargetTimePercent(percentage: any, options?: {}): void;
+  setTargetTimePercent(percentage: number, options?: {}): void;
   /**
    * Simulate trackScroll programmatically (scrolls on page by percentage of video)
    *
    * @param percentage
    */
-  setScrollPercent(percentage: any): void;
+  setScrollPercent(percentage: number): void;
   /**
    * Call to destroy this ScrollyVideo object
    */

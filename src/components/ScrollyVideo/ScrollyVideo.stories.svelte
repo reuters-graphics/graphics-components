@@ -6,6 +6,9 @@
   const { Story } = defineMeta({
     title: 'Components/Graphics/ScrollyVideo',
     component: ScrollyVideo,
+    parameters: {
+      docsTools: { remount: true },
+    },
     argTypes: {
       autoplay: {
         control: 'boolean',
@@ -137,6 +140,13 @@
     height: '500svh',
     showDebugInfo: true,
     autoplay: false,
+    full: true,
+    sticky: true,
+    objectFit: 'cover',
+    transitionSpeed: 8,
+    frameThreshold: 0.1,
+    useWebCodecs: true,
+    lockScroll: true,
   });
 </script>
 
@@ -144,28 +154,37 @@
 
 <Story name="Basic" {args}></Story>
 
-<Story
-  name="Multiple Videos"
-  args={{
-    trackScroll: true,
-    height: '500svh',
-    showDebugInfo: true,
-    autoplay: false,
-  }}
->
-  {#if width < 600}
-    <ScrollyVideo {...args} src={videoSrc.V_9_16} />
-  {:else if width < 1200}
-    <ScrollyVideo {...args} src={videoSrc.V_1_1} />
-  {:else}
-    <ScrollyVideo {...args} src={videoSrc.V_16_9} />
-  {/if}
+<Story name="Multiple Videos" {args}>
+  {#snippet children(args)}
+    {#key args}
+      {#if width < 600}
+        <ScrollyVideo {...args} src={videoSrc.V_9_16} />
+      {:else if width < 1200}
+        <ScrollyVideo {...args} src={videoSrc.V_1_1} />
+      {:else}
+        <ScrollyVideo {...args} src={videoSrc.V_16_9} />
+      {/if}
+    {/key}
+  {/snippet}
 </Story>
 
 <Story name="Autoplay" {args}>
-  <ScrollyVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
+  {#snippet children(args)}
+    {#key args}
+      <ScrollyVideo
+        {...args}
+        src={videoSrc.Goldengate}
+        useWebCodecs={true}
+        autoplay={true}
+      ></ScrollyVideo>
+    {/key}
+  {/snippet}
 </Story>
 
 <Story name="inside ScrollerBase" {args}>
-  <WithScrollerBase />
+  {#snippet children(args)}
+    {#key args}
+      <WithScrollerBase />
+    {/key}
+  {/snippet}
 </Story>

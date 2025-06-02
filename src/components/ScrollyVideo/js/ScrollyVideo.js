@@ -75,6 +75,17 @@ class ScrollyVideo {
     this.video.pause();
     this.video.load();
 
+    this.video.addEventListener(
+      'canplaythrough',
+      () => {
+        this.onReady();
+        if (this.autoplay && !this.useWebCodecs) {
+          this.autoplayScroll();
+        }
+      },
+      { once: true }
+    );
+
     // Start the video percentage at 0
     this.videoPercentage = 0;
 
@@ -190,7 +201,6 @@ class ScrollyVideo {
           this.updateScrollPercentage(true);
           this.totalTime = this.video.duration;
           this.setCoverStyle(this.canvas || this.video);
-          if (this.autoplay) this.autoplayScroll();
         },
         { once: true }
       );
@@ -201,7 +211,6 @@ class ScrollyVideo {
           this.setTargetTimePercent(0, { jump: true });
           this.totalTime = this.video.duration;
           this.setCoverStyle(this.canvas || this.video);
-          if (this.autoplay) this.autoplayScroll();
         },
         { once: true }
       );
@@ -372,6 +381,8 @@ class ScrollyVideo {
     // Paint our first frame
     this.paintCanvasFrame(Math.floor(this.currentTime * this.frameRate));
     this.onReady();
+
+    if (this.autoplay) this.autoplayScroll();
   }
 
   /**
@@ -455,6 +466,10 @@ class ScrollyVideo {
         isForwardTransition ?
           this.currentTime >= this.targetTime
         : this.currentTime <= this.targetTime;
+
+      if (scrollyVideoState.isAutoPlaying) {
+        scrollyVideoState.autoplayProgress = this.currentTime / this.totalTime;
+      }
 
       // If we are already close enough to our target, pause the video and return.
       // This is the base case of the recursive function

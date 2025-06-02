@@ -1,6 +1,25 @@
-export function debounce(func: any, delay?: number): (...args: any[]) => void;
+import type { ScrollyVideoState } from './types';
+
+type FlattenedScrollyVideoState = {
+  src: string;
+  videoPercentage: number;
+  frameRate: number;
+  currentTime: number;
+  totalTime: number;
+  usingWebCodecs: boolean;
+  codec: string;
+  currentFrame: number;
+  totalFrames: number;
+  isAutoPlaying: boolean;
+  autoplayProgress: number;
+};
+
+export function debounce<T extends (...args: unknown[]) => unknown>(
+  func: T,
+  delay?: number
+): (...args: Parameters<T>) => void;
 export function isScrollPositionAtTarget(
-  targetScrollPosition: any,
+  targetScrollPosition: number | null,
   threshold?: number
 ): boolean;
 function constrain(n: number, low: number, high: number): number;
@@ -12,4 +31,6 @@ export function map(
   stop2: number,
   withinBounds?: boolean
 ): number;
-export function flattenObject(obj: any): any;
+export function flattenObject(
+  obj: ScrollyVideoState
+): FlattenedScrollyVideoState;

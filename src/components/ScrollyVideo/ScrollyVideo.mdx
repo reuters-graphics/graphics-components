@@ -27,6 +27,8 @@ The `ScrollyVideo` component is built on top of the [ScrollyVideo.js](https://sc
 
 To use the `ScrollyVideo` component, simply import it and provide the video source. Set height prop to any valid CSS height value, such as `1200px`, `50vh`, or `500svh` to set the scrolling height.
 
+[Demo](?path=/story/components-graphics-scrollyvideo--basic)
+
 ```svelte
 <script lang="ts">
   import { ScrollyVideo } from '@reuters-graphics/graphics-components';
@@ -44,10 +46,16 @@ To use the `ScrollyVideo` component, simply import it and provide the video sour
 
 It can also be used to display multiple different videos based on the viewport width. This is useful for responsive designs where your subject in the video is not in the center. After Effects can be usd to maintain a crop with a focus on the subject, and the `ScrollyVideo` component can be used to display the appropriate video based on the viewport width.
 
+[Demo](?path=/story/components-graphics-scrollyvideo--multiple-videos)
+
 ```svelte
 <script lang="ts">
   import { ScrollyVideo } from '@reuters-graphics/graphics-components';
+
+  let width = $state(0);
 </script>
+
+<svelte:window bind:innerWidth={width} />
 
 {#if width < 600}
   <!-- Aspect ratio 9:16 -->
@@ -80,6 +88,8 @@ It can also be used to display multiple different videos based on the viewport w
 
 Autoplay can be enabled by setting the `autoplay` prop to `true`. This will start the video playback automatically when the component is mounted. Upon interruption by manual scroll, the video will resume playback on scroll. The height is altered to remaining portion of the video.
 
+[Demo](?path=/story/components-graphics-scrollyvideo--autoplay)
+
 ```svelte
 <script lang="ts">
   import { ScrollyVideo } from '@reuters-graphics/graphics-components';
@@ -97,6 +107,8 @@ Autoplay can be enabled by setting the `autoplay` prop to `true`. This will star
 ## Inside ScrollerBase
 
 The `ScrollyVideo` component can also be used inside the `ScrollerBase` component to create a scroller-based layout. This allows for more complex interactions and layouts, such as combining ai2svelte components with scrolly video content.
+
+[Demo](?path=/story/components-graphics-scrollyvideo--inside-scroller-base)
 
 ```svelte
 <script lang="ts">
@@ -268,3 +280,17 @@ The `ScrollyVideo` component can also be used inside the `ScrollerBase` componen
   }
 </style>
 ```
+
+## Advanced usecases
+
+For advanced use cases such as looping a particular section of the video, or jumping to a specific time in the video, you can bind `scrollyVideo` prop and take benefits of methods such as `setVideoPercentage` or bindable methods such as `onReady` and `onChange`. This allows for fine-grained control over the video playback and interaction with the scroll position.
+
+```js
+scrollyVideo.setVideoPercentage(0.5, {
+  jump: false,
+  transitionSpeed: 12,
+  easing: d3.easeLinear,
+});
+```
+
+This will set the video to 50% progress, with a smooth transition at a playback rate of 12, using a linear easing function.

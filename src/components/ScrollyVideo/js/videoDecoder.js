@@ -152,7 +152,7 @@ const decodeVideo = (
         } else reject(new Error('URL provided is not a valid mp4 video file.'));
       };
 
-      mp4boxfile.onSamples = (track_id, ref, samples) => {
+      mp4boxfile.onSamples = (_track_id, _ref, samples) => {
         for (let i = 0; i < samples.length; i += 1) {
           const sample = samples[i];
           const type = sample.is_sync ? 'key' : 'delta';

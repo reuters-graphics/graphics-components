@@ -12,7 +12,7 @@ type FramesData = {
   totalFrames: number;
 };
 
-type ScrollyVideoState = {
+export type ScrollyVideoState = {
   generalData: GeneralData;
   usingWebCodecs: boolean;
   framesData: FramesData;

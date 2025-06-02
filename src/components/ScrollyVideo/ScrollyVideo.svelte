@@ -65,7 +65,7 @@
   }: Props = $props();
 
   // variable to hold the DOM element
-  let scrollyVideoContainer = $state();
+  let scrollyVideoContainer = $state<HTMLDivElement | undefined>(undefined);
 
   // Store the props so we know when things change
   let lastPropsString = '';
@@ -77,6 +77,8 @@
         if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
         scrollyVideo = new ScrollyVideo({
           scrollyVideoContainer,
+          onReady,
+          onChange,
           ...restProps,
         });
 
@@ -102,9 +104,7 @@
   });
 
   let heightChange = $derived.by(() => {
-    return scrollyVideoState.isAutoPlaying ?
-        `calc(${height} * ${1 - scrollyVideoState.framesData.currentFrame / scrollyVideoState.framesData.totalFrames})`
-      : `calc(${height} * ${1 - scrollyVideoState.autoplayProgress})`;
+    return `calc(${height} * ${1 - scrollyVideoState.autoplayProgress})`;
   });
 </script>
 
@@ -129,7 +129,7 @@
     <div bind:this={scrollyVideoContainer} data-scrolly-container>
       {#if showDebugInfo}
         <p class="debug-info text-xxs font-sans">
-          {@html JSON.stringify(flattenObject([scrollyVideoState]))
+          {@html JSON.stringify(flattenObject(scrollyVideoState))
             .replace(/[{}"]/g, '')
             .split(',')
             .join('<br>')}
