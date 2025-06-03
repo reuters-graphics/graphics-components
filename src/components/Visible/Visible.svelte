@@ -9,13 +9,25 @@
      * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
      */
     once?: boolean;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`.
+     * Specify a pixel value.
+     */
     top?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`.
+     * Specify a pixel value.
+     */
     bottom?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`.
+     * Specify a pixel value.
+     */
     left?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`. */
+    /**
+     * Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`.
+     * Specify a pixel value.
+     */
     right?: number;
     /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
     threshold?: number;
@@ -33,11 +45,27 @@
   }: Props = $props();
 
   let visible = $state(false);
+  let visibleOnce = $state(false);
   let container: HTMLElement | undefined = $state(undefined);
+
+  function scrollHandler() {
+    // Only trigger if `visibleOnce` is false
+    if (container && !visibleOnce) {
+      const bcr = container.getBoundingClientRect();
+      visible =
+        bcr.bottom + bottom > 0 &&
+        bcr.right + right > 0 &&
+        bcr.top - top < window.innerHeight &&
+        bcr.left - left < window.innerWidth;
+
+      // If `once` is true, set `visibleOnce` to true once `visible` becomes true
+      if (once && visible) visibleOnce = true;
+    }
+  }
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+      const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -51,30 +79,24 @@
           threshold,
         }
       );
+
       if (container) observer.observe(container);
+      // Unobserve when the component is unmounted
       return () => {
-        if (container) observer.observe(container);
+        if (container) observer.unobserve(container);
       };
     }
-    function handler() {
-      if (container) {
-        const bcr = container.getBoundingClientRect();
-        visible =
-          bcr.bottom + bottom > 0 &&
-          bcr.right + right > 0 &&
-          bcr.top - top < window.innerHeight &&
-          bcr.left - left < window.innerWidth;
-      }
-      if (visible && once) {
-        window.removeEventListener('scroll', handler);
-      }
-    }
-    window.addEventListener('scroll', handler);
-    return () => window.removeEventListener('scroll', handler);
   });
 </script>
 
-<div bind:this={container}>
+<svelte:window onscroll={scrollHandler} />
+
+<div
+  class="visibility-tracker"
+  class:visible
+  class:not-visible={!visible}
+  bind:this={container}
+>
   {#if children}
     {@render children(visible)}
   {/if}
