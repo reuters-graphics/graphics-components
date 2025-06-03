@@ -174,7 +174,7 @@
       <ScrollyVideo
         {...args}
         src={videoSrc.Goldengate}
-        useWebCodecs={true}
+        useWebCodecs={false}
         autoplay={true}
       ></ScrollyVideo>
     {/key}

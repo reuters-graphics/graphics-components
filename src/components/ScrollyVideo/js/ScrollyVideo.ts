@@ -3,23 +3,111 @@ import videoDecoder from './videoDecoder';
 import { debounce, isScrollPositionAtTarget, map } from './utils';
 import { scrollyVideoState } from './state.svelte';
 
+interface ScrollyVideoArgs {
+  src?: string;
+  scrollyVideoContainer: HTMLElement | string;
+  objectFit?: string;
+  sticky?: boolean;
+  full?: boolean;
+  trackScroll?: boolean;
+  lockScroll?: boolean;
+  transitionSpeed?: number;
+  frameThreshold?: number;
+  useWebCodecs?: boolean;
+  onReady?: () => void;
+  onChange?: (percentage?: number) => void;
+  debug?: boolean;
+  autoplay?: boolean;
+}
+
+interface TransitionOptions {
+  jump: boolean;
+  transitionSpeed?: number;
+  easing?: ((progress: number) => number) | null;
+  autoplay?: boolean;
+}
+
 class ScrollyVideo {
+  container: HTMLElement | null;
+  scrollyVideoContainer: Element | string | undefined;
+  src: string;
+  transitionSpeed: number;
+  frameThreshold: number;
+  useWebCodecs: boolean;
+  objectFit: string;
+  sticky: boolean;
+  trackScroll: boolean;
+  onReady: () => void;
+  onChange: (percentage?: number) => void;
+  debug: boolean;
+  autoplay: boolean;
+  video: HTMLVideoElement | undefined;
+  videoPercentage: number;
+  isSafari: boolean;
+  currentTime: number;
+  targetTime: number;
+  canvas: HTMLCanvasElement | null;
+  context: CanvasRenderingContext2D | null;
+  frames: ImageBitmap[] | null;
+  frameRate: number;
+  targetScrollPosition: number | null = null;
+  currentFrame: number;
+  usingWebCodecs: boolean; // Whether we are using webCodecs
+  totalTime: number; // The total time of the video, used for calculating percentage
+  transitioningRaf: number | null;
+
+  updateScrollPercentage: ((jump: boolean) => void) | undefined;
+  resize: (() => void) | undefined;
+
   constructor({
-    src = 'https://scrollyvideo.js.org/goldengate.mp4', // The src of the video, required
-    scrollyVideoContainer, // The dom element or id that this object will be created in, required
-    objectFit = 'cover', // Whether the video should "cover" inside the container
-    sticky = true, // Whether the video should "stick" to the top of the container
-    full = true, // Whether the container should expand to 100vh and 100vw
-    trackScroll = true, // Whether this object should automatically respond to scroll
-    lockScroll = true, // Whether it ignores human scroll while it runs `setVideoPercentage` with enabled `trackScroll`
-    transitionSpeed = 8, // How fast the video transitions between points
-    frameThreshold = 0.1, // When to stop the video animation, in seconds
-    useWebCodecs = true, // Whether to try using the webcodecs approach
-    onReady = () => {}, // A callback that invokes on video decode
-    onChange = () => {}, // A callback that invokes on video percentage change
-    debug = false, // Whether to print debug stats to the console
-    autoplay = false, // Whether to autoplay the video when it is ready
-  }) {
+    src = 'https://scrollyvideo.js.org/goldengate.mp4',
+    scrollyVideoContainer,
+    objectFit = 'cover',
+    sticky = true,
+    full = true,
+    trackScroll = true,
+    lockScroll = true,
+    transitionSpeed = 8,
+    frameThreshold = 0.1,
+    useWebCodecs = true,
+    onReady = () => {},
+    onChange = (_percentage?: number) => {},
+    debug = false,
+    autoplay = false,
+  }: ScrollyVideoArgs) {
+    this.src = src;
+    this.scrollyVideoContainer = scrollyVideoContainer;
+    this.objectFit = objectFit;
+    this.sticky = sticky;
+    this.trackScroll = trackScroll;
+    this.transitionSpeed = transitionSpeed;
+    this.frameThreshold = frameThreshold;
+    this.useWebCodecs = useWebCodecs;
+    this.onReady = onReady;
+    this.onChange = onChange;
+    this.debug = debug;
+    this.autoplay = autoplay;
+    this.videoPercentage = 0;
+    this.isSafari = false;
+    this.currentTime = 0;
+    this.targetTime = 0;
+    this.canvas = null;
+    this.context = null;
+    this.container = null;
+    this.frames = null;
+    this.frameRate = 0;
+    this.currentTime = 0; // Saves the currentTime of the video, synced with this.video.currentTime
+    this.targetTime = 0; // The target time before a transition happens
+    this.canvas = null; // The canvas for drawing the frames decoded by webCodecs
+    this.context = null; // The canvas context
+    this.frames = []; // The frames decoded by webCodecs
+    this.frameRate = 0; // Calculation of frameRate so we know which frame to paint
+    this.currentFrame = 0;
+    this.videoPercentage = 0;
+    this.usingWebCodecs = false; // Whether we are using webCodecs
+    this.totalTime = 0; // The total time of the video, used for calculating percentage
+    this.transitioningRaf = null;
+
     // Make sure that we have a DOM
     if (typeof document !== 'object') {
       console.error('ScrollyVideo must be initiated in a DOM context');
@@ -38,29 +126,16 @@ class ScrollyVideo {
 
     // Save the container. If the container is a string we get the element
 
-    if (scrollyVideoContainer instanceof Element)
+    if (scrollyVideoContainer && scrollyVideoContainer instanceof HTMLElement)
       this.container = scrollyVideoContainer;
     // otherwise it should better be an element
     else if (typeof scrollyVideoContainer === 'string') {
-      this.container = document.getElementById(scrollyVideoContainer);
+      this.container = document.getElementById(scrollyVideoContainer) || null;
       if (!this.container)
         throw new Error('scrollyVideoContainer must be a valid DOM object');
     } else {
       throw new Error('scrollyVideoContainer must be a valid DOM object');
     }
-
-    // Save the constructor options
-    this.src = src;
-    this.transitionSpeed = transitionSpeed;
-    this.frameThreshold = frameThreshold;
-    this.useWebCodecs = useWebCodecs;
-    this.objectFit = objectFit;
-    this.sticky = sticky;
-    this.trackScroll = trackScroll;
-    this.onReady = onReady;
-    this.onChange = onChange;
-    this.debug = debug;
-    this.autoplay = autoplay;
 
     // Create the initial video object. Even if we are going to use webcodecs,
     // we start with a paused video object
@@ -69,7 +144,7 @@ class ScrollyVideo {
     this.video.src = src;
     this.video.preload = 'auto';
     this.video.tabIndex = 0;
-    this.video.autobuffer = true;
+    this.video.preload = 'auto';
     this.video.playsInline = true;
     this.video.muted = true;
     this.video.pause();
@@ -115,18 +190,6 @@ class ScrollyVideo {
     this.isSafari = browserEngine.name === 'WebKit';
     if (debug && this.isSafari) console.info('Safari browser detected');
 
-    // Initialize state variables
-    this.currentTime = 0; // Saves the currentTime of the video, synced with this.video.currentTime
-    this.targetTime = 0; // The target time before a transition happens
-    this.canvas = null; // The canvas for drawing the frames decoded by webCodecs
-    this.context = null; // The canvas context
-    this.frames = []; // The frames decoded by webCodecs
-    this.frameRate = 0; // Calculation of frameRate so we know which frame to paint
-    this.currentFrame = 0;
-    this.videoPercentage = 0;
-    this.usingWebCodecs = false; // Whether we are using webCodecs
-    this.totalTime = 0; // The total time of the video, used for calculating percentage
-
     const debouncedScroll = debounce(() => {
       window.requestAnimationFrame(() => {
         this.setScrollPercent(this.videoPercentage);
@@ -134,10 +197,25 @@ class ScrollyVideo {
     }, 100);
 
     // Add scroll listener for responding to scroll position
-    this.updateScrollPercentage = (jump) => {
+    this.updateScrollPercentage = (jump = false) => {
       // Used for internally setting the scroll percentage based on built-in listeners
-      const containerBoundingClientRect =
-        this.container.parentNode.getBoundingClientRect();
+      let containerBoundingClientRect;
+      if (
+        this.container &&
+        this.container.parentNode &&
+        (this.container.parentNode as Element).getBoundingClientRect
+      ) {
+        containerBoundingClientRect = (
+          this.container.parentNode as Element
+        ).getBoundingClientRect();
+      } else {
+        if (this.debug) {
+          console.error(
+            'ScrollyVideo: container or parentNode is null or invalid.'
+          );
+        }
+        return;
+      }
 
       // Calculate the current scroll percent of the video
       let scrollPercent =
@@ -160,7 +238,7 @@ class ScrollyVideo {
       }
 
       // toggle autoplaying state on manual intervention
-      if (scrollyVideoState.isAutoPlaying) {
+      if (scrollyVideoState.isAutoPlaying && this.frames) {
         if (this.debug) console.warn('Stopping autoplay due to manual scroll');
 
         if (this.usingWebCodecs) {
@@ -192,14 +270,22 @@ class ScrollyVideo {
 
     // Add our event listeners for handling changes to the window or scroll
     if (this.trackScroll) {
-      window.addEventListener('scroll', this.updateScrollPercentage);
+      window.addEventListener('scroll', () => {
+        if (this.updateScrollPercentage) {
+          this.updateScrollPercentage(false);
+        }
+      });
 
       // Set the initial scroll percentage
       this.video.addEventListener(
         'loadedmetadata',
         () => {
-          this.updateScrollPercentage(true);
-          this.totalTime = this.video.duration;
+          if (this.updateScrollPercentage) {
+            this.updateScrollPercentage(true);
+          }
+          if (this.video) {
+            this.totalTime = this.video.duration;
+          }
           this.setCoverStyle(this.canvas || this.video);
         },
         { once: true }
@@ -209,7 +295,9 @@ class ScrollyVideo {
         'loadedmetadata',
         () => {
           this.setTargetTimePercent(0, { jump: true });
-          this.totalTime = this.video.duration;
+          if (this.video) {
+            this.totalTime = this.video.duration;
+          }
           this.setCoverStyle(this.canvas || this.video);
         },
         { once: true }
@@ -243,7 +331,7 @@ class ScrollyVideo {
    *    - transitionSpeed: number - Defines the speed of the transition when `jump` is false. Represents the duration of the transition in milliseconds. Default is 8.
    *    - easing: (progress: number) => number - A function that defines the easing curve for the transition. It takes the progress ratio (a number between 0 and 1) as an argument and returns the eased value, affecting the playback speed during the transition.
    */
-  setVideoPercentage(percentage, options = { autoplay: false }) {
+  setVideoPercentage(percentage: number, options: TransitionOptions): void {
     // Early termination if the video percentage is already at the percentage that is intended.
     if (this.videoPercentage === percentage) return;
 
@@ -267,7 +355,12 @@ class ScrollyVideo {
    *
    * @param el
    */
-  setCoverStyle(el) {
+  setCoverStyle(el: HTMLElement | HTMLCanvasElement | undefined): void {
+    if (!el) {
+      if (this.debug) console.warn('No element to set cover style on');
+      return;
+    }
+
     if (this.objectFit) {
       el.style.position = 'absolute';
       el.style.top = '50%';
@@ -278,11 +371,18 @@ class ScrollyVideo {
 
       // Gets the width and height of the container
       const { width: containerWidth, height: containerHeight } =
-        this.container.getBoundingClientRect();
+        this.container?.getBoundingClientRect() || { width: 0, height: 0 };
 
-      // Gets the width and height of the video frames
-      const width = el.videoWidth || el.width;
-      const height = el.videoHeight || el.height;
+      let width = 0,
+        height = 0;
+
+      if (el instanceof HTMLVideoElement) {
+        width = el.videoWidth;
+        height = el.videoHeight;
+      } else if (el instanceof HTMLCanvasElement) {
+        width = el.width;
+        height = el.height;
+      }
 
       if (this.debug)
         console.info('Container dimensions:', [
@@ -334,7 +434,7 @@ class ScrollyVideo {
       await videoDecoder(
         this.src,
         (frame) => {
-          this.frames.push(frame);
+          this.frames?.push(frame);
         },
         this.debug
       ).then(() => {
@@ -348,11 +448,11 @@ class ScrollyVideo {
       this.frames = [];
 
       // Force a video reload when videoDecoder fails
-      this.video.load();
+      this.video?.load();
     }
 
     // If no frames, something went wrong
-    if (this.frames.length === 0) {
+    if (this.frames?.length === 0) {
       if (this.debug) console.error('No frames were received from webCodecs');
 
       this.onReady();
@@ -360,11 +460,12 @@ class ScrollyVideo {
     }
 
     // Calculate the frameRate based on number of frames and the duration
-    this.frameRate = this.frames.length / this.video.duration;
+    this.frameRate =
+      this.frames && this.video ? this.frames.length / this.video.duration : 0;
     if (this.debug)
       console.info(
         'Received',
-        this.frames.length,
+        this.frames?.length,
         'frames. Video frame rate:',
         this.frameRate
       );
@@ -374,8 +475,12 @@ class ScrollyVideo {
     this.context = this.canvas.getContext('2d');
 
     // Hide the video and add the canvas to the container
-    this.video.style.display = 'none';
-    this.container.appendChild(this.canvas);
+    if (this.video) {
+      this.video.style.display = 'none';
+    }
+    if (this.container) {
+      this.container.appendChild(this.canvas);
+    }
     if (this.objectFit) this.setCoverStyle(this.canvas);
 
     // Paint our first frame
@@ -390,7 +495,12 @@ class ScrollyVideo {
    *
    * @param frameNum
    */
-  paintCanvasFrame(frameNum) {
+  paintCanvasFrame(frameNum: number): void {
+    if (!this.frames) {
+      if (this.debug) console.warn('No frames available to paint');
+      return;
+    }
+
     // Get the frame and paint it to the canvas
     const currFrame = this.frames[frameNum];
     this.currentFrame = frameNum;
@@ -406,7 +516,10 @@ class ScrollyVideo {
     // Make sure the canvas is scaled properly, similar to setCoverStyle
     this.canvas.width = currFrame.width;
     this.canvas.height = currFrame.height;
-    const { width, height } = this.container.getBoundingClientRect();
+    const { width, height } = this.container?.getBoundingClientRect() || {
+      width: 0,
+      height: 0,
+    };
 
     if (this.objectFit == 'cover') {
       if (width / height > currFrame.width / currFrame.height) {
@@ -427,6 +540,11 @@ class ScrollyVideo {
     }
 
     // Draw the frame to the canvas context
+    if (!this.context) {
+      if (this.debug) console.warn('No canvas context available to paint');
+      return;
+    }
+
     this.context.drawImage(currFrame, 0, 0, currFrame.width, currFrame.height);
     this.updateDebugInfo();
   }
@@ -443,7 +561,12 @@ class ScrollyVideo {
     jump,
     transitionSpeed = this.transitionSpeed,
     easing = null,
-  }) {
+  }: TransitionOptions) {
+    if (!this.video) {
+      console.warn('No video found');
+      return;
+    }
+
     if (this.debug) {
       console.info(
         'Transitioning targetTime:',
@@ -458,7 +581,20 @@ class ScrollyVideo {
     const duration = distance * 1000;
     const isForwardTransition = diff > 0;
 
-    const tick = ({ startCurrentTime, startTimestamp, timestamp }) => {
+    const tick = ({
+      startCurrentTime,
+      startTimestamp,
+      timestamp,
+    }: {
+      startCurrentTime: number;
+      startTimestamp: number;
+      timestamp: number;
+    }) => {
+      if (!this.video) {
+        console.warn('No video found during transition tick');
+        return;
+      }
+
       const progress = (timestamp - startTimestamp) / duration;
 
       // if frameThreshold is too low to catch condition Math.abs(this.targetTime - this.currentTime) < this.frameThreshold
@@ -479,7 +615,7 @@ class ScrollyVideo {
         Math.abs(this.targetTime - this.currentTime) < this.frameThreshold ||
         hasPassedThreshold
       ) {
-        this.video.pause();
+        this.video?.pause();
 
         if (this.transitioningRaf) {
           cancelAnimationFrame(this.transitioningRaf);
@@ -497,7 +633,7 @@ class ScrollyVideo {
       // How far forward we need to transition
       const transitionForward = this.targetTime - this.currentTime;
       const easedProgress =
-        easing && Number.isFinite(progress) ? easing(progress) : null;
+        easing && Number.isFinite(progress) ? easing(progress) : 0;
       const easedCurrentTime =
         isForwardTransition ?
           startCurrentTime +
@@ -584,11 +720,14 @@ class ScrollyVideo {
    *    - transitionSpeed: number - Defines the speed of the transition when `jump` is false. Represents the duration of the transition in milliseconds. Default is 8.
    *    - easing: (progress: number) => number - A function that defines the easing curve for the transition. It takes the progress ratio (a number between 0 and 1) as an argument and returns the eased value, affecting the playback speed during the transition.
    */
-  setTargetTimePercent(percentage, options = {}) {
+  setTargetTimePercent(
+    percentage: number,
+    options: TransitionOptions = { jump: false, transitionSpeed: 8 }
+  ) {
     const targetDuration =
-      this.frames.length && this.frameRate ?
+      this.frames?.length && this.frameRate ?
         this.frames.length / this.frameRate
-      : this.video.duration;
+      : this.video?.duration || 0;
     // The time we want to transition to
     this.targetTime = Math.max(Math.min(percentage, 1), 0) * targetDuration;
 
@@ -600,7 +739,7 @@ class ScrollyVideo {
       return;
 
     // Play the video if we are in video mode
-    if (!this.canvas && !this.video.paused) this.video.play();
+    if (!this.canvas && !this.video?.paused) this.video?.play();
 
     this.transitionToTargetTime(options);
   }
@@ -610,14 +749,21 @@ class ScrollyVideo {
    *
    * @param percentage
    */
-  setScrollPercent(percentage) {
+  setScrollPercent(percentage: number) {
     if (!this.trackScroll) {
       console.warn('`setScrollPercent` requires enabled `trackScroll`');
       return;
     }
 
-    const parent = this.container.parentNode;
-    const { top, height } = parent.getBoundingClientRect();
+    const parent = this.container?.parentNode;
+    let top = 0,
+      height = 0;
+
+    if (parent && parent instanceof Element) {
+      const rect = parent.getBoundingClientRect();
+      top = rect.top;
+      height = rect.height;
+    }
 
     const startPoint = top + window.pageYOffset;
 
@@ -638,10 +784,12 @@ class ScrollyVideo {
   destroy() {
     if (this.debug) console.info('Destroying ScrollyVideo');
 
-    if (this.trackScroll)
-      window.removeEventListener('scroll', this.updateScrollPercentage);
+    if (this.trackScroll && this.updateScrollPercentage)
+      window.removeEventListener('scroll', () => this.updateScrollPercentage);
 
-    window.removeEventListener('resize', this.resize);
+    if (this.resize) {
+      window.removeEventListener('resize', this.resize);
+    }
 
     // Clear component
     if (this.container) this.container.innerHTML = '';
@@ -659,14 +807,21 @@ class ScrollyVideo {
 
   updateDebugInfo() {
     scrollyVideoState.generalData.src = this.src;
-    scrollyVideoState.generalData.videoPercentage =
-      this.videoPercentage.toFixed(4);
-    scrollyVideoState.generalData.frameRate = this.frameRate.toFixed(2);
-    scrollyVideoState.generalData.currentTime = this.currentTime.toFixed(4);
-    scrollyVideoState.generalData.totalTime = this.totalTime.toFixed(4);
+    scrollyVideoState.generalData.videoPercentage = parseFloat(
+      this.videoPercentage.toFixed(4)
+    );
+    scrollyVideoState.generalData.frameRate = parseFloat(
+      this.frameRate.toFixed(2)
+    );
+    scrollyVideoState.generalData.currentTime = parseFloat(
+      this.currentTime.toFixed(4)
+    );
+    scrollyVideoState.generalData.totalTime = parseFloat(
+      this.totalTime.toFixed(4)
+    );
     scrollyVideoState.usingWebCodecs = this.usingWebCodecs;
     scrollyVideoState.framesData.currentFrame = this.currentFrame;
-    scrollyVideoState.framesData.totalFrames = this.frames.length;
+    scrollyVideoState.framesData.totalFrames = this.frames?.length || 0;
   }
 }
 export default ScrollyVideo;
