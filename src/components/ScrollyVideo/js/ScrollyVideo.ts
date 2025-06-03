@@ -27,39 +27,165 @@ interface TransitionOptions {
   autoplay?: boolean;
 }
 
+/**
+ * ScrollyVideo class for scroll-driven or programmatic video playback with Svelte integration.
+ */
 class ScrollyVideo {
+  /**
+   * The container element for the video or canvas.
+   * @type {HTMLElement | null}
+   */
   container: HTMLElement | null;
+  /**
+   * The original container argument (element or string ID).
+   * @type {Element | string | undefined}
+   */
   scrollyVideoContainer: Element | string | undefined;
+  /**
+   * Video source URL.
+   * @type {string}
+   */
   src: string;
+  /**
+   * Speed of transitions.
+   * @type {number}
+   */
   transitionSpeed: number;
+  /**
+   * Threshold for frame transitions.
+   * @type {number}
+   */
   frameThreshold: number;
+  /**
+   * Whether to use WebCodecs for decoding.
+   * @type {boolean}
+   */
   useWebCodecs: boolean;
+  /**
+   * CSS object-fit property for video/canvas.
+   * @type {string}
+   */
   objectFit: string;
+  /**
+   * Whether to use sticky positioning.
+   * @type {boolean}
+   */
   sticky: boolean;
+  /**
+   * Whether to track scroll position.
+   * @type {boolean}
+   */
   trackScroll: boolean;
+  /**
+   * Callback when ready.
+   * @type {() => void}
+   */
   onReady: () => void;
+  /**
+   * Callback on scroll percentage change.
+   * @type {(percentage?: number) => void}
+   */
   onChange: (percentage?: number) => void;
+  /**
+   * Enable debug logging.
+   * @type {boolean}
+   */
   debug: boolean;
+  /**
+   * Enable autoplay.
+   * @type {boolean}
+   */
   autoplay: boolean;
+  /**
+   * The HTML video element.
+   * @type {HTMLVideoElement | undefined}
+   */
   video: HTMLVideoElement | undefined;
+  /**
+   * Current scroll/video percentage (0-1).
+   * @type {number}
+   */
   videoPercentage: number;
+  /**
+   * True if browser is Safari.
+   * @type {boolean}
+   */
   isSafari: boolean;
+  /**
+   * Current video time in seconds.
+   * @type {number}
+   */
   currentTime: number;
+  /**
+   * Target video time in seconds.
+   * @type {number}
+   */
   targetTime: number;
+  /**
+   * Canvas for rendering frames (if using WebCodecs).
+   * @type {HTMLCanvasElement | null}
+   */
   canvas: HTMLCanvasElement | null;
+  /**
+   * 2D context for the canvas.
+   * @type {CanvasRenderingContext2D | null}
+   */
   context: CanvasRenderingContext2D | null;
+  /**
+   * Decoded video frames (if using WebCodecs).
+   * @type {ImageBitmap[] | null}
+   */
   frames: ImageBitmap[] | null;
+  /**
+   * Video frame rate.
+   * @type {number}
+   */
   frameRate: number;
+  /**
+   * Target scroll position in pixels, if set.
+   * @type {number | null}
+   */
   targetScrollPosition: number | null = null;
+  /**
+   * Current frame index (if using WebCodecs).
+   * @type {number}
+   */
   currentFrame: number;
-  usingWebCodecs: boolean; // Whether we are using webCodecs
-  totalTime: number; // The total time of the video, used for calculating percentage
+  /**
+   * True if using WebCodecs for decoding.
+   * @type {boolean}
+   */
+  usingWebCodecs: boolean;
+  /**
+   * Total video duration in seconds.
+   * @type {number}
+   */
+  totalTime: number;
+  /**
+   * RequestAnimationFrame ID for transitions.
+   * @type {number | null}
+   */
   transitioningRaf: number | null;
-  componentState: ScrollyVideoState; // Placeholder for component state, if needed
-
+  /**
+   * State object for component-level state.
+   * @type {ScrollyVideoState}
+   */
+  componentState: ScrollyVideoState;
+  /**
+   * Function to update scroll percentage (set in constructor).
+   * @type {((jump: boolean) => void) | undefined}
+   */
   updateScrollPercentage: ((jump: boolean) => void) | undefined;
+  /**
+   * Function to handle resize events (set in constructor).
+   * @type {(() => void) | undefined}
+   */
   resize: (() => void) | undefined;
 
+  /**
+   * Creates a new ScrollyVideo instance.
+   * @param {ScrollyVideoArgs} args - The arguments for initialization.
+   */
   constructor({
     src = 'https://scrollyvideo.js.org/goldengate.mp4',
     scrollyVideoContainer,
@@ -356,9 +482,8 @@ class ScrollyVideo {
   }
 
   /**
-   * Sets the style of the video or canvas to "cover" it's container
-   *
-   * @param el
+   * Sets the style of the video or canvas to "cover" its container.
+   * @param {HTMLElement | HTMLCanvasElement | undefined} el - The element to style.
    */
   setCoverStyle(el: HTMLElement | HTMLCanvasElement | undefined): void {
     if (!el) {
@@ -418,9 +543,10 @@ class ScrollyVideo {
   }
 
   /**
-   * Uses webCodecs to decode the video into frames
+   * Uses webCodecs to decode the video into frames.
+   * @returns {Promise<void>} Resolves when decoding is complete.
    */
-  async decodeVideo() {
+  async decodeVideo(): Promise<void> {
     if (!this.useWebCodecs) {
       if (this.debug)
         console.warn('Cannot perform video decode: `useWebCodes` disabled');
@@ -496,9 +622,8 @@ class ScrollyVideo {
   }
 
   /**
-   * Paints the frame of to the canvas
-   *
-   * @param frameNum
+   * Paints the frame to the canvas.
+   * @param {number} frameNum - The frame index to paint.
    */
   paintCanvasFrame(frameNum: number): void {
     if (!this.frames) {
@@ -751,9 +876,8 @@ class ScrollyVideo {
   }
 
   /**
-   * Simulate trackScroll programmatically (scrolls on page by percentage of video)
-   *
-   * @param percentage
+   * Simulate trackScroll programmatically (scrolls on page by percentage of video).
+   * @param {number} percentage - The percentage of the video to scroll to.
    */
   setScrollPercent(percentage: number) {
     if (!this.trackScroll) {
@@ -785,7 +909,7 @@ class ScrollyVideo {
   }
 
   /**
-   * Call to destroy this ScrollyVideo object
+   * Call to destroy this ScrollyVideo object.
    */
   destroy() {
     if (this.debug) console.info('Destroying ScrollyVideo');
@@ -801,6 +925,9 @@ class ScrollyVideo {
     if (this.container) this.container.innerHTML = '';
   }
 
+  /**
+   * Autoplay the video by scrolling to the end.
+   */
   autoplayScroll() {
     this.setVideoPercentage(1, {
       jump: false,
@@ -811,6 +938,9 @@ class ScrollyVideo {
     this.componentState.isAutoPlaying = true;
   }
 
+  /**
+   * Updates debug information in the component state.
+   */
   updateDebugInfo() {
     this.componentState.generalData.src = this.src;
     this.componentState.generalData.videoPercentage = parseFloat(

@@ -5,7 +5,32 @@
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
 
-  // Define the props interface
+  /**
+   * Props for the ScrollyVideo Svelte component.
+   * @typedef {Object} Props
+   * @property {string} [class] - CSS class for scrolly container.
+   * @property {string} [id] - ID of the scrolly container.
+   * @property {ScrollyVideo} [scrollyVideo] - Bindable instance of ScrollyVideo.
+   * @property {string} [src] - Video source URL.
+   * @property {number} [videoPercentage] - Bindable percentage value to control video playback. Ranges from 0 to 1.
+   * @property {number} [transitionSpeed] - Sets the maximum playbackRate for this video.
+   * @property {number} [frameThreshold] - When to stop the video animation, in seconds.
+   * @property {string} [objectFit] - How the video should be resized to fit its container.
+   * @property {boolean} [sticky] - Whether the video should have position: sticky.
+   * @property {boolean} [full] - Whether the video should take up the entire viewport.
+   * @property {boolean} [trackScroll] - Whether this object should automatically respond to scroll. Set this to false while manually controlling `videoPercentage` prop.
+   * @property {boolean} [lockScroll] - Whether it ignores human scroll while it runs setVideoPercentage with enabled trackScroll.
+   * @property {boolean} [useWebCodecs] - Whether the library should use the webcodecs method. For more info, visit https://scrollyvideo.js.org/
+   * @property {() => void} [onReady] - The callback when it's ready to scroll.
+   * @property {() => void} [onChange] - The callback for video percentage change.
+   * @property {boolean} [debug] - Whether to log debug information. Internal library logs.
+   * @property {boolean} [showDebugInfo] - Shows debug information on page.
+   * @property {string} [height] - Height of the video container. Set it to 100svh when using inside `ScrollerBase`.
+   * @property {boolean} [autoplay] - Whether the video should autoplay.
+   * @property {boolean} [embedded] - Variable to control component rendering on embed page.
+   * @property {string} [embeddedSrc] - Source for the embedded video. If not provided, defaults to `src`.
+   * @property {Snippet} [children] - Children render function.
+   */
   interface Props {
     /** CSS class for scrolly container */
     class?: string;
@@ -53,6 +78,10 @@
     children?: Snippet;
   }
 
+  /**
+   * Main logic for ScrollyVideo Svelte component.
+   * Handles instantiation, prop changes, and cleanup.
+   */
   let {
     scrollyVideo = $bindable(),
     videoPercentage,
@@ -69,6 +98,10 @@
   }: Props = $props();
 
   // variable to hold the DOM element
+  /**
+   * Reference to the scrolly video container DOM element.
+   * @type {HTMLDivElement | undefined}
+   */
   let scrollyVideoContainer = $state<HTMLDivElement | undefined>(undefined);
 
   // Store the props so we know when things change
@@ -106,12 +139,17 @@
     }
   });
 
-  // Cleanup the component on destroy
+  /**
+   * Cleanup the component on destroy.
+   */
   onDestroy(() => {
     if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
   });
 
-  // heightChange drives the height of the component when autoplay is set to true
+  /**
+   * heightChange drives the height of the component when autoplay is set to true.
+   * @type {string}
+   */
   let heightChange = $derived.by(() => {
     if (scrollyVideo) {
       return `calc(${height} * ${1 - scrollyVideo?.componentState.autoplayProgress})`;
