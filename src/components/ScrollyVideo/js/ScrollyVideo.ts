@@ -331,7 +331,10 @@ class ScrollyVideo {
    *    - transitionSpeed: number - Defines the speed of the transition when `jump` is false. Represents the duration of the transition in milliseconds. Default is 8.
    *    - easing: (progress: number) => number - A function that defines the easing curve for the transition. It takes the progress ratio (a number between 0 and 1) as an argument and returns the eased value, affecting the playback speed during the transition.
    */
-  setVideoPercentage(percentage: number, options: TransitionOptions): void {
+  setVideoPercentage(
+    percentage: number,
+    options: TransitionOptions = { jump: false, transitionSpeed: 8 }
+  ): void {
     // Early termination if the video percentage is already at the percentage that is intended.
     if (this.videoPercentage === percentage) return;
 
