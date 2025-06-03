@@ -60,7 +60,7 @@ It can also be used to display multiple different videos based on the viewport w
 {#if width < 600}
   <!-- Aspect ratio 9:16 -->
   <ScrollyVideo
-    src={`${assets}/videos/v_9_16.mp4`}
+    src={`${assets}/videos/video_sm.mp4`}
     trackScroll={true}
     height="500svh"
     {embedded}
@@ -68,7 +68,7 @@ It can also be used to display multiple different videos based on the viewport w
 {:else if width < 1200}
   <!-- Aspect ratio 1:1 -->
   <ScrollyVideo
-    src={`${assets}/videos/v_1_1.mp4`}
+    src={`${assets}/videos/video_md.mp4`}
     trackScroll={true}
     height="500svh"
     {embedded}
@@ -76,7 +76,7 @@ It can also be used to display multiple different videos based on the viewport w
 {:else}
   <!-- Aspect ratio 16:9 -->
   <ScrollyVideo
-    src={`${assets}/videos/v_16_9.mp4`}
+    src={`${assets}/videos/video_lg.mp4`}
     trackScroll={true}
     height="500svh"
     {embedded}
@@ -277,6 +277,90 @@ The `ScrollyVideo` component can also be used inside the `ScrollerBase` componen
       color: white;
       font-family: var(--theme-font-family-sans-serif);
     }
+  }
+</style>
+```
+
+## Time based Foregrounds
+
+The `ScrollyVideo` component can also be used to display different foregrounds based on the current time in the video. This is useful for creating interactive experiences where the content changes as the video progresses. To throw off some ideas, one could add `Headline`, `GraphicBlock`, `FeaturePhoto` or any other component to the foreground based on the current time in the video. This can be achieved by adding `Foreground` components, along with their **startTime** and **endTime**, as a child to the main `ScrollyVideo` component.
+
+[Demo](?path=/story/components-graphics-scrollyvideo--time-based-foregrounds)
+
+```svelte
+<script lang="ts">
+  import { assets } from '$app/paths';
+
+  import {
+    Headline,
+    GraphicBlock,
+    ScrollyVideo,
+    Foreground,
+  } from '@reuters-graphics/graphics-components';
+  import Annotation1 from './ai2svelte/annotation1.svelte';
+  import Annotation2 from './ai2svelte/annotation2.svelte';
+  import Annotation3 from './ai2svelte/annotation3.svelte';
+  import Annotation4 from './ai2svelte/annotation4.svelte';
+
+  let width = $state(1);
+</script>
+
+<svelte:window bind:innerWidth={width} />
+
+{#snippet ScrollForeground()}
+  <Foreground startTime={0} endTime={0.3}>
+    <Headline
+      class="custom-headline"
+      hed="ScrollyVideo inside ScrollerBase"
+      dek="This is a demo of ScrollyVideo inside ScrollerBase component."
+      section={'Reuters Graphics'}
+      authors={['Jane Doe']}
+      publishTime={new Date('2020-01-01').toISOString()}
+    />
+  </Foreground>
+  <Foreground startTime={0.3} endTime={2.2}>
+    <GraphicBlock title="" description="" width="fluid">
+      <Annotation1 />
+    </GraphicBlock>
+  </Foreground>
+  <Foreground startTime={2.2} endTime={3.2}>
+    <GraphicBlock title="" description="" width="fluid">
+      <Annotation2 />
+    </GraphicBlock>
+  </Foreground>
+  <Foreground startTime={3.2} endTime={4.5}>
+    <GraphicBlock title="" description="" width="fluid">
+      <Annotation3 />
+    </GraphicBlock>
+  </Foreground>
+  <Foreground startTime={6.5} endTime={8}>
+    <GraphicBlock title="" description="" width="fluid">
+      <Annotation4 />
+    </GraphicBlock>
+  </Foreground>
+{/snippet}
+
+{#snippet ScrollVideo(height: string, VideoSrc: string)}
+  <ScrollyVideo {height} src={VideoSrc} useWebCodecs={true} showDebugInfo>
+    {@render ScrollForeground()}
+  </ScrollyVideo>
+{/snippet}
+
+{#if width < 600}
+  {@render ScrollVideo('800svh', `${assets}/videos/sm.mp4`)}
+{:else if width < 1200}
+  {@render ScrollVideo('800svh', `${assets}/videos/md.mp4`)}
+{:else}
+  {@render ScrollVideo('800svh', `${assets}/videos/lg.mp4`)}
+{/if}
+
+<style lang="scss">
+  :global(.custom-headline *) {
+    color: white;
+  }
+
+  :global(.scrolly-video-foreground) {
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.85));
   }
 </style>
 ```
