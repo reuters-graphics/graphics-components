@@ -45,7 +45,23 @@
   }: Props = $props();
 
   let visible = $state(false);
+  let visibleOnce = $state(false);
   let container: HTMLElement | undefined = $state(undefined);
+
+  function scrollHandler() {
+    // Only trigger if `visibleOnce` is false
+    if (container && !visibleOnce) {
+      const bcr = container.getBoundingClientRect();
+      visible =
+        bcr.bottom + bottom > 0 &&
+        bcr.right + right > 0 &&
+        bcr.top - top < window.innerHeight &&
+        bcr.left - left < window.innerWidth;
+
+      // If `once` is true, set `visibleOnce` to true once `visible` becomes true
+      if (once && visible) visibleOnce = true;
+    }
+  }
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
@@ -63,31 +79,24 @@
           threshold,
         }
       );
+
       if (container) observer.observe(container);
+      // Unobserve when the component is unmounted
       return () => {
         if (container) observer.unobserve(container);
       };
     }
-    function handler() {
-      if (container) {
-        const bcr = container.getBoundingClientRect();
-
-        visible =
-          bcr.bottom + bottom > 0 &&
-          bcr.right + right > 0 &&
-          bcr.top - top < window.innerHeight &&
-          bcr.left - left < window.innerWidth;
-      }
-      if (visible && once) {
-        window.removeEventListener('scroll', handler);
-      }
-    }
-    window.addEventListener('scroll', handler);
-    return () => window.removeEventListener('scroll', handler);
   });
 </script>
 
-<div class="visibility-tracker" bind:this={container}>
+<svelte:window onscroll={scrollHandler} />
+
+<div
+  class="visibility-tracker"
+  class:visible
+  class:not-visible={!visible}
+  bind:this={container}
+>
   {#if children}
     {@render children(visible)}
   {/if}
