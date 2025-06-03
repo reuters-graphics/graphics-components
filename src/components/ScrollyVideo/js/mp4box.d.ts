@@ -62,7 +62,7 @@ declare module 'mp4box' {
     data: Uint8Array;
     degradation_priority: number;
     depends_on: number;
-    description: any;
+    description: unknown;
     description_index: number;
     dts: number;
     duration: number;
@@ -112,11 +112,11 @@ declare module 'mp4box' {
   }
 
   export interface MP4File {
-    [x: string]: any;
+    [x: string]: unknown;
     onMoovStart?: () => void;
     onReady?: (info: MP4Info) => void;
     onError?: (e: string) => void;
-    onSamples?: (id: number, user: any, samples: MP4Sample[]) => any;
+    onSamples?: (id: number, user: unknown, samples: MP4Sample[]) => unknown;
 
     appendBuffer(data: MP4ArrayBuffer): number;
     start(): void;
@@ -125,7 +125,7 @@ declare module 'mp4box' {
     releaseUsedSamples(trackId: number, sampleNumber: number): void;
     setExtractionOptions(
       trackId: number,
-      user?: any,
+      user?: unknown,
       options?: { nbSamples?: number; rapAlignment?: number }
     ): void;
     getTrackById(trackId: number): Trak;
