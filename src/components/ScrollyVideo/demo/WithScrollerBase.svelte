@@ -118,24 +118,6 @@
     }
   }
 
-  #debugger {
-    width: 100%;
-    height: 100vh;
-    background-color: hotpink;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      padding: 0;
-      margin: 0;
-    }
-  }
-
   .step-foreground-container {
     height: 100vh;
     width: 100%;

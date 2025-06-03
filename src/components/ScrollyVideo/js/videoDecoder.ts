@@ -50,9 +50,14 @@ class Writer {
  * @param avccBox
  * @returns {*}
  */
+interface NALUnit {
+  length: number;
+  nalu: number[];
+}
+
 const getExtradata = (avccBox: {
-  SPS: string | unknown[];
-  PPS: string | unknown[];
+  SPS: NALUnit[];
+  PPS: NALUnit[];
   configurationVersion: number;
   AVCProfileIndication: number;
   profile_compatibility: number;
@@ -65,11 +70,11 @@ const getExtradata = (avccBox: {
   let size = 7;
   for (i = 0; i < avccBox.SPS.length; i += 1) {
     // nalu length is encoded as a uint16.
-    size += 2 + avccBox.SPS[i].length;
+    size += 2 + (avccBox.SPS[i] as { length: number }).length;
   }
   for (i = 0; i < avccBox.PPS.length; i += 1) {
     // nalu length is encoded as a uint16.
-    size += 2 + avccBox.PPS[i].length;
+    size += 2 + (avccBox.PPS[i] as { length: number }).length;
   }
 
   const writer = new Writer(size);
@@ -164,9 +169,47 @@ const decodeVideo = (
           if (debug) console.info('Video with codec:', codec);
           scrollyVideoState.framesData.codec = codec;
 
+          // Define a type for moov to avoid using 'any'
+          interface AvcCBox {
+            SPS: NALUnit[];
+            PPS: NALUnit[];
+            configurationVersion: number;
+            AVCProfileIndication: number;
+            profile_compatibility: number;
+            AVCLevelIndication: number;
+            lengthSizeMinusOne: number;
+            nb_SPS_nalus: number;
+            nb_PPS_nalus: number;
+          }
+          interface StsdEntry {
+            avcC: AvcCBox;
+          }
+          interface Stsd {
+            entries: StsdEntry[];
+          }
+          interface Stbl {
+            stsd: Stsd;
+          }
+          interface Minf {
+            stbl: Stbl;
+          }
+          interface Mdia {
+            minf: Minf;
+          }
+          interface Trak {
+            mdia: Mdia;
+          }
+          interface Moov {
+            traks: Trak[];
+          }
+
           // Gets the avccbox used for reading extradata
-          const avccBox =
-            mp4boxfile.moov.traks[0].mdia.minf.stbl.stsd.entries[0].avcC;
+          const moov = mp4boxfile.moov as Moov | undefined;
+          const avccBox = moov?.traks[0].mdia.minf.stbl.stsd.entries[0].avcC;
+          if (!avccBox) {
+            reject(new Error('Could not find avcC box for extradata.'));
+            return;
+          }
           const extradata = getExtradata(avccBox);
 
           // configure decoder
