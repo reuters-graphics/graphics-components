@@ -2,7 +2,8 @@
   import { onDestroy } from 'svelte';
   import { flattenObject } from './js/utils.js';
   import ScrollyVideo from './js/ScrollyVideo.js';
-  import { scrollyVideoState } from './js/state.svelte.js';
+  import type { Snippet } from 'svelte';
+  import { setContext } from 'svelte';
 
   // Define the props interface
   interface Props {
@@ -48,6 +49,8 @@
     embedded?: boolean;
     /** Source for the embedded video. If not provided, defaults to `src` */
     embeddedSrc?: string;
+    /** Children render function */
+    children?: Snippet;
   }
 
   let {
@@ -61,6 +64,7 @@
     id = '',
     embedded = false,
     embeddedSrc = '',
+    children,
     ...restProps
   }: Props = $props();
 
@@ -81,6 +85,10 @@
           onChange,
           ...restProps,
         });
+
+        // pass on component state to child components
+        // this controls fade in and out of foregrounds
+        setContext('scrollyVideoState', scrollyVideo.componentState);
 
         // Save the new props
         lastPropsString = JSON.stringify(restProps);
@@ -103,8 +111,13 @@
     if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
   });
 
+  // heightChange drives the height of the component when autoplay is set to true
   let heightChange = $derived.by(() => {
-    return `calc(${height} * ${1 - scrollyVideoState.autoplayProgress})`;
+    if (scrollyVideo) {
+      return `calc(${height} * ${1 - scrollyVideo?.componentState.autoplayProgress})`;
+    } else {
+      return height;
+    }
   });
 </script>
 
@@ -127,13 +140,18 @@
     style="height: {heightChange}; width: 100%; min-height: 100svh;"
   >
     <div bind:this={scrollyVideoContainer} data-scrolly-container>
-      {#if showDebugInfo}
+      {#if showDebugInfo && scrollyVideo}
         <p class="debug-info text-xxs font-sans">
-          {@html JSON.stringify(flattenObject(scrollyVideoState))
+          {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
             .replace(/[{}"]/g, '')
             .split(',')
             .join('<br>')}
         </p>
+
+        <!-- renders foregrounds -->
+        {#if children}
+          {@render children()}
+        {/if}
       {/if}
     </div>
   </div>

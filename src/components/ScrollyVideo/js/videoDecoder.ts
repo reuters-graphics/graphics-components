@@ -1,5 +1,4 @@
 import * as MP4Box from 'mp4box';
-import { scrollyVideoState } from './state.svelte';
 
 interface MP4BoxBuffer extends ArrayBuffer {
   fileStart: number;
@@ -167,7 +166,7 @@ const decodeVideo = (
         if (info && info.videoTracks && info.videoTracks[0]) {
           [{ codec }] = info.videoTracks;
           if (debug) console.info('Video with codec:', codec);
-          scrollyVideoState.framesData.codec = codec;
+          // scrollyVideoState.framesData.codec = codec;
 
           // Define a type for moov to avoid using 'any'
           interface AvcCBox {

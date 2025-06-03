@@ -1,7 +1,7 @@
 import { UAParser } from 'ua-parser-js';
 import videoDecoder from './videoDecoder';
 import { debounce, isScrollPositionAtTarget, map } from './utils';
-import { scrollyVideoState } from './state.svelte';
+import { createComponentState, type ScrollyVideoState } from './state.svelte';
 
 interface ScrollyVideoArgs {
   src?: string;
@@ -55,6 +55,7 @@ class ScrollyVideo {
   usingWebCodecs: boolean; // Whether we are using webCodecs
   totalTime: number; // The total time of the video, used for calculating percentage
   transitioningRaf: number | null;
+  componentState: ScrollyVideoState; // Placeholder for component state, if needed
 
   updateScrollPercentage: ((jump: boolean) => void) | undefined;
   resize: (() => void) | undefined;
@@ -107,6 +108,7 @@ class ScrollyVideo {
     this.usingWebCodecs = false; // Whether we are using webCodecs
     this.totalTime = 0; // The total time of the video, used for calculating percentage
     this.transitioningRaf = null;
+    this.componentState = createComponentState();
 
     // Make sure that we have a DOM
     if (typeof document !== 'object') {
@@ -223,12 +225,12 @@ class ScrollyVideo {
         (containerBoundingClientRect.height - window.innerHeight);
 
       // if autplay, trim the playing time to last locked video position
-      if (scrollyVideoState.autoplayProgress > 0) {
+      if (this.componentState.autoplayProgress > 0) {
         scrollPercent = map(
           scrollPercent,
           0,
           1,
-          scrollyVideoState.autoplayProgress,
+          this.componentState.autoplayProgress,
           1
         );
       }
@@ -238,20 +240,20 @@ class ScrollyVideo {
       }
 
       // toggle autoplaying state on manual intervention
-      if (scrollyVideoState.isAutoPlaying && this.frames) {
+      if (this.componentState.isAutoPlaying && this.frames) {
         if (this.debug) console.warn('Stopping autoplay due to manual scroll');
 
         if (this.usingWebCodecs) {
-          scrollyVideoState.autoplayProgress = parseFloat(
+          this.componentState.autoplayProgress = parseFloat(
             (this.currentFrame / this.frames.length).toFixed(4)
           );
         } else {
-          scrollyVideoState.autoplayProgress = parseFloat(
+          this.componentState.autoplayProgress = parseFloat(
             (this.currentTime / this.totalTime).toFixed(4)
           );
         }
 
-        scrollyVideoState.isAutoPlaying = false;
+        this.componentState.isAutoPlaying = false;
       }
 
       this.videoPercentage = scrollPercent;
@@ -606,8 +608,9 @@ class ScrollyVideo {
           this.currentTime >= this.targetTime
         : this.currentTime <= this.targetTime;
 
-      if (scrollyVideoState.isAutoPlaying) {
-        scrollyVideoState.autoplayProgress = this.currentTime / this.totalTime;
+      if (this.componentState.isAutoPlaying) {
+        this.componentState.autoplayProgress =
+          this.currentTime / this.totalTime;
       }
 
       // If we are already close enough to our target, pause the video and return.
@@ -805,26 +808,26 @@ class ScrollyVideo {
       easing: (i) => i,
       autoplay: true,
     });
-    scrollyVideoState.isAutoPlaying = true;
+    this.componentState.isAutoPlaying = true;
   }
 
   updateDebugInfo() {
-    scrollyVideoState.generalData.src = this.src;
-    scrollyVideoState.generalData.videoPercentage = parseFloat(
+    this.componentState.generalData.src = this.src;
+    this.componentState.generalData.videoPercentage = parseFloat(
       this.videoPercentage.toFixed(4)
     );
-    scrollyVideoState.generalData.frameRate = parseFloat(
+    this.componentState.generalData.frameRate = parseFloat(
       this.frameRate.toFixed(2)
     );
-    scrollyVideoState.generalData.currentTime = parseFloat(
+    this.componentState.generalData.currentTime = parseFloat(
       this.currentTime.toFixed(4)
     );
-    scrollyVideoState.generalData.totalTime = parseFloat(
+    this.componentState.generalData.totalTime = parseFloat(
       this.totalTime.toFixed(4)
     );
-    scrollyVideoState.usingWebCodecs = this.usingWebCodecs;
-    scrollyVideoState.framesData.currentFrame = this.currentFrame;
-    scrollyVideoState.framesData.totalFrames = this.frames?.length || 0;
+    this.componentState.usingWebCodecs = this.usingWebCodecs;
+    this.componentState.framesData.currentFrame = this.currentFrame;
+    this.componentState.framesData.totalFrames = this.frames?.length || 0;
   }
 }
 export default ScrollyVideo;

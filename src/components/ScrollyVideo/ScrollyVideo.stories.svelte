@@ -2,6 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import ScrollyVideo from './ScrollyVideo.svelte';
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
+  import WithTimeline from './demo/WithTimeline.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/ScrollyVideo',
@@ -123,15 +124,15 @@
 </script>
 
 <script>
-  import V_9_16 from './videos/v_9_16.mp4';
-  import V_1_1 from './videos/v_1_1.mp4';
-  import V_16_9 from './videos/v_16_9.mp4';
+  import Video_SM from './videos/v_9_16.mp4';
+  import Video_MD from './videos/v_1_1.mp4';
+  import Video_LG from './videos/v_16_9.mp4';
   import Goldengate from './videos/goldengate.mp4';
 
   const videoSrc = {
-    V_9_16,
-    V_1_1,
-    V_16_9,
+    Video_SM,
+    Video_MD,
+    Video_LG,
     Goldengate,
   };
 
@@ -158,11 +159,11 @@
   {#snippet children(args)}
     {#key args}
       {#if width < 600}
-        <ScrollyVideo {...args} src={videoSrc.V_9_16} />
+        <ScrollyVideo {...args} src={videoSrc.Video_SM} />
       {:else if width < 1200}
-        <ScrollyVideo {...args} src={videoSrc.V_1_1} />
+        <ScrollyVideo {...args} src={videoSrc.Video_MD} />
       {:else}
-        <ScrollyVideo {...args} src={videoSrc.V_16_9} />
+        <ScrollyVideo {...args} src={videoSrc.Video_LG} />
       {/if}
     {/key}
   {/snippet}
@@ -181,10 +182,18 @@
   {/snippet}
 </Story>
 
-<Story name="inside ScrollerBase" {args}>
+<Story name="Inside ScrollerBase" {args}>
   {#snippet children(args)}
     {#key args}
       <WithScrollerBase />
+    {/key}
+  {/snippet}
+</Story>
+
+<Story name="Time based foregrounds" {args}>
+  {#snippet children(args)}
+    {#key args}
+      <WithTimeline />
     {/key}
   {/snippet}
 </Story>
