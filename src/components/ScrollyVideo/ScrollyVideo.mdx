@@ -365,6 +365,94 @@ The `ScrollyVideo` component can also be used to display different foregrounds b
 </style>
 ```
 
+## With Captions
+
+The `ScrollyVideo` component can also be used to display captions at specific times in the video. This is useful for providing additional context or information to the viewer. To add captions, you can use the `Foreground` component and pass on the caption as **text** prop.
+
+To quickly set it up using ArchieML, you can use the following format on your RNGS doc or Google doc:
+
+```yaml
+# ArchieML doc
+[blocks]
+
+  type: scrolly-video
+  id: alps-scrolly
+  src: videos/alps.mp4
+  height: 800svh
+
+  # Array of foregrounds
+  [.foregrounds]
+    startTime: 3
+    endTime: 7
+    text: "#### The Alps\n\nThe Alps stretch across eight countries: France, Switzerland, Italy, Monaco, Liechtenstein, Austria, Germany, and Slovenia, covering about 1,200 kilometers (750 miles)."
+    :end
+
+    startTime: 9
+    endTime: 12
+    text: "Mont Blanc, standing at 4,809 meters (15,777 feet), is the highest peak in the Alps and Western Europe, though there's ongoing debate between France and Italy about exactly where the summit lies."
+    :end
+
+    startTime: 16
+    endTime: 20
+    text: "#### History\n\nThe Alps were formed around **65 million years** ago when the African and Eurasian tectonic plates collided, pushing the land upward.Over 14 million people live in the Alpine region, with tourism supporting approximately 120 million visitors annually."
+    :end
+  []
+  :end
+
+[]
+```
+
+Then add the following code to your App.svelte or the component where you want to display the scrolly video:
+
+```svelte
+<script lang="ts">
+  import {
+    ScrollyVideo,
+    Foreground,
+  } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
+</script>
+
+{#if block.type == 'scrolly-video'}
+  <ScrollyVideo id={block.id} src={block.src} height={block.height}>
+    <Foreground startTime={0} endTime={2}>
+      <Headline
+        class="custom-headline"
+        hed={content.hed}
+        dek={content.dek}
+        section={content.section}
+        sectionUrl={content.sectionUrl}
+        authors={content.authors}
+        publishTime={content.publishedDate}
+        updateTime={content.updatedDate}
+      />
+    </Foreground>
+    {#each block.foregrounds as caption}
+      <Foreground
+        startTime={parseFloat(caption.startTime)}
+        endTime={parseFloat(caption.endTime)}
+        text={caption.text}
+      />
+    {/each}
+  </ScrollyVideo>
+{/if}
+
+<style lang="scss">
+  :global {
+    .custom-headline * {
+      color: white;
+      text-shadow: 0 0 10px black;
+    }
+
+    #alps-scrolly .foreground-text {
+      * {
+        color: white;
+      }
+    }
+  }
+</style>
+```
+
 ## Advanced usecases
 
 For advanced use cases such as looping a particular section of the video, or jumping to a specific time in the video, you can bind `scrollyVideo` prop and take benefits of methods such as `setVideoPercentage` or bindable methods such as `onReady` and `onChange`. This allows for fine-grained control over the video playback and interaction with the scroll position.

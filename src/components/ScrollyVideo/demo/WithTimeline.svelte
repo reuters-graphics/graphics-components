@@ -50,7 +50,13 @@
 {/snippet}
 
 {#snippet ScrollVideo(height: string, VideoSrc: string)}
-  <ScrollyVideo {height} src={VideoSrc} useWebCodecs={true} showDebugInfo>
+  <ScrollyVideo
+    class="surf-scrolly"
+    {height}
+    src={VideoSrc}
+    useWebCodecs={true}
+    showDebugInfo
+  >
     {@render ScrollForeground()}
   </ScrollyVideo>
 {/snippet}
@@ -68,7 +74,7 @@
     color: white;
   }
 
-  :global(.scrolly-video-foreground) {
+  :global(.surf-scrolly .scrolly-video-foreground) {
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.85));
   }
 </style>
