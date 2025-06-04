@@ -568,8 +568,11 @@ class ScrollyVideo {
           this.frames?.push(frame);
         },
         this.debug
-      ).then(() => {
+      ).then((codec) => {
         this.usingWebCodecs = true;
+        if (typeof codec == 'string') {
+          this.componentState.framesData.codec = codec;
+        }
       });
     } catch (error) {
       if (this.debug)

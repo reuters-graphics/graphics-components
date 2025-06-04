@@ -128,7 +128,7 @@ const decodeVideo = (
     debug: boolean;
   }
 ): Promise<unknown> =>
-  new Promise<void>((resolve, reject) => {
+  new Promise<string>((resolve, reject) => {
     if (debug) console.info('Decoding video from', src);
 
     try {
@@ -136,7 +136,7 @@ const decodeVideo = (
       const mp4boxfile = MP4Box.createFile();
 
       // Holds the codec value
-      let codec;
+      let codec = 'N/A';
 
       // Creates a VideoDecoder instance
       const decoder = new VideoDecoder({
@@ -150,7 +150,7 @@ const decodeVideo = (
               setTimeout(() => {
                 if (decoder.state !== 'closed') {
                   decoder.close();
-                  resolve();
+                  resolve(codec);
                 }
               }, 500);
             }
@@ -166,7 +166,6 @@ const decodeVideo = (
         if (info && info.videoTracks && info.videoTracks[0]) {
           [{ codec }] = info.videoTracks;
           if (debug) console.info('Video with codec:', codec);
-          // scrollyVideoState.framesData.codec = codec;
 
           // Define a type for moov to avoid using 'any'
           interface AvcCBox {
@@ -247,7 +246,7 @@ const decodeVideo = (
         ): Promise<void | null> {
           if (result.done) {
             mp4boxfile.flush();
-            return Promise.resolve(null);
+            return Promise.resolve();
           }
 
           const buf = result.value.buffer as MP4BoxBuffer;
@@ -272,7 +271,7 @@ const decodeVideo = (
  * @param src
  * @param emitFrame
  * @param debug
- * @returns {Promise<never>|Promise<void>*}
+ * @returns {Promise<never>|Promise<void>}
  */
 export default (
   src: string,
@@ -296,5 +295,5 @@ export default (
 
   // Otherwise, resolve nothing
   if (debug) console.info('WebCodecs is not available in this browser.');
-  return Promise.resolve();
+  return Promise.resolve('N/A');
 };
