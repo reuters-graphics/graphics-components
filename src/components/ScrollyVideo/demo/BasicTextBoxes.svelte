@@ -15,11 +15,12 @@
   <Foreground startTime={0} endTime={2}>
     <Headline
       class="custom-headline"
-      hed="ScrollyVideo inside ScrollerBase"
-      dek="This is a demo of ScrollyVideo inside ScrollerBase component."
+      hed="The Alps"
+      dek="Where better to start than with the Matterhorn?"
       section={'Reuters Graphics'}
       authors={['Jane Doe']}
       publishTime={new Date('2020-01-01').toISOString()}
+      hedSize="bigger"
     />
   </Foreground>
   <Foreground

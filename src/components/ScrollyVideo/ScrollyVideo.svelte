@@ -4,6 +4,7 @@
   import ScrollyVideo from './js/ScrollyVideo.js';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
+  import { dev } from '$app/environment';
 
   /**
    * Props for the ScrollyVideo Svelte component.
@@ -178,13 +179,18 @@
     style="height: {heightChange}; width: 100%; min-height: 100svh;"
   >
     <div bind:this={scrollyVideoContainer} data-scrolly-container>
-      {#if showDebugInfo && scrollyVideo}
-        <p class="debug-info text-xxs font-sans">
-          {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
-            .replace(/[{}"]/g, '')
-            .split(',')
-            .join('<br>')}
-        </p>
+      {#if scrollyVideo}
+        {#if showDebugInfo && dev}
+          <div class="debug-info">
+            <p class="text-xxs font-sans font-bold title">FOR DEVS ONLY</p>
+            <p class="text-xxs font-sans">
+              {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
+                .replace(/[{}"]/g, '')
+                .split(',')
+                .join('<br>')}
+            </p>
+          </div>
+        {/if}
 
         <!-- renders foregrounds -->
         {#if children}
@@ -200,11 +206,22 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 3;
-    padding: 8px;
     margin: 0;
     min-width: 25vmin;
+
+    .title {
+      width: 100%;
+      padding: 4px 0 0 8px;
+      margin: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    p {
+      color: white;
+      margin: 0;
+      padding: 4px 8px 8px 8px;
+    }
   }
 </style>
