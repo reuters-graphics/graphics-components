@@ -59,7 +59,12 @@
   });
 </script>
 
-<div bind:this={container}>
+<div
+  bind:this={container}
+  class="visibility-tracker"
+  class:visible
+  class:not-visible={!visible}
+>
   {#if children}
     {@render children(visible)}
   {/if}
