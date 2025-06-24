@@ -1,6 +1,6 @@
 <!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-visible--docs) -->
 <script lang="ts">
-  import { onMount, type Snippet } from 'svelte';
+  import { type Snippet } from 'svelte';
 
   interface Props {
     /**
@@ -29,8 +29,9 @@
      * Specify a pixel value.
      */
     right?: number;
-    /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
-    threshold?: number;
+    /**
+     * A snippet that renders inside the component.
+     */
     children?: Snippet<[boolean]>;
   }
 
@@ -40,7 +41,6 @@
     bottom = 0,
     left = 0,
     right = 0,
-    threshold = 0,
     children,
   }: Props = $props();
 
@@ -62,31 +62,6 @@
       if (once && visible) visibleOnce = true;
     }
   }
-
-  onMount(() => {
-    if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          visible = entries[0].isIntersecting;
-          if (visible && once && container) {
-            observer.unobserve(container);
-          }
-        },
-        {
-          rootMargin,
-          threshold,
-        }
-      );
-
-      if (container) observer.observe(container);
-      // Unobserve when the component is unmounted
-      return () => {
-        if (container) observer.unobserve(container);
-      };
-    }
-  });
 </script>
 
 <svelte:window onscroll={scrollHandler} />

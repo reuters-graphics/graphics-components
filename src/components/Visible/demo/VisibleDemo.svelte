@@ -5,7 +5,7 @@
   import FeaturePhoto from '../../FeaturePhoto/FeaturePhoto.svelte';
   import sharkSrc from '../../FeaturePhoto/images/shark.jpg';
 
-  let top = 200;
+  let top = 100;
 
   const demoText =
     'Take a look at the *Elements* tab in Inspector to see how the photo in the middle of the page appears in the DOM only when its container comes into view.';
