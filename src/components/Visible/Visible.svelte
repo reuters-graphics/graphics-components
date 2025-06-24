@@ -57,8 +57,6 @@
       };
     }
   });
-
-  $effect(() => console.log('visible', visible));
 </script>
 
 <div bind:this={container}>
