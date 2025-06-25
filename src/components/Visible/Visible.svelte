@@ -9,14 +9,14 @@
      * Useful for loading expensive images or other media and then keeping them around once they're first loaded.
      */
     once?: boolean;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top`. */
-    top?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom`. */
-    bottom?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left`. */
-    left?: number;
-    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right`. */
-    right?: number;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `top` with units. Units must be  `px` or other [absolute lengths units](https://arc.net/l/quote/jkukcxqq), or `%`. */
+    top?: string;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `bottom` with units. Units must be  `px` or other [absolute lengths units](https://arc.net/l/quote/jkukcxqq), or `%`. */
+    bottom?: string;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `left` with units. Units must be  `px` or other [absolute lengths units](https://arc.net/l/quote/jkukcxqq), or `%`. */
+    left?: string;
+    /** Set Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#rootmargin) `right` with units. Units must be  `px` or other [absolute lengths units](https://arc.net/l/quote/jkukcxqq), or `%`. */
+    right?: string;
     /** Set the Intersection Observer [threshold](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold). */
     threshold?: number;
     children?: Snippet<[boolean]>;
@@ -24,10 +24,10 @@
 
   let {
     once = false,
-    top = 0,
-    bottom = 0,
-    left = 0,
-    right = 0,
+    top = '0px',
+    bottom = '0px',
+    left = '0px',
+    right = '0px',
     threshold = 0,
     children,
   }: Props = $props();
@@ -37,7 +37,7 @@
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+      const rootMargin = `${bottom} ${left} ${top} ${right}`;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -53,28 +53,18 @@
       );
       if (container) observer.observe(container);
       return () => {
-        if (container) observer.observe(container);
+        if (container) observer.unobserve(container);
       };
     }
-    function handler() {
-      if (container) {
-        const bcr = container.getBoundingClientRect();
-        visible =
-          bcr.bottom + bottom > 0 &&
-          bcr.right + right > 0 &&
-          bcr.top - top < window.innerHeight &&
-          bcr.left - left < window.innerWidth;
-      }
-      if (visible && once) {
-        window.removeEventListener('scroll', handler);
-      }
-    }
-    window.addEventListener('scroll', handler);
-    return () => window.removeEventListener('scroll', handler);
   });
 </script>
 
-<div bind:this={container}>
+<div
+  bind:this={container}
+  class="visibility-tracker"
+  class:visible
+  class:not-visible={!visible}
+>
   {#if children}
     {@render children(visible)}
   {/if}
