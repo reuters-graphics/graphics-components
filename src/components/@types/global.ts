@@ -56,3 +56,14 @@ export type ForegroundPosition =
   | 'right'
   | 'left opposite'
   | 'right opposite';
+
+export type ScrollyVideoForegroundPosition =
+  | 'top center'
+  | 'top left'
+  | 'top right'
+  | 'bottom center'
+  | 'bottom left'
+  | 'bottom right'
+  | 'center center'
+  | 'center left'
+  | 'center right';
