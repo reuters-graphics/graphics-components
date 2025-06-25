@@ -150,7 +150,7 @@
       transition:
         content-visibility 0.4s allow-discrete,
         opacity 0.4s,
-        block-size 0.4s;
+        block-size 0.4s cubic-bezier(0.87, 0, 0.13, 1);
     }
 
     &[open]::details-content {
