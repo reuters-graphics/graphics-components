@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.8
+
+### Patch Changes
+
+- bdf3918: Updates Visible to allow unit specification for top, bototm, right, left and adds a demo
+
 ## 3.0.7
 
 ### Patch Changes
