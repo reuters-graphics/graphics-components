@@ -3,13 +3,11 @@
 <script module>
   import { registerPageview as registerChartbeatPageview } from './providers/chartbeat';
   import { registerPageview as registerGAPageview } from './providers/ga';
-  import { registerPageview as registerParselyPageview } from './providers/parsely';
 
   /** Register virtual pageviews when using client-side routing in multipage applications. */
   function registerPageview() {
     registerChartbeatPageview();
     registerGAPageview();
-    registerParselyPageview();
   }
 
   export { registerPageview };
@@ -21,7 +19,7 @@
   }
 
   import { onMount } from 'svelte';
-  import { ga, chartbeat, parsely } from './providers';
+  import { ga, chartbeat } from './providers';
   interface Props {
     /**
      * Used to associate a page with its author(s) in Chartbeat.
@@ -34,6 +32,5 @@
   onMount(() => {
     ga();
     chartbeat(authors);
-    parsely();
   });
 </script>
