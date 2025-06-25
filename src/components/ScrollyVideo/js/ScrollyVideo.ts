@@ -236,6 +236,8 @@ class ScrollyVideo {
     this.transitioningRaf = null;
     this.componentState = createComponentState();
 
+    this.componentState.willAutoPlay = autoplay;
+
     // Make sure that we have a DOM
     if (typeof document !== 'object') {
       console.error('ScrollyVideo must be initiated in a DOM context');
@@ -737,8 +739,9 @@ class ScrollyVideo {
         : this.currentTime <= this.targetTime;
 
       if (this.componentState.isAutoPlaying) {
-        this.componentState.autoplayProgress =
-          this.currentTime / this.totalTime;
+        this.componentState.autoplayProgress = parseFloat(
+          (this.currentTime / this.totalTime).toFixed(4)
+        );
       }
 
       // If we are already close enough to our target, pause the video and return.

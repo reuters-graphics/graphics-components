@@ -41,6 +41,7 @@ export type ScrollyVideoState = {
   generalData: GeneralData;
   usingWebCodecs: boolean;
   framesData: FramesData;
+  willAutoPlay: boolean;
   isAutoPlaying: boolean;
   autoplayProgress: number;
 };
@@ -64,6 +65,7 @@ export function createComponentState(): ScrollyVideoState {
       currentFrame: 0,
       totalFrames: 0,
     },
+    willAutoPlay: false,
     isAutoPlaying: false,
     autoplayProgress: 0,
   });

@@ -49,7 +49,7 @@
 <style lang="scss">
   :global(.custom-headline *) {
     color: white;
-    text-shadow: 0 0 10px black;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.75);
   }
 
   :global {

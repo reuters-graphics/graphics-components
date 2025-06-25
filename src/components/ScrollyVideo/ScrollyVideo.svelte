@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import { flattenObject } from './js/utils.js';
   import ScrollyVideo from './js/ScrollyVideo.js';
+  import Debug from './Debug.svelte';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
   import { dev } from '$app/environment';
@@ -182,13 +182,13 @@
       {#if scrollyVideo}
         {#if showDebugInfo && dev}
           <div class="debug-info">
-            <p class="text-xxs font-sans font-bold title">FOR DEVS ONLY</p>
-            <p class="text-xxs font-sans">
-              {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
+            <Debug componentState={scrollyVideo.componentState} />
+            <!-- <p class="text-xxs font-sans"> -->
+            <!-- {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
                 .replace(/[{}"]/g, '')
                 .split(',')
-                .join('<br>')}
-            </p>
+                .join('<br>')} -->
+            <!-- </p> -->
           </div>
         {/if}
 
@@ -202,26 +202,4 @@
 {/if}
 
 <style lang="scss">
-  .debug-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 3;
-    margin: 0;
-    min-width: 25vmin;
-
-    .title {
-      width: 100%;
-      padding: 4px 0 0 8px;
-      margin: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    p {
-      color: white;
-      margin: 0;
-      padding: 4px 8px 8px 8px;
-    }
-  }
 </style>
