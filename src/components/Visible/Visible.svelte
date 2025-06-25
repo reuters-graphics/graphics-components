@@ -53,7 +53,7 @@
       );
       if (container) observer.observe(container);
       return () => {
-        if (container) observer.observe(container);
+        if (container) observer.unobserve(container);
       };
     }
   });
