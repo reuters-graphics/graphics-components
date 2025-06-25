@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.7
+
+### Patch Changes
+
+- f80e450: Removes Parsely page analytics
+
 ## 3.0.6
 
 ### Patch Changes
