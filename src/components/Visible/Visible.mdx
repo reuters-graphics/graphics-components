@@ -19,8 +19,8 @@ By default, `visible` will switch between `false` and `true` whenever the elemen
   import { Visible } from '@reuters-graphics/graphics-components';
 </script>
 
-<!-- Optionally set your own `top`, `bottom`, `right` and `left` values with units -->
-<Visible top={{ value: 10, unit: 'px' }}>
+<!-- Optionally set your own `top`, `bottom`, `right` and `left` values with `px` or `%` units -->
+<Visible top="10px">
   {#snippet children(visible)}
     {#if visible}
       <p>Visible!</p>
