@@ -42,12 +42,12 @@ export interface CustomFont {
   size?: Partial<FontSize>;
 }
 
-export interface Theme {
+export interface ThemeConfig {
   colour: Colour;
   font: Font;
 }
 
-export interface CustomTheme {
+export interface CustomThemeConfig {
   colour?: Partial<Colour>;
   font?: Partial<CustomFont>;
   [customProperty: string]: unknown;
