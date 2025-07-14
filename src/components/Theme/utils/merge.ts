@@ -1,4 +1,4 @@
-import type { Theme, CustomTheme } from '../@types/component';
+import type { ThemeConfig, CustomThemeConfig } from '../@types/component';
 
 function isObject(item: unknown): item is Record<string, unknown> {
   return item !== null && typeof item === 'object' && !Array.isArray(item);
@@ -9,7 +9,7 @@ function isObject(item: unknown): item is Record<string, unknown> {
  */
 export default function merge<T extends Record<string, unknown>>(
   target: T,
-  ...sources: (Theme | CustomTheme)[]
+  ...sources: (ThemeConfig | CustomThemeConfig)[]
 ): T {
   if (!sources.length) return target;
   const source = sources.shift();
