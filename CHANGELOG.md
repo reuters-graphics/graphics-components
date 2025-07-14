@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.9
+
+### Patch Changes
+
+- 18e49eb: renames Theme and CustomTheme types
+
 ## 3.0.8
 
 ### Patch Changes
