@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.10
+
+### Patch Changes
+
+- cf7e513: Updated oneTrustId to production ID
+
 ## 3.0.9
 
 ### Patch Changes
