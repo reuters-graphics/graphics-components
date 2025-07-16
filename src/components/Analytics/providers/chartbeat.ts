@@ -5,14 +5,7 @@ const URL = '//static.chartbeat.com/js/chartbeat.js';
 
 const attachScript = () => {
   // If script is already attached, skip
-  if (document.querySelector(`script[src="${URL}"]`)) return;
-  // ... else attach it.
-  const e = document.createElement('script');
-  const n = document.getElementsByTagName('script')[0];
-  e.type = 'text/javascript';
-  e.async = true;
-  e.src = URL;
-  n.parentNode!.insertBefore(e, n);
+  // loaded via GTM Container 
 };
 
 export default (authors: { name: string }[]) => {
