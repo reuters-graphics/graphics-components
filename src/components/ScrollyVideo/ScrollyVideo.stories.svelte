@@ -154,9 +154,11 @@
 
 <svelte:window bind:innerWidth={width} />
 
-<Story name="Basic" {args}></Story>
+<Story name="Demo">
+  <ScrollyVideo {...args} src={videoSrc.Goldengate} />
+</Story>
 
-<Story name="Responsive videos">
+<Story name="Responsive videos" exportName="ResponsiveVideos">
   {#if width < 600}
     <ScrollyVideo {...args} src={videoSrc.Video_SM} />
   {:else if width < 1200}
@@ -164,6 +166,14 @@
   {:else}
     <ScrollyVideo {...args} src={videoSrc.Video_LG} />
   {/if}
+</Story>
+
+<Story name="Embed version" exportName="Embed">
+  <ScrollyVideo
+    embedded={true}
+    src={videoSrc.Goldengate}
+    embeddedProps={{ autoplay: true }}
+  />
 </Story>
 
 <Story name="Autoplay" {args}>
@@ -175,7 +185,7 @@
   ></ScrollyVideo>
 </Story>
 
-<Story name="Inside ScrollerBase" {args}>
+<Story name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
   <WithScrollerBase />
 </Story>
 

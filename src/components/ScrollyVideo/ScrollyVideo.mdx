@@ -6,28 +6,13 @@ import * as ScrollyVideoStories from './ScrollyVideo.stories.svelte';
 
 # ScrollyVideo
 
-The `ScrollyVideo` component is a powerful tool for creating engaging, interactive video experiences that respond to user scrolling. It allows for precise control over video playback, including the ability to sync video progress with scroll position.
+The `ScrollyVideo` component creates interactive video experiences that respond to user scrolling. It is built on top of [ScrollyVideo.js](https://scrollyvideo.js.org/) and is designed to work seamlessly with Svelte.
 
-The `ScrollyVideo` component is built on top of the [ScrollyVideo.js](https://scrollyvideo.js.org/), and is designed to work seamlessly with Svelte's reactivity model.
+## Basic demo
 
-> For embedded version, toggle the `embedded` prop to **true** and provide video src to `embeddedSrc` prop. If `embeddedSrc` is not used, it will default to using the original `src` prop. If other elements are used in conjunction with the `ScrollyVideo` component, such as `ScrollerBase`, it is recommended to screen record the desktop output using [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) and use that video instead.
+To use the `ScrollyVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px`, `50vh`, or `500svh` to set the scroll height.
 
-> To optimise videos for use with the `ScrollyVideo` component, it is recommended to minimise the file size and ensure that the video is encoded in a format that is widely supported across browsers. Videos encoded at higher frames per second (FPS) are bound to crash on phone devices, so it is recommended to use 24 FPS for most videos (or atleast for the phone devices). Toggle showDebugInfo to check on video encoding information.
->
-> In case of doubt, fire away this command with the video file in question:
->
-> ```bash
-> npx ffmpeg -y -i <input_video>.mp4 -c:v libx264 -movflags faststart -crf 20 -r 24 -vf scale=720:-1 -profile:v high -preset veryslow -level:v 4.1 -color_primaries 1 -color_trc 1 -colorspace 1 -an <output_video>.mp4
-> ```
->
-> This will convert the video to a format that is optimised for web playback, with a resolution of 720p and a frame rate of 24 FPS. Adjust the `-crf` value to control the quality (lower values mean higher quality, with 20 being a good balance).
-> Refer to the [Testing Media Capabilities](https://cconcolato.github.io/media-mime-support/mediacapabilities.html) for more details on the encoding formats to use.
-
-## Basic usage
-
-To use the `ScrollyVideo` component, simply import it and provide the video source. Set height prop to any valid CSS height value, such as `1200px`, `50vh`, or `500svh` to set the scrolling height.
-
-[Demo](?path=/story/components-graphics-scrollyvideo--basic)
+[Demo](?path=/story/components-graphics-scrollyvideo--demo)
 
 ```svelte
 <script lang="ts">
@@ -35,18 +20,30 @@ To use the `ScrollyVideo` component, simply import it and provide the video sour
 </script>
 
 <ScrollyVideo
-  src={`${assets}/videos/goldengate.mp4`}
-  trackScroll={true}
-  height="500svh"
-  {embedded}
+  src='my-video.mp4'
+  height="500svh" 
 />
 ```
 
-## Mutliple videos
+## Optimising videos
+When using the `ScrollyVideo` component, minimise the video file size and ensure that the video is encoded in a format that is widely supported across browsers. Videos encoded at higher frames per second (FPS) are bound to crash on phone devices, so 24 FPS is recommended. 
 
-It can also be used to display multiple different videos based on the viewport width. This is useful for responsive designs where your subject in the video is not in the center. After Effects can be usd to maintain a crop with a focus on the subject, and the `ScrollyVideo` component can be used to display the appropriate video based on the viewport width.
+> 💡**TIP:** Set the `showDebugInfo` prop to `true` to see video encoding information
 
-[Demo](?path=/story/components-graphics-scrollyvideo--multiple-videos)
+To optimise your video for the web, you can use `ffmpeg` to convert the video to a suitable format. Here is an example terminal command that converts a video to H.264 format with a resolution of 720p and a frame rate of 24 FPS:
+
+```bash
+npx ffmpeg -y -i <input_video_src>.mp4 -c:v libx264 -movflags faststart -crf 20 -r 24 -vf scale=720:-1 -profile:v high -preset veryslow -level:v 4.1 -color_primaries 1 -color_trc 1 -colorspace 1 -an <output_video>.mp4
+```
+
+Adjust the `-crf` value to control the quality. Lower `-crf` value means higher quality, with 20 being a generally good balance. See [Testing Media Capabilities](https://cconcolato.github.io/media-mime-support/mediacapabilities.html) for more.
+
+
+## Responsive videos
+
+To show different videos based on the screen width, use the `ScrollyVideo` component with conditional logic that uses a different video source depending on the [window width](https://svelte.dev/docs/svelte/svelte-window).
+
+[Demo](?path=/story/components-graphics-scrollyvideo--responsive-videos)
 
 ```svelte
 <script lang="ts">
@@ -58,35 +55,53 @@ It can also be used to display multiple different videos based on the viewport w
 <svelte:window bind:innerWidth={width} />
 
 {#if width < 600}
-  <!-- Aspect ratio 9:16 -->
+  <!-- Video with aspect ratio 9:16 for window width smaller than 600px -->
   <ScrollyVideo
-    src={`${assets}/videos/video_sm.mp4`}
-    trackScroll={true}
+    src="my-video-sm.mp4"
     height="500svh"
-    {embedded}
   />
 {:else if width < 1200}
-  <!-- Aspect ratio 1:1 -->
+  <!-- Video with aspect ratio 1:1 for window width between 600px and 1200px -->
   <ScrollyVideo
-    src={`${assets}/videos/video_md.mp4`}
-    trackScroll={true}
+    src= "my-video-md.mp4"
     height="500svh"
-    {embedded}
   />
 {:else}
-  <!-- Aspect ratio 16:9 -->
+  <!-- Video with aspect ratio 16:9 for window width above 1200px -->
   <ScrollyVideo
-    src={`${assets}/videos/video_lg.mp4`}
-    trackScroll={true}
+    src="my-video-lg.mp4"
     height="500svh"
-    {embedded}
   />
 {/if}
 ```
 
+## Embeds
+
+Scrollytelling does not work in iframes. If the prop `embedded` is set to `true`, the video will be rendered as a regular video instead. By default, the video element has the properties `loop`, `muted`, and `playsinline` and `controls`. To customise the video properties, use the `embeddedProps` prop to render the embed video.  
+
+To use a different video for the embedded version, pass its source to the `embeddedSrc` prop. If `embeddedSrc` is not provided, the component will use the `src` prop. 
+
+> 💡**TIP:** One way to recreate the ScrollyVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrollying through the video and use that video instead.
+
+[Demo](?path=/story/components-graphics-scrollyvideo--embed)
+
+```svelte
+<script lang="ts">
+  import { ScrollyVideo } from '@reuters-graphics/graphics-components';
+</script>
+
+<!-- Optionally pass `embeddedSrc` and `embeddedProps` -->
+<ScrollyVideo
+  embedded={true}
+  src='my-video.mp4'
+  embeddedSrc='my-video-embedded.mp4'
+  embeddedProps={{ autoplay: true }} 
+/>
+```
+
 ## Autoplay
 
-Autoplay can be enabled by setting the `autoplay` prop to `true`. This will start the video playback automatically when the component is mounted. Upon interruption by manual scroll, the video will resume playback on scroll. The height is altered to remaining portion of the video.
+The `autoplay` option combines the autoplay and scrollytelling experience. If set to `true`, the video will start playing automatically when the component is mounted, but switch to scrollytelling when the user starts scrolling. The scroll height is calculated based on how much of the video remains, which means that if the user lets the video autoplay to near the end, the user would only have to scroll through a small height to get to the end. If the user lets the video autoplay to the end, there will be no scrolling effect.
 
 [Demo](?path=/story/components-graphics-scrollyvideo--autoplay)
 
@@ -96,15 +111,12 @@ Autoplay can be enabled by setting the `autoplay` prop to `true`. This will star
 </script>
 
 <ScrollyVideo
-  src={`${assets}/videos/goldengate.mp4`}
-  trackScroll={true}
+  src="my-video.mp4" 
   autoplay={true}
-  height="500svh"
-  {embedded}
 />
 ```
 
-## Inside ScrollerBase
+## Using with ScrollerBase
 
 The `ScrollyVideo` component can also be used inside the `ScrollerBase` component to create a scroller-based layout. This allows for more complex interactions and layouts, such as combining ai2svelte components with scrolly video content.
 
