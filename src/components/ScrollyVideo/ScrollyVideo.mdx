@@ -118,89 +118,102 @@ The `autoplay` option combines the autoplay and scrollytelling experience. If se
 
 ## Time-based foregrounds with ArchieML
 
-The `ScrollyVideo` component can also be used to display foregrounds, such as headlines, blurbs, or ai2svelte components, at specific times in the video. To do so, use the `Foreground` component.
+The `ScrollyVideo` component can also be used to display foregrounds, such as headlines, blurbs, or ai2svelte components, at specific times in the video. To do so, use the `ScrollyVideoForeground` component.
+
+[Demo](?path=/story/components-graphics-scrollyvideo--archie-ml-foregrounds)
 
 With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
-
 ```yaml
 # ArchieML doc
+
+# Headline
+hed: The Alps
+[authors]
+ * Jane Doe
+[]
+publishTime: 2020-01-01T00:00:00Z
+startTime: 0 # When in the video to start showing the headline
+endTime: 2 # When to stop showing the headline
+
 [blocks]
   type: scrolly-video
+  id: alps-scrolly
   src: videos/alps.mp4
   height: 800svh
 
   # Array of foregrounds
   [.foregrounds]
-    startTime: 3
-    endTime: 7
-    text: #### The Alps\n\nThe Alps stretch across eight countries: France, Switzerland, Italy, Monaco, Liechtenstein, Austria, Germany, and Slovenia, covering about 1,200 kilometers (750 miles).
+    startTime: 3 # When in the video to start showing the foreground
+    endTime: 7 # When to stop showing the foreground
+    width: normal # text container width
+    position: bottom center # Position of the text. Optional; defaults to 'center center'. Must be a combination of `top/bottom/center center/left/right`
+    backgroundColour: rgba(0, 0, 0, 0.8) # Optional; defaults to white
+    text: #### The Alps
+    
+    The Alps stretch across eight countries: France, Switzerland, Italy, Monaco, Liechtenstein, Austria, Germany, and Slovenia, covering about 1,200 kilometers (750 miles).
+
     :end
 
     startTime: 9
     endTime: 12
+    width: normal
+    position: bottom center
+    backgroundColour: rgba(0, 0, 0, 0.8)
     text: Mont Blanc, standing at 4,809 meters (15,777 feet), is the highest peak in the Alps and Western Europe, though there's ongoing debate between France and Italy about exactly where the summit lies.
+
     :end
 
     startTime: 16
     endTime: 20
-    text: #### History\n\nThe Alps were formed around **65 million years** ago when the African and Eurasian tectonic plates collided, pushing the land upward.Over 14 million people live in the Alpine region, with tourism supporting approximately 120 million visitors annually.
+    width: normal
+    position: bottom center
+    backgroundColour: rgba(0, 0, 0, 0.8)
+    text: #### History
+    
+    The Alps were formed around **65 million years** ago when the African and Eurasian tectonic plates collided, pushing the land upward.Over 14 million people live in the Alpine region, with tourism supporting approximately 120 million visitors annually.
+
     :end
   []
 []
 ```
 
-... which you'll parse out of a ArchieML block object before passing to the `ScrollyVideo` and `Foreground` components.
+... which you'll parse out of a ArchieML block object before passing to the `ScrollyVideo` and `ScrollyVideoForeground` components.
 
 ```svelte
 <script lang="ts">
   import {
     ScrollyVideo,
-    Foreground,
+    ScrollyVideoForeground
   } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 </script>
 
 {#if block.type == 'scrolly-video'}
-  <ScrollyVideo id={block.id} src={block.src} height={block.height}>
-    <Foreground startTime={0} endTime={2}>
+  <ScrollyVideo id={block.id} src={`${assets}/${block.src}}`} height={block.height}>
+
+  <!-- You can wrap components, such as `Headline`, inside `ScrollyVideoForeground` and make them appear/disappear at specific times -->
+    <ScrollyVideoForeground startTime={parseFloat(content.startTime)} endTime={parseFloat(content.endTime)}>
       <Headline
-        class="custom-headline"
-        hed={content.hed}
-        dek={content.dek}
-        section={content.section}
-        sectionUrl={content.sectionUrl}
+        hed={content.hed}  
         authors={content.authors}
         publishTime={content.publishedDate}
-        updateTime={content.updatedDate}
       />
-    </Foreground>
+    </ScrollyVideoForeground>
+
+    <!-- Loop through foregrounds to add text blurbs that appear/disappear at specific times -->
     {#each block.foregrounds as foreground}
-      <Foreground
+      <ScrollyVideoForeground
         startTime={parseFloat(foreground.startTime)}
         endTime={parseFloat(foreground.endTime)}
+        width={foreground.width}
+        position={foreground.position}
+        backgroundColour={foreground.backgroundColour}
         text={foreground.text}
-        backgroundColor="rgba(0, 0, 0, 0.8)"
-        position="bottom center"
       />
     {/each}
   </ScrollyVideo>
 {/if}
-
-<style lang="scss">
-  :global {
-    .custom-headline * {
-      color: white;
-      text-shadow: 0 0 10px black;
-    }
-
-    #alps-scrolly .foreground-text {
-      * {
-        color: white;
-      }
-    }
-  }
-</style>
 ```
 
 
@@ -208,7 +221,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 
 The `ScrollyVideo` component can also be used to display different foregrounds based on the current time in the video. This is useful for creating interactive experiences where the content changes as the video progresses. To throw off some ideas, one could add `Headline`, `GraphicBlock`, `FeaturePhoto` or any other component to the foreground based on the current time in the video. This can be achieved by adding `Foreground` components, along with their **startTime** and **endTime**, as a child to the main `ScrollyVideo` component.
 
-[Demo](?path=/story/components-graphics-scrollyvideo--time-based-foregrounds)
+[Demo](?path=/story/components-graphics-scrollyvideo--ai-2-svelte-foregrounds)
 
 ```svelte
 <script lang="ts">

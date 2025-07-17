@@ -18,7 +18,7 @@
     startTime?: number;
     endTime?: number;
     children?: Snippet;
-    backgroundColor?: string;
+    backgroundColour?: string;
     width?: ContainerWidth;
     position?: ScrollyVideoForegroundPosition | string;
     text?: string | undefined;
@@ -30,7 +30,7 @@
     startTime = 0,
     endTime = 1,
     children,
-    backgroundColor = '#000',
+    backgroundColour = '#000',
     width = 'normal',
     position = 'center center',
     text,
@@ -57,7 +57,7 @@
           {width}
         >
           <div
-            style="background-color: {backgroundColor};"
+            style="background-color: {backgroundColour};"
             class="foreground-text {position.split(' ')[0]}"
           >
             <Markdown source={text} />

@@ -2,7 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import ScrollyVideo from './ScrollyVideo.svelte';
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
-  import WithTimeline from './demo/WithTimeline.svelte';
+  import WithAi2svelteForegrounds from './demo/WithAi2svelteForegrounds.svelte';
   import WithTextForegrounds from './demo/WithTextForegrounds.svelte';
 
   const { Story } = defineMeta({
@@ -185,14 +185,22 @@
   ></ScrollyVideo>
 </Story>
 
+<Story
+  name="Time-based foregrounds with ArchieML"
+  exportName="ArchieMLForegrounds"
+  {args}
+>
+  <WithTextForegrounds />
+</Story>
+
+<Story
+  name="Time-based ai2svelte foregrounds"
+  exportName="Ai2svelteForegrounds"
+  {args}
+>
+  <WithAi2svelteForegrounds />
+</Story>
+
 <Story name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
   <WithScrollerBase />
-</Story>
-
-<Story name="Time based foregrounds" {args}>
-  <WithTimeline />
-</Story>
-
-<Story name="Basic text foreground" {args}>
-  <WithTextForegrounds />
 </Story>
