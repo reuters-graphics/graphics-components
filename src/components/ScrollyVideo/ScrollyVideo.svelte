@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import ScrollyVideo from './js/ScrollyVideo.js';
+  import ScrollyVideo from './ts/ScrollyVideo.js';
   import Debug from './Debug.svelte';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';

@@ -6,7 +6,7 @@
   import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   // Types
-  import type { ScrollyVideoState } from './js/state.svelte';
+  import type { ScrollyVideoState } from './ts/state.svelte';
   import type {
     ContainerWidth,
     ScrollyVideoForegroundPosition,

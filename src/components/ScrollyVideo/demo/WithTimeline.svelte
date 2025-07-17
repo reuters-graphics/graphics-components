@@ -1,9 +1,9 @@
 <script lang="ts">
   import ScrollyVideo from '../ScrollyVideo.svelte';
   import Foreground from '../Foreground.svelte';
-  import SM from '../videos/v_9_16.mp4';
-  import MD from '../videos/v_1_1.mp4';
-  import LG from '../videos/v_16_9.mp4';
+  import SM from '../videos/waves_sm.mp4';
+  import MD from '../videos/waves_md.mp4';
+  import LG from '../videos/waves_lg.mp4';
   import GraphicBlock from '../../GraphicBlock/GraphicBlock.svelte';
   import Headline from '../../Headline/Headline.svelte';
   import Annotation1 from './graphic/ai2svelte/annotation1.svelte';

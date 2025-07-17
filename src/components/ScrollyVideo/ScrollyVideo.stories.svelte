@@ -125,9 +125,9 @@
 </script>
 
 <script>
-  import Video_SM from './videos/v_9_16.mp4';
-  import Video_MD from './videos/v_1_1.mp4';
-  import Video_LG from './videos/v_16_9.mp4';
+  import Video_SM from './videos/waves_sm.mp4';
+  import Video_MD from './videos/waves_md.mp4';
+  import Video_LG from './videos/waves_lg.mp4';
   import Goldengate from './videos/goldengate.mp4';
 
   const videoSrc = {
@@ -137,7 +137,7 @@
     Goldengate,
   };
 
-  const args = $state({
+  const args = {
     trackScroll: true,
     height: '500svh',
     showDebugInfo: true,
@@ -149,60 +149,40 @@
     frameThreshold: 0.1,
     useWebCodecs: true,
     lockScroll: true,
-  });
+  };
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
 <Story name="Basic" {args}></Story>
 
-<Story name="Multiple Videos" {args}>
-  {#snippet children(args)}
-    {#key args}
-      {#if width < 600}
-        <ScrollyVideo {...args} src={videoSrc.Video_SM} />
-      {:else if width < 1200}
-        <ScrollyVideo {...args} src={videoSrc.Video_MD} />
-      {:else}
-        <ScrollyVideo {...args} src={videoSrc.Video_LG} />
-      {/if}
-    {/key}
-  {/snippet}
+<Story name="Responsive videos">
+  {#if width < 600}
+    <ScrollyVideo {...args} src={videoSrc.Video_SM} />
+  {:else if width < 1200}
+    <ScrollyVideo {...args} src={videoSrc.Video_MD} />
+  {:else}
+    <ScrollyVideo {...args} src={videoSrc.Video_LG} />
+  {/if}
 </Story>
 
 <Story name="Autoplay" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <ScrollyVideo
-        {...args}
-        src={videoSrc.Goldengate}
-        useWebCodecs={false}
-        autoplay={true}
-      ></ScrollyVideo>
-    {/key}
-  {/snippet}
+  <ScrollyVideo
+    {...args}
+    src={videoSrc.Goldengate}
+    useWebCodecs={false}
+    autoplay={true}
+  ></ScrollyVideo>
 </Story>
 
 <Story name="Inside ScrollerBase" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <WithScrollerBase />
-    {/key}
-  {/snippet}
+  <WithScrollerBase />
 </Story>
 
 <Story name="Time based foregrounds" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <WithTimeline />
-    {/key}
-  {/snippet}
+  <WithTimeline />
 </Story>
 
 <Story name="Basic text foreground" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <BasicTextBoxes />
-    {/key}
-  {/snippet}
+  <BasicTextBoxes />
 </Story>
