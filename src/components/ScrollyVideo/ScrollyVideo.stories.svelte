@@ -3,7 +3,7 @@
   import ScrollyVideo from './ScrollyVideo.svelte';
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
   import WithTimeline from './demo/WithTimeline.svelte';
-  import BasicTextBoxes from './demo/BasicTextBoxes.svelte';
+  import WithTextForegrounds from './demo/WithTextForegrounds.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/ScrollyVideo',
@@ -194,5 +194,5 @@
 </Story>
 
 <Story name="Basic text foreground" {args}>
-  <BasicTextBoxes />
+  <WithTextForegrounds />
 </Story>

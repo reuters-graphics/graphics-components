@@ -1,6 +1,6 @@
 <script lang="ts">
   import ScrollyVideo from '../ScrollyVideo.svelte';
-  import Foreground from '../Foreground.svelte';
+  import ScrollyVideoForeground from '../ScrollyVideoForeground.svelte';
   import SM from '../videos/waves_sm.mp4';
   import MD from '../videos/waves_md.mp4';
   import LG from '../videos/waves_lg.mp4';
@@ -17,7 +17,7 @@
 <svelte:window bind:innerWidth={width} />
 
 {#snippet ScrollForeground()}
-  <Foreground startTime={0} endTime={0.3}>
+  <ScrollyVideoForeground startTime={0} endTime={0.3}>
     <Headline
       class="custom-headline"
       hed="ScrollyVideo inside ScrollerBase"
@@ -26,27 +26,27 @@
       authors={['Jane Doe']}
       publishTime={new Date('2020-01-01').toISOString()}
     />
-  </Foreground>
-  <Foreground startTime={0.3} endTime={2.2}>
+  </ScrollyVideoForeground>
+  <ScrollyVideoForeground startTime={0.3} endTime={2.2}>
     <GraphicBlock title="" description="" width="fluid">
       <Annotation1 />
     </GraphicBlock>
-  </Foreground>
-  <Foreground startTime={2.2} endTime={3.2}>
+  </ScrollyVideoForeground>
+  <ScrollyVideoForeground startTime={2.2} endTime={3.2}>
     <GraphicBlock title="" description="" width="fluid">
       <Annotation2 />
     </GraphicBlock>
-  </Foreground>
-  <Foreground startTime={3.2} endTime={4.5}>
+  </ScrollyVideoForeground>
+  <ScrollyVideoForeground startTime={3.2} endTime={4.5}>
     <GraphicBlock title="" description="" width="fluid">
       <Annotation3 />
     </GraphicBlock>
-  </Foreground>
-  <Foreground startTime={6.5} endTime={8}>
+  </ScrollyVideoForeground>
+  <ScrollyVideoForeground startTime={6.5} endTime={8}>
     <GraphicBlock title="" description="" width="fluid">
       <Annotation4 />
     </GraphicBlock>
-  </Foreground>
+  </ScrollyVideoForeground>
 {/snippet}
 
 {#snippet ScrollVideo(height: string, VideoSrc: string)}
