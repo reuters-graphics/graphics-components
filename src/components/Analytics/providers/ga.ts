@@ -1,8 +1,6 @@
 // Reuters Google Tag ID
 const GOOGLE_TAG_ID = 'G-WBSR7WLTGD';
 
-const URL = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`;
-
 const attachScript = () => {
   // If script is already attached, skip
   // loaded via GTM Container

@@ -1,11 +1,9 @@
 // Reuters Chartbeat UID
 const UID = 52639;
 
-const URL = '//static.chartbeat.com/js/chartbeat.js';
-
 const attachScript = () => {
   // If script is already attached, skip
-  // loaded via GTM Container 
+  // loaded via GTM Container
 };
 
 export default (authors: { name: string }[]) => {

@@ -3,9 +3,7 @@
 <script module>
   // GTM configuration
   const GTM_ID = 'GTM-P9TTSWG2';
-</script>
 
-<script module>
   import { registerPageview as registerChartbeatPageview } from './providers/chartbeat';
   import { registerPageview as registerGAPageview } from './providers/ga';
 
@@ -13,7 +11,6 @@
   function registerPageview() {
     registerChartbeatPageview();
     registerGAPageview();
-    
   }
 
   export { registerPageview };
@@ -53,10 +50,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe 
+  <iframe
     src="https://www.googletagmanager.com/ns.html?id={GTM_ID}"
-    height="0" 
-    width="0" 
+    height="0"
+    width="0"
     style="display:none;visibility:hidden"
   ></iframe>
 </noscript>
