@@ -118,7 +118,7 @@ The `autoplay` option combines the autoplay and scrollytelling experience. If se
 
 ## Time-based text foregrounds with ArchieML
 
-The `ScrollyVideo` component can also be used to display text as foregrounds at specific times in the video. To do so, use the `ScrollyVideoForeground` component.
+The `ScrollyVideo` component can also be used to display text as foregrounds at specific times in the video. To do so, use the `text` prop in `ScrollyVideoForeground` component.
 
 [Demo](?path=/story/components-graphics-scrollyvideo--archie-ml-foregrounds)
 
@@ -126,15 +126,6 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 
 ```yaml
 # ArchieML doc
-
-# Headline
-hed: The Alps
-[authors]
- * Jane Doe
-[]
-publishTime: 2020-01-01T00:00:00Z
-startTime: 0 # When in the video to start showing the headline
-endTime: 2 # When to stop showing the headline
 
 [blocks]
   type: scrolly-video
@@ -188,49 +179,91 @@ endTime: 2 # When to stop showing the headline
   } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 </script>
-
-{#if block.type == 'scrolly-video'}
-  <ScrollyVideo id={block.id} src={`${assets}/${block.src}}`} height={block.height}>
-
-  <!-- You can wrap components, such as `Headline`, inside `ScrollyVideoForeground` and make them appear/disappear at specific times -->
-    <ScrollyVideoForeground startTime={parseFloat(content.startTime)} endTime={parseFloat(content.endTime)}>
-      <Headline
-        hed={content.hed}  
-        authors={content.authors}
-        publishTime={content.publishedDate}
-      />
-    </ScrollyVideoForeground>
-
-    <!-- Loop through foregrounds to add text blurbs that appear/disappear at specific times -->
-    {#each block.foregrounds as foreground}
-      <ScrollyVideoForeground
-        startTime={parseFloat(foreground.startTime)}
-        endTime={parseFloat(foreground.endTime)}
-        width={foreground.width}
-        position={foreground.position}
-        backgroundColour={foreground.backgroundColour}
-        text={foreground.text}
-      />
-    {/each}
-  </ScrollyVideo>
-{/if}
+{#each content.blocks as block}
+  <!-- Inside the content.blocks for loop... -->
+  {#if block.type == 'scrolly-video'}
+    <ScrollyVideo id={block.id} src={`${assets}/${block.src}}`} height={block.height}>
+      <!-- Loop through foregrounds to add text blurbs that appear/disappear at specific times -->
+      {#each block.foregrounds as foreground}
+        <ScrollyVideoForeground
+          startTime={parseFloat(foreground.startTime)}
+          endTime={parseFloat(foreground.endTime)}
+          width={foreground.width}
+          position={foreground.position}
+          backgroundColour={foreground.backgroundColour}
+          text={foreground.text}
+        />
+      {/each}
+    </ScrollyVideo>
+  {/if}
+{/each}
 ```
 
 
 ## Time-based component foregrounds with ArchieML
 
-The `ScrollyVideo` component can also be used to display components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the video. To do so, use the `ScrollyVideoForeground` component.
+The `ScrollyVideo` component can also be used to display components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the video. To do so, use the `Foreground` prop in `ScrollyVideoForeground` component.
+
+> **IMPORTANT❗**: When layering ai2svelte files over a video, the aspect ratio of the ai2svelte graphics should match that of the video. If the ai2svelte graphic is responsive and has, for example, small, medium and large verisons — which is generally the case — make sure to also render small, medium and large versions of the video at the appropriate screen sizes. See [Responsive videos](#responsive-videos) for more details.
 
 [Demo](?path=/story/components-graphics-scrollyvideo--component-archie-ml-foregrounds)
 
 With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
+```yaml
+# ArchieML doc
+
+# Headline
+hed: Wind and waves
+[authors]
+ * Jane Doe
+[]
+publishTime: 2020-01-01T00:00:00Z
+startTime: 0 # When in the video to start showing the headline
+endTime: 0.3 # When to stop showing the headline
+
+[blocks]
+  type: scrolly-video
+  id: my-scrolly-video
+  height: 800svh
+
+  # Adjust prop names as needed
+  srcSm: videos/my-video-sm.mp4
+  srcMd: videos/my-video-md.mp4
+  srcLg: videos/my-video-lg.mp4
+
+  # Array of foregrounds
+  [.foregrounds]
+    startTime: 0.3 # When in the video to start showing the foreground
+    endTime: 2.2 # When to stop showing the foreground
+    width: fluid # foreground container width
+    Foreground: Foreground1 # Name of the ai2svelte component to render
+
+    startTime: 2.2
+    endTime: 3.2
+    width: fluid
+    Foreground: Foreground2
+
+    startTime: 3.2
+    endTime: 4.5
+    width: fluid
+    Foreground: Foreground3
+
+    startTime: 6.5
+    endTime: 8
+    width: fluid
+    Foreground: Foreground4
+  []
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `ScrollyVideo` and `ScrollyVideoForeground` components.
+
+
 ```svelte
 <script lang="ts">
-  // Graphics kit only
   import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
-  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
-
+=
   import {
     Headline,
     GraphicBlock,
@@ -239,80 +272,72 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   } from '@reuters-graphics/graphics-components';
 
   // Foreground ai2svelte components
-  import Annotation1 from './ai2svelte/annotation1.svelte';
-  import Annotation2 from './ai2svelte/annotation2.svelte';
-  import Annotation3 from './ai2svelte/annotation3.svelte';
-  import Annotation4 from './ai2svelte/annotation4.svelte';
+  import Foreground1 from './ai2svelte/foreground1.svelte';
+  import Foreground2 from './ai2svelte/foreground2.svelte';
+  import Foreground3 from './ai2svelte/foreground3.svelte';
+  import Foreground4 from './ai2svelte/foreground4.svelte';
 
-  // Foreground ai2svelte graphics components
+  // Add your imported foreground ai2svelte charts to this object
   const aiChartsForeground = {
-    Annotation1,
-    Annotation2,
-    Annotation3,
-    Annotation4,
+    Foreground1,
+    Foreground2,
+    Foreground3,
+    Foreground4,
   };
 
+  // Window width for responsive videos
   let width = $state(1);
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
-{#snippet ScrollForeground()}
-  <Foreground startTime={0} endTime={0.3}>
-    <Headline
-      class="custom-headline"
-      hed="ScrollyVideo inside ScrollerBase"
-      dek="This is a demo of ScrollyVideo inside ScrollerBase component."
-      section={'Reuters Graphics'}
-      authors={['Jane Doe']}
-      publishTime={new Date('2020-01-01').toISOString()}
-    />
-  </Foreground>
-  <Foreground startTime={0.3} endTime={2.2}>
-    <GraphicBlock title="" description="" width="fluid">
-      <Annotation1 />
-    </GraphicBlock>
-  </Foreground>
-  <Foreground startTime={2.2} endTime={3.2}>
-    <GraphicBlock title="" description="" width="fluid">
-      <Annotation2 />
-    </GraphicBlock>
-  </Foreground>
-  <Foreground startTime={3.2} endTime={4.5}>
-    <GraphicBlock title="" description="" width="fluid">
-      <Annotation3 />
-    </GraphicBlock>
-  </Foreground>
-  <Foreground startTime={6.5} endTime={8}>
-    <GraphicBlock title="" description="" width="fluid">
-      <Annotation4 />
-    </GraphicBlock>
-  </Foreground>
-{/snippet}
+<!-- Loop through content blocks... -->
+{#each content.blocks as block}
 
-{#snippet ScrollVideo(height: string, VideoSrc: string)}
-  <ScrollyVideo {height} src={VideoSrc} useWebCodecs={true} showDebugInfo>
-    {@render ScrollForeground()}
-  </ScrollyVideo>
-{/snippet}
+  {#if block.type == 'scrolly-video'}
 
-{#if width < 600}
-  {@render ScrollVideo('800svh', `${assets}/videos/sm.mp4`)}
-{:else if width < 1200}
-  {@render ScrollVideo('800svh', `${assets}/videos/md.mp4`)}
-{:else}
-  {@render ScrollVideo('800svh', `${assets}/videos/lg.mp4`)}
-{/if}
+  <!-- ScrollVideo snippet to render responsive videos -->
+  {#snippet ScrollVideo(height: string, src: string)}
+    <ScrollyVideo
+      id={block.id}
+      {height}
+      {src}
+    >
+      <!-- Headline component as foreground -->
+      <ScrollyVideoForeground
+        startTime={parseFloat(content.startTime)}
+        endTime={parseFloat(content.endTime)}
+      >
+        <Headline
+          hed={content.hed}
+          authors={content.authors}
+          publishTime={new Date(content.publishTime).toISOString()}
+        />
+      </ScrollyVideoForeground>
 
-<style lang="scss">
-  :global(.custom-headline *) {
-    color: white;
-  }
+      <!-- Loop through block.foregrounds to render each foreground component -->
+      {#each block.foregrounds as foreground}
+          <ScrollyVideoForeground
+            startTime={parseFloat(foreground.startTime)}
+            endTime={parseFloat(foreground.endTime)}
+            width={foreground.width}
+            Foreground={aiChartsForeground[
+              foreground.foreground as keyof typeof aiChartsForeground
+            ]}
+          />
+      {/each}
+    </ScrollyVideo>
+  {/snippet}
 
-  :global(.scrolly-video-foreground) {
-    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.85));
-  }
-</style>
+  <!-- Render the ScrollVideo snippet for different screen sizes -->
+  {#if width < 600}
+    {@render ScrollVideo({block.height}, `${assets}/${block.srcSm}`)}
+  {:else if width < 1200}
+    {@render ScrollVideo({block.height}, `${assets}/${block.srcMd}`)}
+  {:else}
+    {@render ScrollVideo({block.height}, `${assets}/${block.srcLg}`)}
+  {/if}
+{/each}
 ```
 
 

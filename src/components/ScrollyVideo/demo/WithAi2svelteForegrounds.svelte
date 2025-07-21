@@ -5,13 +5,20 @@
   import MD from '../videos/waves_md.mp4';
   import LG from '../videos/waves_lg.mp4';
   import Headline from '../../Headline/Headline.svelte';
-  import Block from '../../Block/Block.svelte';
 
   // Foreground ai2svelte components
-  import Annotation1 from './graphic/ai2svelte/annotation1.svelte';
-  import Annotation2 from './graphic/ai2svelte/annotation2.svelte';
-  import Annotation3 from './graphic/ai2svelte/annotation3.svelte';
-  import Annotation4 from './graphic/ai2svelte/annotation4.svelte';
+  import Foreground1 from './graphic/ai2svelte/annotation1.svelte';
+  import Foreground2 from './graphic/ai2svelte/annotation2.svelte';
+  import Foreground3 from './graphic/ai2svelte/annotation3.svelte';
+  import Foreground4 from './graphic/ai2svelte/annotation4.svelte';
+
+  // Foreground ai2svelte graphics components
+  const aiChartsForeground = {
+    Foreground1,
+    Foreground2,
+    Foreground3,
+    Foreground4,
+  };
 
   const content = {
     hed: 'Wind and waves',
@@ -29,19 +36,25 @@
             startTime: '0.3',
             endTime: '2.2',
             width: 'fluid',
-            foregroud: 'Annotation1',
+            foreground: 'Foreground1',
           },
           {
-            startTime: '7',
-            endTime: '12',
+            startTime: '2.2',
+            endTime: '3.2',
             width: 'fluid',
-            foreground: 'Annotation2',
+            foreground: 'Foreground2',
           },
           {
-            startTime: '14',
-            endTime: '20',
+            startTime: '3.2',
+            endTime: '4.5',
             width: 'fluid',
-            foreground: 'Annotation3',
+            foreground: 'Foreground3',
+          },
+          {
+            startTime: '6.5',
+            endTime: '8',
+            width: 'fluid',
+            foreground: 'Foreground4',
           },
         ],
       },
@@ -50,62 +63,49 @@
   const scrollyVideoBlock = content.blocks[0];
 
   let width = $state(1);
-
-  let src = $derived(() => {
-    if (width < 600) return '../videos/waves_sm.mp4';
-    else if (width < 1200) return '../videos/waves_md.mp4';
-    else return '../videos/waves_lg.mp4';
-  });
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
-{#snippet ScrollVideo(height: string, VideoSrc: string)}
+{#snippet ScrollVideo(height: string, src: string)}
   <ScrollyVideo
-    class="surf-scrolly"
+    id={scrollyVideoBlock.id}
     {height}
-    src={VideoSrc}
+    {src}
     useWebCodecs={true}
     showDebugInfo
   >
-    <ScrollyVideoForeground startTime={0} endTime={0.3}>
+    <ScrollyVideoForeground
+      startTime={parseFloat(content.startTime)}
+      endTime={parseFloat(content.endTime)}
+    >
       <Headline
         class="custom-headline"
-        hed="Wind and waves"
-        authors={['Jane Doe']}
-        publishTime={new Date('2020-01-01').toISOString()}
+        hed={content.hed}
+        authors={content.authors}
+        publishTime={new Date(content.publishTime).toISOString()}
       />
     </ScrollyVideoForeground>
 
-    {#each scrollyVideoBlock.foregrounds as foreground, idx}
-      {#if foreground.foreground}
-        <ScrollyVideoForeground
-          startTime={parseFloat(foreground.startTime)}
-          endTime={parseFloat(foreground.endTime)}
-        >
-          <Block width="fluid">
-            {#if idx === 0}
-              <Annotation1 />
-            {:else if idx === 1}
-              <Annotation2 />
-            {:else if idx === 2}
-              <Annotation3 />
-            {:else if idx === 3}
-              <Annotation4 />
-            {/if}
-          </Block>
-        </ScrollyVideoForeground>
-      {/if}
+    {#each scrollyVideoBlock.foregrounds as foreground}
+      <ScrollyVideoForeground
+        startTime={parseFloat(foreground.startTime)}
+        endTime={parseFloat(foreground.endTime)}
+        width={foreground.width as 'fluid'}
+        Foreground={aiChartsForeground[
+          foreground.foreground as keyof typeof aiChartsForeground
+        ]}
+      />
     {/each}
   </ScrollyVideo>
 {/snippet}
 
 {#if width < 600}
-  {@render ScrollVideo('800svh', SM)}
+  {@render ScrollVideo(scrollyVideoBlock.height, SM)}
 {:else if width < 1200}
-  {@render ScrollVideo('800svh', MD)}
+  {@render ScrollVideo(scrollyVideoBlock.height, MD)}
 {:else}
-  {@render ScrollVideo('800svh', LG)}
+  {@render ScrollVideo(scrollyVideoBlock.height, LG)}
 {/if}
 
 <style lang="scss">

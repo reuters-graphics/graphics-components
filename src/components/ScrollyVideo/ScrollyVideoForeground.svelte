@@ -21,7 +21,8 @@
     backgroundColour?: string;
     width?: ContainerWidth;
     position?: ScrollyVideoForegroundPosition | string;
-    foreground?: string | Component;
+    text?: string;
+    Foreground?: Component;
   }
 
   let {
@@ -33,7 +34,8 @@
     backgroundColour = '#000',
     width = 'normal',
     position = 'center center',
-    foreground,
+    text,
+    Foreground,
   }: ForegroundProps = $props();
 
   let componentState: ScrollyVideoState = getContext('scrollyVideoState');
@@ -46,27 +48,31 @@
       in:fade={{ delay: 100, duration: 200 }}
       out:fade={{ delay: 0, duration: 100 }}
     >
-      <div class="scrolly-video-foreground-item">
-        {#if children}
-          {@render children()}
-        {/if}
-      </div>
-      {#if foreground}
-        {#if typeof foreground === 'string'}
-          <Block
-            class="scrolly-video-foreground-text {position.split(' ')[1]}"
-            {width}
+      <!-- Text blurb foreground -->
+      {#if text}
+        <Block
+          class="scrolly-video-foreground-text {position.split(' ')[1]}"
+          {width}
+        >
+          <div
+            style="background-color: {backgroundColour};"
+            class="foreground-text {position.split(' ')[0]}"
           >
-            <div
-              style="background-color: {backgroundColour};"
-              class="foreground-text {position.split(' ')[0]}"
-            >
-              <Markdown source={foreground} />
-            </div>
+            <Markdown source={text} />
+          </div>
+        </Block>
+        <!-- Render children snippet -->
+      {:else if children}
+        <div class="scrolly-video-foreground-item">
+          {@render children()}
+        </div>
+        <!-- Render Foreground component -->
+      {:else if Foreground}
+        <div class="scrolly-video-foreground-item">
+          <Block width="fluid">
+            <Foreground />
           </Block>
-        {:else}
-          {foreground}
-        {/if}
+        </div>
       {/if}
     </div>
   {/if}

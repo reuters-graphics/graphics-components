@@ -2,15 +2,9 @@
   import ScrollyVideo from '../ScrollyVideo.svelte';
   import ScrollyVideoForeground from '../ScrollyVideoForeground.svelte';
   import Drone from '../videos/drone.mp4';
-  import Headline from '../../Headline/Headline.svelte';
   import type { ContainerWidth } from '../../@types/global';
 
   const content = {
-    hed: 'The Alps',
-    authors: ['Jane Doe'],
-    publishTime: '2020-01-01T00:00:00Z',
-    startTime: '0',
-    endTime: '2',
     blocks: [
       {
         type: 'scrolly-video',
@@ -57,19 +51,6 @@
   useWebCodecs={true}
   showDebugInfo
 >
-  <!-- <ScrollyVideoForeground
-    startTime={parseFloat(content.startTime)}
-    endTime={parseFloat(content.endTime)}
-  >
-    <Headline
-      class="custom-headline"
-      hed={content.hed}
-      authors={content.authors}
-      publishTime={new Date(content.publishTime).toISOString()}
-      hedSize="bigger"
-    />
-  </ScrollyVideoForeground> -->
-
   {#each scrollyVideoBlock.foregrounds as foreground}
     <ScrollyVideoForeground
       startTime={parseFloat(foreground.startTime)}
@@ -77,7 +58,7 @@
       width={foreground.width as ContainerWidth}
       position={foreground.position}
       backgroundColour={foreground.backgroundColour}
-      foreground={foreground.text}
+      text={foreground.text}
     />
   {/each}
 </ScrollyVideo>
