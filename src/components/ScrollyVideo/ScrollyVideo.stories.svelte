@@ -129,6 +129,7 @@
   import Video_MD from './videos/waves_md.mp4';
   import Video_LG from './videos/waves_lg.mp4';
   import Goldengate from './videos/goldengate.mp4';
+  import AdvancedUsecases from './demo/AdvancedUsecases.svelte';
 
   const videoSrc = {
     Video_SM,
@@ -203,4 +204,8 @@
 
 <Story name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
   <WithScrollerBase />
+</Story>
+
+<Story name="Advanced usecases" exportName="Advanced" {args}>
+  <AdvancedUsecases />
 </Story>

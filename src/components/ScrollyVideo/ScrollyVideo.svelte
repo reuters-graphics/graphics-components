@@ -138,7 +138,7 @@
       // If we need to update the target time percent
       if (
         scrollyVideo &&
-        typeof videoPercentage === 'number' &&
+        videoPercentage &&
         videoPercentage >= 0 &&
         videoPercentage <= 1
       ) {
@@ -193,12 +193,6 @@
         {#if showDebugInfo && dev}
           <div class="debug-info">
             <Debug componentState={scrollyVideo.componentState} />
-            <!-- <p class="text-xxs font-sans"> -->
-            <!-- {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
-                .replace(/[{}"]/g, '')
-                .split(',')
-                .join('<br>')} -->
-            <!-- </p> -->
           </div>
         {/if}
 
