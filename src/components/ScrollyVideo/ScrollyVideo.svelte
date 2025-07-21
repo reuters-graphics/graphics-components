@@ -70,6 +70,7 @@
     children?: Snippet;
   }
 
+  /** Default properties for embedded videos */
   const defaultEmbedProps = {
     autoplay: false,
     loop: false,
@@ -79,6 +80,7 @@
     poster: '',
     preload: 'auto' as 'auto' | 'metadata' | 'none',
   };
+
   /**
    * Main logic for ScrollyVideo Svelte component.
    * Handles instantiation, prop changes, and cleanup.
@@ -120,6 +122,7 @@
       if (JSON.stringify(restProps) !== lastPropsString) {
         // if scrollyvideo already exists and any parameter is updated, destroy and recreate.
         if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
+
         scrollyVideo = new ScrollyVideo({
           scrollyVideoContainer,
           onReady,
@@ -168,7 +171,7 @@
 </script>
 
 {#if embedded && (embeddedSrc || restProps.src)}
-  <div class="scrolly-video-container" style="width: 100%;">
+  <div class="scrolly-video-container embedded">
     <video
       class="scrolly-video-embedded"
       src={embeddedSrc || restProps.src}
@@ -186,7 +189,7 @@
   <div
     {id}
     class="scrolly-video-container {cls}"
-    style="height: {heightChange}; width: 100%; min-height: 100svh;"
+    style="height: {heightChange}"
   >
     <div bind:this={scrollyVideoContainer} data-scrolly-container>
       {#if scrollyVideo}
@@ -206,4 +209,11 @@
 {/if}
 
 <style lang="scss">
+  .scrolly-video-container {
+    width: 100%;
+
+    &:not(.embedded) {
+      min-height: 100svh;
+    }
+  }
 </style>
