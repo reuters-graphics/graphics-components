@@ -1,8 +1,8 @@
 import { Meta } from '@storybook/blocks';
 
 import * as ScrollyVideoStories from './ScrollyVideo.stories.svelte';
- 
-<Meta of={ScrollyVideoStories} />
+
+<Meta of={ScrollyVideoStories} />;
 
 # ScrollyVideo
 
@@ -19,14 +19,12 @@ To use the `ScrollyVideo` component, import it and provide the video source. Set
   import { ScrollyVideo } from '@reuters-graphics/graphics-components';
 </script>
 
-<ScrollyVideo
-  src='my-video.mp4'
-  height="500svh" 
-/>
+<ScrollyVideo src="my-video.mp4" height="500svh" />
 ```
 
 ## Optimising videos
-When using the `ScrollyVideo` component, minimise the video file size and ensure that the video is encoded in a format that is widely supported across browsers. Videos encoded at higher frames per second (FPS) are bound to crash on phone devices, so 24 FPS is recommended. 
+
+When using the `ScrollyVideo` component, minimise the video file size and ensure that the video is encoded in a format that is widely supported across browsers. Videos encoded at higher frames per second (FPS) are bound to crash on phone devices, so 24 FPS is recommended.
 
 > 💡**TIP:** Set the `showDebugInfo` prop to `true` to see video encoding information
 
@@ -37,7 +35,6 @@ npx ffmpeg -y -i <input_video_src>.mp4 -c:v libx264 -movflags faststart -crf 20 
 ```
 
 Adjust the `-crf` value to control the quality. Lower `-crf` value means higher quality, with 20 being a generally good balance. See [Testing Media Capabilities](https://cconcolato.github.io/media-mime-support/mediacapabilities.html) for more.
-
 
 ## Responsive videos
 
@@ -56,30 +53,21 @@ To show different videos based on the screen width, use the `ScrollyVideo` compo
 
 {#if width < 600}
   <!-- Video with aspect ratio 9:16 for window width smaller than 600px -->
-  <ScrollyVideo
-    src="my-video-sm.mp4"
-    height="500svh"
-  />
+  <ScrollyVideo src="my-video-sm.mp4" height="500svh" />
 {:else if width < 1200}
   <!-- Video with aspect ratio 1:1 for window width between 600px and 1200px -->
-  <ScrollyVideo
-    src= "my-video-md.mp4"
-    height="500svh"
-  />
+  <ScrollyVideo src="my-video-md.mp4" height="500svh" />
 {:else}
   <!-- Video with aspect ratio 16:9 for window width above 1200px -->
-  <ScrollyVideo
-    src="my-video-lg.mp4"
-    height="500svh"
-  />
+  <ScrollyVideo src="my-video-lg.mp4" height="500svh" />
 {/if}
 ```
 
 ## Embeds
 
-Scrollytelling does not work in iframes. If the prop `embedded` is set to `true`, the video will be rendered as a regular video instead. By default, the video element has the properties `loop`, `muted`, and `playsinline` and `controls`. To customise the video properties, use the `embeddedProps` prop to render the embed video.  
+Scrollytelling does not work in iframes. If the prop `embedded` is set to `true`, the video will be rendered as a regular video instead. By default, the video element has the properties `loop`, `muted`, and `playsinline` and `controls`. To customise the video properties, use the `embeddedProps` prop to render the embed video.
 
-To use a different video for the embedded version, pass its source to the `embeddedSrc` prop. If `embeddedSrc` is not provided, the component will use the `src` prop. 
+To use a different video for the embedded version, pass its source to the `embeddedSrc` prop. If `embeddedSrc` is not provided, the component will use the `src` prop.
 
 > 💡**TIP:** One way to recreate the ScrollyVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrollying through the video and use that video instead.
 
@@ -93,9 +81,9 @@ To use a different video for the embedded version, pass its source to the `embed
 <!-- Optionally pass `embeddedSrc` and `embeddedProps` -->
 <ScrollyVideo
   embedded={true}
-  src='my-video.mp4'
-  embeddedSrc='my-video-embedded.mp4'
-  embeddedProps={{ autoplay: true }} 
+  src="my-video.mp4"
+  embeddedSrc="my-video-embedded.mp4"
+  embeddedProps={{ autoplay: true }}
 />
 ```
 
@@ -110,10 +98,7 @@ The `autoplay` option combines the autoplay and scrollytelling experience. If se
   import { ScrollyVideo } from '@reuters-graphics/graphics-components';
 </script>
 
-<ScrollyVideo
-  src="my-video.mp4" 
-  autoplay={true}
-/>
+<ScrollyVideo src="my-video.mp4" autoplay={true} />
 ```
 
 ## Time-based text foregrounds with ArchieML
@@ -141,7 +126,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     position: bottom center # Position of the text. Optional; defaults to 'center center'. Must be a combination of `top/bottom/center center/left/right`
     backgroundColour: rgba(0, 0, 0, 0.8) # Optional; defaults to white
     text: #### The Alps
-    
+
     The Alps stretch across eight countries: France, Switzerland, Italy, Monaco, Liechtenstein, Austria, Germany, and Slovenia, covering about 1,200 kilometers (750 miles).
 
     :end
@@ -161,7 +146,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     position: bottom center
     backgroundColour: rgba(0, 0, 0, 0.8)
     text: #### History
-    
+
     The Alps were formed around **65 million years** ago when the African and Eurasian tectonic plates collided, pushing the land upward.Over 14 million people live in the Alpine region, with tourism supporting approximately 120 million visitors annually.
 
     :end
@@ -175,14 +160,19 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 <script lang="ts">
   import {
     ScrollyVideo,
-    ScrollyVideoForeground
+    ScrollyVideoForeground,
   } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
 </script>
+
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'scrolly-video'}
-    <ScrollyVideo id={block.id} src={`${assets}/${block.src}}`} height={block.height}>
+    <ScrollyVideo
+      id={block.id}
+      src={`${assets}/${block.src}}`}
+      height={block.height}
+    >
       <!-- Loop through foregrounds to add text blurbs that appear/disappear at specific times -->
       {#each block.foregrounds as foreground}
         <ScrollyVideoForeground
@@ -198,7 +188,6 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   {/if}
 {/each}
 ```
-
 
 ## Time-based component foregrounds with ArchieML
 
@@ -258,7 +247,6 @@ endTime: 0.3 # When to stop showing the headline
 ```
 
 ... which you'll parse out of a ArchieML block object before passing to the `ScrollyVideo` and `ScrollyVideoForeground` components.
-
 
 ```svelte
 <script lang="ts">
@@ -340,12 +328,11 @@ endTime: 0.3 # When to stop showing the headline
 {/each}
 ```
 
-
 ## Using with `ScrollerBase`
 
 The `ScrollyVideo` component can be used inside the [ScrollerBase](?path=/story/components-graphics-scrollerbase--docs) component to add foreground content. This allows for foreground that scrolls up and down over the video, instead of fading in and out at specific times.
 
-> **Note**: To use `ScrollyVideo` with `ScrollerBase`, set `trackScroll` to `false` and pass the bindable prop `progress` from `ScrollerBase` as `videoPercentage` to `ScrollyVideo`.  
+> **Note**: To use `ScrollyVideo` with `ScrollerBase`, set `trackScroll` to `false` and pass the bindable prop `progress` from `ScrollerBase` as `videoPercentage` to `ScrollyVideo`.
 
 [Demo](?path=/story/components-graphics-scrollyvideo--scroller-base)
 
@@ -357,22 +344,19 @@ The `ScrollyVideo` component can be used inside the [ScrollerBase](?path=/story/
   } from '@reuters-graphics/graphics-components';
 
   // Pass `progress` as `videoPercentage` to ScrollyVideo
-  let progress = $state(0); 
+  let progress = $state(0);
 </script>
 
-  <ScrollerBase
-    bind:progress
-    query="div.step-foreground-container"
-  >
-    {#snippet backgroundSnippet()}
+<ScrollerBase bind:progress query="div.step-foreground-container">
+  {#snippet backgroundSnippet()}
     <!-- Pass bindable prop `progress` as `videoPercentage` and set `trackScroll` to `false` -->
-      <ScrollyVideo
-        src='my-video.mp4'
-        videoPercentage={progress}
-        trackScroll={false}
-      />
-    {/snippet}
-    {#snippet foregroundSnippet()}
+    <ScrollyVideo
+      src="my-video.mp4"
+      videoPercentage={progress}
+      trackScroll={false}
+    />
+  {/snippet}
+  {#snippet foregroundSnippet()}
     <!-- Add custom foreground HTML or component -->
     <div class="step-foreground-container">
       <h3 class="text-center">Step 1</h3>
@@ -383,10 +367,10 @@ The `ScrollyVideo` component can be used inside the [ScrollerBase](?path=/story/
     <div class="step-foreground-container">
       <h3 class="text-center">Step 3</h3>
     </div>
-    {/snippet}
-  </ScrollerBase> 
+  {/snippet}
+</ScrollerBase>
 
-<style lang="scss"> 
+<style lang="scss">
   .step-foreground-container {
     height: 100vh;
     width: 50%;
