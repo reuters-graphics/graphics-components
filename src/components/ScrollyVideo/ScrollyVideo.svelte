@@ -115,14 +115,6 @@
     ...embeddedProps,
   };
 
-  console.log(
-    'embedded',
-    embedded,
-    'embeddedSrc:',
-    embeddedSrc,
-    'restProps:',
-    restProps.src
-  );
   $effect(() => {
     if (scrollyVideoContainer) {
       if (JSON.stringify(restProps) !== lastPropsString) {

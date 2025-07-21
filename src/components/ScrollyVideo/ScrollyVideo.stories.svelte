@@ -194,8 +194,8 @@
 </Story>
 
 <Story
-  name="Time-based ai2svelte foregrounds"
-  exportName="Ai2svelteForegrounds"
+  name="Time-based component foregrounds with ArchieML"
+  exportName="ComponentArchieMLForegrounds"
   {args}
 >
   <WithAi2svelteForegrounds />

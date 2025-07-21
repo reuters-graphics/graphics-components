@@ -116,9 +116,9 @@ The `autoplay` option combines the autoplay and scrollytelling experience. If se
 />
 ```
 
-## Time-based foregrounds with ArchieML
+## Time-based text foregrounds with ArchieML
 
-The `ScrollyVideo` component can also be used to display foregrounds, such as headlines, blurbs, or ai2svelte components, at specific times in the video. To do so, use the `ScrollyVideoForeground` component.
+The `ScrollyVideo` component can also be used to display text as foregrounds at specific times in the video. To do so, use the `ScrollyVideoForeground` component.
 
 [Demo](?path=/story/components-graphics-scrollyvideo--archie-ml-foregrounds)
 
@@ -217,15 +217,19 @@ endTime: 2 # When to stop showing the headline
 ```
 
 
-## Time based Foregrounds
+## Time-based component foregrounds with ArchieML
 
-The `ScrollyVideo` component can also be used to display different foregrounds based on the current time in the video. This is useful for creating interactive experiences where the content changes as the video progresses. To throw off some ideas, one could add `Headline`, `GraphicBlock`, `FeaturePhoto` or any other component to the foreground based on the current time in the video. This can be achieved by adding `Foreground` components, along with their **startTime** and **endTime**, as a child to the main `ScrollyVideo` component.
+The `ScrollyVideo` component can also be used to display components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the video. To do so, use the `ScrollyVideoForeground` component.
 
-[Demo](?path=/story/components-graphics-scrollyvideo--ai-2-svelte-foregrounds)
+[Demo](?path=/story/components-graphics-scrollyvideo--component-archie-ml-foregrounds)
+
+With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
 ```svelte
 <script lang="ts">
-  import { assets } from '$app/paths';
+  // Graphics kit only
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 
   import {
     Headline,
@@ -233,10 +237,20 @@ The `ScrollyVideo` component can also be used to display different foregrounds b
     ScrollyVideo,
     Foreground,
   } from '@reuters-graphics/graphics-components';
+
+  // Foreground ai2svelte components
   import Annotation1 from './ai2svelte/annotation1.svelte';
   import Annotation2 from './ai2svelte/annotation2.svelte';
   import Annotation3 from './ai2svelte/annotation3.svelte';
   import Annotation4 from './ai2svelte/annotation4.svelte';
+
+  // Foreground ai2svelte graphics components
+  const aiChartsForeground = {
+    Annotation1,
+    Annotation2,
+    Annotation3,
+    Annotation4,
+  };
 
   let width = $state(1);
 </script>

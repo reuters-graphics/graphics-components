@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
   import Block from '../Block/Block.svelte';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   // Types
+  import type { Component, Snippet } from 'svelte';
   import type { ScrollyVideoState } from './ts/state.svelte';
   import type {
     ContainerWidth,
@@ -21,7 +21,7 @@
     backgroundColour?: string;
     width?: ContainerWidth;
     position?: ScrollyVideoForegroundPosition | string;
-    text?: string | undefined;
+    foreground?: string | Component;
   }
 
   let {
@@ -33,7 +33,7 @@
     backgroundColour = '#000',
     width = 'normal',
     position = 'center center',
-    text,
+    foreground,
   }: ForegroundProps = $props();
 
   let componentState: ScrollyVideoState = getContext('scrollyVideoState');
@@ -51,18 +51,22 @@
           {@render children()}
         {/if}
       </div>
-      {#if typeof text === 'string' && text.trim() !== ''}
-        <Block
-          class="scrolly-video-foreground-text {position.split(' ')[1]}"
-          {width}
-        >
-          <div
-            style="background-color: {backgroundColour};"
-            class="foreground-text {position.split(' ')[0]}"
+      {#if foreground}
+        {#if typeof foreground === 'string'}
+          <Block
+            class="scrolly-video-foreground-text {position.split(' ')[1]}"
+            {width}
           >
-            <Markdown source={text} />
-          </div>
-        </Block>
+            <div
+              style="background-color: {backgroundColour};"
+              class="foreground-text {position.split(' ')[0]}"
+            >
+              <Markdown source={foreground} />
+            </div>
+          </Block>
+        {:else}
+          {foreground}
+        {/if}
       {/if}
     </div>
   {/if}

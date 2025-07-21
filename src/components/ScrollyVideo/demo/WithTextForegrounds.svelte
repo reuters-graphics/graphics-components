@@ -19,15 +19,15 @@
         height: '800svh',
         foregrounds: [
           {
-            startTime: '3',
-            endTime: '7',
+            startTime: '0',
+            endTime: '5',
             width: 'normal',
             position: 'bottom center',
             backgroundColour: 'rgba(0, 0, 0, 0.8)',
             text: '#### The Alps\n\nThe Alps stretch across eight countries: France, Switzerland, Italy, Monaco, Liechtenstein, Austria, Germany, and Slovenia, covering about 1,200 kilometers (750 miles).',
           },
           {
-            startTime: '9',
+            startTime: '7',
             endTime: '12',
             width: 'normal',
             position: 'bottom center',
@@ -35,7 +35,7 @@
             text: "Mont Blanc, standing at 4,809 meters (15,777 feet), is the highest peak in the Alps and Western Europe, though there's ongoing debate between France and Italy about exactly where the summit lies.",
           },
           {
-            startTime: '16',
+            startTime: '14',
             endTime: '20',
             width: 'normal',
             position: 'bottom center',
@@ -57,7 +57,7 @@
   useWebCodecs={true}
   showDebugInfo
 >
-  <ScrollyVideoForeground
+  <!-- <ScrollyVideoForeground
     startTime={parseFloat(content.startTime)}
     endTime={parseFloat(content.endTime)}
   >
@@ -68,7 +68,7 @@
       publishTime={new Date(content.publishTime).toISOString()}
       hedSize="bigger"
     />
-  </ScrollyVideoForeground>
+  </ScrollyVideoForeground> -->
 
   {#each scrollyVideoBlock.foregrounds as foreground}
     <ScrollyVideoForeground
@@ -76,8 +76,8 @@
       endTime={parseFloat(foreground.endTime)}
       width={foreground.width as ContainerWidth}
       position={foreground.position}
-      text={foreground.text}
       backgroundColour={foreground.backgroundColour}
+      foreground={foreground.text}
     />
   {/each}
 </ScrollyVideo>
