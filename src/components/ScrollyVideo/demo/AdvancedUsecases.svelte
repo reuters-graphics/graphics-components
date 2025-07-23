@@ -3,9 +3,10 @@
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import Tennis from '../videos/tennis.mp4';
   import { onDestroy } from 'svelte';
+  import type { ScrollyVideoInstance } from '../ts/ScrollyVideo';
 
   let progress = $state(0);
-  let scrollyVideo = $state();
+  let scrollyVideo: ScrollyVideoInstance | undefined = $state(undefined);
   let now;
   let then = 0;
   let time = 0;
@@ -13,15 +14,22 @@
   let loopCutoff = 0.35; // value between 0-1 to loop the video by
   let totalTime = 9 * 1000; // milliseconds
 
-  let animationId;
+  let animationId = $state(0);
 
   // clamps n value between low and high
-  function constrain(n, low, high) {
+  function constrain(n: number, low: number, high: number) {
     return Math.max(Math.min(n, high), low);
   }
 
   // maps n value between two ranges
-  function map(n, start1, stop1, start2, stop2, withinBounds = true) {
+  function map(
+    n: number,
+    start1: number,
+    stop1: number,
+    start2: number,
+    stop2: number,
+    withinBounds = true
+  ) {
     const newval =
       ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
     if (!withinBounds) {
@@ -42,17 +50,21 @@
 
       time += elapsed;
       currentProgress = map(time, 0, totalTime, 0, 1);
-      scrollyVideo.setVideoPercentage(currentProgress, { jump: true });
+      scrollyVideo?.setVideoPercentage(currentProgress, {
+        jump: true,
+      });
 
       if (currentProgress > loopCutoff) {
         currentProgress = 0;
         time = 0;
-        scrollyVideo.setVideoPercentage(0, { jump: true });
+        scrollyVideo?.setVideoPercentage(0, { jump: true });
       }
 
       then = now;
     } else {
-      scrollyVideo.setVideoPercentage(progress, { jump: true });
+      scrollyVideo?.setVideoPercentage(progress, {
+        jump: true,
+      });
     }
 
     animationId = requestAnimationFrame(renderVideo);
