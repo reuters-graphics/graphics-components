@@ -3,89 +3,44 @@
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import Tennis from '../videos/tennis.mp4';
   import { onDestroy } from 'svelte';
+
+  // Types
   import type { ScrollyVideoInstance } from '../ts/ScrollyVideo';
 
   let progress = $state(0);
   let scrollyVideo: ScrollyVideoInstance | undefined = $state(undefined);
-  let now;
-  let then = 0;
-  let time = 0;
-  let currentProgress = 0; // holds progress value for dynamic looping
-  let loopCutoff = 0.35; // value between 0-1 to loop the video by
-  let totalTime = 9 * 1000; // milliseconds
+  let animationFrame = $state(0);
+  let index = $state(0); // index for the current step in ScrollerBase
 
-  let animationId = $state(0);
-
-  // clamps n value between low and high
-  function constrain(n: number, low: number, high: number) {
-    return Math.max(Math.min(n, high), low);
-  }
-
-  // maps n value between two ranges
-  function map(
-    n: number,
-    start1: number,
-    stop1: number,
-    start2: number,
-    stop2: number,
-    withinBounds = true
-  ) {
-    const newval =
-      ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
-    if (!withinBounds) {
-      return newval;
-    }
-    if (start2 < stop2) {
-      return constrain(newval, start2, stop2);
-    } else {
-      return constrain(newval, stop2, start2);
-    }
-  }
-
-  // loops the video between 0 and loopCutoff
-  function renderVideo() {
-    if (progress < loopCutoff) {
-      now = Date.now();
-      const elapsed = now - then;
-
-      time += elapsed;
-      currentProgress = map(time, 0, totalTime, 0, 1);
-      scrollyVideo?.setVideoPercentage(currentProgress, {
-        jump: true,
+  function jumpVideo() {
+    // If ScrollerBase is on index 0, jump to the start of the video.
+    // Otherwise, jump to 100% (the end) of the video.
+    if (index === 0) {
+      scrollyVideo?.setVideoPercentage(0, {
+        jump: false, // Eases the jump
       });
-
-      if (currentProgress > loopCutoff) {
-        currentProgress = 0;
-        time = 0;
-        scrollyVideo?.setVideoPercentage(0, { jump: true });
-      }
-
-      then = now;
     } else {
-      scrollyVideo?.setVideoPercentage(progress, {
-        jump: true,
+      scrollyVideo?.setVideoPercentage(1, {
+        jump: false,
       });
     }
 
-    animationId = requestAnimationFrame(renderVideo);
+    animationFrame = requestAnimationFrame(jumpVideo);
   }
 
-  // initializes video autoplay
-  // when it's ready to play
-  function initAutoplay() {
-    then = Date.now();
-    renderVideo();
-  }
-
-  // cancel RAF on destroy
+  // cancel requestAnimationFrame on destroy
   onDestroy(() => {
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-    }
+    cancelAnimationFrame(animationFrame);
   });
 </script>
 
-<ScrollerBase bind:progress query="div.step-foreground-container" visible>
+<ScrollerBase
+  bind:progress
+  bind:index
+  query="div.step-foreground-container"
+  visible
+>
+  <!-- ScrollyVideo as background -->
   {#snippet backgroundSnippet()}
     <ScrollyVideo
       bind:scrollyVideo
@@ -93,23 +48,17 @@
       height="100svh"
       trackScroll={false}
       showDebugInfo
-      onReady={initAutoplay}
+      onReady={jumpVideo}
     />
-    <div id="progress-bar">
-      <p>ScrollerBase progress: {progress.toPrecision(2)}</p>
-      <progress class="mb-4" value={progress}></progress>
-    </div>
   {/snippet}
+
+  <!-- Simple text foregrounds -->
   {#snippet foregroundSnippet()}
-    <!-- Add custom foreground HTML or component -->
     <div class="step-foreground-container">
-      <h3 class="text-center">Step 1</h3>
+      <h3 class="text-center">Index {index}</h3>
     </div>
     <div class="step-foreground-container">
-      <h3 class="text-center">Step 2</h3>
-    </div>
-    <div class="step-foreground-container">
-      <h3 class="text-center">Step 3</h3>
+      <h3 class="text-center">Index {index}</h3>
     </div>
   {/snippet}
 </ScrollerBase>
@@ -162,8 +111,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
+      margin: 70% auto 0 auto;
+      height: 60px;
+      max-width: 400px;
       color: white;
+      background: steelblue;
     }
   }
 </style>
