@@ -130,7 +130,7 @@
     z-index: 3;
     margin: 0;
     width: 50vmin;
-    min-width: 30vmin;
+    min-width: 50vmin;
     padding: 8px;
     border-radius: 8px;
     overflow: auto;
@@ -178,7 +178,7 @@
     display: grid;
     width: 100%;
     padding: 8px 8px 16px 8px;
-    grid-template-columns: 10vmin 1fr;
+    grid-template-columns: 20vmin 1fr;
     align-items: center;
     gap: 0.75rem 0.25rem;
     background-color: #1e1e1e;

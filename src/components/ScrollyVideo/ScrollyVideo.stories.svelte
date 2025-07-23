@@ -8,9 +8,6 @@
   const { Story } = defineMeta({
     title: 'Components/Graphics/ScrollyVideo',
     component: ScrollyVideo,
-    parameters: {
-      docsTools: { remount: true },
-    },
     argTypes: {
       autoplay: {
         control: 'boolean',
