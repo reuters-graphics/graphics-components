@@ -5,16 +5,17 @@
   import { onDestroy } from 'svelte';
 
   // Types
-  import type { ScrollyVideoInstance } from '../ts/ScrollyVideo';
+  import type { ScrollyVideoInstance } from '../../@types/global.ts';
 
-  let progress = $state(0);
   let scrollyVideo: ScrollyVideoInstance | undefined = $state(undefined);
   let animationFrame = $state(0);
   let index = $state(0); // index for the current step in ScrollerBase
 
+  /**
+   *    If ScrollerBase is on index 0, jump to the start of the video.
+   *    Otherwise, jump to 1, or 100% (the end), of the video.
+   */
   function jumpVideo() {
-    // If ScrollerBase is on index 0, jump to the start of the video.
-    // Otherwise, jump to 100% (the end) of the video.
     if (index === 0) {
       scrollyVideo?.setVideoPercentage(0, {
         jump: false, // Eases the jump
@@ -34,14 +35,10 @@
   });
 </script>
 
-<ScrollerBase
-  bind:progress
-  bind:index
-  query="div.step-foreground-container"
-  visible
->
+<ScrollerBase bind:index query="div.step-foreground-container">
   <!-- ScrollyVideo as background -->
   {#snippet backgroundSnippet()}
+    <!-- Pass `jumpVideo` to `onReady` and set `trackScroll` to `false` -->
     <ScrollyVideo
       bind:scrollyVideo
       src={Tennis}

@@ -385,178 +385,77 @@ The `ScrollyVideo` component can be used inside the [ScrollerBase](?path=/story/
 
 ## Advanced usecases
 
-For advanced use cases such as looping a particular section of the video, or jumping to a specific time in the video, you can bind `scrollyVideo` prop and take benefits of methods such as `setVideoPercentage` or bindable methods such as `onReady` and `onChange`. This allows for fine-grained control over the video playback and interaction with the scroll position.
+Using the methods attached to the bindable prop `scrollyVideo` allows for advanced customisation of the scroll video behaviour. For example, you can create a looping video that plays a specific section of the video repeatedly, or jump to a specific time in the video when the user scrolls to a certain point.
+
+This code below would make the video smoothly jump to the halfway point of the video. Setting `jump` to `true` will make the video jump to the specified percentage abruptly:
 
 ```js
 scrollyVideo.setVideoPercentage(0.5, {
-  jump: true,
+  jump: false,
 });
 ```
 
-This will seek the video to 50% progress at a single instant. Setting `jump` to `false` will make smooth transition to the provided progress value.
+> **Note**: When using these methods, set `trackScroll` to `false` and pass functions to the `onReady` prop to ensure that the video is ready before calling any methods on it.
 
-[Demo](?path=/story/components-graphics-scrollyvideo--advanced)
+Here is a [demo](?path=/story/components-graphics-scrollyvideo--advanced) that uses `ScrollyVideo` with `ScrollerBase` to make the video jump to the start or the end of the video depending on what step of the scroller the user is on.
 
 ```svelte
 <script lang="ts">
   import {
     ScrollyVideo,
     ScrollerBase,
+    type ScrollyVideoInstance,
   } from '@reuters-graphics/graphics-components';
   import { onDestroy } from 'svelte';
 
-  let progress = $state(0);
-  let scrollyVideo = $state();
-  let now;
-  let then = 0;
-  let time = 0;
-  let currentProgress = 0; // holds progress value for dynamic looping
-  let loopCutoff = 0.33; // value between 0-1 to loop the video by
-  let totalTime = 9 * 1000; // milliseconds
+  let scrollyVideo: ScrollyVideoInstance | undefined = $state(undefined);
+  let animationFrame = $state(0);
+  let index = $state(0); // index for the current step in ScrollerBase
 
-  let animationId;
-
-  // clamps n value between low and high
-  function constrain(n, low, high) {
-    return Math.max(Math.min(n, high), low);
-  }
-
-  // maps n value between two ranges
-  function map(n, start1, stop1, start2, stop2, withinBounds = true) {
-    const newval =
-      ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
-    if (!withinBounds) {
-      return newval;
-    }
-    if (start2 < stop2) {
-      return constrain(newval, start2, stop2);
+  // If ScrollerBase is on index 0, jump to the start of the video.
+  // Otherwise, jump to 1, or 100% (the end), of the video.
+  function jumpVideo() {
+    if (index === 0) {
+      scrollyVideo?.setVideoPercentage(0, {
+        jump: false, // Eases the jump
+      });
     } else {
-      return constrain(newval, stop2, start2);
-    }
-  }
-
-  // loops the video between 0 and loopCutoff
-  function renderVideo() {
-    if (progress < loopCutoff) {
-      now = Date.now();
-      const elapsed = now - then;
-
-      // if (elapsed > fpsInterval) {
-      time += elapsed;
-      currentProgress = map(time, 0, totalTime, 0, 1);
-      scrollyVideo.setVideoPercentage(currentProgress, { jump: true });
-
-      if (currentProgress > loopCutoff) {
-        currentProgress = 0;
-        time = 0;
-        scrollyVideo.setVideoPercentage(0, { jump: true });
-      }
-
-      then = now;
-      // }
-    } else {
-      scrollyVideo.setVideoPercentage(progress, { jump: true });
+      scrollyVideo?.setVideoPercentage(1, {
+        jump: false,
+      });
     }
 
-    animationId = requestAnimationFrame(renderVideo);
+    animationFrame = requestAnimationFrame(jumpVideo);
   }
 
-  // initializes video autoplay
-  // when it's ready to play
-  function initAutoplay() {
-    then = Date.now();
-    renderVideo();
-  }
-
-  // cancel RAF on destroy
+  // Cancel requestAnimationFrame on destroy
   onDestroy(() => {
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-    }
+    cancelAnimationFrame(animationFrame);
   });
 </script>
 
-<ScrollerBase bind:progress query="div.step-foreground-container" visible>
+<ScrollerBase bind:index query="div.step-foreground-container">
+  <!-- ScrollyVideo as background -->
   {#snippet backgroundSnippet()}
+    <!-- Pass `jumpVideo` to `onReady` and set `trackScroll` to `false` -->
     <ScrollyVideo
       bind:scrollyVideo
-      src="my-video.mp4"
+      src={Tennis}
       height="100svh"
       trackScroll={false}
       showDebugInfo
-      onReady={initAutoplay}
+      onReady={jumpVideo}
     />
-    <!-- Only for debugging -->
-    <div id="progress-bar">
-      <p>ScrollerBase progress: {progress.toPrecision(2)}</p>
-      <progress class="mb-4" value={progress}></progress>
-    </div>
   {/snippet}
+
+  <!-- Simple text foregrounds -->
   {#snippet foregroundSnippet()}
-    <!-- Add custom foreground HTML or component -->
     <div class="step-foreground-container">
-      <h3 class="text-center">Step 1</h3>
+      <h3 class="text-center">Index {index}</h3>
     </div>
     <div class="step-foreground-container">
-      <h3 class="text-center">Step 2</h3>
-    </div>
-    <div class="step-foreground-container">
-      <h3 class="text-center">Step 3</h3>
+      <h3 class="text-center">Index {index}</h3>
     </div>
   {/snippet}
 </ScrollerBase>
-
-<style lang="scss">
-  @use '../../../scss/mixins' as mixins;
-
-  // svelte-scroller-background
-  #progress-bar {
-    background-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    z-index: 4;
-    right: 0;
-    padding: 1rem;
-    top: 0;
-
-    progress {
-      height: 6px;
-      background-color: #ff000044; /* Background color of the entire bar */
-      margin: 0;
-    }
-
-    progress::-webkit-progress-value {
-      background-color: white;
-      border-radius: 10px;
-    }
-
-    progress::-webkit-progress-bar {
-      background-color: #444444;
-      border-radius: 10px;
-    }
-
-    p {
-      font-family: var(--theme-font-family-sans-serif);
-      color: white;
-      font-size: var(--theme-font-size-xs);
-      padding: 0;
-      margin: 0;
-    }
-  }
-
-  .step-foreground-container {
-    height: 100vh;
-    width: 50%;
-    padding: 1em;
-    margin: auto;
-
-    h3 {
-      // align center
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: white;
-    }
-  }
-</style>
 ```

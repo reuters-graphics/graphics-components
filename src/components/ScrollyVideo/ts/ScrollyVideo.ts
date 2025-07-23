@@ -25,7 +25,7 @@ interface ScrollyVideoArgs {
   resize?: () => void;
 }
 
-interface TransitionOptions {
+export interface TransitionOptions {
   jump: boolean;
   transitionSpeed?: number;
   easing?: ((progress: number) => number) | null;
@@ -202,8 +202,8 @@ class ScrollyVideo {
     transitionSpeed = 8,
     frameThreshold = 0.1,
     useWebCodecs = true,
-    onReady = () => { },
-    onChange = (_percentage?: number) => { },
+    onReady = () => {},
+    onChange = (_percentage?: number) => {},
     debug = false,
     autoplay = false,
   }: ScrollyVideoArgs) {
@@ -741,7 +741,7 @@ class ScrollyVideo {
       const hasPassedThreshold =
         isForwardTransition ?
           this.currentTime >= this.targetTime
-          : this.currentTime <= this.targetTime;
+        : this.currentTime <= this.targetTime;
 
       if (this.componentState.isAutoPlaying) {
         this.componentState.autoplayProgress = parseFloat(
@@ -780,7 +780,7 @@ class ScrollyVideo {
         isForwardTransition ?
           startCurrentTime +
           easedProgress * Math.abs(distance) * transitionSpeed
-          : startCurrentTime -
+        : startCurrentTime -
           easedProgress * Math.abs(distance) * transitionSpeed;
 
       if (this.canvas) {
@@ -869,7 +869,7 @@ class ScrollyVideo {
     const targetDuration =
       this.frames?.length && this.frameRate ?
         this.frames.length / this.frameRate
-        : this.video?.duration || 0;
+      : this.video?.duration || 0;
     // The time we want to transition to
     this.targetTime = Math.max(Math.min(percentage, 1), 0) * targetDuration;
 
@@ -972,50 +972,3 @@ class ScrollyVideo {
   }
 }
 export default ScrollyVideo;
-
-// Complete ScrollyVideo instance interface
-export interface ScrollyVideoInstance {
-  // Properties
-  container: HTMLElement | null;
-  scrollyVideoContainer: Element | string | undefined;
-  src: string;
-  transitionSpeed: number;
-  frameThreshold: number;
-  useWebCodecs: boolean;
-  objectFit: string;
-  sticky: boolean;
-  trackScroll: boolean;
-  onReady: () => void;
-  onChange: (percentage?: number) => void;
-  debug: boolean;
-  autoplay: boolean;
-  video: HTMLVideoElement | undefined;
-  videoPercentage: number;
-  isSafari: boolean;
-  currentTime: number;
-  targetTime: number;
-  canvas: HTMLCanvasElement | null;
-  context: CanvasRenderingContext2D | null;
-  frames: ImageBitmap[] | null;
-  frameRate: number;
-  targetScrollPosition: number | null;
-  currentFrame: number;
-  usingWebCodecs: boolean;
-  totalTime: number;
-  transitioningRaf: number | null;
-  componentState: ScrollyVideoState;
-
-  // Methods
-  updateScrollPercentage: ((jump: boolean) => void) | undefined;
-  resize: (() => void) | undefined;
-  setVideoPercentage(percentage: number, options?: TransitionOptions): void;
-  setCoverStyle(el: HTMLElement | HTMLCanvasElement | undefined): void;
-  decodeVideo(): Promise<void>;
-  paintCanvasFrame(frameNum: number): void;
-  transitionToTargetTime(options: TransitionOptions): void;
-  setTargetTimePercent(percentage: number, options?: TransitionOptions): void;
-  setScrollPercent(percentage: number): void;
-  destroy(): void;
-  autoplayScroll(): void;
-  updateDebugInfo(): void;
-}

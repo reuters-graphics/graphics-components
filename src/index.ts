@@ -51,4 +51,8 @@ export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.sve
 export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
 
-export type { ContainerWidth, HeadlineSize } from './components/@types/global';
+export type {
+  ContainerWidth,
+  HeadlineSize,
+  ScrollyVideoInstance,
+} from './components/@types/global';
