@@ -5,6 +5,8 @@
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
   import { dev } from '$app/environment';
+  import { Tween } from 'svelte/motion';
+  import { linear } from 'svelte/easing';
 
   interface Props {
     /** CSS class for scroller container */
@@ -47,24 +49,16 @@
     autoplay?: boolean;
     /** Variable to control component rendering on embed page */
     embedded?: boolean;
-    /** Source for the embedded video. If not provided, defaults to `src` */
-    embeddedSrc?: string;
     /** Additional properties for embedded videos */
     embeddedProps?: {
-      /** Whether the video should autoplay */
-      autoplay?: boolean;
-      /** Whether the video should loop */
-      loop?: boolean;
-      /** Whether the video should be muted */
-      muted?: boolean;
-      /** Whether the video should play inline */
-      playsinline?: boolean;
-      /** Whether the video should have controls */
-      controls?: boolean;
-      /** Poster image for the embedded video */
-      poster?: string;
-      /** Preload setting for the embedded video: 'none' | 'metadata' | 'auto' */
-      preload?: 'none' | 'metadata' | 'auto';
+      /** When to start the playback in terms of the component's position */
+      threshold?: number;
+      /** Height of embedded component */
+      height?: string;
+      /** Duration of ScrollerVideo experience as a video */
+      duration?: number;
+      /** Delay before the playback */
+      delay?: number;
     };
     /** Children render function */
     children?: Snippet;
@@ -72,13 +66,10 @@
 
   /** Default properties for embedded videos */
   const defaultEmbedProps = {
-    autoplay: false,
-    loop: false,
-    muted: true,
-    playsinline: true,
-    controls: true,
-    poster: '',
-    preload: 'auto' as 'auto' | 'metadata' | 'none',
+    threshold: 0.5,
+    height: '80svh',
+    duration: 5000,
+    delay: 200,
   };
 
   /**
@@ -95,7 +86,6 @@
     class: cls = '',
     id = '',
     embedded = false,
-    embeddedSrc,
     embeddedProps,
     children,
     ...restProps
@@ -117,6 +107,29 @@
     ...embeddedProps,
   };
 
+  // Holds regular scroller video component
+  // and scrolls automatically for embedded version
+  let embeddedContainer = $state<HTMLDivElement | undefined>(undefined);
+  let embeddedContainerHeight = $state<number | undefined>(undefined);
+  let embeddedContainerScrollHeight: number = $derived.by(() => {
+    let scrollHeight = 1;
+    if (embeddedContainer && embeddedContainerHeight) {
+      scrollHeight = embeddedContainer.scrollHeight - embeddedContainerHeight;
+    }
+    return scrollHeight;
+  });
+  const embeddedContainerScrollY = new Tween(0, {
+    duration: allEmbedProps.duration,
+    delay: allEmbedProps.delay,
+    easing: (t) => t,
+  });
+
+  $effect(() => {
+    if (embeddedContainer) {
+      embeddedContainer.scrollTop = embeddedContainerScrollY.current;
+    }
+  });
+
   $effect(() => {
     if (scrollerVideoContainer) {
       if (JSON.stringify(restProps) !== lastPropsString) {
@@ -129,6 +142,39 @@
           onChange,
           ...restProps,
         });
+
+        // if embedded prop is set,
+        // play the video when it crosses the threshold
+        // and reset it to zero when it crosses the threshold in opposite direction
+        if (embedded) {
+          const updatedOnReady = () => {
+            // add user defined onReady
+            onReady();
+
+            window?.addEventListener('scroll', (e: Event) => {
+              if (
+                embeddedContainer &&
+                embeddedContainer.getBoundingClientRect().top <
+                  window.innerHeight * allEmbedProps.threshold
+              ) {
+                if (embeddedContainerScrollY.current == 0) {
+                  embeddedContainerScrollY.target =
+                    embeddedContainerScrollHeight;
+                }
+              } else if (
+                embeddedContainer &&
+                embeddedContainer.getBoundingClientRect().top >
+                  window.innerHeight * allEmbedProps.threshold
+              ) {
+                if (embeddedContainerScrollY.current > 0) {
+                  embeddedContainerScrollY.set(0, { duration: 0 });
+                }
+              }
+            });
+          };
+
+          scrollerVideo.onReady = updatedOnReady;
+        }
 
         // pass on component state to child components
         // this controls fade in and out of foregrounds
@@ -170,20 +216,53 @@
   });
 </script>
 
-{#if embedded && (embeddedSrc || restProps.src)}
-  <div class="scroller-video-container embedded">
-    <video
-      class="scroller-video-embedded"
-      src={embeddedSrc || restProps.src}
-      autoplay={allEmbedProps.autoplay}
-      loop={allEmbedProps.loop}
-      muted={allEmbedProps.muted}
-      playsinline={allEmbedProps.playsinline}
-      controls={allEmbedProps.controls}
-      poster={allEmbedProps.poster}
-      preload={embeddedProps?.preload || defaultEmbedProps.preload}
-      style="width: 100%;"
-    ></video>
+<!-- snippet to avoid redundancy between regular and embedded versions -->
+<!-- renders Debug component and children foregrounds -->
+{#snippet supportingElements()}
+  {#if scrollerVideo}
+    {#if showDebugInfo && dev}
+      <div class="debug-info">
+        <Debug componentState={scrollerVideo.componentState} />
+      </div>
+    {/if}
+
+    <!-- renders foregrounds -->
+    {#if children}
+      {@render children()}
+    {/if}
+  {/if}
+{/snippet}
+
+{#if embedded}
+  <div
+    class="embedded-scroller-video-container"
+    style="height: {allEmbedProps.height};"
+    bind:this={embeddedContainer}
+    bind:clientHeight={embeddedContainerHeight}
+    onscroll={() => {
+      if (scrollerVideo && embeddedContainer) {
+        let scrollProgress =
+          embeddedContainer.scrollTop / embeddedContainerScrollHeight;
+        scrollerVideo.setVideoPercentage(scrollProgress, {
+          jump: scrollProgress == 0,
+          easing: (t) => t,
+        });
+      }
+    }}
+  >
+    <div
+      {id}
+      class="scroller-video-container embedded {cls}"
+      style="height: 200svh;"
+    >
+      <div
+        bind:this={scrollerVideoContainer}
+        data-scroller-container
+        style="max-height: {allEmbedProps.height};"
+      >
+        {@render supportingElements()}
+      </div>
+    </div>
   </div>
 {:else}
   <div
@@ -192,18 +271,7 @@
     style="height: {heightChange}"
   >
     <div bind:this={scrollerVideoContainer} data-scroller-container>
-      {#if scrollerVideo}
-        {#if showDebugInfo && dev}
-          <div class="debug-info">
-            <Debug componentState={scrollerVideo.componentState} />
-          </div>
-        {/if}
-
-        <!-- renders foregrounds -->
-        {#if children}
-          {@render children()}
-        {/if}
-      {/if}
+      {@render supportingElements()}
     </div>
   </div>
 {/if}
@@ -215,5 +283,10 @@
     &:not(.embedded) {
       min-height: 100svh;
     }
+  }
+
+  .embedded-scroller-video-container {
+    max-height: 100svh;
+    overflow: hidden;
   }
 </style>

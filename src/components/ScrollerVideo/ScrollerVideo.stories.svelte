@@ -4,6 +4,7 @@
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
   import WithAi2svelteForegrounds from './demo/WithAi2svelteForegrounds.svelte';
   import WithTextForegrounds from './demo/WithTextForegrounds.svelte';
+  import Embedded from './demo/Embedded.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/ScrollerVideo',
@@ -167,11 +168,12 @@
 </Story>
 
 <Story name="Embed version" exportName="Embed">
-  <ScrollerVideo
+  <!-- <ScrollerVideo
     embedded={true}
     src={videoSrc.Goldengate}
     embeddedProps={{ autoplay: true }}
-  />
+  /> -->
+  <Embedded />
 </Story>
 
 <Story name="Autoplay" {args}>

@@ -65,11 +65,9 @@ To show different videos based on the screen width, use the `ScrollerVideo` comp
 
 ## Embeds
 
-Scrollytelling does not work in iframes. If the prop `embedded` is set to `true`, the video will be rendered as a regular video instead. By default, the video element has the properties `loop`, `muted`, and `playsinline` and `controls`. To customise the video properties, use the `embeddedProps` prop to render the embed video.
+Setting `embedded` will autoplay the whole `ScrollerVideo` component like a video.
 
-To use a different video for the embedded version, pass its source to the `embeddedSrc` prop. If `embeddedSrc` is not provided, the component will use the `src` prop.
-
-> 💡**TIP:** One way to recreate the ScrollerVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrollying through the video and use that video instead.
+> 💡**TIP:** Another way to recreate the ScrollerVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrollying through the video and use that video instead as an HTML video component.
 
 [Demo](?path=/story/components-graphics-scrollervideo--embed)
 
@@ -78,18 +76,24 @@ To use a different video for the embedded version, pass its source to the `embed
   import { ScrollerVideo } from '@reuters-graphics/graphics-components';
 </script>
 
-<!-- Optionally pass `embeddedSrc` and `embeddedProps` -->
 <ScrollerVideo
-  embedded={true}
-  src="my-video.mp4"
-  embeddedSrc="my-video-embedded.mp4"
-  embeddedProps={{ autoplay: true }}
+  src={Goldengate}
+  height="200svh"
+  trackScroll={false}
+  showDebugInfo
+  embedded
+  embeddedProps={{
+    delay: 200,
+    threshold: 0.5, // threshold forplayback
+    height: '80svh',  // height of the video
+    duration: 5000, // time duration from start to end
+  }}
 />
 ```
 
 ## Autoplay
 
-The `autoplay` option combines the autoplay and scrollytelling experience. If set to `true`, the video will start playing automatically when the component is mounted, but switch to scrollytelling when the user starts scrolling. The scroll height is calculated based on how much of the video remains, which means that if the user lets the video autoplay to near the end, the user would only have to scroll through a small height to get to the end. If the user lets the video autoplay to the end, there will be no scrolling effect.
+The `autoplay` option combines the autoplay and scrollytelling experience. If set to `true`, the video will start playing automatically when the component is mounted, but switch to scrollytelling when the user starts scrolling. The scroll height is calculated based on how much of the video rmains, which means that if the user lets the video autoplay to near the end, the user would only have to scroll through a small height to get to the end. If the user lets the video autoplay to the end, there will be no scrolling effect.
 
 [Demo](?path=/story/components-graphics-scrollervideo--autoplay)
 
