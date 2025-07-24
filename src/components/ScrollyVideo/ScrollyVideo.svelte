@@ -1,37 +1,11 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import ScrollyVideo from './js/ScrollyVideo.js';
+  import ScrollyVideo from './ts/ScrollyVideo.js';
   import Debug from './Debug.svelte';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
   import { dev } from '$app/environment';
 
-  /**
-   * Props for the ScrollyVideo Svelte component.
-   * @typedef {Object} Props
-   * @property {string} [class] - CSS class for scrolly container.
-   * @property {string} [id] - ID of the scrolly container.
-   * @property {ScrollyVideo} [scrollyVideo] - Bindable instance of ScrollyVideo.
-   * @property {string} [src] - Video source URL.
-   * @property {number} [videoPercentage] - Bindable percentage value to control video playback. Ranges from 0 to 1.
-   * @property {number} [transitionSpeed] - Sets the maximum playbackRate for this video.
-   * @property {number} [frameThreshold] - When to stop the video animation, in seconds.
-   * @property {string} [objectFit] - How the video should be resized to fit its container.
-   * @property {boolean} [sticky] - Whether the video should have position: sticky.
-   * @property {boolean} [full] - Whether the video should take up the entire viewport.
-   * @property {boolean} [trackScroll] - Whether this object should automatically respond to scroll. Set this to false while manually controlling `videoPercentage` prop.
-   * @property {boolean} [lockScroll] - Whether it ignores human scroll while it runs setVideoPercentage with enabled trackScroll.
-   * @property {boolean} [useWebCodecs] - Whether the library should use the webcodecs method. For more info, visit https://scrollyvideo.js.org/
-   * @property {() => void} [onReady] - The callback when it's ready to scroll.
-   * @property {() => void} [onChange] - The callback for video percentage change.
-   * @property {boolean} [debug] - Whether to log debug information. Internal library logs.
-   * @property {boolean} [showDebugInfo] - Shows debug information on page.
-   * @property {string} [height] - Height of the video container. Set it to 100svh when using inside `ScrollerBase`.
-   * @property {boolean} [autoplay] - Whether the video should autoplay.
-   * @property {boolean} [embedded] - Variable to control component rendering on embed page.
-   * @property {string} [embeddedSrc] - Source for the embedded video. If not provided, defaults to `src`.
-   * @property {Snippet} [children] - Children render function.
-   */
   interface Props {
     /** CSS class for scrolly container */
     class?: string;
@@ -75,9 +49,37 @@
     embedded?: boolean;
     /** Source for the embedded video. If not provided, defaults to `src` */
     embeddedSrc?: string;
+    /** Additional properties for embedded videos */
+    embeddedProps?: {
+      /** Whether the video should autoplay */
+      autoplay?: boolean;
+      /** Whether the video should loop */
+      loop?: boolean;
+      /** Whether the video should be muted */
+      muted?: boolean;
+      /** Whether the video should play inline */
+      playsinline?: boolean;
+      /** Whether the video should have controls */
+      controls?: boolean;
+      /** Poster image for the embedded video */
+      poster?: string;
+      /** Preload setting for the embedded video: 'none' | 'metadata' | 'auto' */
+      preload?: 'none' | 'metadata' | 'auto';
+    };
     /** Children render function */
     children?: Snippet;
   }
+
+  /** Default properties for embedded videos */
+  const defaultEmbedProps = {
+    autoplay: false,
+    loop: false,
+    muted: true,
+    playsinline: true,
+    controls: true,
+    poster: '',
+    preload: 'auto' as 'auto' | 'metadata' | 'none',
+  };
 
   /**
    * Main logic for ScrollyVideo Svelte component.
@@ -93,7 +95,8 @@
     class: cls = '',
     id = '',
     embedded = false,
-    embeddedSrc = '',
+    embeddedSrc,
+    embeddedProps,
     children,
     ...restProps
   }: Props = $props();
@@ -108,11 +111,18 @@
   // Store the props so we know when things change
   let lastPropsString = '';
 
+  // Concatenate default and passed embedded props
+  let allEmbedProps = {
+    ...defaultEmbedProps,
+    ...embeddedProps,
+  };
+
   $effect(() => {
     if (scrollyVideoContainer) {
       if (JSON.stringify(restProps) !== lastPropsString) {
         // if scrollyvideo already exists and any parameter is updated, destroy and recreate.
         if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
+
         scrollyVideo = new ScrollyVideo({
           scrollyVideoContainer,
           onReady,
@@ -131,7 +141,7 @@
       // If we need to update the target time percent
       if (
         scrollyVideo &&
-        typeof videoPercentage === 'number' &&
+        videoPercentage &&
         videoPercentage >= 0 &&
         videoPercentage <= 1
       ) {
@@ -161,14 +171,17 @@
 </script>
 
 {#if embedded && (embeddedSrc || restProps.src)}
-  <div class="scrolly-video-container" style="width: 100%;">
+  <div class="scrolly-video-container embedded">
     <video
       class="scrolly-video-embedded"
       src={embeddedSrc || restProps.src}
-      autoplay
-      loop
-      muted
-      playsinline
+      autoplay={allEmbedProps.autoplay}
+      loop={allEmbedProps.loop}
+      muted={allEmbedProps.muted}
+      playsinline={allEmbedProps.playsinline}
+      controls={allEmbedProps.controls}
+      poster={allEmbedProps.poster}
+      preload={embeddedProps?.preload || defaultEmbedProps.preload}
       style="width: 100%;"
     ></video>
   </div>
@@ -176,19 +189,13 @@
   <div
     {id}
     class="scrolly-video-container {cls}"
-    style="height: {heightChange}; width: 100%; min-height: 100svh;"
+    style="height: {heightChange}"
   >
     <div bind:this={scrollyVideoContainer} data-scrolly-container>
       {#if scrollyVideo}
         {#if showDebugInfo && dev}
           <div class="debug-info">
             <Debug componentState={scrollyVideo.componentState} />
-            <!-- <p class="text-xxs font-sans"> -->
-            <!-- {@html JSON.stringify(flattenObject(scrollyVideo.componentState))
-                .replace(/[{}"]/g, '')
-                .split(',')
-                .join('<br>')} -->
-            <!-- </p> -->
           </div>
         {/if}
 
@@ -202,4 +209,11 @@
 {/if}
 
 <style lang="scss">
+  .scrolly-video-container {
+    width: 100%;
+
+    &:not(.embedded) {
+      min-height: 100svh;
+    }
+  }
 </style>

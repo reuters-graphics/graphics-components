@@ -2,15 +2,12 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import ScrollyVideo from './ScrollyVideo.svelte';
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
-  import WithTimeline from './demo/WithTimeline.svelte';
-  import BasicTextBoxes from './demo/BasicTextBoxes.svelte';
+  import WithAi2svelteForegrounds from './demo/WithAi2svelteForegrounds.svelte';
+  import WithTextForegrounds from './demo/WithTextForegrounds.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/ScrollyVideo',
     component: ScrollyVideo,
-    parameters: {
-      docsTools: { remount: true },
-    },
     argTypes: {
       autoplay: {
         control: 'boolean',
@@ -125,10 +122,11 @@
 </script>
 
 <script>
-  import Video_SM from './videos/v_9_16.mp4';
-  import Video_MD from './videos/v_1_1.mp4';
-  import Video_LG from './videos/v_16_9.mp4';
+  import Video_SM from './videos/waves_sm.mp4';
+  import Video_MD from './videos/waves_md.mp4';
+  import Video_LG from './videos/waves_lg.mp4';
   import Goldengate from './videos/goldengate.mp4';
+  import AdvancedUsecases from './demo/AdvancedUsecases.svelte';
 
   const videoSrc = {
     Video_SM,
@@ -137,7 +135,7 @@
     Goldengate,
   };
 
-  const args = $state({
+  const args = {
     trackScroll: true,
     height: '500svh',
     showDebugInfo: true,
@@ -149,60 +147,62 @@
     frameThreshold: 0.1,
     useWebCodecs: true,
     lockScroll: true,
-  });
+  };
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
-<Story name="Basic" {args}></Story>
+<Story name="Demo">
+  <ScrollyVideo {...args} src={videoSrc.Goldengate} />
+</Story>
 
-<Story name="Multiple Videos" {args}>
-  {#snippet children(args)}
-    {#key args}
-      {#if width < 600}
-        <ScrollyVideo {...args} src={videoSrc.Video_SM} />
-      {:else if width < 1200}
-        <ScrollyVideo {...args} src={videoSrc.Video_MD} />
-      {:else}
-        <ScrollyVideo {...args} src={videoSrc.Video_LG} />
-      {/if}
-    {/key}
-  {/snippet}
+<Story name="Responsive videos" exportName="ResponsiveVideos">
+  {#if width < 600}
+    <ScrollyVideo {...args} src={videoSrc.Video_SM} />
+  {:else if width < 1200}
+    <ScrollyVideo {...args} src={videoSrc.Video_MD} />
+  {:else}
+    <ScrollyVideo {...args} src={videoSrc.Video_LG} />
+  {/if}
+</Story>
+
+<Story name="Embed version" exportName="Embed">
+  <ScrollyVideo
+    embedded={true}
+    src={videoSrc.Goldengate}
+    embeddedProps={{ autoplay: true }}
+  />
 </Story>
 
 <Story name="Autoplay" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <ScrollyVideo
-        {...args}
-        src={videoSrc.Goldengate}
-        useWebCodecs={false}
-        autoplay={true}
-      ></ScrollyVideo>
-    {/key}
-  {/snippet}
+  <ScrollyVideo
+    {...args}
+    src={videoSrc.Goldengate}
+    useWebCodecs={false}
+    autoplay={true}
+  ></ScrollyVideo>
 </Story>
 
-<Story name="Inside ScrollerBase" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <WithScrollerBase />
-    {/key}
-  {/snippet}
+<Story
+  name="Time-based foregrounds with ArchieML"
+  exportName="ArchieMLForegrounds"
+  {args}
+>
+  <WithTextForegrounds />
 </Story>
 
-<Story name="Time based foregrounds" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <WithTimeline />
-    {/key}
-  {/snippet}
+<Story
+  name="Time-based component foregrounds with ArchieML"
+  exportName="ComponentArchieMLForegrounds"
+  {args}
+>
+  <WithAi2svelteForegrounds />
 </Story>
 
-<Story name="Basic text foreground" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <BasicTextBoxes />
-    {/key}
-  {/snippet}
+<Story name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
+  <WithScrollerBase />
+</Story>
+
+<Story name="Advanced usecases" exportName="Advanced" {args}>
+  <AdvancedUsecases />
 </Story>

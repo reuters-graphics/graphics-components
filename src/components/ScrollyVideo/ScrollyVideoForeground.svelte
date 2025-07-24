@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
   import Block from '../Block/Block.svelte';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   // Types
-  import type { ScrollyVideoState } from './js/state.svelte';
+  import type { Component, Snippet } from 'svelte';
+  import type { ScrollyVideoState } from './ts/state.svelte';
   import type {
     ContainerWidth,
     ScrollyVideoForegroundPosition,
@@ -18,10 +18,11 @@
     startTime?: number;
     endTime?: number;
     children?: Snippet;
-    backgroundColor?: string;
+    backgroundColour?: string;
     width?: ContainerWidth;
     position?: ScrollyVideoForegroundPosition | string;
-    text?: string | undefined;
+    text?: string;
+    Foreground?: Component;
   }
 
   let {
@@ -30,10 +31,11 @@
     startTime = 0,
     endTime = 1,
     children,
-    backgroundColor = '#000',
+    backgroundColour = '#000',
     width = 'normal',
     position = 'center center',
     text,
+    Foreground,
   }: ForegroundProps = $props();
 
   let componentState: ScrollyVideoState = getContext('scrollyVideoState');
@@ -46,23 +48,31 @@
       in:fade={{ delay: 100, duration: 200 }}
       out:fade={{ delay: 0, duration: 100 }}
     >
-      <div class="scrolly-video-foreground-item">
-        {#if children}
-          {@render children()}
-        {/if}
-      </div>
-      {#if typeof text === 'string' && text.trim() !== ''}
+      <!-- Text blurb foreground -->
+      {#if text}
         <Block
           class="scrolly-video-foreground-text {position.split(' ')[1]}"
           {width}
         >
           <div
-            style="background-color: {backgroundColor};"
+            style="background-color: {backgroundColour};"
             class="foreground-text {position.split(' ')[0]}"
           >
             <Markdown source={text} />
           </div>
         </Block>
+        <!-- Render children snippet -->
+      {:else if children}
+        <div class="scrolly-video-foreground-item">
+          {@render children()}
+        </div>
+        <!-- Render Foreground component -->
+      {:else if Foreground}
+        <div class="scrolly-video-foreground-item">
+          <Block width="fluid">
+            <Foreground />
+          </Block>
+        </div>
       {/if}
     </div>
   {/if}

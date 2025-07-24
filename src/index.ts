@@ -43,6 +43,7 @@ export { default as SiteHeadline } from './components/SiteHeadline/SiteHeadline.
 export { default as Spinner } from './components/Spinner/Spinner.svelte';
 export { default as ScrollerBase } from './components/ScrollerBase/ScrollerBase.svelte';
 export { default as ScrollyVideo } from './components/ScrollyVideo/ScrollyVideo.svelte';
+export { default as ScrollyVideoForeground } from './components/ScrollyVideo/ScrollyVideoForeground.svelte';
 export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svelte';
 export { default as Table } from './components/Table/Table.svelte';
 export { default as Theme, themes } from './components/Theme/Theme.svelte';
@@ -50,4 +51,8 @@ export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.sve
 export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
 
-export type { ContainerWidth, HeadlineSize } from './components/@types/global';
+export type {
+  ContainerWidth,
+  HeadlineSize,
+  ScrollyVideoInstance,
+} from './components/@types/global';

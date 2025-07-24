@@ -18,9 +18,14 @@ interface ScrollyVideoArgs {
   onChange?: (percentage?: number) => void;
   debug?: boolean;
   autoplay?: boolean;
+  setVideoPercentage?: (
+    percentage: number,
+    options?: TransitionOptions
+  ) => void;
+  resize?: () => void;
 }
 
-interface TransitionOptions {
+export interface TransitionOptions {
   jump: boolean;
   transitionSpeed?: number;
   easing?: ((progress: number) => number) | null;
@@ -464,7 +469,7 @@ class ScrollyVideo {
   setVideoPercentage(
     percentage: number,
     options: TransitionOptions = { jump: false, transitionSpeed: 8 }
-  ): void {
+  ) {
     // Early termination if the video percentage is already at the percentage that is intended.
     if (this.videoPercentage === percentage) return;
 
