@@ -1,5 +1,5 @@
 /**
- * General video data for ScrollyVideo state.
+ * General video data for ScrollerVideo state.
  * @typedef {Object} GeneralData
  * @property {string} src - Video source URL.
  * @property {number} videoPercentage - Current video percentage (0-1).
@@ -16,7 +16,7 @@ type GeneralData = {
 };
 
 /**
- * Frame-level data for ScrollyVideo state.
+ * Frame-level data for ScrollerVideo state.
  * @typedef {Object} FramesData
  * @property {string} codec - Video codec string.
  * @property {number} currentFrame - Current frame index.
@@ -29,15 +29,15 @@ type FramesData = {
 };
 
 /**
- * State object for ScrollyVideo component.
- * @typedef {Object} ScrollyVideoState
+ * State object for ScrollerVideo component.
+ * @typedef {Object} ScrollerVideoState
  * @property {GeneralData} generalData - General video data.
  * @property {boolean} usingWebCodecs - Whether WebCodecs is used.
  * @property {FramesData} framesData - Frame-level data.
  * @property {boolean} isAutoPlaying - Whether video is autoplaying.
  * @property {number} autoplayProgress - Progress of autoplay (0-1).
  */
-export type ScrollyVideoState = {
+export type ScrollerVideoState = {
   generalData: GeneralData;
   usingWebCodecs: boolean;
   framesData: FramesData;
@@ -47,11 +47,11 @@ export type ScrollyVideoState = {
 };
 
 /**
- * Creates a new ScrollyVideoState object with default values.
- * @returns {ScrollyVideoState} The initialized state object.
+ * Creates a new ScrollerVideoState object with default values.
+ * @returns {ScrollerVideoState} The initialized state object.
  */
-export function createComponentState(): ScrollyVideoState {
-  const scrollyVideoState = $state<ScrollyVideoState>({
+export function createComponentState(): ScrollerVideoState {
+  const scrollerVideoState = $state<ScrollerVideoState>({
     generalData: {
       src: '',
       videoPercentage: 0,
@@ -70,5 +70,5 @@ export function createComponentState(): ScrollyVideoState {
     autoplayProgress: 0,
   });
 
-  return scrollyVideoState;
+  return scrollerVideoState;
 }
