@@ -1,6 +1,6 @@
 import type { Component } from 'svelte';
-import type { TransitionOptions } from '../../components/ScrollyVideo/ts/ScrollyVideo.ts';
-import type { ScrollyVideoState } from '../../components/ScrollyVideo/ts/state.svelte.ts';
+import type { TransitionOptions } from '../ScrollerVideo/ts/ScrollerVideo.js';
+import type { ScrollerVideoState } from '../ScrollerVideo/ts/state.svelte.js';
 /**
  * Used for the list of <option> tags nested in a <select> input.
  */
@@ -58,7 +58,7 @@ export type ForegroundPosition =
   | 'left opposite'
   | 'right opposite';
 
-export type ScrollyVideoForegroundPosition =
+export type ScrollerVideoForegroundPosition =
   | 'top center'
   | 'top left'
   | 'top right'
@@ -69,11 +69,11 @@ export type ScrollyVideoForegroundPosition =
   | 'center left'
   | 'center right';
 
-// Complete ScrollyVideo instance interface
-export interface ScrollyVideoInstance {
+// Complete ScrollerVideo instance interface
+export interface ScrollerVideoInstance {
   // Properties
   container: HTMLElement | null;
-  scrollyVideoContainer: Element | string | undefined;
+  scrollerVideoContainer: Element | string | undefined;
   src: string;
   transitionSpeed: number;
   frameThreshold: number;
@@ -99,7 +99,7 @@ export interface ScrollyVideoInstance {
   usingWebCodecs: boolean;
   totalTime: number;
   transitioningRaf: number | null;
-  componentState: ScrollyVideoState;
+  componentState: ScrollerVideoState;
 
   // Methods
   updateScrollPercentage: ((jump: boolean) => void) | undefined;

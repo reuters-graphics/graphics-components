@@ -1,18 +1,18 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import ScrollyVideo from './ts/ScrollyVideo.js';
+  import ScrollerVideo from './ts/ScrollerVideo.js';
   import Debug from './Debug.svelte';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
   import { dev } from '$app/environment';
 
   interface Props {
-    /** CSS class for scrolly container */
+    /** CSS class for scroller container */
     class?: string;
-    /** ID of the scrolly container */
+    /** ID of the scroller container */
     id?: string;
-    /** Bindable instance of ScrollyVideo */
-    scrollyVideo?: ScrollyVideo;
+    /** Bindable instance of ScrollerVideo */
+    scrollerVideo?: ScrollerVideo;
     /** Video source URL */
     src?: string;
     /** Bindable percentage value to control video playback. **Ranges from 0 to 1** */
@@ -82,11 +82,11 @@
   };
 
   /**
-   * Main logic for ScrollyVideo Svelte component.
+   * Main logic for ScrollerVideo Svelte component.
    * Handles instantiation, prop changes, and cleanup.
    */
   let {
-    scrollyVideo = $bindable(),
+    scrollerVideo = $bindable(),
     videoPercentage,
     onReady = $bindable(() => {}),
     onChange = $bindable(() => {}),
@@ -103,10 +103,10 @@
 
   // variable to hold the DOM element
   /**
-   * Reference to the scrolly video container DOM element.
+   * Reference to the scroller video container DOM element.
    * @type {HTMLDivElement | undefined}
    */
-  let scrollyVideoContainer = $state<HTMLDivElement | undefined>(undefined);
+  let scrollerVideoContainer = $state<HTMLDivElement | undefined>(undefined);
 
   // Store the props so we know when things change
   let lastPropsString = '';
@@ -118,13 +118,13 @@
   };
 
   $effect(() => {
-    if (scrollyVideoContainer) {
+    if (scrollerVideoContainer) {
       if (JSON.stringify(restProps) !== lastPropsString) {
-        // if scrollyvideo already exists and any parameter is updated, destroy and recreate.
-        if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
+        // if scrollervideo already exists and any parameter is updated, destroy and recreate.
+        if (scrollerVideo && scrollerVideo.destroy) scrollerVideo.destroy();
 
-        scrollyVideo = new ScrollyVideo({
-          scrollyVideoContainer,
+        scrollerVideo = new ScrollerVideo({
+          scrollerVideoContainer,
           onReady,
           onChange,
           ...restProps,
@@ -132,7 +132,7 @@
 
         // pass on component state to child components
         // this controls fade in and out of foregrounds
-        setContext('scrollyVideoState', scrollyVideo.componentState);
+        setContext('scrollerVideoState', scrollerVideo.componentState);
 
         // Save the new props
         lastPropsString = JSON.stringify(restProps);
@@ -140,12 +140,12 @@
 
       // If we need to update the target time percent
       if (
-        scrollyVideo &&
+        scrollerVideo &&
         videoPercentage &&
         videoPercentage >= 0 &&
         videoPercentage <= 1
       ) {
-        scrollyVideo.setVideoPercentage(videoPercentage);
+        scrollerVideo.setVideoPercentage(videoPercentage);
       }
     }
   });
@@ -154,7 +154,7 @@
    * Cleanup the component on destroy.
    */
   onDestroy(() => {
-    if (scrollyVideo && scrollyVideo.destroy) scrollyVideo.destroy();
+    if (scrollerVideo && scrollerVideo.destroy) scrollerVideo.destroy();
   });
 
   /**
@@ -162,8 +162,8 @@
    * @type {string}
    */
   let heightChange = $derived.by(() => {
-    if (scrollyVideo) {
-      return `calc(${height} * ${1 - scrollyVideo?.componentState.autoplayProgress})`;
+    if (scrollerVideo) {
+      return `calc(${height} * ${1 - scrollerVideo?.componentState.autoplayProgress})`;
     } else {
       return height;
     }
@@ -171,9 +171,9 @@
 </script>
 
 {#if embedded && (embeddedSrc || restProps.src)}
-  <div class="scrolly-video-container embedded">
+  <div class="scroller-video-container embedded">
     <video
-      class="scrolly-video-embedded"
+      class="scroller-video-embedded"
       src={embeddedSrc || restProps.src}
       autoplay={allEmbedProps.autoplay}
       loop={allEmbedProps.loop}
@@ -188,14 +188,14 @@
 {:else}
   <div
     {id}
-    class="scrolly-video-container {cls}"
+    class="scroller-video-container {cls}"
     style="height: {heightChange}"
   >
-    <div bind:this={scrollyVideoContainer} data-scrolly-container>
-      {#if scrollyVideo}
+    <div bind:this={scrollerVideoContainer} data-scroller-container>
+      {#if scrollerVideo}
         {#if showDebugInfo && dev}
           <div class="debug-info">
-            <Debug componentState={scrollyVideo.componentState} />
+            <Debug componentState={scrollerVideo.componentState} />
           </div>
         {/if}
 
@@ -209,7 +209,7 @@
 {/if}
 
 <style lang="scss">
-  .scrolly-video-container {
+  .scroller-video-container {
     width: 100%;
 
     &:not(.embedded) {

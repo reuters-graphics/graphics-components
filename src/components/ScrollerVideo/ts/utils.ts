@@ -1,8 +1,8 @@
-import type { ScrollyVideoState } from './state.svelte';
+import type { ScrollerVideoState } from './state.svelte';
 
 /**
- * Flattened version of ScrollyVideoState for easier access to all properties.
- * @typedef {Object} FlattenedScrollyVideoState
+ * Flattened version of ScrollerVideoState for easier access to all properties.
+ * @typedef {Object} FlattenedScrollerVideoState
  * @property {string} src - Video source URL.
  * @property {number} videoPercentage - Current video percentage (0-1).
  * @property {number} frameRate - Video frame rate.
@@ -15,7 +15,7 @@ import type { ScrollyVideoState } from './state.svelte';
  * @property {boolean} isAutoPlaying - Whether video is autoplaying.
  * @property {number} autoplayProgress - Progress of autoplay (0-1).
  */
-type FlattenedScrollyVideoState = {
+type FlattenedScrollerVideoState = {
   src: string;
   videoPercentage: number;
   frameRate: number;
@@ -107,13 +107,13 @@ export function map(
 }
 
 /**
- * Flattens a ScrollyVideoState object into a single-level object for easier access.
- * @param {ScrollyVideoState} obj - The state object to flatten.
- * @returns {FlattenedScrollyVideoState} The flattened state object.
+ * Flattens a ScrollerVideoState object into a single-level object for easier access.
+ * @param {ScrollerVideoState} obj - The state object to flatten.
+ * @returns {FlattenedScrollerVideoState} The flattened state object.
  */
 export function flattenObject(
-  obj: ScrollyVideoState
-): FlattenedScrollyVideoState {
+  obj: ScrollerVideoState
+): FlattenedScrollerVideoState {
   const result: { [key: string]: unknown } = {};
 
   function flatten(current: string | unknown[] | object, property: string) {
@@ -142,5 +142,5 @@ export function flattenObject(
   }
 
   flatten(obj, '');
-  return result as FlattenedScrollyVideoState;
+  return result as FlattenedScrollerVideoState;
 }
