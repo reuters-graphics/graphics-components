@@ -424,14 +424,7 @@ Here is a [demo](?path=/story/components-graphics-scrollyvideo--advanced) that u
         jump: false,
       });
     }
-
-    animationFrame = requestAnimationFrame(jumpVideo);
   }
-
-  // Cancel requestAnimationFrame on destroy
-  onDestroy(() => {
-    cancelAnimationFrame(animationFrame);
-  });
 </script>
 
 <ScrollerBase bind:index query="div.step-foreground-container">
