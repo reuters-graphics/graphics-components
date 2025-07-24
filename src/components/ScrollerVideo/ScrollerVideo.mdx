@@ -390,12 +390,17 @@ Using the methods attached to the bindable prop `scrollerVideo` allows for advan
 This code below would make the video smoothly jump to the halfway point of the video. Setting `jump` to `true` will make the video jump to the specified percentage abruptly:
 
 ```js
-scrollerVideo.setVideoPercentage(0.5, {
-  jump: false,
-});
+scrollerVideo.setVideoPercentage(
+  0.5, // progress set to 50%
+  {
+    transitionSpeed: 12, // playback rate for the video
+    jump: false, // flag to change transition video abruptly
+    easing: (t) => t, // linear easing. Can also pass d3 easing functions - d3.easeLinear
+  }
+);
 ```
 
-> **Note**: When using these methods, set `trackScroll` to `false` and pass functions to the `onReady` prop to ensure that the video is ready before calling any methods on it.
+> **Note**: When using these methods, it's recommended to set `trackScroll` to `false` to avoid video playback on scroll and pass functions to the `onReady` prop to ensure that the video is ready before calling any methods on it.
 
 Here is a [demo](?path=/story/components-graphics-scrollervideo--advanced) that uses `ScrollerVideo` with `ScrollerBase` to make the video jump to the start or the end of the video depending on what step of the scroller the user is on.
 
