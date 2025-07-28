@@ -2,6 +2,8 @@
   import ScrollerVideo from '../ScrollerVideo.svelte';
   import ScrollerVideoForeground from '../ScrollerVideoForeground.svelte';
   import Goldengate from '../videos/goldengate.mp4';
+  import BodyText from '../../BodyText/BodyText.svelte';
+
   import type { ContainerWidth } from '../../@types/global';
 
   const content = {
@@ -41,17 +43,22 @@
     ],
   };
 
+  const dummyText =
+    'Reprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock tempor meatball alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.';
   const scrollerVideoBlock = content.blocks[0];
 </script>
 
-<div class="dummy"></div>
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
 
 <ScrollerVideo
   src={Goldengate}
   height="200svh"
   trackScroll={false}
   showDebugInfo
-  embedded
+  embedded={true}
   embeddedProps={{
     threshold: 0.5,
     height: '80svh',
@@ -70,16 +77,4 @@
     />
   {/each}
 </ScrollerVideo>
-
-<div class="dummy"></div>
-
-<style lang="scss">
-  @use '../../../scss/mixins' as mixins;
-
-  .dummy {
-    width: 100%;
-    height: 80svh;
-    background-color: gainsboro;
-    margin: 10svh 0;
-  }
-</style>
+<BodyText text={dummyText} />
