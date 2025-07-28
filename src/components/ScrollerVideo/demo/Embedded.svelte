@@ -58,7 +58,7 @@
   height="200svh"
   trackScroll={false}
   showDebugInfo
-  embedded
+  embedded={true}
   embeddedProps={{
     threshold: 0.5,
     height: '80svh',
