@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.11
+
+### Patch Changes
+
+- 31caab2: Fix typos in Scroller
+
 ## 3.0.10
 
 ### Patch Changes
