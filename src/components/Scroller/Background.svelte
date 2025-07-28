@@ -25,7 +25,7 @@
 {#each steps as step, i}
   {#if showStep(i)}
     <div
-      class={`step step-${i + 1} w-full absolute`}
+      class={`step-background step-${i + 1} w-full absolute`}
       class:visible={isVisible(i)}
       class:invisible={!isVisible(i)}
     >
