@@ -79,13 +79,13 @@ Setting `embedded` will autoplay the whole `ScrollerVideo` component like a vide
 <ScrollerVideo
   src={Goldengate}
   height="200svh"
-  trackScroll={false}
+  trackScroll={true}
   showDebugInfo
-  embedded
+  {embedded}
   embeddedProps={{
     delay: 200,
     threshold: 0.5, // threshold for triggering the autoplay
-    height: '80svh',  // height of the scroll container
+    height: '80svh', // height of the scroll container
     duration: 5000, // time duration from start to end
   }}
 />
