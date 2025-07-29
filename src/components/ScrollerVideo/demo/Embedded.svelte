@@ -50,8 +50,6 @@
 
 <BodyText text={dummyText} />
 <BodyText text={dummyText} />
-<BodyText text={dummyText} />
-<BodyText text={dummyText} />
 
 <ScrollerVideo
   src={Goldengate}
@@ -77,4 +75,3 @@
     />
   {/each}
 </ScrollerVideo>
-<BodyText text={dummyText} />

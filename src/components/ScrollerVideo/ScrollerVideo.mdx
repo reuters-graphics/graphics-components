@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/blocks';
 
 import * as ScrollerVideoStories from './ScrollerVideo.stories.svelte';
 
@@ -71,6 +71,7 @@ Setting `embedded` will autoplay the whole `ScrollerVideo` component like a vide
 
 [Demo](?path=/story/components-graphics-scrollervideo--embed)
 
+
 ```svelte
 <script lang="ts">
   import { ScrollerVideo } from '@reuters-graphics/graphics-components';
@@ -90,6 +91,7 @@ Setting `embedded` will autoplay the whole `ScrollerVideo` component like a vide
   }}
 />
 ```
+<Canvas of={ScrollerVideoStories.Embed} />
 
 ## Autoplay
 
