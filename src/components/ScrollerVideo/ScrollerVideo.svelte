@@ -296,7 +296,7 @@
   }
 
   .embedded-scroller-video-container {
-    max-height: 100svh;
+    max-height: 100lvh;
     overflow: hidden;
   }
 </style>
