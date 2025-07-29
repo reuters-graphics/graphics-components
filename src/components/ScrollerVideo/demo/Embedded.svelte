@@ -56,7 +56,7 @@
 <ScrollerVideo
   src={Goldengate}
   height="200svh"
-  trackScroll={false}
+  trackScroll={true}
   showDebugInfo
   embedded={true}
   embeddedProps={{

@@ -6,7 +6,6 @@
   import { setContext } from 'svelte';
   import { dev } from '$app/environment';
   import { Tween } from 'svelte/motion';
-  import { linear } from 'svelte/easing';
 
   interface Props {
     /** CSS class for scroller container */
@@ -141,6 +140,7 @@
           onReady,
           onChange,
           ...restProps,
+          trackScroll: embedded ? false : restProps.trackScroll, // trackScroll disabled for embedded version
         });
 
         // if embedded prop is set,
