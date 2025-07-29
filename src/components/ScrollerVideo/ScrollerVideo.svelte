@@ -67,7 +67,6 @@
   const defaultEmbedProps = {
     threshold: 0.5,
     height: '80svh',
-    duration: 5000,
     delay: 200,
   };
 
@@ -117,10 +116,11 @@
     }
     return scrollHeight;
   });
+
   const embeddedContainerScrollY = new Tween(0, {
-    duration: allEmbedProps.duration,
+    duration: 1000,
     delay: allEmbedProps.delay,
-    easing: (t) => t,
+    easing: (t) => +t,
   });
 
   $effect(() => {
@@ -158,9 +158,18 @@
                 embeddedContainer.getBoundingClientRect().top <
                   window.innerHeight * allEmbedProps.threshold
               ) {
-                if (embeddedContainerScrollY.current == 0) {
-                  embeddedContainerScrollY.target =
-                    embeddedContainerScrollHeight;
+                if (
+                  embeddedContainerScrollY.current == 0 &&
+                  embeddedContainerHeight &&
+                  scrollerVideo?.componentState
+                ) {
+                  const scrollDuration =
+                    allEmbedProps.duration ||
+                    scrollerVideo.componentState.generalData.totalTime * 1000;
+                  embeddedContainerScrollY.set(embeddedContainerScrollHeight, {
+                    duration: scrollDuration,
+                    delay: allEmbedProps.delay,
+                  });
                 }
               } else if (
                 embeddedContainer &&
