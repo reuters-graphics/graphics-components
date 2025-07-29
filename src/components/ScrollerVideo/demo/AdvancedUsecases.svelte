@@ -1,13 +1,13 @@
 <script lang="ts">
-  import ScrollyVideo from '../ScrollyVideo.svelte';
+  import ScrollerVideo from '../ScrollerVideo.svelte';
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import Tennis from '../videos/tennis.mp4';
   import { onDestroy } from 'svelte';
 
   // Types
-  import type { ScrollyVideoInstance } from '../../@types/global.ts';
+  import type { ScrollerVideoInstance } from '../../@types/global.ts';
 
-  let scrollyVideo: ScrollyVideoInstance | undefined = $state(undefined);
+  let scrollerVideo: ScrollerVideoInstance | undefined = $state(undefined);
   let animationFrame = $state(0);
   let index = $state(0); // index for the current step in ScrollerBase
 
@@ -17,11 +17,11 @@
    */
   function jumpVideo() {
     if (index === 0) {
-      scrollyVideo?.setVideoPercentage(0, {
+      scrollerVideo?.setVideoPercentage(0, {
         jump: false, // Eases the jump
       });
     } else {
-      scrollyVideo?.setVideoPercentage(1, {
+      scrollerVideo?.setVideoPercentage(1, {
         jump: false,
       });
     }
@@ -36,11 +36,11 @@
 </script>
 
 <ScrollerBase bind:index query="div.step-foreground-container">
-  <!-- ScrollyVideo as background -->
+  <!-- ScrollerVideo as background -->
   {#snippet backgroundSnippet()}
     <!-- Pass `jumpVideo` to `onReady` and set `trackScroll` to `false` -->
-    <ScrollyVideo
-      bind:scrollyVideo
+    <ScrollerVideo
+      bind:scrollerVideo
       src={Tennis}
       height="100svh"
       trackScroll={false}

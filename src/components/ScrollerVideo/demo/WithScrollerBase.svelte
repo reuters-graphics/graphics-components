@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ScrollyVideo from '../ScrollyVideo.svelte';
+  import ScrollerVideo from '../ScrollerVideo.svelte';
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import Goldengate from '../videos/goldengate.mp4';
 
@@ -9,7 +9,7 @@
 
 <ScrollerBase bind:progress query="div.step-foreground-container" visible>
   {#snippet backgroundSnippet()}
-    <ScrollyVideo
+    <ScrollerVideo
       src={Goldengate}
       height="100svh"
       trackScroll={false}

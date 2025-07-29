@@ -6,10 +6,10 @@
 
   // Types
   import type { Component, Snippet } from 'svelte';
-  import type { ScrollyVideoState } from './ts/state.svelte';
+  import type { ScrollerVideoState } from './ts/state.svelte';
   import type {
     ContainerWidth,
-    ScrollyVideoForegroundPosition,
+    ScrollerVideoForegroundPosition,
   } from '../@types/global';
 
   interface ForegroundProps {
@@ -20,7 +20,7 @@
     children?: Snippet;
     backgroundColour?: string;
     width?: ContainerWidth;
-    position?: ScrollyVideoForegroundPosition | string;
+    position?: ScrollerVideoForegroundPosition | string;
     text?: string;
     Foreground?: Component;
   }
@@ -38,20 +38,20 @@
     Foreground,
   }: ForegroundProps = $props();
 
-  let componentState: ScrollyVideoState = getContext('scrollyVideoState');
+  let componentState: ScrollerVideoState = getContext('scrollerVideoState');
 </script>
 
-<Block class={`scrolly-video-foreground ${cls}`} {id}>
+<Block class={`scroller-video-foreground ${cls}`} {id}>
   {#if componentState.generalData.currentTime >= startTime && componentState.generalData.currentTime <= endTime}
     <div
-      class="scrolly-foreground"
+      class="scroller-foreground"
       in:fade={{ delay: 100, duration: 200 }}
       out:fade={{ delay: 0, duration: 100 }}
     >
       <!-- Text blurb foreground -->
       {#if text}
         <Block
-          class="scrolly-video-foreground-text {position.split(' ')[1]}"
+          class="scroller-video-foreground-text {position.split(' ')[1]}"
           {width}
         >
           <div
@@ -63,12 +63,12 @@
         </Block>
         <!-- Render children snippet -->
       {:else if children}
-        <div class="scrolly-video-foreground-item">
+        <div class="scroller-video-foreground-item">
           {@render children()}
         </div>
         <!-- Render Foreground component -->
       {:else if Foreground}
-        <div class="scrolly-video-foreground-item">
+        <div class="scroller-video-foreground-item">
           <Block width="fluid">
             <Foreground />
           </Block>
@@ -81,12 +81,12 @@
 <style lang="scss">
   @use './../../scss/mixins' as mixins;
 
-  .scrolly-foreground {
+  .scroller-foreground {
     width: 100%;
     height: 100%;
   }
 
-  :global(.scrolly-video-foreground) {
+  :global(.scroller-video-foreground) {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -100,7 +100,7 @@
     z-index: 2;
   }
 
-  .scrolly-video-foreground-item {
+  .scroller-video-foreground-item {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -110,7 +110,7 @@
   }
 
   :global {
-    .scrolly-video-foreground-text {
+    .scroller-video-foreground-text {
       position: absolute;
       width: 100%;
       max-width: calc(mixins.$column-width-normal * 0.9);
