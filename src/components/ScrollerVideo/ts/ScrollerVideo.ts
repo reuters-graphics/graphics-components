@@ -1,6 +1,6 @@
 import { UAParser } from 'ua-parser-js';
 import videoDecoder from './videoDecoder';
-import { debounce, isScrollPositionAtTarget, map } from './utils';
+import { debounce, isScrollPositionAtTarget, map, constrain } from './utils';
 import { createComponentState, type ScrollerVideoState } from './state.svelte';
 
 interface ScrollerVideoArgs {
@@ -954,8 +954,10 @@ class ScrollerVideo {
    */
   updateDebugInfo() {
     this.componentState.generalData.src = this.src;
-    this.componentState.generalData.videoPercentage = parseFloat(
-      this.videoPercentage.toFixed(4)
+    this.componentState.generalData.videoPercentage = constrain(
+      parseFloat(this.videoPercentage.toFixed(4)),
+      0,
+      1
     );
     this.componentState.generalData.frameRate = parseFloat(
       this.frameRate.toFixed(2)
