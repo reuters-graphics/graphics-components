@@ -141,6 +141,7 @@
           onChange,
           ...restProps,
           trackScroll: embedded ? false : restProps.trackScroll, // trackScroll disabled for embedded version
+          autoplay: embedded ? false : restProps.autoplay, // autoplay disabled for embedded version
         });
 
         // if embedded prop is set,
