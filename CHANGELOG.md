@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.12
+
+### Patch Changes
+
+- 771ccb4: Fixes sizing issue for Framer
+
 ## 3.0.11
 
 ### Patch Changes
