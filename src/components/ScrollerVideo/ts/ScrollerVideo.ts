@@ -240,24 +240,8 @@ class ScrollerVideo {
     this.totalTime = 0; // The total time of the video, used for calculating percentage
     this.transitioningRaf = null;
     this.componentState = createComponentState();
-
     this.componentState.willAutoPlay = autoplay;
 
-    // Make sure that we have a DOM
-    if (typeof document !== 'object') {
-      console.error('ScrollerVideo must be initiated in a DOM context');
-      return;
-    }
-
-    // Make sure the basic arguments are set for scrollervideo
-    if (!scrollerVideoContainer) {
-      console.error('scrollerVideoContainer must be a valid DOM object');
-      return;
-    }
-    if (!src) {
-      console.error('Must provide valid video src to ScrollerVideo');
-      return;
-    }
 
     // Save the container. If the container is a string we get the element
 
