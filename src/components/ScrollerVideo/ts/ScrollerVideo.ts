@@ -4,7 +4,7 @@ import { debounce, isScrollPositionAtTarget, map, constrain } from './utils';
 import { createComponentState, type ScrollerVideoState } from './state.svelte';
 
 interface ScrollerVideoArgs {
-  src?: string;
+  src: string;
   scrollerVideoContainer: HTMLElement | string;
   objectFit?: string;
   sticky?: boolean;
@@ -192,7 +192,7 @@ class ScrollerVideo {
    * @param {ScrollerVideoArgs} args - The arguments for initialization.
    */
   constructor({
-    src = 'https://scrollyvideo.js.org/goldengate.mp4',
+    src,
     scrollerVideoContainer,
     objectFit = 'cover',
     sticky = true,
@@ -202,8 +202,8 @@ class ScrollerVideo {
     transitionSpeed = 8,
     frameThreshold = 0.1,
     useWebCodecs = true,
-    onReady = () => {},
-    onChange = (_percentage?: number) => {},
+    onReady = () => { },
+    onChange = (_percentage?: number) => { },
     debug = false,
     autoplay = false,
   }: ScrollerVideoArgs) {
@@ -741,7 +741,7 @@ class ScrollerVideo {
       const hasPassedThreshold =
         isForwardTransition ?
           this.currentTime >= this.targetTime
-        : this.currentTime <= this.targetTime;
+          : this.currentTime <= this.targetTime;
 
       if (this.componentState.isAutoPlaying) {
         this.componentState.autoplayProgress = parseFloat(
@@ -780,7 +780,7 @@ class ScrollerVideo {
         isForwardTransition ?
           startCurrentTime +
           easedProgress * Math.abs(distance) * transitionSpeed
-        : startCurrentTime -
+          : startCurrentTime -
           easedProgress * Math.abs(distance) * transitionSpeed;
 
       if (this.canvas) {
@@ -869,7 +869,7 @@ class ScrollerVideo {
     const targetDuration =
       this.frames?.length && this.frameRate ?
         this.frames.length / this.frameRate
-      : this.video?.duration || 0;
+        : this.video?.duration || 0;
     // The time we want to transition to
     this.targetTime = Math.max(Math.min(percentage, 1), 0) * targetDuration;
 

@@ -10,9 +10,9 @@ The `ScrollerVideo` component creates interactive video experiences that respond
 
 ## Basic demo
 
-To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px`, `150vh`, or `500lvh` to set the scroll height.
+To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px` or `200lvh` to set the scroll height.
 
-> It is advisable to use 'lvh' or 'svh' units instead of 'vh' unit for the height, as these units are more reliable across different devices.
+> 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
 
 [Demo](?path=/story/components-graphics-scrollervideo--demo)
 
@@ -87,10 +87,10 @@ Setting `embedded` will autoplay the entire `ScrollerVideo` component like a vid
   showDebugInfo
   {embedded}
   embeddedProps={{
-    delay: 200,
-    threshold: 0.5, // threshold for triggering the autoplay
-    height: '80lvh', // height of the scroll container
-    duration: 5000, // time duration from start to end
+    delay: 200, // Delay before autoplay starts
+    threshold: 0.5, // Threshold for triggering the autoplay
+    height: '80lvh', // Height of the embed video
+    duration: 5000, // Optional: Defaults to the duration of the video. 
   }}
 />
 ```
