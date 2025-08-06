@@ -10,7 +10,9 @@ The `ScrollerVideo` component creates interactive video experiences that respond
 
 ## Basic demo
 
-To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px`, `50vh`, or `500lvh` to set the scroll height. It is suggested to use 'lvh' or 'svh' units instead of 'vh' for the height, as these units are more reliable across different devices.
+To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px`, `150vh`, or `500lvh` to set the scroll height.
+
+> It is advisable to use 'lvh' or 'svh' units instead of 'vh' unit for the height, as these units are more reliable across different devices.
 
 [Demo](?path=/story/components-graphics-scrollervideo--demo)
 
@@ -24,17 +26,19 @@ To use the `ScrollerVideo` component, import it and provide the video source. Se
 
 ## Optimising videos
 
-When using the `ScrollerVideo` component, minimise the video file size and ensure that the video is encoded in a format that is widely supported across browsers. Videos encoded at higher frames per second (FPS) are bound to crash on phone devices, so 24 FPS is recommended.
+When using the `ScrollerVideo` component, minimise the video file size and ensure that the video is encoded in a format that is widely supported across browsers. Videos encoded at higher frame rates (FPS) are bound to crash on mobile devices, so 24 FPS is recommended.
+
+If at any point your page crashes while using this component (happens often only on phone devices), it is likely due to the video being too large or encoded at a high frame rate. You could also try separate videos for desktop and phone devices to save quality for the desktop viewing experience.
 
 > 💡**TIP:** Set the `showDebugInfo` prop to `true` to see video encoding information
 
 To optimise your video for the web, you can use `ffmpeg` to convert the video to a suitable format. Here is an example terminal command that converts a video to H.264 format with a resolution of 720p and a frame rate of 24 FPS:
 
 ```bash
-npx ffmpeg -y -i <input_video_src>.mp4 -c:v libx264 -movflags faststart -crf 20 -r 24 -vf scale=720:-1 -profile:v baseline -preset veryslow -level:v 4.1 -color_primaries 1 -color_trc 1 -colorspace 1 -an <output_video>.mp4
+npx ffmpeg -y -i <input_video_src>.mp4 -c:v libx264 -movflags +faststart -crf 24 -r 24 -g 72 -vf scale=720:-1 -profile:v high -preset veryslow -pix_fmt yuv420p -color_primaries 1 -color_trc 1 -colorspace 1 -an <output_video>.mp4
 ```
 
-Adjust the `-crf` value to control the quality. Lower `-crf` value means higher quality, with 20 being a generally good balance. See [Testing Media Capabilities](https://cconcolato.github.io/media-mime-support/mediacapabilities.html) for more.
+Adjust the `-crf` value to control the quality. A lower `-crf` value means higher quality, with 20-24 being a generally good balance. The video framerate can be altered by using `-r` flag. Set keyframe intervals using the `-g` flag. It is advisable to keep it around 3 seconds (3 \* video framerate) for a good output. See [FFmpeg documentation](https://ffmpeg.org/ffmpeg.html) and [Testing Media Capabilities](https://cconcolato.github.io/media-mime-support/mediacapabilities.html) for more.
 
 ## Responsive videos
 
@@ -65,9 +69,9 @@ To show different videos based on the screen width, use the `ScrollerVideo` comp
 
 ## Embeds
 
-Setting `embedded` will autoplay the whole `ScrollerVideo` component like a video.
+Setting `embedded` will autoplay the entire `ScrollerVideo` component like a video.
 
-> 💡**TIP:** Another way to recreate the ScrollerVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrollying through the video and use that video instead as an HTML video component.
+> 💡**TIP:** Another way to recreate the ScrollerVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrolling through the video and use that video instead as an HTML video component.
 
 [Demo](?path=/story/components-graphics-scrollervideo--embed)
 
@@ -93,7 +97,7 @@ Setting `embedded` will autoplay the whole `ScrollerVideo` component like a vide
 
 ## Autoplay
 
-The `autoplay` option combines the autoplay and scrollytelling experience. If set to `true`, the video will start playing automatically when the component is mounted, but switch to scrollytelling when the user starts scrolling. The scroll height is calculated based on how much of the video rmains, which means that if the user lets the video autoplay to near the end, the user would only have to scroll through a small height to get to the end. If the user lets the video autoplay to the end, there will be no scrolling effect.
+The `autoplay` option combines the autoplay and scrollytelling experience. If set to `true`, the video will start playing automatically when the component is mounted, but switch to scrollytelling when the user starts scrolling. The scroll height is calculated based on how much of the video remains, which means that if the user lets the video autoplay to near the end, the user would only have to scroll through a small height to get to the end. If the user lets the video autoplay to the end, there will be no scrolling effect.
 
 [Demo](?path=/story/components-graphics-scrollervideo--autoplay)
 
@@ -147,7 +151,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     position: bottom center
     backgroundColour: rgba(0, 0, 0, 0.8)
     text: #### History
-    The Alps were formed around **65 million years** ago when the African and Eurasian tectonic plates collided, pushing the land upward.Over 14 million people live in the Alpine region, with tourism supporting approximately 120 million visitors annually.
+    The Alps were formed around **65 million years** ago when the African and Eurasian tectonic plates collided, pushing the land upward. Over 14 million people live in the Alpine region, with tourism supporting approximately 120 million visitors annually.
     :end
   []
 []
@@ -192,7 +196,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 
 The `ScrollerVideo` component can also be used to display components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the video. To do so, use the `Foreground` prop in `ScrollerVideoForeground` component.
 
-> **IMPORTANT❗**: When layering ai2svelte files over a video, the aspect ratio of the ai2svelte graphics should match that of the video. If the ai2svelte graphic is responsive and has, for example, small, medium and large verisons — which is generally the case — make sure to also render small, medium and large versions of the video at the appropriate screen sizes. See [Responsive videos](#responsive-videos) for more details.
+> **IMPORTANT❗**: When layering ai2svelte files over a video, the aspect ratio of the ai2svelte graphics should match that of the video. If the ai2svelte graphic is responsive and has, for example, small, medium and large versions — which is generally the case — make sure to also render small, medium and large versions of the video at the appropriate screen sizes. See [Responsive videos](#responsive-videos) for more details.
 
 [Demo](?path=/story/components-graphics-scrollervideo--component-archie-ml-foregrounds)
 
@@ -329,7 +333,7 @@ endTime: 0.3 # When to stop showing the headline
 
 ## Using with `ScrollerBase`
 
-The `ScrollerVideo` component can be used inside the [ScrollerBase](?path=/story/components-graphics-scrollerbase--docs) component to add foreground content. This allows for foreground that scrolls up and down over the video, instead of fading in and out at specific times.
+The `ScrollerVideo` component can be used inside the [ScrollerBase](?path=/story/components-graphics-scrollerbase--docs) component to add foreground content. This allows for a foreground that scrolls up and down over the video, instead of fading in and out at specific times.
 
 > **Note**: To use `ScrollerVideo` with `ScrollerBase`, set `trackScroll` to `false` and pass the bindable prop `progress` from `ScrollerBase` as `videoPercentage` to `ScrollerVideo`.
 
