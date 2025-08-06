@@ -141,7 +141,6 @@
           ...restProps,
           trackScroll: embedded ? false : restProps.trackScroll, // trackScroll disabled for embedded version
           autoplay: embedded ? false : restProps.autoplay, // autoplay disabled for embedded version
-          useWebCodecs: restProps.autoplay ? false : restProps.useWebCodecs, // useWebCodecs disabled for autoplay
         });
 
         // if embedded prop is set,
