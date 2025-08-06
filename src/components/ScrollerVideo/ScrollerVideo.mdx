@@ -10,7 +10,7 @@ The `ScrollerVideo` component creates interactive video experiences that respond
 
 ## Basic demo
 
-To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px` or `200lvh` to set the scroll height.
+  To use the `ScrollerVideo` component, import it and provide the video source. The scroll height defaults to `200lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `200lvh` with the `height` prop.
 
 > 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
 
@@ -21,6 +21,7 @@ To use the `ScrollerVideo` component, import it and provide the video source. Se
   import { ScrollerVideo } from '@reuters-graphics/graphics-components';
 </script>
 
+<!-- Optionally set `height` to adjust scroll height -->
 <ScrollerVideo src="my-video.mp4" height="500lvh" />
 ```
 
@@ -81,15 +82,11 @@ Setting `embedded` will autoplay the entire `ScrollerVideo` component like a vid
 </script>
 
 <ScrollerVideo
-  src={Goldengate}
-  height="200lvh"
-  trackScroll={true}
-  showDebugInfo
-  {embedded}
+  src='my-video.mp4'
+  embedded={true}
   embeddedProps={{
-    delay: 200, // Delay before autoplay starts
-    threshold: 0.5, // Threshold for triggering the autoplay
-    height: '80lvh', // Height of the embed video
+    delay: 200, // Optional: Delay before autoplay starts. Defaults to 200ms.
+    threshold: 0.5, // Optional: Threshold for triggering the autoplay. Defaults to 0.5.
     duration: 5000, // Optional: Defaults to the duration of the video. 
   }}
 />

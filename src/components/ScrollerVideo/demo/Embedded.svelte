@@ -52,16 +52,16 @@
 <BodyText text={dummyText} />
 <BodyText text={dummyText} />
 <BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
 
 <ScrollerVideo
   src={Goldengate}
-  height="200lvh"
-  trackScroll={true}
-  showDebugInfo
+  class="embedded-demo"
+  showDebugInfo={true}
   embedded={true}
   embeddedProps={{
     threshold: 0.5,
-    height: '100lvh',
     duration: 12000,
     delay: 200,
   }}
@@ -78,3 +78,19 @@
   {/each}
 </ScrollerVideo>
 <BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+
+<style lang="scss">
+  :global {
+    .embedded-demo .foreground-text {
+      h4,
+      p {
+        color: white;
+      }
+    }
+  }
+</style>

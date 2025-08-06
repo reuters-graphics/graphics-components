@@ -52,8 +52,6 @@
     embeddedProps?: {
       /** When to start the playback in terms of the component's position */
       threshold?: number;
-      /** Height of embedded component */
-      height?: string;
       /** Duration of ScrollerVideo experience as a video */
       duration?: number;
       /** Delay before the playback */
@@ -66,7 +64,6 @@
   /** Default properties for embedded videos */
   const defaultEmbedProps = {
     threshold: 0.5,
-    height: '80lvh',
     delay: 200,
   };
 
@@ -144,6 +141,7 @@
           ...restProps,
           trackScroll: embedded ? false : restProps.trackScroll, // trackScroll disabled for embedded version
           autoplay: embedded ? false : restProps.autoplay, // autoplay disabled for embedded version
+          useWebCodecs: restProps.autoplay ? false : restProps.useWebCodecs, // useWebCodecs disabled for autoplay
         });
 
         // if embedded prop is set,
