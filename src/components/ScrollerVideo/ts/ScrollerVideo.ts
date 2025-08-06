@@ -312,7 +312,7 @@ class ScrollerVideo {
     // Setting CSS properties for full
     if (full) {
       this.container.style.width = '100%';
-      this.container.style.height = '100svh';
+      this.container.style.height = '100lvh';
       this.container.style.overflow = 'hidden';
     }
 

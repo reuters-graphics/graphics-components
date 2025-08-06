@@ -12,7 +12,7 @@
         type: 'scroller-video',
         id: 'goldengate-scroller',
         src: '../videos/goldengate.mp4',
-        height: '200svh',
+        height: '200lvh',
         foregrounds: [
           {
             startTime: '0',
@@ -55,14 +55,14 @@
 
 <ScrollerVideo
   src={Goldengate}
-  height="200svh"
+  height="200lvh"
   trackScroll={true}
   showDebugInfo
   embedded={true}
   embeddedProps={{
     threshold: 0.5,
-    height: '80svh',
-    duration: 5000,
+    height: '100lvh',
+    duration: 12000,
     delay: 200,
   }}
 >

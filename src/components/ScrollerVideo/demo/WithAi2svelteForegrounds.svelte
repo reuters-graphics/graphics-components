@@ -30,7 +30,7 @@
       {
         type: 'scroller-video',
         id: 'surf-scroller',
-        height: '800svh',
+        height: '800lvh',
         foregrounds: [
           {
             startTime: '0.3',

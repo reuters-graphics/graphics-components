@@ -10,7 +10,7 @@ The `ScrollerVideo` component creates interactive video experiences that respond
 
 ## Basic demo
 
-To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px`, `50vh`, or `500svh` to set the scroll height.
+To use the `ScrollerVideo` component, import it and provide the video source. Set the `height` prop to any valid CSS height value such as `1200px`, `50vh`, or `500lvh` to set the scroll height. It is suggested to use 'lvh' or 'svh' units instead of 'vh' for the height, as these units are more reliable across different devices.
 
 [Demo](?path=/story/components-graphics-scrollervideo--demo)
 
@@ -19,7 +19,7 @@ To use the `ScrollerVideo` component, import it and provide the video source. Se
   import { ScrollerVideo } from '@reuters-graphics/graphics-components';
 </script>
 
-<ScrollerVideo src="my-video.mp4" height="500svh" />
+<ScrollerVideo src="my-video.mp4" height="500lvh" />
 ```
 
 ## Optimising videos
@@ -53,13 +53,13 @@ To show different videos based on the screen width, use the `ScrollerVideo` comp
 
 {#if width < 600}
   <!-- Video with aspect ratio 9:16 for window width smaller than 600px -->
-  <ScrollerVideo src="my-video-sm.mp4" height="500svh" />
+  <ScrollerVideo src="my-video-sm.mp4" height="500lvh" />
 {:else if width < 1200}
   <!-- Video with aspect ratio 1:1 for window width between 600px and 1200px -->
-  <ScrollerVideo src="my-video-md.mp4" height="500svh" />
+  <ScrollerVideo src="my-video-md.mp4" height="500lvh" />
 {:else}
   <!-- Video with aspect ratio 16:9 for window width above 1200px -->
-  <ScrollerVideo src="my-video-lg.mp4" height="500svh" />
+  <ScrollerVideo src="my-video-lg.mp4" height="500lvh" />
 {/if}
 ```
 
@@ -78,14 +78,14 @@ Setting `embedded` will autoplay the whole `ScrollerVideo` component like a vide
 
 <ScrollerVideo
   src={Goldengate}
-  height="200svh"
+  height="200lvh"
   trackScroll={true}
   showDebugInfo
   {embedded}
   embeddedProps={{
     delay: 200,
     threshold: 0.5, // threshold for triggering the autoplay
-    height: '80svh', // height of the scroll container
+    height: '80lvh', // height of the scroll container
     duration: 5000, // time duration from start to end
   }}
 />
@@ -120,7 +120,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   type: scroller-video
   id: alps-scroller
   src: videos/alps.mp4
-  height: 800svh
+  height: 800lvh
 
   # Array of foregrounds
   [.foregrounds]
@@ -213,7 +213,7 @@ endTime: 0.3 # When to stop showing the headline
 [blocks]
   type: scroller-video
   id: my-scroller-video
-  height: 800svh
+  height: 800lvh
 
   # Adjust prop names as needed
   srcSm: videos/my-video-sm.mp4
@@ -371,7 +371,7 @@ The `ScrollerVideo` component can be used inside the [ScrollerBase](?path=/story
 
 <style lang="scss">
   .step-foreground-container {
-    height: 100vh;
+    height: 100lvh;
     width: 50%;
     padding: 1em;
     margin: auto;
@@ -443,7 +443,7 @@ Here is a [demo](?path=/story/components-graphics-scrollervideo--advanced) that 
     <ScrollerVideo
       bind:scrollerVideo
       src={Tennis}
-      height="100svh"
+      height="100lvh"
       trackScroll={false}
       showDebugInfo
       onReady={jumpVideo}

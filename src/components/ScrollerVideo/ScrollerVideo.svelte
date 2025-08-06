@@ -42,7 +42,7 @@
     debug?: boolean;
     /** Shows debug information on page */
     showDebugInfo?: boolean;
-    /** Height of the video container. Set it to 100svh when using inside `ScrollerBase` */
+    /** Height of the video container. Set it to 100lvh when using inside `ScrollerBase` */
     height?: string;
     /** Whether the video should autoplay */
     autoplay?: boolean;
@@ -66,7 +66,7 @@
   /** Default properties for embedded videos */
   const defaultEmbedProps = {
     threshold: 0.5,
-    height: '80svh',
+    height: '80lvh',
     delay: 200,
   };
 
@@ -79,7 +79,7 @@
     videoPercentage,
     onReady = $bindable(() => {}),
     onChange = $bindable(() => {}),
-    height = '200svh',
+    height = '200lvh',
     showDebugInfo = false,
     class: cls = '',
     id = '',
@@ -260,10 +260,12 @@
       }
     }}
   >
+    <!-- style needs to be >= 100lvh to allow child element to scroll -->
+    <!-- 200lvh provides smoother scrolling experience -->
     <div
       {id}
       class="scroller-video-container embedded {cls}"
-      style="height: 200svh;"
+      style="height: 200lvh;"
     >
       <div
         bind:this={scrollerVideoContainer}
@@ -291,7 +293,7 @@
     width: 100%;
 
     &:not(.embedded) {
-      min-height: 100svh;
+      min-height: 100lvh;
     }
   }
 

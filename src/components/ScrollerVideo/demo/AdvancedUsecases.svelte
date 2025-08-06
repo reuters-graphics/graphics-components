@@ -42,7 +42,7 @@
     <ScrollerVideo
       bind:scrollerVideo
       src={Tennis}
-      height="100svh"
+      height="100lvh"
       trackScroll={false}
       showDebugInfo
       onReady={jumpVideo}
@@ -98,7 +98,7 @@
   }
 
   .step-foreground-container {
-    height: 100vh;
+    height: 100lvh;
     width: 50%;
     padding: 1em;
     margin: auto;

@@ -11,7 +11,7 @@
   {#snippet backgroundSnippet()}
     <ScrollerVideo
       src={Goldengate}
-      height="100svh"
+      height="100lvh"
       trackScroll={false}
       videoPercentage={progress}
       showDebugInfo
@@ -66,7 +66,7 @@
   }
 
   .step-foreground-container {
-    height: 100vh;
+    height: 100lvh;
     width: 50%;
     padding: 1em;
     margin: auto;

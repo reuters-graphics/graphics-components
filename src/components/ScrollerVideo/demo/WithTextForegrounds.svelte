@@ -10,7 +10,7 @@
         type: 'scroller-video',
         id: 'alps-scroller',
         src: 'videos/alps.mp4',
-        height: '800svh',
+        height: '800lvh',
         foregrounds: [
           {
             startTime: '0',

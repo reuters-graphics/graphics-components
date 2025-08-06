@@ -138,7 +138,7 @@
 
   const args = {
     trackScroll: true,
-    height: '500svh',
+    height: '500lvh',
     showDebugInfo: true,
     autoplay: false,
     full: true,
