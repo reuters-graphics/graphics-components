@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import ScrollerVideo from './ts/ScrollerVideo.js';
+  import ScrollerVideo from './ts/ScrollerVideo';
   import Debug from './Debug.svelte';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
@@ -15,7 +15,7 @@
     /** Bindable instance of ScrollerVideo */
     scrollerVideo?: ScrollerVideo;
     /** Video source URL */
-    src?: string;
+    src: string;
     /** Bindable percentage value to control video playback. **Ranges from 0 to 1** */
     videoPercentage?: number;
     /** Sets the maximum playbackRate for this video */
@@ -52,8 +52,6 @@
     embeddedProps?: {
       /** When to start the playback in terms of the component's position */
       threshold?: number;
-      /** Height of embedded component */
-      height?: string;
       /** Duration of ScrollerVideo experience as a video */
       duration?: number;
       /** Delay before the playback */
@@ -66,7 +64,6 @@
   /** Default properties for embedded videos */
   const defaultEmbedProps = {
     threshold: 0.5,
-    height: '80lvh',
     delay: 200,
   };
 
@@ -75,14 +72,15 @@
    * Handles instantiation, prop changes, and cleanup.
    */
   let {
+    class: cls = '',
+    id = '',
+    src,
     scrollerVideo = $bindable(),
     videoPercentage,
     onReady = $bindable(() => {}),
     onChange = $bindable(() => {}),
     height = '200lvh',
     showDebugInfo = false,
-    class: cls = '',
-    id = '',
     embedded = false,
     embeddedProps,
     children,
@@ -136,6 +134,7 @@
         if (scrollerVideo && scrollerVideo.destroy) scrollerVideo.destroy();
 
         scrollerVideo = new ScrollerVideo({
+          src,
           scrollerVideoContainer,
           onReady,
           onChange,
@@ -246,7 +245,6 @@
 {#if embedded}
   <div
     class="embedded-scroller-video-container"
-    style="height: {allEmbedProps.height};"
     bind:this={embeddedContainer}
     bind:clientHeight={embeddedContainerHeight}
     onscroll={() => {
@@ -260,18 +258,8 @@
       }
     }}
   >
-    <!-- style needs to be >= 100lvh to allow child element to scroll -->
-    <!-- 200lvh provides smoother scrolling experience -->
-    <div
-      {id}
-      class="scroller-video-container embedded {cls}"
-      style="height: 200lvh;"
-    >
-      <div
-        bind:this={scrollerVideoContainer}
-        data-scroller-container
-        style="max-height: {allEmbedProps.height};"
-      >
+    <div {id} class="scroller-video-container embedded {cls}">
+      <div bind:this={scrollerVideoContainer} data-scroller-container>
         {@render supportingElements()}
       </div>
     </div>
@@ -292,6 +280,11 @@
   .scroller-video-container {
     width: 100%;
 
+    // Needs to be >= 100lvh to allow child element to scroll
+    // 200lvh provides smoother scrolling experience -->
+    &.embedded {
+      height: 200lvh;
+    }
     &:not(.embedded) {
       min-height: 100lvh;
     }

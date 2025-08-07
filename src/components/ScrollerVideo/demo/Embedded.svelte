@@ -3,6 +3,7 @@
   import ScrollerVideoForeground from '../ScrollerVideoForeground.svelte';
   import Goldengate from '../videos/goldengate.mp4';
   import BodyText from '../../BodyText/BodyText.svelte';
+  import Block from '../../Block/Block.svelte';
 
   import type { ContainerWidth } from '../../@types/global';
 
@@ -46,8 +47,12 @@
   const dummyText =
     'Reprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock tempor meatball alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.';
   const scrollerVideoBlock = content.blocks[0];
+
+  let embedded = $state(true);
 </script>
 
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
 <BodyText text={dummyText} />
 <BodyText text={dummyText} />
 <BodyText text={dummyText} />
@@ -55,13 +60,11 @@
 
 <ScrollerVideo
   src={Goldengate}
-  height="200lvh"
-  trackScroll={true}
-  showDebugInfo
-  embedded={true}
+  class="embedded-demo"
+  showDebugInfo={true}
+  {embedded}
   embeddedProps={{
     threshold: 0.5,
-    height: '100lvh',
     duration: 12000,
     delay: 200,
   }}
@@ -78,3 +81,19 @@
   {/each}
 </ScrollerVideo>
 <BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+<BodyText text={dummyText} />
+
+<style lang="scss">
+  :global {
+    .embedded-demo .foreground-text {
+      h4,
+      p {
+        color: white;
+      }
+    }
+  }
+</style>

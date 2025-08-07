@@ -137,17 +137,7 @@
   };
 
   const args = {
-    trackScroll: true,
-    height: '500lvh',
     showDebugInfo: true,
-    autoplay: false,
-    full: true,
-    sticky: true,
-    objectFit: 'cover',
-    transitionSpeed: 8,
-    frameThreshold: 0.1,
-    useWebCodecs: true,
-    lockScroll: true,
   };
 </script>
 
@@ -168,21 +158,11 @@
 </Story>
 
 <Story name="Embed version" exportName="Embed">
-  <!-- <ScrollerVideo
-    embedded={true}
-    src={videoSrc.Goldengate}
-    embeddedProps={{ autoplay: true }}
-  /> -->
   <Embedded />
 </Story>
 
-<Story name="Autoplay" {args}>
-  <ScrollerVideo
-    {...args}
-    src={videoSrc.Goldengate}
-    useWebCodecs={false}
-    autoplay={true}
-  ></ScrollerVideo>
+<Story name="Autoplay">
+  <ScrollerVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 
 <Story
