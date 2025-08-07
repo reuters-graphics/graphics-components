@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.14
+
+### Patch Changes
+
+- fdc3c6b: Moves dependencies to dependencies from devDependencies
+
 ## 3.0.13
 
 ### Patch Changes
