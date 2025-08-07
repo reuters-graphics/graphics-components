@@ -202,8 +202,8 @@ class ScrollerVideo {
     transitionSpeed = 8,
     frameThreshold = 0.1,
     useWebCodecs = true,
-    onReady = () => { },
-    onChange = (_percentage?: number) => { },
+    onReady = () => {},
+    onChange = (_percentage?: number) => {},
     debug = false,
     autoplay = false,
   }: ScrollerVideoArgs) {
@@ -241,7 +241,6 @@ class ScrollerVideo {
     this.transitioningRaf = null;
     this.componentState = createComponentState();
     this.componentState.willAutoPlay = autoplay;
-
 
     // Save the container. If the container is a string we get the element
 
@@ -725,7 +724,7 @@ class ScrollerVideo {
       const hasPassedThreshold =
         isForwardTransition ?
           this.currentTime >= this.targetTime
-          : this.currentTime <= this.targetTime;
+        : this.currentTime <= this.targetTime;
 
       if (this.componentState.isAutoPlaying) {
         this.componentState.autoplayProgress = parseFloat(
@@ -764,7 +763,7 @@ class ScrollerVideo {
         isForwardTransition ?
           startCurrentTime +
           easedProgress * Math.abs(distance) * transitionSpeed
-          : startCurrentTime -
+        : startCurrentTime -
           easedProgress * Math.abs(distance) * transitionSpeed;
 
       if (this.canvas) {
@@ -853,7 +852,7 @@ class ScrollerVideo {
     const targetDuration =
       this.frames?.length && this.frameRate ?
         this.frames.length / this.frameRate
-        : this.video?.duration || 0;
+      : this.video?.duration || 0;
     // The time we want to transition to
     this.targetTime = Math.max(Math.min(percentage, 1), 0) * targetDuration;
 

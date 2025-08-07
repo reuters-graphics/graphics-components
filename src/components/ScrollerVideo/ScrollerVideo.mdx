@@ -10,7 +10,7 @@ The `ScrollerVideo` component creates interactive video experiences that respond
 
 ## Basic demo
 
-  To use the `ScrollerVideo` component, import it and provide the video source. The scroll height defaults to `200lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `200lvh` with the `height` prop.
+To use the `ScrollerVideo` component, import it and provide the video source. The scroll height defaults to `200lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `200lvh` with the `height` prop.
 
 > 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
 
@@ -70,7 +70,7 @@ To show different videos based on the screen width, use the `ScrollerVideo` comp
 
 ## Embeds
 
-Setting `embedded` to `true` will turn `ScrollerVideo` into an embeddable version, where the video autoplays when the user scrolls upon it. Optionally, you can control the embed video behaviour by passing `embeddedProps` to control the autoplay `delay`, `threshold` for triggering autoplay, and the `duration` of the video. 
+Setting `embedded` to `true` will turn `ScrollerVideo` into an embeddable version, where the video autoplays when the user scrolls upon it. Optionally, you can control the embed video behaviour by passing `embeddedProps` to control the autoplay `delay`, `threshold` for triggering autoplay, and the `duration` of the video.
 
 > 💡**TIP:** Another way to recreate the ScrollerVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrolling through the video and use that video instead as an HTML video component.
 
@@ -84,12 +84,12 @@ Setting `embedded` to `true` will turn `ScrollerVideo` into an embeddable versio
 </script>
 
 <ScrollerVideo
-  src='my-video.mp4'
+  src="my-video.mp4"
   {embedded}
   embeddedProps={{
     delay: 200, // Optional: Delay before autoplay starts. Defaults to 200ms.
     threshold: 0.5, // Optional: Threshold for triggering the autoplay. Defaults to 0.5.
-    duration: 5000, // Optional: Defaults to the duration of the video. 
+    duration: 5000, // Optional: Defaults to the duration of the video.
   }}
 />
 ```
