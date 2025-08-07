@@ -3,6 +3,7 @@
   import ScrollerVideoForeground from '../ScrollerVideoForeground.svelte';
   import Goldengate from '../videos/goldengate.mp4';
   import BodyText from '../../BodyText/BodyText.svelte';
+  import Block from '../../Block/Block.svelte';
 
   import type { ContainerWidth } from '../../@types/global';
 
@@ -46,6 +47,8 @@
   const dummyText =
     'Reprehenderit hamburger pork bresaola, dolore chuck sirloin landjaeger ham hock tempor meatball alcatra nostrud pork belly. Culpa pork belly doner ea jowl, elit deserunt leberkas cow shoulder ham hock dolore.';
   const scrollerVideoBlock = content.blocks[0];
+
+  let embedded = $state(true);
 </script>
 
 <BodyText text={dummyText} />
@@ -59,7 +62,7 @@
   src={Goldengate}
   class="embedded-demo"
   showDebugInfo={true}
-  embedded={true}
+  {embedded}
   embeddedProps={{
     threshold: 0.5,
     duration: 12000,

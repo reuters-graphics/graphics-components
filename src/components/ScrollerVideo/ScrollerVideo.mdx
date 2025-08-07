@@ -70,7 +70,7 @@ To show different videos based on the screen width, use the `ScrollerVideo` comp
 
 ## Embeds
 
-Setting `embedded` will autoplay the entire `ScrollerVideo` component like a video.
+Setting `embedded` to `true` will turn `ScrollerVideo` into an embeddable version, where the video autoplays when the user scrolls upon it. Optionally, you can control the embed video behaviour by passing `embeddedProps` to control the autoplay `delay`, `threshold` for triggering autoplay, and the `duration` of the video. 
 
 > 💡**TIP:** Another way to recreate the ScrollerVideo experience for embeds is to record the desktop screen with [Scroll Capture](https://chromewebstore.google.com/detail/scroll-capture/egmhoeaacclmanaimofoooiamhpkimkk?hl=en) while scrolling through the video and use that video instead as an HTML video component.
 
@@ -79,11 +79,13 @@ Setting `embedded` will autoplay the entire `ScrollerVideo` component like a vid
 ```svelte
 <script lang="ts">
   import { ScrollerVideo } from '@reuters-graphics/graphics-components';
+
+  let embedded = $state(true); // Set to true to enable embedded mode
 </script>
 
 <ScrollerVideo
   src='my-video.mp4'
-  embedded={true}
+  {embedded}
   embeddedProps={{
     delay: 200, // Optional: Delay before autoplay starts. Defaults to 200ms.
     threshold: 0.5, // Optional: Threshold for triggering the autoplay. Defaults to 0.5.
