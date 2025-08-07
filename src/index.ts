@@ -54,5 +54,5 @@ export { default as Visible } from './components/Visible/Visible.svelte';
 export type {
   ContainerWidth,
   HeadlineSize,
-  ScrollyVideoInstance,
+  ScrollerVideoInstance,
 } from './components/@types/global';
