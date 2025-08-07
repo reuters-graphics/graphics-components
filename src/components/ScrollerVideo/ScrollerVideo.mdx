@@ -282,30 +282,24 @@ endTime: 0.3 # When to stop showing the headline
 
 <!-- Loop through content blocks... -->
 {#each content.blocks as block}
-
   {#if block.type == 'scroller-video'}
+    <!-- ScrollVideo snippet to render responsive videos -->
+    {#snippet ScrollVideo(height: string, src: string)}
+      <ScrollerVideo id={block.id} {height} {src}>
+        <!-- Headline component as foreground -->
+        <ScrollerVideoForeground
+          startTime={parseFloat(content.startTime)}
+          endTime={parseFloat(content.endTime)}
+        >
+          <Headline
+            hed={content.hed}
+            authors={content.authors}
+            publishTime={new Date(content.publishTime).toISOString()}
+          />
+        </ScrollerVideoForeground>
 
-  <!-- ScrollVideo snippet to render responsive videos -->
-  {#snippet ScrollVideo(height: string, src: string)}
-    <ScrollerVideo
-      id={block.id}
-      {height}
-      {src}
-    >
-      <!-- Headline component as foreground -->
-      <ScrollerVideoForeground
-        startTime={parseFloat(content.startTime)}
-        endTime={parseFloat(content.endTime)}
-      >
-        <Headline
-          hed={content.hed}
-          authors={content.authors}
-          publishTime={new Date(content.publishTime).toISOString()}
-        />
-      </ScrollerVideoForeground>
-
-      <!-- Loop through block.foregrounds to render each foreground component -->
-      {#each block.foregrounds as foreground}
+        <!-- Loop through block.foregrounds to render each foreground component -->
+        {#each block.foregrounds as foreground}
           <ScrollerVideoForeground
             startTime={parseFloat(foreground.startTime)}
             endTime={parseFloat(foreground.endTime)}
@@ -314,17 +308,18 @@ endTime: 0.3 # When to stop showing the headline
               foreground.foreground as keyof typeof aiChartsForeground
             ]}
           />
-      {/each}
-    </ScrollerVideo>
-  {/snippet}
+        {/each}
+      </ScrollerVideo>
+    {/snippet}
 
-  <!-- Render the ScrollVideo snippet for different screen sizes -->
-  {#if width < 600}
-    {@render ScrollVideo({block.height}, `${assets}/${block.srcSm}`)}
-  {:else if width < 1200}
-    {@render ScrollVideo({block.height}, `${assets}/${block.srcMd}`)}
-  {:else}
-    {@render ScrollVideo({block.height}, `${assets}/${block.srcLg}`)}
+    <!-- Render the ScrollVideo snippet for different screen sizes -->
+    {#if width < 600}
+      {@render ScrollVideo(block.height, `${assets}/${block.srcSm}`)}
+    {:else if width < 1200}
+      {@render ScrollVideo(block.height, `${assets}/${block.srcMd}`)}
+    {:else}
+      {@render ScrollVideo(block.height, `${assets}/${block.srcLg}`)}
+    {/if}
   {/if}
 {/each}
 ```
