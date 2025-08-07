@@ -1,13 +1,14 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import ScrollyVideo from './ScrollyVideo.svelte';
+  import ScrollerVideo from './ScrollerVideo.svelte';
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
   import WithAi2svelteForegrounds from './demo/WithAi2svelteForegrounds.svelte';
   import WithTextForegrounds from './demo/WithTextForegrounds.svelte';
+  import Embedded from './demo/Embedded.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/ScrollyVideo',
-    component: ScrollyVideo,
+    title: 'Components/Graphics/ScrollerVideo',
+    component: ScrollerVideo,
     argTypes: {
       autoplay: {
         control: 'boolean',
@@ -66,7 +67,7 @@
           category: 'Bindable states',
         },
       },
-      scrollyVideo: {
+      scrollerVideo: {
         table: {
           category: 'Bindable states',
         },
@@ -136,51 +137,32 @@
   };
 
   const args = {
-    trackScroll: true,
-    height: '500svh',
     showDebugInfo: true,
-    autoplay: false,
-    full: true,
-    sticky: true,
-    objectFit: 'cover',
-    transitionSpeed: 8,
-    frameThreshold: 0.1,
-    useWebCodecs: true,
-    lockScroll: true,
   };
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
 <Story name="Demo">
-  <ScrollyVideo {...args} src={videoSrc.Goldengate} />
+  <ScrollerVideo {...args} src={videoSrc.Goldengate} />
 </Story>
 
 <Story name="Responsive videos" exportName="ResponsiveVideos">
   {#if width < 600}
-    <ScrollyVideo {...args} src={videoSrc.Video_SM} />
+    <ScrollerVideo {...args} src={videoSrc.Video_SM} />
   {:else if width < 1200}
-    <ScrollyVideo {...args} src={videoSrc.Video_MD} />
+    <ScrollerVideo {...args} src={videoSrc.Video_MD} />
   {:else}
-    <ScrollyVideo {...args} src={videoSrc.Video_LG} />
+    <ScrollerVideo {...args} src={videoSrc.Video_LG} />
   {/if}
 </Story>
 
 <Story name="Embed version" exportName="Embed">
-  <ScrollyVideo
-    embedded={true}
-    src={videoSrc.Goldengate}
-    embeddedProps={{ autoplay: true }}
-  />
+  <Embedded />
 </Story>
 
-<Story name="Autoplay" {args}>
-  <ScrollyVideo
-    {...args}
-    src={videoSrc.Goldengate}
-    useWebCodecs={false}
-    autoplay={true}
-  ></ScrollyVideo>
+<Story name="Autoplay">
+  <ScrollerVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 
 <Story

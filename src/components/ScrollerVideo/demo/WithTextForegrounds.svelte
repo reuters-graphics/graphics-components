@@ -1,16 +1,16 @@
 <script lang="ts">
-  import ScrollyVideo from '../ScrollyVideo.svelte';
-  import ScrollyVideoForeground from '../ScrollyVideoForeground.svelte';
+  import ScrollerVideo from '../ScrollerVideo.svelte';
+  import ScrollerVideoForeground from '../ScrollerVideoForeground.svelte';
   import Drone from '../videos/drone.mp4';
   import type { ContainerWidth } from '../../@types/global';
 
   const content = {
     blocks: [
       {
-        type: 'scrolly-video',
-        id: 'alps-scrolly',
+        type: 'scroller-video',
+        id: 'alps-scroller',
         src: 'videos/alps.mp4',
-        height: '800svh',
+        height: '800lvh',
         foregrounds: [
           {
             startTime: '0',
@@ -41,18 +41,18 @@
     ],
   };
 
-  const scrollyVideoBlock = content.blocks[0];
+  const scrollerVideoBlock = content.blocks[0];
 </script>
 
-<ScrollyVideo
-  id={scrollyVideoBlock.id}
-  height={scrollyVideoBlock.height}
+<ScrollerVideo
+  id={scrollerVideoBlock.id}
+  height={scrollerVideoBlock.height}
   src={Drone}
   useWebCodecs={true}
   showDebugInfo
 >
-  {#each scrollyVideoBlock.foregrounds as foreground}
-    <ScrollyVideoForeground
+  {#each scrollerVideoBlock.foregrounds as foreground}
+    <ScrollerVideoForeground
       startTime={parseFloat(foreground.startTime)}
       endTime={parseFloat(foreground.endTime)}
       width={foreground.width as ContainerWidth}
@@ -61,7 +61,7 @@
       text={foreground.text}
     />
   {/each}
-</ScrollyVideo>
+</ScrollerVideo>
 
 <style lang="scss">
   :global(.custom-headline *) {
@@ -69,7 +69,7 @@
   }
 
   :global {
-    #alps-scrolly .foreground-text {
+    #alps-scroller .foreground-text {
       * {
         color: white;
       }

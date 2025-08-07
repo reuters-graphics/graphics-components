@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ScrollyVideo from '../ScrollyVideo.svelte';
-  import ScrollyVideoForeground from '../ScrollyVideoForeground.svelte';
+  import ScrollerVideo from '../ScrollerVideo.svelte';
+  import ScrollerVideoForeground from '../ScrollerVideoForeground.svelte';
   import SM from '../videos/waves_sm.mp4';
   import MD from '../videos/waves_md.mp4';
   import LG from '../videos/waves_lg.mp4';
@@ -28,9 +28,9 @@
     endTime: '0.3',
     blocks: [
       {
-        type: 'scrolly-video',
-        id: 'surf-scrolly',
-        height: '800svh',
+        type: 'scroller-video',
+        id: 'surf-scroller',
+        height: '800lvh',
         foregrounds: [
           {
             startTime: '0.3',
@@ -60,7 +60,7 @@
       },
     ],
   };
-  const scrollyVideoBlock = content.blocks[0];
+  const scrollerVideoBlock = content.blocks[0];
 
   let width = $state(1);
 </script>
@@ -68,14 +68,14 @@
 <svelte:window bind:innerWidth={width} />
 
 {#snippet ScrollVideo(height: string, src: string)}
-  <ScrollyVideo
-    id={scrollyVideoBlock.id}
+  <ScrollerVideo
+    id={scrollerVideoBlock.id}
     {height}
     {src}
     useWebCodecs={true}
     showDebugInfo
   >
-    <ScrollyVideoForeground
+    <ScrollerVideoForeground
       startTime={parseFloat(content.startTime)}
       endTime={parseFloat(content.endTime)}
     >
@@ -85,10 +85,10 @@
         authors={content.authors}
         publishTime={new Date(content.publishTime).toISOString()}
       />
-    </ScrollyVideoForeground>
+    </ScrollerVideoForeground>
 
-    {#each scrollyVideoBlock.foregrounds as foreground}
-      <ScrollyVideoForeground
+    {#each scrollerVideoBlock.foregrounds as foreground}
+      <ScrollerVideoForeground
         startTime={parseFloat(foreground.startTime)}
         endTime={parseFloat(foreground.endTime)}
         width={foreground.width as 'fluid'}
@@ -97,15 +97,15 @@
         ]}
       />
     {/each}
-  </ScrollyVideo>
+  </ScrollerVideo>
 {/snippet}
 
 {#if width < 600}
-  {@render ScrollVideo(scrollyVideoBlock.height, SM)}
+  {@render ScrollVideo(scrollerVideoBlock.height, SM)}
 {:else if width < 1200}
-  {@render ScrollVideo(scrollyVideoBlock.height, MD)}
+  {@render ScrollVideo(scrollerVideoBlock.height, MD)}
 {:else}
-  {@render ScrollVideo(scrollyVideoBlock.height, LG)}
+  {@render ScrollVideo(scrollerVideoBlock.height, LG)}
 {/if}
 
 <style lang="scss">
@@ -113,7 +113,7 @@
     color: white;
   }
 
-  :global(.surf-scrolly .scrolly-video-foreground) {
+  :global(.surf-scroller .scroller-video-foreground) {
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.85));
   }
 </style>
