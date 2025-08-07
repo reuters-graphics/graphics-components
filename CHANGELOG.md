@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.13
+
+### Patch Changes
+
+- 36d5896: Adds ScrollerVideo
+
 ## 3.0.12
 
 ### Patch Changes
