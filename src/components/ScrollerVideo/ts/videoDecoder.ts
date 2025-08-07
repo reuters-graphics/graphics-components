@@ -1,4 +1,4 @@
-import * as MP4Box from 'mp4box';
+import { createFile } from 'mp4box';
 
 interface MP4BoxBuffer extends ArrayBuffer {
   fileStart: number;
@@ -133,7 +133,7 @@ const decodeVideo = (
 
     try {
       // Uses mp4box for demuxing
-      const mp4boxfile = MP4Box.createFile();
+      const mp4boxfile = createFile();
 
       // Holds the codec value
       let codec = 'N/A';

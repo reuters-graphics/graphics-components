@@ -29,6 +29,9 @@ importers:
       journalize:
         specifier: ^2.6.0
         version: 2.6.0
+      mp4box:
+        specifier: ^0.5.4
+        version: 0.5.4
       proper-url-join:
         specifier: ^2.1.2
         version: 2.1.2
@@ -47,6 +50,9 @@ importers:
       svelte-intersection-observer:
         specifier: ^1.0.0
         version: 1.0.0
+      ua-parser-js:
+        specifier: ^2.0.3
+        version: 2.0.3
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.2
@@ -168,9 +174,6 @@ importers:
       mermaid:
         specifier: ^10.9.3
         version: 10.9.3
-      mp4box:
-        specifier: ^0.5.4
-        version: 0.5.4
       postcss:
         specifier: ^8.5.3
         version: 8.5.3
@@ -219,9 +222,6 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
-      ua-parser-js:
-        specifier: ^2.0.3
-        version: 2.0.3
       vite:
         specifier: ^6.3.2
         version: 6.3.2(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(yaml@2.7.1)

@@ -76,7 +76,6 @@
     "eslint-plugin-storybook": "^0.12.0",
     "knip": "^5.50.5",
     "mermaid": "^10.9.3",
-    "mp4box": "^0.5.4",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-svelte": "^3.3.3",
@@ -93,7 +92,6 @@
     "svelte": "^5.28.1",
     "svelte-check": "^4.1.6",
     "typescript": "^5.8.3",
-    "ua-parser-js": "^2.0.3",
     "vite": "^6.3.2"
   },
   "dependencies": {
@@ -109,7 +107,9 @@
     "slugify": "^1.6.6",
     "storybook-addon-rtl": "^1.1.0",
     "svelte-fa": "^4.0.3",
-    "svelte-intersection-observer": "^1.0.0"
+    "svelte-intersection-observer": "^1.0.0",
+    "mp4box": "^0.5.4",
+    "ua-parser-js": "^2.0.3"
   },
   "exports": {
     ".": {
