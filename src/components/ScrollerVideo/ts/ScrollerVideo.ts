@@ -1,11 +1,11 @@
 import { UAParser } from 'ua-parser-js';
 import videoDecoder from './videoDecoder';
-import { debounce, isScrollPositionAtTarget, map } from './utils';
-import { createComponentState, type ScrollyVideoState } from './state.svelte';
+import { debounce, isScrollPositionAtTarget, map, constrain } from './utils';
+import { createComponentState, type ScrollerVideoState } from './state.svelte';
 
-interface ScrollyVideoArgs {
-  src?: string;
-  scrollyVideoContainer: HTMLElement | string;
+interface ScrollerVideoArgs {
+  src: string;
+  scrollerVideoContainer: HTMLElement | string;
   objectFit?: string;
   sticky?: boolean;
   full?: boolean;
@@ -18,9 +18,14 @@ interface ScrollyVideoArgs {
   onChange?: (percentage?: number) => void;
   debug?: boolean;
   autoplay?: boolean;
+  setVideoPercentage?: (
+    percentage: number,
+    options?: TransitionOptions
+  ) => void;
+  resize?: () => void;
 }
 
-interface TransitionOptions {
+export interface TransitionOptions {
   jump: boolean;
   transitionSpeed?: number;
   easing?: ((progress: number) => number) | null;
@@ -28,9 +33,9 @@ interface TransitionOptions {
 }
 
 /**
- * ScrollyVideo class for scroll-driven or programmatic video playback with Svelte integration.
+ * ScrollerVideo class for scroll-driven or programmatic video playback with Svelte integration.
  */
-class ScrollyVideo {
+class ScrollerVideo {
   /**
    * The container element for the video or canvas.
    * @type {HTMLElement | null}
@@ -40,7 +45,7 @@ class ScrollyVideo {
    * The original container argument (element or string ID).
    * @type {Element | string | undefined}
    */
-  scrollyVideoContainer: Element | string | undefined;
+  scrollerVideoContainer: Element | string | undefined;
   /**
    * Video source URL.
    * @type {string}
@@ -168,9 +173,9 @@ class ScrollyVideo {
   transitioningRaf: number | null;
   /**
    * State object for component-level state.
-   * @type {ScrollyVideoState}
+   * @type {ScrollerVideoState}
    */
-  componentState: ScrollyVideoState;
+  componentState: ScrollerVideoState;
   /**
    * Function to update scroll percentage (set in constructor).
    * @type {((jump: boolean) => void) | undefined}
@@ -183,12 +188,12 @@ class ScrollyVideo {
   resize: (() => void) | undefined;
 
   /**
-   * Creates a new ScrollyVideo instance.
-   * @param {ScrollyVideoArgs} args - The arguments for initialization.
+   * Creates a new ScrollerVideo instance.
+   * @param {ScrollerVideoArgs} args - The arguments for initialization.
    */
   constructor({
-    src = 'https://scrollyvideo.js.org/goldengate.mp4',
-    scrollyVideoContainer,
+    src,
+    scrollerVideoContainer,
     objectFit = 'cover',
     sticky = true,
     full = true,
@@ -197,13 +202,13 @@ class ScrollyVideo {
     transitionSpeed = 8,
     frameThreshold = 0.1,
     useWebCodecs = true,
-    onReady = () => {},
-    onChange = (_percentage?: number) => {},
+    onReady = () => { },
+    onChange = (_percentage?: number) => { },
     debug = false,
     autoplay = false,
-  }: ScrollyVideoArgs) {
+  }: ScrollerVideoArgs) {
     this.src = src;
-    this.scrollyVideoContainer = scrollyVideoContainer;
+    this.scrollerVideoContainer = scrollerVideoContainer;
     this.objectFit = objectFit;
     this.sticky = sticky;
     this.trackScroll = trackScroll;
@@ -235,36 +240,20 @@ class ScrollyVideo {
     this.totalTime = 0; // The total time of the video, used for calculating percentage
     this.transitioningRaf = null;
     this.componentState = createComponentState();
-
     this.componentState.willAutoPlay = autoplay;
 
-    // Make sure that we have a DOM
-    if (typeof document !== 'object') {
-      console.error('ScrollyVideo must be initiated in a DOM context');
-      return;
-    }
-
-    // Make sure the basic arguments are set for scrollyvideo
-    if (!scrollyVideoContainer) {
-      console.error('scrollyVideoContainer must be a valid DOM object');
-      return;
-    }
-    if (!src) {
-      console.error('Must provide valid video src to ScrollyVideo');
-      return;
-    }
 
     // Save the container. If the container is a string we get the element
 
-    if (scrollyVideoContainer && scrollyVideoContainer instanceof HTMLElement)
-      this.container = scrollyVideoContainer;
+    if (scrollerVideoContainer && scrollerVideoContainer instanceof HTMLElement)
+      this.container = scrollerVideoContainer;
     // otherwise it should better be an element
-    else if (typeof scrollyVideoContainer === 'string') {
-      this.container = document.getElementById(scrollyVideoContainer) || null;
+    else if (typeof scrollerVideoContainer === 'string') {
+      this.container = document.getElementById(scrollerVideoContainer) || null;
       if (!this.container)
-        throw new Error('scrollyVideoContainer must be a valid DOM object');
+        throw new Error('scrollerVideoContainer must be a valid DOM object');
     } else {
-      throw new Error('scrollyVideoContainer must be a valid DOM object');
+      throw new Error('scrollerVideoContainer must be a valid DOM object');
     }
 
     // Create the initial video object. Even if we are going to use webcodecs,
@@ -307,7 +296,7 @@ class ScrollyVideo {
     // Setting CSS properties for full
     if (full) {
       this.container.style.width = '100%';
-      this.container.style.height = '100svh';
+      this.container.style.height = '100lvh';
       this.container.style.overflow = 'hidden';
     }
 
@@ -341,7 +330,7 @@ class ScrollyVideo {
       } else {
         if (this.debug) {
           console.error(
-            'ScrollyVideo: container or parentNode is null or invalid.'
+            'ScrollerVideo: container or parentNode is null or invalid.'
           );
         }
         return;
@@ -364,7 +353,7 @@ class ScrollyVideo {
       }
 
       if (this.debug) {
-        console.info('ScrollyVideo scrolled to', scrollPercent);
+        console.info('ScrollerVideo scrolled to', scrollPercent);
       }
 
       // toggle autoplaying state on manual intervention
@@ -436,7 +425,7 @@ class ScrollyVideo {
 
     // Add resize function
     this.resize = () => {
-      if (this.debug) console.info('ScrollyVideo resizing...');
+      if (this.debug) console.info('ScrollerVideo resizing...');
       // On resize, we need to reset the cover style
       if (this.objectFit) this.setCoverStyle(this.canvas || this.video);
       // Then repaint the canvas, if we are in useWebcodecs
@@ -464,7 +453,7 @@ class ScrollyVideo {
   setVideoPercentage(
     percentage: number,
     options: TransitionOptions = { jump: false, transitionSpeed: 8 }
-  ): void {
+  ) {
     // Early termination if the video percentage is already at the percentage that is intended.
     if (this.videoPercentage === percentage) return;
 
@@ -736,7 +725,7 @@ class ScrollyVideo {
       const hasPassedThreshold =
         isForwardTransition ?
           this.currentTime >= this.targetTime
-        : this.currentTime <= this.targetTime;
+          : this.currentTime <= this.targetTime;
 
       if (this.componentState.isAutoPlaying) {
         this.componentState.autoplayProgress = parseFloat(
@@ -775,7 +764,7 @@ class ScrollyVideo {
         isForwardTransition ?
           startCurrentTime +
           easedProgress * Math.abs(distance) * transitionSpeed
-        : startCurrentTime -
+          : startCurrentTime -
           easedProgress * Math.abs(distance) * transitionSpeed;
 
       if (this.canvas) {
@@ -815,7 +804,7 @@ class ScrollyVideo {
           1
         );
         if (this.debug)
-          console.info('ScrollyVideo playbackRate:', playbackRate);
+          console.info('ScrollerVideo playbackRate:', playbackRate);
 
         if (!isNaN(playbackRate)) {
           this.video.playbackRate = playbackRate;
@@ -864,7 +853,7 @@ class ScrollyVideo {
     const targetDuration =
       this.frames?.length && this.frameRate ?
         this.frames.length / this.frameRate
-      : this.video?.duration || 0;
+        : this.video?.duration || 0;
     // The time we want to transition to
     this.targetTime = Math.max(Math.min(percentage, 1), 0) * targetDuration;
 
@@ -915,10 +904,10 @@ class ScrollyVideo {
   }
 
   /**
-   * Call to destroy this ScrollyVideo object.
+   * Call to destroy this ScrollerVideo object.
    */
   destroy() {
-    if (this.debug) console.info('Destroying ScrollyVideo');
+    if (this.debug) console.info('Destroying ScrollerVideo');
 
     if (this.trackScroll && this.updateScrollPercentage)
       window.removeEventListener('scroll', () => this.updateScrollPercentage);
@@ -949,8 +938,10 @@ class ScrollyVideo {
    */
   updateDebugInfo() {
     this.componentState.generalData.src = this.src;
-    this.componentState.generalData.videoPercentage = parseFloat(
-      this.videoPercentage.toFixed(4)
+    this.componentState.generalData.videoPercentage = constrain(
+      parseFloat(this.videoPercentage.toFixed(4)),
+      0,
+      1
     );
     this.componentState.generalData.frameRate = parseFloat(
       this.frameRate.toFixed(2)
@@ -966,4 +957,4 @@ class ScrollyVideo {
     this.componentState.framesData.totalFrames = this.frames?.length || 0;
   }
 }
-export default ScrollyVideo;
+export default ScrollerVideo;

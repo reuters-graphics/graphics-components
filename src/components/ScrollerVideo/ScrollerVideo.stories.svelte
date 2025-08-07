@@ -1,16 +1,14 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import ScrollyVideo from './ScrollyVideo.svelte';
+  import ScrollerVideo from './ScrollerVideo.svelte';
   import WithScrollerBase from './demo/WithScrollerBase.svelte';
-  import WithTimeline from './demo/WithTimeline.svelte';
-  import BasicTextBoxes from './demo/BasicTextBoxes.svelte';
+  import WithAi2svelteForegrounds from './demo/WithAi2svelteForegrounds.svelte';
+  import WithTextForegrounds from './demo/WithTextForegrounds.svelte';
+  import Embedded from './demo/Embedded.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/ScrollyVideo',
-    component: ScrollyVideo,
-    parameters: {
-      docsTools: { remount: true },
-    },
+    title: 'Components/Graphics/ScrollerVideo',
+    component: ScrollerVideo,
     argTypes: {
       autoplay: {
         control: 'boolean',
@@ -69,7 +67,7 @@
           category: 'Bindable states',
         },
       },
-      scrollyVideo: {
+      scrollerVideo: {
         table: {
           category: 'Bindable states',
         },
@@ -125,10 +123,11 @@
 </script>
 
 <script>
-  import Video_SM from './videos/v_9_16.mp4';
-  import Video_MD from './videos/v_1_1.mp4';
-  import Video_LG from './videos/v_16_9.mp4';
+  import Video_SM from './videos/waves_sm.mp4';
+  import Video_MD from './videos/waves_md.mp4';
+  import Video_LG from './videos/waves_lg.mp4';
   import Goldengate from './videos/goldengate.mp4';
+  import AdvancedUsecases from './demo/AdvancedUsecases.svelte';
 
   const videoSrc = {
     Video_SM,
@@ -137,72 +136,55 @@
     Goldengate,
   };
 
-  const args = $state({
-    trackScroll: true,
-    height: '500svh',
+  const args = {
     showDebugInfo: true,
-    autoplay: false,
-    full: true,
-    sticky: true,
-    objectFit: 'cover',
-    transitionSpeed: 8,
-    frameThreshold: 0.1,
-    useWebCodecs: true,
-    lockScroll: true,
-  });
+  };
 </script>
 
 <svelte:window bind:innerWidth={width} />
 
-<Story name="Basic" {args}></Story>
-
-<Story name="Multiple Videos" {args}>
-  {#snippet children(args)}
-    {#key args}
-      {#if width < 600}
-        <ScrollyVideo {...args} src={videoSrc.Video_SM} />
-      {:else if width < 1200}
-        <ScrollyVideo {...args} src={videoSrc.Video_MD} />
-      {:else}
-        <ScrollyVideo {...args} src={videoSrc.Video_LG} />
-      {/if}
-    {/key}
-  {/snippet}
+<Story name="Demo">
+  <ScrollerVideo {...args} src={videoSrc.Goldengate} />
 </Story>
 
-<Story name="Autoplay" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <ScrollyVideo
-        {...args}
-        src={videoSrc.Goldengate}
-        useWebCodecs={false}
-        autoplay={true}
-      ></ScrollyVideo>
-    {/key}
-  {/snippet}
+<Story name="Responsive videos" exportName="ResponsiveVideos">
+  {#if width < 600}
+    <ScrollerVideo {...args} src={videoSrc.Video_SM} />
+  {:else if width < 1200}
+    <ScrollerVideo {...args} src={videoSrc.Video_MD} />
+  {:else}
+    <ScrollerVideo {...args} src={videoSrc.Video_LG} />
+  {/if}
 </Story>
 
-<Story name="Inside ScrollerBase" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <WithScrollerBase />
-    {/key}
-  {/snippet}
+<Story name="Embed version" exportName="Embed">
+  <Embedded />
 </Story>
 
-<Story name="Time based foregrounds" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <WithTimeline />
-    {/key}
-  {/snippet}
+<Story name="Autoplay">
+  <ScrollerVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 
-<Story name="Basic text foreground" {args}>
-  {#snippet children(args)}
-    {#key args}
-      <BasicTextBoxes />
-    {/key}
-  {/snippet}
+<Story
+  name="Time-based foregrounds with ArchieML"
+  exportName="ArchieMLForegrounds"
+  {args}
+>
+  <WithTextForegrounds />
+</Story>
+
+<Story
+  name="Time-based component foregrounds with ArchieML"
+  exportName="ComponentArchieMLForegrounds"
+  {args}
+>
+  <WithAi2svelteForegrounds />
+</Story>
+
+<Story name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
+  <WithScrollerBase />
+</Story>
+
+<Story name="Advanced usecases" exportName="Advanced" {args}>
+  <AdvancedUsecases />
 </Story>
