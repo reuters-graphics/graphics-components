@@ -151,7 +151,7 @@
             // add user defined onReady
             onReady();
 
-            window?.addEventListener('scroll', (e: Event) => {
+            window?.addEventListener('scroll', () => {
               if (
                 embeddedContainer &&
                 embeddedContainer.getBoundingClientRect().top <
