@@ -4,7 +4,7 @@ import Ias from './ias';
 
 const ONETRUST_LOGS = 'ot_logs';
 const ONETRUST_GEOLOCATION_MOCK = 'ot_geolocation_mock';
-const ONETRUST_SCRIPT_ID = '38cb75bd-fbe1-4ac8-b4af-e531ab368caf-test';
+const ONETRUST_SCRIPT_ID = '38cb75bd-fbe1-4ac8-b4af-e531ab368caf';
 
 export const loadBootstrap = () => {
   (<any>window).freestar = (<any>window).freestar || {};

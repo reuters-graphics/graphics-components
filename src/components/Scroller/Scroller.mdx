@@ -122,7 +122,7 @@ Then parse the relevant ArchieML block object before passing to the `Scroller` c
   {#if block.type === 'ai-scroller'}
     <Scroller
       id={block.id}
-      backgroundWidth={block.width}
+      backgroundWidth={block.backgroundWidth}
       foregroundPosition={block.foregroundPosition}
       stackBackground={truthy(block.stackBackground)}
       steps={block.steps.map((step) => ({

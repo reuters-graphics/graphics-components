@@ -1,5 +1,47 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.12
+
+### Patch Changes
+
+- 771ccb4: Fixes sizing issue for Framer
+
+## 3.0.11
+
+### Patch Changes
+
+- 31caab2: Fix typos in Scroller
+
+## 3.0.10
+
+### Patch Changes
+
+- cf7e513: Updated oneTrustId to production ID
+
+## 3.0.9
+
+### Patch Changes
+
+- 18e49eb: renames Theme and CustomTheme types
+
+## 3.0.8
+
+### Patch Changes
+
+- bdf3918: Updates Visible to allow unit specification for top, bototm, right, left and adds a demo
+
+## 3.0.7
+
+### Patch Changes
+
+- f80e450: Removes Parsely page analytics
+
+## 3.0.6
+
+### Patch Changes
+
+- a205a35: Adds new Headpile component.
+
 ## 3.0.5
 
 ### Patch Changes

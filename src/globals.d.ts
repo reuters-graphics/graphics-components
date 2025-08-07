@@ -21,14 +21,6 @@ declare global {
     };
     /** Graphics ads */
     graphicsAdQueue: any[];
-    /** Parsely */
-    PARSELY: {
-      onLoad: () => void;
-      beacon: {
-        trackPageView: () => void;
-      };
-      updateDefaults: (params: any) => void;
-    };
   }
 }
 

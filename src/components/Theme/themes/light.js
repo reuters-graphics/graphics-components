@@ -1,6 +1,6 @@
 import common from './common.js';
 
-/** @type {import('../@types/component').Theme} */
+/** @type {import('../@types/component').ThemeConfig} */
 export default {
   ...common,
   colour: {

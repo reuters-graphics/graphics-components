@@ -201,6 +201,7 @@
   }
 
   #frame-parent {
+    box-sizing: content-box;
     border: 1px solid #ddd;
     margin: 0 auto;
     width: var(--width);
