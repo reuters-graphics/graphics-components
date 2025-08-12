@@ -1,0 +1,23 @@
+import { Meta } from '@storybook/blocks';
+
+import * as UtilFunctionStories from './Utils.stories.svelte';
+
+<Meta of={UtilFunctionStories} />
+
+# Util functions
+
+This library provides utility functions that can be used across various components and applications.
+
+## Prettify date in the Reuters format
+
+The function `prettifyDate` formats the input string, which is expected to be in English, to format the month and time designator (AM/PM) according to the Reuters style guide. The function is case agnostic and will format both full month names and their 3-letter abbreviations (i.e. `Mar` or `Jun`) correctly.
+
+```javascript
+import { prettifyDate } from '@reuters-graphics/graphics-components';
+
+// Example usage
+prettifyDate('January 1, 2023, 10:00 AM'); // returns 'Jan. 1, 2023, 10:00 a.m.'
+prettifyDate('Jan 1, 2023, 10:00 PM'); // returns 'Jan. 1, 2023, 10:00 p.m.'
+prettifyDate('MAR. 2025'); // returns 'March 2025'
+prettifyDate('sep. 1, 2023, 10:00PM'); // returns 'Sept. 1, 2023, 10:00 p.m.'
+```
