@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.15
+
+### Patch Changes
+
+- 68b51a1: Adds util function prettifyDate
+
 ## 3.0.14
 
 ### Patch Changes
