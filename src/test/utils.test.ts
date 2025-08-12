@@ -114,6 +114,18 @@ describe('Utils tests', () => {
     const unformattedSept = 'Sep. 2025';
     const formattedSept = 'Sept. 2025';
     expect(prettifyDate(unformattedSept)).toBe(formattedSept);
+
+    const unformattedOct = 'Oct. 2025';
+    const formattedOct = 'Oct. 2025';
+    expect(prettifyDate(unformattedOct)).toBe(formattedOct);
+
+    const unformattedNov = 'Nov 2025';
+    const formattedNov = 'Nov. 2025';
+    expect(prettifyDate(unformattedNov)).toBe(formattedNov);
+
+    const unformattedDec = 'DEC 2025';
+    const formattedDec = 'Dec. 2025';
+    expect(prettifyDate(unformattedDec)).toBe(formattedDec);
   });
 
   it('should fix spacing between time and am/pm', () => {
@@ -133,9 +145,18 @@ describe('Utils tests', () => {
     const formattedJune = 'June 1, 2023, 10:00 a.m.';
     expect(prettifyDate(unformattedJune)).toBe(formattedJune);
 
+    const unformattedAug = 'aug 1, 2023, 10:00PM';
+    const formattedAug = 'Aug. 1, 2023, 10:00 p.m.';
+    expect(prettifyDate(unformattedAug)).toBe(formattedAug);
+
     const unformattedSept = 'sep. 1, 2023, 10:00PM';
     const formattedSept = 'Sept. 1, 2023, 10:00 p.m.';
     expect(prettifyDate(unformattedSept)).toBe(formattedSept);
+
+    const unformattedOct = 'oct 1, 2023, 10:00PM';
+    const formattedOct = 'Oct. 1, 2023, 10:00 p.m.';
+    expect(prettifyDate(unformattedOct)).toBe(formattedOct);
+
   });
 
   it('should work with lower or upper case', () => {
@@ -154,5 +175,9 @@ describe('Utils tests', () => {
     const unformattedJune = 'JUN. 1, 2023, 10:00AM';
     const formattedJune = 'June 1, 2023, 10:00 a.m.';
     expect(prettifyDate(unformattedJune)).toBe(formattedJune);
+
+    const unformattedAug = 'AUG. 1, 2023, 10:00PM';
+    const formattedAug = 'Aug. 1, 2023, 10:00 p.m.';
+    expect(prettifyDate(unformattedAug)).toBe(formattedAug);
   });
 });
