@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.16
+
+### Patch Changes
+
+- 2b6b4f4: Fixes prettifyDate to format Aug, Oct-Dec
+
 ## 3.0.15
 
 ### Patch Changes
