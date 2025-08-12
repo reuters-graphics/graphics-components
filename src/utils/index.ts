@@ -52,7 +52,11 @@ export const prettifyDate = (input: string) => {
     apr: 'April',
     jun: 'June',
     jul: 'July',
+    aug: 'Aug.',
     sep: 'Sept.',
+    oct: 'Oct.',
+    nov: 'Nov.',
+    dec: 'Dec.',
   };
 
   // If the key in conversions is found in the input (case insensitive), replace it with the corresponding value
