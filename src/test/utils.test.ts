@@ -79,7 +79,7 @@ describe('Utils tests', () => {
     const formattedMay = 'May';
     expect(prettifyDate(unformattedMay)).toBe(formattedMay);
 
-    const unformattedJune = 'Jun.';
+    const unformattedJune = 'JUN.';
     const formattedJune = 'June';
     expect(prettifyDate(unformattedJune)).toBe(formattedJune);
 
@@ -87,17 +87,17 @@ describe('Utils tests', () => {
     const formattedJuly = 'July';
     expect(prettifyDate(unformattedJuly)).toBe(formattedJuly);
 
-    const unformattedSept = 'Sep.';
+    const unformattedSept = 'sep.';
     const formattedSept = 'Sept.';
     expect(prettifyDate(unformattedSept)).toBe(formattedSept);
   });
 
   it('should format months with year properly', () => {
-    const unformattedMarch = 'Mar. 2025';
+    const unformattedMarch = 'MAR. 2025';
     const formattedMarch = 'March 2025';
     expect(prettifyDate(unformattedMarch)).toBe(formattedMarch);
 
-    const unformattedApril = 'Apr. 2025';
+    const unformattedApril = 'apr. 2025';
     const formattedApril = 'April 2025';
     expect(prettifyDate(unformattedApril)).toBe(formattedApril);
 
@@ -136,6 +136,22 @@ describe('Utils tests', () => {
     expect(prettifyDate(unformattedJune)).toBe(formattedJune);
   });
 
+  it('should work with lower or upper case', () => {
+    const unformattedMarch = 'MAR. 1, 2023, 10:00pm';
+    const formattedMarch = 'March 1, 2023, 10:00 p.m.';
+    expect(prettifyDate(unformattedMarch)).toBe(formattedMarch);
 
+    const unformattedApril = 'APR. 1, 2023, 10:00AM';
+    const formattedApril = 'April 1, 2023, 10:00 a.m.';
+    expect(prettifyDate(unformattedApril)).toBe(formattedApril);
+
+    const unformattedMay = 'may. 1, 2023, 10:00am';
+    const formattedMay = 'May 1, 2023, 10:00 a.m.';
+    expect(prettifyDate(unformattedMay)).toBe(formattedMay);
+
+    const unformattedJune = 'JUN. 1, 2023, 10:00AM';
+    const formattedJune = 'June 1, 2023, 10:00 a.m.';
+    expect(prettifyDate(unformattedJune)).toBe(formattedJune);
+  });
 
 });

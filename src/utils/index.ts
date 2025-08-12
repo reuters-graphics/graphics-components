@@ -34,49 +34,50 @@ export const getAuthorPageUrl = (author: string): string => {
  *
  */
 export const prettifyDate = (input: string) => {
-  // Define a object to map full month names to their Reuters style equivalents
+  // Define an object to map full month names to their Reuters style equivalents
   const conversions: { [key: string]: string } = {
     // full months
-    January: 'Jan.',
-    February: 'Feb.',
-    August: 'Aug.',
-    September: 'Sept.',
-    October: 'Oct.',
-    November: 'Nov.',
-    December: 'Dec.',
+    january: 'Jan.',
+    february: 'Feb.',
+    august: 'Aug.',
+    september: 'Sept.',
+    october: 'Oct.',
+    november: 'Nov.',
+    december: 'Dec.',
 
     // 3-letter abbreviations that need fixing
-    Jan: 'Jan.',
-    Feb: 'Feb.',
-    Mar: 'March',
-    Apr: 'April',
-    Jun: 'June',
-    Jul: 'July',
-    Sep: 'Sept.',
+    jan: 'Jan.',
+    feb: 'Feb.',
+    mar: 'March',
+    apr: 'April',
+    jun: 'June',
+    jul: 'July',
+    sep: 'Sept.',
   };
 
-  // If the key in conversions is found in the input, replace it with the corresponding value
+  // If the key in conversions is found in the input (case insensitive), replace it with the corresponding value
   let formatted = Object.keys(conversions).reduce((acc, key) => {
-    const regex = new RegExp(`\\b${key}\\b`, 'g');
+    const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Added 'i' flag for case insensitive
     return acc.replace(regex, conversions[key]);
   }, input);
 
-  // Fix rogue periods in abbreviations
-  let fixedAbbr = formatted.replace('Mar.', 'March')
-    .replace('March.', 'March')
-    .replace('Apr.', 'April')
-    .replace('April.', 'April')
-    .replace('May.', 'May')
-    .replace('June.', 'June')
-    .replace('July.', 'July')
-    .replace('Sep.', 'Sept.');
+  // Fix rogue periods in abbreviations (case insensitive)
+  let fixedAbbr = formatted
+    .replace(/\bmar\./gi, 'March')
+    .replace(/\bmarch\./gi, 'March')
+    .replace(/\bapr\./gi, 'April')
+    .replace(/\bapril\./gi, 'April')
+    .replace(/\bmay\./gi, 'May')
+    .replace(/\bjune\./gi, 'June')
+    .replace(/\bjuly\./gi, 'July')
+    .replace(/\bsep\./gi, 'Sept.');
 
   // Replace double periods with a single period
-  let fixedPeriods = fixedAbbr.replace('..', '.');
+  let fixedPeriods = fixedAbbr.replace(/\.{2,}/g, '.');
 
-  // Fix 'Mar. 1, 2023, 10:00pm' to 'March 1, 2023, 10:00 p.m.', with a space before 'p.m.'
-  return prettifyAmPm(fixedPeriods)
-}
+  // Fix am/pm formatting
+  return prettifyAmPm(fixedPeriods);
+};
 
 const prettifyAmPm = (text: string) => {
   return text.replace(/(\d)\s*(am|AM|pm|PM)\b/g, (match, digit, timeDesignator) => {

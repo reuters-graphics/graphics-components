@@ -2,6 +2,9 @@
 export { default as cssVariables } from './actions/cssVariables/index';
 export { default as resizeObserver } from './actions/resizeObserver/index';
 
+// Utils
+export { prettifyDate } from './utils/index';
+
 // Components
 export {
   default as Analytics,
