@@ -1,0 +1,24 @@
+name: Test Graphics Kit
+permissions:
+  contents: read
+  issues: write
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build-app:
+    name: SvelteKit builds
+    strategy:
+      matrix:
+        version: [20, 22]
+    runs-on: ubuntu-latest
+    env:
+      TESTING: true
+    steps:
+      - id: test
+        name: Run tests
+        run: pnpm test
