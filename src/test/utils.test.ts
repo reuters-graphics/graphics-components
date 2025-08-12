@@ -134,6 +134,10 @@ describe('Utils tests', () => {
     const unformattedJune = 'Jun. 1, 2023, 10:00AM';
     const formattedJune = 'June 1, 2023, 10:00 a.m.';
     expect(prettifyDate(unformattedJune)).toBe(formattedJune);
+
+    const unformattedSept = 'sep. 1, 2023, 10:00PM';
+    const formattedSept = 'Sept. 1, 2023, 10:00 p.m.';
+    expect(prettifyDate(unformattedSept)).toBe(formattedSept);
   });
 
   it('should work with lower or upper case', () => {
