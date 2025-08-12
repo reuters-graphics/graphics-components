@@ -1,17 +1,14 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta } from '@storybook/blocks';
 
 import * as UtilFunctionStories from './Utils.stories.svelte';
 
 <Meta of={UtilFunctionStories} />
 
-
 # Util functions
 
 This library provides utility functions that can be used across various components and applications.
 
-
 ## Prettify date in the Reuters format
-
 
 The function `prettifyDate` formats the input string, which is expected to be in English, to format the month and time designator (AM/PM) according to the Reuters style guide. The function is case agnostic and will format both full month names and their 3-letter abbreviations (i.e. `Mar` or `Jun`) correctly.
 

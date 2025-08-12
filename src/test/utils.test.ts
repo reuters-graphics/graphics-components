@@ -4,7 +4,6 @@ import { describe, it, expect } from 'vitest';
 process.env.TESTING = 'true';
 
 describe('Utils tests', () => {
-
   it('should format full month correctly', () => {
     const unformatted = 'January 1, 2023, 10:00 AM';
     const formatted = 'Jan. 1, 2023, 10:00 a.m.';
@@ -64,7 +63,6 @@ describe('Utils tests', () => {
     const formattedSept = 'Sept. 1, 2023, 10:00 p.m.';
     expect(prettifyDate(unformattedSept)).toBe(formattedSept);
   });
-
 
   it('should format months on their own properly', () => {
     const unformattedMarch = 'Mar.';
@@ -157,5 +155,4 @@ describe('Utils tests', () => {
     const formattedJune = 'June 1, 2023, 10:00 a.m.';
     expect(prettifyDate(unformattedJune)).toBe(formattedJune);
   });
-
 });

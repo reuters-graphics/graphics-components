@@ -56,13 +56,13 @@ export const prettifyDate = (input: string) => {
   };
 
   // If the key in conversions is found in the input (case insensitive), replace it with the corresponding value
-  let formatted = Object.keys(conversions).reduce((acc, key) => {
+  const formatted = Object.keys(conversions).reduce((acc, key) => {
     const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Added 'i' flag for case insensitive
     return acc.replace(regex, conversions[key]);
   }, input);
 
   // Fix rogue periods in abbreviations (case insensitive)
-  let fixedAbbr = formatted
+  const fixedAbbr = formatted
     .replace(/\bmar\./gi, 'March')
     .replace(/\bmarch\./gi, 'March')
     .replace(/\bapr\./gi, 'April')
@@ -73,17 +73,19 @@ export const prettifyDate = (input: string) => {
     .replace(/\bsep\./gi, 'Sept.');
 
   // Replace double periods with a single period
-  let fixedPeriods = fixedAbbr.replace(/\.{2,}/g, '.');
+  const fixedPeriods = fixedAbbr.replace(/\.{2,}/g, '.');
 
   // Fix am/pm formatting
   return prettifyAmPm(fixedPeriods);
 };
 
 const prettifyAmPm = (text: string) => {
-  return text.replace(/(\d)\s*(am|AM|pm|PM)\b/g, (match, digit, timeDesignator) => {
-    const formattedDesignator = timeDesignator.toLowerCase() === 'am'
-      ? 'a.m.'
-      : 'p.m.';
-    return `${digit} ${formattedDesignator}`;
-  });
-}
+  return text.replace(
+    /(\d)\s*(am|AM|pm|PM)\b/g,
+    (_match, digit, timeDesignator) => {
+      const formattedDesignator =
+        timeDesignator.toLowerCase() === 'am' ? 'a.m.' : 'p.m.';
+      return `${digit} ${formattedDesignator}`;
+    }
+  );
+};
