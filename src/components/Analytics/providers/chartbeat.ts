@@ -1,10 +1,6 @@
 // Reuters Chartbeat UID
 const UID = 52639;
 
-const attachScript = () => {
-  // If script is already attached, skip
-  // loaded via GTM Container
-};
 
 export default (authors: { name: string }[]) => {
   window._sf_async_config = {
@@ -17,12 +13,6 @@ export default (authors: { name: string }[]) => {
     authors: authors.map((a) => a?.name || '').join(','),
     ...(window._sf_async_config || {}),
   };
-
-  try {
-    attachScript();
-  } catch (e) {
-    console.warn(`Error initialising Chartbeat Analytics: ${e}`);
-  }
 };
 
 export const registerPageview = () => {

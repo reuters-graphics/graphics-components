@@ -1,16 +1,10 @@
 // Reuters Google Tag ID
 const GOOGLE_TAG_ID = 'G-WBSR7WLTGD';
 
-const attachScript = () => {
-  // If script is already attached, skip
-  // loaded via GTM Container
-};
-
 export default () => {
   try {
     window.dataLayer = window.dataLayer || [];
     if (!window.gtag) {
-      attachScript();
       /** @type {Gtag.Gtag} */
       window.gtag = function () {
         // eslint-disable-next-line prefer-rest-params
