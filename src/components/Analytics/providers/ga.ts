@@ -1,25 +1,10 @@
 // Reuters Google Tag ID
 const GOOGLE_TAG_ID = 'G-WBSR7WLTGD';
 
-const URL = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`;
-
-const attachScript = () => {
-  // If script is already attached, skip
-  if (document.querySelector(`script[src="${URL}"]`)) return;
-  // ... else attach it.
-  const e = document.createElement('script');
-  const n = document.getElementsByTagName('script')[0];
-  e.type = 'text/javascript';
-  e.async = true;
-  e.src = URL;
-  n.parentNode!.insertBefore(e, n);
-};
-
 export default () => {
   try {
     window.dataLayer = window.dataLayer || [];
     if (!window.gtag) {
-      attachScript();
       /** @type {Gtag.Gtag} */
       window.gtag = function () {
         // eslint-disable-next-line prefer-rest-params
