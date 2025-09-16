@@ -1,7 +1,6 @@
 // Reuters Chartbeat UID
 const UID = 52639;
 
-
 export default (authors: { name: string }[]) => {
   window._sf_async_config = {
     uid: UID,
