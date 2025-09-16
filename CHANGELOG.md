@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.17
+
+### Patch Changes
+
+- cd0dc83: Updates analytics scripts to work with GDPR-compliant GTM container
+
 ## 3.0.16
 
 ### Patch Changes
