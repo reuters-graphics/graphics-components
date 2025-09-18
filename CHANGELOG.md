@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.18
+
+### Patch Changes
+
+- 1402aac: Fix for GTM tags
+
 ## 3.0.17
 
 ### Patch Changes
