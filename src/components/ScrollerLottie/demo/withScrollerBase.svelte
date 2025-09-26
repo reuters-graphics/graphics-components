@@ -1,8 +1,7 @@
 <script lang="ts">
-  import Block from '../../Block/Block.svelte';
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import ScrollerLottie from '../ScrollerLottie.svelte';
-  import LottieSample from '../data/markerSample.lottie?url';
+  import LottieSample from '../data/themesLottie.lottie?url';
 
   // Optional: Bind your own variables to use them in your code.
   let count = $state(1);
@@ -27,11 +26,7 @@
   {#snippet backgroundSnippet()}
     <!-- Add custom background HTML or component -->
     <div class="lottie-container">
-      <ScrollerLottie
-        src={'https://lottie.host/9a5a6605-fc90-4935-8d10-9df4c83902ff/PFUKH53LJk.lottie'}
-        showDebugInfo
-        {progress}
-      />
+      <ScrollerLottie src={LottieSample} showDebugInfo {progress} />
     </div>
   {/snippet}
   {#snippet foregroundSnippet()}

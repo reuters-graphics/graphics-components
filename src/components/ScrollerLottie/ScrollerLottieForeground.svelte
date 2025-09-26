@@ -38,7 +38,7 @@
     Foreground,
   }: ForegroundProps = $props();
 
-  let componentState: LottieState | null = getContext('lottieState');
+  let componentState: LottieState | null = $state(getContext('lottieState'));
 
   onDestroy(() => {
     componentState = null;

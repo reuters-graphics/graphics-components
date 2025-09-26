@@ -7,6 +7,7 @@
 
   import MarkerSample from './data/markerSample.lottie?url';
   import ForegroundSample from './data/foregroundSample.lottie?url';
+  import ThemesSample from './data/themesLottie.lottie?url';
   import WithScrollerBase from './demo/withScrollerBase.svelte';
 
   const { Story } = defineMeta({
@@ -56,7 +57,7 @@
 
 <Story name="Themes">
   <ScrollerLottie
-    src={'https://lottie.host/9a5a6605-fc90-4935-8d10-9df4c83902ff/PFUKH53LJk.lottie'}
+    src={ThemesSample}
     showDebugInfo
     autoplay
     bind:progress
