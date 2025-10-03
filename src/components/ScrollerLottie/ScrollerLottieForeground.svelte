@@ -6,7 +6,7 @@
 
   // Types
   import type { Component, Snippet } from 'svelte';
-  import type { LottieState } from './lottieState.svelte';
+  import type { LottieState } from './ts/lottieState.svelte';
   import type {
     ContainerWidth,
     ScrollerLottieForegroundPosition,

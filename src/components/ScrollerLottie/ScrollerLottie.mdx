@@ -9,6 +9,10 @@ import CompositionMarkerImage from './assets/marker.png?url';
 
 The `ScrollerLottie` component plays Lottie animations. It uses the [dotLottie-web](https://developers.lottiefiles.com/docs/dotlottie-player/dotlottie-web/) library to render the animations.
 
+## How to use .lottie files
+
+LottieFiles is the official platform for creating and editing Lottie animations, and exporting them in the dotLottie format for smaller file sizes. The free version of LottieFiles has limited features, so [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) remains a popular, free way to export animations as JSON files. You can use the [LottieFiles converter](https://lottiefiles.com/tools/lottie-to-dotlottie) to convert JSON files to dotLottie or optimized dotLottie formats. This component is flexible and supports both dotLottie and JSON animation files.
+
 ## Basic demo
 
 To use the `ScrollerLottie` component, import it and provide the animation source. The height defaults to `100lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `200lvh` with the `height` prop.
@@ -27,7 +31,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile
+  src: LottieFile.lottie
   :end
 []
 ```
@@ -37,13 +41,14 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 ```svelte
 <script lang="ts">
   import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <ScrollerLottie
-      src={`./data/${block.src}.lottie?url`}
+      src={`${assets}/animations/${block.src}`}
       autoplay
       loop
       showDebugInfo
@@ -70,7 +75,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile
+  src: LottieFile.lottie
   marker: myMarker
   :end
 []
@@ -81,13 +86,14 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 ```svelte
 <script lang="ts">
   import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <ScrollerLottie
-      src={`./data/${block.src}.lottie?url`}
+      src={`${assets}/animations/${block.src}`}
       marker={block.marker}
       autoplay
       loop
@@ -109,7 +115,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile
+  src: LottieFile.lottie
   [.segment]
     start: 0
     end: 20
@@ -123,13 +129,14 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 ```svelte
 <script lang="ts">
   import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <ScrollerLottie
-      src={`./data/${block.src}.lottie?url`}
+      src={`${assets}/animations/${block.src}`}
       segment={[block.segment.start, block.segment.end]}
       autoplay
       loop
@@ -151,7 +158,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile
+  src: LottieFile.lottie
   theme: myTheme
   :end
 []
@@ -162,13 +169,14 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 ```svelte
 <script lang="ts">
   import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <ScrollerLottie
-      src={`./data/${block.src}.lottie?url`}
+      src={`${assets}/animations/${block.src}`}
       theme={block.theme}
       autoplay
       loop
@@ -270,7 +278,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile
+  src: LottieFile.lottie
 
   # Array of foregrounds
   [.foregrounds]
@@ -303,7 +311,11 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import {
+    ScrollerLottie,
+    ScrollerLottieForeground,
+  } from '@reuters-graphics/graphics-components';
+  import { assets } from '$app/paths';
 
   const Components = $state({
     Headline,
@@ -315,7 +327,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <ScrollerLottie
-      src={`./data/${block.src}.lottie?url`}
+      src={`${assets}/animations/${block.src}`}
       theme={block.theme}
       autoplay
       loop

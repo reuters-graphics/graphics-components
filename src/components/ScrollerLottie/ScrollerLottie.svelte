@@ -27,7 +27,7 @@
     speed?: Config['speed'];
     src?: Config['src'];
     useFrameInterpolation?: Config['useFrameInterpolation'];
-    marker?: Config['marker'] | null | undefined;
+    marker?: Config['marker'] | undefined;
     layout?: Config['layout'];
     animationId?: Config['animationId'];
     themeId?: Config['themeId'];
@@ -56,8 +56,8 @@
   let canvas: HTMLCanvasElement;
   let canvasWidth: number = $state(1);
   let canvasHeight: number = $state(1);
-  let prevSrc = void 0;
-  let prevData = void 0;
+  let prevSrc: undefined | string = void 0;
+  let prevData: undefined | unknown = void 0;
   let progressTween = new Tween(0, { duration: 100 });
   let start: number = $state(0);
   let end: number = $state(0);
@@ -77,7 +77,7 @@
     themeId = '',
     themeData = '',
     playOnHover = false,
-    marker = '',
+    marker = undefined,
     layout = { fit: 'contain', align: [0.5, 0.5] },
     animationId = '',
     lottiePlayer = $bindable(undefined),
@@ -99,8 +99,7 @@
   setContext('lottieState', lottieState);
 
   function onLoadEvent() {
-    if (showDebugInfo) {
-      // set layout
+    if (lottiePlayer) {
       lottiePlayer.setLayout(layout);
 
       lottieState.allMarkers = lottiePlayer.markers().map((x) => x.name);
@@ -116,13 +115,13 @@
         start = segment ? segment[0] : 0;
         end = segment ? segment[1] : lottiePlayer.totalFrames - 1;
       }
+
+      // set to frame 1 to trigger initial render
+      // helpful especially when themeId is set
+      lottiePlayer.setFrame(1);
+
+      onLoad(); // call user-defined onLoad function
     }
-
-    // set to frame 1 to trigger initial render
-    // helpful especially when themeId is set
-    lottiePlayer.setFrame(1);
-
-    onLoad(); // call user-defined onLoad function
   }
 
   function onCompleteEvent() {
@@ -152,23 +151,73 @@
 
     if (lottiePlayer && lottieState) {
       keys.forEach((key) => {
-        lottieState[key] = lottiePlayer[key];
+        switch (key) {
+          case 'currentFrame':
+            lottieState.currentFrame = lottiePlayer!.currentFrame;
+            break;
+          case 'totalFrames':
+            lottieState.totalFrames = lottiePlayer!.totalFrames;
+            break;
+          case 'duration':
+            lottieState.duration = lottiePlayer!.duration;
+            break;
+          case 'loop':
+            lottieState.loop = lottiePlayer!.loop;
+            break;
+          case 'speed':
+            lottieState.speed = lottiePlayer!.speed;
+            break;
+          case 'loopCount':
+            lottieState.loopCount = lottiePlayer!.loopCount;
+            break;
+          case 'mode':
+            lottieState.mode = lottiePlayer!.mode;
+            break;
+          case 'isPaused':
+            lottieState.isPaused = lottiePlayer!.isPaused;
+            break;
+          case 'isPlaying':
+            lottieState.isPlaying = lottiePlayer!.isPlaying;
+            break;
+          case 'isStopped':
+            lottieState.isStopped = lottiePlayer!.isStopped;
+            break;
+          case 'isLoaded':
+            lottieState.isLoaded = lottiePlayer!.isLoaded;
+            break;
+          case 'isFrozen':
+            lottieState.isFrozen = lottiePlayer!.isFrozen;
+            break;
+          case 'segment':
+            lottieState.segment = lottiePlayer!.segment ?? null;
+            break;
+          case 'autoplay':
+            lottieState.autoplay = lottiePlayer!.autoplay ?? false;
+            break;
+          case 'layout':
+            lottieState.layout = lottiePlayer!.layout ?? null;
+            break;
+          case 'activeThemeId':
+            lottieState.activeThemeId = lottiePlayer!.activeThemeId ?? null;
+            break;
+          case 'marker':
+            lottieState.marker = lottiePlayer!.marker ?? undefined;
+            break;
+        }
       });
+
+      progress = (lottiePlayer.currentFrame + 1) / lottiePlayer.totalFrames;
+      lottieState.progress = progress;
+      onRender(); // call user-defined onRender function
     }
-
-    progress = (lottiePlayer.currentFrame + 1) / lottiePlayer.totalFrames;
-
-    lottieState.progress = progress;
-
-    onRender(); // call user-defined onRender function
   }
 
-  const hoverHandler = (event) => {
-    if (!playOnHover || !lottiePlayer.isLoaded) return;
+  const hoverHandler = (event: MouseEvent) => {
+    if (!playOnHover || !lottiePlayer?.isLoaded) return;
     if (event.type === 'mouseenter') {
-      lottiePlayer.play();
+      lottiePlayer?.play();
     } else if (event.type === 'mouseleave') {
-      lottiePlayer.pause();
+      lottiePlayer?.pause();
     }
   };
 
@@ -216,7 +265,7 @@
     return () => {
       canvas.removeEventListener('mouseenter', hoverHandler);
       canvas.removeEventListener('mouseleave', hoverHandler);
-      lottiePlayer.destroy();
+      lottiePlayer?.destroy();
     };
   });
 
@@ -232,12 +281,12 @@
   $effect(() => {
     if (lottieState.isLoaded && lottieState.progress !== progress) {
       autoplay = false;
-      lottiePlayer.pause();
+      lottiePlayer?.pause();
       loop = false;
 
       if (progress >= 0 && progress <= 1) {
         if (lottieState.isFrozen) {
-          lottiePlayer.unfreeze();
+          lottiePlayer?.unfreeze();
           lottieState.isFrozen = false;
         }
         const targetFrame = map(
@@ -258,7 +307,7 @@
         } else {
           progressTween.target = progress < 0 ? start : end;
         }
-        lottiePlayer.freeze();
+        lottiePlayer?.freeze();
         lottieState.isFrozen = true;
       }
     }
@@ -267,7 +316,7 @@
   // Tweens to progress value
   $effect(() => {
     if (progressTween.current >= 0) {
-      lottiePlayer.setFrame(progressTween.current);
+      lottiePlayer?.setFrame(progressTween.current);
     }
   });
 
@@ -275,7 +324,7 @@
   $effect(() => {
     if (
       typeof layout === 'object' &&
-      lottiePlayer.isLoaded &&
+      lottiePlayer?.isLoaded &&
       !isEqual(layout, lottiePlayer.layout)
     ) {
       lottiePlayer.setLayout(layout);
@@ -284,15 +333,15 @@
 
   // Handles marker change
   $effect(() => {
-    if (lottieState.isLoaded && lottiePlayer.marker !== marker) {
+    if (lottieState.isLoaded && lottiePlayer?.marker !== marker) {
       if (typeof marker === 'string') {
-        lottiePlayer.setMarker(marker);
+        lottiePlayer?.setMarker(marker);
 
         start =
-          lottiePlayer.markers().find((m) => m.name === marker)?.time ?? 0;
+          lottiePlayer?.markers().find((m) => m.name === marker)?.time ?? 0;
         end =
           start +
-          (lottiePlayer.markers().find((m) => m.name === marker)?.duration ??
+          (lottiePlayer?.markers().find((m) => m.name === marker)?.duration ??
             0);
 
         // change lottieState marker because
@@ -301,7 +350,7 @@
           lottieState.marker = marker;
         }
       } else if (marker === null || marker === undefined) {
-        lottiePlayer.setMarker('');
+        lottiePlayer?.setMarker('');
       } else {
         console.warn('Invalid marker type:', marker);
       }
@@ -313,9 +362,9 @@
     if (
       lottieState.isLoaded &&
       typeof speed == 'number' &&
-      lottiePlayer.speed !== speed
+      lottiePlayer?.speed !== speed
     ) {
-      lottiePlayer.setSpeed(speed);
+      lottiePlayer?.setSpeed(speed);
     }
   });
 
@@ -324,15 +373,15 @@
     if (
       lottieState.isLoaded &&
       typeof useFrameInterpolation == 'boolean' &&
-      lottiePlayer.useFrameInterpolation !== useFrameInterpolation
+      lottiePlayer?.useFrameInterpolation !== useFrameInterpolation
     ) {
-      lottiePlayer.setUseFrameInterpolation(useFrameInterpolation);
+      lottiePlayer?.setUseFrameInterpolation(useFrameInterpolation);
     }
   });
 
   // Handles segment change
   $effect(() => {
-    if (lottieState.isLoaded && !isEqual(lottiePlayer.segment, segment)) {
+    if (lottieState.isLoaded && !isEqual(lottiePlayer?.segment, segment)) {
       if (
         Array.isArray(segment) &&
         segment.length === 2 &&
@@ -340,9 +389,9 @@
         typeof segment[1] === 'number'
       ) {
         let [start, end] = segment;
-        lottiePlayer.setSegment(start, end);
+        lottiePlayer?.setSegment(start, end);
       } else if (segment === null || segment === undefined) {
-        lottiePlayer.setSegment(0, lottiePlayer.totalFrames);
+        lottiePlayer?.setSegment(0, lottiePlayer?.totalFrames);
       }
     }
   });
@@ -352,9 +401,9 @@
     if (
       lottieState.isLoaded &&
       typeof loop == 'boolean' &&
-      lottiePlayer.loop !== loop
+      lottiePlayer?.loop !== loop
     ) {
-      lottiePlayer.setLoop(loop);
+      lottiePlayer?.setLoop(loop);
     }
   });
 
@@ -373,9 +422,9 @@
   $effect(() => {
     if (
       lottieState.isLoaded &&
-      lottiePlayer.backgroundColor !== backgroundColor
+      lottiePlayer?.backgroundColor !== backgroundColor
     ) {
-      lottiePlayer.setBackgroundColor(backgroundColor || '');
+      lottiePlayer?.setBackgroundColor(backgroundColor || '');
     }
   });
 
@@ -384,16 +433,16 @@
     if (
       lottieState.isLoaded &&
       typeof mode == 'string' &&
-      lottiePlayer.mode !== mode
+      lottiePlayer?.mode !== mode
     ) {
-      lottiePlayer.setMode(mode);
+      lottiePlayer?.setMode(mode);
     }
   });
 
   // Handles src change
   $effect(() => {
     if (lottieState && src !== prevSrc) {
-      lottiePlayer.load({
+      lottiePlayer?.load({
         src,
         autoplay,
         loop,
@@ -441,23 +490,23 @@
   $effect(() => {
     if (
       lottieState.isLoaded &&
-      lottiePlayer.activeAnimationId !== animationId
+      lottiePlayer?.activeAnimationId !== animationId
     ) {
-      lottiePlayer.loadAnimation(animationId);
+      lottiePlayer?.loadAnimation(animationId);
     }
   });
 
   // Handles themeId change
   $effect(() => {
-    if (lottieState.isLoaded && lottiePlayer.activeThemeId !== themeId) {
-      lottiePlayer.setTheme(themeId);
+    if (lottieState.isLoaded && lottiePlayer?.activeThemeId !== themeId) {
+      lottiePlayer?.setTheme(themeId);
     }
   });
 
   // Handles themeData change
   $effect(() => {
-    if (lottieState.isLoaded && lottiePlayer.isLoaded) {
-      lottiePlayer.setThemeData(themeData);
+    if (lottieState.isLoaded && lottiePlayer?.isLoaded) {
+      lottiePlayer?.setThemeData(themeData);
     }
   });
 </script>
@@ -493,29 +542,6 @@
       width: 100%;
       height: 100%;
       display: block;
-    }
-  }
-
-  .debug-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 3;
-    margin: 0;
-    min-width: 25vmin;
-
-    .title {
-      width: 100%;
-      padding: 4px 0 0 8px;
-      margin: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    p {
-      color: white;
-      margin: 0;
-      padding: 4px 8px 8px 8px;
     }
   }
 </style>

@@ -34,37 +34,6 @@
 <style lang="scss">
   @use '../../../scss/mixins' as mixins;
 
-  #progress-bar {
-    background-color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    z-index: 2;
-    right: 0;
-    padding: 1rem;
-
-    progress {
-      height: 6px;
-      background-color: #ff000044; /* Background color of the entire bar */
-    }
-
-    progress::-webkit-progress-value {
-      background-color: white;
-      border-radius: 10px;
-    }
-
-    progress::-webkit-progress-bar {
-      background-color: #444444;
-      border-radius: 10px;
-    }
-
-    p {
-      font-family: var(--theme-font-family-sans-serif);
-      color: white;
-      font-size: var(--theme-font-size-xs);
-      padding: 0;
-      margin: 0;
-    }
-  }
-
   .step-foreground-container {
     height: 100lvh;
     width: 50%;

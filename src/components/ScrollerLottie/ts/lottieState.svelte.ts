@@ -1,4 +1,16 @@
+import type { Layout } from '@lottiefiles/dotlottie-web';
+
 export interface LottieState {
+  [key: string]:
+    | number
+    | boolean
+    | string
+    | null
+    | Array<string>
+    | Array<number>
+    | [number, number]
+    | Layout
+    | undefined;
   progress: number;
   currentFrame: number;
   totalFrames: number;
@@ -14,9 +26,9 @@ export interface LottieState {
   isFrozen: boolean;
   segment: null | [number, number];
   autoplay: boolean;
-  layout: null | string;
+  layout: null | Layout;
   allMarkers: Array<string>;
-  marker: null | string;
+  marker: undefined | string;
   allThemes: Array<string>;
   activeThemeId: null | string;
 }
@@ -40,7 +52,7 @@ export function createLottieState(): LottieState {
     autoplay: false,
     layout: null,
     allMarkers: [],
-    marker: null,
+    marker: undefined,
     allThemes: [],
     activeThemeId: null,
   });
