@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.19
+
+### Patch Changes
+
+- 627f267: Enhances progress reactivity for ScrollerVideo
+
 ## 3.0.18
 
 ### Patch Changes
