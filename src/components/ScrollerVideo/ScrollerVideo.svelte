@@ -200,7 +200,10 @@
         videoPercentage >= 0 &&
         videoPercentage <= 1
       ) {
-        scrollerVideo.setVideoPercentage(videoPercentage);
+        scrollerVideo.setVideoPercentage(videoPercentage, {
+          jump: false,
+          transitionSpeed: restProps.transitionSpeed || 8,
+        });
       }
     }
   });
