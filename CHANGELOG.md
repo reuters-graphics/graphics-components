@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.20
+
+### Patch Changes
+
+- 6d5c152: Removes stray Google Analytics loading call so GA is only loaded via Google Tag Manager.
+
 ## 3.0.19
 
 ### Patch Changes
