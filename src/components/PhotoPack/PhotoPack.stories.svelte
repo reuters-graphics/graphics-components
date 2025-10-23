@@ -19,6 +19,12 @@
 </script>
 
 <script lang="ts">
+  import type { ComponentProps } from 'svelte';
+
+  type SmartDefaultsArgs = Omit<ComponentProps<typeof PhotoPack>, 'images'> & {
+    imageCount: number;
+  };
+
   const defaultImages = [
     {
       src: 'https://graphics.thomsonreuters.com/cdn/django-tools/media/graphics-gallery/galleries/world-cup-2022/spain-germany-11-27/2022-11-27T194630Z_544493697_UP1E.jpeg',
@@ -51,7 +57,7 @@
     { breakpoint: 750, rows: [1, 3] },
   ];
 
-  const archieMLImages = [
+  const allImages = [
     {
       src: 'https://graphics.thomsonreuters.com/cdn/django-tools/media/graphics-gallery/galleries/world-cup-2022/spain-germany-11-27/2022-11-27T194630Z_544493697_UP1E.jpeg',
       caption:
@@ -88,7 +94,7 @@
     width: 'wide' as const,
     textWidth: 'normal' as const,
     gap: Number('15'),
-    images: archieMLImages,
+    images: allImages.slice(0, 5),
     layouts: [
       { breakpoint: 750, rows: [2, 3] },
       { breakpoint: 450, rows: [1, 2, 2] },
@@ -106,3 +112,29 @@
   }}
 />
 <Story name="ArchieML" args={archieMLBlock} />
+
+<Story
+  name="Smart layouts"
+  args={{
+    width: 'wide',
+    textWidth: 'normal',
+    // @ts-expect-error - imageCount is a custom arg for this story's template
+    imageCount: 4,
+  }}
+  argTypes={{
+    // @ts-expect-error - imageCount is a custom arg for this story's template
+    imageCount: {
+      control: { type: 'range', min: 2, max: 5, step: 1 },
+      description:
+        'Number of images to display (demonstrates smart default layouts)',
+    },
+  }}
+>
+  {#snippet children(args)}
+    {@const { imageCount, ...photoPackProps } = args as SmartDefaultsArgs}
+    <PhotoPack
+      {...photoPackProps}
+      images={allImages.slice(0, imageCount || 4)}
+    />
+  {/snippet}
+</Story>
