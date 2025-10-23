@@ -62,7 +62,10 @@ export const generateDefaultLayouts = (
   width: ContainerWidth
 ): Layout[] => {
   // Map container width to max images per row for desktop
-  const desktopMaxPerRow = width === 'normal' ? 2 : width === 'widest' || width === 'fluid' ? 4 : 3;
+  const desktopMaxPerRow =
+    width === 'normal' ? 2
+    : width === 'widest' || width === 'fluid' ? 4
+    : 3;
 
   // Tablet always uses max 2 per row
   const tabletMaxPerRow = 2;

@@ -11,7 +11,7 @@ The `PhotoPack` component makes simple photo grids with custom layouts at variou
 `images` are defined with their src, alt text, captions and an optional `maxHeight`, which ensures that an image is no taller than that height in any layout.
 
 ```javascript
- const images = [
+const images = [
   {
     src: 'https://...',
     altText: 'Alt text',
@@ -155,6 +155,7 @@ If you don't specify the `layouts` prop, `PhotoPack` will automatically generate
 The smart defaults use a **bottom-heavy distribution**, meaning earlier rows have fewer images (making them larger and more prominent), while later rows have more images.
 
 **Examples:**
+
 - 5 images, `wide` container, desktop: `[2, 3]` (2 in first row, 3 in second)
 - 7 images, `widest` container, desktop: `[3, 4]` (3 in first row, 4 in second)
 - 4 images, any container, desktop: `[2, 2]` (evenly distributed)
