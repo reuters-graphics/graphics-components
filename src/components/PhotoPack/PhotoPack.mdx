@@ -8,9 +8,22 @@ import * as PhotoPackStories from './PhotoPack.stories.svelte';
 
 The `PhotoPack` component makes simple photo grids with custom layouts at various breakpoints.
 
-`images` are defined with their src, alt text, captions and an optional `maxHeight`, which ensures that the images are no taller than that height in any layout.
+`images` are defined with their src, alt text, captions and an optional `maxHeight`, which ensures that an image is no taller than that height in any layout.
 
-`layouts` describe how images will be laid out at different breakpoints. The default layout is one photo per row, stacked vertically -- i.e. mobile layout. You can customise the layouts and group images into `rows` above a certain `breakpoint` by specifying the number of images that should go in that row. For example:
+```javascript
+const images = [
+  {
+    src: 'https://...',
+    altText: 'Alt text',
+    caption: 'Lorem ipsum. REUTERS/Photog',
+    // Optional max-height of images across all layouts
+    maxHeight: 800,
+  },
+  // ...
+];
+```
+
+`layouts` optionally define how images are laid out at different breakpoints. You can customise the layouts and group images into `rows` above a certain `breakpoint` by specifying the number of images that should go in that row. For example:
 
 ```javascript
 const layouts = [
@@ -22,6 +35,8 @@ const layouts = [
 ```
 
 ... tells the component that when the `PhotoPack` container is 450 pixels or wider, it should group the 4 images in 3 rows: 1 in the first, 2 in the second and 1 in the last.
+
+If you don't specify any layouts, the component will use a default responsive layout based on the number of images in your pack.
 
 You can define as many layouts for as many images as you like.
 
@@ -123,3 +138,40 @@ gap: 10 # Optional; must be a number.
 ```
 
 <Canvas of={PhotoPackStories.ArchieML} />
+
+## Smart default layouts
+
+If you don't specify the `layouts` prop, `PhotoPack` will automatically generate responsive layouts based on the number of images and the container width.
+
+**How it works:**
+
+- **Desktop** (1024px+): Number of images per row depends on container width:
+  - `normal`: max 2 per row
+  - `wide` / `wider`: max 3 per row
+  - `widest` / `fluid`: max 4 per row
+- **Tablet** (768px+): Always max 2 per row
+- **Mobile** (below 768px): 1 per row
+
+The smart defaults use a **bottom-heavy distribution**, meaning earlier rows have fewer images (making them larger and more prominent), while later rows have more images.
+
+**Examples:**
+
+- 5 images, `wide` container, desktop: `[2, 3]` (2 in first row, 3 in second)
+- 7 images, `widest` container, desktop: `[3, 4]` (3 in first row, 4 in second)
+- 4 images, any container, desktop: `[2, 2]` (evenly distributed)
+
+```svelte
+<script>
+  import { PhotoPack } from '@reuters-graphics/graphics-components';
+
+  const images = [
+    { src: `${assets}/image1.jpg`, altText: 'Photo 1', caption: 'Caption 1' },
+    { src: `${assets}/image2.jpg`, altText: 'Photo 2', caption: 'Caption 2' },
+    { src: `${assets}/image3.jpg`, altText: 'Photo 3', caption: 'Caption 3' },
+    { src: `${assets}/image4.jpg`, altText: 'Photo 4', caption: 'Caption 4' },
+  ];
+</script>
+
+<!-- No layouts prop = smart defaults! -->
+<PhotoPack {images} width="wide" />
+```
