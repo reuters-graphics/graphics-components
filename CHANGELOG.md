@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.23
+
+### Patch Changes
+
+- 022d0dc: Test downstream notification workflow with updated reusable workflow
+
 ## 3.0.22
 
 ### Patch Changes
