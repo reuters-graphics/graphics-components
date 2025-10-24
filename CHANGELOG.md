@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.22
+
+### Patch Changes
+
+- bf550d5: Test downstream workflow notification system
+
 ## 3.0.21
 
 ### Patch Changes
