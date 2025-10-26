@@ -69,6 +69,17 @@ export type ScrollerVideoForegroundPosition =
   | 'center left'
   | 'center right';
 
+export type ScrollerLottieForegroundPosition =
+  | 'top center'
+  | 'top left'
+  | 'top right'
+  | 'bottom center'
+  | 'bottom left'
+  | 'bottom right'
+  | 'center center'
+  | 'center left'
+  | 'center right';
+
 // Complete ScrollerVideo instance interface
 export interface ScrollerVideoInstance {
   // Properties
