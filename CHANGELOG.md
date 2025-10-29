@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.24
+
+### Patch Changes
+
+- 0fce4cd: Removes dev from $app/environment
+
 ## 3.0.23
 
 ### Patch Changes
