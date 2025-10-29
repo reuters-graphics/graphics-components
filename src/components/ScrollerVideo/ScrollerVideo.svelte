@@ -4,7 +4,6 @@
   import Debug from './Debug.svelte';
   import type { Snippet } from 'svelte';
   import { setContext } from 'svelte';
-  import { dev } from '$app/environment';
   import { Tween } from 'svelte/motion';
 
   interface Props {
@@ -232,7 +231,7 @@
 <!-- renders Debug component and children foregrounds -->
 {#snippet supportingElements()}
   {#if scrollerVideo}
-    {#if showDebugInfo && dev}
+    {#if showDebugInfo}
       <div class="debug-info">
         <Debug componentState={scrollerVideo.componentState} />
       </div>
