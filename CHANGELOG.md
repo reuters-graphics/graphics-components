@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.25
+
+### Patch Changes
+
+- 257f967: Updates svelte-fa version
+
 ## 3.0.24
 
 ### Patch Changes
