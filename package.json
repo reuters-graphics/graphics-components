@@ -98,6 +98,7 @@
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@lottiefiles/dotlottie-web": "^0.52.2",
     "@reuters-graphics/svelte-markdown": "^0.0.3",
     "@sveltejs/kit": "^2.0.0",
     "dayjs": "^1.11.13",
