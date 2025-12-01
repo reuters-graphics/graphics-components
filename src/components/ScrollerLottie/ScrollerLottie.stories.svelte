@@ -5,6 +5,8 @@
   import Headline from '../Headline/Headline.svelte';
   import Theme from '../Theme/Theme.svelte';
 
+  // Denmo Lottie file
+  import DemoLottie from './data/demo.lottie?url';
   import MarkerSample from './data/markerSample.lottie?url';
   import ForegroundSample from './data/foregroundSample.lottie?url';
   import ThemesSample from './data/themesLottie.lottie?url';
@@ -37,7 +39,7 @@
 </script>
 
 <Story name="Demo">
-  <ScrollerLottie autoplay loop showDebugInfo />
+  <ScrollerLottie autoplay loop showDebugInfo src={DemoLottie} />
 </Story>
 
 <Story name="Marker">

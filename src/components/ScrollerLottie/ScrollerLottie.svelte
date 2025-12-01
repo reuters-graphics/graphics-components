@@ -17,7 +17,6 @@
   // Components
   import Debug from './Debug.svelte';
   import WASM from './data/dotlottie-player.wasm?url';
-  import DefaultLottie from './data/defaultLottie.lottie?url';
 
   // Types
   import type { Props } from './ts/types';
@@ -35,7 +34,7 @@
     autoplay = false,
     loop = false,
     mode = 'forward',
-    src = DefaultLottie,
+    src,
     speed = 1,
     data = undefined,
     backgroundColor = '#ffffff',
@@ -50,7 +49,6 @@
     layout = { fit: 'contain', align: [0.5, 0.5] },
     animationId = '',
     lottiePlayer = $bindable(undefined),
-    width = 'normal',
     height = '100lvh',
     showDebugInfo = false,
     lottieState = createLottieState(),
@@ -399,7 +397,6 @@
   :global(.lottie-block) {
     position: relative;
     height: 100%;
-    outline: 2px solid blue;
 
     .lottie-container {
       width: 100%;

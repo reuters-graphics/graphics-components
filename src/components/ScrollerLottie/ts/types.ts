@@ -1,6 +1,5 @@
 
 // Types
-import type { ContainerWidth } from '../../@types/global';
 import type { Snippet } from 'svelte';
 import {
     type Config,
@@ -17,7 +16,7 @@ type DotlottieProps = {
     renderConfig?: Config['renderConfig'];
     segment?: Config['segment'];
     speed?: Config['speed'];
-    src?: Config['src'];
+    src: Config['src'];
     useFrameInterpolation?: Config['useFrameInterpolation'];
     marker?: Config['marker'] | undefined;
     layout?: Config['layout'];
@@ -35,7 +34,6 @@ export type Props = DotlottieProps & {
     // Additional properties can be added here if needed
     lottiePlayer?: DotLottieType | undefined;
     showDebugInfo?: boolean;
-    width?: ContainerWidth;
     height?: string;
     lottieState?: LottieState;
     progress?: number;
