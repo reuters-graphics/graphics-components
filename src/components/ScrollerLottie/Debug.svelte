@@ -167,8 +167,6 @@
 </div>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
-
   .debug-info {
     position: absolute;
     top: 0;
@@ -207,7 +205,7 @@
 
     .title {
       width: 100%;
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--theme-font-family-monospace);
       color: white;
       margin: 0;
     }
@@ -235,7 +233,7 @@
 
   p {
     font-size: var(--theme-font-size-xxs);
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--theme-font-family-monospace);
     padding: 0;
     margin: 0;
     color: rgba(255, 255, 255, 0.7);
