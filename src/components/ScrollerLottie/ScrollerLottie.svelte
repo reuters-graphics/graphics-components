@@ -1,6 +1,6 @@
 <script lang="ts">
   // Libraries & utils
-  import { onDestroy, onMount, setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
   import { DotLottie } from '@lottiefiles/dotlottie-web';
   import { createLottieState } from './ts/lottieState.svelte';
   import { isEqual } from 'es-toolkit';
@@ -15,7 +15,6 @@
   import { Tween } from 'svelte/motion';
 
   // Components
-  import Block from '../Block/Block.svelte';
   import Debug from './Debug.svelte';
   import WASM from './data/dotlottie-player.wasm?url';
   import DefaultLottie from './data/defaultLottie.lottie?url';
@@ -51,7 +50,7 @@
     layout = { fit: 'contain', align: [0.5, 0.5] },
     animationId = '',
     lottiePlayer = $bindable(undefined),
-    width = 'widest',
+    width = 'normal',
     height = '100lvh',
     showDebugInfo = false,
     lottieState = createLottieState(),
@@ -376,7 +375,7 @@
   });
 </script>
 
-<Block {width} class="lottie-block">
+<div class="lottie-block">
   {#if showDebugInfo && lottiePlayer}
     <Debug componentState={lottieState} />
   {/if}
@@ -394,12 +393,13 @@
   {#if children}
     {@render children()}
   {/if}
-</Block>
+</div>
 
 <style lang="scss">
   :global(.lottie-block) {
     position: relative;
     height: 100%;
+    outline: 2px solid blue;
 
     .lottie-container {
       width: 100%;
