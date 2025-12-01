@@ -107,14 +107,17 @@
     }
   }
 
-  const hoverHandler = (event: MouseEvent) => {
-    if (!playOnHover || !lottiePlayer?.isLoaded) return;
-    if (event.type === 'mouseenter') {
-      lottiePlayer?.play();
-    } else if (event.type === 'mouseleave') {
-      lottiePlayer?.pause();
+  function handleMouseEnter() {
+    if (playOnHover && lottiePlayer?.isLoaded) {
+      lottiePlayer.play();
     }
-  };
+  }
+
+  function handleMouseLeave() {
+    if (playOnHover && lottiePlayer?.isLoaded) {
+      lottiePlayer.pause();
+    }
+  }
 
   onMount(() => {
     const shouldAutoplay = autoplay && !playOnHover;
@@ -149,12 +152,7 @@
       dotLottieRefCallback(lottiePlayer);
     }
 
-    canvas.addEventListener('mouseenter', hoverHandler);
-    canvas.addEventListener('mouseleave', hoverHandler);
-
     return () => {
-      canvas.removeEventListener('mouseenter', hoverHandler);
-      canvas.removeEventListener('mouseleave', hoverHandler);
       lottiePlayer?.destroy();
     };
   });
@@ -391,6 +389,8 @@
       bind:this={canvas}
       bind:clientWidth={canvasWidth}
       bind:clientHeight={canvasHeight}
+      onmouseenter={handleMouseEnter}
+      onmouseleave={handleMouseLeave}
     ></canvas>
   </div>
 

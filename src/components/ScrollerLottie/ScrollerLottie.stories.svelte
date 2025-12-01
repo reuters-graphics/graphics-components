@@ -36,7 +36,7 @@
   let progress = $state(0);
 </script>
 
-<Story name="Basic">
+<Story name="Demo">
   <ScrollerLottie autoplay loop showDebugInfo />
 </Story>
 
