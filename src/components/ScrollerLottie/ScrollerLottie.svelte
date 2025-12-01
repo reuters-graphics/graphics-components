@@ -153,16 +153,13 @@
     }
 
     return () => {
-      lottiePlayer?.destroy();
+      if (lottiePlayer) {
+        lottiePlayer.removeEventListener('load', onLoadEvent);
+        lottiePlayer.removeEventListener('frame', onRenderEvent);
+        lottiePlayer.removeEventListener('complete', onCompleteEvent);
+        lottiePlayer.destroy();
+      }
     };
-  });
-
-  onDestroy(() => {
-    if (lottiePlayer) {
-      lottiePlayer.removeEventListener('render', onRender);
-      lottiePlayer.removeEventListener('load', onLoad);
-      lottiePlayer.destroy();
-    }
   });
 
   // Handles progress change
