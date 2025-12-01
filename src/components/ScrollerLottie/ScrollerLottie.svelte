@@ -4,7 +4,14 @@
   import { DotLottie } from '@lottiefiles/dotlottie-web';
   import { createLottieState } from './ts/lottieState.svelte';
   import { isEqual } from 'es-toolkit';
-  import { map } from './ts/utils';
+  import {
+    syncLottieState,
+    getMarkerRange,
+    calculateTargetFrame,
+    isReverseMode,
+    createRenderConfig,
+    isNullish,
+  } from './ts/utils';
   import { Tween } from 'svelte/motion';
 
   // Components
@@ -74,7 +81,7 @@
           : [];
       }
 
-      if (marker == '' || marker == null || marker == undefined) {
+      if (isNullish(marker)) {
         start = segment ? segment[0] : 0;
         end = segment ? segment[1] : lottiePlayer.totalFrames - 1;
       }
@@ -92,86 +99,11 @@
   }
 
   function onRenderEvent() {
-    const keys = [
-      'currentFrame',
-      'totalFrames',
-      'duration',
-      'loop',
-      'speed',
-      'loopCount',
-      'mode',
-      'isPaused',
-      'isPlaying',
-      'isStopped',
-      'isLoaded',
-      'isFrozen',
-      'segment',
-      'autoplay',
-      'layout',
-      'activeThemeId',
-      'marker',
-    ];
-
     if (lottiePlayer && lottieState) {
-      keys.forEach((key) => {
-        switch (key) {
-          case 'currentFrame':
-            lottieState.currentFrame = lottiePlayer!.currentFrame;
-            break;
-          case 'totalFrames':
-            lottieState.totalFrames = lottiePlayer!.totalFrames;
-            break;
-          case 'duration':
-            lottieState.duration = lottiePlayer!.duration;
-            break;
-          case 'loop':
-            lottieState.loop = lottiePlayer!.loop;
-            break;
-          case 'speed':
-            lottieState.speed = lottiePlayer!.speed;
-            break;
-          case 'loopCount':
-            lottieState.loopCount = lottiePlayer!.loopCount;
-            break;
-          case 'mode':
-            lottieState.mode = lottiePlayer!.mode;
-            break;
-          case 'isPaused':
-            lottieState.isPaused = lottiePlayer!.isPaused;
-            break;
-          case 'isPlaying':
-            lottieState.isPlaying = lottiePlayer!.isPlaying;
-            break;
-          case 'isStopped':
-            lottieState.isStopped = lottiePlayer!.isStopped;
-            break;
-          case 'isLoaded':
-            lottieState.isLoaded = lottiePlayer!.isLoaded;
-            break;
-          case 'isFrozen':
-            lottieState.isFrozen = lottiePlayer!.isFrozen;
-            break;
-          case 'segment':
-            lottieState.segment = lottiePlayer!.segment ?? null;
-            break;
-          case 'autoplay':
-            lottieState.autoplay = lottiePlayer!.autoplay ?? false;
-            break;
-          case 'layout':
-            lottieState.layout = lottiePlayer!.layout ?? null;
-            break;
-          case 'activeThemeId':
-            lottieState.activeThemeId = lottiePlayer!.activeThemeId ?? null;
-            break;
-          case 'marker':
-            lottieState.marker = lottiePlayer!.marker ?? undefined;
-            break;
-        }
-      });
-
+      syncLottieState(lottiePlayer, lottieState);
       progress = (lottiePlayer.currentFrame + 1) / lottiePlayer.totalFrames;
       lottieState.progress = progress;
-      onRender(); // call user-defined onRender function
+      onRender();
     }
   }
 
@@ -189,12 +121,7 @@
 
     progressTween = new Tween(0, { duration: tweenDuration, easing: easing });
 
-    const _renderConfig = {
-      autoResize: true,
-      devicePixelRatio:
-        window.devicePixelRatio > 1 ? window.devicePixelRatio * 0.75 : 1,
-      freezeOnOffscreen: true,
-    };
+    const _renderConfig = createRenderConfig();
 
     lottiePlayer = new DotLottie({
       canvas,
@@ -252,20 +179,11 @@
           lottiePlayer?.unfreeze();
           lottieState.isFrozen = false;
         }
-        const targetFrame = map(
-          mode == 'reverse' || mode == 'reverse-bounce' ?
-            1 - progress
-          : progress,
-          0,
-          1,
-          start,
-          end
-        );
+        const targetFrame = calculateTargetFrame(progress, mode, start, end);
         progressTween.target = targetFrame;
         // lottiePlayer.setFrame(targetFrame);
       } else if ((progress < 0 || progress > 1) && !lottieState.isFrozen) {
-        // lottiePlayer.setFrame(progress < 0 ? start : end);
-        if (mode == 'reverse' || mode == 'reverse-bounce') {
+        if (isReverseMode(mode)) {
           progressTween.target = progress < 0 ? end : start;
         } else {
           progressTween.target = progress < 0 ? start : end;
@@ -297,22 +215,11 @@
   // Handles marker change
   $effect(() => {
     if (lottieState.isLoaded && lottiePlayer?.marker !== marker) {
-      if (typeof marker === 'string') {
-        lottiePlayer?.setMarker(marker);
-
-        start =
-          lottiePlayer?.markers().find((m) => m.name === marker)?.time ?? 0;
-        end =
-          start +
-          (lottiePlayer?.markers().find((m) => m.name === marker)?.duration ??
-            0);
-
-        // change lottieState marker because
-        // onRender fires before this
-        if (lottieState) {
-          lottieState.marker = marker;
-        }
-      } else if (marker === null || marker === undefined) {
+      if (typeof marker === 'string' && lottiePlayer) {
+        lottiePlayer.setMarker(marker);
+        [start, end] = getMarkerRange(lottiePlayer, marker);
+        lottieState.marker = marker;
+      } else if (isNullish(marker)) {
         lottiePlayer?.setMarker('');
       } else {
         console.warn('Invalid marker type:', marker);
@@ -488,7 +395,7 @@
   </div>
 
   {#if children}
-    {@render children?.()}
+    {@render children()}
   {/if}
 </Block>
 
