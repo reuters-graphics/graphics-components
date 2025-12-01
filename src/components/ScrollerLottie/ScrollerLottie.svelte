@@ -1,57 +1,20 @@
 <script lang="ts">
-  import {
-    type Config,
-    type DotLottie as DotLottieType,
-  } from '@lottiefiles/dotlottie-web';
-  import { DotLottie } from '@lottiefiles/dotlottie-web';
-  import Block from '../Block/Block.svelte';
-  import type { ContainerWidth } from '../@types/global';
-  import { createLottieState, type LottieState } from './ts/lottieState.svelte';
+  // Libraries & utils
   import { onDestroy, onMount, setContext } from 'svelte';
+  import { DotLottie } from '@lottiefiles/dotlottie-web';
+  import { createLottieState } from './ts/lottieState.svelte';
   import { isEqual } from 'es-toolkit';
-  import Debug from './Debug.svelte';
   import { map } from './ts/utils';
   import { Tween } from 'svelte/motion';
-  import type { Snippet } from 'svelte';
+
+  // Components
+  import Block from '../Block/Block.svelte';
+  import Debug from './Debug.svelte';
   import WASM from './data/dotlottie-player.wasm?url';
   import DefaultLottie from './data/defaultLottie.lottie?url';
 
-  type DotlottieProps = {
-    autoplay?: Config['autoplay'];
-    backgroundColor?: Config['backgroundColor'];
-    data?: Config['data'];
-    loop?: Config['loop'];
-    mode?: Config['mode'];
-    renderConfig?: Config['renderConfig'];
-    segment?: Config['segment'];
-    speed?: Config['speed'];
-    src?: Config['src'];
-    useFrameInterpolation?: Config['useFrameInterpolation'];
-    marker?: Config['marker'] | undefined;
-    layout?: Config['layout'];
-    animationId?: Config['animationId'];
-    themeId?: Config['themeId'];
-    playOnHover?: boolean;
-    themeData?: string;
-    dotLottieRefCallback?: (dotLottie: DotLottieType) => void;
-    onLoad?: () => void;
-    onRender?: () => void;
-    onComplete?: () => void;
-  };
-
-  type Props = DotlottieProps & {
-    // Additional properties can be added here if needed
-    lottiePlayer?: DotLottieType | undefined;
-    showDebugInfo?: boolean;
-    width?: ContainerWidth;
-    height?: string;
-    lottieState?: LottieState;
-    progress?: number;
-    tweenDuration?: number;
-    easing?: (t: number) => number;
-    /** Children render function */
-    children?: Snippet;
-  };
+  // Types
+  import type { Props } from './ts/types';
 
   let canvas: HTMLCanvasElement;
   let canvasWidth: number = $state(1);
