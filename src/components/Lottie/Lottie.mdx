@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/blocks';
 
 import * as LottieStories from './Lottie.stories.svelte';
-import CompositionMarkerImage from './assets/marker.png?url';
+import CompositionMarkerImage from './assets/marker.jpg?url';
 
 <Meta of={LottieStories} />
 
@@ -39,10 +39,10 @@ If importing the Lottie file directly into a Svelte component, make sure to appe
   import { Lottie } from '@reuters-graphics/graphics-components';
 
   // Import Lottie file
-  import DemoLottie from './lottie/demo.lottie?url'; // Append **?url** to the file path
+  import MyLottie from './lottie/my-lottie.zip?url'; // Append **?url** to the file path
 </script>
 
-<Lottie src={DemoLottie} autoplay={true} showDebugInfo={true} />
+<Lottie src={MyLottie} autoplay={true} showDebugInfo={true} />
 ```
 
 ## Using with ArchieML
@@ -86,54 +86,9 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 {/each}
 ```
 
-## Markers
-
-It is possible to play a specific portion of the animation using markers set in [AfterEffects](https://helpx.adobe.com/in/after-effects/using/layer-markers-composition-markers.html). The `Lottie` component can play a specific marker via the `marker` prop.
-
-The list of available markers can be found in the debug info when `showDebugInfo` prop is enabled.
-
-> 💡NOTE: The **Comment** section of the Composition Marker dialog should only contain the name of your marker.
-
-<img src={CompositionMarkerImage} alt="Composition Marker Dialog" />
-
-[Demo](?path=/story/components-graphics-scrollerlottie--marker)
-
-With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
-
-```yaml
-# ArchieML doc
-[blocks]
-  type: lottie
-  src: LottieFile.zip
-  marker: myMarker
-[]
-```
-
-... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
-
-```svelte
-<script lang="ts">
-  import { Lottie } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
-</script>
-
-{#each content.blocks as block}
-  <!-- Inside the content.blocks for loop... -->
-  {#if block.type == 'lottie'}
-    <Lottie
-      src={`${assets}/animations/${block.src}`}
-      marker={block.marker}
-      autoplay
-      loop
-      showDebugInfo
-    />
-  {/if}
-{/each}
-```
-
 ## Playing a segment
 
-Just like markers, it is also possible to play a specific segment of the animation using the `segment` prop. The `segment` prop expects an array of two numbers representing the start and end frames of the segment.
+ The `Lottie` component can play a specific segment of the Lottie animation using the `segment` prop. The `segment` prop expects an array of two numbers representing the start and end frames of the segment.
 
 [Demo](?path=/story/components-graphics-scrollerlottie--segment)
 
@@ -172,6 +127,30 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     />
   {/if}
 {/each}
+```
+
+## Markers
+
+ The `Lottie` component can also play a specific portion of the Lottie animation using markers set in [AfterEffects](https://helpx.adobe.com/in/after-effects/using/layer-markers-composition-markers.html).
+
+The list of available markers, which can be passed into the `marker` prop, can be found in the debug info box that appears when `showDebugInfo` is set to `true`.
+
+When setting markers in AfterEffects, ensure that the **Comment** section of the Composition Marker contains only the name of your marker:
+
+<img src={CompositionMarkerImage} alt="Composition Marker Dialog" />
+
+[Demo](?path=/story/components-graphics-scrollerlottie--marker)
+
+```svelte
+<script lang="ts">
+  import { Lottie } from '@reuters-graphics/graphics-components';
+
+  // Import Lottie file
+  import MyLottie from './lottie/my-lottie.zip?url'; // Append **?url** to the file path
+</script>
+
+<Lottie src={MyLottie} marker="myMarker"
+/>
 ```
 
 ## Switching themes

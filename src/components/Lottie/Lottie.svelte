@@ -15,7 +15,6 @@
   import { Tween } from 'svelte/motion';
 
   // Components
-  import Block from '../Block/Block.svelte';
   import Debug from './Debug.svelte';
   import WASM from './lottie/dotlottie-player.wasm?url';
 
@@ -377,7 +376,7 @@
   });
 </script>
 
-<Block {width} class="lottie-block">
+<div class="lottie-block">
   {#if showDebugInfo && lottiePlayer}
     <Debug componentState={lottieState} />
   {/if}
@@ -395,7 +394,7 @@
   {#if children}
     {@render children()}
   {/if}
-</Block>
+</div>
 
 <style lang="scss">
   :global(.lottie-block) {
