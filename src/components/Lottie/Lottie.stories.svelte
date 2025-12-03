@@ -83,7 +83,7 @@
 </Story>
 
 <Story name="With foregrounds">
-  <Lottie src={ForegroundSample} autoplay }>
+  <Lottie src={ForegroundSample} autoplay loop speed={1.5}>
     <LottieForeground
       startFrame={0}
       endFrame={50}
@@ -114,7 +114,7 @@
 
 <style lang="scss">
   :global {
-    .scroller-lottie-foreground {
+    .lottie-foreground-container {
       header {
         padding: 2rem;
         background-color: black;

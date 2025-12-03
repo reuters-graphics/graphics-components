@@ -43,19 +43,16 @@
   });
 </script>
 
-<Block class={`scroller-lottie-foreground ${cls}`} {id}>
+<div class="lottie-foreground-container {cls}" {id}>
   {#if componentState?.currentFrame && componentState.currentFrame >= startFrame && componentState.currentFrame <= endFrame}
     <div
-      class="scroller-foreground"
+      class="lottie-foreground"
       in:fade={{ delay: 100, duration: 200 }}
       out:fade={{ delay: 0, duration: 100 }}
     >
       <!-- Text blurb foreground -->
       {#if text}
-        <Block
-          class="scroller-lottie-foreground-text {position.split(' ')[1]}"
-          {width}
-        >
+        <Block class="lottie-foreground-block {position.split(' ')[1]}" {width}>
           <div
             style="background-color: {backgroundColour};"
             class="foreground-text {position.split(' ')[0]}"
@@ -69,47 +66,34 @@
       {/if}
     </div>
   {/if}
-</Block>
+</div>
 
 <style lang="scss">
-  @use './../../scss/mixins' as mixins;
+  @use '../../scss/mixins' as mixins;
 
-  .scroller-foreground {
-    width: 100%;
-    height: 100%;
-  }
-
-  :global(.scroller-lottie-foreground) {
+  .lottie-foreground-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 2;
-  }
 
-  .scroller-lottie-foreground-item {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .lottie-foreground {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   :global {
-    .scroller-lottie-foreground-text {
+    .lottie-foreground-block {
       position: absolute;
       width: 100%;
       max-width: calc(mixins.$column-width-normal * 0.9);
       height: 100%;
 
-      @media (max-width: 1200px) {
+      &.center {
         left: 50%;
         transform: translateX(-50%);
       }
@@ -117,10 +101,12 @@
       &.left {
         left: 0;
       }
+
       &.right {
         right: 0;
       }
-      &.center {
+
+      @media (max-width: 1200px) {
         left: 50%;
         transform: translateX(-50%);
       }
@@ -128,28 +114,28 @@
 
     .foreground-text {
       position: absolute;
-      top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 0.25rem;
-      background-color: white;
       width: 100%;
+      border-radius: 0.25rem;
       @include mixins.fpy-5;
       @include mixins.fpx-4;
       @include mixins.fm-0;
 
-      :global(*) {
+      * {
         margin: 0;
         padding: 0;
       }
 
       &.center {
         top: 50%;
+        transform: translate(-50%, -50%);
       }
+
       &.top {
         top: 0;
         transform: translate(-50%, 50%);
       }
+
       &.bottom {
         top: 100%;
         transform: translate(-50%, -150%);
