@@ -1,31 +1,51 @@
 import { Meta } from '@storybook/blocks';
 
-import * as ScrollerLottieStories from './ScrollerLottie.stories.svelte';
+import * as LottieStories from './Lottie.stories.svelte';
 import CompositionMarkerImage from './assets/marker.png?url';
 
-<Meta of={ScrollerLottieStories} />
+<Meta of={LottieStories} />
 
-# ScrollerLottie
+# Lottie
 
-The `ScrollerLottie` component uses the [dotLottie-web](https://developers.lottiefiles.com/docs/dotlottie-player/dotlottie-web/) library to render Lottie animations.
+The `Lottie` component uses the [dotLottie-web](https://developers.lottiefiles.com/docs/dotlottie-player/dotlottie-web/) library to render Lottie animations.
 
-## How to use .lottie files
+## How to prepare Lottie files
 
-LottieFiles is the official platform for creating and editing Lottie animations, and exporting them in the dotLottie format for smaller file sizes. The free version of LottieFiles has limited features, so [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) remains a popular, free way to export animations as JSON files. You can use the [LottieFiles converter](https://lottiefiles.com/tools/lottie-to-dotlottie) to convert JSON files to dotLottie or optimized dotLottie formats. This component is flexible and supports both dotLottie and JSON animation files.
+[LottieFiles](https://lottiefiles.com/) is the official platform for creating and editing Lottie animations. The free version of LottieFiles has limited features, so [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) remains a popular, free way to export Lottie animations as JSON files. 
 
-> 🚧NOTE: For optimal compatibility with graphics-publisher, export your JSON files as optimized dotLottie format and rename the file extension to `*.zip`. This approach ensures full publisher support while maintaining the benefits of the dotLottie format's compression and optimization.
+[dotLottie](https://dotlottie.io/) is another common format for Lottie files. This format bundles the Lottie JSON file and any associated assets, such as images and fonts, into a single compressed file with the extension `.lottie`.
+
+This `Lottie` component is flexible and supports both `dotLottie` and JSON Lottie files. For best performance it is recommended that you convert your Lottie JSON file into a `.zip` file by following these steps:
+
+1. Export your Lottie animation as a JSON file using [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) or another Lottie exporter.
+2. Use the [LottieFiles converter](https://lottiefiles.com/tools/lottie-to-dotlottie) to convert the JSON file into a `.lottie` file. 
+3. Change the file extension to `.zip` from `.lottie`. This ensures full compatibility with the Reuters graphics publisher while maintaining the benefits of dotLottie format's compression and optimisation.
 
 ## Basic demo
 
-To use the `ScrollerLottie` component, import it and provide the animation source. The height defaults to `100lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `200lvh` with the `height` prop.
+To use the `Lottie` component, import it and provide the Lottie animation source. The height of the container defaults to `100lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `200lvh` with the `height` prop.
 
-The .lottie or .json file should be placed at the same level as the component file. If using it inside `App.svelte`, create a `data` folder and place all the animation files inside. Make sure to append **?url** to the import statement when importing an animation file, as shown in the example below. This ensures that the file is treated as a URL.
+**Use `lvh` or `svh` units instead of `vh`** as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile and other devices where elements such as the address bar appear and disappear and affect the height.
 
-> 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
+If importing the Lottie file directly into a Svelte component, make sure to append **?url** to the import statement (see example below). This ensures that the file is treated as a URL.
 
-> 💡TIP: Use showDebugInfo prop to display additional information about the component state.
+> 💡TIP: Set `showDebugInfo` prop to `true` to display information about the component state.
 
-[Demo](?path=/story/components-graphics-scrollerlottie--basic)
+[Demo](?path=/story/components-graphics-scrollerlottie--demo)
+
+
+```svelte
+<script lang="ts">
+  import { Lottie } from '@reuters-graphics/graphics-components';
+
+  // Import Lottie file
+  import DemoLottie from './lottie/demo.lottie?url'; // Append **?url** to the file path
+</script>
+
+<Lottie src={DemoLottie} autoplay={true} showDebugInfo={true} />
+```
+
+## Using with ArchieML
 
 With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
@@ -33,35 +53,42 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile.zip
-  :end
+
+  # Lottie file stored in `src/statics/lottie/` folder
+  src: lottie/LottieFile.zip
+  autoplay: true
+  loop: true
+  showDebugInfo: true
 []
 ```
 
-... which you'll parse out of a ArchieML block object before passing to the `ScrollerLottie` component.
+... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
+  import { Lottie } from '@reuters-graphics/graphics-components';
+
+  // Graphics kit only
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <ScrollerLottie
-      src={`${assets}/animations/${block.src}`}
-      autoplay
-      loop
-      showDebugInfo
+    <Lottie
+      src={`${assets}/${block.src}`}
+      autoplay={truthy(block.autoplay)}
+      loop={truthy(block.loop)}
+      showDebugInfo={truthy(block.showDebugInfo)}
     />
   {/if}
 {/each}
 ```
 
-## Playing a marker
+## Markers
 
-It is possible to play a specific portion of the animation using markers. Markers can be set in [AfterEffects](https://helpx.adobe.com/in/after-effects/using/layer-markers-composition-markers.html) to define separate portions of the animation. A specific marker can be played by using the `marker` prop.
+It is possible to play a specific portion of the animation using markers set in [AfterEffects](https://helpx.adobe.com/in/after-effects/using/layer-markers-composition-markers.html). The `Lottie` component can play a specific marker via the `marker` prop.
 
 The list of available markers can be found in the debug info when `showDebugInfo` prop is enabled.
 
@@ -79,22 +106,21 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   type: lottie
   src: LottieFile.zip
   marker: myMarker
-  :end
 []
 ```
 
-... which you'll parse out of a ArchieML block object before passing to the `ScrollerLottie` component.
+... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { Lottie } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <ScrollerLottie
+    <Lottie
       src={`${assets}/animations/${block.src}`}
       marker={block.marker}
       autoplay
@@ -126,18 +152,18 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 []
 ```
 
-... which you'll parse out of a ArchieML block object before passing to the `ScrollerLottie` component.
+... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { Lottie } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <ScrollerLottie
+    <Lottie
       src={`${assets}/animations/${block.src}`}
       segment={[block.segment.start, block.segment.end]}
       autoplay
@@ -166,18 +192,18 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 []
 ```
 
-... which you'll parse out of a ArchieML block object before passing to the `ScrollerLottie` component.
+... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { Lottie } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <ScrollerLottie
+    <Lottie
       src={`${assets}/animations/${block.src}`}
       theme={block.theme}
       autoplay
@@ -194,7 +220,7 @@ It is also possible to switch themes dynamically based on the `progress` prop by
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { Lottie } from '@reuters-graphics/graphics-components';
   // make a folder named 'data' and place the .zip lottie file inside it
   // append ?url to the import statement
   import LottieSrc from './data/lottie-example.zip?url';
@@ -202,7 +228,7 @@ It is also possible to switch themes dynamically based on the `progress` prop by
   let progress = $state(0);
 </script>
 
-<ScrollerLottie
+<Lottie
   src={LottieSrc}
   bind:progress
   themeId={progress < 0.33 ? 'water'
@@ -215,16 +241,16 @@ It is also possible to switch themes dynamically based on the `progress` prop by
 
 ## With ScrollerBase
 
-The `ScrollerLottie` component can be used in conjunction with the `ScrollerBase` component to create a more complex scrolling experience. The `ScrollerBase` component provides a scrollable container that can hold the `ScrollerLottie` component as a background.
+The `Lottie` component can be used in conjunction with the `ScrollerBase` component to create a more complex scrolling experience. The `ScrollerBase` component provides a scrollable container that can hold the `Lottie` component as a background.
 
 ```svelte
 <script lang="ts">
-  import { ScrollerLottie } from '@reuters-graphics/graphics-components';
+  import { Lottie } from '@reuters-graphics/graphics-components';
   // make a folder named 'data' and place the .zip lottie file inside it
   // append ?url to the import statement
   import LottieSrc from './data/lottie-example.zip?url';
 
-  // Pass `progress` as `videoPercentage` to ScrollerLottie
+  // Pass `progress` as `videoPercentage` to Lottie
   let progress = $state(0);
 </script>
 
@@ -232,7 +258,7 @@ The `ScrollerLottie` component can be used in conjunction with the `ScrollerBase
   {#snippet backgroundSnippet()}
     <!-- Pass bindable prop `progress` as `progress` -->
     <div class="lottie-container">
-      <ScrollerLottie src={LottieSrc} {progress} showDebugInfo />
+      <Lottie src={LottieSrc} {progress} showDebugInfo />
     </div>
   {/snippet}
   {#snippet foregroundSnippet()}
@@ -274,7 +300,7 @@ The `ScrollerLottie` component can be used in conjunction with the `ScrollerBase
 
 ## With foregrounds
 
-The `ScrollerLottie` component can also be used to display captions or even components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the animation. To do so, add ScrollerLottieForeground components as children of the ScrollerLottie component.
+The `Lottie` component can also be used to display captions or even components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the animation. To do so, add LottieForeground components as children of the Lottie component.
 
 [Demo](?path=/story/components-graphics-scrollerlottie--with-foregrounds)
 
@@ -313,13 +339,13 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 []
 ```
 
-... which you'll parse out of a ArchieML block object before passing to the `ScrollerLottie` component.
+... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
 
 ```svelte
 <script lang="ts">
   import {
-    ScrollerLottie,
-    ScrollerLottieForeground,
+    Lottie,
+    LottieForeground,
   } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 
@@ -332,7 +358,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <ScrollerLottie
+    <Lottie
       src={`${assets}/animations/${block.src}`}
       theme={block.theme}
       autoplay
@@ -341,7 +367,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     >
       {#each block.foregrounds as foreground}
         {#if foreground.type == 'text'}
-          <ScrollerLottieForeground
+          <LottieForeground
             endFrame={parseInt(foreground.endFrame)}
             startFrame={parseInt(foreground.startFrame)}
             text={foreground.foregroundProps.text}
@@ -349,15 +375,15 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
         {:else if foreground.type == 'component'}
           {@const Component =
             Components[foreground.foregroundProps.componentType]}
-          <ScrollerLottieForeground
+          <LottieForeground
             endFrame={parseInt(foreground.endFrame)}
             startFrame={parseInt(foreground.startFrame)}
           >
             <Component {...foreground.foregroundProps} />
-          </ScrollerLottieForeground>
+          </LottieForeground>
         {/if}
       {/each}
-    </ScrollerLottie>
+    </Lottie>
   {/if}
 {/each}
 ```

@@ -69,7 +69,7 @@ export type ScrollerVideoForegroundPosition =
   | 'center left'
   | 'center right';
 
-export type ScrollerLottieForegroundPosition =
+export type LottieForegroundPosition =
   | 'top center'
   | 'top left'
   | 'top right'

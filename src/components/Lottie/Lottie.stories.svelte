@@ -1,20 +1,20 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import ScrollerLottie from './ScrollerLottie.svelte';
-  import ScrollerLottieForeground from './ScrollerLottieForeground.svelte';
+  import Lottie from './Lottie.svelte';
+  import LottieForeground from './LottieForeground.svelte';
   import Headline from '../Headline/Headline.svelte';
   import Theme from '../Theme/Theme.svelte';
 
   // Denmo Lottie file
-  import DemoLottie from './data/demo.lottie?url';
-  import MarkerSample from './data/markerSample.lottie?url';
-  import ForegroundSample from './data/foregroundSample.lottie?url';
-  import ThemesSample from './data/themesLottie.lottie?url';
+  import DemoLottie from './lottie/demo.lottie?url';
+  import MarkerSample from './lottie/markerSample.lottie?url';
+  import ForegroundSample from './lottie/foregroundSample.lottie?url';
+  import ThemesSample from './lottie/themesLottie.lottie?url';
   import WithScrollerBase from './demo/withScrollerBase.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/ScrollerLottie',
-    component: ScrollerLottie,
+    title: 'Components/Multimedia/Lottie',
+    component: Lottie,
     argTypes: {
       data: {
         table: {
@@ -39,11 +39,11 @@
 </script>
 
 <Story name="Demo">
-  <ScrollerLottie autoplay loop showDebugInfo src={DemoLottie} />
+  <Lottie src={DemoLottie} autoplay={true} showDebugInfo={true} />
 </Story>
 
 <Story name="Marker">
-  <ScrollerLottie
+  <Lottie
     src={MarkerSample}
     showDebugInfo
     autoplay
@@ -54,11 +54,18 @@
 </Story>
 
 <Story name="Segment">
-  <ScrollerLottie autoplay loop showDebugInfo segment={[0, 20]} speed={0.5} />
+  <Lottie
+    src={DemoLottie}
+    autoplay
+    loop
+    showDebugInfo
+    segment={[0, 20]}
+    speed={0.5}
+  />
 </Story>
 
 <Story name="Themes">
-  <ScrollerLottie
+  <Lottie
     src={ThemesSample}
     showDebugInfo
     autoplay
@@ -74,7 +81,7 @@
 </Story>
 
 <Story name="With foregrounds">
-  <ScrollerLottie
+  <Lottie
     src={ForegroundSample}
     showDebugInfo
     autoplay
@@ -82,7 +89,7 @@
     loop
     mode="bounce"
   >
-    <ScrollerLottieForeground
+    <LottieForeground
       startFrame={50}
       endFrame={100}
       text="Foreground caption between frames 50 and 100."
@@ -91,7 +98,7 @@
       width="normal"
     />
 
-    <ScrollerLottieForeground
+    <LottieForeground
       startFrame={0}
       endFrame={50}
       position="center center"
@@ -100,14 +107,14 @@
     >
       <Theme base="dark">
         <Headline
-          hed="ScrollerLottie with foreground component"
+          hed="Lottie with foreground component"
           dek="This is an example of using a Svelte component as the foreground."
           width="normal"
           authors={['Jane Doe', 'John Doe']}
         />
       </Theme>
-    </ScrollerLottieForeground>
-  </ScrollerLottie>
+    </LottieForeground>
+  </Lottie>
 </Story>
 
 <style lang="scss">

@@ -1,6 +1,6 @@
 <script lang="ts">
   // Libraries & utils
-  import { onMount, setContext } from 'svelte';
+  import { onDestroy, onMount, setContext } from 'svelte';
   import { DotLottie } from '@lottiefiles/dotlottie-web';
   import { createLottieState } from './ts/lottieState.svelte';
   import { isEqual } from 'es-toolkit';
@@ -15,8 +15,9 @@
   import { Tween } from 'svelte/motion';
 
   // Components
+  import Block from '../Block/Block.svelte';
   import Debug from './Debug.svelte';
-  import WASM from './data/dotlottie-player.wasm?url';
+  import WASM from './lottie/dotlottie-player.wasm?url';
 
   // Types
   import type { Props } from './ts/types';
@@ -150,13 +151,16 @@
     }
 
     return () => {
-      if (lottiePlayer) {
-        lottiePlayer.removeEventListener('load', onLoadEvent);
-        lottiePlayer.removeEventListener('frame', onRenderEvent);
-        lottiePlayer.removeEventListener('complete', onCompleteEvent);
-        lottiePlayer.destroy();
-      }
+      lottiePlayer?.destroy();
     };
+  });
+
+  onDestroy(() => {
+    if (lottiePlayer) {
+      lottiePlayer.removeEventListener('render', onRender);
+      lottiePlayer.removeEventListener('load', onLoad);
+      lottiePlayer.destroy();
+    }
   });
 
   // Handles progress change
@@ -373,7 +377,7 @@
   });
 </script>
 
-<div class="lottie-block">
+<Block {width} class="lottie-block">
   {#if showDebugInfo && lottiePlayer}
     <Debug componentState={lottieState} />
   {/if}
@@ -391,7 +395,7 @@
   {#if children}
     {@render children()}
   {/if}
-</div>
+</Block>
 
 <style lang="scss">
   :global(.lottie-block) {

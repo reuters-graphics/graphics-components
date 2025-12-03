@@ -9,7 +9,7 @@
   import type { LottieState } from './ts/lottieState.svelte';
   import type {
     ContainerWidth,
-    ScrollerLottieForegroundPosition,
+    LottieForegroundPosition,
   } from '../@types/global';
 
   interface ForegroundProps {
@@ -20,7 +20,7 @@
     children?: Snippet;
     backgroundColour?: string;
     width?: ContainerWidth;
-    position?: ScrollerLottieForegroundPosition | string;
+    position?: LottieForegroundPosition | string;
     text?: string;
     Foreground?: Component;
   }
