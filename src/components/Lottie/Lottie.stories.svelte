@@ -83,7 +83,7 @@
 </Story>
 
 <Story name="With foregrounds">
-  <Lottie src={ForegroundSample} autoplay loop speed={1.5}>
+  <Lottie src={ForegroundSample} autoplay>
     <LottieForeground
       startFrame={0}
       endFrame={50}
@@ -104,7 +104,7 @@
     <LottieForeground
       startFrame={50}
       endFrame={100}
-      text="Foreground caption between frames 50 and 100."
+      text="Foreground caption between frames 50ms and 100ms."
       position="bottom center"
       backgroundColour="rgba(0, 0, 0)"
       width="wide"
