@@ -5,7 +5,7 @@
   import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   // Types
-  import type { Component, Snippet } from 'svelte';
+  import type { Snippet } from 'svelte';
   import type { LottieState } from './ts/lottieState.svelte';
   import type {
     ContainerWidth,
@@ -22,12 +22,11 @@
     width?: ContainerWidth;
     position?: LottieForegroundPosition | string;
     text?: string;
-    Foreground?: Component;
   }
 
   let {
-    id = '',
-    class: cls = '',
+    id,
+    class: cls,
     startFrame = 0,
     endFrame = 10,
     children,
@@ -35,7 +34,6 @@
     width = 'normal',
     position = 'center center',
     text,
-    Foreground,
   }: ForegroundProps = $props();
 
   let componentState: LottieState | null = $state(getContext('lottieState'));
@@ -67,16 +65,7 @@
         </Block>
         <!-- Render children snippet -->
       {:else if children}
-        <div class="scroller-lottie-foreground-item">
-          {@render children()}
-        </div>
-        <!-- Render Foreground component -->
-      {:else if Foreground}
-        <div class="scroller-lottie-foreground-item">
-          <Block width="fluid">
-            <Foreground />
-          </Block>
-        </div>
+        {@render children()}
       {/if}
     </div>
   {/if}

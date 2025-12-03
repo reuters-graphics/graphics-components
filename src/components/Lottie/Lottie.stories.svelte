@@ -1,5 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+
+  // Components
   import Lottie from './Lottie.svelte';
   import LottieForeground from './LottieForeground.svelte';
   import Headline from '../Headline/Headline.svelte';
@@ -42,17 +44,6 @@
   <Lottie src={DemoLottie} autoplay={true} showDebugInfo={true} />
 </Story>
 
-<Story name="Marker">
-  <Lottie
-    src={MarkerSample}
-    showDebugInfo
-    autoplay
-    marker="ballerina"
-    loop
-    mode="bounce"
-  />
-</Story>
-
 <Story name="Segment">
   <Lottie
     src={DemoLottie}
@@ -61,6 +52,17 @@
     showDebugInfo
     segment={[0, 20]}
     speed={0.5}
+  />
+</Story>
+
+<Story name="Marker">
+  <Lottie
+    src={MarkerSample}
+    showDebugInfo
+    autoplay
+    marker="ballerina"
+    loop
+    mode="bounce"
   />
 </Story>
 
@@ -81,39 +83,32 @@
 </Story>
 
 <Story name="With foregrounds">
-  <Lottie
-    src={ForegroundSample}
-    showDebugInfo
-    autoplay
-    speed={0.5}
-    loop
-    mode="bounce"
-  >
+  <Lottie src={ForegroundSample} autoplay }>
+    <LottieForeground
+      startFrame={0}
+      endFrame={50}
+      position="center center"
+      backgroundColour="rgba(0, 0, 0)"
+    >
+      <div class="headline-container">
+        <Theme base="dark">
+          <Headline
+            hed="Headline"
+            dek="This is an example of using a Svelte component as the foreground."
+            authors={['Jane Doe', 'John Doe']}
+          />
+        </Theme>
+      </div>
+    </LottieForeground>
+
     <LottieForeground
       startFrame={50}
       endFrame={100}
       text="Foreground caption between frames 50 and 100."
       position="bottom center"
       backgroundColour="rgba(0, 0, 0)"
-      width="normal"
+      width="wide"
     />
-
-    <LottieForeground
-      startFrame={0}
-      endFrame={50}
-      position="center center"
-      backgroundColour="rgba(0, 0, 0)"
-      width="normal"
-    >
-      <Theme base="dark">
-        <Headline
-          hed="Lottie with foreground component"
-          dek="This is an example of using a Svelte component as the foreground."
-          width="normal"
-          authors={['Jane Doe', 'John Doe']}
-        />
-      </Theme>
-    </LottieForeground>
   </Lottie>
 </Story>
 
@@ -131,5 +126,14 @@
         }
       }
     }
+  }
+
+  .headline-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

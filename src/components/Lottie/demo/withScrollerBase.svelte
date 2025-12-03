@@ -24,44 +24,26 @@
   query="div.step-foreground-container"
 >
   {#snippet backgroundSnippet()}
-    <!-- Add custom background HTML or component -->
-    <div class="lottie-container">
-      <Lottie src={LottieSample} showDebugInfo {progress} />
-    </div>
+    <Lottie src={LottieSample} {progress} showDebugInfo />
   {/snippet}
   {#snippet foregroundSnippet()}
-    <!-- Add custom foreground HTML or component -->
-    <div class="step-foreground-container"><p>Step 1</p></div>
-    <div class="step-foreground-container"><p>Step 2</p></div>
-    <div class="step-foreground-container"><p>Step 3</p></div>
-    <div class="step-foreground-container"><p>Step 4</p></div>
-    <div class="step-foreground-container"><p>Step 5</p></div>
+    <div class="step-foreground-container"><h3>Step 1</h3></div>
+    <div class="step-foreground-container"><h3>Step 2</h3></div>
+    <div class="step-foreground-container"><h3>Step 3</h3></div>
+    <div class="step-foreground-container"><h3>Step 4</h3></div>
+    <div class="step-foreground-container"><h3>Step 5</h3></div>
   {/snippet}
 </ScrollerBase>
 
 <style lang="scss">
   @use '../../../scss/mixins' as mixins;
 
-  .lottie-container {
-    // border: 2px solid red;
-    width: 100%;
-    height: 100lvh;
-  }
-
   .step-foreground-container {
     height: 100lvh;
     width: 50%;
-    background-color: rgba(0, 0, 0, 0);
-    padding: 1em;
     margin: 0 auto;
-    position: relative;
-    margin-bottom: 2rem;
 
-    p {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    h3 {
       background-color: antiquewhite;
       text-align: center;
     }

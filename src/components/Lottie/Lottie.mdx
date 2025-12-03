@@ -47,6 +47,8 @@ If importing the Lottie file directly into a Svelte component, make sure to appe
 
 ## Using with ArchieML
 
+If you are using `Lottie` with ArchieML, store your Lottie zip file in the `src/statics/lottie/` folder.
+
 With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
 ```yaml
@@ -98,12 +100,18 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile.zip
+  showDebugInfo: true
+  loop: true
+
+  # Optionally, set playback speed
+  speed: 0.5
+
+  # Lottie file stored in `src/statics/lottie/` folder
+  src: lottie/LottieFile.zip
   [.segment]
     start: 0
     end: 20
   []
-  :end
 []
 ```
 
@@ -112,18 +120,21 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 ```svelte
 <script lang="ts">
   import { Lottie } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
+
+  // Graphics kit only
+  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <Lottie
-      src={`${assets}/animations/${block.src}`}
-      segment={[block.segment.start, block.segment.end]}
-      autoplay
-      loop
-      showDebugInfo
+      src={`${assets}/${block.src}`}
+      segment={[parseInt(block.segment.start), parseInt(block.segment.end)]}
+      showDebugInfo={truthy(block.showDebugInfo)}
+      loop={truthy(block.loop)}
+      speed={parseInt(block.speed)}
     />
   {/if}
 {/each}
@@ -155,60 +166,25 @@ When setting markers in AfterEffects, ensure that the **Comment** section of the
 
 ## Switching themes
 
-[Lottie Creator](https://lottiefiles.com/theming) allows you to define multiple color themes for your animation. You can switch between these themes using the `theme` prop.
+[Lottie Creator](https://lottiefiles.com/theming) allows you to define multiple colour themes for your animation. You can switch between these themes using the `theme` prop.
 
-Available themes can be found in the debug info when `showDebugInfo` prop is enabled.
+Available themes can be found in the debug info when the `showDebugInfo` prop is set to `true`.
 
-With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
-
-```yaml
-# ArchieML doc
-[blocks]
-  type: lottie
-  src: LottieFile.zip
-  theme: myTheme
-  :end
-[]
-```
-
-... which you'll parse out of a ArchieML block object before passing to the `Lottie` component.
-
-```svelte
-<script lang="ts">
-  import { Lottie } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
-</script>
-
-{#each content.blocks as block}
-  <!-- Inside the content.blocks for loop... -->
-  {#if block.type == 'lottie'}
-    <Lottie
-      src={`${assets}/animations/${block.src}`}
-      theme={block.theme}
-      autoplay
-      loop
-      showDebugInfo
-    />
-  {/if}
-{/each}
-```
-
-It is also possible to switch themes dynamically based on the `progress` prop by binding a variable to it.
+You can set multiple themes and switch between them dynamically -- for example, based on the `progress` of the animation.
 
 [Demo](?path=/story/components-graphics-scrollerlottie--themes)
 
 ```svelte
 <script lang="ts">
   import { Lottie } from '@reuters-graphics/graphics-components';
-  // make a folder named 'data' and place the .zip lottie file inside it
-  // append ?url to the import statement
-  import LottieSrc from './data/lottie-example.zip?url';
+  import MyLottie from './lottie/my-lottie.zip?url';
 
+  // Set a bindable `progress` variable to pass into `<Lottie />`
   let progress = $state(0);
 </script>
 
 <Lottie
-  src={LottieSrc}
+  src={MyLottie}
   bind:progress
   themeId={progress < 0.33 ? 'water'
   : progress < 0.66 ? 'air'
@@ -218,16 +194,14 @@ It is also possible to switch themes dynamically based on the `progress` prop by
 />
 ```
 
-## With ScrollerBase
+## Using with `ScrollerBase`
 
-The `Lottie` component can be used in conjunction with the `ScrollerBase` component to create a more complex scrolling experience. The `ScrollerBase` component provides a scrollable container that can hold the `Lottie` component as a background.
+The `Lottie` component can be used with the `ScrollerBase` component to create a more complex scrolling experience. `ScrollerBase` provides a scrollable container sets the `Lottie` component as a background.
 
 ```svelte
 <script lang="ts">
-  import { Lottie } from '@reuters-graphics/graphics-components';
-  // make a folder named 'data' and place the .zip lottie file inside it
-  // append ?url to the import statement
-  import LottieSrc from './data/lottie-example.zip?url';
+  import { Lottie, ScrollerBase } from '@reuters-graphics/graphics-components';
+  import MyLottie from './lottie/my-lottie.zip?url';
 
   // Pass `progress` as `videoPercentage` to Lottie
   let progress = $state(0);
@@ -236,12 +210,9 @@ The `Lottie` component can be used in conjunction with the `ScrollerBase` compon
 <ScrollerBase bind:progress query="div.step-foreground-container">
   {#snippet backgroundSnippet()}
     <!-- Pass bindable prop `progress` as `progress` -->
-    <div class="lottie-container">
-      <Lottie src={LottieSrc} {progress} showDebugInfo />
-    </div>
+      <Lottie src={MyLottie} {progress} showDebugInfo />
   {/snippet}
   {#snippet foregroundSnippet()}
-    <!-- Add custom foreground HTML or component -->
     <div class="step-foreground-container">
       <h3 class="text-center">Step 1</h3>
     </div>
@@ -255,23 +226,14 @@ The `Lottie` component can be used in conjunction with the `ScrollerBase` compon
 </ScrollerBase>
 
 <style lang="scss">
-  .lottie-container {
-    width: 100%;
-    height: 100lvh;
-  }
-
   .step-foreground-container {
     height: 100lvh;
     width: 50%;
-    padding: 1em;
-    margin: auto;
+    margin: 0 auto;
 
     h3 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: white;
+      background-color: antiquewhite;
+      text-align: center;
     }
   }
 </style>
@@ -279,41 +241,90 @@ The `Lottie` component can be used in conjunction with the `ScrollerBase` compon
 
 ## With foregrounds
 
-The `Lottie` component can also be used to display captions or even components, such as `Headline` or ai2svelte files, as foregrounds at specific times in the animation. To do so, add LottieForeground components as children of the Lottie component.
+The `Lottie` component can also be used with the `LottieForeground` component to display foreground elements at specific times in the animation.
 
-[Demo](?path=/story/components-graphics-scrollerlottie--with-foregrounds)
+[Demo](?path=/story/components-graphics-scrollerlottie--with-foregrounds).
 
+```svelte
+<script lang="ts">
+  import { Lottie, ScrollerBase } from '@reuters-graphics/graphics-components';
+  import MyLottie from './lottie/my-lottie.zip?url';
+</script>
+
+  <Lottie src={MyLottie} autoplay >
+  
+    <!-- Foreground 1: Headline component as foreground -->
+    <LottieForeground
+      startFrame={0}
+      endFrame={50}
+      position="center center"
+      backgroundColour="rgba(0, 0, 0)"
+    >
+      <div class="headline-container">
+        <Theme base="dark">
+          <Headline
+            hed="Headline"
+            dek="This is an example of using a Svelte component as the foreground."
+            authors={['Jane Doe', 'John Doe']}
+          />
+        </Theme>
+      </div>
+    </LottieForeground>
+
+    <!-- Foreground 2: Text only -->
+     <LottieForeground
+      startFrame={50}
+      endFrame={100}
+      text="Foreground caption between frames 50 and 100."
+      position="bottom center"
+      backgroundColour="rgba(0, 0, 0)"
+      width="wide"
+    />
+  </Lottie>
+```
+### Using with ArchieML
 With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
 ```yaml
 # ArchieML doc
 [blocks]
   type: lottie
-  src: LottieFile.zip
+
+  # Lottie file stored in `src/statics/lottie/` folder
+  src: lottie/LottieFile.zip
 
   # Array of foregrounds
   [.foregrounds]
+
+    # Foreground 1: Headline component
     startFrame: 0 # When in the animation to start showing the foreground
     endFrame: 50 # When to stop showing the foreground
-	type: text
-	{.foregroundProps}
-		text: Some text for the foreground
-	{}
 
-	startFrame: 50 # When in the animation to start showing the foreground
-    endFrame: 100 # When to stop showing the foreground
-	type: component
-	{.foregroundProps}
-		componentType: Headline
-		hed: Some headline text
-		dek: Some deck text
-		[.authors]
-			* Jane Doe
-			* John Smith
-		[]
-	{}
-  []
-  :end
+    # Set foreground type
+    type: component
+
+    # Set props to pass into `LottieForeground`
+    {.foregroundProps}
+      componentName: Headline
+      hed: Headline
+      dek: Some deck text
+      [.authors]
+        * Jane Doe
+        * John Smith
+      []
+    {}
+
+  # Foreground 2: Text only
+    startFrame: 50  
+    endFrame: 100  
+
+    # Set foreground type
+    type: text
+
+    # If the foreground type is `text`, set text prop here
+    {.foregroundProps}
+      text: Some text for the foreground
+    {}
 
 []
 ```
@@ -328,35 +339,29 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 
+ // Make an object of components to use as foregrounds
   const Components = $state({
     Headline,
-    Video,
   });
 </script>
 
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <Lottie
-      src={`${assets}/animations/${block.src}`}
-      theme={block.theme}
-      autoplay
-      loop
-      showDebugInfo
-    >
+    <Lottie src={`${assets}/${block.src}`} >
       {#each block.foregrounds as foreground}
         {#if foreground.type == 'text'}
           <LottieForeground
-            endFrame={parseInt(foreground.endFrame)}
             startFrame={parseInt(foreground.startFrame)}
+            endFrame={parseInt(foreground.endFrame)}
             text={foreground.foregroundProps.text}
           />
         {:else if foreground.type == 'component'}
           {@const Component =
-            Components[foreground.foregroundProps.componentType]}
+            Components[foreground.foregroundProps.componentName]}
           <LottieForeground
-            endFrame={parseInt(foreground.endFrame)}
             startFrame={parseInt(foreground.startFrame)}
+            endFrame={parseInt(foreground.endFrame)}
           >
             <Component {...foreground.foregroundProps} />
           </LottieForeground>
