@@ -11,15 +11,27 @@ The `Lottie` component uses the [dotLottie-web](https://developers.lottiefiles.c
 
 ## How to prepare Lottie files
 
-[LottieFiles](https://lottiefiles.com/) is the official platform for creating and editing Lottie animations. The free version of LottieFiles has limited features, so [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) remains a popular, free way to export Lottie animations as JSON files. 
+[LottieFiles](https://lottiefiles.com/) is the official platform for creating and editing Lottie animations. The free version of LottieFiles has limited features, so [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) remains a popular, free way to export Lottie animations as JSON files.
 
 [dotLottie](https://dotlottie.io/) is another common format for Lottie files. This format bundles the Lottie JSON file and any associated assets, such as images and fonts, into a single compressed file with the extension `.lottie`.
 
 This `Lottie` component is flexible and supports both `dotLottie` and JSON Lottie files. For best performance it is recommended that you convert your Lottie JSON file into a `.zip` file by following these steps:
 
 1. Export your Lottie animation as a JSON file using [Bodymovin](https://exchange.adobe.com/apps/cc/12557/bodymovin) or another Lottie exporter.
-2. Use the [LottieFiles converter](https://lottiefiles.com/tools/lottie-to-dotlottie) to convert the JSON file into a `.lottie` file. 
+2. Use the [LottieFiles converter](https://lottiefiles.com/tools/lottie-to-dotlottie) to convert the JSON file into a `.lottie` file.
 3. Change the file extension to `.zip` from `.lottie`. This ensures full compatibility with the Reuters graphics publisher while maintaining the benefits of dotLottie format's compression and optimisation.
+
+## When not to use Lottie
+
+Lottie animations are great for lightweight, scalable animations. However, they may not be suitable for all use cases. Consider the following before using Lottie:
+
+- **Huge raster images**: Lottie is best suited for simple to moderately complex animations. Animations with large raster images may not render well or could lead to performance issues. In such cases, consider using a [Video](?path=/docs/components-multimedia-video--docs) component or a [ScrollerVideo](?path=/docs/components-graphics-scrollervideo--docs) component instead.
+
+- **Complex effects**: Some advanced effects and features available in After Effects may not be fully supported in Lottie, which could lead to discrepancies between the original design and the rendered animation. Check the [Lottie documentation](https://lottiefiles.com/supported-features) for a list of supported features.
+
+- **Text rendering**: Lottie renders text as vector shapes. If you need DOM text for accessibility or CSS manipulation, consider using HTML/CSS animations instead.
+
+- **SVG DOM manipulation**: Lottie renders animations on a canvas. If you need to manipulate individual elements of the animation using JavaScript or CSS, consider using SVG animations instead.
 
 ## Basic demo
 
@@ -32,7 +44,6 @@ If importing the Lottie file directly into a Svelte component, make sure to appe
 > 💡TIP: Set `showDebugInfo` prop to `true` to display information about the component state.
 
 [Demo](?path=/story/components-graphics-scrollerlottie--demo)
-
 
 ```svelte
 <script lang="ts">
@@ -90,7 +101,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 
 ## Playing a segment
 
- The `Lottie` component can play a specific segment of the Lottie animation using the `segment` prop. The `segment` prop expects an array of two numbers representing the start and end frames of the segment.
+The `Lottie` component can play a specific segment of the Lottie animation using the `segment` prop. The `segment` prop expects an array of two numbers representing the start and end frames of the segment.
 
 [Demo](?path=/story/components-graphics-scrollerlottie--segment)
 
@@ -142,7 +153,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 
 ## Markers
 
- The `Lottie` component can also play a specific portion of the Lottie animation using markers set in [AfterEffects](https://helpx.adobe.com/in/after-effects/using/layer-markers-composition-markers.html).
+The `Lottie` component can also play a specific portion of the Lottie animation using markers set in [AfterEffects](https://helpx.adobe.com/in/after-effects/using/layer-markers-composition-markers.html).
 
 The list of available markers, which can be passed into the `marker` prop, can be found in the debug info box that appears when `showDebugInfo` is set to `true`.
 
@@ -160,8 +171,7 @@ When setting markers in AfterEffects, ensure that the **Comment** section of the
   import MyLottie from './lottie/my-lottie.zip?url'; // Append **?url** to the file path
 </script>
 
-<Lottie src={MyLottie} marker="myMarker"
-/>
+<Lottie src={MyLottie} marker="myMarker" />
 ```
 
 ## Switching themes
@@ -210,7 +220,7 @@ The `Lottie` component can be used with the `ScrollerBase` component to create a
 <ScrollerBase bind:progress query="div.step-foreground-container">
   {#snippet backgroundSnippet()}
     <!-- Pass bindable prop `progress` as `progress` -->
-      <Lottie src={MyLottie} {progress} showDebugInfo />
+    <Lottie src={MyLottie} {progress} showDebugInfo />
   {/snippet}
   {#snippet foregroundSnippet()}
     <div class="step-foreground-container">
@@ -251,38 +261,39 @@ The `Lottie` component can also be used with the `LottieForeground` component to
   import MyLottie from './lottie/my-lottie.zip?url';
 </script>
 
-  <Lottie src={MyLottie} autoplay >
-  
-    <!-- Foreground 1: Headline component as foreground -->
-    <LottieForeground
-      startFrame={0}
-      endFrame={50}
-      position="center center"
-      backgroundColour="rgba(0, 0, 0)"
-    >
-      <div class="headline-container">
-        <Theme base="dark">
-          <Headline
-            hed="Headline"
-            dek="This is an example of using a Svelte component as the foreground."
-            authors={['Jane Doe', 'John Doe']}
-          />
-        </Theme>
-      </div>
-    </LottieForeground>
+<Lottie src={MyLottie} autoplay>
+  <!-- Foreground 1: Headline component as foreground -->
+  <LottieForeground
+    startFrame={0}
+    endFrame={50}
+    position="center center"
+    backgroundColour="rgba(0, 0, 0)"
+  >
+    <div class="headline-container">
+      <Theme base="dark">
+        <Headline
+          hed="Headline"
+          dek="This is an example of using a Svelte component as the foreground."
+          authors={['Jane Doe', 'John Doe']}
+        />
+      </Theme>
+    </div>
+  </LottieForeground>
 
-    <!-- Foreground 2: Text only -->
-     <LottieForeground
-      startFrame={50}
-      endFrame={100}
-      text="Foreground caption between frames 50 and 100."
-      position="bottom center"
-      backgroundColour="rgba(0, 0, 0)"
-      width="wide"
-    />
-  </Lottie>
+  <!-- Foreground 2: Text only -->
+  <LottieForeground
+    startFrame={50}
+    endFrame={100}
+    text="Foreground caption between frames 50 and 100."
+    position="bottom center"
+    backgroundColour="rgba(0, 0, 0)"
+    width="wide"
+  />
+</Lottie>
 ```
+
 ### Using with ArchieML
+
 With the graphics kit, you'll likely get your text and prop values from an ArchieML doc...
 
 ```yaml
@@ -315,8 +326,8 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     {}
 
   # Foreground 2: Text only
-    startFrame: 50  
-    endFrame: 100  
+    startFrame: 50
+    endFrame: 100
 
     # Set foreground type
     type: text
@@ -339,7 +350,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   } from '@reuters-graphics/graphics-components';
   import { assets } from '$app/paths';
 
- // Make an object of components to use as foregrounds
+  // Make an object of components to use as foregrounds
   const Components = $state({
     Headline,
   });
@@ -348,7 +359,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <Lottie src={`${assets}/${block.src}`} >
+    <Lottie src={`${assets}/${block.src}`}>
       {#each block.foregrounds as foreground}
         {#if foreground.type == 'text'}
           <LottieForeground
