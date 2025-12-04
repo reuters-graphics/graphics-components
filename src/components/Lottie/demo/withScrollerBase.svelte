@@ -1,7 +1,7 @@
 <script lang="ts">
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import Lottie from '../Lottie.svelte';
-  import LottieSample from '../lottie/themesLottie.lottie?url';
+  import LottieSample from '../lottie/themesLottie.zip?url';
 
   // Optional: Bind your own variables to use them in your code.
   let count = $state(1);

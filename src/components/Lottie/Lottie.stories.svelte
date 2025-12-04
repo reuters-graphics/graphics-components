@@ -8,10 +8,10 @@
   import Theme from '../Theme/Theme.svelte';
 
   // Denmo Lottie file
-  import DemoLottie from './lottie/demo.lottie?url';
-  import MarkerSample from './lottie/markerSample.lottie?url';
-  import ForegroundSample from './lottie/foregroundSample.lottie?url';
-  import ThemesSample from './lottie/themesLottie.lottie?url';
+  import DemoLottie from './lottie/demo.zip?url';
+  import MarkerSample from './lottie/markerSample.zip?url';
+  import ForegroundSample from './lottie/foregroundSample.zip?url';
+  import ThemesSample from './lottie/themesLottie.zip?url';
   import WithScrollerBase from './demo/withScrollerBase.svelte';
 
   const { Story } = defineMeta({
@@ -83,7 +83,7 @@
 </Story>
 
 <Story name="With foregrounds">
-  <Lottie src={ForegroundSample} autoplay>
+  <Lottie src={ForegroundSample} autoplay showDebugInfo>
     <LottieForeground
       startFrame={0}
       endFrame={50}
