@@ -11,6 +11,7 @@
     isReverseMode,
     createRenderConfig,
     isNullish,
+    debounce,
   } from './ts/utils';
   import { Tween } from 'svelte/motion';
 
@@ -116,6 +117,24 @@
     }
   }
 
+  function handleWindowResize() {
+    let resizing = false;
+    let timer = undefined;
+
+    if (!resizing && lottiePlayer?.isLoaded && lottiePlayer.isPlaying) {
+      lottiePlayer?.pause();
+      resizing = true;
+    }
+
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      resizing = false;
+      if (lottiePlayer?.isLoaded && lottiePlayer.isPaused) {
+        lottiePlayer?.play();
+      }
+    }, 1000);
+  }
+
   onMount(() => {
     const shouldAutoplay = autoplay && !playOnHover;
 
@@ -144,6 +163,7 @@
     lottiePlayer.addEventListener('load', onLoadEvent);
     lottiePlayer.addEventListener('frame', onRenderEvent);
     lottiePlayer.addEventListener('complete', onCompleteEvent);
+    window.addEventListener('resize', handleWindowResize);
 
     if (dotLottieRefCallback) {
       dotLottieRefCallback(lottiePlayer);
@@ -160,6 +180,7 @@
       lottiePlayer.removeEventListener('load', onLoad);
       lottiePlayer.destroy();
     }
+    window.removeEventListener('resize', handleWindowResize);
   });
 
   // Handles progress change
