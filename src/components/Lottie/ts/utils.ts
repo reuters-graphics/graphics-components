@@ -106,27 +106,6 @@ export function createRenderConfig() {
 /**
  * Checks if a value is null or undefined (empty marker check)
  */
-export function isNullish(value: any): boolean {
+export function isNullish(value: unknown): boolean {
   return value === null || value === undefined || value === '';
-}
-
-/**
- * Returns a debounced version of the given function.
- * @template T
- * @param {T} func - The function to debounce.
- * @param {number} [delay=0] - The debounce delay in milliseconds.
- * @returns {(...args: Parameters<T>) => void} The debounced function.
- */
-export function debounce<T extends (...args: unknown[]) => void>(
-  func: T,
-  delay = 0
-) {
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
-
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
 }
