@@ -1,57 +1,25 @@
 <script lang="ts">
-  import {
-    type Config,
-    type DotLottie as DotLottieType,
-  } from '@lottiefiles/dotlottie-web';
-  import { DotLottie } from '@lottiefiles/dotlottie-web';
-  import Block from '../Block/Block.svelte';
-  import type { ContainerWidth } from '../@types/global';
-  import { createLottieState, type LottieState } from './ts/lottieState.svelte';
+  // Libraries & utils
   import { onDestroy, onMount, setContext } from 'svelte';
+  import { DotLottie } from '@lottiefiles/dotlottie-web';
+  import { createLottieState } from './ts/lottieState.svelte';
   import { isEqual } from 'es-toolkit';
-  import Debug from './Debug.svelte';
-  import { map } from './ts/utils';
+  import {
+    syncLottieState,
+    getMarkerRange,
+    calculateTargetFrame,
+    isReverseMode,
+    createRenderConfig,
+    isNullish,
+  } from './ts/utils';
   import { Tween } from 'svelte/motion';
-  import type { Snippet } from 'svelte';
-  import WASM from './data/dotlottie-player.wasm?url';
-  import DefaultLottie from './data/defaultLottie.lottie?url';
 
-  type DotlottieProps = {
-    autoplay?: Config['autoplay'];
-    backgroundColor?: Config['backgroundColor'];
-    data?: Config['data'];
-    loop?: Config['loop'];
-    mode?: Config['mode'];
-    renderConfig?: Config['renderConfig'];
-    segment?: Config['segment'];
-    speed?: Config['speed'];
-    src?: Config['src'];
-    useFrameInterpolation?: Config['useFrameInterpolation'];
-    marker?: Config['marker'] | undefined;
-    layout?: Config['layout'];
-    animationId?: Config['animationId'];
-    themeId?: Config['themeId'];
-    playOnHover?: boolean;
-    themeData?: string;
-    dotLottieRefCallback?: (dotLottie: DotLottieType) => void;
-    onLoad?: () => void;
-    onRender?: () => void;
-    onComplete?: () => void;
-  };
+  // Components
+  import Debug from './Debug.svelte';
+  import WASM from './lottie/dotlottie-player.wasm?url';
 
-  type Props = DotlottieProps & {
-    // Additional properties can be added here if needed
-    lottiePlayer?: DotLottieType | undefined;
-    showDebugInfo?: boolean;
-    width?: ContainerWidth;
-    height?: string;
-    lottieState?: LottieState;
-    progress?: number;
-    tweenDuration?: number;
-    easing?: (t: number) => number;
-    /** Children render function */
-    children?: Snippet;
-  };
+  // Types
+  import type { Props } from './ts/types';
 
   let canvas: HTMLCanvasElement;
   let canvasWidth: number = $state(1);
@@ -66,22 +34,21 @@
     autoplay = false,
     loop = false,
     mode = 'forward',
-    src = DefaultLottie,
+    src,
     speed = 1,
     data = undefined,
     backgroundColor = '#ffffff',
-    segment = undefined,
-    renderConfig = undefined,
+    segment,
+    renderConfig,
     dotLottieRefCallback = () => {},
     useFrameInterpolation = true,
     themeId = '',
     themeData = '',
     playOnHover = false,
-    marker = undefined,
+    marker,
     layout = { fit: 'contain', align: [0.5, 0.5] },
     animationId = '',
     lottiePlayer = $bindable(undefined),
-    width = 'widest',
     height = '100lvh',
     showDebugInfo = false,
     lottieState = createLottieState(),
@@ -111,7 +78,7 @@
           : [];
       }
 
-      if (marker == '' || marker == null || marker == undefined) {
+      if (isNullish(marker)) {
         start = segment ? segment[0] : 0;
         end = segment ? segment[1] : lottiePlayer.totalFrames - 1;
       }
@@ -129,109 +96,32 @@
   }
 
   function onRenderEvent() {
-    const keys = [
-      'currentFrame',
-      'totalFrames',
-      'duration',
-      'loop',
-      'speed',
-      'loopCount',
-      'mode',
-      'isPaused',
-      'isPlaying',
-      'isStopped',
-      'isLoaded',
-      'isFrozen',
-      'segment',
-      'autoplay',
-      'layout',
-      'activeThemeId',
-      'marker',
-    ];
-
     if (lottiePlayer && lottieState) {
-      keys.forEach((key) => {
-        switch (key) {
-          case 'currentFrame':
-            lottieState.currentFrame = lottiePlayer!.currentFrame;
-            break;
-          case 'totalFrames':
-            lottieState.totalFrames = lottiePlayer!.totalFrames;
-            break;
-          case 'duration':
-            lottieState.duration = lottiePlayer!.duration;
-            break;
-          case 'loop':
-            lottieState.loop = lottiePlayer!.loop;
-            break;
-          case 'speed':
-            lottieState.speed = lottiePlayer!.speed;
-            break;
-          case 'loopCount':
-            lottieState.loopCount = lottiePlayer!.loopCount;
-            break;
-          case 'mode':
-            lottieState.mode = lottiePlayer!.mode;
-            break;
-          case 'isPaused':
-            lottieState.isPaused = lottiePlayer!.isPaused;
-            break;
-          case 'isPlaying':
-            lottieState.isPlaying = lottiePlayer!.isPlaying;
-            break;
-          case 'isStopped':
-            lottieState.isStopped = lottiePlayer!.isStopped;
-            break;
-          case 'isLoaded':
-            lottieState.isLoaded = lottiePlayer!.isLoaded;
-            break;
-          case 'isFrozen':
-            lottieState.isFrozen = lottiePlayer!.isFrozen;
-            break;
-          case 'segment':
-            lottieState.segment = lottiePlayer!.segment ?? null;
-            break;
-          case 'autoplay':
-            lottieState.autoplay = lottiePlayer!.autoplay ?? false;
-            break;
-          case 'layout':
-            lottieState.layout = lottiePlayer!.layout ?? null;
-            break;
-          case 'activeThemeId':
-            lottieState.activeThemeId = lottiePlayer!.activeThemeId ?? null;
-            break;
-          case 'marker':
-            lottieState.marker = lottiePlayer!.marker ?? undefined;
-            break;
-        }
-      });
-
+      syncLottieState(lottiePlayer, lottieState);
       progress = (lottiePlayer.currentFrame + 1) / lottiePlayer.totalFrames;
       lottieState.progress = progress;
-      onRender(); // call user-defined onRender function
+      onRender();
     }
   }
 
-  const hoverHandler = (event: MouseEvent) => {
-    if (!playOnHover || !lottiePlayer?.isLoaded) return;
-    if (event.type === 'mouseenter') {
-      lottiePlayer?.play();
-    } else if (event.type === 'mouseleave') {
-      lottiePlayer?.pause();
+  function handleMouseEnter() {
+    if (playOnHover && lottiePlayer?.isLoaded) {
+      lottiePlayer.play();
     }
-  };
+  }
+
+  function handleMouseLeave() {
+    if (playOnHover && lottiePlayer?.isLoaded) {
+      lottiePlayer.pause();
+    }
+  }
 
   onMount(() => {
     const shouldAutoplay = autoplay && !playOnHover;
 
     progressTween = new Tween(0, { duration: tweenDuration, easing: easing });
 
-    const _renderConfig = {
-      autoResize: true,
-      devicePixelRatio:
-        window.devicePixelRatio > 1 ? window.devicePixelRatio * 0.75 : 1,
-      freezeOnOffscreen: true,
-    };
+    const _renderConfig = createRenderConfig();
 
     lottiePlayer = new DotLottie({
       canvas,
@@ -259,12 +149,7 @@
       dotLottieRefCallback(lottiePlayer);
     }
 
-    canvas.addEventListener('mouseenter', hoverHandler);
-    canvas.addEventListener('mouseleave', hoverHandler);
-
     return () => {
-      canvas.removeEventListener('mouseenter', hoverHandler);
-      canvas.removeEventListener('mouseleave', hoverHandler);
       lottiePlayer?.destroy();
     };
   });
@@ -289,20 +174,11 @@
           lottiePlayer?.unfreeze();
           lottieState.isFrozen = false;
         }
-        const targetFrame = map(
-          mode == 'reverse' || mode == 'reverse-bounce' ?
-            1 - progress
-          : progress,
-          0,
-          1,
-          start,
-          end
-        );
+        const targetFrame = calculateTargetFrame(progress, mode, start, end);
         progressTween.target = targetFrame;
         // lottiePlayer.setFrame(targetFrame);
       } else if ((progress < 0 || progress > 1) && !lottieState.isFrozen) {
-        // lottiePlayer.setFrame(progress < 0 ? start : end);
-        if (mode == 'reverse' || mode == 'reverse-bounce') {
+        if (isReverseMode(mode)) {
           progressTween.target = progress < 0 ? end : start;
         } else {
           progressTween.target = progress < 0 ? start : end;
@@ -334,22 +210,11 @@
   // Handles marker change
   $effect(() => {
     if (lottieState.isLoaded && lottiePlayer?.marker !== marker) {
-      if (typeof marker === 'string') {
-        lottiePlayer?.setMarker(marker);
-
-        start =
-          lottiePlayer?.markers().find((m) => m.name === marker)?.time ?? 0;
-        end =
-          start +
-          (lottiePlayer?.markers().find((m) => m.name === marker)?.duration ??
-            0);
-
-        // change lottieState marker because
-        // onRender fires before this
-        if (lottieState) {
-          lottieState.marker = marker;
-        }
-      } else if (marker === null || marker === undefined) {
+      if (typeof marker === 'string' && lottiePlayer) {
+        lottiePlayer.setMarker(marker);
+        [start, end] = getMarkerRange(lottiePlayer, marker);
+        lottieState.marker = marker;
+      } else if (isNullish(marker)) {
         lottiePlayer?.setMarker('');
       } else {
         console.warn('Invalid marker type:', marker);
@@ -511,7 +376,7 @@
   });
 </script>
 
-<Block {width} class="lottie-block">
+<div class="lottie-block">
   {#if showDebugInfo && lottiePlayer}
     <Debug componentState={lottieState} />
   {/if}
@@ -521,13 +386,15 @@
       bind:this={canvas}
       bind:clientWidth={canvasWidth}
       bind:clientHeight={canvasHeight}
+      onmouseenter={handleMouseEnter}
+      onmouseleave={handleMouseLeave}
     ></canvas>
   </div>
 
   {#if children}
-    {@render children?.()}
+    {@render children()}
   {/if}
-</Block>
+</div>
 
 <style lang="scss">
   :global(.lottie-block) {
