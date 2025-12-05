@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BodyText from '../../BodyText/BodyText.svelte';
   import ScrollerBase from '../../ScrollerBase/ScrollerBase.svelte';
   import Lottie from '../Lottie.svelte';
   import LottieSample from '../lottie/themesLottie.zip?url';
@@ -11,7 +12,13 @@
   let top = $state(0);
   let threshold = $state(0.5);
   let bottom = $state(1);
+
+  const dummyText = `Greetings, earthling. This placeholder text is running in debug mode. All bugs have been upgraded to features, and all features downgraded to TODOs. If you find yourself reading this, you are now the sysadmin of your own destiny. 
+  
+  Remember the network is down because someone tripped over the Ethernet cable.  Keep calm and RTFM before summoning the wizard. In case of panic, type 'kill -9' and hope for the best. End of line. Insert witty comment here.`;
 </script>
+
+<BodyText text={dummyText} />
 
 <ScrollerBase
   {top}
@@ -35,6 +42,8 @@
   {/snippet}
 </ScrollerBase>
 
+<BodyText text={dummyText} />
+
 <style lang="scss">
   @use '../../../scss/mixins' as mixins;
 
@@ -42,8 +51,12 @@
     height: 100lvh;
     width: 50%;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     h3 {
+      width: 100%;
       background-color: antiquewhite;
       text-align: center;
     }
