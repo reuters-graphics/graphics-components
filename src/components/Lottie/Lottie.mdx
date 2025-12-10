@@ -39,6 +39,8 @@ To use the `Lottie` component, import it and provide the Lottie animation source
 
 **Use `lvh` or `svh` units instead of `vh`** as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile and other devices where elements such as the address bar appear and disappear and affect the height.
 
+The component also provides a `width` prop to set the width of the Lottie container. While the `width` prop defaults to `fluid`, it allows any `ContainerWidth` value such as `narrower`, `narrow`, `normal`, `wide`, `wider`, `widest`, `fluid`, or a custom CSS width value like `600px` or `80vw`.
+
 If importing the Lottie file directly into a Svelte component, make sure to append **?url** to the import statement (see example below). This ensures that the file is treated as a URL.
 
 > 💡TIP: Set `showDebugInfo` prop to `true` to display information about the component state.

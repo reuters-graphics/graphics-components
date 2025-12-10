@@ -400,6 +400,7 @@
 
 <div
   class="lottie-block"
+  class:debug-border={showDebugInfo}
   style="max-width: {isContainerWidth(width) ?
     `var(--${width}-column-width)`
   : width};"
@@ -429,14 +430,10 @@
     height: 100%;
     width: 100%;
     margin: 0 auto;
-    // to remove
-    border: 2px solid green;
 
     .lottie-container {
       width: 100%;
       height: 100%;
-      // to remove
-      border: 2px solid red;
     }
 
     canvas {
@@ -444,5 +441,9 @@
       height: 100%;
       display: block;
     }
+  }
+
+  .debug-border {
+    border: 1px dashed lightgray;
   }
 </style>
