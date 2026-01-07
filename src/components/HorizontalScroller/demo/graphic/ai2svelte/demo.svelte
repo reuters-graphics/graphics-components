@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // For demo purposes only, hard-wiring img paths from Vite
   // @ts-ignore img
   import imageXl from '../imgs/demo-xl.jpg';
@@ -8,7 +8,6 @@
   import imagePngOverlayXl from '../imgs/layer-overlay-xl.png';
 
   let {
-    assetsPath = '/',
     onAiMounted = () => {},
     onArtboardChange = () => {},
     taggedText = { text: {}, htext: {} },
@@ -16,15 +15,15 @@
     artboardWidth = $bindable(undefined),
   } = $props();
   import { onMount, untrack } from 'svelte';
-  let aiBox;
+  let aiBox: HTMLDivElement | undefined = $state(undefined);
   let screenWidth = $state(0);
   let aiBoxWidth = $derived(artboardWidth ?? screenWidth);
-  let activeArtboard = $state(undefined);
+  let activeArtboard: Element | undefined = $state(undefined);
   onMount(() => {
     onAiMounted();
   });
   $effect(() => {
-    if (aiBoxWidth) {
+    if (aiBoxWidth && aiBox) {
       const currentArtboard = aiBox.querySelectorAll('.g-artboard')[0];
       if (currentArtboard?.id !== activeArtboard?.id) {
         activeArtboard = untrack(() => currentArtboard);
@@ -55,9 +54,7 @@
       <div
         id="g-demo-lg-img"
         class="g-demo-lg-img g-aiImg"
-        alt=""
         style="background-image: url({imageLg});"
-        loading="lazy"
       ></div>
     </div>
   {/if}
@@ -73,16 +70,12 @@
       <div
         id="g-demo-xl-img"
         class="g-demo-xl-img g-aiImg"
-        alt=""
         style="background-image: url({imageXl});"
-        loading="lazy"
       ></div>
       <div
         id="g-png-layer-overlay-xl"
         class="g-png-layer-overlay g-aiImg"
-        alt=""
         style="opacity:1;;background-image: url({imagePngOverlayXl});"
-        loading="lazy"
       ></div>
       <div
         id="g-caption2"
@@ -193,13 +186,6 @@ taggedText={{
     height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
-  }
-  #g-demo-box .g-aiSymbol {
-    position: absolute;
-    box-sizing: border-box;
-  }
-  #g-demo-box .g-aiPointText p {
-    white-space: nowrap;
   }
   #g-demo-box {
     height: 100%;

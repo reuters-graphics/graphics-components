@@ -20,7 +20,7 @@
     }
 
     if (captions?.length) {
-      captions.forEach((caption, index) => {
+      captions.forEach((caption) => {
         let captionWidth = caption.getBoundingClientRect().width;
         let captionMidpoint =
           caption.getBoundingClientRect().left + captionWidth / 2;

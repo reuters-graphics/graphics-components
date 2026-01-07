@@ -1,7 +1,7 @@
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import type { ContainerWidth } from '../@types/global';
-  import { untrack, type Snippet } from 'svelte';
+  import { type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';
   import type { Action } from 'svelte/action';
   import { clamp, map } from './utils';
@@ -140,14 +140,6 @@
 
     handleStops(rawProgress);
   }
-
-  // $effect(() => {
-  //   if (handleScroll && progressTween.current) {
-  //     untrack(() => {
-  //       progress = progressTween.target;
-  //     });
-  //   }
-  // });
 
   function handleStops(rawProgress: number) {
     scrollProgress =

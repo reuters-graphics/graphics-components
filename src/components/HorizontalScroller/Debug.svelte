@@ -109,7 +109,7 @@
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <p class="state-value progress-value">
           {#if componentState.stops.length > 0}
-            {#each componentState.stops as stop, index}
+            {#each componentState.stops as stop}
               <span class="stops" style={`left: ${stop * 100}%;`}>{stop}</span>
             {/each}
           {/if}
@@ -141,7 +141,7 @@
             class="state-value"
             style="display: flex; gap: 4px; flex-wrap: wrap;"
           >
-            {#each componentState.stops as stop, index}
+            {#each componentState.stops as stop}
               <span class="tag">{stop}</span>
             {/each}
           </p>
