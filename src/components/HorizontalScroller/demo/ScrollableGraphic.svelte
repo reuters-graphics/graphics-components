@@ -52,7 +52,6 @@
 <BodyText text={foobarText} />
 
 <HorizontalScroller
-  width="fluid"
   height="800lvh"
   direction="right"
   bind:scrollProgress

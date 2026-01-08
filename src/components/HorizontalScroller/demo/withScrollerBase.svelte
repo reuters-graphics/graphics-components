@@ -33,7 +33,6 @@
   {#snippet backgroundSnippet()}
     <!-- Add custom background HTML or component -->
     <HorizontalScroller
-      width="fluid"
       height="100lvh"
       direction="right"
       bind:scrollProgress={progress}
