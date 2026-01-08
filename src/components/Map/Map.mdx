@@ -1,0 +1,94 @@
+````mdx
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as MapStories from './Map.stories.svelte';
+
+<Meta of={MapStories} />
+
+# Map
+
+Easily add an interactive map to your page using MapLibre GL and PMTiles.
+
+```svelte
+<script>
+  import { Map } from '@reuters-graphics/graphics-components';
+</script>
+
+<Map
+  id="my-map"
+  center={[-74.006, 40.7128]}
+  zoom={10}
+  interactive={true}
+  height="500px"
+/>
+```
+
+The Map component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles](https://protomaps.com/docs/pmtiles) for efficient, interactive mapping. It automatically configures the PMTiles protocol and uses the Reuters Protomaps style by default.
+
+## Basic usage
+
+The component provides sensible defaults and can be used with minimal configuration:
+
+<Canvas of={MapStories.Demo} />
+
+## With chatter
+
+Add title, description, and notes to provide context:
+
+<Canvas of={MapStories.WithChatter} />
+
+## Non-interactive mode
+
+Disable interaction for static maps:
+
+<Canvas of={MapStories.NonInteractive} />
+
+## Advanced usage
+
+For more control over the map, you can use the `onMapReady` callback to access the MapLibre GL instance:
+
+```svelte
+<script>
+  import { Map } from '@reuters-graphics/graphics-components';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+
+  function handleMapReady(map: MaplibreMap) {
+    // Add custom layers, sources, or event handlers
+    map.addSource('my-source', {
+      type: 'geojson',
+      data: myGeoJsonData
+    });
+
+    map.addLayer({
+      id: 'my-layer',
+      type: 'circle',
+      source: 'my-source',
+      paint: {
+        'circle-radius': 8,
+        'circle-color': '#007cbf'
+      }
+    });
+  }
+</script>
+
+<Map
+  id="custom-map"
+  center={[0, 0]}
+  zoom={2}
+  onMapReady={handleMapReady}
+/>
+```
+
+## Props
+
+- **center**: `[longitude, latitude]` - Map center coordinates (default: `[0, 0]`)
+- **zoom**: `number` - Initial zoom level (default: `2`)
+- **minZoom**: `number` - Minimum zoom level (default: `0`)
+- **maxZoom**: `number` - Maximum zoom level (default: `22`)
+- **interactive**: `boolean` - Enable interactive controls (default: `true`)
+- **styleUrl**: `string` - Map style URL (default: Reuters Protomaps style)
+- **height**: `string` - Map height in CSS units (default: `'500px'`)
+- **width**: `ContainerWidth` - Width within the text well (default: `'normal'`)
+- **onMapReady**: `(map: maplibregl.Map) => void` - Callback when map is ready
+
+````
