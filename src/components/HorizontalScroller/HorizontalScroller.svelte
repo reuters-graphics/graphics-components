@@ -256,7 +256,6 @@
 <style lang="scss">
   .horizontal-scroller-container {
     width: 100%;
-    position: relative;
     contain: paint;
   }
 
