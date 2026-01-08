@@ -2,7 +2,7 @@
   import Demo from './graphic/ai2svelte/demo.svelte';
   import BodyText from '../../BodyText/BodyText.svelte';
   import HorizontalScroller from '../HorizontalScroller.svelte';
-  import { map } from '../utils';
+  import { map } from '../utils/index';
   import { sineInOut } from 'svelte/easing';
 
   const foobarText: string =

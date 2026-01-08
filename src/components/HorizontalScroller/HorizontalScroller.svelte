@@ -2,7 +2,7 @@
   import { type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';
   import type { Action } from 'svelte/action';
-  import { clamp, map } from './utils';
+  import { clamp, map } from './utils/index';
   import Debug from './Debug.svelte';
 
   interface Props {
