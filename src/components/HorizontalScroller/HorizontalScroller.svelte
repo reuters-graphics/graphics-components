@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Block from '../Block/Block.svelte';
-  import type { ContainerWidth } from '../@types/global';
   import { type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';
   import type { Action } from 'svelte/action';
@@ -12,8 +10,6 @@
     id?: string;
     /** Optional additional classes for the scroller container */
     class?: string;
-    /** Width of the scroller container*/
-    width?: ContainerWidth;
     /** Height of the scroller container in CSS `vh` units. Set it to `100lvh` when using inside ScrollerBase. */
     height?: string;
     /** Bindable progress value. Ideal range: `[0-1]`. Bind ScrollerBase's progress to this prop. */
@@ -55,7 +51,6 @@
   let {
     id = '',
     class: cls = '',
-    width = 'fluid',
     height = '200lvh',
     direction = 'right',
     scrollProgress = $bindable(0),
@@ -222,36 +217,34 @@
 
 <svelte:window bind:innerHeight={screenHeight} />
 
-<Block {width}>
+<div
+  {id}
+  class={`horizontal-scroller-container ${cls}`}
+  style="height: {height};"
+  bind:this={container}
+  bind:clientHeight={containerHeight}
+  bind:clientWidth={containerWidth}
+>
   <div
-    {id}
-    class={`horizontal-scroller-container ${cls}`}
-    style="height: {height};"
-    bind:this={container}
-    bind:clientHeight={containerHeight}
-    bind:clientWidth={containerWidth}
+    class="horizontal-scroller-content"
+    bind:this={content}
+    bind:clientWidth={contentWidth}
+    style="transform: translateX({translateX}px);"
+    use:scrollListener
   >
-    <div
-      class="horizontal-scroller-content"
-      bind:this={content}
-      bind:clientWidth={contentWidth}
-      style="transform: translateX({translateX}px);"
-      use:scrollListener
-    >
-      {#if children}
-        {@render children()}
-      {/if}
-      {#if showDebugInfo}
-        <div
-          class="debug-info"
-          style={`position: absolute; left: ${-translateX}px; top: 0px;`}
-        >
-          <Debug {componentState} />
-        </div>
-      {/if}
-    </div>
+    {#if children}
+      {@render children()}
+    {/if}
+    {#if showDebugInfo}
+      <div
+        class="debug-info"
+        style={`position: absolute; left: ${-translateX}px; top: 0px;`}
+      >
+        <Debug {componentState} />
+      </div>
+    {/if}
   </div>
-</Block>
+</div>
 
 <style lang="scss">
   .horizontal-scroller-container {

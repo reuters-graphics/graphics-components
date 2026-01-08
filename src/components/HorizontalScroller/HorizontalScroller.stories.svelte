@@ -7,6 +7,7 @@
   import CustomChildrenBlock from './demo/CustomChildrenSnippet.svelte';
   import ScrollableGraphic from './demo/ScrollableGraphic.svelte';
   import WithScrollerBaseComponent from './demo/withScrollerBase.svelte';
+  import Block from '../Block/Block.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/HorizontalScroller',
@@ -56,7 +57,9 @@
   }}
 >
   {#snippet children(args)}
-    <DemoComponent {...args}></DemoComponent>
+    <Block width="fluid">
+      <DemoComponent {...args}></DemoComponent>
+    </Block>
   {/snippet}
 </Story>
 
