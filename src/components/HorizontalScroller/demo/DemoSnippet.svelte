@@ -1,4 +1,4 @@
-<div style="width: 400vw; height: 100lvh;">
+<div style="width: 400vw; height: 100lvh; border: 2px solid red;">
   <img
     src="https://picsum.photos/1200/640?t=1"
     alt="Sample"

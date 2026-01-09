@@ -2,6 +2,8 @@ import { Meta } from '@storybook/blocks';
 
 import * as HorizontalScrollerStories from './HorizontalScroller.stories.svelte';
 
+import IllustratorScreenshot from './assets/illustrator.png';
+
 <Meta of={HorizontalScrollerStories} />
 
 # HorizontalScroller
@@ -161,7 +163,10 @@ respect_height: true
 allow_overflow: true
 ```
 
-This can be useful to even transition tagged content inside the ai2svelte graphic as part of the horizontal scrolling experience. For example, caption boxes exported as `htext` tagged layers can be animated to fade in/out or move in/out of view based on the scroll progress. Or one could even use tagged `png` layers to create parallax effects.
+<img
+  src={IllustratorScreenshot}
+  alt="Screenshot showing Illustrator document with artboard panel"
+/>
 
 [Demo](?path=/story/components-graphics-horizontalscroller--scrollable-ai-2-svelte)
 
@@ -170,9 +175,85 @@ This can be useful to even transition tagged content inside the ai2svelte graphi
   import { HorizontalScroller } from '@reuters-graphics/graphics-components';
   import AiGraphic from './ai2svelte/ai-graphic.svelte';
   import { sineInOut } from 'svelte/easing';
+  // If using with the graphics kit
+  import { assets } from '$app/paths';
+</script>
+
+<HorizontalScroller
+  width="fluid"
+  height="800lvh"
+  direction="right"
+  easing={sineInOut}
+  showDebugInfo
+>
+  <AiGraphic assetsPath={assets} />
+</HorizontalScroller>
+```
+
+## With ai2svelte components (advanced)
+
+Binding the scrollProgress can be useful to even transition tagged content inside the ai2svelte graphic as part of the horizontal scrolling experience. For example, caption boxes exported as `htext` tagged layers can be animated to fade in/out or move in/out of view based on the scroll progress. Or one could even use tagged `png` layers to create parallax effects.
+
+[Demo](?path=/story/components-graphics-horizontalscroller--scrollable-ai-2-svelte-advanced)
+
+```svelte
+<script lang="ts">
+  import { HorizontalScroller } from '@reuters-graphics/graphics-components';
+  import AiGraphic from './ai2svelte/ai-graphic.svelte';
+  import { sineInOut } from 'svelte/easing';
+  // If using with the graphics kit
+  import { assets } from '$app/paths';
 
   // bind scrollProgress for advanced interactivity
   let scrollProgress: number = $state(0);
+  let pngLayer: HTMLElement | null;
+  let captions: HTMLElement[] | null;
+  let threshold = 0.8;
+  let screenWidth: number = $state(0);
+
+  function handleScroll() {
+    // to create the parallax movement
+    if (pngLayer) {
+      pngLayer.style.transform = `translateX(${map(scrollProgress, 0, 1, -400, 400)}px)`;
+    }
+
+    // for each caption, checks if position of the caption < 80vw
+    // if it is, show it
+    // if not, hide it
+    if (captions?.length) {
+      captions.forEach((caption) => {
+        let captionWidth = caption.getBoundingClientRect().width;
+        let captionMidpoint =
+          caption.getBoundingClientRect().left + captionWidth / 2;
+
+        if (
+          captionMidpoint < screenWidth * threshold &&
+          caption.style.opacity !== '1'
+        ) {
+          caption.style.opacity = '1';
+        } else if (
+          captionMidpoint > screenWidth * threshold &&
+          caption.style.opacity !== '0'
+        ) {
+          caption.style.opacity = '0';
+        }
+      });
+    }
+  }
+
+  // refetch new captions and png image
+  // every time the artboard changes
+  function onArtboardChange(artboard: HTMLElement) {
+    pngLayer = artboard.querySelector('.g-png-layer-overlay');
+    captions = Array.from(artboard.querySelectorAll('.g-captions'));
+
+    if (pngLayer) {
+      window.removeEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll, {
+        passive: true,
+      });
+    }
+  }
 </script>
 
 <HorizontalScroller
@@ -183,17 +264,16 @@ This can be useful to even transition tagged content inside the ai2svelte graphi
   easing={sineInOut}
   showDebugInfo
 >
-  <AiGraphic />
+  <AiGraphic assetsPath={assets} />
 </HorizontalScroller>
 
 <style lang="scss">
-  #horizontal-stack {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    gap: 10vw;
-    height: 100%;
+  :global(.scroller-caption) {
+    padding: 1rem;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    filter: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.2));
   }
 </style>
 ```

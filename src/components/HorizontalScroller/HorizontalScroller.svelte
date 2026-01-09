@@ -99,15 +99,22 @@
 
   let translateX: number = $derived.by(() => {
     let processedProgress = progressTween.current;
+    let normalisedProgress = processedProgress;
     if (clampedProgress) {
       processedProgress = Math.min(
         Math.max(progressTween.current, clampStart),
         clampEnd
       );
-    }
 
-    const normalisedProgress =
-      direction === 'right' ? processedProgress : 1 - processedProgress;
+      processedProgress = map(processedProgress, 0, 1, clampStart, clampEnd);
+      normalisedProgress =
+        direction === 'right' ? processedProgress : (
+          clampEnd - processedProgress
+        );
+    } else {
+      normalisedProgress =
+        direction === 'right' ? processedProgress : 1 - processedProgress;
+    }
 
     const translate = -(contentWidth - containerWidth) * normalisedProgress;
 

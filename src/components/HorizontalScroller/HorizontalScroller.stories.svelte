@@ -6,6 +6,7 @@
   import DemoSnippetBlock from './demo/DemoSnippet.svelte';
   import CustomChildrenBlock from './demo/CustomChildrenSnippet.svelte';
   import ScrollableGraphic from './demo/ScrollableGraphic.svelte';
+  import AdvancedScrollableGraphic from './demo/AdvancedScrollableGraphic.svelte';
   import WithScrollerBaseComponent from './demo/withScrollerBase.svelte';
   import Block from '../Block/Block.svelte';
 
@@ -36,6 +37,22 @@
   args={{
     children: DemoSnippet,
     height: '200lvh',
+  }}
+>
+  {#snippet children(args)}
+    <DemoComponent {...args}></DemoComponent>
+  {/snippet}
+</Story>
+
+<Story
+  name="Extended demo"
+  args={{
+    children: DemoSnippet,
+    height: '200lvh',
+    clampedProgress: true,
+    clampStart: -1,
+    clampEnd: 2,
+    showDebugInfo: true,
   }}
 >
   {#snippet children(args)}
@@ -83,6 +100,10 @@
 
 <Story name="Scrollable ai2svelte">
   <ScrollableGraphic />
+</Story>
+
+<Story name="Scrollable ai2svelte (advanced)">
+  <AdvancedScrollableGraphic />
 </Story>
 
 <Story name="With ScrollerBase">
