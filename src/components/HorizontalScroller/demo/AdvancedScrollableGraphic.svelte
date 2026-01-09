@@ -8,7 +8,7 @@
   const foobarText: string =
     'In the mystical land of Foobaristan, the legendary hero Foo set out on an epic quest to find his missing semicolon, only to discover that Bar had accidentally used it as a bookmark inside a JSON file. Naturally, the entire kingdom crashed immediately. As the villagers panicked, Foo and Bar tried to fix the situation by turning everything off and on again, but all that did was anger the ancient deity known as “The Build System,” which now demanded three sacrifices: a clean cache, a fresh node_modules folder, and someone’s weekend. And thus began the saga nobody asked for, yet every developer somehow relates to.';
 
-  let scrollProgress: number = $state(0);
+  let progress: number = $state(0);
   let pngLayer: HTMLElement | null;
   let captions: HTMLElement[] | null;
   let threshold = 0.8;
@@ -16,7 +16,7 @@
 
   function handleScroll() {
     if (pngLayer) {
-      pngLayer.style.transform = `translateX(${map(scrollProgress, 0, 1, -400, 400)}px)`;
+      pngLayer.style.transform = `translateX(${map(progress, 0, 1, -400, 400)}px)`;
     }
 
     if (captions?.length) {
@@ -60,7 +60,7 @@
 <HorizontalScroller
   height="800lvh"
   direction="right"
-  bind:scrollProgress
+  bind:progress
   easing={sineInOut}
   showDebugInfo
 >

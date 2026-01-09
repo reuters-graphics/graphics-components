@@ -90,7 +90,9 @@
         >
       {/each}
     {:else}
-      {@const stops = componentState.triggerStops.map((x) => mappedStop(x))}
+      {@const stops = componentState.triggerStops.map((x: number) =>
+        mappedStop(x)
+      )}
       {#each stops as stop, index}
         {#if index < stops.length - 1}
           <span

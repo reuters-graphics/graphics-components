@@ -18,8 +18,6 @@ To use the `HorizontalScroller` component, import it and provide the children co
 
 > 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
 
-Use `showDebugInfo` prop to visualize the scroll progress and other useful debug information. The `Progress` indicates the vertical progress with values in the range 0...1 indicating the content being locked or a user-fed value to control the horizontal scroll position. The `Mapped Progress` value indicates the vertical progress mapped to mappedStart and mappedEnd values. By default these are 0 and 1 respectively. Finally, the `Eased Progress` value indicates the horizontal scroll progress after applying stops and easing (if any). `Eased Progress` accurately reflects the transition of horizontal scroll position.
-
 [Demo](?path=/story/components-graphics-horizontalscroller--demo)
 
 ```svelte
@@ -47,9 +45,11 @@ The `HorizontalScroller` also allows you to define a set of points to stop or sl
 
 The `scrubbed` prop can be used to define whether the scrolling experience should be smooth or tied directly to the scroll position. Setting `scrubbed` to `true` will make the horizontal scroll position directly correspond to the vertical scroll position, while setting it to `false` will create a smooth scrolling effect.
 
-If `scrubbed` is set to `false` and `stops` are defined, the scroller will transition smoothly to the next stop when the scrollProgress reaches the midpoint between two stops. The transition speed is controlled by the `duration` prop (in milliseconds) and the `easing` prop (which accepts any easing function from `svelte/easing` or a custom function based on signature `(t: number) => number`).
+If `scrubbed` is set to `false` and `stops` are defined, the scroller will transition smoothly to the next stop when the `Mapped Progress` reaches the midpoint between the two stops. The transition speed is controlled by the `duration` prop (in milliseconds) and the `easing` prop (which accepts any easing function from `svelte/easing` or a custom function based on signature `(t: number) => number`).
 
 If `scrubbed` is set to `true` and `stops` are defined, all the stops are traversed at equal distance but based on the easing function provided.
+
+Use `showDebugInfo` prop to visualize the scroll progress and other useful debug information. The `Progress` indicates the vertical progress with values in the range 0...1 indicating the content being locked or a user-fed value to control the horizontal scroll position. The `Mapped Progress` value indicates the vertical progress mapped to mappedStart and mappedEnd values. By default these are 0 and 1 respectively. Finally, the `Eased Progress` value indicates the horizontal scroll progress after applying stops and easing (if any). `Eased Progress` accurately reflects the transition of horizontal scroll position.
 
 Feel free to toggle `scrubbed` prop here to see the difference.
 
@@ -227,7 +227,7 @@ allow_overflow: true
 
 ## With ai2svelte components (advanced)
 
-Binding the scrollProgress can be useful to even transition tagged content inside the ai2svelte graphic as part of the horizontal scrolling experience. For example, caption boxes exported as `htext` tagged layers can be animated to fade in/out or move in/out of view based on the scroll progress. Or one could even use tagged `png` layers to create parallax effects.
+Binding the `progress` can be useful to even transition tagged content inside the ai2svelte graphic as part of the horizontal scrolling experience. For example, caption boxes exported as `htext` tagged layers can be animated to fade in/out or move in/out of view based on the scroll progress. Or one could even use tagged `png` layers to create parallax effects.
 
 [Demo](?path=/story/components-graphics-horizontalscroller--scrollable-ai-2-svelte-advanced)
 
@@ -239,8 +239,8 @@ Binding the scrollProgress can be useful to even transition tagged content insid
   // If using with the graphics kit
   import { assets } from '$app/paths';
 
-  // bind scrollProgress for advanced interactivity
-  let scrollProgress: number = $state(0);
+  // bind progress for advanced interactivity
+  let progress: number = $state(0);
   let pngLayer: HTMLElement | null;
   let captions: HTMLElement[] | null;
   let threshold = 0.8;
@@ -249,7 +249,7 @@ Binding the scrollProgress can be useful to even transition tagged content insid
   function handleScroll() {
     // to create the parallax movement
     if (pngLayer) {
-      pngLayer.style.transform = `translateX(${map(scrollProgress, 0, 1, -400, 400)}px)`;
+      pngLayer.style.transform = `translateX(${map(progress, 0, 1, -400, 400)}px)`;
     }
 
     // for each caption, checks if position of the caption < 80vw
@@ -295,11 +295,11 @@ Binding the scrollProgress can be useful to even transition tagged content insid
   width="fluid"
   height="800lvh"
   direction="right"
-  bind:scrollProgress
+  bind:progress
   easing={sineInOut}
   showDebugInfo
 >
-  <AiGraphic assetsPath={assets} />
+  <AiGraphic assetsPath={assets} {onArtboardChange} />
 </HorizontalScroller>
 
 <style lang="scss">
