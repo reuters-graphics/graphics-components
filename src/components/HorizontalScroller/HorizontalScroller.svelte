@@ -102,8 +102,8 @@
   });
 
   onMount(() => {
-    // Initialize progress to mappedStart on mount
-    progress = mappedStart;
+    // Initialize mappedProgress to mappedStart on mount
+    mappedProgress = mappedStart;
   });
 
   const scrollListener: Action = () => {
@@ -112,8 +112,6 @@
         passive: true,
       });
     } else {
-      // set mappedProgress to user defined when handleScroll is false
-      //   mappedProgress = 'user defined';
       window.addEventListener('scroll', () => handleStops(progress), {
         passive: true,
       });

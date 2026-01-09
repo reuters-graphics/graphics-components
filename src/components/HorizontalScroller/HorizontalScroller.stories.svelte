@@ -45,24 +45,6 @@
 </Story>
 
 <Story
-  name="Extended boundaries"
-  args={{
-    children: DemoSnippet,
-    height: '200lvh',
-    mappedStart: -0.5,
-    mappedEnd: 1.5,
-    showDebugInfo: true,
-    scrubbed: true,
-    stops: [0, 1],
-    easing: quartInOut,
-  }}
->
-  {#snippet children(args)}
-    <DemoComponent {...args}></DemoComponent>
-  {/snippet}
-</Story>
-
-<Story
   name="With stops"
   args={{
     children: DemoSnippet,
@@ -79,6 +61,24 @@
     <Block width="fluid">
       <DemoComponent {...args}></DemoComponent>
     </Block>
+  {/snippet}
+</Story>
+
+<Story
+  name="Extended boundary"
+  args={{
+    children: DemoSnippet,
+    height: '200lvh',
+    mappedStart: -0.5,
+    mappedEnd: 1.5,
+    showDebugInfo: true,
+    scrubbed: true,
+    stops: [0, 1],
+    easing: quartInOut,
+  }}
+>
+  {#snippet children(args)}
+    <DemoComponent {...args}></DemoComponent>
   {/snippet}
 </Story>
 

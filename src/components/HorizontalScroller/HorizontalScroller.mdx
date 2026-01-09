@@ -18,7 +18,7 @@ To use the `HorizontalScroller` component, import it and provide the children co
 
 > 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
 
-Use `showDebugInfo` prop to visualize the scroll progress and other useful debug information. The `Progress` indicates the vertical progress with values in the range 0...1 indicating the content being locked or a user-fed value to control the horizontal scroll position. The `Mapped Progress` value indicates the vertical progress mapped to mappedStart and mappedEnd values. By default these are 0 and 1 respectively. Finally, the `Eased Progress` value indicates the horizontal scroll progress after applying stops and easing (if any).
+Use `showDebugInfo` prop to visualize the scroll progress and other useful debug information. The `Progress` indicates the vertical progress with values in the range 0...1 indicating the content being locked or a user-fed value to control the horizontal scroll position. The `Mapped Progress` value indicates the vertical progress mapped to mappedStart and mappedEnd values. By default these are 0 and 1 respectively. Finally, the `Eased Progress` value indicates the horizontal scroll progress after applying stops and easing (if any). `Eased Progress` accurately reflects the transition of horizontal scroll position.
 
 [Demo](?path=/story/components-graphics-horizontalscroller--demo)
 
@@ -61,7 +61,6 @@ Feel free to toggle `scrubbed` prop here to see the difference.
   import { quartInOut } from 'svelte/easing';
 </script>
 
-<!-- Optionally set `height` to adjust scroll height -->
 <HorizontalScroller
   height="200lvh"
   stops={[0.2, 0.5, 0.6, 0.7]}
@@ -70,6 +69,40 @@ Feel free to toggle `scrubbed` prop here to see the difference.
   easing={quartInOut}
   showDebugInfo
   direction="right"
+>
+  <div style="width: 200vw; height: 100lvh;">
+    <!-- Content wider than 100vw -->
+    <!-- Only the top 100lvh will be visible -->
+    <img
+      src="path/to/wide-image.jpg"
+      alt="alt text"
+      style="width: 100%; height: 100%; object-fit: cover; padding: 0; margin: 0;"
+    />
+  </div>
+</HorizontalScroller>
+```
+
+## Extended boundary
+
+`HorizontalScroller` also provides `mappedStart` and `mappedEnd` props to extend the horizontal scroll boundaries beyond the default 0 to 1 range. This is useful when you want to create an overscroll effect or have more control over the horizontal scroll range. By default these values are set to 0 and 1 respectively.
+
+[Demo](?path=/story/components-graphics-horizontalscroller--extended-boundary)
+
+```svelte
+<script lang="ts">
+  import { HorizontalScroller } from '@reuters-graphics/graphics-components';
+  import { quartInOut } from 'svelte/easing';
+</script>
+
+<HorizontalScroller
+  height="200lvh"
+  mappedStart={-0.5}
+  mappedEnd={1.5}
+  stops={[0, 1]}
+  scrubbed={true}
+  easing={quartInOut}
+  direction="right"
+  showDebugInfo
 >
   <div style="width: 200vw; height: 100lvh;">
     <!-- Content wider than 100vw -->

@@ -49,8 +49,8 @@
   let normalisedScrollProgress = $derived(
     map(
       componentState.mappedProgress,
-      componentState.clampStart ?? 0,
-      componentState.clampEnd ?? 1,
+      componentState.mappedStart ?? 0,
+      componentState.mappedEnd ?? 1,
       0,
       1
     )
@@ -59,8 +59,8 @@
   let normalisedProgress = $derived(
     map(
       componentState.easedProgress,
-      componentState.clampStart ?? 0,
-      componentState.clampEnd ?? 1,
+      componentState.mappedStart ?? 0,
+      componentState.mappedEnd ?? 1,
       0,
       1
     )
@@ -69,8 +69,8 @@
   function mappedStop(stop: number): number {
     return map(
       stop,
-      componentState.clampStart ?? 0,
-      componentState.clampEnd ?? 1,
+      componentState.mappedStart ?? 0,
+      componentState.mappedEnd ?? 1,
       0,
       1
     );
