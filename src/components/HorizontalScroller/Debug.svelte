@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { map } from './utils';
+
   const { componentState } = $props();
 
   let isMoving = $state(false);
@@ -43,6 +45,36 @@
     }
     isMoving = false;
   }
+
+  let normalisedScrollProgress = $derived(
+    map(
+      componentState.scrollProgress,
+      componentState.clampStart ?? 0,
+      componentState.clampEnd ?? 1,
+      0,
+      1
+    )
+  );
+
+  let normalisedProgress = $derived(
+    map(
+      componentState.progress,
+      componentState.clampStart ?? 0,
+      componentState.clampEnd ?? 1,
+      0,
+      1
+    )
+  );
+
+  function mappedStop(stop: number): number {
+    return map(
+      stop,
+      componentState.clampStart ?? 0,
+      componentState.clampEnd ?? 1,
+      0,
+      1
+    );
+  }
 </script>
 
 <svelte:window onmousemove={onMouseMove} />
@@ -58,11 +90,12 @@
         >
       {/each}
     {:else}
-      {#each componentState.triggerStops as stop, index}
-        {#if index < componentState.triggerStops.length - 1}
+      {@const stops = componentState.triggerStops.map((x) => mappedStop(x))}
+      {#each stops as stop, index}
+        {#if index < stops.length - 1}
           <span
             class="stops"
-            style={`left: ${(stop + (componentState.triggerStops[index + 1] ?? componentState.triggerStops[componentState.triggerStops.length - 1])) * 0.5 * 100}%;`}
+            style={`left: ${(stop + (stops[index + 1] ?? stops[stops.length - 1])) * 0.5 * 100}%;`}
             >|</span
           >
         {/if}
@@ -87,20 +120,28 @@
     </summary>
     <div class="state-debug">
       <!--  -->
+      <p>Raw progress:</p>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <p class="state-value">
+          <span class="tag">{componentState.rawProgress}</span>
+        </p>
+      </div>
+      <!--  -->
+      <!--  -->
       <p>Scroll progress:</p>
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <p class="state-value progress-value">
           {@render triggerPoints()}
           <span
             class="progress-stop"
-            style={`left: ${componentState.scrollProgress * 100}%; transform: translateX(-50%);`}
+            style={`left: ${normalisedScrollProgress * 100}%; transform: translateX(-50%);`}
             >{fmt.format(componentState.scrollProgress)}</span
           >
           &nbsp;
         </p>
         <div id="video-progress-bar">
           <div
-            style="width: {componentState.scrollProgress * 100}%; height: 100%;"
+            style="width: {normalisedScrollProgress * 100}%; height: 100%;"
           ></div>
         </div>
       </div>
@@ -110,20 +151,20 @@
         <p class="state-value progress-value">
           {#if componentState.stops.length > 0}
             {#each componentState.stops as stop}
-              <span class="stops" style={`left: ${stop * 100}%;`}>{stop}</span>
+              <span class="stops" style={`left: ${mappedStop(stop) * 100}%;`}
+                >{stop}</span
+              >
             {/each}
           {/if}
           <span
             class="progress-stop"
-            style={`left: ${componentState.progress * 100}%; transform: translateX(-50%);`}
+            style={`left: ${normalisedProgress * 100}%; transform: translateX(-50%);`}
             >{fmt.format(componentState.progress)}</span
           >
           &nbsp;
         </p>
         <div id="video-progress-bar">
-          <div
-            style="width: {componentState.progress * 100}%; height: 100%;"
-          ></div>
+          <div style="width: {normalisedProgress * 100}%; height: 100%;"></div>
         </div>
       </div>
       <!--  -->

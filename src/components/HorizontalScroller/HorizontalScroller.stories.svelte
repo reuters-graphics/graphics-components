@@ -45,14 +45,16 @@
 </Story>
 
 <Story
-  name="Extended demo"
+  name="Extended boundaries"
   args={{
     children: DemoSnippet,
     height: '200lvh',
-    clampedProgress: true,
-    clampStart: -1,
-    clampEnd: 2,
+    clampStart: -0.5,
+    clampEnd: 1.5,
     showDebugInfo: true,
+    scrubbed: true,
+    stops: [0, 1],
+    easing: quartInOut,
   }}
 >
   {#snippet children(args)}
@@ -67,7 +69,7 @@
     height: '200lvh',
     stops: [0.2, 0.5, 0.6, 0.7],
     duration: 400,
-    scrubbed: false,
+    scrubbed: true,
     easing: quartInOut,
     showDebugInfo: true,
     direction: 'left',

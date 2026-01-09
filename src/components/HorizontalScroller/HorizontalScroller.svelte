@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type Snippet } from 'svelte';
+  import { onMount, type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';
   import type { Action } from 'svelte/action';
   import { clamp, map } from './utils/index';
@@ -30,22 +30,10 @@
     duration?: number;
     /** Whether to show debug info */
     showDebugInfo?: boolean;
-  }
-
-  interface ClampedProps extends Props {
-    /** Whether the progress value should be clamped */
-    clampedProgress: true;
-    /** Start value for clamping. Only effective when clampedProgress is true. */
+    /** Modified starting scale. Default is 0 */
     clampStart?: number;
-    /** End value for clamping. Only effective when clampedProgress is true. */
+    /** Modified ending scale. Default is 1 */
     clampEnd?: number;
-  }
-
-  interface UnclampedProps extends Props {
-    /** Whether the progress value should be clamped */
-    clampedProgress?: false;
-    clampStart?: never;
-    clampEnd?: never;
   }
 
   let {
@@ -54,7 +42,6 @@
     height = '200lvh',
     direction = 'right',
     scrollProgress = $bindable(0),
-    clampedProgress = true,
     clampStart = 0,
     clampEnd = 1,
     children,
@@ -64,24 +51,25 @@
     easing: ease = (t) => t,
     duration = 400,
     showDebugInfo = false,
-  }: ClampedProps | UnclampedProps = $props();
+  }: Props = $props();
 
   let componentState = $derived.by(() => ({
     scrollProgress,
     progress: progressTween.current,
     direction,
-    clampedProgress,
     clampStart,
     clampEnd,
-    triggerStops: scrubbed ? stops : unscrubbedStops,
+    triggerStops: scrubbed ? stops : divisions,
     stops: stops,
     handleScroll,
     scrubbed,
     easing: ease,
     duration,
+    rawProgress,
   }));
+
   let progressTween: Tween<number> = $state(
-    new Tween(0, { duration, easing: ease })
+    new Tween(clampStart, { duration, easing: ease })
   );
   let container: HTMLDivElement | undefined = $state(undefined);
   let containerHeight: number = $state(0);
@@ -89,36 +77,29 @@
   let content: HTMLDivElement | undefined = $state(undefined);
   let contentWidth: number = $state(0);
   let screenHeight: number = $state(0);
-  let unscrubbedStops: number[] = $derived(
-    [...stops, 0, 1].sort((a, b) => a - b)
-  );
   let divisions: number[] = $derived(
-    [...stops, clampStart ?? 0, clampEnd ?? 1].sort((a, b) => a - b)
+    [...stops, clampStart, clampEnd].sort((a, b) => a - b)
   );
   let divisionsCount: number = $derived.by(() => divisions.length - 1);
 
-  let translateX: number = $derived.by(() => {
-    let processedProgress = progressTween.current;
-    let normalisedProgress = processedProgress;
-    if (clampedProgress) {
-      processedProgress = Math.min(
-        Math.max(progressTween.current, clampStart),
-        clampEnd
-      );
+  let rawProgress: number | 'user defined' = $state(0);
 
-      processedProgress = map(processedProgress, 0, 1, clampStart, clampEnd);
-      normalisedProgress =
-        direction === 'right' ? processedProgress : (
-          clampEnd - processedProgress
-        );
-    } else {
-      normalisedProgress =
-        direction === 'right' ? processedProgress : 1 - processedProgress;
-    }
+  // handles horizontal translation of the content
+  let translateX: number = $derived.by(() => {
+    let processedProgress = clamp(progressTween.current, clampStart, clampEnd);
+    let normalisedProgress = processedProgress;
+
+    normalisedProgress =
+      direction === 'right' ? processedProgress : clampEnd - processedProgress;
 
     const translate = -(contentWidth - containerWidth) * normalisedProgress;
 
     return translate;
+  });
+
+  onMount(() => {
+    // Initialize scrollProgress to clampStart on mount
+    scrollProgress = clampStart;
   });
 
   const scrollListener: Action = () => {
@@ -127,70 +108,70 @@
         passive: true,
       });
     } else {
+      // set rawProgress to user defined when handleScroll is false
+      rawProgress = 'user defined';
       window.addEventListener('scroll', () => handleStops(scrollProgress), {
         passive: true,
       });
     }
   };
 
+  // calculates distance scrolled inside the container
   function handleScrollFunction() {
     if (!container) return;
 
-    const rawProgress =
+    rawProgress =
       (-container?.offsetTop + window?.scrollY) /
       (containerHeight - screenHeight);
 
     handleStops(rawProgress);
   }
 
+  // updates progressTween based on stops and scrubbed settings
   function handleStops(rawProgress: number) {
-    scrollProgress =
-      clampedProgress ? clamp(rawProgress, clampStart, clampEnd) : rawProgress;
+    scrollProgress = map(rawProgress, 0, 1, clampStart, clampEnd);
+
     if (!stops || stops.length === 0) {
-      progressTween.set(ease(clamp(rawProgress, 0, 1)), {
+      progressTween.set(ease(map(rawProgress, 0, 1, clampStart, clampEnd)), {
         duration: 0,
       });
       return;
     }
 
     if (!scrubbed) {
-      for (let i = 0; i < unscrubbedStops.length; i++) {
+      for (let i = 0; i < divisions.length; i++) {
         if (
-          rawProgress > unscrubbedStops[i] &&
-          rawProgress <=
-            (unscrubbedStops[i + 1] ??
-              unscrubbedStops[unscrubbedStops.length - 1])
+          scrollProgress > divisions[i] &&
+          scrollProgress <=
+            (divisions[i + 1] ?? divisions[divisions.length - 1])
         ) {
           const midPoint =
-            unscrubbedStops[i] +
-            ((unscrubbedStops[i + 1] ??
-              unscrubbedStops[unscrubbedStops.length - 1]) -
-              unscrubbedStops[i]) *
+            divisions[i] +
+            ((divisions[i + 1] ?? divisions[divisions.length - 1]) -
+              divisions[i]) *
               0.5;
           if (
-            rawProgress >= midPoint &&
+            scrollProgress >= midPoint &&
             progressTween.target !==
-              (unscrubbedStops[i + 1] ??
-                unscrubbedStops[unscrubbedStops.length - 1])
+              (divisions[i + 1] ?? divisions[divisions.length - 1])
           ) {
             progressTween.set(
-              unscrubbedStops[i + 1] ??
-                unscrubbedStops[unscrubbedStops.length - 1]
+              divisions[i + 1] ?? divisions[divisions.length - 1]
             );
             return;
           } else if (
-            rawProgress < midPoint &&
-            progressTween.target !== unscrubbedStops[i]
+            scrollProgress < midPoint &&
+            progressTween.target !== divisions[i]
           ) {
-            progressTween.set(unscrubbedStops[i]);
+            progressTween.set(divisions[i]);
             return;
           }
         } else if (
-          rawProgress <
-          unscrubbedStops[0] + (unscrubbedStops[1] ?? 0) * 0.5
+          scrollProgress <
+          divisions[0] + (divisions[1] ?? clampStart) * 0.5
         ) {
-          if (progressTween.target !== unscrubbedStops[0]) {
-            progressTween.set(unscrubbedStops[0]);
+          if (progressTween.target !== divisions[0]) {
+            progressTween.set(divisions[0]);
             return;
           }
         } else {
@@ -201,15 +182,16 @@
       for (let i = 0; i < divisions.length; i++) {
         let oneByDivCount = 1 / divisionsCount;
 
-        let normalStart = i == 0 ? 0 : oneByDivCount * i;
-        let normalEnd = i == divisionsCount - 1 ? 1 : oneByDivCount * (i + 1);
+        let normalStart = i == 0 ? clampStart : oneByDivCount * i;
+        let normalEnd =
+          i == divisionsCount - 1 ? clampEnd : oneByDivCount * (i + 1);
 
-        if (rawProgress >= normalStart && rawProgress < normalEnd) {
+        if (scrollProgress >= normalStart && scrollProgress < normalEnd) {
           let stopStart = divisions[i];
-          let stopEnd = divisions[i + 1] ?? 1;
+          let stopEnd = divisions[i + 1] ?? clampEnd;
           let newProgressVal =
             stopStart +
-            ease(map(rawProgress, normalStart, normalEnd, 0, 1)) *
+            ease(map(scrollProgress, normalStart, normalEnd, 0, 1)) *
               (stopEnd - stopStart);
 
           progressTween.set(newProgressVal, { duration: 0 });
