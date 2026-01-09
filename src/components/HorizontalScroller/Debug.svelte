@@ -349,7 +349,7 @@
   }
 
   .not-applicable {
-    background-color: rgba(255, 0, 0, 0.2);
-    color: rgba(255, 0, 0, 0.8);
+    background-color: #4a0000;
+    color: #ff8a80;
   }
 </style>
