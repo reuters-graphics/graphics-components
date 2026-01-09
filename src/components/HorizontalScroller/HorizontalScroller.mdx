@@ -18,7 +18,7 @@ To use the `HorizontalScroller` component, import it and provide the children co
 
 > 💡TIP: Use `lvh` or `svh` units instead of `vh` unit for the height, as [these units](https://www.w3.org/TR/css-values-4/#large-viewport-size) are more reliable on mobile or other devices where elements such as the address bar toggle between being shown and hidden.
 
-Use `showDebugInfo` prop to visualize the scroll progress and other useful debug information. The `Raw progress` indicates the vertical progress with values in the range 0...1 indicating the content being locked. The `Scroll Progress` value indicates the vertical progress mapped to clampStart and clampEnd values. By default these are 0 and 1 respectively. Finally, the `Progress` value indicates the horizontal scroll progress after applying stops and easing (if any).
+Use `showDebugInfo` prop to visualize the scroll progress and other useful debug information. The `Progress` indicates the vertical progress with values in the range 0...1 indicating the content being locked or a user-fed value to control the horizontal scroll position. The `Mapped Progress` value indicates the vertical progress mapped to mappedStart and mappedEnd values. By default these are 0 and 1 respectively. Finally, the `Eased Progress` value indicates the horizontal scroll progress after applying stops and easing (if any).
 
 [Demo](?path=/story/components-graphics-horizontalscroller--demo)
 
@@ -323,7 +323,7 @@ You can also integrate HorizontalScroller with `ScrollerBase` for a horizontal s
       width="fluid"
       height="100lvh"
       direction="right"
-      bind:scrollProgress={progress}
+      bind:progress
       scrubbed
       stops={[0.5]}
       handleScroll={false}

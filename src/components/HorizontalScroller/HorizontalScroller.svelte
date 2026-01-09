@@ -13,7 +13,7 @@
     /** Height of the scroller container in CSS `vh` units. Set it to `100lvh` when using inside ScrollerBase. */
     height?: string;
     /** Bindable progress value. Ideal range: `[0-1]`. Bind ScrollerBase's progress to this prop. */
-    scrollProgress?: number;
+    progress?: number;
     /** Direction of movement*/
     direction?: 'left' | 'right';
     /** Content to scroll*/
@@ -31,9 +31,9 @@
     /** Whether to show debug info */
     showDebugInfo?: boolean;
     /** Modified starting scale. Default is 0 */
-    clampStart?: number;
+    mappedStart?: number;
     /** Modified ending scale. Default is 1 */
-    clampEnd?: number;
+    mappedEnd?: number;
   }
 
   let {
@@ -41,9 +41,9 @@
     class: cls = '',
     height = '200lvh',
     direction = 'right',
-    scrollProgress = $bindable(0),
-    clampStart = 0,
-    clampEnd = 1,
+    progress = $bindable(0),
+    mappedStart = 0,
+    mappedEnd = 1,
     children,
     stops = [],
     handleScroll = true,
@@ -54,22 +54,22 @@
   }: Props = $props();
 
   let componentState = $derived.by(() => ({
-    scrollProgress,
-    progress: progressTween.current,
+    progress,
+    mappedProgress,
+    easedProgress: easedProgress.current,
     direction,
-    clampStart,
-    clampEnd,
+    mappedStart,
+    mappedEnd,
     triggerStops: scrubbed ? stops : divisions,
     stops: stops,
     handleScroll,
     scrubbed,
     easing: ease,
     duration,
-    rawProgress,
   }));
 
-  let progressTween: Tween<number> = $state(
-    new Tween(clampStart, { duration, easing: ease })
+  let easedProgress: Tween<number> = $state(
+    new Tween(mappedStart, { duration, easing: ease })
   );
   let container: HTMLDivElement | undefined = $state(undefined);
   let containerHeight: number = $state(0);
@@ -78,19 +78,23 @@
   let contentWidth: number = $state(0);
   let screenHeight: number = $state(0);
   let divisions: number[] = $derived(
-    [...stops, clampStart, clampEnd].sort((a, b) => a - b)
+    [...stops, mappedStart, mappedEnd].sort((a, b) => a - b)
   );
   let divisionsCount: number = $derived.by(() => divisions.length - 1);
 
-  let rawProgress: number | 'user defined' = $state(0);
+  let mappedProgress: number = $state(0);
 
   // handles horizontal translation of the content
   let translateX: number = $derived.by(() => {
-    let processedProgress = clamp(progressTween.current, clampStart, clampEnd);
+    let processedProgress = clamp(
+      easedProgress.current,
+      mappedStart,
+      mappedEnd
+    );
     let normalisedProgress = processedProgress;
 
     normalisedProgress =
-      direction === 'right' ? processedProgress : clampEnd - processedProgress;
+      direction === 'right' ? processedProgress : mappedEnd - processedProgress;
 
     const translate = -(contentWidth - containerWidth) * normalisedProgress;
 
@@ -98,8 +102,8 @@
   });
 
   onMount(() => {
-    // Initialize scrollProgress to clampStart on mount
-    scrollProgress = clampStart;
+    // Initialize progress to mappedStart on mount
+    progress = mappedStart;
   });
 
   const scrollListener: Action = () => {
@@ -108,9 +112,9 @@
         passive: true,
       });
     } else {
-      // set rawProgress to user defined when handleScroll is false
-      rawProgress = 'user defined';
-      window.addEventListener('scroll', () => handleStops(scrollProgress), {
+      // set mappedProgress to user defined when handleScroll is false
+      //   mappedProgress = 'user defined';
+      window.addEventListener('scroll', () => handleStops(progress), {
         passive: true,
       });
     }
@@ -120,19 +124,19 @@
   function handleScrollFunction() {
     if (!container) return;
 
-    rawProgress =
+    progress =
       (-container?.offsetTop + window?.scrollY) /
       (containerHeight - screenHeight);
 
-    handleStops(rawProgress);
+    handleStops(progress);
   }
 
-  // updates progressTween based on stops and scrubbed settings
+  // updates easedProgress based on stops and scrubbed settings
   function handleStops(rawProgress: number) {
-    scrollProgress = map(rawProgress, 0, 1, clampStart, clampEnd);
+    mappedProgress = map(rawProgress, 0, 1, mappedStart, mappedEnd);
 
     if (!stops || stops.length === 0) {
-      progressTween.set(ease(map(rawProgress, 0, 1, clampStart, clampEnd)), {
+      easedProgress.set(ease(map(rawProgress, 0, 1, mappedStart, mappedEnd)), {
         duration: 0,
       });
       return;
@@ -141,8 +145,8 @@
     if (!scrubbed) {
       for (let i = 0; i < divisions.length; i++) {
         if (
-          scrollProgress > divisions[i] &&
-          scrollProgress <=
+          mappedProgress > divisions[i] &&
+          mappedProgress <=
             (divisions[i + 1] ?? divisions[divisions.length - 1])
         ) {
           const midPoint =
@@ -151,27 +155,27 @@
               divisions[i]) *
               0.5;
           if (
-            scrollProgress >= midPoint &&
-            progressTween.target !==
+            mappedProgress >= midPoint &&
+            easedProgress.target !==
               (divisions[i + 1] ?? divisions[divisions.length - 1])
           ) {
-            progressTween.set(
+            easedProgress.set(
               divisions[i + 1] ?? divisions[divisions.length - 1]
             );
             return;
           } else if (
-            scrollProgress < midPoint &&
-            progressTween.target !== divisions[i]
+            mappedProgress < midPoint &&
+            easedProgress.target !== divisions[i]
           ) {
-            progressTween.set(divisions[i]);
+            easedProgress.set(divisions[i]);
             return;
           }
         } else if (
-          scrollProgress <
-          divisions[0] + (divisions[1] ?? clampStart) * 0.5
+          mappedProgress <
+          divisions[0] + (divisions[1] ?? mappedStart) * 0.5
         ) {
-          if (progressTween.target !== divisions[0]) {
-            progressTween.set(divisions[0]);
+          if (easedProgress.target !== divisions[0]) {
+            easedProgress.set(divisions[0]);
             return;
           }
         } else {
@@ -182,19 +186,19 @@
       for (let i = 0; i < divisions.length; i++) {
         let oneByDivCount = 1 / divisionsCount;
 
-        let normalStart = i == 0 ? clampStart : oneByDivCount * i;
+        let normalStart = i == 0 ? mappedStart : oneByDivCount * i;
         let normalEnd =
-          i == divisionsCount - 1 ? clampEnd : oneByDivCount * (i + 1);
+          i == divisionsCount - 1 ? mappedEnd : oneByDivCount * (i + 1);
 
-        if (scrollProgress >= normalStart && scrollProgress < normalEnd) {
+        if (mappedProgress >= normalStart && mappedProgress < normalEnd) {
           let stopStart = divisions[i];
-          let stopEnd = divisions[i + 1] ?? clampEnd;
+          let stopEnd = divisions[i + 1] ?? mappedEnd;
           let newProgressVal =
             stopStart +
-            ease(map(scrollProgress, normalStart, normalEnd, 0, 1)) *
+            ease(map(mappedProgress, normalStart, normalEnd, 0, 1)) *
               (stopEnd - stopStart);
 
-          progressTween.set(newProgressVal, { duration: 0 });
+          easedProgress.set(newProgressVal, { duration: 0 });
           return;
         } else {
           continue;

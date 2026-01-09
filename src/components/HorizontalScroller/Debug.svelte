@@ -48,7 +48,7 @@
 
   let normalisedScrollProgress = $derived(
     map(
-      componentState.scrollProgress,
+      componentState.mappedProgress,
       componentState.clampStart ?? 0,
       componentState.clampEnd ?? 1,
       0,
@@ -58,7 +58,7 @@
 
   let normalisedProgress = $derived(
     map(
-      componentState.progress,
+      componentState.easedProgress,
       componentState.clampStart ?? 0,
       componentState.clampEnd ?? 1,
       0,
@@ -120,22 +120,21 @@
     </summary>
     <div class="state-debug">
       <!--  -->
-      <p>Raw progress:</p>
+      <p>Progress:</p>
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <p class="state-value">
-          <span class="tag">{componentState.rawProgress}</span>
+          {componentState.progress}
         </p>
       </div>
       <!--  -->
-      <!--  -->
-      <p>Scroll progress:</p>
+      <p>Mapped progress:</p>
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <p class="state-value progress-value">
           {@render triggerPoints()}
           <span
             class="progress-stop"
             style={`left: ${normalisedScrollProgress * 100}%; transform: translateX(-50%);`}
-            >{fmt.format(componentState.scrollProgress)}</span
+            >{fmt.format(componentState.mappedProgress)}</span
           >
           &nbsp;
         </p>
@@ -146,7 +145,7 @@
         </div>
       </div>
       <!--  -->
-      <p>Progress:</p>
+      <p>Eased Progress:</p>
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <p class="state-value progress-value">
           {#if componentState.stops.length > 0}
@@ -159,7 +158,7 @@
           <span
             class="progress-stop"
             style={`left: ${normalisedProgress * 100}%; transform: translateX(-50%);`}
-            >{fmt.format(componentState.progress)}</span
+            >{fmt.format(componentState.easedProgress)}</span
           >
           &nbsp;
         </p>

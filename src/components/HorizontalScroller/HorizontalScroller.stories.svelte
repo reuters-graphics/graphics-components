@@ -49,8 +49,8 @@
   args={{
     children: DemoSnippet,
     height: '200lvh',
-    clampStart: -0.5,
-    clampEnd: 1.5,
+    mappedStart: -0.5,
+    mappedEnd: 1.5,
     showDebugInfo: true,
     scrubbed: true,
     stops: [0, 1],

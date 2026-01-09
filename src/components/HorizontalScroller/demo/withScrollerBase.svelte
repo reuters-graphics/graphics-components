@@ -35,7 +35,7 @@
     <HorizontalScroller
       height="100lvh"
       direction="right"
-      bind:scrollProgress={progress}
+      bind:progress
       scrubbed
       stops={[0.5]}
       handleScroll={false}
