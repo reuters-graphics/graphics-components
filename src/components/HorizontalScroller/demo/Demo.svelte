@@ -22,7 +22,9 @@
   </Block>
 {/if}
 
-<HorizontalScroller showDebugInfo={true} {...args} {scrubbed} />
+<Block width="fluid">
+  <HorizontalScroller showDebugInfo={true} {...args} {scrubbed} />
+</Block>
 
 <BodyText text={foobarText} />
 

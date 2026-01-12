@@ -1,6 +1,7 @@
 <script lang="ts">
   import Demo from './graphic/ai2svelte/demo.svelte';
   import BodyText from '../../BodyText/BodyText.svelte';
+  import Block from '../../Block/Block.svelte';
   import HorizontalScroller from '../HorizontalScroller.svelte';
   import { sineInOut } from 'svelte/easing';
 
@@ -10,15 +11,11 @@
 
 <BodyText text={foobarText} />
 
-<HorizontalScroller
-  height="800lvh"
-  direction="right"
-  easing={sineInOut}
-  showDebugInfo
->
-  <Demo />
-</HorizontalScroller>
-
+<Block width="fluid">
+  <HorizontalScroller height="800lvh" easing={sineInOut}>
+    <Demo />
+  </HorizontalScroller>
+</Block>
 <BodyText text={foobarText} />
 
 <style lang="scss">

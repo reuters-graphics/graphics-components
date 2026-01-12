@@ -3,6 +3,7 @@
   import { Tween } from 'svelte/motion';
   import { clamp, map } from './utils/index';
   import type { Action } from 'svelte/action';
+
   import Debug from './Debug.svelte';
 
   interface Props {
@@ -210,7 +211,7 @@
 
 <div
   {id}
-  class={`horizontal-scroller-container ${cls}`}
+  class="horizontal-scroller-container {cls}"
   style="height: {height};"
   bind:this={container}
   bind:clientHeight={containerHeight}
