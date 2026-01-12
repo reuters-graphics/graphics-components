@@ -1,5 +1,47 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.25
+
+### Patch Changes
+
+- 257f967: Updates svelte-fa version
+
+## 3.0.24
+
+### Patch Changes
+
+- 0fce4cd: Removes dev from $app/environment
+
+## 3.0.23
+
+### Patch Changes
+
+- 022d0dc: Test downstream notification workflow with updated reusable workflow
+
+## 3.0.22
+
+### Patch Changes
+
+- bf550d5: Test downstream workflow notification system
+
+## 3.0.21
+
+### Patch Changes
+
+- a2e6e8d: Fixes a bug in PhotoPack that on earlier iPhones would break. Also adds smarter default layouts based on the number of images in the pack and the max width of the PhotoPack.
+
+## 3.0.20
+
+### Patch Changes
+
+- 6d5c152: Removes stray Google Analytics loading call so GA is only loaded via Google Tag Manager.
+
+## 3.0.19
+
+### Patch Changes
+
+- 627f267: Enhances progress reactivity for ScrollerVideo
+
 ## 3.0.18
 
 ### Patch Changes

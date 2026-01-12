@@ -6,7 +6,7 @@
 
   // Utils
   import { random4 } from '../../utils';
-  import { groupRows } from './utils';
+  import { groupRows, generateDefaultLayouts } from './utils';
 
   // Types
   export interface Image {
@@ -33,7 +33,7 @@
     /** Add an ID to target with SCSS. Should be unique from all other elements. */
     id?: string;
     /** Add a class to target with SCSS. */
-    class: string;
+    class?: string;
     /** Width of the component within the text well: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid' */
     width: ContainerWidth;
     /** Set a different width for captions within the text well. For example, "normal" to keep captions inline with the rest of the text well.
@@ -60,10 +60,14 @@
    *
    * @NOTE - We can't use `sort` directly on the array because it mutates the original array; we can't update a state inside a derived expression: https://svelte.dev/docs/svelte/runtime-errors#Client-errors-state_unsafe_mutation
    *
-   * So, we need to use `toSorted` instead.
+   * We avoid `toSorted` because it's not supported on older iPhones. Instead, we create a shallow copy using the spread operator and then sort that copy.
+   *
+   * If no layouts are provided, we generate smart defaults based on the container width and number of images.
    */
   let sortedLayouts = $derived(
-    layouts?.toSorted((a, b) => (a.breakpoint < b.breakpoint ? 1 : -1))
+    layouts ?
+      [...layouts].sort((a, b) => (a.breakpoint < b.breakpoint ? 1 : -1))
+    : generateDefaultLayouts(images.length, width)
   );
 
   let layout = $derived(

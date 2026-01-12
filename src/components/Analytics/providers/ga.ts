@@ -1,6 +1,3 @@
-// Reuters Google Tag ID
-const GOOGLE_TAG_ID = 'G-WBSR7WLTGD';
-
 export default () => {
   try {
     window.dataLayer = window.dataLayer || [];
@@ -11,10 +8,6 @@ export default () => {
         window.dataLayer.push(arguments);
       };
       window.gtag('js', new Date());
-      // config event registers a pageview by default
-      window.gtag('config', GOOGLE_TAG_ID, {
-        send_page_view: false,
-      });
       registerPageview();
     }
   } catch (e) {
