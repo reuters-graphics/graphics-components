@@ -5,8 +5,6 @@
 
   // ScrollerBase props
   let progress = $state(0);
-
-  let scrollerVideo = $state(undefined);
 </script>
 
 <ScrollerBase bind:progress query="div.step-foreground-container" visible>
