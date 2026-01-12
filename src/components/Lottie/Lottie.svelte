@@ -17,7 +17,6 @@
 
   // Components
   import Debug from './Debug.svelte';
-  import WASM from './lottie/dotlottie-player.wasm?url';
 
   // Types
   import type { Props } from './ts/types';
@@ -158,8 +157,6 @@
       animationId,
       themeId,
     });
-
-    DotLottie.setWasmUrl(WASM);
 
     lottiePlayer.addEventListener('load', onLoadEvent);
     lottiePlayer.addEventListener('frame', onRenderEvent);
