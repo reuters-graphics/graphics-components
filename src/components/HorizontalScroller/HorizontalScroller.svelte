@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount, type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';
-  import type { Action } from 'svelte/action';
   import { clamp, map } from './utils/index';
+  import type { Action } from 'svelte/action';
   import Debug from './Debug.svelte';
 
   interface Props {

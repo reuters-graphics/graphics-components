@@ -19,9 +19,6 @@
   let width: number = $state(0);
 </script>
 
-<script>
-</script>
-
 <svelte:window bind:innerWidth={width} />
 
 {#snippet DemoSnippet()}
@@ -32,36 +29,24 @@
   <CustomChildrenBlock />
 {/snippet}
 
-<Story
-  name="Demo"
-  args={{
-    children: DemoSnippet,
-    height: '200lvh',
-  }}
->
-  {#snippet children(args)}
-    <DemoComponent {...args}></DemoComponent>
-  {/snippet}
+<Story name="Demo">
+  <DemoComponent>
+    <DemoSnippetBlock />
+  </DemoComponent>
 </Story>
 
-<Story
-  name="With stops"
-  args={{
-    children: DemoSnippet,
-    height: '200lvh',
-    stops: [0.2, 0.5, 0.6, 0.7],
-    duration: 400,
-    scrubbed: true,
-    easing: quartInOut,
-    showDebugInfo: true,
-    direction: 'left',
-  }}
->
-  {#snippet children(args)}
-    <Block width="fluid">
-      <DemoComponent {...args}></DemoComponent>
-    </Block>
-  {/snippet}
+<Story name="With stops and easing" exportName="WithStops">
+  <Block width="fluid">
+    <DemoComponent
+      stops={[0.2, 0.5, 0.6, 0.7]}
+      duration={400}
+      toggleScrub={true}
+      easing={quartInOut}
+      direction="left"
+    >
+      <DemoSnippetBlock />
+    </DemoComponent>
+  </Block>
 </Story>
 
 <Story
