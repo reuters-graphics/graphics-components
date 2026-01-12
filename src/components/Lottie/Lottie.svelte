@@ -11,12 +11,12 @@
     isReverseMode,
     createRenderConfig,
     isNullish,
+    isContainerWidth,
   } from './ts/utils';
   import { Tween } from 'svelte/motion';
 
   // Components
   import Debug from './Debug.svelte';
-  import WASM from './lottie/dotlottie-player.wasm?url';
 
   // Types
   import type { Props } from './ts/types';
@@ -49,7 +49,8 @@
     layout = { fit: 'contain', align: [0.5, 0.5] },
     animationId = '',
     lottiePlayer = $bindable(undefined),
-    height = '100lvh',
+    width = 'fluid',
+    height = 'auto',
     showDebugInfo = false,
     lottieState = createLottieState(),
     progress = $bindable(0),
@@ -156,8 +157,6 @@
       animationId,
       themeId,
     });
-
-    DotLottie.setWasmUrl(WASM);
 
     lottiePlayer.addEventListener('load', onLoadEvent);
     lottiePlayer.addEventListener('frame', onRenderEvent);
@@ -396,7 +395,13 @@
   });
 </script>
 
-<div class="lottie-block">
+<div
+  class="lottie-block"
+  class:debug-border={showDebugInfo}
+  style="max-width: {isContainerWidth(width) ?
+    `var(--${width}-column-width)`
+  : width};"
+>
   {#if showDebugInfo && lottiePlayer}
     <Debug componentState={lottieState} />
   {/if}
@@ -420,15 +425,22 @@
   :global(.lottie-block) {
     position: relative;
     height: 100%;
+    width: 100%;
+    margin: 0 auto;
 
     .lottie-container {
       width: 100%;
       height: 100%;
     }
+
     canvas {
       width: 100%;
       height: 100%;
       display: block;
     }
+  }
+
+  .debug-border {
+    border: 1px dashed lightgray;
   }
 </style>

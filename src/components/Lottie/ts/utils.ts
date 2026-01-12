@@ -1,5 +1,6 @@
 import type { DotLottie } from '@lottiefiles/dotlottie-web';
 import type { LottieState } from './lottieState.svelte';
+import type { ContainerWidth } from '$lib/components/@types/global';
 
 function constrain(n: number, low: number, high: number) {
   return Math.max(Math.min(n, high), low);
@@ -108,4 +109,19 @@ export function createRenderConfig() {
  */
 export function isNullish(value: unknown): boolean {
   return value === null || value === undefined || value === '';
+}
+
+/**
+ * Checks if a value is of type ContainerWidth
+ */
+export function isContainerWidth(string: any): string is ContainerWidth {
+  return (
+    string === 'narrower' ||
+    string === 'narrow' ||
+    string === 'normal' ||
+    string === 'wide' ||
+    string === 'wider' ||
+    string === 'widest' ||
+    string === 'fluid'
+  );
 }

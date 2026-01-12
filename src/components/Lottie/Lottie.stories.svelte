@@ -40,42 +40,53 @@
   let progress = $state(0);
 </script>
 
-<Story name="Demo">
-  <Lottie src={DemoLottie} autoplay={true} showDebugInfo={true} />
+<Story name="Demo" args={{ autoplay: true, showDebugInfo: true }}>
+  {#snippet children(args)}
+    <Lottie src={DemoLottie} {...args} />
+  {/snippet}
 </Story>
 
-<Story name="Segment">
-  <Lottie
-    src={DemoLottie}
-    autoplay
-    loop
-    showDebugInfo
-    segment={[0, 20]}
-    speed={0.5}
-  />
+<Story
+  name="Segment"
+  args={{
+    autoplay: true,
+    loop: true,
+    showDebugInfo: true,
+    segment: [0, 20],
+    speed: 0.5,
+  }}
+>
+  {#snippet children(args)}
+    <Lottie src={DemoLottie} {...args} />
+  {/snippet}
 </Story>
 
-<Story name="Marker">
-  <Lottie
-    src={MarkerSample}
-    showDebugInfo
-    autoplay
-    marker="ballerina"
-    loop
-    mode="bounce"
-  />
+<Story
+  name="Marker"
+  args={{
+    autoplay: true,
+    loop: true,
+    showDebugInfo: true,
+    marker: 'ballerina',
+    mode: 'bounce',
+  }}
+>
+  {#snippet children(args)}
+    <Lottie src={MarkerSample} {...args} />
+  {/snippet}
 </Story>
 
-<Story name="Themes">
-  <Lottie
-    src={ThemesSample}
-    showDebugInfo
-    autoplay
-    bind:progress
-    themeId={progress < 0.33 ? 'Water'
-    : progress < 0.66 ? 'air'
-    : 'earth'}
-  />
+<Story name="Themes" args={{ autoplay: true, showDebugInfo: true }}>
+  {#snippet children(args)}
+    <Lottie
+      src={ThemesSample}
+      bind:progress
+      themeId={progress < 0.33 ? 'Water'
+      : progress < 0.66 ? 'air'
+      : 'earth'}
+      {...args}
+    />
+  {/snippet}
 </Story>
 
 <Story name="Using with ScrollerBase" exportName="ScrollerBase">

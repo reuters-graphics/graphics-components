@@ -5,6 +5,7 @@ import {
   type DotLottie as DotLottieType,
 } from '@lottiefiles/dotlottie-web';
 import { type LottieState } from './lottieState.svelte';
+import type { ContainerWidth } from '../../@types/global';
 
 type DotlottieProps = {
   autoplay?: Config['autoplay'];
@@ -33,6 +34,7 @@ export type Props = DotlottieProps & {
   // Additional properties can be added here if needed
   lottiePlayer?: DotLottieType | undefined;
   showDebugInfo?: boolean;
+  width?: string | ContainerWidth;
   height?: string;
   lottieState?: LottieState;
   progress?: number;
