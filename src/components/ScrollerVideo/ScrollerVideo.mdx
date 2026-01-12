@@ -41,6 +41,25 @@ npx ffmpeg -y -i <input_video_src>.mp4 -c:v libx264 -movflags +faststart -crf 24
 
 Adjust the `-crf` value to control the quality. A lower `-crf` value means higher quality, with 20-24 being a generally good balance. The video framerate can be altered by using `-r` flag. Set keyframe intervals using the `-g` flag. It is advisable to keep it around 3 seconds (3 \* video framerate) for a good output. See [FFmpeg documentation](https://ffmpeg.org/ffmpeg.html) and [Testing Media Capabilities](https://cconcolato.github.io/media-mime-support/mediacapabilities.html) for more.
 
+## Setting custom width
+
+By default, the `ScrollerVideo` component takes up the full width of its container. To set a custom width, you can wrap the `ScrollerVideo` component in a `<Block>` with one of the acceptable `ContainerWidth` values.
+
+Further, it also allows you to set the `objectFit` property to control how the video should be resized to fit its container. The available options are `cover` and `contain`. The default value is `cover`.
+
+[Demo](?path=/story/components-graphics-scrollervideo--object-fit)
+
+```svelte
+<script lang="ts">
+  import { Block, ScrollerVideo } from '@reuters-graphics/graphics-components';
+</script>
+
+<!-- Optionally set `height` to adjust scroll height -->
+<Block width="normal">
+  <ScrollerVideo src="my-video.mp4" height="500lvh" objectFit="contain" />
+</Block>
+```
+
 ## Responsive videos
 
 To show different videos based on the screen width, use the `ScrollerVideo` component with conditional logic that uses a different video source depending on the [window width](https://svelte.dev/docs/svelte/svelte-window).
