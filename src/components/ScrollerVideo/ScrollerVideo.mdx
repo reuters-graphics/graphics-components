@@ -348,8 +348,10 @@ The `ScrollerVideo` component can be used inside the [ScrollerBase](?path=/story
     <!-- Pass bindable prop `progress` as `videoPercentage` and set `trackScroll` to `false` -->
     <ScrollerVideo
       src="my-video.mp4"
-      videoPercentage={progress}
+      height="100lvh"
+      videoPercentage={Math.min(1, Math.max(progress, 0))}
       trackScroll={false}
+      transitionSpeed={20}
     />
   {/snippet}
   {#snippet foregroundSnippet()}

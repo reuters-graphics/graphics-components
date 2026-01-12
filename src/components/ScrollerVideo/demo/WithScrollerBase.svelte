@@ -5,6 +5,8 @@
 
   // ScrollerBase props
   let progress = $state(0);
+
+  let scrollerVideo = $state(undefined);
 </script>
 
 <ScrollerBase bind:progress query="div.step-foreground-container" visible>
@@ -13,7 +15,8 @@
       src={Goldengate}
       height="100lvh"
       trackScroll={false}
-      videoPercentage={progress}
+      videoPercentage={Math.min(1, Math.max(progress, 0))}
+      transitionSpeed={20}
       showDebugInfo
     />
   {/snippet}
