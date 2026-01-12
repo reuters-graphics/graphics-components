@@ -198,7 +198,7 @@ You can set multiple themes and switch between them dynamically -- for example, 
 <Lottie
   src={MyLottie}
   bind:progress
-  themeId={progress < 0.33 ? 'water'
+  themeId={progress < 0.33 ? 'Water'
   : progress < 0.66 ? 'air'
   : 'earth'}
   autoplay
@@ -222,7 +222,7 @@ The `Lottie` component can be used with the `ScrollerBase` component to create a
 <ScrollerBase bind:progress query="div.step-foreground-container">
   {#snippet backgroundSnippet()}
     <!-- Pass bindable prop `progress` as `progress` -->
-    <Lottie src={MyLottie} {progress} showDebugInfo />
+    <Lottie src={MyLottie} {progress} height="100lvh" showDebugInfo />
   {/snippet}
   {#snippet foregroundSnippet()}
     <div class="step-foreground-container">

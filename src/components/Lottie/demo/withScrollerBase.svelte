@@ -31,7 +31,7 @@
   query="div.step-foreground-container"
 >
   {#snippet backgroundSnippet()}
-    <Lottie src={LottieSample} {progress} showDebugInfo />
+    <Lottie src={LottieSample} {progress} height="100lvh" showDebugInfo />
   {/snippet}
   {#snippet foregroundSnippet()}
     <div class="step-foreground-container"><h3>Step 1</h3></div>
