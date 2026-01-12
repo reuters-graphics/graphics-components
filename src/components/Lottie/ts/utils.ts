@@ -114,7 +114,7 @@ export function isNullish(value: unknown): boolean {
 /**
  * Checks if a value is of type ContainerWidth
  */
-export function isContainerWidth(string: any): string is ContainerWidth {
+export function isContainerWidth(string: string): string is ContainerWidth {
   return (
     string === 'narrower' ||
     string === 'narrow' ||
