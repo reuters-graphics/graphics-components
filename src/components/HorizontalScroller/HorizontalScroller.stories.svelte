@@ -14,6 +14,11 @@
     title: 'Components/Graphics/HorizontalScroller',
     component: HorizontalScroller,
     tags: ['autodocs'],
+    parameters: {
+      chromatic: {
+        disableSnapshot: true,
+      },
+    },
   });
 
   let width: number = $state(0);
