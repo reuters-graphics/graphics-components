@@ -1,6 +1,8 @@
 <script lang="ts">
   import Demo from './graphic/ai2svelte/demo.svelte';
   import BodyText from '../../BodyText/BodyText.svelte';
+  import Block from '../../Block/Block.svelte';
+
   import HorizontalScroller from '../HorizontalScroller.svelte';
   import { map } from '../utils/index';
   import { sineInOut } from 'svelte/easing';
@@ -57,32 +59,33 @@
 
 <BodyText text={foobarText} />
 
-<HorizontalScroller
-  height="800lvh"
-  direction="right"
-  bind:progress
-  easing={sineInOut}
-  showDebugInfo
->
-  <Demo
-    {onArtboardChange}
-    debugTaggedText
-    taggedText={{
-      htext: {
-        captions: {
-          caption1:
-            '<div class="scroller-caption"><strong>Destruction!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
-          caption2:
-            '<div class="scroller-caption"><strong>Destruction!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
-          caption3:
-            '<div class="scroller-caption"><strong>Destruction!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
-          caption4:
-            '<div class="scroller-caption"><strong>Destruction!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+<Block width="fluid">
+  <HorizontalScroller
+    height="800lvh"
+    bind:progress
+    easing={sineInOut}
+    showDebugInfo
+  >
+    <Demo
+      {onArtboardChange}
+      debugTaggedText
+      taggedText={{
+        htext: {
+          captions: {
+            caption1:
+              '<div class="scroller-caption"><strong>Caption 1!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+            caption2:
+              '<div class="scroller-caption"><strong>Caption 2!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+            caption3:
+              '<div class="scroller-caption"><strong>Caption 3!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+            caption4:
+              '<div class="scroller-caption"><strong>Caption 4!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+          },
         },
-      },
-    }}
-  />
-</HorizontalScroller>
+      }}
+    />
+  </HorizontalScroller>
+</Block>
 
 <BodyText text={foobarText} />
 
