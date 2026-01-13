@@ -1,6 +1,7 @@
 <script lang="ts">
   // Libraries & utils
-  import { onDestroy, onMount, setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
+  // @ts-ignore library has no types
   import { DotLottie } from '@lottiefiles/dotlottie-web';
   import { createLottieState } from './ts/lottieState.svelte';
   import { isEqual } from 'es-toolkit';
@@ -168,17 +169,13 @@
     }
 
     return () => {
-      lottiePlayer?.destroy();
+      if (lottiePlayer) {
+        lottiePlayer.removeEventListener('render', onRender);
+        lottiePlayer.removeEventListener('load', onLoad);
+        lottiePlayer.destroy();
+      }
+      window.removeEventListener('resize', handleWindowResize);
     };
-  });
-
-  onDestroy(() => {
-    if (lottiePlayer) {
-      lottiePlayer.removeEventListener('render', onRender);
-      lottiePlayer.removeEventListener('load', onLoad);
-      lottiePlayer.destroy();
-    }
-    window.removeEventListener('resize', handleWindowResize);
   });
 
   // Handles progress change
