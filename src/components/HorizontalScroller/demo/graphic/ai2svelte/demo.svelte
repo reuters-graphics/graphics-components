@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // For demo purposes only, hard-wiring img paths from Vite
   // @ts-ignore img
   import imageXl from '../imgs/demo-xl.jpg';
@@ -10,7 +10,6 @@
   import imagePngOverlayLg from '../imgs/layer-overlay-lg.png';
 
   let {
-    assetsPath = '/',
     onAiMounted = () => {},
     onArtboardChange = () => {},
     taggedText = { text: {}, htext: {} },
@@ -18,16 +17,18 @@
     artboardWidth = $bindable(undefined),
   } = $props();
   import { onMount, untrack } from 'svelte';
-  let aiBox;
+  let aiBox: HTMLElement | undefined;
   let screenWidth = $state(0);
   let aiBoxWidth = $derived(artboardWidth ?? screenWidth);
-  let activeArtboard = $state(undefined);
+  let activeArtboard: HTMLElement | undefined = $state(undefined);
   onMount(() => {
     onAiMounted();
   });
   $effect(() => {
     if (aiBoxWidth) {
-      const currentArtboard = aiBox.querySelectorAll('.g-artboard')[0];
+      const currentArtboard = (aiBox as HTMLElement).querySelectorAll(
+        '.g-artboard'
+      )[0] as HTMLElement;
       if (currentArtboard?.id !== activeArtboard?.id) {
         activeArtboard = untrack(() => currentArtboard);
         onArtboardChange(activeArtboard);
@@ -58,16 +59,12 @@
       <div
         id="g-demo-lg-img"
         class="g-demo-lg-img g-aiImg"
-        alt=""
         style="background-image: url({imageLg});"
-        loading="lazy"
       ></div>
       <div
         id="g-png-layer-overlay-lg"
         class="g-png-layer-overlay g-aiImg"
-        alt=""
         style="opacity:1;;background-image: url({imagePngOverlayLg});"
-        loading="lazy"
       ></div>
     </div>
   {/if}
@@ -83,16 +80,12 @@
       <div
         id="g-demo-xl-img"
         class="g-demo-xl-img g-aiImg"
-        alt=""
         style="background-image: url({imageXl});"
-        loading="lazy"
       ></div>
       <div
         id="g-png-layer-overlay-xl"
         class="g-png-layer-overlay g-aiImg"
-        alt=""
         style="opacity:1;;background-image: url({imagePngOverlayXl});"
-        loading="lazy"
       ></div>
       <div
         id="g-caption2"
@@ -203,13 +196,6 @@ taggedText={
     height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
-  }
-  #g-demo-box .g-aiSymbol {
-    position: absolute;
-    box-sizing: border-box;
-  }
-  #g-demo-box .g-aiPointText p {
-    white-space: nowrap;
   }
   #g-demo-box {
     height: 100%;
