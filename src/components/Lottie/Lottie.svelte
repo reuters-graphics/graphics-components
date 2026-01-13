@@ -168,17 +168,13 @@
     }
 
     return () => {
-      lottiePlayer?.destroy();
+      if (lottiePlayer) {
+        lottiePlayer.removeEventListener('render', onRender);
+        lottiePlayer.removeEventListener('load', onLoad);
+        lottiePlayer.destroy();
+      }
+      window.removeEventListener('resize', handleWindowResize);
     };
-  });
-
-  onDestroy(() => {
-    if (lottiePlayer) {
-      lottiePlayer.removeEventListener('render', onRender);
-      lottiePlayer.removeEventListener('load', onLoad);
-      lottiePlayer.destroy();
-    }
-    window.removeEventListener('resize', handleWindowResize);
   });
 
   // Handles progress change
