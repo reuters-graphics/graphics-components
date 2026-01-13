@@ -193,7 +193,7 @@ The demo below has 2 advanced interactions: fade in/out of caption boxes based o
 
 ### Captions fading in/out
 
-Caption boxes are exported as `htext` [tagged layers](https://reuters-graphics.github.io/ai2svelte/users/tagged-layers/) in ai2svelte. In this example, we use the `handleScroll()` function to check the position of each caption box relative to the viewport width and set its opacity to `1` (visible) or `0` (hidden) based on whether the caption box is within the `threshold` of the viewport. Set `override_text: true` in the ai2svelte export settings to allow custom HTML content in tagged text layers.
+Caption boxes are exported as `htext` [tagged layers](https://reuters-graphics.github.io/ai2svelte/users/tagged-layers/) in ai2svelte. In this example, we use the `handleScroll()` function to check the position of each caption box relative to the viewport width and set its opacity to `1` (visible) or `0` (hidden) based on whether the caption box is within the `threshold` of the viewport. In Adobe Illustrator, set `override_text: true` in the ai2svelte export settings to allow custom HTML content in tagged text layers.
 
 ### Parallax effect with png layer
 
@@ -377,6 +377,8 @@ When using `HorizontalScroller` with `ScrollerBase` or other scrollers, you must
 - Create a `progress` state variable and bind it to both `ScrollerBase` and `HorizontalScroller`
 - Set `HorizontalScroller`'s `height` to `100lvh`
 - Set `handleScroll` to `false`
+
+> **⚠️ Warning:** It is not recommended to use HorizontalScroller with vertical ScrollerBase. This example is only to serve the purpose of demonstrating how to control the HorizontalScroller with an external progress value (ScrollerBase's progress in this case).
 
 [Demo](?path=/story/components-graphics-horizontalscroller--with-scroller-base)
 
