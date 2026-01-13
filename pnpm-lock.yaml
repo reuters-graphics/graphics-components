@@ -14,6 +14,9 @@ importers:
       '@fortawesome/free-solid-svg-icons':
         specifier: ^6.7.2
         version: 6.7.2
+      '@lottiefiles/dotlottie-web':
+        specifier: ^0.52.2
+        version: 0.52.2
       '@reuters-graphics/svelte-markdown':
         specifier: ^0.0.3
         version: 0.0.3(svelte@5.28.1)
@@ -568,6 +571,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@lottiefiles/dotlottie-web@0.52.2':
+    resolution: {integrity: sha512-aeXCMUB5RdusHrvZ3Py2KaMgQ0w7SdA8NFbPK+SpwqC1UW1CDFZl5vPLueZHju7vLhB1rpPvpQ5fQ0L/KEZt7w==}
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -4640,6 +4646,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@lottiefiles/dotlottie-web@0.52.2': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:

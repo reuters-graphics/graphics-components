@@ -13,8 +13,8 @@
       src={Goldengate}
       height="100lvh"
       trackScroll={false}
-      videoPercentage={progress}
-      transitionSpeed={40}
+      videoPercentage={Math.min(1, Math.max(progress, 0))}
+      transitionSpeed={20}
       showDebugInfo
     />
   {/snippet}
