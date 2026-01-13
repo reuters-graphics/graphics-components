@@ -18,7 +18,7 @@
 
   function handleScroll() {
     if (pngLayer) {
-      pngLayer.style.transform = `translateX(${map(progress, 0, 1, -400, 400)}px)`;
+      pngLayer.style.transform = `scale(1.5) translateX(${map(progress, 0, 1, -15, 85)}%)`;
     }
 
     if (captions?.length) {
@@ -51,6 +51,9 @@
       window.addEventListener('scroll', handleScroll, {
         passive: true,
       });
+
+      // to translate overlay layer on initial load
+      handleScroll();
     }
   }
 </script>
@@ -68,7 +71,6 @@
   >
     <Demo
       {onArtboardChange}
-      debugTaggedText
       taggedText={{
         htext: {
           captions: {
@@ -93,8 +95,9 @@
   :global(.scroller-caption) {
     padding: 1rem;
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
+    color: white;
     filter: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.2));
   }
 </style>

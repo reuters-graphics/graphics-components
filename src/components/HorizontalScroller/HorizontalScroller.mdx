@@ -2,7 +2,7 @@ import { Meta } from '@storybook/blocks';
 
 import * as HorizontalScrollerStories from './HorizontalScroller.stories.svelte';
 
-import IllustratorScreenshot from './assets/illustrator.jpg';
+import IllustratorScreenshot from './assets/illustrator.png';
 
 <Meta of={HorizontalScrollerStories} />
 
@@ -10,7 +10,7 @@ import IllustratorScreenshot from './assets/illustrator.jpg';
 
 The `HorizontalScroller` component creates a horizontal scrolling section that scrolls through any child content wider than `100vw`.
 
-To use `HorizontalScroller`, wrap it around the content that you want to horizontally scroll through. The scroll length is controlled by the height of the `HorizontalScroller` container, which is set by the prop `height`.  `height` defaults to `200lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `400lvh`.
+To use `HorizontalScroller`, wrap it around the content that you want to horizontally scroll through. The scroll length is controlled by the height of the `HorizontalScroller` container, which is set by the prop `height`. `height` defaults to `200lvh`, but you can adjust this to any valid CSS height value such as `1200px` or `400lvh`.
 
 The child content inside the `HorizontalScroller` must be wider than `100vw` so that there is overflow to horizontal scroll through. By default, only the top `100lvh` of the child content is visible. You can use CSS `transform: translate()` on the child content to adjust its vertical positioning within the visible area.
 
@@ -22,7 +22,10 @@ See the full list of available props under the `Controls` tab in the [demo](?pat
 
 ```svelte
 <script lang="ts">
-  import { HorizontalScroller, Block } from '@reuters-graphics/graphics-components';
+  import {
+    HorizontalScroller,
+    Block,
+  } from '@reuters-graphics/graphics-components';
 </script>
 
 <!-- Wrap `HorizontalScroller` in a fluid container for a full bleed experience -->
@@ -31,11 +34,11 @@ See the full list of available props under the `Controls` tab in the [demo](?pat
   <HorizontalScroller>
     <!-- Child content wider than 100vw. Only the top 100lvh is visible. -->
     <div style="width: 400vw; height: 100lvh;">
-        <img
-          src="my-wide-image.jpg"
-          alt="alt text"
-          style="width: 100%; height: 100%; object-fit: cover; padding: 0; margin: 0;"
-        />
+      <img
+        src="my-wide-image.jpg"
+        alt="alt text"
+        style="width: 100%; height: 100%; object-fit: cover; padding: 0; margin: 0;"
+      />
     </div>
   </HorizontalScroller>
 </Block>
@@ -61,36 +64,39 @@ If `scrubbed` is set to `false` and `stops` are defined, the scrolling transitio
 
 `easing` accepts any easing function from `svelte/easing` or a custom easing function, while `duration` sets the time, in milliseconds, for each transition between stops.
 
-So, if the stops are at irregular intervals — for example, `[0.2, 0.9]` — the scroll to the first stop will be much quicker than the scroll to the second stop since the distance to travel is different but the duration of the transition is the same. 
+So, if the stops are at irregular intervals — for example, `[0.2, 0.9]` — the scroll to the first stop will be much quicker than the scroll to the second stop since the distance to travel is different but the duration of the transition is the same.
 
-By default, `duration` is set to `400` milliseconds.  
+By default, `duration` is set to `400` milliseconds.
 
 [Demo](?path=/story/components-graphics-horizontalscroller--with-stops)
 
 ```svelte
 <script lang="ts">
-  import { HorizontalScroller, Block } from '@reuters-graphics/graphics-components';
+  import {
+    HorizontalScroller,
+    Block,
+  } from '@reuters-graphics/graphics-components';
   import { quartInOut } from 'svelte/easing';
 </script>
 
 <!-- Wrap `HorizontalScroller` in a fluid container for a full bleed experience -->
 <Block width="fluid">
-    <HorizontalScroller 
-      stops={[0.2, 0.5, 0.9]}
-      duration={400}
-      scrubbed={false}
-      easing={quartInOut}
-    showDebugInfo={true} 
+  <HorizontalScroller
+    stops={[0.2, 0.5, 0.9]}
+    duration={400}
+    scrubbed={false}
+    easing={quartInOut}
+    showDebugInfo={true}
   >
-      <!-- Child content wider than 100vw. Only the top 100lvh is visible. -->
-      <div style="width: 200vw; height: 100lvh;">
-        <img
-          src="my-wide-image.jpg"
-          alt="alt text"
-          style="width: 100%; height: 100%; object-fit: cover; padding: 0; margin: 0;"
-        />
-      </div>
-    </HorizontalScroller>
+    <!-- Child content wider than 100vw. Only the top 100lvh is visible. -->
+    <div style="width: 200vw; height: 100lvh;">
+      <img
+        src="my-wide-image.jpg"
+        alt="alt text"
+        style="width: 100%; height: 100%; object-fit: cover; padding: 0; margin: 0;"
+      />
+    </div>
+  </HorizontalScroller>
 </Block>
 ```
 
@@ -106,12 +112,16 @@ If using custom `mappedStart` and `mappedEnd` values, you must also set `stops` 
 
 ```svelte
 <script lang="ts">
-  import { HorizontalScroller, Block } from '@reuters-graphics/graphics-components';
+  import {
+    HorizontalScroller,
+    Block,
+  } from '@reuters-graphics/graphics-components';
   import { quartInOut } from 'svelte/easing';
 </script>
+
 <!-- Wrap `HorizontalScroller` in a fluid container for a full bleed experience -->
 <Block width="fluid">
-  <HorizontalScroller 
+  <HorizontalScroller
     mappedStart={-0.5}
     mappedEnd={1.5}
     stops={[0, 1]}
@@ -119,7 +129,7 @@ If using custom `mappedStart` and `mappedEnd` values, you must also set `stops` 
     easing={quartInOut}
   >
     <!-- Child content wider than 100vw. Only the top 100lvh is visible. -->
-    <div style="width: 200vw; height: 100lvh;"> 
+    <div style="width: 200vw; height: 100lvh;">
       <img
         src="my-wide-image.jpg"
         alt="alt text"
@@ -154,7 +164,10 @@ allow_overflow: true
 
 ```svelte
 <script lang="ts">
-  import { HorizontalScroller, Block } from '@reuters-graphics/graphics-components';
+  import {
+    HorizontalScroller,
+    Block,
+  } from '@reuters-graphics/graphics-components';
   import AiGraphic from './ai2svelte/ai-graphic.svelte';
 
   // If using with the graphics kit
@@ -166,11 +179,7 @@ allow_overflow: true
 
 <!-- Wrap `HorizontalScroller` in a fluid container for a full bleed experience -->
 <Block width="fluid">
-  <HorizontalScroller
-    height="800lvh" 
-    easing={sineInOut}
-    showDebugInfo
-  >
+  <HorizontalScroller height="800lvh" easing={sineInOut} showDebugInfo>
     <AiGraphic assetsPath={assets} />
   </HorizontalScroller>
 </Block>
@@ -184,7 +193,7 @@ The demo below has 2 advanced interactions: fade in/out of caption boxes based o
 
 ### Captions fading in/out
 
-Caption boxes are exported as `htext` [tagged layers](https://reuters-graphics.github.io/ai2svelte/users/tagged-layers/) in ai2svelte. In this example, we use the `handleScroll()` function to check the position of each caption box relative to the viewport width and set its opacity to `1` (visible) or `0` (hidden) based on whether the caption box is within the `threshold` of the viewport.
+Caption boxes are exported as `htext` [tagged layers](https://reuters-graphics.github.io/ai2svelte/users/tagged-layers/) in ai2svelte. In this example, we use the `handleScroll()` function to check the position of each caption box relative to the viewport width and set its opacity to `1` (visible) or `0` (hidden) based on whether the caption box is within the `threshold` of the viewport. Set `override_text: true` in the ai2svelte export settings to allow custom HTML content in tagged text layers.
 
 ### Parallax effect with png layer
 
@@ -194,7 +203,10 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
 
 ```svelte
 <script lang="ts">
-  import { HorizontalScroller, Block } from '@reuters-graphics/graphics-components';
+  import {
+    HorizontalScroller,
+    Block,
+  } from '@reuters-graphics/graphics-components';
   import AiGraphic from './ai2svelte/ai-graphic.svelte';
   import { sineInOut } from 'svelte/easing';
 
@@ -211,7 +223,7 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
   function handleScroll() {
     // Create a parallax movement for the foreground png layer
     if (pngLayer) {
-      pngLayer.style.transform = `translateX(${map(progress, 0, 1, -400, 400)}px)`;
+      pngLayer.style.transform = `scale(1.5) translateX(${map(progress, 0, 1, -15, 85)}%)`;
     }
 
     // For each caption, checks if position of the caption is below the threshold.
@@ -247,6 +259,9 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
       window.addEventListener('scroll', handleScroll, {
         passive: true,
       });
+
+      // to translate overlay layer on initial load
+      handleScroll();
     }
   }
 </script>
@@ -259,21 +274,24 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
     easing={sineInOut}
     showDebugInfo={true}
   >
-    <AiGraphic assetsPath={assets} {onArtboardChange}
-    taggedText={{
-      htext: {
-        captions: {
-          caption1:
-            '<div class="scroller-caption"><strong>Caption 1!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
-          caption2:
-            '<div class="scroller-caption"><strong>Caption 2!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
-          caption3:
-            '<div class="scroller-caption"><strong>Caption 3!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
-          caption4:
-            '<div class="scroller-caption"><strong>Caption 4!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+    <AiGraphic
+      assetsPath={assets}
+      {onArtboardChange}
+      taggedText={{
+        htext: {
+          captions: {
+            caption1:
+              '<div class="scroller-caption"><strong>Caption 1!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+            caption2:
+              '<div class="scroller-caption"><strong>Caption 2!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+            caption3:
+              '<div class="scroller-caption"><strong>Caption 3!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+            caption4:
+              '<div class="scroller-caption"><strong>Caption 4!</strong><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>',
+          },
         },
-      },
-    }}    />
+      }}
+    />
   </HorizontalScroller>
 </Block>
 
@@ -281,13 +299,13 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
   :global(.scroller-caption) {
     padding: 1rem;
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
+    color: white;
     filter: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.2));
   }
 </style>
 ```
-
 
 ## With custom child components
 
@@ -355,6 +373,7 @@ You can create a custom horizontal layout with any component and pass it as a ch
 You can also integrate HorizontalScroller with `ScrollerBase` for a horizontal scroll with vertical captions.
 
 When using `HorizontalScroller` with `ScrollerBase` or other scrollers, you must:
+
 - Create a `progress` state variable and bind it to both `ScrollerBase` and `HorizontalScroller`
 - Set `HorizontalScroller`'s `height` to `100lvh`
 - Set `handleScroll` to `false`
@@ -366,12 +385,12 @@ When using `HorizontalScroller` with `ScrollerBase` or other scrollers, you must
   import {
     HorizontalScroller,
     ScrollerBase,
-    Block
+    Block,
   } from '@reuters-graphics/graphics-components';
   import AiGraphic from './ai2svelte/ai-graphic.svelte';
-  import { circInOut } from 'svelte/easing'; 
+  import { circInOut } from 'svelte/easing';
 
-  // Optional: Bind your own variables to use them in your code. 
+  // Optional: Bind your own variables to use them in your code.
   let progress = $state(0);
 </script>
 
@@ -379,15 +398,15 @@ When using `HorizontalScroller` with `ScrollerBase` or other scrollers, you must
   {#snippet backgroundSnippet()}
     <!-- Wrap `HorizontalScroller` in a fluid container for a full bleed experience -->
     <Block width="fluid">
-        <HorizontalScroller
-          bind:progress
-          height="100lvh"
-          handleScroll={false}
-          showDebugInfo={true}
-        >
-          <AiGraphic />
-        </HorizontalScroller>
-    </Block>    
+      <HorizontalScroller
+        bind:progress
+        height="100lvh"
+        handleScroll={false}
+        showDebugInfo={true}
+      >
+        <AiGraphic />
+      </HorizontalScroller>
+    </Block>
   {/snippet}
   {#snippet foregroundSnippet()}
     <!-- Add custom foreground HTML or component -->
