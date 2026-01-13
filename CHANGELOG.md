@@ -1,5 +1,12 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.26
+
+### Patch Changes
+
+- 27d07e4: Adds Lottie component
+- f9aec45: Adds HorizontalScroller component
+
 ## 3.0.25
 
 ### Patch Changes
