@@ -54,21 +54,6 @@
     showDebugInfo = false,
   }: Props = $props();
 
-  let componentState = $derived.by(() => ({
-    progress,
-    mappedProgress,
-    easedProgress: easedProgress.current,
-    direction,
-    mappedStart,
-    mappedEnd,
-    triggerStops: scrubbed ? stops : divisions,
-    stops: stops,
-    handleScroll,
-    scrubbed,
-    easing: ease,
-    duration,
-  }));
-
   let easedProgress: Tween<number> = $state(
     new Tween(mappedStart, { duration, easing: ease })
   );
@@ -101,6 +86,21 @@
 
     return translate;
   });
+
+  let componentState = $derived.by(() => ({
+    progress,
+    mappedProgress,
+    easedProgress: easedProgress.current,
+    direction,
+    mappedStart,
+    mappedEnd,
+    triggerStops: scrubbed ? stops : divisions,
+    stops: stops,
+    handleScroll,
+    scrubbed,
+    easing: ease,
+    duration,
+  }));
 
   onMount(() => {
     // Initialize mappedProgress to mappedStart on mount
