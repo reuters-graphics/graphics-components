@@ -47,6 +47,8 @@ export { default as Spinner } from './components/Spinner/Spinner.svelte';
 export { default as ScrollerBase } from './components/ScrollerBase/ScrollerBase.svelte';
 export { default as ScrollerVideo } from './components/ScrollerVideo/ScrollerVideo.svelte';
 export { default as ScrollerVideoForeground } from './components/ScrollerVideo/ScrollerVideoForeground.svelte';
+export { default as Lottie } from './components/Lottie/Lottie.svelte';
+export { default as LottieForeground } from './components/Lottie/LottieForeground.svelte';
 export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svelte';
 export { default as Table } from './components/Table/Table.svelte';
 export { default as Theme, themes } from './components/Theme/Theme.svelte';

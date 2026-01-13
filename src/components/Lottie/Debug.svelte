@@ -57,64 +57,111 @@
       CONSOLE
     </summary>
     <div class="state-debug">
-      <p>Source:</p>
-      <p class="state-value">{componentState.generalData.src}</p>
       <!--  -->
       <p>Progress:</p>
       <div style="display: flex; flex-direction: column; gap: 4px;">
-        <p class="state-value">{componentState.generalData.videoPercentage}</p>
+        <p class="state-value">{componentState.progress}</p>
         <div id="video-progress-bar">
           <div
-            style="width: {componentState.generalData.videoPercentage *
-              100}%; height: 100%;"
+            style="width: {componentState.progress * 100}%; height: 100%;"
           ></div>
         </div>
       </div>
       <!--  -->
-      <p>Framerate:</p>
-      <p class="state-value">{componentState.generalData.frameRate}</p>
-      <!--  -->
-      <p>Current time:</p>
+      <p>Duration:</p>
       <p class="state-value">
-        {componentState.generalData.currentTime}/{componentState.generalData
-          .totalTime}
+        {componentState.duration}s
       </p>
       <!--  -->
-      {#if componentState.usingWebCodecs}
-        <p>Codec:</p>
+      {#if componentState.segment}
+        <p>Segment:</p>
         <p class="state-value">
-          <span class="tag">{componentState.framesData.codec}</span>
-        </p>
-
-        <!--  -->
-        <p>Current frame:</p>
-        <p class="state-value">
-          {componentState.framesData.currentFrame}/{componentState.framesData
-            .totalFrames}
+          {componentState.segment[0]} -- {componentState.segment[1]}
         </p>
       {/if}
       <!--  -->
-      <p>Will Autoplay?:</p>
+      <p>Current frame:</p>
       <p class="state-value">
-        <span class="tag">{componentState.willAutoPlay}</span>
+        {componentState.currentFrame}/{componentState.totalFrames}
       </p>
       <!--  -->
-      {#if componentState.willAutoPlay}
-        <p>Autoplaying:</p>
+      <p>Speed:</p>
+      <p class="state-value">
+        {componentState.speed}
+      </p>
+      <!--  -->
+      <p>Autoplay:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.autoplay}</span>
+      </p>
+      <!--  -->
+      <p>Loop:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.loop}</span>
+        {componentState.loop ? `(Loop count: ${componentState.loopCount})` : ''}
+      </p>
+      <!--  -->
+      <p>Mode:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.mode}</span>
+      </p>
+      <!--  -->
+      <p>Layout:</p>
+      <p class="state-value">
+        {JSON.stringify(componentState.layout)}
+      </p>
+      <!--  -->
+      {#if Object.keys(componentState.allMarkers).length}
+        <p>All markers:</p>
         <p class="state-value">
-          <span class="tag">{componentState.isAutoPlaying}</span>
+          {componentState.allMarkers}
         </p>
-        <p>Autoplay progress:</p>
-        <div style="display: flex; flex-direction: column; gap: 4px;">
-          <p class="state-value">{componentState.autoplayProgress}</p>
-          <div id="video-progress-bar">
-            <div
-              style="width: {componentState.autoplayProgress *
-                100}%; height: 100%;"
-            ></div>
-          </div>
-        </div>
       {/if}
+      <!--  -->
+      {#if componentState.marker}
+        <p>Active marker:</p>
+        <p class="state-value">
+          {componentState.marker}
+        </p>
+      {/if}
+      <!--  -->
+      {#if componentState.allThemes.length}
+        <p>All themes:</p>
+        <p class="state-value">
+          {componentState.allThemes.join(', ')}
+        </p>
+      {/if}
+      {#if componentState.activeThemeId}
+        <p>Active theme ID:</p>
+        <p class="state-value">
+          {componentState.activeThemeId}
+        </p>
+      {/if}
+      <!--  -->
+      <p>isPaused:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.isPaused}</span>
+      </p>
+      <!--  -->
+      <p>isPlaying:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.isPlaying}</span>
+      </p>
+      <!--  -->
+      <p>isStopped:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.isStopped}</span>
+      </p>
+      <!--  -->
+      <p>isLoaded:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.isLoaded}</span>
+      </p>
+      <!--  -->
+      <p>isFrozen:</p>
+      <p class="state-value">
+        <span class="tag">{componentState.isFrozen}</span>
+      </p>
     </div>
   </details>
 </div>
