@@ -25,7 +25,6 @@ export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as Headpile } from './components/Headpile/Headpile.svelte';
 export { default as HeroHeadline } from './components/HeroHeadline/HeroHeadline.svelte';
-export { default as HorizontalScroller } from './components/HorizontalScroller/HorizontalScroller.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
 export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
