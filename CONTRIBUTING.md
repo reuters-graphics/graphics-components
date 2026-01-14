@@ -55,6 +55,12 @@ Once you've submitted your PR, tag an editor to review it.
 
 An editor will approve your PR after addressing any issues they see. Once an editor approves and there are no conflicts or failing tests, you can merge your PR into master.
 
+### Test in downstream projects
+
+Once a PR is created, a testable version of the library is published via [pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new). A comment will be added to your PR that documents how to install the library's test version. Use it to test any new components or features in the graphics kit.
+
 ### ✉️ Publishing to the team
 
 Publishing is handled via [changesets](https://github.com/changesets/changesets) and should follow [semantic versioning](https://semver.org/) conventions. Most MINOR and all MAJOR version changes should be identified ahead of time during PR review.
+
+Once a new version of the library is published, a [PR will be created in the graphics kit](https://github.com/reuters-graphics/bluprint_graphics-kit/pulls) to update this dependency. Merge that.
