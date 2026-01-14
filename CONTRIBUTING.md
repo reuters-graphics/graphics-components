@@ -1,5 +1,3 @@
-![](https://graphics.thomsonreuters.com/style-assets/images/logos/reuters-graphics-logo/svg/graphics-logo-color-dark.svg)
-
 # Contributing Guide
 
 ## Why this?
@@ -21,29 +19,41 @@ Anyone outside our team using these components is welcome to submit PRs or issue
 We recommend your first step is to create an issue on this repo describing what is missing, broken or could be added or improved. (We'll close that issue when we merge your PR.)
 
 - It's helpful if that issue describes what changes you propose to make at a high level so we can agree on a general direction before you write code. That's especially true if code you're writing will change how others need to write theirs.
-- If needed, provide any links to best practice guidelines that support the change you want to make.
+- If needed, provide any links to best practice guidelines that support the change you want to make, e.g., for making accessibility improvements to components.
 - Tag others on the team who may have expertise or would contribute to any needed discussion.
 - **Always tag an editor.**
 
 ### 🧹 Follow code standards
 
-Once you're ready to submit code, be sure it's properly formatted _before_ you ask for a review. The easiest way is to ensure the built-in code formatter (prettier) is working. (It should.)
+Once you're ready to submit code, be sure it's properly formatted _before_ you ask for a review and run our built-in code linters (eslint + prettier) over your changed files:
 
-Be sure to add comments around any tricky bits of logic you're adding. Even better, document your code using [JSDoc](https://devhints.io/jsdoc) comments. (Check out [JSDoc shortcuts](https://code.visualstudio.com/docs/languages/javascript#_jsdoc-support) in VS Code for a leg-up.)
+```console
+pnpm lint && pnpm format
+```
 
-### 📝 Write docs
+Any public methods or component props should be properly typed and documented with comments. (See existing components for examples.) For future developers, also add comments around any tricky bits of _internal_ logic you're adding.
 
-All new components and component features should be reflected in a [docs page](https://reuters-graphics.github.io/graphics-svelte-components/) included with your PR. See the [README](https://github.com/reuters-graphics/graphics-svelte-components#developing-new-components) for instructions on how to add those docs.
+### 📝 Write Storybook stories
 
-### 🍺 Submit code
+All new components and component features should be accompanied by [Storybook stories](https://reuters-graphics.github.io/graphics-svelte-components/) included with your PR. See other components for examples of how to add them.
+
+Be sure to target your Storybook docs for non-developers with real world examples of how to use components within the graphics kit.
+
+### 🍺 Submit code with a changeset
 
 All code contributions should be made through the normal [GitHub Flow](https://www.w3schools.com/git/git_github_flow.asp#:~:text=The%20GitHub%20flow%20is%20a,Make%20changes%20and%20add%20Commits). Basically, make a branch and submit a pull request.
 
-Generally, it's better to avoid bundling several new features or components in a single PR. Breaking them apart into smaller, individual contributions makes them easier to review and manage.
+(Generally, it's better to avoid bundling several new features or components in a single PR. Breaking them apart into smaller, individual contributions makes them easier to review and manage.)
+
+Each PR should be accompanied by a [changeset](https://github.com/changesets/changesets). You can add one by running:
+
+```console
+pnpm changeset add
+```
 
 Once you've submitted your PR, tag an editor to review it.
 
-An editor will approve your PR after addressing any issues they see. Once an editor approves and there are no code conflicts, you can merge your PR into master.
+An editor will approve your PR after addressing any issues they see. Once an editor approves and there are no conflicts or failing tests, you can merge your PR into master.
 
 ### ✉️ Publishing to the team
 
