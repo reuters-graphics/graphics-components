@@ -1,6 +1,25 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Map from './Map.svelte';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+
+  // Custom style function for the custom styled map story
+  function customStyleHandler(map: MaplibreMap) {
+    // Customize water color
+    map.setPaintProperty('water', 'fill-color', '#0080ff');
+
+    // Customize land color
+    map.setPaintProperty('earth', 'fill-color', '#f0e6d2');
+
+    // Customize road colors
+    map.setPaintProperty('roads', 'line-color', '#ff6b6b');
+    map.setPaintProperty('roads', 'line-width', 2);
+
+    // Customize label colors
+    map.setPaintProperty('places', 'text-color', '#2c3e50');
+    map.setPaintProperty('places', 'text-halo-color', '#ffffff');
+    map.setPaintProperty('places', 'text-halo-width', 2);
+  }
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/Map',
@@ -57,3 +76,17 @@
     height: '400px',
   }}
 />
+
+<Story name="Custom styled map" tags={['!autodocs']}>
+  <Map
+    id="custom-styled-map"
+    center={[-73.935242, 40.73061]}
+    zoom={11}
+    interactive={true}
+    title="Custom Styled Map"
+    description="A map with customized colors for water, land, roads, and labels."
+    notes="Style customizations applied using the onMapReady callback."
+    height="600px"
+    onMapReady={customStyleHandler}
+  />
+</Story>
