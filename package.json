@@ -18,6 +18,7 @@
     "lint": "eslint --fix",
     "format": "prettier . --write",
     "build": "rimraf ./dist && svelte-package -i ./src && publint",
+    "prepare": "svelte-package -i ./src",
     "build:docs": "storybook build -o docs",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
