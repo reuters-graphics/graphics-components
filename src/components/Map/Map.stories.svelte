@@ -1,25 +1,51 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Map from './Map.svelte';
+  import MapLayer from './MapLayer.svelte';
   import type { Map as MaplibreMap } from 'maplibre-gl';
 
   // Custom style function for the custom styled map story
   function customStyleHandler(map: MaplibreMap) {
     // Customize water color
-    map.setPaintProperty('water', 'fill-color', '#0080ff');
-
-    // Customize land color
-    map.setPaintProperty('earth', 'fill-color', '#f0e6d2');
-
-    // Customize road colors
-    map.setPaintProperty('roads', 'line-color', '#ff6b6b');
-    map.setPaintProperty('roads', 'line-width', 2);
-
-    // Customize label colors
-    map.setPaintProperty('places', 'text-color', '#2c3e50');
-    map.setPaintProperty('places', 'text-halo-color', '#ffffff');
-    map.setPaintProperty('places', 'text-halo-width', 2);
+    map.setPaintProperty('water_polygon', 'fill-color', '#0080ff');
   }
+
+  // Example GeoJSON data - a simple polygon around Central Park
+  const centralParkData = {
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-73.9812, 40.7681],
+          [-73.9581, 40.7681],
+          [-73.9581, 40.8006],
+          [-73.9812, 40.8006],
+          [-73.9812, 40.7681],
+        ],
+      ],
+    },
+    properties: {
+      name: 'Central Park Area',
+    },
+  };
+
+  // Example point data
+  const landmarkData = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-73.9654, 40.7829],
+        },
+        properties: {
+          name: 'Bethesda Fountain',
+        },
+      },
+    ],
+  };
 
   const { Story } = defineMeta({
     title: 'Components/Graphics/Map',
@@ -89,4 +115,46 @@
     height="600px"
     onMapReady={customStyleHandler}
   />
+</Story>
+
+<Story name="With GeoJSON layers" tags={['!autodocs']}>
+  <Map
+    id="geojson-map"
+    center={[-73.9712, 40.7831]}
+    zoom={13}
+    interactive={true}
+    title="Map with GeoJSON Layers"
+    description="Example showing multiple GeoJSON layers on a map."
+    height="600px"
+  >
+    <MapLayer
+      id="park-area"
+      data={centralParkData}
+      type="fill"
+      paint={{
+        'fill-color': '#90ee90',
+        'fill-opacity': 0.5,
+      }}
+    />
+    <MapLayer
+      id="park-outline"
+      data={centralParkData}
+      type="line"
+      paint={{
+        'line-color': '#228b22',
+        'line-width': 2,
+      }}
+    />
+    <MapLayer
+      id="landmarks"
+      data={landmarkData}
+      type="circle"
+      paint={{
+        'circle-radius': 8,
+        'circle-color': '#ff0000',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff',
+      }}
+    />
+  </Map>
 </Story>

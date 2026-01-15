@@ -49,6 +49,57 @@ Use the `onMapReady` callback to customize the map's appearance after it loads:
 
 <Canvas of={MapStories.CustomStyledMap} />
 
+## Adding GeoJSON layers
+
+Use the `MapLayer` component to add GeoJSON data to your map:
+
+<Canvas of={MapStories.WithGeoJSONLayers} />
+
+### MapLayer usage
+
+```svelte
+<script>
+  import { Map, MapLayer } from '@reuters-graphics/graphics-components';
+  
+  const myGeoJSONData = {
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [[/* ... */]]
+    },
+    properties: {
+      name: 'My Area'
+    }
+  };
+</script>
+
+<Map center={[0, 0]} zoom={2}>
+  <!-- Fill layer -->
+  <MapLayer
+    id="area-fill"
+    data={myGeoJSONData}
+    type="fill"
+    paint={{
+      'fill-color': '#90ee90',
+      'fill-opacity': 0.5
+    }}
+  />
+  
+  <!-- Outline layer -->
+  <MapLayer
+    id="area-outline"
+    data={myGeoJSONData}
+    type="line"
+    paint={{
+      'line-color': '#228b22',
+      'line-width': 2
+    }}
+  />
+</Map>
+```
+
+You can add multiple `MapLayer` components to display different GeoJSON datasets with different styling.
+
 ## Advanced usage
 
 For more control over the map, you can use the `onMapReady` callback to access the MapLibre GL instance:

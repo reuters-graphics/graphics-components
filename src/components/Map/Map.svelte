@@ -1,6 +1,6 @@
 <!-- @component `Map` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-map--docs) -->
 <script lang="ts">
-  import { onMount, onDestroy, type Snippet } from 'svelte';
+  import { onMount, onDestroy, setContext, type Snippet } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
   import maplibregl from 'maplibre-gl';
@@ -61,6 +61,8 @@
     notesSnippet?: Snippet;
     /** Callback function that receives the map instance when ready */
     onMapReady?: (map: maplibregl.Map) => void;
+    /** Child components (e.g., MapLayer) */
+    children?: Snippet;
   }
 
   let {
@@ -80,10 +82,14 @@
     titleSnippet,
     notesSnippet,
     onMapReady,
+    children,
   }: Props = $props();
 
   let mapContainer: HTMLDivElement;
   let map: maplibregl.Map | null = null;
+
+  // Provide map instance to child components via context
+  setContext('map', () => map);
 
   onMount(() => {
     if (typeof window !== 'undefined' && mapContainer) {
@@ -152,6 +158,9 @@
       class="map-container"
       style="height: {height}"
     ></div>
+    {#if children}
+      {@render children()}
+    {/if}
   </div>
 
   {#if notesSnippet}
