@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.0.27
+
+### Patch Changes
+
+- 6dc6e54: Removes demo files, docs and stories from the published package.
+
 ## 3.0.26
 
 ### Patch Changes
