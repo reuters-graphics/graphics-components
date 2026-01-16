@@ -28,7 +28,16 @@
   },
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.stories.*",
+    "!dist/**/*.mdx",
+    "!dist/**/demo",
+    "!dist/docs",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
+    "!dist/**/*.mp4",
+    "!dist/**/*.mov",
+    "!dist/**/images"
   ],
   "engines": {
     "node": ">=20.18"
