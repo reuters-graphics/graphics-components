@@ -1,6 +1,7 @@
 <!-- @component `Map` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-map--docs) -->
 <script lang="ts">
   import { onMount, onDestroy, setContext, type Snippet } from 'svelte';
+  import { writable } from 'svelte/store';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
   import maplibregl from 'maplibre-gl';
@@ -88,8 +89,11 @@
   let mapContainer: HTMLDivElement;
   let map: maplibregl.Map | null = null;
 
-  // Provide map instance to child components via context
-  setContext('map', () => map);
+  // Create a writable store for the map instance
+  const mapStore = writable<maplibregl.Map | null>(null);
+
+  // Set context with the store immediately (not in onMount)
+  setContext('map', mapStore);
 
   onMount(() => {
     if (typeof window !== 'undefined' && mapContainer) {
@@ -122,6 +126,9 @@
 
       map = mapInstance;
 
+      // Update the store with the map instance
+      mapStore.set(mapInstance);
+
       // Initialize controls only if interactive
       if (interactive) {
         map.addControl(
@@ -142,6 +149,7 @@
     if (map) {
       map.remove();
       map = null;
+      mapStore.set(null);
     }
   });
 </script>

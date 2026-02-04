@@ -2,6 +2,7 @@
 <script lang="ts">
   import { getContext, onMount } from 'svelte';
   import type { Map as MaplibreMap, GeoJSONSource } from 'maplibre-gl';
+  import type { Writable } from 'svelte/store';
 
   interface Props {
     /**
@@ -63,21 +64,25 @@
     filter,
   }: Props = $props();
 
-  // Get the map instance from parent Map component context
-  const getMap = getContext<() => MaplibreMap | null>('map');
-  const map = getMap?.();
+  const mapStore = getContext<Writable<MaplibreMap | null>>('map');
 
-  onMount(() => {
-    if (!map) {
-      console.error('MapLayer must be used inside a Map component');
-      return;
-    }
+  if (!mapStore) {
+    throw new Error('MapLayer must be used inside a Map component');
+  }
 
-    // Wait for map to be loaded
-    const addLayer = () => {
-      const sourceId = `${id}-source`;
+  const sourceId = `${id}-source`;
+  let isInitialized = false;
 
-      // Add source if it doesn't exist
+  // Subscribe to map store and initialize when map is available
+  $effect(() => {
+    const map = $mapStore;
+
+    if (!map || isInitialized) return;
+
+    const initializeLayer = () => {
+      if (isInitialized) return;
+
+      // Add source
       if (!map.getSource(sourceId)) {
         map.addSource(sourceId, {
           type: 'geojson',
@@ -85,7 +90,7 @@
         });
       }
 
-      // Add layer if it doesn't exist
+      // Add layer
       if (!map.getLayer(id)) {
         const layerConfig: Record<string, unknown> = {
           id,
@@ -101,50 +106,63 @@
 
         map.addLayer(layerConfig as never, beforeId);
       }
+
+      isInitialized = true;
     };
 
-    if (map.isStyleLoaded()) {
-      addLayer();
+    // Wait for map to be loaded
+    if (!map.loaded()) {
+      map.once('load', initializeLayer);
     } else {
-      map.once('load', addLayer);
+      initializeLayer();
     }
+  });
 
-    // Cleanup: remove layer and source on unmount
+  // Update data reactively
+  $effect(() => {
+    const map = $mapStore;
+    if (!map || !isInitialized) return;
+
+    const source = map.getSource(sourceId);
+    if (source && (source as GeoJSONSource).setData) {
+      (source as GeoJSONSource).setData(
+        typeof data === 'string' ? data : (data as never)
+      );
+    }
+  });
+
+  // Update paint properties reactively
+  $effect(() => {
+    const map = $mapStore;
+    if (!map || !isInitialized || !paint) return;
+
+    Object.entries(paint).forEach(([property, value]) => {
+      map.setPaintProperty(id, property, value);
+    });
+  });
+
+  // Update layout properties reactively
+  $effect(() => {
+    const map = $mapStore;
+    if (!map || !isInitialized || !layout) return;
+
+    Object.entries(layout).forEach(([property, value]) => {
+      map.setLayoutProperty(id, property, value);
+    });
+  });
+
+  // Cleanup
+  onMount(() => {
     return () => {
-      if (map.getLayer(id)) {
-        map.removeLayer(id);
-      }
-      if (map.getSource(`${id}-source`)) {
-        map.removeSource(`${id}-source`);
+      const map = $mapStore;
+      if (map && isInitialized) {
+        if (map.getLayer(id)) {
+          map.removeLayer(id);
+        }
+        if (map.getSource(sourceId)) {
+          map.removeSource(sourceId);
+        }
       }
     };
-  });
-
-  // Update data when it changes
-  $effect(() => {
-    if (map && map.getSource(`${id}-source`)) {
-      const source = map.getSource(`${id}-source`) as GeoJSONSource;
-      if (source && source.setData) {
-        source.setData(typeof data === 'string' ? data : (data as never));
-      }
-    }
-  });
-
-  // Update paint properties when they change
-  $effect(() => {
-    if (map && map.getLayer(id)) {
-      Object.entries(paint).forEach(([property, value]) => {
-        map.setPaintProperty(id, property, value);
-      });
-    }
-  });
-
-  // Update layout properties when they change
-  $effect(() => {
-    if (map && map.getLayer(id)) {
-      Object.entries(layout).forEach(([property, value]) => {
-        map.setLayoutProperty(id, property, value);
-      });
-    }
   });
 </script>
