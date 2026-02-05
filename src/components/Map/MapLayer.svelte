@@ -72,12 +72,44 @@
 
   const sourceId = `${id}-source`;
   let isInitialized = false;
+  let fetchedData: object | null = null;
+  let isLoading = false;
+
+  // Fetch GeoJSON if data is a URL string
+  $effect(() => {
+    if (
+      typeof data === 'string' &&
+      (data.startsWith('http://') || data.startsWith('https://'))
+    ) {
+      isLoading = true;
+      fetch(data)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to fetch GeoJSON: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then((json) => {
+          fetchedData = json;
+          isLoading = false;
+        })
+        .catch((error) => {
+          console.error('Error fetching GeoJSON:', error);
+          isLoading = false;
+        });
+    } else {
+      fetchedData = null;
+    }
+  });
+
+  // Get the actual data to use (fetched or passed directly)
+  const actualData = $derived(fetchedData || data);
 
   // Subscribe to map store and initialize when map is available
   $effect(() => {
     const map = $mapStore;
 
-    if (!map || isInitialized) return;
+    if (!map || isInitialized || isLoading) return;
 
     const initializeLayer = () => {
       if (isInitialized) return;
@@ -86,7 +118,7 @@
       if (!map.getSource(sourceId)) {
         map.addSource(sourceId, {
           type: 'geojson',
-          data: typeof data === 'string' ? data : (data as never),
+          data: actualData as never,
         });
       }
 
@@ -121,13 +153,11 @@
   // Update data reactively
   $effect(() => {
     const map = $mapStore;
-    if (!map || !isInitialized) return;
+    if (!map || !isInitialized || isLoading) return;
 
     const source = map.getSource(sourceId);
     if (source && (source as GeoJSONSource).setData) {
-      (source as GeoJSONSource).setData(
-        typeof data === 'string' ? data : (data as never)
-      );
+      (source as GeoJSONSource).setData(actualData as never);
     }
   });
 
