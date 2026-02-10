@@ -24,17 +24,24 @@ Easily add an interactive map to your page using MapLibre GL and PMTiles.
 
 The Map component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles](https://protomaps.com/docs/pmtiles) for efficient, interactive mapping. It automatically configures the PMTiles protocol and uses the Reuters Protomaps style by default.
 
-## Basic usage
-
-The component provides sensible defaults and can be used with minimal configuration:
-
 <Canvas of={MapStories.Demo} />
 
-## With chatter
+## Globe view
 
-Add title, description, and notes to provide context:
+Use the `projection="globe"` prop to display a 3D globe:
 
-<Canvas of={MapStories.WithChatter} />
+<Canvas of={MapStories.GlobeView} />
+
+```svelte
+<Map
+  id="globe-map"
+  center={[0, 0]}
+  zoom={1}
+  projection="globe"
+  interactive={true}
+  height="600px"
+/>
+```
 
 ## Non-interactive mode
 

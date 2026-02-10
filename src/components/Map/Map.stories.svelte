@@ -80,6 +80,10 @@
       interactive: {
         control: 'boolean',
       },
+      projection: {
+        control: 'select',
+        options: ['mercator', 'globe'],
+      },
     },
   });
 </script>
@@ -88,24 +92,24 @@
   name="Demo"
   args={{
     id: 'demo-map',
-    center: [0, 20],
-    zoom: 2,
+    center: [-98, 39],
+    zoom: 3,
     interactive: true,
     height: '500px',
   }}
 />
 
 <Story
-  name="With chatter"
+  name="Globe view"
   tags={['!autodocs']}
   args={{
-    id: 'example-map',
-    center: [-74.006, 40.7128],
-    zoom: 10,
+    id: 'globe-map',
+    center: [0, 0],
+    zoom: 2,
+    projection: 'globe',
     interactive: true,
-    title: 'New York City Map',
-    description: 'An interactive map centered on New York City.',
-    notes: 'Source: OpenStreetMap contributors via Protomaps',
+    title: 'Globe View',
+    description: 'A 3D globe projection of the Earth.',
     height: '600px',
   }}
 />
@@ -132,7 +136,7 @@
     interactive={true}
     title="Map with GeoJSON Layers"
     description="Example showing multiple GeoJSON layers including local data and data fetched from a URL."
-    notes="Demonstrates polygon fills, line overlays, point markers, and text labels using the Knowledge font."
+    notes="Demonstrates polygon fills, line overlays, point markers, and text labels."
     height="600px"
   >
     <MapLayer
