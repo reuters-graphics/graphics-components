@@ -2,46 +2,67 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import Map from './Map.svelte';
   import MapLayer from './MapLayer.svelte';
-  import type { Map as MaplibreMap } from 'maplibre-gl';
+  import type { FeatureCollection, Polygon, Point } from 'geojson';
 
-  // Custom style function for the custom styled map story
-  function customStyleHandler(map: MaplibreMap) {
-    // Customize water color
-    map.setPaintProperty('water_polygon', 'fill-color', '#0080ff');
-  }
-
-  // Example GeoJSON data - a simple polygon around Central Park
-  const centralParkData = {
-    type: 'Feature',
-    geometry: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [-73.95763681123009, 40.80049109333228],
-          [-73.98164644416437, 40.76837409197461],
-          [-73.97304299236308, 40.76488876644504],
-          [-73.94923343970315, 40.796855986010655],
-          [-73.95763681123009, 40.80049109333228],
-        ],
-      ],
-    },
-    properties: {
-      name: 'Central Park Area',
-    },
+  // Example GeoJSON data - Central Park polygon
+  const centralParkData: FeatureCollection<Polygon> = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        id: 'f3ef5ee1562ab29699c4cef0d6dd8c5c',
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          coordinates: [
+            [
+              [-73.95763681123009, 40.80049109333228],
+              [-73.98164644416437, 40.76837409197461],
+              [-73.97304299236308, 40.76488876644504],
+              [-73.94923343970315, 40.796855986010655],
+              [-73.95763681123009, 40.80049109333228],
+            ],
+          ],
+          type: 'Polygon',
+        },
+      },
+    ],
   };
 
-  // Example point data
-  const landmarkData = {
+  // Reuters office location
+  const reutersOfficePoint: FeatureCollection<Point> = {
     type: 'FeatureCollection',
     features: [
       {
         type: 'Feature',
+        properties: {
+          name: 'Reuters Office',
+        },
         geometry: {
           type: 'Point',
-          coordinates: [-73.9654, 40.7829],
+          coordinates: [-73.98681906441799, 40.756672373025765],
         },
-        properties: {
-          name: 'Bethesda Fountain',
+      },
+    ],
+  };
+
+  // Additional points of interest
+  const points: FeatureCollection<Point> = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'Point',
+          coordinates: [-74.05850529670715, 40.60216238663875],
+        },
+      },
+      {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'Point',
+          coordinates: [-73.97666573524475, 40.77265656734981],
         },
       },
     ],
@@ -103,28 +124,15 @@
   }}
 />
 
-<Story name="Custom styled map" tags={['!autodocs']}>
-  <Map
-    id="custom-styled-map"
-    center={[-73.935242, 40.73061]}
-    zoom={11}
-    interactive={true}
-    title="Custom Styled Map"
-    description="A map with customized colors for water, land, roads, and labels."
-    notes="Style customizations applied using the onMapReady callback."
-    height="600px"
-    onMapReady={customStyleHandler}
-  />
-</Story>
-
 <Story name="With GeoJSON layers" tags={['!autodocs']}>
   <Map
     id="geojson-map"
     center={[-73.9712, 40.7831]}
-    zoom={13}
+    zoom={11}
     interactive={true}
     title="Map with GeoJSON Layers"
-    description="Example showing multiple GeoJSON layers on a map."
+    description="Example showing multiple GeoJSON layers including local data and data fetched from a URL."
+    notes="Demonstrates polygon fills, line overlays, point markers, and text labels using the Knowledge font."
     height="600px"
   >
     <MapLayer
@@ -132,8 +140,8 @@
       data={centralParkData}
       type="fill"
       paint={{
-        'fill-color': '#90ee90',
-        'fill-opacity': 0.5,
+        'fill-color': '#179639',
+        'fill-opacity': 0.7,
       }}
     />
     <MapLayer
@@ -146,12 +154,48 @@
       }}
     />
     <MapLayer
-      id="landmarks"
-      data={landmarkData}
+      id="route-line"
+      data="https://raw.githubusercontent.com/datanews/ny-marathon/refs/heads/master/route.geojson"
+      type="line"
+      paint={{
+        'line-color': '#4287f5',
+        'line-width': 2,
+      }}
+    />
+    <MapLayer
+      id="reuters-office-point"
+      data={reutersOfficePoint}
       type="circle"
       paint={{
-        'circle-radius': 8,
+        'circle-radius': 4,
         'circle-color': '#ff0000',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff',
+      }}
+    />
+    <MapLayer
+      id="reuters-office-label"
+      data={reutersOfficePoint}
+      type="symbol"
+      layout={{
+        'text-field': 'Reuters Office',
+        'text-offset': [0.25, 0.5],
+        'text-anchor': 'top-left',
+        'text-size': 12,
+      }}
+      paint={{
+        'text-color': '#000000',
+        'text-halo-color': '#ffffff',
+        'text-halo-width': 2,
+      }}
+    />
+    <MapLayer
+      id="points-layer"
+      data={points}
+      type="circle"
+      paint={{
+        'circle-radius': 4,
+        'circle-color': '#9c27b0',
         'circle-stroke-width': 2,
         'circle-stroke-color': '#ffffff',
       }}

@@ -1,4 +1,3 @@
-````mdx
 import { Meta, Canvas } from '@storybook/blocks';
 
 import * as MapStories from './Map.stories.svelte';
@@ -43,52 +42,55 @@ Disable interaction for static maps:
 
 <Canvas of={MapStories.NonInteractive} />
 
-## Custom styling
-
-Use the `onMapReady` callback to customize the map's appearance after it loads:
-
-<Canvas of={MapStories.CustomStyledMap} />
-
 ## Adding GeoJSON layers
 
-Use the `MapLayer` component to add GeoJSON data to your map:
+Use the `MapLayer` component to add GeoJSON data to your map. You can pass GeoJSON data directly or fetch it from a URL.
 
 <Canvas of={MapStories.WithGeoJSONLayers} />
 
-### MapLayer usage
+### Basic example with local data
 
 ```svelte
 <script>
   import { Map, MapLayer } from '@reuters-graphics/graphics-components';
   
-  const myGeoJSONData = {
-    type: 'Feature',
-    geometry: {
-      type: 'Polygon',
-      coordinates: [[/* ... */]]
-    },
-    properties: {
-      name: 'My Area'
-    }
+  const parkData = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [[
+            [-73.9577, 40.8005],
+            [-73.9816, 40.7684],
+            [-73.9730, 40.7649],
+            [-73.9492, 40.7969],
+            [-73.9577, 40.8005]
+          ]]
+        },
+        properties: { name: 'Central Park' }
+      }
+    ]
   };
 </script>
 
-<Map center={[0, 0]} zoom={2}>
-  <!-- Fill layer -->
+<Map center={[-73.9712, 40.7831]} zoom={13}>
+  <!-- Polygon fill -->
   <MapLayer
-    id="area-fill"
-    data={myGeoJSONData}
+    id="park-fill"
+    data={parkData}
     type="fill"
     paint={{
-      'fill-color': '#90ee90',
-      'fill-opacity': 0.5
+      'fill-color': '#179639',
+      'fill-opacity': 0.7
     }}
   />
   
-  <!-- Outline layer -->
+  <!-- Polygon outline -->
   <MapLayer
-    id="area-outline"
-    data={myGeoJSONData}
+    id="park-outline"
+    data={parkData}
     type="line"
     paint={{
       'line-color': '#228b22',
@@ -98,7 +100,133 @@ Use the `MapLayer` component to add GeoJSON data to your map:
 </Map>
 ```
 
-You can add multiple `MapLayer` components to display different GeoJSON datasets with different styling.
+### Fetching GeoJSON from a URL
+
+You can also pass a URL string to fetch GeoJSON data:
+
+```svelte
+<Map center={[-73.9712, 40.7831]} zoom={11}>
+  <MapLayer
+    id="marathon-route"
+    data="https://example.com/path/to/route.geojson"
+    type="line"
+    paint={{
+      'line-color': '#4287f5',
+      'line-width': 2
+    }}
+  />
+</Map>
+```
+
+### Adding point markers
+
+```svelte
+<script>
+  const officeLocation = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-73.9868, 40.7567]
+        },
+        properties: { name: 'Office' }
+      }
+    ]
+  };
+</script>
+
+<Map center={[-73.9868, 40.7567]} zoom={14}>
+  <!-- Point marker -->
+  <MapLayer
+    id="office-point"
+    data={officeLocation}
+    type="circle"
+    paint={{
+      'circle-radius': 6,
+      'circle-color': '#ff0000',
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#ffffff'
+    }}
+  />
+  
+  <!-- Text label -->
+  <MapLayer
+    id="office-label"
+    data={officeLocation}
+    type="symbol"
+    layout={{
+      'text-field': 'Office',
+      'text-offset': [0, 1],
+      'text-anchor': 'top',
+      'text-size': 12
+    }}
+    paint={{
+      'text-color': '#000000',
+      'text-halo-color': '#ffffff',
+      'text-halo-width': 2
+    }}
+  />
+</Map>
+```
+
+### MapLayer Props
+
+- **id**: `string` (required) - Unique identifier for the layer
+- **data**: `object | string` (required) - GeoJSON data or URL to fetch from
+- **type**: `'fill' | 'line' | 'circle' | 'symbol' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade'` - Layer type (default: `'fill'`)
+- **paint**: `Record<string, unknown>` - Paint properties for the layer
+- **layout**: `Record<string, unknown>` - Layout properties for the layer
+- **beforeId**: `string` - Layer ID to insert before (for ordering)
+- **minZoom**: `number` - Minimum zoom level to display layer
+- **maxZoom**: `number` - Maximum zoom level to display layer
+- **filter**: `unknown[]` - Filter expression for the layer
+
+### Multiple layers example
+
+You can combine multiple layers to create rich visualizations:
+
+```svelte
+<Map center={[-73.9712, 40.7831]} zoom={11}>
+  <!-- Background polygon -->
+  <MapLayer
+    id="area-fill"
+    data={areaData}
+    type="fill"
+    paint={{ 'fill-color': '#179639', 'fill-opacity': 0.7 }}
+  />
+  
+  <!-- Border line -->
+  <MapLayer
+    id="area-border"
+    data={areaData}
+    type="line"
+    paint={{ 'line-color': '#228b22', 'line-width': 2 }}
+  />
+  
+  <!-- Route from URL -->
+  <MapLayer
+    id="route"
+    data="https://example.com/route.geojson"
+    type="line"
+    paint={{ 'line-color': '#4287f5', 'line-width': 2 }}
+  />
+  
+  <!-- Point markers -->
+  <MapLayer
+    id="markers"
+    data={pointsData}
+    type="circle"
+    paint={{
+      'circle-radius': 4,
+      'circle-color': '#9c27b0',
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#ffffff'
+    }}
+  />
+</Map>
+```
 
 ## Advanced usage
 
@@ -147,5 +275,3 @@ For more control over the map, you can use the `onMapReady` callback to access t
 - **height**: `string` - Map height in CSS units (default: `'500px'`)
 - **width**: `ContainerWidth` - Width within the text well (default: `'normal'`)
 - **onMapReady**: `(map: maplibregl.Map) => void` - Callback when map is ready
-
-````

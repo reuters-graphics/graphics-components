@@ -138,7 +138,37 @@
 
       // Call the callback when map is ready
       map.on('load', () => {
-        if (onMapReady && map) {
+        if (!map) return;
+
+        // Set Knowledge font for all text labels
+        const style = map.getStyle();
+        if (style && style.glyphs) {
+          // Update the glyphs URL to use Knowledge font
+          style.glyphs =
+            'https://graphics.thomsonreuters.com/reuters-protomaps/fonts/{fontstack}/{range}.pbf';
+
+          // Update all layers that use text to use Knowledge font
+          if (style.layers) {
+            style.layers.forEach((layer) => {
+              if (
+                layer.type === 'symbol' &&
+                layer.layout &&
+                'text-font' in layer.layout
+              ) {
+                // @ts-ignore - MapLibre types are complex
+                layer.layout['text-font'] = [
+                  'Knowledge',
+                  'Source Sans Pro',
+                  'Arial Unicode MS',
+                ];
+              }
+            });
+          }
+
+          map.setStyle(style);
+        }
+
+        if (onMapReady) {
           onMapReady(map);
         }
       });

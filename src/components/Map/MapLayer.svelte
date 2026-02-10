@@ -71,9 +71,9 @@
   }
 
   const sourceId = `${id}-source`;
-  let isInitialized = false;
-  let fetchedData: object | null = null;
-  let isLoading = false;
+  let isInitialized = $state(false);
+  let fetchedData = $state<object | null>(null);
+  let isLoading = $state(false);
 
   // Fetch GeoJSON if data is a URL string
   $effect(() => {
@@ -82,6 +82,7 @@
       (data.startsWith('http://') || data.startsWith('https://'))
     ) {
       isLoading = true;
+      fetchedData = null; // Reset while fetching
       fetch(data)
         .then((response) => {
           if (!response.ok) {
@@ -94,22 +95,30 @@
           isLoading = false;
         })
         .catch((error) => {
-          console.error('Error fetching GeoJSON:', error);
+          console.error(`Error fetching GeoJSON from ${data}:`, error);
           isLoading = false;
         });
     } else {
       fetchedData = null;
+      isLoading = false;
     }
   });
 
   // Get the actual data to use (fetched or passed directly)
-  const actualData = $derived(fetchedData || data);
+  // Only use data directly if it's not a URL string
+  const isUrlString = $derived(
+    typeof data === 'string' &&
+      (data.startsWith('http://') || data.startsWith('https://'))
+  );
+  const actualData = $derived(fetchedData || (isUrlString ? null : data));
 
   // Subscribe to map store and initialize when map is available
   $effect(() => {
     const map = $mapStore;
+    const currentData = actualData; // Track actualData explicitly
+    const loading = isLoading; // Track isLoading explicitly
 
-    if (!map || isInitialized || isLoading) return;
+    if (!map || isInitialized || loading || !currentData) return;
 
     const initializeLayer = () => {
       if (isInitialized) return;
@@ -118,7 +127,7 @@
       if (!map.getSource(sourceId)) {
         map.addSource(sourceId, {
           type: 'geojson',
-          data: actualData as never,
+          data: currentData as never,
         });
       }
 
@@ -153,11 +162,14 @@
   // Update data reactively
   $effect(() => {
     const map = $mapStore;
-    if (!map || !isInitialized || isLoading) return;
+    const currentData = actualData; // Track actualData explicitly
+    const loading = isLoading; // Track isLoading explicitly
+
+    if (!map || !isInitialized || loading || !currentData) return;
 
     const source = map.getSource(sourceId);
     if (source && (source as GeoJSONSource).setData) {
-      (source as GeoJSONSource).setData(actualData as never);
+      (source as GeoJSONSource).setData(currentData as never);
     }
   });
 

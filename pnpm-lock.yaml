@@ -123,6 +123,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
+      '@types/geojson':
+        specifier: ^7946.0.16
+        version: 7946.0.16
       '@types/google-publisher-tag':
         specifier: ^1.20250210.0
         version: 1.20250210.0

@@ -58,6 +58,7 @@
     "@types/css": "^0.0.37",
     "@types/eslint": "^9.6.1",
     "@types/fs-extra": "^11.0.4",
+    "@types/geojson": "^7946.0.16",
     "@types/google-publisher-tag": "^1.20250210.0",
     "@types/gtag.js": "^0.0.12",
     "@types/lodash-es": "^4.17.12",
