@@ -108,7 +108,7 @@
       maplibregl.addProtocol('pmtiles', protocol.tile);
 
       // Set the map options
-      const mapOptions: any = {
+      const mapOptions: maplibregl.MapOptions = {
         container: mapContainer,
         style: styleUrl,
         center,
@@ -150,7 +150,7 @@
 
         // Set projection after map loads if specified
         if (projection) {
-          map.setProjection({ type: projection } as any);
+          map.setProjection({ type: projection });
         }
 
         if (onMapReady) {
