@@ -5,6 +5,7 @@
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
   import maplibregl from 'maplibre-gl';
+  import 'maplibre-gl/dist/maplibre-gl.css';
   import { Protocol } from 'pmtiles';
 
   interface Props {
@@ -193,10 +194,12 @@
 <style>
   .map {
     width: 100%;
+    position: relative;
   }
 
   .map-container {
     width: 100%;
+    position: relative;
   }
 
   :global(.maplibregl-canvas) {
