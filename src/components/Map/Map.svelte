@@ -196,9 +196,4 @@
     width: 100%;
     position: relative;
   }
-
-  :global(.maplibregl-canvas) {
-    width: 100% !important;
-    height: 100% !important;
-  }
 </style>
