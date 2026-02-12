@@ -125,18 +125,13 @@
         minZoom,
         maxZoom,
         attributionControl: false,
-        scrollZoom: interactive ? false : false, // Always disable scroll zoom for consistency
-        doubleClickZoom: interactive ? true : false,
-        dragPan:
-          interactive ?
-            typeof window !== 'undefined' && !('ontouchstart' in window) ?
-              true
-            : false
-          : false,
-        touchPitch: interactive ? false : false,
-        touchZoomRotate: interactive ? true : false,
-        boxZoom: interactive ? true : false,
-        keyboard: interactive ? true : false,
+        scrollZoom: false, // Always disabled for consistency
+        doubleClickZoom: interactive,
+        dragPan: interactive,
+        touchPitch: false, // Disabled to prevent unwanted tilting
+        touchZoomRotate: interactive,
+        boxZoom: interactive,
+        keyboard: interactive,
       };
 
       const mapInstance = new maplibregl.Map(mapOptions);
