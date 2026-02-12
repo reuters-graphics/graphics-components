@@ -87,7 +87,7 @@
     title,
     description,
     notes,
-    id = 'map',
+    id = `map-${Math.random().toString(36).substring(2, 9)}`,
     center = [0, 0],
     zoom = 2,
     minZoom = 0,
