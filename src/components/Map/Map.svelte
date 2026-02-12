@@ -1,12 +1,26 @@
 <!-- @component `Map` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-map--docs) -->
+<script lang="ts" module>
+  import { Protocol } from 'pmtiles';
+  import maplibregl from 'maplibre-gl';
+
+  // Track if PMTiles protocol has been registered (only do this once per page)
+  let pmtilesProtocolRegistered = false;
+
+  function ensurePMTilesProtocol() {
+    if (!pmtilesProtocolRegistered) {
+      const protocol = new Protocol();
+      maplibregl.addProtocol('pmtiles', protocol.tile);
+      pmtilesProtocolRegistered = true;
+    }
+  }
+</script>
+
 <script lang="ts">
   import { onMount, onDestroy, setContext, type Snippet } from 'svelte';
   import { writable } from 'svelte/store';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
-  import maplibregl from 'maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
-  import { Protocol } from 'pmtiles';
 
   interface Props {
     /** Title of the map as a string or a custom snippet. */
@@ -97,9 +111,8 @@
 
   onMount(() => {
     if (typeof window !== 'undefined' && mapContainer) {
-      // Set up PMTiles protocol
-      const protocol = new Protocol();
-      maplibregl.addProtocol('pmtiles', protocol.tile);
+      // Set up PMTiles protocol (only once per page)
+      ensurePMTilesProtocol();
 
       // Set the map options
       const mapOptions: maplibregl.MapOptions = {
