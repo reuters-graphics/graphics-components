@@ -9,14 +9,14 @@
   import { Protocol } from 'pmtiles';
 
   interface Props {
-    /** Title of the map */
-    title?: string;
+    /** Title of the map as a string or a custom snippet. */
+    title?: string | Snippet;
     /** Description of the map, passed in as a markdown string. */
     description?: string;
     /**
-     * Notes to the map, passed in as a markdown string.
+     * Notes to the map, passed in as a markdown string or a custom snippet.
      */
-    notes?: string;
+    notes?: string | Snippet;
     /**
      * Map container id
      */
@@ -61,10 +61,6 @@
      * of the text well. Can't ever be wider than `width`.
      */
     textWidth?: ContainerWidth;
-    /** Custom headline and chatter snippet */
-    titleSnippet?: Snippet;
-    /** Custom notes and source snippet */
-    notesSnippet?: Snippet;
     /** Callback function that receives the map instance when ready */
     onMapReady?: (map: maplibregl.Map) => void;
     /** Child components (e.g., MapLayer) */
@@ -86,8 +82,6 @@
     height = '100%',
     width = 'normal',
     textWidth = 'normal',
-    titleSnippet,
-    notesSnippet,
     onMapReady,
     children,
   }: Props = $props();
@@ -170,11 +164,6 @@
 </script>
 
 <GraphicBlock {width} {textWidth} {title} {description} {notes}>
-  {#if titleSnippet}
-    <!-- Custom headline and chatter slot -->
-    {@render titleSnippet()}
-  {/if}
-
   <div class="map" {id}>
     <div
       bind:this={mapContainer}
@@ -185,10 +174,6 @@
       {@render children()}
     {/if}
   </div>
-
-  {#if notesSnippet}
-    {@render notesSnippet()}
-  {/if}
 </GraphicBlock>
 
 <style>
