@@ -20,6 +20,7 @@
   import { writable } from 'svelte/store';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
+  import type { ProjectionSpecification } from 'maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
   interface Props {
@@ -52,9 +53,10 @@
      */
     maxZoom?: number;
     /**
-     * Map projection. Use 'globe' for 3D globe view
+     * Map projection. Use 'globe' for 3D globe view.
+     * See https://maplibre.org/maplibre-style-spec/types/#projectiondefinition
      */
-    projection?: 'mercator' | 'globe' | string;
+    projection?: ProjectionSpecification;
     /**
      * Enable interactive controls (zoom, pan, etc.)
      */
@@ -157,7 +159,7 @@
 
         // Set projection after map loads if specified
         if (projection) {
-          map.setProjection({ type: projection });
+          map.setProjection(projection);
         }
 
         if (onMapReady) {

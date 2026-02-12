@@ -80,10 +80,6 @@
       interactive: {
         control: 'boolean',
       },
-      projection: {
-        control: 'select',
-        options: ['mercator', 'globe'],
-      },
     },
   });
 </script>
@@ -106,7 +102,7 @@
     id: 'globe-map',
     center: [0, 0],
     zoom: 2,
-    projection: 'globe',
+    projection: { type: 'globe' },
     interactive: true,
     title: 'Globe View',
     description: 'A 3D globe projection of the Earth.',

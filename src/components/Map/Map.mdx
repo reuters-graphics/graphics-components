@@ -28,7 +28,7 @@ The Map component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles](htt
 
 ## Globe view
 
-Use the `projection="globe"` prop to display a 3D globe:
+Use the `projection` prop to display a 3D globe. The projection accepts a [ProjectionSpecification](https://maplibre.org/maplibre-style-spec/types/#projectiondefinition) object:
 
 <Canvas of={MapStories.GlobeView} />
 
@@ -37,7 +37,7 @@ Use the `projection="globe"` prop to display a 3D globe:
   id="globe-map"
   center={[0, 0]}
   zoom={1}
-  projection="globe"
+  projection={{ type: 'globe' }}
   interactive={true}
   height="600px"
 />
