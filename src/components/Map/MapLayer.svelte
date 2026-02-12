@@ -3,6 +3,7 @@
   import { getContext, onMount } from 'svelte';
   import type { Map as MaplibreMap, GeoJSONSource } from 'maplibre-gl';
   import type { Writable } from 'svelte/store';
+  import type { GeoJSON } from 'geojson';
 
   interface Props {
     /**
@@ -10,9 +11,9 @@
      */
     id: string;
     /**
-     * GeoJSON data to display (FeatureCollection, Feature, Geometry, or URL string)
+     * GeoJSON data to display (FeatureCollection, Feature, Geometry, or URL string to fetch from)
      */
-    data: object | string;
+    data: GeoJSON | string;
     /**
      * Layer type: 'fill', 'line', 'circle', 'symbol', etc.
      */
@@ -72,7 +73,7 @@
 
   const sourceId = `${id}-source`;
   let isInitialized = $state(false);
-  let fetchedData = $state<object | null>(null);
+  let fetchedData = $state<GeoJSON | null>(null);
   let isLoading = $state(false);
 
   // Fetch GeoJSON if data is a URL string
@@ -127,7 +128,7 @@
       if (!map.getSource(sourceId)) {
         map.addSource(sourceId, {
           type: 'geojson',
-          data: currentData as never,
+          data: currentData,
         });
       }
 
@@ -169,7 +170,7 @@
 
     const source = map.getSource(sourceId);
     if (source && (source as GeoJSONSource).setData) {
-      (source as GeoJSONSource).setData(currentData as never);
+      (source as GeoJSONSource).setData(currentData);
     }
   });
 

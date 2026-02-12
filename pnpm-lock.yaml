@@ -20,6 +20,9 @@ importers:
       '@sveltejs/kit':
         specifier: ^2.0.0
         version: 2.20.7(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.28.1)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(yaml@2.7.1)))(svelte@5.28.1)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(sass@1.86.3)(yaml@2.7.1))
+      '@types/geojson':
+        specifier: ^7946.0.16
+        version: 7946.0.16
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -123,9 +126,6 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
-      '@types/geojson':
-        specifier: ^7946.0.16
-        version: 7946.0.16
       '@types/google-publisher-tag':
         specifier: ^1.20250210.0
         version: 1.20250210.0
