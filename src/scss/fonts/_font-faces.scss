@@ -169,63 +169,129 @@
   font-display: swap;
 }
 
-/* FREIGHT TEXT */
+/* NEWSREADER TEXT */
 @font-face {
-  font-family: 'FreightText';
-  src:
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextBold.woff2')
-      format('woff2'),
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextBold.woff')
-      format('woff');
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Bold.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FreightText';
-  src:
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextBook.woff2')
-      format('woff2'),
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextBook.woff')
-      format('woff');
-  font-weight: normal;
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraBoldItalic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraBoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-BoldItalic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraBold.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraBold.woff') format('woff');
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FreightText';
-  src:
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextBookItalic.woff2')
-      format('woff2'),
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextBookItalic.woff')
-      format('woff');
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-LightItalic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-SemiBoldItalic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-SemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Medium.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-MediumItalic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-SemiBold.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraLightItalic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraLightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Italic.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Italic.woff') format('woff');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FreightText';
-  src:
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextLight.woff2')
-      format('woff2'),
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextLight.woff')
-      format('woff');
-  font-weight: 300;
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Regular.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Regular.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FreightText';
-  src:
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextMedium.woff2')
-      format('woff2'),
-    url('//graphics.thomsonreuters.com/style-assets/fonts/v1/FreightTextMedium.woff')
-      format('woff');
-  font-weight: 500;
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraLight.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader Text';
+  src: url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Light.woff2') format('woff2'),
+      url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Light.woff') format('woff');
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }

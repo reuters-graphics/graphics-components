@@ -25,8 +25,8 @@
 @mixin font-knowledge {
   font-family: 'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif;
 }
-@mixin font-freight-text {
-  font-family: 'FreightText', serif;
+@mixin font-newsreader-text {
+  font-family: 'Newsreader Text', serif;
 }
 @mixin font-noto-sans-jp {
   font-family: 'Noto Sans JP';
@@ -59,8 +59,8 @@
   font-family:
     'Knowledge', 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
 }
-@mixin \!font-freight-text {
-  font-family: 'FreightText', serif !important;
+@mixin \!font-newsreader-text {
+  font-family: 'Newsreader Text', serif !important;
 }
 @mixin \!font-noto-sans-jp {
   font-family: 'Noto Sans JP' !important;
