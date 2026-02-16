@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.1.0
+
+### Minor Changes
+
+- 0f9248c: Replaces FreightText with Newsreader Text font
+
 ## 3.0.27
 
 ### Patch Changes
