@@ -37,7 +37,7 @@
     base="dark"
     theme={{
       colour: { accent: 'var(--tr-light-orange)' },
-      font: { family: { hed: 'FreightText, serif' } },
+      font: { family: { hed: '"Newsreader Text", serif' } },
     }}
   >
     <ThemedPage />
@@ -100,7 +100,7 @@
           <Theme
             theme={{
               colour: { background: 'steelblue', 'text-primary': '#fff' },
-              font: { family: { note: 'FreightText, serif' } },
+              font: { family: { note: '"Newsreader Text", serif' } },
             }}
             base="dark"
           >
