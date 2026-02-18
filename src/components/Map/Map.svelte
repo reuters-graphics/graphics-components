@@ -66,7 +66,7 @@
      */
     styleUrl?: string;
     /**
-     * Map height in pixels
+     * Map height (default: '500px')
      */
     height?: string;
     /** Width of the map within the text well. */
@@ -95,7 +95,7 @@
     projection,
     interactive = true,
     styleUrl = 'https://graphics.thomsonreuters.com/reuters-protomaps/style.json',
-    height = '100%',
+    height = '500px',
     width = 'normal',
     textWidth = 'normal',
     onMapReady,
