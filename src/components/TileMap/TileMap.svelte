@@ -79,7 +79,7 @@
     textWidth?: ContainerWidth;
     /** Callback function that receives the map instance when ready */
     onMapReady?: (map: maplibregl.Map) => void;
-    /** Child components (e.g., MapLayer) */
+    /** Child components (e.g., TileMapLayer) */
     children?: Snippet;
   }
 

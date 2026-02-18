@@ -1,4 +1,4 @@
-<!-- @component `MapLayer` - Add GeoJSON layers to a Map component -->
+<!-- @component `TileMapLayer` - Add GeoJSON layers to a TileMap component -->
 <script lang="ts">
   import { getContext, onMount } from 'svelte';
   import type { Map as MaplibreMap, GeoJSONSource } from 'maplibre-gl';
@@ -68,7 +68,7 @@
   const mapStore = getContext<Writable<MaplibreMap | null>>('map');
 
   if (!mapStore) {
-    throw new Error('MapLayer must be used inside a Map component');
+    throw new Error('TileMapLayer must be used inside a TileMap component');
   }
 
   const sourceId = `${id}-source`;

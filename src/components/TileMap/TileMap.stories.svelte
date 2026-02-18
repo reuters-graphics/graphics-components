@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import Map from './Map.svelte';
-  import MapLayer from './MapLayer.svelte';
+  import TileMap from './TileMap.svelte';
+  import TileMapLayer from './TileMapLayer.svelte';
   import type { FeatureCollection, Polygon, Point } from 'geojson';
 
   // Example GeoJSON data - Central Park polygon
@@ -69,8 +69,8 @@
   };
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/Map',
-    component: Map,
+    title: 'Components/Graphics/TileMap',
+    component: TileMap,
     tags: ['autodocs'],
     argTypes: {
       width: {
@@ -125,7 +125,7 @@
 />
 
 <Story name="With GeoJSON layers" tags={['!autodocs']}>
-  <Map
+  <TileMap
     id="geojson-map"
     center={[-73.9712, 40.7831]}
     zoom={11}
@@ -135,7 +135,7 @@
     notes="Demonstrates polygon fills, line overlays, point markers, and text labels."
     height="600px"
   >
-    <MapLayer
+    <TileMapLayer
       id="park-area"
       data={centralParkData}
       type="fill"
@@ -144,7 +144,7 @@
         'fill-opacity': 0.7,
       }}
     />
-    <MapLayer
+    <TileMapLayer
       id="park-outline"
       data={centralParkData}
       type="line"
@@ -153,7 +153,7 @@
         'line-width': 2,
       }}
     />
-    <MapLayer
+    <TileMapLayer
       id="route-line"
       data="https://raw.githubusercontent.com/datanews/ny-marathon/refs/heads/master/route.geojson"
       type="line"
@@ -162,7 +162,7 @@
         'line-width': 2,
       }}
     />
-    <MapLayer
+    <TileMapLayer
       id="reuters-office-point"
       data={reutersOfficePoint}
       type="circle"
@@ -173,7 +173,7 @@
         'circle-stroke-color': '#ffffff',
       }}
     />
-    <MapLayer
+    <TileMapLayer
       id="reuters-office-label"
       data={reutersOfficePoint}
       type="symbol"
@@ -189,7 +189,7 @@
         'text-halo-width': 2,
       }}
     />
-    <MapLayer
+    <TileMapLayer
       id="points-layer"
       data={points}
       type="circle"
@@ -200,5 +200,5 @@
         'circle-stroke-color': '#ffffff',
       }}
     />
-  </Map>
+  </TileMap>
 </Story>

@@ -1,19 +1,19 @@
 import { Meta, Canvas } from '@storybook/blocks';
 
-import * as MapStories from './Map.stories.svelte';
+import * as TileMapStories from './TileMap.stories.svelte';
 
-<Meta of={MapStories} />
+<Meta of={TileMapStories} />
 
-# Map
+# TileMap
 
 Easily add an interactive map to your page using MapLibre GL and PMTiles.
 
 ```svelte
 <script>
-  import { Map } from '@reuters-graphics/graphics-components';
+  import { TileMap } from '@reuters-graphics/graphics-components';
 </script>
 
-<Map
+<TileMap
   id="my-map"
   center={[-74.006, 40.7128]}
   zoom={10}
@@ -22,18 +22,18 @@ Easily add an interactive map to your page using MapLibre GL and PMTiles.
 />
 ```
 
-The Map component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles](https://protomaps.com/docs/pmtiles) for efficient, interactive mapping. It automatically configures the PMTiles protocol and uses the Reuters Protomaps style by default.
+The TileMap component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles](https://protomaps.com/docs/pmtiles) for efficient, interactive mapping. It automatically configures the PMTiles protocol and uses the Reuters Protomaps style by default.
 
-<Canvas of={MapStories.Demo} />
+<Canvas of={TileMapStories.Demo} />
 
 ## Globe view
 
 Use the `projection` prop to display a 3D globe. The projection accepts a [ProjectionSpecification](https://maplibre.org/maplibre-style-spec/types/#projectiondefinition) object:
 
-<Canvas of={MapStories.GlobeView} />
+<Canvas of={TileMapStories.GlobeView} />
 
 ```svelte
-<Map
+<TileMap
   id="globe-map"
   center={[0, 0]}
   zoom={1}
@@ -47,19 +47,19 @@ Use the `projection` prop to display a 3D globe. The projection accepts a [Proje
 
 Disable interaction for static maps:
 
-<Canvas of={MapStories.NonInteractive} />
+<Canvas of={TileMapStories.NonInteractive} />
 
 ## Adding GeoJSON layers
 
-Use the `MapLayer` component to add GeoJSON data to your map. You can pass GeoJSON data directly or fetch it from a URL. Layer rendering order will directly correspond to the order in which you add the layers in the code.
+Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass GeoJSON data directly or fetch it from a URL. Layer rendering order will directly correspond to the order in which you add the layers in the code.
 
-<Canvas of={MapStories.WithGeoJSONLayers} />
+<Canvas of={TileMapStories.WithGeoJSONLayers} />
 
 ### Basic example with local data
 
 ```svelte
 <script>
-  import { Map, MapLayer } from '@reuters-graphics/graphics-components';
+  import { TileMap, TileMapLayer } from '@reuters-graphics/graphics-components';
 
   const parkData = {
     type: 'FeatureCollection',
@@ -84,9 +84,9 @@ Use the `MapLayer` component to add GeoJSON data to your map. You can pass GeoJS
   };
 </script>
 
-<Map center={[-73.9712, 40.7831]} zoom={13}>
+<TileMap center={[-73.9712, 40.7831]} zoom={13}>
   <!-- Polygon fill -->
-  <MapLayer
+  <TileMapLayer
     id="park-fill"
     data={parkData}
     type="fill"
@@ -97,7 +97,7 @@ Use the `MapLayer` component to add GeoJSON data to your map. You can pass GeoJS
   />
 
   <!-- Polygon outline -->
-  <MapLayer
+  <TileMapLayer
     id="park-outline"
     data={parkData}
     type="line"
@@ -106,7 +106,7 @@ Use the `MapLayer` component to add GeoJSON data to your map. You can pass GeoJS
       'line-width': 2,
     }}
   />
-</Map>
+</TileMap>
 ```
 
 ### Fetching GeoJSON from a URL
@@ -114,8 +114,8 @@ Use the `MapLayer` component to add GeoJSON data to your map. You can pass GeoJS
 You can also pass a URL string to fetch GeoJSON data:
 
 ```svelte
-<Map center={[-73.9712, 40.7831]} zoom={11}>
-  <MapLayer
+<TileMap center={[-73.9712, 40.7831]} zoom={11}>
+  <TileMapLayer
     id="marathon-route"
     data="https://example.com/path/to/route.geojson"
     type="line"
@@ -124,7 +124,7 @@ You can also pass a URL string to fetch GeoJSON data:
       'line-width': 2,
     }}
   />
-</Map>
+</TileMap>
 ```
 
 ### Adding point markers
@@ -146,9 +146,9 @@ You can also pass a URL string to fetch GeoJSON data:
   };
 </script>
 
-<Map center={[-73.9868, 40.7567]} zoom={14}>
+<TileMap center={[-73.9868, 40.7567]} zoom={14}>
   <!-- Point marker -->
-  <MapLayer
+  <TileMapLayer
     id="office-point"
     data={officeLocation}
     type="circle"
@@ -161,7 +161,7 @@ You can also pass a URL string to fetch GeoJSON data:
   />
 
   <!-- Text label -->
-  <MapLayer
+  <TileMapLayer
     id="office-label"
     data={officeLocation}
     type="symbol"
@@ -177,10 +177,10 @@ You can also pass a URL string to fetch GeoJSON data:
       'text-halo-width': 2,
     }}
   />
-</Map>
+</TileMap>
 ```
 
-### MapLayer Props
+### TileMapLayer Props
 
 - **id**: `string` (required) - Unique identifier for the layer
 - **data**: `object | string` (required) - GeoJSON data or URL to fetch from
@@ -197,9 +197,9 @@ You can also pass a URL string to fetch GeoJSON data:
 You can combine multiple layers to create rich visualizations:
 
 ```svelte
-<Map center={[-73.9712, 40.7831]} zoom={11}>
+<TileMap center={[-73.9712, 40.7831]} zoom={11}>
   <!-- Background polygon -->
-  <MapLayer
+  <TileMapLayer
     id="area-fill"
     data={areaData}
     type="fill"
@@ -207,7 +207,7 @@ You can combine multiple layers to create rich visualizations:
   />
 
   <!-- Border line -->
-  <MapLayer
+  <TileMapLayer
     id="area-border"
     data={areaData}
     type="line"
@@ -215,7 +215,7 @@ You can combine multiple layers to create rich visualizations:
   />
 
   <!-- Route from URL -->
-  <MapLayer
+  <TileMapLayer
     id="route"
     data="https://example.com/route.geojson"
     type="line"
@@ -223,7 +223,7 @@ You can combine multiple layers to create rich visualizations:
   />
 
   <!-- Point markers -->
-  <MapLayer
+  <TileMapLayer
     id="markers"
     data={pointsData}
     type="circle"
@@ -234,7 +234,7 @@ You can combine multiple layers to create rich visualizations:
       'circle-stroke-color': '#ffffff',
     }}
   />
-</Map>
+</TileMap>
 ```
 
 ## Advanced usage
@@ -243,7 +243,7 @@ For more control over the map, you can use the `onMapReady` callback to access t
 
 ```svelte
 <script>
-  import { Map } from '@reuters-graphics/graphics-components';
+  import { TileMap } from '@reuters-graphics/graphics-components';
   import type { Map as MaplibreMap } from 'maplibre-gl';
 
   function handleMapReady(map: MaplibreMap) {
