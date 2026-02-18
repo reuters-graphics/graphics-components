@@ -1,0 +1,281 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as TileMapStories from './TileMap.stories.svelte';
+
+<Meta of={TileMapStories} />
+
+# TileMap
+
+Easily add an interactive map to your page using MapLibre GL and PMTiles.
+
+```svelte
+<script>
+  import { TileMap } from '@reuters-graphics/graphics-components';
+</script>
+
+<TileMap
+  id="my-map"
+  center={[-74.006, 40.7128]}
+  zoom={10}
+  interactive={true}
+  height="500px"
+/>
+```
+
+The TileMap component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles](https://protomaps.com/docs/pmtiles) for efficient, interactive mapping. It automatically configures the PMTiles protocol and uses the Reuters Protomaps style by default.
+
+<Canvas of={TileMapStories.Demo} />
+
+## Globe view
+
+Use the `projection` prop to display a 3D globe. The projection accepts a [ProjectionSpecification](https://maplibre.org/maplibre-style-spec/types/#projectiondefinition) object:
+
+<Canvas of={TileMapStories.GlobeView} />
+
+```svelte
+<TileMap
+  id="globe-map"
+  center={[0, 0]}
+  zoom={1}
+  projection={{ type: 'globe' }}
+  interactive={true}
+  height="600px"
+/>
+```
+
+## Non-interactive mode
+
+Disable interaction for static maps:
+
+<Canvas of={TileMapStories.NonInteractive} />
+
+## Adding GeoJSON layers
+
+Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass GeoJSON data directly or fetch it from a URL. Layer rendering order will directly correspond to the order in which you add the layers in the code.
+
+<Canvas of={TileMapStories.WithGeoJSONLayers} />
+
+### Basic example with local data
+
+```svelte
+<script>
+  import { TileMap, TileMapLayer } from '@reuters-graphics/graphics-components';
+
+  const parkData = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [
+            [
+              [-73.9577, 40.8005],
+              [-73.9816, 40.7684],
+              [-73.973, 40.7649],
+              [-73.9492, 40.7969],
+              [-73.9577, 40.8005],
+            ],
+          ],
+        },
+        properties: { name: 'Central Park' },
+      },
+    ],
+  };
+</script>
+
+<TileMap center={[-73.9712, 40.7831]} zoom={13}>
+  <!-- Polygon fill -->
+  <TileMapLayer
+    id="park-fill"
+    data={parkData}
+    type="fill"
+    paint={{
+      'fill-color': '#179639',
+      'fill-opacity': 0.7,
+    }}
+  />
+
+  <!-- Polygon outline -->
+  <TileMapLayer
+    id="park-outline"
+    data={parkData}
+    type="line"
+    paint={{
+      'line-color': '#228b22',
+      'line-width': 2,
+    }}
+  />
+</TileMap>
+```
+
+### Fetching GeoJSON from a URL
+
+You can also pass a URL string to fetch GeoJSON data:
+
+```svelte
+<TileMap center={[-73.9712, 40.7831]} zoom={11}>
+  <TileMapLayer
+    id="marathon-route"
+    data="https://example.com/path/to/route.geojson"
+    type="line"
+    paint={{
+      'line-color': '#4287f5',
+      'line-width': 2,
+    }}
+  />
+</TileMap>
+```
+
+### Adding point markers
+
+```svelte
+<script>
+  const officeLocation = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-73.9868, 40.7567],
+        },
+        properties: { name: 'Office' },
+      },
+    ],
+  };
+</script>
+
+<TileMap center={[-73.9868, 40.7567]} zoom={14}>
+  <!-- Point marker -->
+  <TileMapLayer
+    id="office-point"
+    data={officeLocation}
+    type="circle"
+    paint={{
+      'circle-radius': 6,
+      'circle-color': '#ff0000',
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#ffffff',
+    }}
+  />
+
+  <!-- Text label -->
+  <TileMapLayer
+    id="office-label"
+    data={officeLocation}
+    type="symbol"
+    layout={{
+      'text-field': 'Office',
+      'text-offset': [0, 1],
+      'text-anchor': 'top',
+      'text-size': 12,
+    }}
+    paint={{
+      'text-color': '#000000',
+      'text-halo-color': '#ffffff',
+      'text-halo-width': 2,
+    }}
+  />
+</TileMap>
+```
+
+### TileMapLayer Props
+
+- **id**: `string` (required) - Unique identifier for the layer
+- **data**: `object | string` (required) - GeoJSON data or URL to fetch from
+- **type**: `'fill' | 'line' | 'circle' | 'symbol' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade'` - Layer type (default: `'fill'`)
+- **paint**: `Record<string, unknown>` - Paint properties for the layer
+- **layout**: `Record<string, unknown>` - Layout properties for the layer
+- **beforeId**: `string` - Layer ID to insert before (for ordering)
+- **minZoom**: `number` - Minimum zoom level to display layer
+- **maxZoom**: `number` - Maximum zoom level to display layer
+- **filter**: `unknown[]` - Filter expression for the layer
+
+### Multiple layers example
+
+You can combine multiple layers to create rich visualizations:
+
+```svelte
+<TileMap center={[-73.9712, 40.7831]} zoom={11}>
+  <!-- Background polygon -->
+  <TileMapLayer
+    id="area-fill"
+    data={areaData}
+    type="fill"
+    paint={{ 'fill-color': '#179639', 'fill-opacity': 0.7 }}
+  />
+
+  <!-- Border line -->
+  <TileMapLayer
+    id="area-border"
+    data={areaData}
+    type="line"
+    paint={{ 'line-color': '#228b22', 'line-width': 2 }}
+  />
+
+  <!-- Route from URL -->
+  <TileMapLayer
+    id="route"
+    data="https://example.com/route.geojson"
+    type="line"
+    paint={{ 'line-color': '#4287f5', 'line-width': 2 }}
+  />
+
+  <!-- Point markers -->
+  <TileMapLayer
+    id="markers"
+    data={pointsData}
+    type="circle"
+    paint={{
+      'circle-radius': 4,
+      'circle-color': '#9c27b0',
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#ffffff',
+    }}
+  />
+</TileMap>
+```
+
+## Advanced usage
+
+For more control over the map, you can use the `onMapReady` callback to access the MapLibre GL instance:
+
+```svelte
+<script>
+  import { TileMap } from '@reuters-graphics/graphics-components';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+
+  function handleMapReady(map: MaplibreMap) {
+    // Add custom layers, sources, or event handlers
+    map.addSource('my-source', {
+      type: 'geojson',
+      data: myGeoJsonData,
+    });
+
+    map.addLayer({
+      id: 'my-layer',
+      type: 'circle',
+      source: 'my-source',
+      paint: {
+        'circle-radius': 8,
+        'circle-color': '#007cbf',
+      },
+    });
+  }
+</script>
+
+<Map id="custom-map" center={[0, 0]} zoom={2} onMapReady={handleMapReady} />
+```
+
+## Props
+
+- **center**: `[longitude, latitude]` - Map center coordinates (default: `[0, 0]`)
+- **zoom**: `number` - Initial zoom level (default: `2`)
+- **minZoom**: `number` - Minimum zoom level (default: `0`)
+- **maxZoom**: `number` - Maximum zoom level (default: `22`)
+- **interactive**: `boolean` - Enable interactive controls (default: `true`)
+- **styleUrl**: `string` - Map style URL (default: Reuters Protomaps style)
+- **height**: `string` - Map height in CSS units (default: `'500px'`)
+- **width**: `ContainerWidth` - Width within the text well (default: `'normal'`)
+- **onMapReady**: `(map: maplibregl.Map) => void` - Callback when map is ready
