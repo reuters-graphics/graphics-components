@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.2.0
+
+### Minor Changes
+
+- df7c622: Adding a basic pmtiles map component
+
 ## 3.1.0
 
 ### Minor Changes
