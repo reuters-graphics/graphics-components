@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.2.1
+
+### Patch Changes
+
+- 94c2346: Fixes fontface definitions for Newsreader typeface to fix issue with bold and bolder weights.
+
 ## 3.2.0
 
 ### Minor Changes
