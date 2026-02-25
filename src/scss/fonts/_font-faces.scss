@@ -83,31 +83,6 @@
   font-display: swap;
 }
 
-/* Dotcom aliases for knowledge */
-@font-face {
-  font-family: 'knowledge-regular';
-  src: local('Knowledge');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'knowledge-medium';
-  src: local('Knowledge');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'knowledge-bold';
-  src: local('Knowledge');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* SOURCE SANS PRO */
 @font-face {
   font-family: 'Source Sans Pro';
@@ -169,7 +144,7 @@
   font-display: swap;
 }
 
-/* NEWSREADER TEXT */
+/* NEWSREADER */
 @font-face {
   font-family: 'Newsreader Text';
   src:
@@ -177,7 +152,7 @@
       format('woff2'),
     url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Bold.woff')
       format('woff');
-  font-weight: bold;
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -189,7 +164,7 @@
       format('woff2'),
     url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraBoldItalic.woff')
       format('woff');
-  font-weight: bold;
+  font-weight: 800;
   font-style: italic;
   font-display: swap;
 }
@@ -201,7 +176,7 @@
       format('woff2'),
     url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-BoldItalic.woff')
       format('woff');
-  font-weight: bold;
+  font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
@@ -213,7 +188,7 @@
       format('woff2'),
     url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-ExtraBold.woff')
       format('woff');
-  font-weight: bold;
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
@@ -297,7 +272,7 @@
       format('woff2'),
     url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Italic.woff')
       format('woff');
-  font-weight: normal;
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
@@ -309,7 +284,7 @@
       format('woff2'),
     url('//graphics.thomsonreuters.com/style-assets/fonts/v1/NewsreaderText-Regular.woff')
       format('woff');
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
