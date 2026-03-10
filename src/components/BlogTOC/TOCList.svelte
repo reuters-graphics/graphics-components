@@ -1,11 +1,9 @@
 <script lang="ts">
   import Block from '../Block/Block.svelte';
-  import { Markdown } from '@reuters-graphics/svelte-markdown';
 
   interface DateEvent {
     title: string;
-    titleLink?: string;
-    context?: string;
+    titleLink: string;
   }
 
   interface DateEntry {
@@ -58,16 +56,9 @@
         </div>
         {#each date.events as event}
           <div class="event">
-            {#if event.titleLink}
-              <a href={event.titleLink}>
-                <div class="title">{event.title}</div>
-              </a>
-            {:else}
+            <a href={event.titleLink}>
               <div class="title">{event.title}</div>
-            {/if}
-            {#if event.context}
-              <Markdown source={event.context} />
-            {/if}
+            </a>
           </div>
         {/each}
       </div>
@@ -117,14 +108,6 @@
         text-decoration: none;
         &:hover {
           text-decoration: underline;
-        }
-      }
-      a div.title {
-        span {
-          opacity: 0.5;
-        }
-        &:hover span {
-          opacity: 0.8;
         }
       }
       :global(p) {
