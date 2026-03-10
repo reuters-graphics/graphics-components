@@ -59,7 +59,8 @@
   @include font-regular;
   @include leading-normal;
   @include text-primary;
-  strong, b {
+  strong,
+  b {
     @include font-semibold;
   }
 }

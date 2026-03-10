@@ -102,5 +102,3 @@ const prettifyAmPm = (text: string) => {
  */
 export const slugify = (str: string) =>
   slug(str, { lower: true, strict: true });
-
-
