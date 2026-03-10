@@ -1,0 +1,32 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BlogPostStories from './BlogPost.stories.svelte';
+
+<Meta of={BlogPostStories} />
+
+# BlogPost
+
+The `BlogPost` component renders a single entry in a graphics blog page, including a headline, dateline, authors and a divider. Body content is passed as children.
+
+```svelte
+<script>
+  import { BlogPost } from '@reuters-graphics/graphics-components';
+  import { base } from '$app/paths';
+</script>
+
+<BlogPost
+  title="Iran fires ballistic missiles at Israel in major escalation"
+  slugTitle="Iran fires ballistic missiles at Israel in major escalation"
+  authors={['John Smith', 'Jane Doe']}
+  publishTime="2024-10-01T18:30:00Z"
+  updateTime="2024-10-01T21:45:00Z"
+  {base}
+>
+  <!-- Post body content goes here -->
+</BlogPost>
+```
+
+> **Important:** Do not change `slugTitle` after publishing. It is used to generate the post's anchor link — changing it will break any published links to the post.
+
+
+<Canvas of={BlogPostStories.Demo} />
