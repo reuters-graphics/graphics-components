@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.3.0
+
+### Minor Changes
+
+- 8abe183: Adds graphics blog components
+
 ## 3.2.1
 
 ### Patch Changes
