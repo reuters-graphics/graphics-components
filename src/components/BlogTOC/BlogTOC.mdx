@@ -1,0 +1,42 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BlogTOCStories from './BlogTOC.stories.svelte';
+
+<Meta of={BlogTOCStories} />
+
+# BlogTOC
+
+The `BlogTOC` component renders a collapsible table of contents for a graphics blog page, listing all posts sorted chronologically. It only renders when there are two or more posts.
+
+```svelte
+<script>
+  import { BlogTOC } from '@reuters-graphics/graphics-components';
+  import { base } from '$app/paths';
+</script>
+
+<BlogTOC
+  posts={[
+    {
+      title: 'Iran fires ballistic missiles at Israel',
+      slugTitle: 'Iran fires ballistic missiles at Israel',
+      publishTime: '2024-10-01T18:30:00Z',
+    },
+    {
+      title: 'Israel vows response',
+      slugTitle: 'Israel vows response',
+      publishTime: '2024-10-02T09:15:00Z',
+    },
+  ]}
+  {base}
+/>
+```
+
+The `base` prop should be set to your SvelteKit `base` path (e.g. `"/graphics"`) so that post links resolve correctly.
+
+Each post in the `posts` array must have:
+
+- `title` — the display title
+- `slugTitle` — used to generate the anchor link; **do not change after publishing**
+- `publishTime` — an ISO datetime string used for sorting and the dateline
+
+<Canvas of={BlogTOCStories.Demo} />

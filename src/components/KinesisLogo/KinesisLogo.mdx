@@ -1,0 +1,19 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as KinesisLogoStories from './KinesisLogo.stories.svelte';
+
+<Meta of={KinesisLogoStories} />
+
+# KinesisLogo
+
+The `KinesisLogo` component contains the official Kinesis logo.
+
+```svelte
+<script>
+  import { KinesisLogo } from '@reuters-graphics/graphics-components';
+</script>
+
+<KinesisLogo />
+```
+
+<Canvas of={KinesisLogoStories.Demo} />

@@ -13,7 +13,7 @@
     /**
      * Publish time as a datetime string.
      */
-    publishTime: string;
+    publishTime?: string;
     /**
      * Update time as a datetime string.
      */
@@ -52,7 +52,7 @@
 
   let {
     authors = [],
-    publishTime,
+    publishTime = '',
     updateTime,
     align = 'auto',
     id = '',
