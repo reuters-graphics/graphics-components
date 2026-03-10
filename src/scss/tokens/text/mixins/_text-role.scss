@@ -59,6 +59,9 @@
   @include font-regular;
   @include leading-normal;
   @include text-primary;
+  strong, b {
+    @include font-semibold;
+  }
 }
 
 @mixin body-note {

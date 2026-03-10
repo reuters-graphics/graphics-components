@@ -29,6 +29,7 @@ export { default as HorizontalScroller } from './components/HorizontalScroller/H
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
 export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
+export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
