@@ -14,6 +14,7 @@ export { default as Article } from './components/Article/Article.svelte';
 export { default as AdScripts } from './components/AdSlot/AdScripts.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
+export { default as ClockWall } from './components/ClockWall/ClockWall.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
 export { default as Byline } from './components/Byline/Byline.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';

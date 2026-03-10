@@ -1,0 +1,27 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ClockWallStories from './ClockWall.stories.svelte';
+
+<Meta of={ClockWallStories} />
+
+# ClockWall
+
+The `ClockWall` component displays a row of analog clocks for different cities and timezones. Use it paired with the overall headline of a graphics blog page to show the time of multiple cities involved in a breaking news event.
+
+Use the [IANA tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) to find valid `tzIdentifier` strings.
+
+```svelte
+<script>
+  import { ClockWall } from '@reuters-graphics/graphics-components';
+</script>
+
+<ClockWall
+  cities={[
+    { name: 'Tehran', tzIdentifier: 'Asia/Tehran' },
+    { name: 'Tel Aviv', tzIdentifier: 'Asia/Tel_Aviv' },
+    { name: 'Washington D.C.', tzIdentifier: 'America/New_York' },
+  ]}
+/>
+```
+
+<Canvas of={ClockWallStories.Demo} />
