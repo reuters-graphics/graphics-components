@@ -86,9 +86,9 @@
 
     .timeline-date {
       @include mixins.font-note;
-      @include mixins.text-xs;
+      @include mixins.text-xxs;
       text-transform: uppercase;
-      @include mixins.font-black;
+      @include mixins.font-semibold;
       @include mixins.tracking-wide;
       @include mixins.fmb-0;
     }
@@ -99,11 +99,13 @@
     }
     div.title {
       @include mixins.h3;
+      @include mixins.text-base;
       @include mixins.fmy-1;
       @include mixins.font-medium;
     }
 
     div.event {
+      margin-bottom: 0.75rem;
       a {
         text-decoration: none;
         &:hover {

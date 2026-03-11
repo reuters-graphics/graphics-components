@@ -30,7 +30,7 @@
   }: Props = $props();
 </script>
 
-<Block {width}>
+<Block {width} class="my-6">
   <div id="clock-group">
     {#each cities as city (city.tzIdentifier)}
       <Clock
