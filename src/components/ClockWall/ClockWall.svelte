@@ -51,8 +51,8 @@
     margin: 0px auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 2rem;
-    justify-content: space-evenly;
+    gap: 10px 1rem;
+    justify-content: space-around;
 
     @media (max-width: 659px) {
       justify-content: center;

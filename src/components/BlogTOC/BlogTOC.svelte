@@ -30,7 +30,7 @@
   let {
     posts,
     base = '',
-    label = 'Jump to article',
+    label = 'Show all articles',
     maxHeight = 300,
   }: Props = $props();
 
@@ -135,20 +135,18 @@
     // background-color: #fafafa;
     // border-top: 1px solid #dedede;
     // border-bottom: 1px solid #dedede;
-    padding: 5px 0;
+    padding: 5px 0 0;
     margin-bottom: -40px;
-    @media (max-width: 860px) {
-      margin-bottom: -45px;
-    }
   }
 
   .table-of-contents {
     overflow: hidden;
-    max-width: calc(var(--normal-column-width) + 95px);
+    max-width: var(--normal-column-width);
     margin-left: auto;
     margin-right: auto;
-    @media (max-width: 860px) {
-      max-width: calc(var(--normal-column-width) + 15px);
+    & > div {
+      display: flex;
+      justify-content: center;
     }
   }
   .content-container {
@@ -212,33 +210,35 @@
     display: inline-flex;
     font-family: var(--theme-font-family-hed);
     font-weight: normal;
-    padding: 0 3px 0 0;
+    padding: 0 5px;
     color: var(--theme-colour-accent);
     @include mixins.text-sm;
     align-items: center;
     cursor: pointer;
-    border: 1px solid #fff;
+    border: 1px solid var(--tr-muted-grey);
     border-radius: 50px;
     &:hover {
-      border: 1px solid #dedede;
+      border: 1px solid var(--theme-colour-text-secondary);
       background-color: #efefef;
-    }
-    @media (max-width: 860px) {
-      border: 1px solid #dedede;
-      margin-left: 5px;
+      div.label {
+        color: var(--theme-colour-text-primary);
+      }
+      div.icon {
+        color: var(--theme-colour-text-secondary);
+      }
     }
 
     div.icon {
       z-index: 1;
       @include mixins.text-sm;
       @include mixins.leading-loose;
-      width: 24px;
+      width: 18px;
       height: 24px;
       margin-left: 6px;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      color: var(--theme-colour-text-secondary);
+      color: var(--tr-light-grey);
       border-radius: 50%;
       transition: transform 0.3s ease;
 
