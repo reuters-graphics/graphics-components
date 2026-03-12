@@ -240,6 +240,7 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
+    flex: 1 1 0px;
 
     @media (max-width: 659px) {
       height: 48px; // XS size
@@ -249,6 +250,9 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+      p {
+        text-wrap: nowrap;
+      }
     }
 
     svg {

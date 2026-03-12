@@ -66,7 +66,7 @@
 <Block {id} class="headline-container post-headline fmt-7 {cls}" width="normal">
   <header class="headline">
     <div class="kinesis">
-      <Kinesis width="30px" colour="#fff" />
+      <Kinesis width="22px" colour="#fff" />
     </div>
     <div class="dateline-container">
       {#if isValidDate(publishTime)}
@@ -123,16 +123,16 @@
     position: relative;
     .kinesis {
       position: absolute;
-      top: -12px;
-      left: -50px;
+      top: -7px;
+      left: -39px;
       background-color: #d64000;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-      @media (max-width: 860px) {
+      @media (max-width: 820px) {
         display: none;
       }
     }
