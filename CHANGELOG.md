@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.3.1
+
+### Patch Changes
+
+- b924478: Updates to blog component styles
+
 ## 3.3.0
 
 ### Minor Changes
