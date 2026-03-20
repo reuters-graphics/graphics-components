@@ -1,6 +1,6 @@
 {
   "name": "@reuters-graphics/graphics-components",
-  "version": "3.0.25",
+  "version": "3.3.1",
   "type": "module",
   "private": false,
   "homepage": "https://reuters-graphics.github.io/graphics-components",
@@ -29,7 +29,16 @@
   },
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.stories.*",
+    "!dist/**/*.mdx",
+    "!dist/**/demo",
+    "!dist/docs",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
+    "!dist/**/*.mp4",
+    "!dist/**/*.mov",
+    "!dist/**/images"
   ],
   "engines": {
     "node": ">=20.18"
@@ -99,6 +108,7 @@
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@lottiefiles/dotlottie-web": "^0.52.2",
     "@reuters-graphics/svelte-markdown": "^0.0.3",
     "@sveltejs/kit": "^2.0.0",
     "@types/geojson": "^7946.0.16",

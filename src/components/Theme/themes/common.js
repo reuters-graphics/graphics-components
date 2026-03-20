@@ -6,7 +6,7 @@ https://www.fluid-type-scale.com/calculate?minFontSize=18&minWidth=320&minRatio=
 export default {
   font: {
     family: {
-      serif: 'FreightText, serif',
+      serif: '"Newsreader Text", serif',
       'sans-serif': 'Knowledge, sans-serif',
       monospace:
         '"Droid Sans Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',

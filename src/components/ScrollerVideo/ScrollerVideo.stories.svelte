@@ -128,6 +128,7 @@
   import Video_LG from './videos/waves_lg.mp4';
   import Goldengate from './videos/goldengate.mp4';
   import AdvancedUsecases from './demo/AdvancedUsecases.svelte';
+  import Block from '../Block/Block.svelte';
 
   const videoSrc = {
     Video_SM,
@@ -145,6 +146,12 @@
 
 <Story name="Demo">
   <ScrollerVideo {...args} src={videoSrc.Goldengate} />
+</Story>
+
+<Story name="Object Fit">
+  <Block width="normal">
+    <ScrollerVideo {...args} src={videoSrc.Goldengate} objectFit="contain" />
+  </Block>
 </Story>
 
 <Story name="Responsive videos" exportName="ResponsiveVideos">

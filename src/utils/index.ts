@@ -1,4 +1,4 @@
-import slugify from 'slugify';
+import slug from 'slugify';
 
 /** Helper function to generate a random 4-character string */
 export const random4 = () =>
@@ -10,7 +10,7 @@ export const random4 = () =>
  * Custom function that returns an author page URL.
  */
 export const getAuthorPageUrl = (author: string): string => {
-  const authorSlug = slugify(author.trim(), { lower: true });
+  const authorSlug = slug(author.trim(), { lower: true });
   return `https://www.reuters.com/authors/${authorSlug}/`;
 };
 
@@ -93,3 +93,12 @@ const prettifyAmPm = (text: string) => {
     }
   );
 };
+
+/**
+ * Converts a string into a URL-friendly slug.
+ *
+ * @param str The string to be slugified.
+ * @returns The slugified string.
+ */
+export const slugify = (str: string) =>
+  slug(str, { lower: true, strict: true });

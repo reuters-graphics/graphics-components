@@ -16,4 +16,13 @@ declare module 'journalize' {
    * @returns The converted value
    */
   export function intcomma(val: number | string): string;
+
+  /**
+   * Returns an AP-formatted month string that corresponds with the supplied
+   * Date. If an `input` is not passed, it will use the result of `new Date();`.
+   *
+   * @param date - The supplied Date
+   * @returns The converted date as a string
+   */
+  export function apmonth(date?: Date): string;
 }

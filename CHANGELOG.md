@@ -1,5 +1,48 @@
 # @reuters-graphics/graphics-components
 
+## 3.3.1
+
+### Patch Changes
+
+- b924478: Updates to blog component styles
+
+## 3.3.0
+
+### Minor Changes
+
+- 8abe183: Adds graphics blog components
+
+## 3.2.1
+
+### Patch Changes
+
+- 94c2346: Fixes fontface definitions for Newsreader typeface to fix issue with bold and bolder weights.
+
+## 3.2.0
+
+### Minor Changes
+
+- df7c622: Adding a basic pmtiles map component
+
+## 3.1.0
+
+### Minor Changes
+
+- 0f9248c: Replaces FreightText with Newsreader Text font
+
+## 3.0.27
+
+### Patch Changes
+
+- 6dc6e54: Removes demo files, docs and stories from the published package.
+
+## 3.0.26
+
+### Patch Changes
+
+- 27d07e4: Adds Lottie component
+- f9aec45: Adds HorizontalScroller component
+
 ## 3.0.25
 
 ### Patch Changes

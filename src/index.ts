@@ -11,9 +11,12 @@ export {
   registerPageview,
 } from './components/Analytics/Analytics.svelte';
 export { default as Article } from './components/Article/Article.svelte';
+export { default as BlogPost } from './components/BlogPost/BlogPost.svelte';
+export { default as BlogTOC } from './components/BlogTOC/BlogTOC.svelte';
 export { default as AdScripts } from './components/AdSlot/AdScripts.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
 export { default as Block } from './components/Block/Block.svelte';
+export { default as ClockWall } from './components/ClockWall/ClockWall.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
 export { default as Byline } from './components/Byline/Byline.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';
@@ -25,9 +28,11 @@ export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as Headpile } from './components/Headpile/Headpile.svelte';
 export { default as HeroHeadline } from './components/HeroHeadline/HeroHeadline.svelte';
+export { default as HorizontalScroller } from './components/HorizontalScroller/HorizontalScroller.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
 export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
+export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
@@ -49,6 +54,8 @@ export { default as Spinner } from './components/Spinner/Spinner.svelte';
 export { default as ScrollerBase } from './components/ScrollerBase/ScrollerBase.svelte';
 export { default as ScrollerVideo } from './components/ScrollerVideo/ScrollerVideo.svelte';
 export { default as ScrollerVideoForeground } from './components/ScrollerVideo/ScrollerVideoForeground.svelte';
+export { default as Lottie } from './components/Lottie/Lottie.svelte';
+export { default as LottieForeground } from './components/Lottie/LottieForeground.svelte';
 export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svelte';
 export { default as Table } from './components/Table/Table.svelte';
 export { default as Theme, themes } from './components/Theme/Theme.svelte';
