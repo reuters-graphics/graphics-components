@@ -12,7 +12,11 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/sveltekit',
-    options: {},
+    options: {
+      svelteOptions: {
+        preprocess: [],
+      },
+    },
   },
 };
 export default config;
