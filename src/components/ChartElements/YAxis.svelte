@@ -28,33 +28,15 @@
 
 <g class="y-axis">
   {#if showAxisLine && axisTop !== undefined && axisBottom !== undefined}
-    <line
-      x1={marginLeft}
-      y1={axisTop}
-      x2={marginLeft}
-      y2={axisBottom}
-      class="axis-line"
-    />
+    <line x1={0} y1={axisTop} x2={0} y2={axisBottom} class="axis-line" />
   {/if}
 
   {#each yTicks as tick, tickIndex}
     {@const y = marginTop + yScale(tick)}
     {#if showTicks}
-      <line
-        x1={marginLeft - tickWidth}
-        y1={y}
-        x2={marginLeft}
-        y2={y}
-        class="tick-mark"
-      />
+      <line x1={0} y1={y} x2={tickWidth} y2={y} class="tick-mark" />
     {/if}
-    <text
-      x={marginLeft - 10}
-      {y}
-      class="tick-label"
-      text-anchor="end"
-      dy="0.32em"
-    >
+    <text x={0} {y} dy="-4px" class="tick-label">
       {yLabels[tickIndex]}
     </text>
   {/each}
@@ -67,12 +49,13 @@
   }
 
   .tick-mark {
-    stroke: var(--line-chart-axis-color, #505966);
-    stroke-width: 1.2;
+    stroke: var(--line-chart-grid-color, #c7ccd2);
+    stroke-width: 0.8;
   }
 
   .tick-label {
     font-size: 11px;
     fill: var(--line-chart-tick-label-color, #67707a);
+    text-anchor: start;
   }
 </style>

@@ -146,7 +146,7 @@ const yAxisConfig = { prefix: '$'}; // Unit to prefix to y-axis and end-value la
 
 Each series gets its own chart.
 
-If your `data` and `series` are already set up for a multi-line chart, you can switch between single and small multiples by toggling only `layout`:
+If your `data` and `series` are already set up for a multi-line chart, you can switch between single chart and small multiples by toggling the prop `layout` from `single` to `multiples`:
 
 ```svelte
 <LineChart
@@ -179,9 +179,9 @@ Control this with:
 
 <Canvas of={LineChartStories.SmallMultiples} />
 
-## Small multiples: countries data
+## Small multiples: multi-line charts
 
-Use `countries.json` to build one small-multiple panel per country, with multiple lines (GDP and Birth Rate) in each panel:
+To create small multiples of multi-line charts, you need to set up your `chartGroups` configuration. Each group represents a chart and contains the config options for that chart.
 
 ```svelte
 <script>

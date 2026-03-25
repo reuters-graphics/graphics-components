@@ -97,6 +97,7 @@
     yKey: 'endDayVal',
     xAxisDateFormat: '%b %-d, %Y',
     yAxisConfig: { prefix: '$', zeroBase: true },
+    margin: { left: 15, right: 60 },
   }}
 />
 
@@ -135,6 +136,7 @@
     xAxisDateFormat: '%b %-d, %Y',
     yAxisConfig: { prefix: '$' },
     showGridY: false,
+    margin: { right: 80 },
   }}
 />
 
@@ -170,9 +172,11 @@
     ],
     layout: 'multiples',
     xKey: 'date',
+    xAxisDateFormat: `%b, '%y`,
     yAxisConfig: { prefix: '$' },
     showGridY: false,
     smallMultiplesXAxisMode: 'first-in-row',
+    margin: { right: 60 },
   }}
 />
 
@@ -185,16 +189,17 @@
     layout: 'multiples',
     xKey: 'date',
     height: 400,
-    margin: { top: 20, right: 70, bottom: 60, left: 30 },
+    // margin: { top: 20, right: 70, bottom: 60, left: 30 },
     yAxisConfig: {
       mode: 'all-ticks',
       suffix: '%',
     },
     yTickCount: 3,
-    smallMultiplesEndLabelsMode: 'first-in-row',
+    smallMultiplesEndLabelsMode: 'first',
     smallMultiplesXAxisMode: 'first-in-row',
-    xAxisDateFormat: `%b '%y`,
+    xAxisDateFormat: `%Y`,
     showGridY: true,
     showLegend: false,
+    margin: { right: 80, bottom: 80 },
   }}
 />

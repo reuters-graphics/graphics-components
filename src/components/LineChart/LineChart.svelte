@@ -11,6 +11,7 @@
   } from './utils/index';
   import type {
     LineChartProps,
+    LineSeriesInput,
     ResponsiveState,
     SmallMultiplesDisplayMode,
   } from './types/index.js';
@@ -24,9 +25,9 @@
     yKey,
     showEndPoint = true,
     endPointRadius,
-    width = 800,
+    width = 660,
     height = 400,
-    margin = { top: 50, right: 50, bottom: 50, left: 50 },
+    margin,
     yAxisConfig,
     yValueFormatter,
     yAxisFormat,
@@ -40,8 +41,8 @@
     showLegend = false,
     yTickCount,
     xTickCount,
-    smallMultiplesEndLabelsMode = 'first',
-    smallMultiplesXAxisMode = 'first',
+    smallMultiplesEndLabelsMode = 'first-in-row',
+    smallMultiplesXAxisMode = 'first-in-row',
     scaleConfig,
     children: overlayChildren,
     beforeSVG,
@@ -59,6 +60,13 @@
 
   // Reactive values
   const activeLayout = $derived(responsive ? responsiveState.layout : layout);
+  const resolvedMargin = $derived.by(() => ({
+    top: margin?.top ?? 20,
+    right: margin?.right ?? 20,
+    bottom: margin?.bottom ?? 20,
+    left: margin?.left ?? 15,
+  }));
+
   const applySeriesDefaults = (
     inputSeries: typeof series,
     defaultShowEndPoint: boolean
@@ -199,20 +207,27 @@
 
   // Build scales using per-tile dimensions in multiples mode
   const scales = $derived.by(() => {
-    const marginTop = margin.top ?? 20;
-    const marginRight = margin.right ?? 20;
-    const marginBottom = margin.bottom ?? 20;
-    const marginLeft = margin.left ?? 20;
-
     const dimensions =
       activeLayout === 'multiples' ?
         {
-          width: Math.max(1, chartItemWidth - marginLeft - marginRight),
-          height: Math.max(1, chartItemHeight - marginTop - marginBottom),
+          width: Math.max(
+            1,
+            chartItemWidth - resolvedMargin.left - resolvedMargin.right
+          ),
+          height: Math.max(
+            1,
+            chartItemHeight - resolvedMargin.top - resolvedMargin.bottom
+          ),
         }
       : {
-          width: Math.max(1, containerWidth - marginLeft - marginRight),
-          height: Math.max(1, height - marginTop - marginBottom),
+          width: Math.max(
+            1,
+            containerWidth - resolvedMargin.left - resolvedMargin.right
+          ),
+          height: Math.max(
+            1,
+            height - resolvedMargin.top - resolvedMargin.bottom
+          ),
         };
 
     return buildScales(
@@ -260,7 +275,7 @@
         {endPointRadius}
         width={containerWidth}
         {height}
-        {margin}
+        margin={resolvedMargin}
         yAxisConfig={{
           mode: yAxisConfig?.mode ?? 'top-only',
           prefix: yAxisConfig?.prefix,
@@ -294,7 +309,7 @@
             smallMultiplesXAxisMode,
             activeColumnsPerRow
           )}
-          {@const tileSeries = item.series.map((s) => ({
+          {@const tileSeries = item.series.map((s: LineSeriesInput) => ({
             ...s,
             showEndLabel: tileShowsEndLabels ? (s.showEndLabel ?? true) : false,
           }))}
@@ -307,7 +322,7 @@
             {endPointRadius}
             width={chartItemWidth}
             height={chartItemHeight}
-            {margin}
+            margin={resolvedMargin}
             yAxisConfig={{
               mode: yAxisConfig?.mode ?? 'top-only',
               prefix: yAxisConfig?.prefix,

@@ -32,7 +32,6 @@
   }: Props = $props();
 
   const baselineY = axisY ?? height - marginBottom;
-  const drawBelow = baselineY + 15 <= height;
   const tickEndY = baselineY + 7;
   const labelY = baselineY + 15;
 </script>
@@ -40,7 +39,7 @@
 <g class="x-axis">
   {#if showAxisLine}
     <line
-      x1={marginLeft}
+      x1={0}
       y1={baselineY}
       x2={width - marginRight}
       y2={baselineY}
@@ -49,7 +48,7 @@
   {/if}
 
   {#each xTicks as tick}
-    {@const x = marginLeft + xScale(tick)}
+    {@const x = xScale(tick)}
     {#if showTicks && showLabels}
       <line
         x1={x}
@@ -57,10 +56,16 @@
         x2={x}
         y2={tickEndY}
         class="tick x-tick {useSecondaryStyle ? 'secondary' : ''}"
+        style="translate: {marginLeft}px;"
       />
     {/if}
     {#if showLabels}
-      <text {x} y={labelY} class="tick-label" text-anchor="middle">
+      <text
+        {x}
+        y={labelY}
+        class="tick-label"
+        style="translate: {marginLeft}px;"
+      >
         {formatTick(tick)}
       </text>
     {/if}
@@ -90,5 +95,6 @@
   .tick-label {
     font-size: 11px;
     fill: var(--line-chart-tick-label-color, #67707a);
+    text-anchor: middle;
   }
 </style>

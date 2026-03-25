@@ -25,7 +25,7 @@
     endPointRadius?: number;
     width: number;
     height: number;
-    margin?: { top?: number; right?: number; bottom?: number; left?: number };
+    margin: { top: number; right: number; bottom: number; left: number };
     yAxisConfig?: YAxisConfig;
     yAxisFormat?: string;
     xAxisDateFormat?: string;
@@ -48,7 +48,7 @@
     endPointRadius,
     width,
     height,
-    margin = { top: 20, right: 20, bottom: 30, left: 50 },
+    margin,
     yAxisConfig,
     yAxisFormat,
     xAxisDateFormat = '%b %-d, %Y',
@@ -62,12 +62,7 @@
     children,
   }: Props = $props();
 
-  const marginTop = margin.top ?? 20;
-  const marginRight = margin.right ?? 20;
-  const marginBottom = margin.bottom ?? 30;
-  const marginLeft = margin.left ?? 50;
-
-  const chartHeight = height - marginTop - marginBottom;
+  const chartHeight = height - margin.top - margin.bottom;
 
   // Generate tick values
   const autoYTickCount = $derived.by(() => {
@@ -127,13 +122,17 @@
     return Math.min(...yTicks);
   });
 
-  const xAxisBaselineY = $derived(marginTop + scales.yScale(lowestYTick));
+  const xAxisBaselineY = $derived(margin.top + scales.yScale(lowestYTick));
   const isZeroBaseline = $derived(Math.abs(lowestYTick) < 1e-9);
+
+  function absoluteX(value: Date): number {
+    return margin.left + scales.xScale(value);
+  }
 
   // Path generator for individual series
   function generatePath(seriesKey: string): string {
     const points = data.map((d) => {
-      const x = scales.xScale(d[xKey] as Date);
+      const x = absoluteX(d[xKey] as Date);
       const y = scales.yScale(d[seriesKey] as number);
       return `${x},${y}`;
     });
@@ -193,10 +192,10 @@
     <GridLines
       {width}
       {height}
-      {marginTop}
-      {marginRight}
-      {marginBottom}
-      {marginLeft}
+      marginTop={margin.top}
+      marginRight={margin.right}
+      marginBottom={margin.bottom}
+      marginLeft={0}
       {yTicks}
       {xTicks}
       yScale={scales.yScale}
@@ -207,7 +206,7 @@
   {/if}
 
   <!-- Chart group (clipping region) -->
-  <g class="chart" style="transform: translate({marginLeft}px, {marginTop}px)">
+  <g class="chart" transform="translate(0, {margin.top})">
     <!-- Lines for each series -->
     {#each series as s, seriesIndex}
       {@const color = getSeriesColor(seriesIndex)}
@@ -215,16 +214,22 @@
         d={generatePath(s.key)}
         class="line"
         style="stroke: {color}; stroke-width: {s.strokeWidth ||
-          2}px; fill: none;"
+          2}px; fill: none; translate: {margin.left}px;"
       />
 
       <!-- End point marker (shown by default) -->
       {#if (s.showEndPoint ?? showEndPoint) && data.length > 0}
         {@const lastPoint = data[data.length - 1]}
-        {@const cx = scales.xScale(lastPoint[xKey] as Date)}
+        {@const cx = absoluteX(lastPoint[xKey] as Date)}
         {@const cy = scales.yScale(lastPoint[s.key] as number)}
         {@const radius = s.endPointRadius ?? endPointRadius ?? 4}
-        <circle r={radius} {cx} {cy} class="end-point" style="fill: {color};" />
+        <circle
+          r={radius}
+          {cx}
+          {cy}
+          class="end-point"
+          style="fill: {color}; translate: {margin.left}px;"
+        />
       {/if}
 
       <!-- End labels (shown by default) -->
@@ -233,7 +238,7 @@
         {@const xOffset = s.endLabelPosition?.xOffset ?? 5}
         {@const yOffset = s.endLabelPosition?.yOffset ?? 0}
         {@const textAnchor = s.endLabelPosition?.textAnchor ?? 'start'}
-        {@const x = scales.xScale(lastPoint[xKey] as Date) + xOffset}
+        {@const x = absoluteX(lastPoint[xKey] as Date) + xOffset}
         {@const y = scales.yScale(lastPoint[s.key] as number) + yOffset}
         {@const endContext = {
           value: lastPoint[s.key] as number,
@@ -246,7 +251,7 @@
           {x}
           {y}
           class="end-label"
-          style="fill: {color};"
+          style="fill: {color}; translate: {margin.left}px;"
           text-anchor={textAnchor}
           dominant-baseline="middle"
         >
@@ -257,7 +262,7 @@
 
     <!-- Child content (overlay) -->
     {#if children}
-      <g class="overlay">
+      <g class="overlay" transform="translate({margin.left}, 0)">
         {@render children()}
       </g>
     {/if}
@@ -265,8 +270,8 @@
 
   {#if showYAxis}
     <YAxis
-      {marginTop}
-      {marginLeft}
+      marginTop={margin.top}
+      marginLeft={0}
       {yTicks}
       yLabels={yTickLabels}
       yScale={scales.yScale}
@@ -278,13 +283,13 @@
     <XAxis
       {width}
       {height}
-      {marginRight}
-      {marginBottom}
-      {marginLeft}
+      marginRight={margin.right}
+      marginBottom={margin.bottom}
+      marginLeft={margin.left}
       axisY={xAxisBaselineY}
       useSecondaryStyle={!isZeroBaseline}
       {xTicks}
-      xScale={scales.xScale}
+      xScale={absoluteX}
       formatTick={(tick) => formatXAxisDate(tick, xAxisDateFormat)}
       showLabels={showXAxisLabels}
     />

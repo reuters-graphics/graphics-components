@@ -48,7 +48,7 @@
 
   {#if showVertical}
     {#each xTicks as tick}
-      {@const x = marginLeft + xScale(tick)}
+      {@const x = xScale(tick)}
       <line
         x1={x}
         y1={marginTop}
