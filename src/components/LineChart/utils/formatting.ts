@@ -1,4 +1,6 @@
-import { format as d3Format, timeFormat } from 'd3';
+import { format as d3Format } from 'd3-format';
+import { timeFormat } from 'd3-time-format';
+import { prettifyDate } from '../../../utils/index';
 import type { YAxisConfig, YAxisLabelContext } from '../types/index.js';
 
 function formatCleanNumber(value: number): string {
@@ -12,6 +14,11 @@ function formatCleanNumber(value: number): string {
  */
 export function formatWithUnits(value: number, prefix?: string, suffix?: string): string {
     let formatted = formatCleanNumber(value);
+
+    // No units for 0
+    if (value === 0) {
+        return '0'
+    }
 
     if (prefix) {
         formatted = prefix + formatted;
@@ -35,11 +42,6 @@ export function createYLabelFormatter(
         // If custom formatter provided, use it
         if (config?.yValueFormatter) {
             return config.yValueFormatter(value, context);
-        }
-
-        // If mode is custom but no custom formatter, fall back to default
-        if (config?.mode === 'custom') {
-            return formatWithUnits(value, config.prefix, config.suffix);
         }
 
         // For 'top-only' mode, only apply formatting to top tick
@@ -68,13 +70,41 @@ export function createYLabelFormatter(
 }
 
 /**
+ * Format end value with rounding and units
+ */
+export function formatEndValue(
+    value: number,
+    decimalPlaces: number = 0,
+    prefix?: string,
+    suffix?: string
+): string {
+    const multiplier = Math.pow(10, decimalPlaces);
+    const rounded = Math.round(value * multiplier) / multiplier;
+
+    let formatted = new Intl.NumberFormat(undefined, {
+        minimumFractionDigits: decimalPlaces,
+        maximumFractionDigits: decimalPlaces,
+    }).format(rounded);
+
+    if (prefix) {
+        formatted = prefix + formatted;
+    }
+
+    if (suffix) {
+        formatted = formatted + suffix;
+    }
+
+    return formatted;
+}
+
+/**
  * Format a date for X-axis
  */
 export function formatXAxisDate(date: Date, format: string = '%b %d'): string {
     try {
-        return timeFormat(format)(date);
+        return prettifyDate(timeFormat(format)(date));
     } catch {
-        return date.toLocaleDateString();
+        return prettifyDate(date.toLocaleDateString());
     }
 }
 

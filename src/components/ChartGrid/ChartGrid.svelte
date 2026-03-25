@@ -29,7 +29,7 @@
   {#each items as item (item.id)}
     <div class="grid-item">
       {#if item.title}
-        <h3 class="item-title">{item.title}</h3>
+        <h4 class="item-title">{item.title}</h4>
       {/if}
       <div class="chart-container">
         {#if children}
@@ -40,27 +40,27 @@
   {/each}
 </div>
 
-<style>
-  :global(.chart-grid) {
+<style lang="scss">
+  .chart-grid {
     width: 100%;
     display: grid;
     grid-template-columns: var(--grid-columns);
     gap: var(--gap);
   }
 
-  :global(.grid-item) {
+  .grid-item {
     display: flex;
     flex-direction: column;
   }
 
-  :global(.item-title) {
+  h4.item-title {
     font-size: 14px;
     font-weight: 600;
     margin: 0 0 12px 0;
-    color: #333;
+    color: #666; /// TKTK
   }
 
-  :global(.chart-container) {
+  .chart-container {
     flex: 1;
   }
 </style>

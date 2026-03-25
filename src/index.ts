@@ -4,6 +4,10 @@ export { default as resizeObserver } from './actions/resizeObserver/index';
 
 // Utils
 export { prettifyDate } from './utils/index';
+export {
+  pivotToWideData,
+  groupForSmallMultiples,
+} from './components/LineChart/utils/normalize';
 
 // Components
 export {
@@ -34,6 +38,7 @@ export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
 export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
 export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
+export { default as LineChart } from './components/LineChart/LineChart.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
@@ -68,3 +73,13 @@ export type {
   HeadlineSize,
   ScrollerVideoInstance,
 } from './components/@types/global';
+
+export type {
+  Datum,
+  LineSeriesInput,
+  LineChartProps,
+  ChartGrouping,
+  YAxisConfig,
+  YAxisLabelContext,
+  YAxisLabelMode,
+} from './components/LineChart/types/index';

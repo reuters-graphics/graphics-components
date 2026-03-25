@@ -1,235 +1,200 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { pivotToWideData } from './utils/index.js';
+  import { slugify } from '../../utils/index.js';
+
+  // Component
   import LineChart from './LineChart.svelte';
-  import demoData from './data/demo-data.json';
+
+  // Data
+  import oilData from './data/oil.json';
+  import stockDummyData from './data/stocks.json';
+  import countriesData from './data/countries.json';
 
   const { Story } = defineMeta({
     title: 'Components/Charts/LineChart',
     component: LineChart,
-    // tags: ['!autodocs'],
   });
 
   // Convert demo data - use crude-natgas dataset
-  const rawData = demoData['crude-natgas'];
-  const chartData = rawData.map((item: any) => ({
-    date: new Date(item.date),
+  type DemoRow = {
+    date: string;
+    'Benchmark Dutch wholesale gas prices (euro/mega watt hour)': number;
+    yTickCount: 8;
+    xTickCount: 6;
+    'Brent crude (usd/barrel)': number;
+  };
+
+  type CountryRow = {
+    country: string;
+    date: string;
+    index: string;
+    value: number;
+  };
+
+  const rawData = oilData['crude-natgas'];
+  const chartData = (rawData as DemoRow[]).map((item) => ({
+    date: item.date,
     'Dutch Gas':
       item['Benchmark Dutch wholesale gas prices (euro/mega watt hour)'],
     'Asia LNG':
       item['Benchmark Asia LNG prices ($/million British thermal units)'],
     'Brent Crude': item['Brent crude (usd/barrel)'],
   }));
+
+  // Transform tall stock data to wide format for multi-line rendering
+  const stockWideData = pivotToWideData(
+    stockDummyData,
+    'date',
+    'company',
+    'endDayVal'
+  );
+
+  const countryRows = countriesData as CountryRow[];
+  const countriesWithSeriesKey = countryRows.map((row) => ({
+    ...row,
+    seriesKey: `${row.country}__${row.index}`,
+  }));
+
+  const countriesWideData = pivotToWideData(
+    countriesWithSeriesKey,
+    'date',
+    'seriesKey',
+    'value'
+  );
+
+  const indexColorMap: Record<string, string> = {
+    'GDP growth': '#1f77b4',
+    'Birth rate': '#d62728',
+    'GDP Growth': '#1f77b4',
+    'Birth Rate Growth': '#d62728',
+  };
+
+  const countryNames = Array.from(
+    new Set(countryRows.map((row) => row.country))
+  );
+  const indexNames = Array.from(new Set(countryRows.map((row) => row.index)));
+
+  const countriesChartGroups = countryNames.map((country) => ({
+    groupId: slugify(country),
+    title: country,
+    series: indexNames.map((index) => ({
+      key: `${country}__${index}`,
+      label: index,
+      color: indexColorMap[index] || indexColorMap[index.trim()] || '#7f7f7f',
+      //   strokeWidth: 2,
+      endLabelType: 'label',
+      showEndLabel: true,
+    })),
+  }));
 </script>
 
 <Story
-  name="Single Line"
+  name="Single line"
   args={{
-    data: chartData,
-    series: [
-      {
-        key: 'Brent Crude',
-        label: 'Brent crude (USD/barrel)',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
-      },
-    ],
-    layout: 'single',
-    width: 800,
-    height: 400,
+    data: stockDummyData.filter((d) => d.company === 'AAPL'),
     xKey: 'date',
-    showGrid: true,
-    showYAxis: true,
-    showXAxis: true,
-    showLegend: true,
+    yKey: 'endDayVal',
+    xAxisDateFormat: '%b %-d, %Y',
+    yAxisConfig: { prefix: '$', zeroBase: true },
   }}
 />
 
 <Story
-  name="Multiple Lines"
+  name="Multiple lines"
   args={{
-    data: chartData,
+    data: stockWideData,
     series: [
       {
-        key: 'Dutch Gas',
-        label: 'Dutch Gas Prices (EUR/MWh)',
+        key: 'AAPL',
+        label: 'Apple',
         color: '#1f77b4',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
+        endLabelType: 'label' as const,
       },
       {
-        key: 'Asia LNG',
-        label: 'Asia LNG Prices ($/MMBTU)',
-        color: '#ff7f0e',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
-      },
-      {
-        key: 'Brent Crude',
-        label: 'Brent Crude (USD/barrel)',
+        key: 'GOOGL',
+        label: 'Google',
         color: '#2ca02c',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
+        endLabelType: 'label' as const,
+      },
+      {
+        key: 'MSFT',
+        label: 'Microsoft',
+        color: '#ff7f0e',
+        endLabelType: 'label' as const,
+      },
+      {
+        key: 'AMZN',
+        label: 'Amazon',
+        color: '#d62728',
+        endLabelType: 'label' as const,
       },
     ],
     layout: 'single',
-    width: 800,
-    height: 400,
     xKey: 'date',
-    yAxisConfig: {
-      mode: 'top-only',
-      suffix: '',
-    },
-    showGrid: true,
-    showYAxis: true,
-    showXAxis: true,
-    showLegend: true,
+    xAxisDateFormat: '%b %-d, %Y',
+    yAxisConfig: { prefix: '$' },
+    showGridY: false,
   }}
 />
 
 <Story
-  name="With Legend"
+  name="Small multiples"
   args={{
-    data: chartData,
+    data: stockWideData,
     series: [
       {
-        key: 'Dutch Gas',
-        label: 'Dutch Gas Prices',
+        key: 'AAPL',
+        label: 'Apple',
         color: '#1f77b4',
-        strokeWidth: 3,
-        showPoints: false,
-        showEndLabel: false,
+        endLabelType: 'value' as const,
       },
       {
-        key: 'Asia LNG',
-        label: 'Asia LNG Prices',
-        color: '#ff7f0e',
-        strokeWidth: 3,
-        showPoints: false,
-        showEndLabel: false,
-      },
-      {
-        key: 'Brent Crude',
-        label: 'Brent Crude Prices',
+        key: 'GOOGL',
+        label: 'Google',
         color: '#2ca02c',
-        strokeWidth: 3,
-        showPoints: false,
-        showEndLabel: false,
-      },
-    ],
-    layout: 'single',
-    width: 900,
-    height: 500,
-    xKey: 'date',
-    showGrid: true,
-    showYAxis: true,
-    showXAxis: true,
-    showLegend: true,
-  }}
-/>
-
-<Story
-  name="Small Multiples"
-  args={{
-    data: chartData,
-    chartGroups: [
-      {
-        groupId: 'dutch-gas',
-        title: 'Dutch Gas Prices (EUR/MWh)',
-        series: [
-          {
-            key: 'Dutch Gas',
-            label: 'Dutch Gas',
-            color: '#1f77b4',
-            strokeWidth: 2,
-            showPoints: false,
-            showEndLabel: true,
-          },
-        ],
+        endLabelType: 'value' as const,
       },
       {
-        groupId: 'asia-lng',
-        title: 'Asia LNG Prices ($/MMBTU)',
-        series: [
-          {
-            key: 'Asia LNG',
-            label: 'Asia LNG',
-            color: '#ff7f0e',
-            strokeWidth: 2,
-            showPoints: false,
-            showEndLabel: true,
-          },
-        ],
+        key: 'MSFT',
+        label: 'Microsoft',
+        color: '#ff7f0e',
+        endLabelType: 'value' as const,
       },
       {
-        groupId: 'brent-crude',
-        title: 'Brent Crude (USD/barrel)',
-        series: [
-          {
-            key: 'Brent Crude',
-            label: 'Brent Crude',
-            color: '#2ca02c',
-            strokeWidth: 2,
-            showPoints: false,
-            showEndLabel: true,
-          },
-        ],
+        key: 'AMZN',
+        label: 'Amazon',
+        color: '#d62728',
+        endLabelType: 'value' as const,
       },
     ],
     layout: 'multiples',
-    width: 1000,
-    height: 900,
     xKey: 'date',
-    showGrid: true,
-    showYAxis: true,
-    showXAxis: true,
-    showLegend: false,
+    yAxisConfig: { prefix: '$' },
+    showGridY: false,
+    smallMultiplesXAxisMode: 'first-in-row',
   }}
 />
 
 <Story
-  name="Y-Axis Formatting"
+  name="Small multiples: multi-line charts"
+  exportName="SmallMultiplesMultiLineCharts"
   args={{
-    data: chartData,
-    series: [
-      {
-        key: 'Dutch Gas',
-        label: 'Dutch Gas Prices',
-        color: '#1f77b4',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
-      },
-      {
-        key: 'Asia LNG',
-        label: 'Asia LNG Prices',
-        color: '#ff7f0e',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
-      },
-      {
-        key: 'Brent Crude',
-        label: 'Brent Crude Prices',
-        color: '#2ca02c',
-        strokeWidth: 2,
-        showPoints: true,
-        showEndLabel: true,
-      },
-    ],
-    layout: 'single',
-    width: 800,
-    height: 400,
+    data: countriesWideData,
+    chartGroups: countriesChartGroups,
+    layout: 'multiples',
     xKey: 'date',
+    height: 400,
+    margin: { top: 20, right: 70, bottom: 60, left: 30 },
     yAxisConfig: {
       mode: 'all-ticks',
+      suffix: '%',
     },
-    showGrid: true,
-    showYAxis: true,
-    showXAxis: true,
-    showLegend: true,
+    yTickCount: 3,
+    smallMultiplesEndLabelsMode: 'first-in-row',
+    smallMultiplesXAxisMode: 'first-in-row',
+    xAxisDateFormat: `%b '%y`,
+    showGridY: true,
+    showLegend: false,
   }}
 />

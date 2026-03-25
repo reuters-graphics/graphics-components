@@ -2,11 +2,11 @@
   import ChartSVG from './ChartSVG.svelte';
   import type {
     Datum,
-    LineSeriesInput,
     ComputedScales,
     YAxisConfig,
     ChartGrouping,
   } from '../types/index.js';
+  import type { Snippet } from 'svelte';
 
   interface Props {
     data: Datum[];
@@ -23,7 +23,7 @@
     showGrid?: boolean;
     showYAxis?: boolean;
     showXAxis?: boolean;
-    children?: any;
+    children?: Snippet;
   }
 
   let {
@@ -77,16 +77,16 @@
 </div>
 
 <style>
-  :global(.chart-grid) {
+  .chart-grid {
     width: 100%;
   }
 
-  :global(.chart-group) {
+  .chart-group {
     display: flex;
     flex-direction: column;
   }
 
-  :global(.group-title) {
+  .group-title {
     font-size: 14px;
     font-weight: 600;
     margin: 0 0 12px 0;

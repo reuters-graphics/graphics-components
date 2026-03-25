@@ -1,52 +1,57 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import ChartSVG from './components/ChartSVG.svelte';
-  import { ChartGrid } from '../ChartGrid/index.js';
+  import { ChartGrid } from '../ChartGrid/index';
   import {
     buildScales,
     computeResponsiveState,
     createResizeObserver,
     generateLegendItems,
-  } from './utils/index.js';
+    normalizeXAxisData,
+  } from './utils/index';
   import type {
     LineChartProps,
-    LineSeriesInput,
-    ResponsiveRule,
-    ChartGrouping,
+    ResponsiveState,
+    SmallMultiplesDisplayMode,
   } from './types/index.js';
 
-  interface IProps extends LineChartProps {}
-
   let {
-    data = [],
+    data,
     series = [],
     chartGroups,
     layout = 'single',
-    xKey = 'date',
-    yKey = 'value',
+    xKey,
+    yKey,
+    showEndPoint = true,
+    endPointRadius,
     width = 800,
     height = 400,
-    margin = { top: 20, right: 20, bottom: 30, left: 50 },
+    margin = { top: 50, right: 50, bottom: 50, left: 50 },
     yAxisConfig,
     yValueFormatter,
     yAxisFormat,
+    xAxisDateFormat = '%b %-d, %Y',
     responsive = false,
     responsiveRules,
-    showGrid = true,
+    showGridX = false,
+    showGridY = true,
     showYAxis = true,
     showXAxis = true,
-    showLegend = true,
+    showLegend = false,
+    yTickCount,
+    xTickCount,
+    smallMultiplesEndLabelsMode = 'first',
+    smallMultiplesXAxisMode = 'first',
     scaleConfig,
-    children,
+    children: overlayChildren,
     beforeSVG,
-    svgOverlay,
     afterChart,
-  }: IProps = $props();
+  }: LineChartProps = $props();
 
   // State
   let containerWidth = $state(width);
-  let responsiveState = $state({
-    width: containerWidth,
+  let responsiveState = $state<ResponsiveState>({
+    width: width,
     layout: layout as 'single' | 'multiples',
   });
   let container: HTMLDivElement | undefined = $state();
@@ -54,6 +59,17 @@
 
   // Reactive values
   const activeLayout = $derived(responsive ? responsiveState.layout : layout);
+  const applySeriesDefaults = (
+    inputSeries: typeof series,
+    defaultShowEndPoint: boolean
+  ) => {
+    return inputSeries.map((s) => ({
+      ...s,
+      showEndPoint: s.showEndPoint ?? defaultShowEndPoint,
+      showEndLabel: s.showEndLabel ?? true,
+    }));
+  };
+
   const activeColumnsPerRow = $derived.by(() => {
     const responsiveColumns = responsiveState.columnsPerRow;
 
@@ -68,9 +84,23 @@
   const activeSeries = $derived.by(() => {
     if (activeLayout === 'multiples' && chartGroups) {
       // Flatten all series from chart groups
-      return chartGroups.flatMap((group) => group.series);
+      return applySeriesDefaults(
+        chartGroups.flatMap((group) => group.series),
+        true
+      );
     }
-    return series;
+
+    // For single layout, use series if provided
+    if (series.length > 0) {
+      return applySeriesDefaults(series, showEndPoint);
+    }
+
+    // If no series provided but yKey is, auto-construct a single series
+    if (yKey) {
+      return applySeriesDefaults([{ key: yKey, label: yKey }], showEndPoint);
+    }
+
+    return applySeriesDefaults(series, showEndPoint);
   });
 
   // Compute responsive state
@@ -102,17 +132,57 @@
     };
   });
 
+  // Normalize data: auto-detect and convert x-axis values to dates if needed
+  const normalizedData = $derived(normalizeXAxisData(data, xKey));
+
+  function shouldShowForTile(
+    tileIndex: number,
+    mode: SmallMultiplesDisplayMode,
+    columnsPerRow: number
+  ): boolean {
+    if (mode === 'all') return true;
+    if (mode === 'first-in-row') return tileIndex % columnsPerRow === 0;
+    return tileIndex === 0;
+  }
+
   // Legend items
   const legendItems = $derived(generateLegendItems(activeSeries));
 
   // Convert chart groups to grid items
-  const chartGroupItems = $derived(
-    chartGroups?.map((group) => ({
-      id: group.groupId,
-      title: group.title,
-      series: group.series,
-    })) || []
-  );
+  const chartGroupItems = $derived.by(() => {
+    if (chartGroups && chartGroups.length > 0) {
+      return chartGroups.map((group, index) => ({
+        id: group.groupId,
+        index,
+        title: group.title,
+        series: group.series,
+      }));
+    }
+
+    // Fallback: derive one panel per series so layout can be toggled
+    // between single and multiples without providing chartGroups.
+    if (series.length > 0) {
+      return series.map((s, index) => ({
+        id: s.key,
+        index,
+        title: s.label || s.key,
+        series: [s],
+      }));
+    }
+
+    if (yKey) {
+      return [
+        {
+          id: yKey,
+          index: 0,
+          title: yKey,
+          series: [{ key: yKey, label: yKey }],
+        },
+      ];
+    }
+
+    return [];
+  });
 
   // Calculate item dimensions based on responsive state
   const chartItemWidth = $derived.by(() => {
@@ -129,19 +199,41 @@
 
   // Build scales using per-tile dimensions in multiples mode
   const scales = $derived.by(() => {
+    const marginTop = margin.top ?? 20;
+    const marginRight = margin.right ?? 20;
+    const marginBottom = margin.bottom ?? 20;
+    const marginLeft = margin.left ?? 20;
+
     const dimensions =
       activeLayout === 'multiples' ?
-        { width: chartItemWidth, height: chartItemHeight }
-      : { width: containerWidth, height };
+        {
+          width: Math.max(1, chartItemWidth - marginLeft - marginRight),
+          height: Math.max(1, chartItemHeight - marginTop - marginBottom),
+        }
+      : {
+          width: Math.max(1, containerWidth - marginLeft - marginRight),
+          height: Math.max(1, height - marginTop - marginBottom),
+        };
 
-    return buildScales(data, activeSeries, xKey, dimensions, scaleConfig);
+    return buildScales(
+      normalizedData,
+      activeSeries,
+      xKey,
+      dimensions,
+      scaleConfig,
+      {
+        ...yAxisConfig,
+        mode: yAxisConfig?.mode ?? 'top-only',
+        zeroBase: yAxisConfig?.zeroBase ?? true,
+      }
+    );
   });
 </script>
 
 <div class="line-chart-container" bind:this={container} style="width: 100%;">
   {#if beforeSVG}
     <div class="before-svg">
-      <svelte:component this={beforeSVG} />
+      {@render beforeSVG()}
     </div>
   {/if}
 
@@ -160,51 +252,78 @@
   <div class="chart-wrapper" style="width: {containerWidth}px;">
     {#if activeLayout === 'single'}
       <ChartSVG
-        {data}
+        data={normalizedData}
         series={activeSeries}
         {scales}
         {xKey}
+        {showEndPoint}
+        {endPointRadius}
         width={containerWidth}
         {height}
         {margin}
         yAxisConfig={{
-          mode: yAxisConfig?.mode,
+          mode: yAxisConfig?.mode ?? 'top-only',
           prefix: yAxisConfig?.prefix,
           suffix: yAxisConfig?.suffix,
           yValueFormatter: yValueFormatter || yAxisConfig?.yValueFormatter,
         }}
         {yAxisFormat}
-        {showGrid}
+        {xAxisDateFormat}
+        {showGridX}
+        {showGridY}
         {showYAxis}
         {showXAxis}
-        {children}
+        {yTickCount}
+        {xTickCount}
+        children={overlayChildren}
       />
-    {:else if activeLayout === 'multiples' && chartGroups}
+    {:else if activeLayout === 'multiples' && chartGroupItems.length > 0}
       <ChartGrid
         items={chartGroupItems}
         columnsPerRow={activeColumnsPerRow}
         gap={24}
       >
         {#snippet children(item)}
+          {@const tileShowsEndLabels = shouldShowForTile(
+            item.index,
+            smallMultiplesEndLabelsMode,
+            activeColumnsPerRow
+          )}
+          {@const tileShowsXAxis = shouldShowForTile(
+            item.index,
+            smallMultiplesXAxisMode,
+            activeColumnsPerRow
+          )}
+          {@const tileSeries = item.series.map((s) => ({
+            ...s,
+            showEndLabel: tileShowsEndLabels ? (s.showEndLabel ?? true) : false,
+          }))}
           <ChartSVG
-            {data}
-            series={item.series}
+            data={normalizedData}
+            series={tileSeries}
             {scales}
             {xKey}
+            {showEndPoint}
+            {endPointRadius}
             width={chartItemWidth}
             height={chartItemHeight}
             {margin}
             yAxisConfig={{
-              mode: yAxisConfig?.mode,
+              mode: yAxisConfig?.mode ?? 'top-only',
               prefix: yAxisConfig?.prefix,
               suffix: yAxisConfig?.suffix,
               yValueFormatter: yValueFormatter || yAxisConfig?.yValueFormatter,
             }}
             {yAxisFormat}
-            {showGrid}
+            {xAxisDateFormat}
+            {showGridX}
+            {showGridY}
             {showYAxis}
             {showXAxis}
-            {children}
+            showXAxisLabels={tileShowsXAxis}
+            {yTickCount}
+            {xTickCount}
+            children={overlayChildren}
           />
         {/snippet}
       </ChartGrid>
@@ -213,22 +332,22 @@
 
   {#if afterChart}
     <div class="after-chart">
-      <svelte:component this={afterChart} />
+      {@render afterChart()}
     </div>
   {/if}
 </div>
 
-<style>
-  :global(.line-chart-container) {
+<style lang="scss">
+  .line-chart-container {
     display: flex;
     flex-direction: column;
   }
 
-  :global(.chart-wrapper) {
+  .chart-wrapper {
     flex: 1;
   }
 
-  :global(.legend) {
+  .legend {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
@@ -236,29 +355,29 @@
     padding: 0 16px;
   }
 
-  :global(.legend-item) {
+  .legend-item {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 12px;
   }
 
-  :global(.legend-color) {
+  .legend-color {
     display: inline-block;
     width: 12px;
     height: 12px;
     border-radius: 2px;
   }
 
-  :global(.legend-label) {
+  .legend-label {
     color: #666;
   }
 
-  :global(.before-svg) {
+  .before-svg {
     margin-bottom: 16px;
   }
 
-  :global(.after-chart) {
+  .after-chart {
     margin-top: 16px;
   }
 </style>

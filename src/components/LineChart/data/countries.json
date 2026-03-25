@@ -1,0 +1,386 @@
+[
+    {
+        "country": "USA",
+        "date": "2015-01-01",
+        "index": "GDP growth",
+        "value": 2.9
+    },
+    {
+        "country": "USA",
+        "date": "2016-01-01",
+        "index": "GDP growth",
+        "value": 1.6
+    },
+    {
+        "country": "USA",
+        "date": "2017-01-01",
+        "index": "GDP growth",
+        "value": 2.3
+    },
+    {
+        "country": "USA",
+        "date": "2018-01-01",
+        "index": "GDP growth",
+        "value": 2.9
+    },
+    {
+        "country": "USA",
+        "date": "2019-01-01",
+        "index": "GDP growth",
+        "value": 2.3
+    },
+    {
+        "country": "USA",
+        "date": "2020-01-01",
+        "index": "GDP growth",
+        "value": -3.4
+    },
+    {
+        "country": "USA",
+        "date": "2021-01-01",
+        "index": "GDP growth",
+        "value": 5.7
+    },
+    {
+        "country": "USA",
+        "date": "2022-01-01",
+        "index": "GDP growth",
+        "value": 2.1
+    },
+    {
+        "country": "USA",
+        "date": "2015-01-01",
+        "index": "Birth rate",
+        "value": 0.4
+    },
+    {
+        "country": "USA",
+        "date": "2016-01-01",
+        "index": "Birth rate",
+        "value": 0.2
+    },
+    {
+        "country": "USA",
+        "date": "2017-01-01",
+        "index": "Birth rate",
+        "value": -0.1
+    },
+    {
+        "country": "USA",
+        "date": "2018-01-01",
+        "index": "Birth rate",
+        "value": -0.3
+    },
+    {
+        "country": "USA",
+        "date": "2019-01-01",
+        "index": "Birth rate",
+        "value": -0.4
+    },
+    {
+        "country": "USA",
+        "date": "2020-01-01",
+        "index": "Birth rate",
+        "value": -0.8
+    },
+    {
+        "country": "USA",
+        "date": "2021-01-01",
+        "index": "Birth rate",
+        "value": 0.1
+    },
+    {
+        "country": "USA",
+        "date": "2022-01-01",
+        "index": "Birth rate",
+        "value": -0.2
+    },
+    {
+        "country": "Germany",
+        "date": "2015-01-01",
+        "index": "GDP growth",
+        "value": 1.7
+    },
+    {
+        "country": "Germany",
+        "date": "2016-01-01",
+        "index": "GDP growth",
+        "value": 2.2
+    },
+    {
+        "country": "Germany",
+        "date": "2017-01-01",
+        "index": "GDP growth",
+        "value": 2.6
+    },
+    {
+        "country": "Germany",
+        "date": "2018-01-01",
+        "index": "GDP growth",
+        "value": 1.5
+    },
+    {
+        "country": "Germany",
+        "date": "2019-01-01",
+        "index": "GDP growth",
+        "value": 1.1
+    },
+    {
+        "country": "Germany",
+        "date": "2020-01-01",
+        "index": "GDP growth",
+        "value": -4.6
+    },
+    {
+        "country": "Germany",
+        "date": "2021-01-01",
+        "index": "GDP growth",
+        "value": 2.9
+    },
+    {
+        "country": "Germany",
+        "date": "2022-01-01",
+        "index": "GDP growth",
+        "value": 1.8
+    },
+    {
+        "country": "Germany",
+        "date": "2015-01-01",
+        "index": "Birth rate",
+        "value": 1.2
+    },
+    {
+        "country": "Germany",
+        "date": "2016-01-01",
+        "index": "Birth rate",
+        "value": 1.5
+    },
+    {
+        "country": "Germany",
+        "date": "2017-01-01",
+        "index": "Birth rate",
+        "value": 0.9
+    },
+    {
+        "country": "Germany",
+        "date": "2018-01-01",
+        "index": "Birth rate",
+        "value": 0.4
+    },
+    {
+        "country": "Germany",
+        "date": "2019-01-01",
+        "index": "Birth rate",
+        "value": 0.1
+    },
+    {
+        "country": "Germany",
+        "date": "2020-01-01",
+        "index": "Birth rate",
+        "value": -0.3
+    },
+    {
+        "country": "Germany",
+        "date": "2021-01-01",
+        "index": "Birth rate",
+        "value": -0.5
+    },
+    {
+        "country": "Germany",
+        "date": "2022-01-01",
+        "index": "Birth rate",
+        "value": -0.6
+    },
+    {
+        "country": "Japan",
+        "date": "2015-01-01",
+        "index": "GDP growth",
+        "value": 1.6
+    },
+    {
+        "country": "Japan",
+        "date": "2016-01-01",
+        "index": "GDP growth",
+        "value": 0.8
+    },
+    {
+        "country": "Japan",
+        "date": "2017-01-01",
+        "index": "GDP growth",
+        "value": 1.7
+    },
+    {
+        "country": "Japan",
+        "date": "2018-01-01",
+        "index": "GDP growth",
+        "value": 0.6
+    },
+    {
+        "country": "Japan",
+        "date": "2019-01-01",
+        "index": "GDP growth",
+        "value": -0.4
+    },
+    {
+        "country": "Japan",
+        "date": "2020-01-01",
+        "index": "GDP growth",
+        "value": -4.3
+    },
+    {
+        "country": "Japan",
+        "date": "2021-01-01",
+        "index": "GDP growth",
+        "value": 1.7
+    },
+    {
+        "country": "Japan",
+        "date": "2022-01-01",
+        "index": "GDP growth",
+        "value": 1.0
+    },
+    {
+        "country": "Japan",
+        "date": "2015-01-01",
+        "index": "Birth rate",
+        "value": -0.8
+    },
+    {
+        "country": "Japan",
+        "date": "2016-01-01",
+        "index": "Birth rate",
+        "value": -0.9
+    },
+    {
+        "country": "Japan",
+        "date": "2017-01-01",
+        "index": "Birth rate",
+        "value": -1.0
+    },
+    {
+        "country": "Japan",
+        "date": "2018-01-01",
+        "index": "Birth rate",
+        "value": -1.1
+    },
+    {
+        "country": "Japan",
+        "date": "2019-01-01",
+        "index": "Birth rate",
+        "value": -1.2
+    },
+    {
+        "country": "Japan",
+        "date": "2020-01-01",
+        "index": "Birth rate",
+        "value": -1.4
+    },
+    {
+        "country": "Japan",
+        "date": "2021-01-01",
+        "index": "Birth rate",
+        "value": -1.5
+    },
+    {
+        "country": "Japan",
+        "date": "2022-01-01",
+        "index": "Birth rate",
+        "value": -1.6
+    },
+    {
+        "country": "Brazil",
+        "date": "2015-01-01",
+        "index": "GDP growth",
+        "value": -3.5
+    },
+    {
+        "country": "Brazil",
+        "date": "2016-01-01",
+        "index": "GDP growth",
+        "value": -3.3
+    },
+    {
+        "country": "Brazil",
+        "date": "2017-01-01",
+        "index": "GDP growth",
+        "value": 1.3
+    },
+    {
+        "country": "Brazil",
+        "date": "2018-01-01",
+        "index": "GDP growth",
+        "value": 1.8
+    },
+    {
+        "country": "Brazil",
+        "date": "2019-01-01",
+        "index": "GDP growth",
+        "value": 1.2
+    },
+    {
+        "country": "Brazil",
+        "date": "2020-01-01",
+        "index": "GDP growth",
+        "value": -3.9
+    },
+    {
+        "country": "Brazil",
+        "date": "2021-01-01",
+        "index": "GDP growth",
+        "value": 4.6
+    },
+    {
+        "country": "Brazil",
+        "date": "2022-01-01",
+        "index": "GDP growth",
+        "value": 2.9
+    },
+    {
+        "country": "Brazil",
+        "date": "2015-01-01",
+        "index": "Birth rate",
+        "value": 0.9
+    },
+    {
+        "country": "Brazil",
+        "date": "2016-01-01",
+        "index": "Birth rate",
+        "value": 0.6
+    },
+    {
+        "country": "Brazil",
+        "date": "2017-01-01",
+        "index": "Birth rate",
+        "value": 0.3
+    },
+    {
+        "country": "Brazil",
+        "date": "2018-01-01",
+        "index": "Birth rate",
+        "value": 0.1
+    },
+    {
+        "country": "Brazil",
+        "date": "2019-01-01",
+        "index": "Birth rate",
+        "value": -0.1
+    },
+    {
+        "country": "Brazil",
+        "date": "2020-01-01",
+        "index": "Birth rate",
+        "value": -0.5
+    },
+    {
+        "country": "Brazil",
+        "date": "2021-01-01",
+        "index": "Birth rate",
+        "value": -0.3
+    },
+    {
+        "country": "Brazil",
+        "date": "2022-01-01",
+        "index": "Birth rate",
+        "value": -0.4
+    }
+]

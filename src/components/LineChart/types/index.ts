@@ -21,13 +21,15 @@ export interface YAxisLabelContext {
 /**
  * Y-axis labeling configuration
  */
-export type YAxisLabelMode = 'top-only' | 'all-ticks' | 'custom';
+export type YAxisLabelMode = 'top-only' | 'all-ticks';
 
 export interface YAxisConfig {
     mode?: YAxisLabelMode;
     prefix?: string;
     suffix?: string;
+    zeroBase?: boolean;
     yValueFormatter?: (value: number, context: YAxisLabelContext) => string;
+    endValueDecimalPlaces?: number; // Decimal places for end value labels (default: 0 for whole numbers)
 }
 
 /**
@@ -38,8 +40,19 @@ export interface LineSeriesInput {
     label?: string;
     color?: string;
     strokeWidth?: number;
-    showPoints?: boolean;
-    showEndLabel?: boolean;
+    showEndLabel?: boolean; // Default: true
+    showEndPoint?: boolean; // Default: true
+    endPointRadius?: number; // Radius of end point circle (default: 4)
+    endPointFill?: string; // Fill color for end point (default: series color)
+    endPointStroke?: string; // Stroke color for end point (default: white)
+    endPointStrokeWidth?: number; // Stroke width for end point (default: 2)
+    endLabelType?: 'label' | 'value'; // What to show in end label (default: 'label')
+    endLabelPosition?: {
+        xOffset?: number; // Horizontal offset from end point (default: 5)
+        yOffset?: number; // Vertical offset from end point (default: 0)
+        textAnchor?: 'start' | 'middle' | 'end'; // Default: 'start'
+    };
+    endLabelFormatter?: (value: number, context: YAxisLabelContext) => string; // Override formatting for this series' end label
 }
 
 /**
@@ -71,6 +84,8 @@ export interface ResponsiveState {
     columnsPerRow?: number;
 }
 
+export type SmallMultiplesDisplayMode = 'first' | 'all' | 'first-in-row';
+
 /**
  * Scale configuration
  */
@@ -90,14 +105,16 @@ export interface ScaleConfig {
  */
 export interface LineChartProps {
     // Data
-    data?: Datum[];
+    data: Datum[];
     series?: LineSeriesInput[];
     chartGroups?: ChartGrouping[];
 
     // Display
     layout?: 'single' | 'multiples';
-    xKey?: string;
-    yKey?: string;
+    xKey: string;
+    yKey?: string; // Single-line shorthand: uses yKey as series key if no series provided
+    showEndPoint?: boolean; // Default end-point visibility for single-line mode
+    endPointRadius?: number; // Default end-point radius for single-line mode (default: 4)
 
     // Dimensions
     width?: number;
@@ -113,16 +130,23 @@ export interface LineChartProps {
     yAxisConfig?: YAxisConfig;
     yValueFormatter?: (value: number, context: YAxisLabelContext) => string;
     yAxisFormat?: string; // For d3 number formatting
+    xAxisDateFormat?: string;
 
     // Responsive
     responsive?: boolean;
     responsiveRules?: ResponsiveRule[];
 
     // Grid & Axes
-    showGrid?: boolean;
+    showGrid?: boolean; // Deprecated: use showGridX and showGridY instead
+    showGridX?: boolean; // Show vertical grid lines (default: false)
+    showGridY?: boolean; // Show horizontal grid lines (default: true)
     showYAxis?: boolean;
     showXAxis?: boolean;
     showLegend?: boolean;
+    yTickCount?: number;
+    xTickCount?: number;
+    smallMultiplesEndLabelsMode?: SmallMultiplesDisplayMode; // Default: 'first'
+    smallMultiplesXAxisMode?: SmallMultiplesDisplayMode; // Default: 'first'
 
     // Scales
     scaleConfig?: ScaleConfig;
@@ -130,7 +154,6 @@ export interface LineChartProps {
     // Children & Snippets
     children?: Snippet;
     beforeSVG?: Snippet;
-    svgOverlay?: Snippet;
     afterChart?: Snippet;
 }
 

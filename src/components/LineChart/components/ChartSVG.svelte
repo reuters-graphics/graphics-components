@@ -1,8 +1,11 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
+  import { GridLines, XAxis, YAxis } from '../../ChartElements/index.js';
   import { generateYTicks, generateXTicks } from '../utils/index.js';
   import {
     createYLabelFormatter,
     formatXAxisDate,
+    formatEndValue,
   } from '../utils/formatting.js';
   import type {
     ComputedScales,
@@ -16,17 +19,24 @@
     data: Datum[];
     series: LineSeriesInput[];
     scales: ComputedScales;
-    xKey?: string;
+    xKey: string;
     yKey?: string;
+    showEndPoint: boolean;
+    endPointRadius?: number;
     width: number;
     height: number;
     margin?: { top?: number; right?: number; bottom?: number; left?: number };
     yAxisConfig?: YAxisConfig;
     yAxisFormat?: string;
-    showGrid?: boolean;
+    xAxisDateFormat?: string;
+    showGridX?: boolean;
+    showGridY?: boolean;
     showYAxis?: boolean;
     showXAxis?: boolean;
-    children?: any;
+    showXAxisLabels?: boolean;
+    yTickCount?: number;
+    xTickCount?: number;
+    children?: Snippet;
   }
 
   let {
@@ -34,14 +44,21 @@
     series,
     scales,
     xKey = 'date',
+    showEndPoint = true,
+    endPointRadius,
     width,
     height,
     margin = { top: 20, right: 20, bottom: 30, left: 50 },
     yAxisConfig,
     yAxisFormat,
-    showGrid = true,
+    xAxisDateFormat = '%b %-d, %Y',
+    showGridX = false,
+    showGridY = true,
     showYAxis = true,
     showXAxis = true,
+    showXAxisLabels = true,
+    yTickCount,
+    xTickCount,
     children,
   }: Props = $props();
 
@@ -50,17 +67,68 @@
   const marginBottom = margin.bottom ?? 30;
   const marginLeft = margin.left ?? 50;
 
-  const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
 
   // Generate tick values
-  const yTicks = $derived(generateYTicks(scales.yDomain, 5));
-  const xTicks = $derived(generateXTicks(scales.xDomain, 5));
+  const autoYTickCount = $derived.by(() => {
+    return Math.max(2, Math.min(7, Math.round(chartHeight / 80)));
+  });
+  const effectiveYTickCount = $derived.by(() => {
+    if (typeof yTickCount === 'number') {
+      return Math.max(2, Math.min(20, Math.round(yTickCount)));
+    }
+    return autoYTickCount;
+  });
+  const yTicks = $derived.by(() => {
+    const ticks = generateYTicks(scales.yDomain, effectiveYTickCount);
+    const shouldIncludeZero = yAxisConfig?.zeroBase ?? true;
+
+    if (!shouldIncludeZero) return ticks;
+
+    const [domainMin, domainMax] = scales.yDomain;
+    if (domainMin > 0 || domainMax < 0) return ticks;
+
+    const hasZeroTick = ticks.some((t) => Math.abs(t) < 1e-9);
+    if (hasZeroTick) return ticks;
+
+    const withZero = [...ticks, 0].sort((a, b) => a - b);
+    return withZero;
+  });
+  const effectiveXTickCount = $derived.by(() => {
+    if (typeof xTickCount === 'number') {
+      return Math.max(2, Math.min(20, Math.round(xTickCount)));
+    }
+    return 5;
+  });
+  const xTicks = $derived(generateXTicks(scales.xDomain, effectiveXTickCount));
 
   // Create formatter
   const formatYLabel = $derived(
     createYLabelFormatter(yAxisConfig, yAxisFormat)
   );
+
+  const yTickLabels = $derived.by(() => {
+    return yTicks.map((tick, tickIndex) => {
+      const isTopTick = tickIndex === yTicks.length - 1;
+      const isBottomTick = tickIndex === 0;
+      const context: YAxisLabelContext = {
+        value: tick,
+        isTopTick,
+        isBottomTick,
+        isEndValue: false,
+        tickIndex,
+      };
+      return formatYLabel(tick, context);
+    });
+  });
+
+  const lowestYTick = $derived.by(() => {
+    if (yTicks.length === 0) return 0;
+    return Math.min(...yTicks);
+  });
+
+  const xAxisBaselineY = $derived(marginTop + scales.yScale(lowestYTick));
+  const isZeroBaseline = $derived(Math.abs(lowestYTick) < 1e-9);
 
   // Path generator for individual series
   function generatePath(seriesKey: string): string {
@@ -87,36 +155,55 @@
     ];
     return series[index]?.color || colors[index % colors.length];
   }
+
+  function formatEndLabel(
+    s: LineSeriesInput,
+    value: number,
+    context: YAxisLabelContext
+  ): string {
+    if (s.endLabelFormatter) {
+      return s.endLabelFormatter(value, context);
+    }
+
+    const endLabelType = s.endLabelType ? s.endLabelType : 'value';
+
+    // Format the numeric value with rounding and units
+    const decimalPlaces = yAxisConfig?.endValueDecimalPlaces ?? 0;
+    const formattedValue = formatEndValue(
+      value,
+      decimalPlaces,
+      yAxisConfig?.prefix,
+      yAxisConfig?.suffix
+    );
+
+    // Build the label based on content preference
+    if (endLabelType === 'label') {
+      return s.label ?? s.key;
+    } else if (endLabelType === 'value') {
+      return formattedValue;
+    } else {
+      // 'both'
+      return `${s.label ?? s.key} ${formattedValue}`;
+    }
+  }
 </script>
 
 <svg {width} {height} class="line-chart">
-  <!-- Background grid -->
-  {#if showGrid}
-    <g class="grid">
-      <!-- Horizontal grid lines -->
-      {#each yTicks as tick}
-        {@const y = scales.yScale(tick)}
-        <line
-          x1={marginLeft}
-          y1={y}
-          x2={width - marginRight}
-          y2={y}
-          class="grid-line horizontal"
-        />
-      {/each}
-
-      <!-- Vertical grid lines -->
-      {#each xTicks as tick}
-        {@const x = scales.xScale(tick)}
-        <line
-          x1={x}
-          y1={marginTop}
-          x2={x}
-          y2={height - marginBottom}
-          class="grid-line vertical"
-        />
-      {/each}
-    </g>
+  {#if showGridX || showGridY}
+    <GridLines
+      {width}
+      {height}
+      {marginTop}
+      {marginRight}
+      {marginBottom}
+      {marginLeft}
+      {yTicks}
+      {xTicks}
+      yScale={scales.yScale}
+      xScale={scales.xScale}
+      showHorizontal={showGridY}
+      showVertical={showGridX}
+    />
   {/if}
 
   <!-- Chart group (clipping region) -->
@@ -131,11 +218,23 @@
           2}px; fill: none;"
       />
 
-      <!-- End labels (if enabled) -->
-      {#if s.showEndLabel && data.length > 0}
+      <!-- End point marker (shown by default) -->
+      {#if (s.showEndPoint ?? showEndPoint) && data.length > 0}
         {@const lastPoint = data[data.length - 1]}
-        {@const x = scales.xScale(lastPoint[xKey] as Date) + 5}
-        {@const y = scales.yScale(lastPoint[s.key] as number)}
+        {@const cx = scales.xScale(lastPoint[xKey] as Date)}
+        {@const cy = scales.yScale(lastPoint[s.key] as number)}
+        {@const radius = s.endPointRadius ?? endPointRadius ?? 4}
+        <circle r={radius} {cx} {cy} class="end-point" style="fill: {color};" />
+      {/if}
+
+      <!-- End labels (shown by default) -->
+      {#if (s.showEndLabel ?? true) && data.length > 0}
+        {@const lastPoint = data[data.length - 1]}
+        {@const xOffset = s.endLabelPosition?.xOffset ?? 5}
+        {@const yOffset = s.endLabelPosition?.yOffset ?? 0}
+        {@const textAnchor = s.endLabelPosition?.textAnchor ?? 'start'}
+        {@const x = scales.xScale(lastPoint[xKey] as Date) + xOffset}
+        {@const y = scales.yScale(lastPoint[s.key] as number) + yOffset}
         {@const endContext = {
           value: lastPoint[s.key] as number,
           isTopTick: false,
@@ -148,9 +247,10 @@
           {y}
           class="end-label"
           style="fill: {color};"
-          text-anchor="start"
+          text-anchor={textAnchor}
+          dominant-baseline="middle"
         >
-          {formatYLabel(lastPoint[s.key] as number, endContext)}
+          {formatEndLabel(s, lastPoint[s.key] as number, endContext)}
         </text>
       {/if}
     {/each}
@@ -158,123 +258,61 @@
     <!-- Child content (overlay) -->
     {#if children}
       <g class="overlay">
-        <svelte:component this={children} />
+        {@render children()}
       </g>
     {/if}
   </g>
 
-  <!-- Y-Axis -->
   {#if showYAxis}
-    <g class="y-axis">
-      <!-- Axis line -->
-      <line
-        x1={marginLeft}
-        y1={marginTop}
-        x2={marginLeft}
-        y2={height - marginBottom}
-        class="axis-line"
-      />
-
-      <!-- Ticks and labels -->
-      {#each yTicks as tick, tickIndex}
-        {@const y = scales.yScale(tick)}
-        {@const isTopTick = tickIndex === yTicks.length - 1}
-        {@const isBottomTick = tickIndex === 0}
-        {@const context = {
-          value: tick,
-          isTopTick,
-          isBottomTick,
-          isEndValue: false,
-          tickIndex,
-        } as YAxisLabelContext}
-        {@const label = formatYLabel(tick, context)}
-
-        <line x1={marginLeft - 5} y1={y} x2={marginLeft} y2={y} class="tick" />
-        <text
-          x={marginLeft - 10}
-          {y}
-          class="tick-label"
-          text-anchor="end"
-          dy="0.32em"
-        >
-          {label}
-        </text>
-      {/each}
-    </g>
+    <YAxis
+      {marginTop}
+      {marginLeft}
+      {yTicks}
+      yLabels={yTickLabels}
+      yScale={scales.yScale}
+      showTicks={!showGridY}
+    />
   {/if}
 
-  <!-- X-Axis -->
   {#if showXAxis}
-    <g class="x-axis">
-      <!-- Axis line -->
-      <line
-        x1={marginLeft}
-        y1={height - marginBottom}
-        x2={width - marginRight}
-        y2={height - marginBottom}
-        class="axis-line"
-      />
-
-      <!-- Ticks and labels -->
-      {#each xTicks as tick}
-        {@const x = scales.xScale(tick)}
-        <line
-          x1={x}
-          y1={height - marginBottom}
-          x2={x}
-          y2={height - marginBottom + 5}
-          class="tick"
-        />
-        <text
-          {x}
-          y={height - marginBottom + 15}
-          class="tick-label"
-          text-anchor="middle"
-        >
-          {formatXAxisDate(tick)}
-        </text>
-      {/each}
-    </g>
+    <XAxis
+      {width}
+      {height}
+      {marginRight}
+      {marginBottom}
+      {marginLeft}
+      axisY={xAxisBaselineY}
+      useSecondaryStyle={!isZeroBaseline}
+      {xTicks}
+      xScale={scales.xScale}
+      formatTick={(tick) => formatXAxisDate(tick, xAxisDateFormat)}
+      showLabels={showXAxisLabels}
+    />
   {/if}
 </svg>
 
-<style>
+<style lang="scss">
   svg {
     display: block;
-    font-family:
+    font-family: var(
+      --line-chart-font-family,
       system-ui,
       -apple-system,
-      sans-serif;
+      sans-serif
+    );
     font-size: 12px;
   }
 
-  :global(.grid-line) {
-    stroke: #e0e0e0;
-    stroke-dasharray: 4, 4;
-    opacity: 0.5;
-  }
-
-  :global(.axis-line) {
-    stroke: #000;
-    stroke-width: 1px;
-  }
-
-  :global(.tick) {
-    stroke: #000;
-    stroke-width: 1px;
-  }
-
-  :global(.tick-label) {
-    font-size: 12px;
-    fill: #666;
-  }
-
-  :global(.end-label) {
+  .end-label {
     font-size: 11px;
     font-weight: 500;
   }
 
-  :global(.line) {
+  .end-point {
+    opacity: 0.95;
+  }
+
+  .line {
     shape-rendering: crispEdges;
   }
 </style>

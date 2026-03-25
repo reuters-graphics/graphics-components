@@ -1,0 +1,242 @@
+[
+    {
+        "company": "AAPL",
+        "date": "2024-01-01",
+        "endDayVal": 150
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-02-01",
+        "endDayVal": 158
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-03-01",
+        "endDayVal": 145
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-04-01",
+        "endDayVal": 162
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-05-01",
+        "endDayVal": 170
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-06-01",
+        "endDayVal": 168
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-07-01",
+        "endDayVal": 175
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-08-01",
+        "endDayVal": 180
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-09-01",
+        "endDayVal": 172
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-10-01",
+        "endDayVal": 185
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-11-01",
+        "endDayVal": 190
+    },
+    {
+        "company": "AAPL",
+        "date": "2024-12-01",
+        "endDayVal": 195
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-01-01",
+        "endDayVal": 280
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-02-01",
+        "endDayVal": 275
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-03-01",
+        "endDayVal": 290
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-04-01",
+        "endDayVal": 285
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-05-01",
+        "endDayVal": 300
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-06-01",
+        "endDayVal": 310
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-07-01",
+        "endDayVal": 305
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-08-01",
+        "endDayVal": 320
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-09-01",
+        "endDayVal": 315
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-10-01",
+        "endDayVal": 330
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-11-01",
+        "endDayVal": 325
+    },
+    {
+        "company": "GOOGL",
+        "date": "2024-12-01",
+        "endDayVal": 340
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-01-01",
+        "endDayVal": 310
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-02-01",
+        "endDayVal": 320
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-03-01",
+        "endDayVal": 315
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-04-01",
+        "endDayVal": 330
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-05-01",
+        "endDayVal": 340
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-06-01",
+        "endDayVal": 335
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-07-01",
+        "endDayVal": 350
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-08-01",
+        "endDayVal": 360
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-09-01",
+        "endDayVal": 355
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-10-01",
+        "endDayVal": 370
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-11-01",
+        "endDayVal": 380
+    },
+    {
+        "company": "MSFT",
+        "date": "2024-12-01",
+        "endDayVal": 390
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-01-01",
+        "endDayVal": 175
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-02-01",
+        "endDayVal": 180
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-03-01",
+        "endDayVal": 170
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-04-01",
+        "endDayVal": 185
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-05-01",
+        "endDayVal": 190
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-06-01",
+        "endDayVal": 195
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-07-01",
+        "endDayVal": 200
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-08-01",
+        "endDayVal": 195
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-09-01",
+        "endDayVal": 210
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-10-01",
+        "endDayVal": 205
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-11-01",
+        "endDayVal": 220
+    },
+    {
+        "company": "AMZN",
+        "date": "2024-12-01",
+        "endDayVal": 215
+    }
+]
