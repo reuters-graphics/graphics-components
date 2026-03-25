@@ -13,7 +13,7 @@
     /**
      * GeoJSON data to display (FeatureCollection, Feature, Geometry, or URL string to fetch from)
      */
-    data: GeoJSON | Record<string, unknown> | string;
+    data: GeoJSON | string;
     /**
      * Layer type: 'fill', 'line', 'circle', 'symbol', etc.
      */
@@ -128,7 +128,7 @@
       if (!map.getSource(sourceId)) {
         map.addSource(sourceId, {
           type: 'geojson',
-          data: currentData as GeoJSON,
+          data: currentData,
         });
       }
 
@@ -170,7 +170,7 @@
 
     const source = map.getSource(sourceId);
     if (source && (source as GeoJSONSource).setData) {
-      (source as GeoJSONSource).setData(currentData as GeoJSON);
+      (source as GeoJSONSource).setData(currentData);
     }
   });
 
