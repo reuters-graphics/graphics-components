@@ -53,13 +53,16 @@ Disable interaction for static maps:
 
 Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass GeoJSON data directly or fetch it from a URL. Layer rendering order will directly correspond to the order in which you add the layers in the code.
 
+> **Note for TypeScript users:** When passing GeoJSON data objects, you'll need to type cast them using `as GeoJSON` to ensure TypeScript recognizes the correct type. This provides better type safety and error messages. See examples below.
+
 <Canvas of={TileMapStories.WithGeoJSONLayers} />
 
 ### Basic example with local data
 
 ```svelte
-<script>
+<script lang="ts">
   import { TileMap, TileMapLayer } from '@reuters-graphics/graphics-components';
+  import type { GeoJSON } from 'geojson';
 
   const parkData = {
     type: 'FeatureCollection',
@@ -88,7 +91,7 @@ Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass G
   <!-- Polygon fill -->
   <TileMapLayer
     id="park-fill"
-    data={parkData}
+    data={parkData as GeoJSON}
     type="fill"
     paint={{
       'fill-color': '#179639',
@@ -99,7 +102,7 @@ Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass G
   <!-- Polygon outline -->
   <TileMapLayer
     id="park-outline"
-    data={parkData}
+    data={parkData as GeoJSON}
     type="line"
     paint={{
       'line-color': '#228b22',
@@ -130,7 +133,9 @@ You can also pass a URL string to fetch GeoJSON data:
 ### Adding point markers
 
 ```svelte
-<script>
+<script lang="ts">
+  import type { GeoJSON } from 'geojson';
+
   const officeLocation = {
     type: 'FeatureCollection',
     features: [
@@ -150,7 +155,7 @@ You can also pass a URL string to fetch GeoJSON data:
   <!-- Point marker -->
   <TileMapLayer
     id="office-point"
-    data={officeLocation}
+    data={officeLocation as GeoJSON}
     type="circle"
     paint={{
       'circle-radius': 6,
@@ -163,7 +168,7 @@ You can also pass a URL string to fetch GeoJSON data:
   <!-- Text label -->
   <TileMapLayer
     id="office-label"
-    data={officeLocation}
+    data={officeLocation as GeoJSON}
     type="symbol"
     layout={{
       'text-field': 'Office',
