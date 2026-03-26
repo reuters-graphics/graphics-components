@@ -4,13 +4,14 @@
   import { generateYTicks, generateXTicks } from '../utils/index.js';
   import {
     createYLabelFormatter,
-    formatXAxisDate,
+    createXLabelFormatter,
     formatEndValue,
   } from '../utils/formatting.js';
   import type {
     ComputedScales,
     Datum,
     LineSeriesInput,
+    XAxisConfig,
     YAxisConfig,
     YAxisLabelContext,
   } from '../types/index.js';
@@ -27,8 +28,7 @@
     height: number;
     margin: { top: number; right: number; bottom: number; left: number };
     yAxisConfig?: YAxisConfig;
-    yAxisFormat?: string;
-    xAxisDateFormat?: string;
+    xAxisConfig?: XAxisConfig;
     showGridX?: boolean;
     showGridY?: boolean;
     showYAxis?: boolean;
@@ -50,8 +50,7 @@
     height,
     margin,
     yAxisConfig,
-    yAxisFormat,
-    xAxisDateFormat = '%b %-d, %Y',
+    xAxisConfig,
     showGridX = false,
     showGridY = true,
     showYAxis = true,
@@ -98,9 +97,10 @@
   const xTicks = $derived(generateXTicks(scales.xDomain, effectiveXTickCount));
 
   // Create formatter
-  const formatYLabel = $derived(
-    createYLabelFormatter(yAxisConfig, yAxisFormat)
-  );
+  const formatYLabel = $derived(createYLabelFormatter(yAxisConfig));
+
+  // Create x-axis formatter
+  const formatXLabel = $derived(createXLabelFormatter(xAxisConfig));
 
   const yTickLabels = $derived.by(() => {
     return yTicks.map((tick, tickIndex) => {
@@ -117,6 +117,14 @@
     });
   });
 
+  const xTickLabels = $derived.by(() => {
+    return xTicks.map((tick, tickIndex) => {
+      const formatted = formatXLabel(tick, tickIndex);
+      // Ensure it's always an array for consistent handling in XAxis component
+      return Array.isArray(formatted) ? formatted : [formatted];
+    });
+  });
+
   const lowestYTick = $derived.by(() => {
     if (yTicks.length === 0) return 0;
     return Math.min(...yTicks);
@@ -125,14 +133,10 @@
   const xAxisBaselineY = $derived(margin.top + scales.yScale(lowestYTick));
   const isZeroBaseline = $derived(Math.abs(lowestYTick) < 1e-9);
 
-  function absoluteX(value: Date): number {
-    return margin.left + scales.xScale(value);
-  }
-
   // Path generator for individual series
   function generatePath(seriesKey: string): string {
     const points = data.map((d) => {
-      const x = absoluteX(d[xKey] as Date);
+      const x = scales.xScale(d[xKey] as Date);
       const y = scales.yScale(d[seriesKey] as number);
       return `${x},${y}`;
     });
@@ -152,7 +156,7 @@
       '#e377c2',
       '#7f7f7f',
     ];
-    return series[index]?.color || colors[index % colors.length];
+    return series[index]?.colour || colors[index % colors.length];
   }
 
   function formatEndLabel(
@@ -212,15 +216,15 @@
       {@const color = getSeriesColor(seriesIndex)}
       <path
         d={generatePath(s.key)}
-        class="line"
+        class="data-line"
         style="stroke: {color}; stroke-width: {s.strokeWidth ||
-          2}px; fill: none; translate: {margin.left}px;"
+          2}px; fill: none; translate: {margin.left}px 0;"
       />
 
       <!-- End point marker (shown by default) -->
       {#if (s.showEndPoint ?? showEndPoint) && data.length > 0}
         {@const lastPoint = data[data.length - 1]}
-        {@const cx = absoluteX(lastPoint[xKey] as Date)}
+        {@const cx = scales.xScale(lastPoint[xKey] as Date)}
         {@const cy = scales.yScale(lastPoint[s.key] as number)}
         {@const radius = s.endPointRadius ?? endPointRadius ?? 4}
         <circle
@@ -228,7 +232,7 @@
           {cx}
           {cy}
           class="end-point"
-          style="fill: {color}; translate: {margin.left}px;"
+          style="fill: {color}; translate: {margin.left}px 0;"
         />
       {/if}
 
@@ -238,7 +242,7 @@
         {@const xOffset = s.endLabelPosition?.xOffset ?? 5}
         {@const yOffset = s.endLabelPosition?.yOffset ?? 0}
         {@const textAnchor = s.endLabelPosition?.textAnchor ?? 'start'}
-        {@const x = absoluteX(lastPoint[xKey] as Date) + xOffset}
+        {@const x = scales.xScale(lastPoint[xKey] as Date) + xOffset}
         {@const y = scales.yScale(lastPoint[s.key] as number) + yOffset}
         {@const endContext = {
           value: lastPoint[s.key] as number,
@@ -251,7 +255,7 @@
           {x}
           {y}
           class="end-label"
-          style="fill: {color}; translate: {margin.left}px;"
+          style="fill: {color}; translate: {margin.left}px 0;"
           text-anchor={textAnchor}
           dominant-baseline="middle"
         >
@@ -289,8 +293,8 @@
       axisY={xAxisBaselineY}
       useSecondaryStyle={!isZeroBaseline}
       {xTicks}
-      xScale={absoluteX}
-      formatTick={(tick) => formatXAxisDate(tick, xAxisDateFormat)}
+      xScale={scales.xScale}
+      xLabels={xTickLabels}
       showLabels={showXAxisLabels}
     />
   {/if}
@@ -317,7 +321,7 @@
     opacity: 0.95;
   }
 
-  .line {
+  .data-line {
     shape-rendering: crispEdges;
   }
 </style>

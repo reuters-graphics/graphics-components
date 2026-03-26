@@ -29,9 +29,7 @@
     height = 400,
     margin,
     yAxisConfig,
-    yValueFormatter,
-    yAxisFormat,
-    xAxisDateFormat = '%b %-d, %Y',
+    xAxisConfig,
     responsive = false,
     responsiveRules,
     showGridX = false,
@@ -65,6 +63,17 @@
     right: margin?.right ?? 20,
     bottom: margin?.bottom ?? 20,
     left: margin?.left ?? 15,
+  }));
+
+  const resolvedYAxisConfig = $derived.by(() => ({
+    ...yAxisConfig,
+    mode: yAxisConfig?.mode ?? 'top-only',
+    zeroBase: yAxisConfig?.zeroBase ?? true,
+  }));
+
+  const resolvedXAxisConfig = $derived.by(() => ({
+    xAxisDateFormat: xAxisConfig?.xAxisDateFormat ?? '%b %-d, %Y',
+    xFormatter: xAxisConfig?.xFormatter,
   }));
 
   const applySeriesDefaults = (
@@ -237,9 +246,7 @@
       dimensions,
       scaleConfig,
       {
-        ...yAxisConfig,
-        mode: yAxisConfig?.mode ?? 'top-only',
-        zeroBase: yAxisConfig?.zeroBase ?? true,
+        ...resolvedYAxisConfig,
       }
     );
   });
@@ -276,14 +283,8 @@
         width={containerWidth}
         {height}
         margin={resolvedMargin}
-        yAxisConfig={{
-          mode: yAxisConfig?.mode ?? 'top-only',
-          prefix: yAxisConfig?.prefix,
-          suffix: yAxisConfig?.suffix,
-          yValueFormatter: yValueFormatter || yAxisConfig?.yValueFormatter,
-        }}
-        {yAxisFormat}
-        {xAxisDateFormat}
+        yAxisConfig={resolvedYAxisConfig}
+        xAxisConfig={resolvedXAxisConfig}
         {showGridX}
         {showGridY}
         {showYAxis}
@@ -323,14 +324,8 @@
             width={chartItemWidth}
             height={chartItemHeight}
             margin={resolvedMargin}
-            yAxisConfig={{
-              mode: yAxisConfig?.mode ?? 'top-only',
-              prefix: yAxisConfig?.prefix,
-              suffix: yAxisConfig?.suffix,
-              yValueFormatter: yValueFormatter || yAxisConfig?.yValueFormatter,
-            }}
-            {yAxisFormat}
-            {xAxisDateFormat}
+            yAxisConfig={resolvedYAxisConfig}
+            xAxisConfig={resolvedXAxisConfig}
             {showGridX}
             {showGridY}
             {showYAxis}

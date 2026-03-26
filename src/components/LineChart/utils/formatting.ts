@@ -1,7 +1,11 @@
 import { format as d3Format } from 'd3-format';
 import { timeFormat } from 'd3-time-format';
 import { prettifyDate } from '../../../utils/index';
-import type { YAxisConfig, YAxisLabelContext } from '../types/index.js';
+import type {
+    XAxisConfig,
+    YAxisConfig,
+    YAxisLabelContext
+} from '../types/index.js';
 
 function formatCleanNumber(value: number): string {
     return new Intl.NumberFormat(undefined, {
@@ -35,13 +39,12 @@ export function formatWithUnits(value: number, prefix?: string, suffix?: string)
  * Create a y-axis label formatter function
  */
 export function createYLabelFormatter(
-    config?: YAxisConfig,
-    yAxisFormat?: string
-): (value: number, context: YAxisLabelContext) => string {
+    config?: YAxisConfig
+): (value: number, context: YAxisLabelContext) => string | string[] {
     return (value: number, context: YAxisLabelContext) => {
         // If custom formatter provided, use it
-        if (config?.yValueFormatter) {
-            return config.yValueFormatter(value, context);
+        if (config?.yFormatter) {
+            return config.yFormatter(value, context.tickIndex);
         }
 
         // For 'top-only' mode, only apply formatting to top tick
@@ -52,9 +55,9 @@ export function createYLabelFormatter(
         // For 'all-ticks' or default, apply formatting to all
         let formatted = formatCleanNumber(value);
 
-        if (yAxisFormat) {
+        if (config?.format) {
             try {
-                formatted = d3Format(yAxisFormat)(value);
+                formatted = d3Format(config.format)(value);
             } catch {
                 // Fall back if format string is invalid
                 formatted = formatCleanNumber(value);
@@ -106,6 +109,21 @@ export function formatXAxisDate(date: Date, format: string = '%b %d'): string {
     } catch {
         return prettifyDate(date.toLocaleDateString());
     }
+}
+
+/**
+ * Create an x-axis label formatter function
+ */
+export function createXLabelFormatter(
+    config?: XAxisConfig
+): (value: Date, tickIndex: number) => string | string[] {
+    return (value: Date, tickIndex: number): string | string[] => {
+        if (config?.xFormatter) {
+            return config.xFormatter(value, tickIndex);
+        }
+
+        return formatXAxisDate(value, config?.xAxisDateFormat ?? '%b %-d, %Y');
+    };
 }
 
 /**

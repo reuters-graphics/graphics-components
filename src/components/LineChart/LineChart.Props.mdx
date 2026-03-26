@@ -1,0 +1,13 @@
+import { Meta, Controls } from '@storybook/blocks';
+
+import * as LineChartStories from './LineChart.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Props" />
+
+# LineChart Props
+ 
+- For multi-line usage, prefer `series` over `yKey`.
+- For grouped small multiples, use `chartGroups`.
+- For custom axis labels, use `xAxisConfig.xFormatter` and `yAxisConfig.yFormatter`.
+
+<Controls of={LineChartStories.AllPropsReference} />

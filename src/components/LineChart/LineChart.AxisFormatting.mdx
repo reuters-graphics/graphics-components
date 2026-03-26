@@ -1,0 +1,75 @@
+import { Meta, Canvas,Controls } from '@storybook/blocks';
+
+import * as LineChartStories from './LineChart.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Axis formatting" />
+
+# Axis formatting
+
+Axis label formatting are customised via the `xAxisConfig` and `yAxisConfig` props. Both props accept an object with multiple formatting options.
+
+## X-axis formatters
+
+**`xAxisConfig.xAxisDateFormat`**
+
+Default option. Applies a [time format pattern](https://www.strfti.me/), such as `"%b '%y"` for "Jan. '24". Defaults to `'%b %d, %Y'` ("Jan. 1, 2024").
+
+```svelte
+<LineChart 
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  xAxisConfig={{ xAxisDateFormat: "%b '%y" }}
+ />
+```
+<Canvas of={LineChartStories.XAxisD3Format}  />
+
+
+**`xAxisConfig.xFormatter`**
+
+Custom JavaScript function. Provides full control over label formatting and the ability to return multi-line labels. 
+
+Overrides `xAxisDateFormat`.
+
+```svelte
+<script>
+import { LineChart, prettifyDate } from '@reuters-graphics/graphics-components';
+
+// Custom function to conditionally format x axis labels
+const xFormatterShort = (d: Date, idx: number) => {
+  // Get the abbreviated month name e.g. "Jan"
+  const month = d.toLocaleDateString('en-US', { month: 'short' });
+  
+  // Get the full year e.g. 2024
+  const fullYear = d.getFullYear();
+  
+  // Get the last 2 digits of the year e.g. "24"
+  const shortYear = String(fullYear).slice(-2);
+
+  // For the first tick show the full year e.g. "Jan 2024"
+  // For all other ticks show the short year with apostrophe e.g. "Jan '24"
+  const dateLabel = idx === 0
+    ? `${month} ${fullYear}`
+    : `${month} '${shortYear}`;
+
+  // Format the date in Reuters style
+  return prettifyDate(dateLabel);
+};
+</script>
+<LineChart 
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  xAxisConfig={{ xFormatter: xFormatterShort }}
+ />
+```
+<Canvas of={LineChartStories.XAxisShortFormat} />
+
+
+### Y-axis formatters
+
+1. **`yAxisConfig.yFormatter`** — Custom JavaScript function. Provides full control and can return multi-line labels. When provided, overrides the D3 format string and all other y-axis formatting defaults.
+
+2. **`yAxisConfig.format`** — D3 number format string. Applies a pre-defined numeric format (e.g., `',.0f'` for thousands-separated integers). Only used if `yFormatter` is not provided. Defaults to the component's built-in numeric formatter.
+
+3. **`yAxisConfig.prefix` and `yAxisConfig.suffix`** — Simple text additions applied before/after the formatted number. Combined with the above formatters, or used on their own if neither `yFormatter` nor `format` is set.

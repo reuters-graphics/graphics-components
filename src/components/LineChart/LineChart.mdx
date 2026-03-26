@@ -2,11 +2,11 @@ import { Meta, Canvas } from '@storybook/blocks';
 
 import * as LineChartStories from './LineChart.stories.svelte';
 
-<Meta of={LineChartStories} />
+<Meta title="Components/Charts/LineChart/Overview" />
 
 # LineChart Component
 
-A flexible, responsive line chart component built with D3.js and Svelte. Supports single and multiple lines, small multiples layout, and extensive customization options.
+A flexible, responsive line chart component built with D3.js. Supports single and multiple lines, small multiples, and custom axis formatting.
 
 ## Features
 
@@ -14,223 +14,29 @@ A flexible, responsive line chart component built with D3.js and Svelte. Support
 - **Small multiples**: Lay out charts in a grid for easy comparison
 - **Responsive**: Automatically adapts to container width with customisable breakpoints
 - **Y and X-axis formatting**: Flexible formatting with units or custom functions
-- **Date format support**: The component automatically detects and converts date strings to `Date` objects. You can pass dates as ISO strings, date strings, or `Date` objects directly—the component handles them all seamlessly.
+- **Date format support**: The component automatically detects and conve
+ rts date strings to `Date` objects. You can pass dates as ISO strings, date strings, or `Date` objects directly—the component handles them all seamlessly.
 - **X-axis date formatting**: Configure date labels, auto formatted in the Reuters style by default
 - **Custom snippets**: Optionally, add custom snippets on top of the SVG container
-- **Legend support**: Automatic legend generation with customisable colors
+- **Legend support**: Automatic legend generation with customisable colours
 - **Auto-detection of dates**: X-axis date values are automatically detected and converted from strings (ISO format, date strings) without extra configuration
 
 
-## Data format requirements
+## Documentation pages
 
-The `LineChart` component requires different data formats depending on your use case:
+- [Overview](?path=/docs/components-charts-linechart-overview--docs) (this page): quick orientation and key capabilities.
+- [Props](?path=/docs/components-charts-linechart-props--docs): interactive prop table.
+- [Single and multi-line charts](?path=/docs/components-charts-linechart-single-and-multi-line-charts--docs): single-line and multi-line examples.
+- [Small multiples](?path=/docs/components-charts-linechart-small-multiples--docs): grouped and multi-panel examples.
+- [Axis Formatting](?path=/docs/components-charts-linechart-axis-formatting--docs): all x and y axis formatting options.
+ 
 
-- **Single line** — One column for `xKey` and one column for `yKey`
-- **Multi-line & small multiples** — **WIDE format** (one row per `xKey` value)
+## Quick start
 
-
-## Single line chart
+Import the `LineChart` component:
 
 ```svelte
 <script>
   import { LineChart } from '@reuters-graphics/graphics-components';
-
-  const data = [
-    {
-        company: "AAPL",
-        date: "2024-01-01", // This component automatically converts date strings to Date objects
-        endDayVal: 150
-    },
-    {
-        company: "AAPL",
-        date: "2024-02-01",
-        endDayVal: 158
-    }
-    // ... more data points
-  ];
-
-// Chart options 
-const xKey = 'date';
-const yKey = 'endDayVal';
-const xAxisDateFormat = '%b %-d, %Y';
-const yAxisConfig = { prefix: '$'}; // Unit to prefix to y-axis and end-value labels
 </script>
-
-<LineChart {data} {xKey} {yKey} {xAxisDateFormat} {yAxisConfig} />
 ```
-
-<Canvas of={LineChartStories.SingleLine} />
-
-## Multi line chart
-
-For multi-line charts, data must be in **wide format** — one row per `xKey` value with columns for each category of data. If your JSON data is in the long format, convert it to the wide format using the utility function `pivotToWideData()`.
-
-```svelte
-<script>
-  import { LineChart, pivotToWideData } from '@reuters-graphics/graphics-components';
-
-  // Raw tall format (one row per value)
-  const tallData = [
-    { date: '2024-01-01', company: 'AAPL', endDayVal: 150 },
-    { date: '2024-01-01', company: 'GOOGL', endDayVal: 400 },
-    { date: '2024-01-01', company: 'MSFT', endDayVal: 380 },
-    { date: '2024-01-01', company: 'AMZN', endDayVal: 170 },
-    { date: '2024-02-01', company: 'AAPL', endDayVal: 158 },
-    { date: '2024-02-01', company: 'GOOGL', endDayVal: 410 },
-    // ... more data
-  ];
-
-  // Transform to wide format (one row per date)
-  const xKey = 'date'; 
-  const categoryKey = 'company' // The key that we are grouping the data by
-  const valueKey = 'endDayVal'; // The key for y values that we are charting
-  const data = pivotToWideData(tallData, xKey, categoryKey, valueKey);
-  // Result: [
-  //   { date: '2024-01-01', AAPL: 150, GOOGL: 400, MSFT: 380, AMZN: 170 },
-  //   { date: '2024-02-01', AAPL: 158, GOOGL: 410, MSFT: 390, AMZN: 175 }, 
-  //   // ... more data
-  // ]
-
-  // Configs for each series - this is where you can control labels, colours, and styles
-  const series = [
-      {
-        key: 'AAPL', // Category value that matches the data
-        label: 'Appple', // Nice label for legend and end label
-        endLabelType: 'label', // Show label (instead of value) in end label
-        color: '#1f77b4',
-      },
-      {
-        key: 'GOOGL',
-        label: 'Google',
-        color: '#2ca02c',
-        endLabelType: 'label', 
-
-      },
-      {
-        key: 'MSFT',
-        label: 'Microsoft',
-        color: '#ff7f0e',
-        endLabelType: 'label', 
-      },
-      {
-        key: 'AMZN',
-        label: 'Amazon',
-        color: '#d62728',
-        endLabelType: 'label', 
-      },
-    ]
-
-
-    // Chart options 
-const xKey = 'date';
-const yKey = 'endDayVal';
-const showGridY = false;
-const xAxisDateFormat = '%b %-d, %Y';
-const yAxisConfig = { prefix: '$'}; // Unit to prefix to y-axis and end-value labels
-</script>
-
-<LineChart 
-  {data} 
-  {series}
-  {xKey}
-  {yKey}
-  {xAxisDateFormat}
-  {yAxisConfig}
-  {showGridY}
-/>
-```
-
-<Canvas of={LineChartStories.MultipleLines} />
-
-## Small multiples
-
-Each series gets its own chart.
-
-If your `data` and `series` are already set up for a multi-line chart, you can switch between single chart and small multiples by toggling the prop `layout` from `single` to `multiples`:
-
-```svelte
-<LineChart
-  {data}
-  {series}
-  xKey="date"
-  yAxisConfig={{ prefix: '$' }}
-  showGridY={false}
-  layout="single"
-/>
-<!-- toggle to -->
-<LineChart
-  {data}
-  {series}
-  xKey="date"
-  yAxisConfig={{ prefix: '$' }}
-  showGridY={false}
-  layout="multiples"
-/>
-```
-
-Small-multiples defaults:
-- End labels are shown only on the first chart
-- X-axis is shown only on the first chart
-
-Control this with:
-- `smallMultiplesEndLabelsMode`: `'first' | 'all' | 'first-in-row'`
-- `smallMultiplesXAxisMode`: `'first' | 'all' | 'first-in-row'`
-
-
-<Canvas of={LineChartStories.SmallMultiples} />
-
-## Small multiples: multi-line charts
-
-To create small multiples of multi-line charts, you need to set up your `chartGroups` configuration. Each group represents a chart and contains the config options for that chart.
-
-```svelte
-<script>
-  import { LineChart, pivotToWideData } from '@reuters-graphics/graphics-components';
-  import countriesData from './data/countries.json';
-
-  const countriesWithSeriesKey = countriesData.map((row) => ({
-    ...row,
-    seriesKey: `${row.country}__${row.index}`,
-  }));
-
-  // One shared wide dataset keyed by date
-  const data = pivotToWideData(countriesWithSeriesKey, 'date', 'seriesKey', 'value');
-
-  const colorMap = {
-    'GDP growth': '#1f77b4',
-    'Birth rate': '#d62728',
-  };
-
-  const countryNames = [...new Set(countriesData.map((row) => row.country))];
-  const indexNames = [...new Set(countriesData.map((row) => row.index))];
-
-  const chartGroups = countryNames.map((country) => ({
-    groupId: country.toLowerCase().replace(/\s+/g, '-'),
-    title: country,
-    series: indexNames.map((index) => ({
-      key: `${country}__${index}`,
-      label: index,
-      color: colorMap[index] || colorMap[index.trim()] || '#7f7f7f',
-      strokeWidth: 2,
-    })),
-  }));
-</script>
-
-<LineChart
-  {data}
-  {chartGroups}
-  layout="multiples"
-  xKey="date"
-  width={1000}
-  height={1200}
-  margin={{ top: 20, right: 20, bottom: 24, left: 36 }}
-  yAxisConfig={{ mode: 'all-ticks', suffix: '%', zeroBase: true }}
-  yTickCount={8}
-  xTickCount={6}
-  smallMultiplesEndLabelsMode="first"
-  smallMultiplesXAxisMode="first"
-  showGridY={true}
-/>
-```
-
-<Canvas of={LineChartStories.SmallMultiplesMultiLineCharts} />

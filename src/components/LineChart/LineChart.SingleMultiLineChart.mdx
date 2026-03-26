@@ -1,0 +1,69 @@
+import { Meta, Canvas,Controls } from '@storybook/blocks';
+
+import * as LineChartStories from './LineChart.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Single and multi-line charts" />
+
+# Single and multi-line charts
+
+
+## Data format requirements
+
+The `LineChart` component requires different data formats depending on your use case:
+
+- **Single line**: One column for `xKey` and one column for `yKey`
+- **Multi-line**: **[WIDE format](https://data.europa.eu/apps/data-visualisation-guide/wide-versus-long-data)** (one row per `xKey` value)
+
+## Single line chart
+
+Simply pass `data`, specify `xKey`, `yKey` and, if necessary, other props to customise axis formatting, and the component will render a single line.
+ 
+ 
+<Canvas of={LineChartStories.SingleLine} sourceState="shown" />
+
+## Multi line chart
+
+For multi-line charts, data must be in **[wide format](https://data.europa.eu/apps/data-visualisation-guide/wide-versus-long-data)**. If your data is in a long format, convert it with `pivotToWideData()`.
+
+
+<Canvas of={LineChartStories.MultipleLines} />
+
+```svelte
+<script>
+  import { LineChart, pivotToWideData } from '@reuters-graphics/graphics-components';
+
+  const tallData = [
+    { date: '2024-01-01', company: 'AAPL', endDayVal: 150 },
+    { date: '2024-01-01', company: 'GOOGL', endDayVal: 400 },
+    { date: '2024-02-01', company: 'AAPL', endDayVal: 158 },
+    { date: '2024-02-01', company: 'GOOGL', endDayVal: 410 },
+  ];
+
+  const data = pivotToWideData(tallData, 'date', 'company', 'endDayVal');
+
+  const series = [
+    { key: 'AAPL', label: 'Apple', colour: '#1f77b4', endLabelType: 'label' },
+    { key: 'GOOGL', label: 'Google', colour: '#2ca02c', endLabelType: 'label' },
+  ];
+</script>
+
+<LineChart
+  {data}
+  {series}
+  xKey="date"
+  xAxisConfig={{ xAxisDateFormat: "%b %-d, %Y" }}
+  yAxisConfig={{ prefix: '$' }}
+  showGridY={false}
+/>
+```
+
+### Small multiples of single line charts
+
+For multi-line charts, you can switch between a single chart and small multiples of single-line charts by toggling the `layout` prop between `'single'` and `'multiples'`. 
+
+To create small multiples of multi-line charts, see the [small multiples documentation page](?path=/docs/components-charts-linechart-small-multiples--docs).
+
+
+<Canvas of={LineChartStories.MultipleLines} />
+
+<Controls of={LineChartStories.MultipleLines}  />

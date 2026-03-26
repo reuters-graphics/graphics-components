@@ -1,0 +1,43 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as LineChartStories from './LineChart.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Small multiples" />
+ 
+## Small multiples: single line charts
+
+Each series gets its own chart. If your `data` and `series` are already set up for a multi-line chart, switch `layout` from `'single'` to `'multiples'`.
+
+```svelte
+<LineChart
+  {data}
+  {series}
+  xKey="date"
+  yAxisConfig={{ prefix: '$' }}
+  showGridY={false}
+  layout="multiples"
+/>
+```
+
+<Canvas of={LineChartStories.SmallMultiples} sourceState="shown" />
+
+## Small multiples: multi-line charts
+
+Use `chartGroups` when each panel should contain multiple lines.
+
+```svelte
+<LineChart
+  {data}
+  {chartGroups}
+  layout="multiples"
+  xKey="date"
+  yAxisConfig={{ mode: 'all-ticks', suffix: '%', zeroBase: true }}
+  yTickCount={8}
+  xTickCount={6}
+  smallMultiplesEndLabelsMode="first"
+  smallMultiplesXAxisMode="first"
+  showGridY={true}
+/>
+```
+
+<Canvas of={LineChartStories.SmallMultiplesMultiLineCharts} sourceState="shown" />

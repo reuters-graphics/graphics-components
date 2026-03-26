@@ -7,6 +7,7 @@ export { prettifyDate } from './utils/index';
 export {
   pivotToWideData,
   groupForSmallMultiples,
+  prepareMultilineSmallMultiplesData,
 } from './components/LineChart/utils/normalize';
 
 // Components

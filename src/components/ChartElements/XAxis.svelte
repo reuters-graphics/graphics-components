@@ -9,7 +9,8 @@
     useSecondaryStyle?: boolean;
     xTicks: Date[];
     xScale: (value: Date) => number;
-    formatTick: (tick: Date) => string;
+    formatTick?: (tick: Date) => string;
+    xLabels?: (string | string[])[]; // Array of formatted labels (string or array of strings for multi-line)
     showAxisLine?: boolean;
     showTicks?: boolean;
     showLabels?: boolean;
@@ -26,6 +27,7 @@
     xTicks,
     xScale,
     formatTick,
+    xLabels,
     showAxisLine = true,
     showTicks = true,
     showLabels = true,
@@ -47,7 +49,7 @@
     />
   {/if}
 
-  {#each xTicks as tick}
+  {#each xTicks as tick, tickIndex}
     {@const x = xScale(tick)}
     {#if showTicks && showLabels}
       <line
@@ -60,13 +62,24 @@
       />
     {/if}
     {#if showLabels}
+      {@const label =
+        xLabels ? xLabels[tickIndex]
+        : formatTick ? formatTick(tick)
+        : ''}
+      {@const lines = Array.isArray(label) ? label : [label]}
       <text
         {x}
         y={labelY}
         class="tick-label"
         style="translate: {marginLeft}px;"
       >
-        {formatTick(tick)}
+        {#each lines as line, lineIndex}
+          {#if lineIndex === 0}
+            {line}
+          {:else}
+            <tspan {x} dy="1.2em">{line}</tspan>
+          {/if}
+        {/each}
       </text>
     {/if}
   {/each}

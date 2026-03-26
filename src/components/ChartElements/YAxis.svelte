@@ -3,7 +3,7 @@
     marginTop: number;
     marginLeft: number;
     yTicks: number[];
-    yLabels: string[];
+    yLabels: (string | string[])[]; // Support both string and array of strings for multi-line
     yScale: (value: number) => number;
     showAxisLine?: boolean;
     axisTop?: number;
@@ -36,8 +36,16 @@
     {#if showTicks}
       <line x1={0} y1={y} x2={tickWidth} y2={y} class="tick-mark" />
     {/if}
+    {@const label = yLabels[tickIndex]}
+    {@const lines = Array.isArray(label) ? label : [label]}
     <text x={0} {y} dy="-4px" class="tick-label">
-      {yLabels[tickIndex]}
+      {#each lines as line, lineIndex}
+        {#if lineIndex === 0}
+          {line}
+        {:else}
+          <tspan x={0} dy="1.2em">{line}</tspan>
+        {/if}
+      {/each}
     </text>
   {/each}
 </g>

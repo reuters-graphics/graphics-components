@@ -46,7 +46,17 @@ const preview: Preview = {
             'Getting help',
           ],
           'Components',
-          ['*', ['Intro', '*']],
+          [
+            '*',
+            [
+              'Overview', 'Props',
+              'Single and multi-line charts',
+              'Small Multiples',
+              'Axis Formatting',
+              '*',
+              ['Overview', 'Props', 'Single and multi-line charts', 'Small Multiples', 'Axis Formatting', '*'],
+            ],
+          ],
           'Styles',
           [
             'Intro',
