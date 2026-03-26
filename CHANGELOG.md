@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.3.2
+
+### Patch Changes
+
+- d3c501d: Switch casting as GeoJSON to data property
+
 ## 3.3.1
 
 ### Patch Changes
