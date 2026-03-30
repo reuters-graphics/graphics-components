@@ -71,30 +71,23 @@
   // Formatter helpers for axis-formatting stories
   const xFormatterTwoLine = (d: Date): string | string[] => {
     const month = d.toLocaleDateString('en-GB', { month: 'short' });
-    const year = `'${d.getFullYear().toString().slice(-2)}`;
-    return [month, year];
+    const year = d.getFullYear().toString();
+    return [prettifyDate(month), year];
   };
 
   const yFormatterLocale = (v: number): string | string[] =>
     `$${v.toLocaleString('en-US')}`;
 
   // Additional formatter examples
-  const yFormatterMultiLine = (v: number): string | string[] => {
-    const formatted = (v / 1000).toFixed(1);
-    if (v >= 1000) {
-      return [`$${formatted}`, 'K'];
+  const yFormatterMultiLine = (v: number) => {
+    const formatted = v / 10000;
+    if (v === 20000) {
+      return [`$${formatted} million`, 'per acre'];
     }
-    return `$${v}`;
+    return `$${formatted} mln`;
   };
 
-  const yFormatterPercent = (v: number): string | string[] =>
-    `${(v * 100).toFixed(1)}%`;
-
-  const yFormatterAbbreviated = (v: number): string | string[] => {
-    if (v >= 1000000) return `$${(v / 1000000).toFixed(1)}M`;
-    if (v >= 1000) return `$${(v / 1000).toFixed(1)}K`;
-    return `$${v}`;
-  };
+  const endLabelFormatterUnits = (value: number) => `$${value}`;
 
   const xFormatterShort = (d: Date, idx: number) => {
     // Get the abbreviated month name e.g. "Jan"
@@ -116,6 +109,7 @@
   };
 </script>
 
+<!-- Single chart stories -->
 <Story
   name="Single line"
   tags={['!autodocs', '!dev']}
@@ -125,6 +119,7 @@
     yKey: 'endDayVal',
     xAxisConfig: { xAxisDateFormat: '%b %-d, %Y' },
     yAxisConfig: { suffix: '', prefix: '$', zeroBase: true, mode: 'all-ticks' },
+    height: 250,
     margin: { left: 15, right: 60 },
   }}
 />
@@ -167,10 +162,12 @@
     xAxisConfig: { xAxisDateFormat: '%b %-d, %Y' },
     yAxisConfig: { prefix: '$', mode: 'all-ticks' },
     showGridY: false,
+    height: 250,
     margin: { right: 80 },
   }}
 />
 
+<!-- Small multiples stories -->
 <Story
   name="Small multiples"
   tags={['!autodocs', '!dev']}
@@ -238,226 +235,6 @@
 />
 
 <Story
-  name="Axis formatting: x-axis D3 format string"
-  exportName="XAxisD3Format"
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xAxisDateFormat: "%b '%y" },
-    yAxisConfig: { prefix: '$', mode: 'all-ticks' },
-    margin: { left: 30, right: 60 },
-  }}
-/>
-
-<Story
-  name="Axis formatting: x-axis custom formatter"
-  exportName="XAxisCustomFormatter"
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xFormatter: xFormatterTwoLine },
-    yAxisConfig: { prefix: '$', mode: 'all-ticks' },
-    margin: { left: 15, right: 60 },
-  }}
-/>
-
-<Story
-  name="Axis formatting: y-axis prefix, all ticks"
-  exportName="YAxisPrefixMode"
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xAxisDateFormat: "%b '%y" },
-    yAxisConfig: { prefix: '$', mode: 'all-ticks', zeroBase: false },
-    margin: { left: 15, right: 60 },
-  }}
-/>
-
-<Story
-  name="Axis formatting: y-axis custom formatter"
-  exportName="YAxisCustomFormatter"
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xAxisDateFormat: "%b '%y" },
-    yAxisConfig: {
-      yFormatter: yFormatterLocale,
-      mode: 'all-ticks',
-      zeroBase: false,
-    },
-    margin: { left: 15, right: 60 },
-  }}
-/>
-
-<Story
-  name="All props reference (dummy)"
-  exportName="AllPropsReference"
-  tags={['!autodocs', '!dev']}
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    layout: 'single',
-    xKey: 'date',
-    yKey: 'endDayVal',
-    series: [
-      {
-        key: 'endDayVal',
-        label: 'End day value',
-        colour: '#1f77b4',
-        strokeWidth: 2,
-        showEndLabel: true,
-        showEndPoint: true,
-        endPointRadius: 4,
-        endPointFill: undefined,
-        endPointStroke: undefined,
-        endPointStrokeWidth: undefined,
-        endLabelType: 'value' as const,
-        endLabelPosition: {
-          xOffset: undefined,
-          yOffset: undefined,
-          textAnchor: undefined,
-        },
-        endLabelFormatter: undefined,
-      },
-    ],
-    chartGroups: undefined,
-    yAxisConfig: {
-      mode: 'top-only',
-      format: ',.0f',
-      prefix: '$',
-      suffix: undefined,
-      zeroBase: true,
-      yFormatter: undefined,
-      endValueDecimalPlaces: undefined,
-    },
-    xAxisConfig: {
-      xAxisDateFormat: '%b %-d, %Y',
-      xFormatter: undefined,
-    },
-    showXAxis: true,
-    showYAxis: true,
-    showGridX: false,
-    showGridY: true,
-    xTickCount: 5,
-    yTickCount: 5,
-    showLegend: false,
-    smallMultiplesEndLabelsMode: 'first',
-    smallMultiplesXAxisMode: 'first',
-    showEndPoint: true,
-    endPointRadius: 4,
-    width: 660,
-    height: 400,
-    margin: {
-      top: 20,
-      right: 20,
-      bottom: 20,
-      left: 15,
-    },
-    scaleConfig: {
-      xDomain: undefined,
-      yDomain: undefined,
-      padding: {
-        top: undefined,
-        right: undefined,
-        bottom: undefined,
-        left: undefined,
-      },
-    },
-    responsive: false,
-    responsiveRules: [
-      {
-        breakpoint: 768,
-        layout: 'multiples',
-        columnsPerRow: 2,
-        fontSize: undefined,
-        marginBottom: undefined,
-      },
-    ],
-    beforeSVG: undefined,
-    children: undefined,
-    afterChart: undefined,
-  }}
-/>
-
-<Story
-  name="Formatter examples: y-axis multi-line abbreviation"
-  exportName="YAxisMultiLineAbbrev"
-  tags={['!autodocs', '!dev']}
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xAxisDateFormat: "%b '%y" },
-    yAxisConfig: {
-      yFormatter: yFormatterMultiLine,
-      mode: 'all-ticks',
-      zeroBase: false,
-    },
-    margin: { left: 15, right: 60 },
-  }}
-/>
-
-<Story
-  name="Formatter examples: y-axis abbreviated SI notation"
-  exportName="YAxisAbbreviated"
-  tags={['!autodocs', '!dev']}
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xAxisDateFormat: "%b '%y" },
-    yAxisConfig: {
-      yFormatter: yFormatterAbbreviated,
-      mode: 'all-ticks',
-      zeroBase: false,
-    },
-    margin: { left: 30, right: 60 },
-  }}
-/>
-
-<Story
-  name="Formatter examples: x-axis short date format"
-  exportName="XAxisShortFormat"
-  tags={['!autodocs', '!dev']}
-  parameters={{
-    controls: { include: ['xAxisConfig'] },
-  }}
-  args={{
-    data: stockDummyData.filter((d) => d.company === 'AAPL'),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xFormatter: xFormatterShort },
-    margin: { left: 50, bottom: 50 },
-  }}
-/>
-
-<Story
-  name="Formatter examples: y-axis percentage format"
-  exportName="YAxisPercentFormat"
-  tags={['!autodocs', '!dev']}
-  parameters={{
-    controls: { include: ['xAxisConfig'] },
-  }}
-  args={{
-    data: stockDummyData
-      .filter((d) => d.company === 'AAPL')
-      .map((d) => ({ ...d, endDayVal: d.endDayVal / 100000 })),
-    xKey: 'date',
-    yKey: 'endDayVal',
-    xAxisConfig: { xAxisDateFormat: "%b '%y" },
-    yAxisConfig: {
-      yFormatter: yFormatterPercent,
-      mode: 'all-ticks',
-      zeroBase: false,
-    },
-    margin: { left: 15, right: 60 },
-  }}
-/>
-
-<Story
   name="Small multiples with helper function"
   exportName="SmallMultiplesWithHelper"
   tags={['!autodocs', '!dev']}
@@ -495,5 +272,202 @@
     showGridY: true,
     showLegend: false,
     margin: { right: 80, bottom: 80 },
+  }}
+/>
+
+<!-- X axis formatting stories -->
+<Story
+  name="Axis formatting: x-axis D3 format string"
+  exportName="XAxisD3Format"
+  tags={['!autodocs', '!dev']}
+  args={{
+    data: stockDummyData.filter((d) => d.company === 'AAPL'),
+    xKey: 'date',
+    yKey: 'endDayVal',
+    xAxisConfig: { xAxisDateFormat: "%b '%y" },
+    yAxisConfig: { prefix: '$', mode: 'all-ticks' },
+    margin: { left: 30, right: 60 },
+    height: 250,
+  }}
+/>
+
+<Story
+  name="Formatter examples: x-axis short date format"
+  exportName="XAxisShortFormat"
+  tags={['!autodocs', '!dev']}
+  parameters={{
+    controls: { include: ['xAxisConfig'] },
+  }}
+  args={{
+    data: stockDummyData.filter((d) => d.company === 'AAPL'),
+    xKey: 'date',
+    yKey: 'endDayVal',
+    xAxisConfig: { xFormatter: xFormatterShort },
+    yAxisConfig: { prefix: '$', mode: 'all-ticks' },
+    height: 250,
+    margin: { left: 50, bottom: 50, right: 30 },
+  }}
+/>
+
+<Story
+  name="Axis formatting: x-axis multi-line formatter"
+  exportName="XAxisMultiLineFormatter"
+  tags={['!autodocs', '!dev']}
+  args={{
+    data: stockDummyData.filter((d) => d.company === 'AAPL'),
+    xKey: 'date',
+    yKey: 'endDayVal',
+    xAxisConfig: { xFormatter: xFormatterTwoLine },
+    yAxisConfig: { prefix: '$', mode: 'all-ticks' },
+    height: 250,
+    margin: { left: 15, right: 60, bottom: 40 },
+  }}
+/>
+
+<!-- Y axis formatting stories -->
+<Story
+  name="Axis formatting: y-axis units & modes"
+  exportName="YAxisUnitsMode"
+  tags={['!autodocs', '!dev']}
+  args={{
+    data: stockDummyData.filter((d) => d.company === 'AAPL'),
+    xKey: 'date',
+    yKey: 'endDayVal',
+    xAxisConfig: { xAxisDateFormat: "%b '%y" },
+    yAxisConfig: { prefix: '$', suffix: ' per barrel', mode: 'top-only' },
+    endLabelFormatter: endLabelFormatterUnits,
+    height: 250,
+    margin: { left: 15, right: 60 },
+  }}
+/>
+<Story
+  name="Axis formatting: y-axis custom formatter"
+  exportName="YAxisCustomFormatter"
+  tags={['!autodocs', '!dev']}
+  args={{
+    data: stockDummyData
+      .filter((d) => d.company === 'AAPL')
+      .map((d) => ({ ...d, endDayVal: d.endDayVal * 100 })),
+    xKey: 'date',
+    yKey: 'endDayVal',
+    xAxisConfig: { xAxisDateFormat: "%b '%y" },
+    yAxisConfig: {
+      yFormatter: yFormatterLocale,
+      mode: 'all-ticks',
+      zeroBase: false,
+    },
+    height: 250,
+    margin: { left: 15, right: 60 },
+  }}
+/>
+
+<Story
+  name="Formatter examples: y-axis multi-line abbreviation"
+  exportName="YAxisMultiLineAbbrev"
+  tags={['!autodocs', '!dev']}
+  args={{
+    data: stockDummyData
+      .filter((d) => d.company === 'AAPL')
+      .map((d) => ({ ...d, endDayVal: d.endDayVal * 100 })),
+    xKey: 'date',
+    yKey: 'endDayVal',
+    xAxisConfig: { xAxisDateFormat: "%b '%y" },
+    yAxisConfig: {
+      yFormatter: yFormatterMultiLine,
+      mode: 'all-ticks',
+      zeroBase: false,
+    },
+    endLabelFormatter: (d) => `$${d / 10000} mln`,
+    height: 250,
+    margin: { left: 15, right: 60 },
+  }}
+/>
+
+<!-- All props -->
+<Story
+  name="All props reference (dummy)"
+  exportName="AllPropsReference"
+  tags={['!autodocs', '!dev']}
+  args={{
+    data: stockDummyData.filter((d) => d.company === 'AAPL'),
+    layout: 'single',
+    xKey: 'date',
+    yKey: 'endDayVal',
+    series: [
+      {
+        key: 'endDayVal',
+        label: 'End day value',
+        colour: '#1f77b4',
+        strokeWidth: 2,
+        showEndLabel: true,
+        showEndPoint: true,
+        endPointRadius: 4,
+        endPointFill: undefined,
+        endPointStroke: undefined,
+        endPointStrokeWidth: undefined,
+        endLabelType: 'value' as const,
+        endLabelPosition: {
+          xOffset: undefined,
+          yOffset: undefined,
+          textAnchor: undefined,
+        },
+        endLabelFormatter: undefined,
+      },
+    ],
+    chartGroups: undefined,
+    yAxisConfig: {
+      mode: 'top-only',
+      prefix: '$',
+      suffix: undefined,
+      zeroBase: true,
+      yFormatter: undefined,
+    },
+    xAxisConfig: {
+      xAxisDateFormat: '%b %-d, %Y',
+      xFormatter: undefined,
+    },
+    showXAxis: true,
+    showYAxis: true,
+    showGridX: false,
+    showGridY: true,
+    xTickCount: 5,
+    yTickCount: 5,
+    showLegend: false,
+    smallMultiplesEndLabelsMode: 'first',
+    smallMultiplesXAxisMode: 'first',
+    showEndPoint: true,
+    endPointRadius: 4,
+    endValueDecimalPlaces: undefined,
+    width: 660,
+    height: 250,
+    margin: {
+      top: 20,
+      right: 20,
+      bottom: 20,
+      left: 15,
+    },
+    scaleConfig: {
+      xDomain: undefined,
+      yDomain: undefined,
+      padding: {
+        top: undefined,
+        right: undefined,
+        bottom: undefined,
+        left: undefined,
+      },
+    },
+    responsive: false,
+    responsiveRules: [
+      {
+        breakpoint: 768,
+        layout: 'multiples',
+        columnsPerRow: 2,
+        fontSize: undefined,
+        marginBottom: undefined,
+      },
+    ],
+    beforeSVG: undefined,
+    children: undefined,
+    afterChart: undefined,
   }}
 />

@@ -1,0 +1,89 @@
+import { Meta, Canvas,Controls } from '@storybook/blocks';
+
+import * as LineChartStories from './LineChart.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Y-axis formatting" />
+
+# Axis formatting
+
+Axis label formatting are customised via the `xAxisConfig` and `yAxisConfig` props. Both props accept an object with multiple formatting options.
+
+> 💡TIP: If labels are cut off, adjust the `margin` prop to provide more space for the labels. By default, it is set to `{top: 20, bottom: 20, left: 20, right: 20}`.
+
+### Y-axis formatters
+
+
+**`yAxisConfig.prefix`**, **`yAxisConfig.suffix`** and **`yAxisConfig.mode`**
+
+Simple text additions applied before/after the formatted number. 
+- `prefix`: Text added before the number (e.g., `$`).
+- `suffix`: Text added after the number (e.g., `%`, `per barrel`, etc.).
+- `mode`: Determines which ticks the prefix/suffix is applied to. Options include:
+  - `'all-ticks'`: Applies the prefix/suffix to all y-axis ticks.
+  - `'top-only'`: Applies the prefix/suffix only to the top tick on the y axis 
+
+> 💡TIP: To format the end-value label differently from the y axis, use the `endLabelFormatter` prop.
+
+
+```svelte
+<script>
+import { LineChart, prettifyDate } from '@reuters-graphics/graphics-components';
+
+// Format the end value label with a custom function
+const endLabelFormatter = (value: number) => `$${value}`;
+
+</script>
+<LineChart 
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  xAxisConfig: { xAxisDateFormat: "%b '%y" }
+  yAxisConfig: { prefix: '$', suffix: ' per barrel', mode: 'top-only' }
+  {endLabelFormatter}
+ />
+```
+<Canvas of={LineChartStories.YAxisUnitsMode} />
+
+
+**`yAxisConfig.yFormatter`** 
+
+Custom JavaScript function. Provides full control over formatting and can return multi-line labels. Overrides all other `yAxisConfig` formatting options.
+
+```svelte
+<script>
+import { LineChart } from '@reuters-graphics/graphics-components';
+
+  // Format y axis labels conditionally in multi-line format  
+  const yFormatterMultiLine = (v: number) => {
+    // Format the top axis label in multi-line format
+    if (v === 2000000) {
+
+      // Return an array of values to create multi-line labels
+      return [`$${v} million`, 'per acre'];
+    }
+
+    // All other labels
+    return `$${v} mln`;
+  };
+
+  // Format the end value label with a custom function
+  const endLabelFormatter = (value: number) => `$${value} mln`;
+</script>
+
+<LineChart 
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  xAxisConfig: { xAxisDateFormat: "%b '%y" }
+  yAxisConfig: {
+      yFormatter: yFormatterMultiLine,
+      mode: 'all-ticks',
+      zeroBase: false,
+  }
+  {endLabelFormatter}
+ />
+
+```
+ <Canvas of={LineChartStories.YAxisMultiLineAbbrev} />
+
+

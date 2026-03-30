@@ -29,9 +29,6 @@ importers:
       d3-array:
         specifier: ^3.2.4
         version: 3.2.4
-      d3-format:
-        specifier: ^3.1.2
-        version: 3.1.2
       d3-scale:
         specifier: ^4.0.2
         version: 4.0.2
@@ -138,9 +135,6 @@ importers:
       '@types/d3-array':
         specifier: ^3.2.2
         version: 3.2.2
-      '@types/d3-format':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@types/d3-scale':
         specifier: ^4.0.9
         version: 4.0.9
@@ -1151,9 +1145,6 @@ packages:
 
   '@types/d3-array@3.2.2':
     resolution: {integrity: sha512-hOLWVbm7uRza0BYXpIIW5pxfrKe0W+D5lrFiAEYR+pb6w3N2SwSMaJbXdUfSEv+dT4MfHBLtn5js0LAWaO6otw==}
-
-  '@types/d3-format@3.0.4':
-    resolution: {integrity: sha512-fALi2aI6shfg7vM5KiR1wNJnZ7r6UuggVqtDA+xiEdPZQwy/trcQaHnwShLuLdta2rTymCNpxYTiMZX/e09F4g==}
 
   '@types/d3-scale-chromatic@3.1.0':
     resolution: {integrity: sha512-iWMJgwkK7yTRmWqRB5plb1kadXyQ5Sj8V/zYlFGMUBbIPKQScw+Dku9cAAMgJG+z5GYDoMjWGLVOvjghDEFnKQ==}
@@ -5452,8 +5443,6 @@ snapshots:
   '@types/css@0.0.37': {}
 
   '@types/d3-array@3.2.2': {}
-
-  '@types/d3-format@3.0.4': {}
 
   '@types/d3-scale-chromatic@3.1.0': {}
 

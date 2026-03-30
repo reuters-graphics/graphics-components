@@ -24,7 +24,15 @@
     xKey,
     yKey,
     showEndPoint = true,
+    showEndLabel = true,
     endPointRadius,
+    endPointFill,
+    endPointStroke,
+    endPointStrokeWidth,
+    endLabelType,
+    endLabelPosition,
+    endLabelFormatter,
+    endValueDecimalPlaces = 0,
     width = 660,
     height = 400,
     margin,
@@ -62,7 +70,7 @@
     top: margin?.top ?? 20,
     right: margin?.right ?? 20,
     bottom: margin?.bottom ?? 20,
-    left: margin?.left ?? 15,
+    left: margin?.left ?? 20,
   }));
 
   const resolvedYAxisConfig = $derived.by(() => ({
@@ -83,7 +91,14 @@
     return inputSeries.map((s) => ({
       ...s,
       showEndPoint: s.showEndPoint ?? defaultShowEndPoint,
-      showEndLabel: s.showEndLabel ?? true,
+      showEndLabel: s.showEndLabel ?? showEndLabel,
+      endPointRadius: s.endPointRadius ?? endPointRadius,
+      endPointFill: s.endPointFill ?? endPointFill,
+      endPointStroke: s.endPointStroke ?? endPointStroke,
+      endPointStrokeWidth: s.endPointStrokeWidth ?? endPointStrokeWidth,
+      endLabelType: s.endLabelType ?? endLabelType,
+      endLabelPosition: s.endLabelPosition ?? endLabelPosition,
+      endLabelFormatter: s.endLabelFormatter ?? endLabelFormatter,
     }));
   };
 
@@ -103,7 +118,7 @@
       // Flatten all series from chart groups
       return applySeriesDefaults(
         chartGroups.flatMap((group) => group.series),
-        true
+        showEndPoint
       );
     }
 
@@ -172,14 +187,14 @@
         id: group.groupId,
         index,
         title: group.title,
-        series: group.series,
+        series: applySeriesDefaults(group.series, showEndPoint),
       }));
     }
 
     // Fallback: derive one panel per series so layout can be toggled
     // between single and multiples without providing chartGroups.
     if (series.length > 0) {
-      return series.map((s, index) => ({
+      return applySeriesDefaults(series, showEndPoint).map((s, index) => ({
         id: s.key,
         index,
         title: s.label || s.key,
@@ -188,12 +203,16 @@
     }
 
     if (yKey) {
+      const [resolvedSeries] = applySeriesDefaults(
+        [{ key: yKey, label: yKey }],
+        showEndPoint
+      );
       return [
         {
           id: yKey,
           index: 0,
           title: yKey,
-          series: [{ key: yKey, label: yKey }],
+          series: [resolvedSeries],
         },
       ];
     }
@@ -280,6 +299,7 @@
         {xKey}
         {showEndPoint}
         {endPointRadius}
+        {endValueDecimalPlaces}
         width={containerWidth}
         {height}
         margin={resolvedMargin}
@@ -321,6 +341,7 @@
             {xKey}
             {showEndPoint}
             {endPointRadius}
+            {endValueDecimalPlaces}
             width={chartItemWidth}
             height={chartItemHeight}
             margin={resolvedMargin}

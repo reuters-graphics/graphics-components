@@ -114,20 +114,6 @@ export interface YAxisConfig {
      */
     zeroBase?: boolean;
     /**
-     * D3 number format string for y-axis labels.
-     *
-     * Used only if `yFormatter` is not provided.
-     *
-     * @example
-     * ```
-     * format: '.0f'  // Format as integer
-     * format: '.2%'  // Format as percentage
-     * ```
-     *
-     * See [d3-format docs](https://github.com/d3/d3-format) for full format specifiers.
-     */
-    format?: string;
-    /**
      * Custom formatter function for y-axis tick labels.
      *
      * Receives the tick value and its zero-based index from bottom to top. Can return a string
@@ -157,17 +143,6 @@ export interface YAxisConfig {
      * ```
      */
     yFormatter?: (value: number, index: number) => string | string[];
-    /**
-     * Number of decimal places to show in end-value labels (the values shown at the end of each line).
-     *
-     * _default_ 0 (whole numbers only)
-     *
-     * @example
-     * ```
-     * endValueDecimalPlaces: 2  // Shows 1234.56 instead of 1235
-     * ```
-     */
-    endValueDecimalPlaces?: number;
 }
 
 /**
@@ -704,6 +679,14 @@ export interface LineChartProps {
      */
     showEndPoint?: boolean;
     /**
+     * Whether to show an end label at the end of each line.
+     *
+     * _default_ true
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    showEndLabel?: boolean;
+    /**
      * Radius of the end point circle marker in pixels.
      *
      * _default_ 4
@@ -711,6 +694,78 @@ export interface LineChartProps {
      * Applies to all series unless overridden in individual series config.
      */
     endPointRadius?: number;
+    /**
+     * Fill colour for the end point circle.
+     *
+     * _default_ Uses the line colour
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    endPointFill?: string;
+    /**
+     * Stroke colour for the end point circle outline.
+     *
+     * _default_ white
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    endPointStroke?: string;
+    /**
+     * Stroke width of the end point circle outline in pixels.
+     *
+     * _default_ 2
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    endPointStrokeWidth?: number;
+    /**
+     * Controls what text appears in end labels.
+     *
+     * - `'label'` Shows the series label
+     * - `'value'` _default_ Shows the numeric value at the end of the line
+     * - `'both'` Shows label and value together
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    endLabelType?: 'label' | 'value' | 'both';
+    /**
+     * Custom position settings for end labels.
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    endLabelPosition?: {
+        /**
+         * Horizontal offset from the end point in pixels.
+         */
+        xOffset?: number;
+        /**
+         * Vertical offset from the end point in pixels.
+         */
+        yOffset?: number;
+        /**
+         * SVG text-anchor property controlling horizontal alignment.
+         */
+        textAnchor?: 'start' | 'middle' | 'end';
+    };
+    /**
+     * Custom formatter function for end-value labels.
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    endLabelFormatter?: (value: number, context: YAxisLabelContext) => string;
+    /**
+     * Number of decimal places to show in end-value labels.
+     *
+     * _default_ 0 (whole numbers only)
+     *
+     * Applies to all series.
+     *
+     * @example
+     * ```
+     * endValueDecimalPlaces: 2  // Shows 1234.56 instead of 1235
+     * ```
+     */
+    endValueDecimalPlaces?: number;
 
     // ========== DIMENSIONS & SCALE ==========
     /**

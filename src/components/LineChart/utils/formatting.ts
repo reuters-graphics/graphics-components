@@ -1,4 +1,3 @@
-import { format as d3Format } from 'd3-format';
 import { timeFormat } from 'd3-time-format';
 import { prettifyDate } from '../../../utils/index';
 import type {
@@ -54,15 +53,6 @@ export function createYLabelFormatter(
 
         // For 'all-ticks' or default, apply formatting to all
         let formatted = formatCleanNumber(value);
-
-        if (config?.format) {
-            try {
-                formatted = d3Format(config.format)(value);
-            } catch {
-                // Fall back if format string is invalid
-                formatted = formatCleanNumber(value);
-            }
-        }
 
         if (config?.prefix || config?.suffix) {
             formatted = formatWithUnits(value, config?.prefix, config?.suffix);

@@ -2,17 +2,20 @@ import { Meta, Canvas,Controls } from '@storybook/blocks';
 
 import * as LineChartStories from './LineChart.stories.svelte';
 
-<Meta title="Components/Charts/LineChart/Axis formatting" />
+<Meta title="Components/Charts/LineChart/X-axis formatting" />
 
 # Axis formatting
 
 Axis label formatting are customised via the `xAxisConfig` and `yAxisConfig` props. Both props accept an object with multiple formatting options.
 
+> 💡TIP: If labels are cut off, adjust the `margin` prop to provide more space for the labels. By default, it is set to `{top: 20, bottom: 20, left: 20, right: 20}`.
+
+
 ## X-axis formatters
 
 **`xAxisConfig.xAxisDateFormat`**
 
-Default option. Applies a [time format pattern](https://www.strfti.me/), such as `"%b '%y"` for "Jan. '24". Defaults to `'%b %d, %Y'` ("Jan. 1, 2024").
+  Default option. Applies a simple [time format pattern](https://www.strfti.me/), such as `"%b '%y"` for `Jan. '24`. Defaults to `'%b %d, %Y'` (`Jan. 1, 2024`).
 
 ```svelte
 <LineChart 
@@ -66,10 +69,33 @@ const xFormatterShort = (d: Date, idx: number) => {
 <Canvas of={LineChartStories.XAxisShortFormat} />
 
 
-### Y-axis formatters
+### Multi-line axis labels
 
-1. **`yAxisConfig.yFormatter`** — Custom JavaScript function. Provides full control and can return multi-line labels. When provided, overrides the D3 format string and all other y-axis formatting defaults.
+To add multi-line axis labels, pass a function that returns an array of values into `xFormatter`:
 
-2. **`yAxisConfig.format`** — D3 number format string. Applies a pre-defined numeric format (e.g., `',.0f'` for thousands-separated integers). Only used if `yFormatter` is not provided. Defaults to the component's built-in numeric formatter.
+```svelte
+<script>
+import { LineChart, prettifyDate } from '@reuters-graphics/graphics-components';
 
-3. **`yAxisConfig.prefix` and `yAxisConfig.suffix`** — Simple text additions applied before/after the formatted number. Combined with the above formatters, or used on their own if neither `yFormatter` nor `format` is set.
+// Custom function to format x axis labels as multi-line labels
+  const xFormatterTwoLine = (d: Date): string | string[] => {
+    const month = d.toLocaleDateString('en-GB', { month: 'short' });
+    const year = d.getFullYear()
+
+    // Return an array to create multi-line labels. Each item in the array will be rendered on a new line.
+    // Use `prettifyDate()` to format the month in the Reuters style.
+    return [prettifyDate(month), year];
+  };
+</script>
+
+<!-- Adjust margin if labels are cut off -->
+<LineChart 
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  xAxisConfig={{ xFormatter: xFormatterTwoLine }}
+  margin: { left: 15, right: 60, bottom: 40 },
+ />
+```
+<Canvas of={LineChartStories.XAxisMultiLineFormatter} />
+

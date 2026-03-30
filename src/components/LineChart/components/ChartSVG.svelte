@@ -24,6 +24,7 @@
     yKey?: string;
     showEndPoint: boolean;
     endPointRadius?: number;
+    endValueDecimalPlaces?: number;
     width: number;
     height: number;
     margin: { top: number; right: number; bottom: number; left: number };
@@ -46,6 +47,7 @@
     xKey = 'date',
     showEndPoint = true,
     endPointRadius,
+    endValueDecimalPlaces = 0,
     width,
     height,
     margin,
@@ -171,10 +173,9 @@
     const endLabelType = s.endLabelType ? s.endLabelType : 'value';
 
     // Format the numeric value with rounding and units
-    const decimalPlaces = yAxisConfig?.endValueDecimalPlaces ?? 0;
     const formattedValue = formatEndValue(
       value,
-      decimalPlaces,
+      endValueDecimalPlaces,
       yAxisConfig?.prefix,
       yAxisConfig?.suffix
     );
@@ -227,12 +228,15 @@
         {@const cx = scales.xScale(lastPoint[xKey] as Date)}
         {@const cy = scales.yScale(lastPoint[s.key] as number)}
         {@const radius = s.endPointRadius ?? endPointRadius ?? 4}
+        {@const pointFill = s.endPointFill ?? color}
+        {@const pointStroke = s.endPointStroke ?? 'none'}
+        {@const pointStrokeWidth = s.endPointStrokeWidth ?? 0}
         <circle
           r={radius}
           {cx}
           {cy}
           class="end-point"
-          style="fill: {color}; translate: {margin.left}px 0;"
+          style="fill: {pointFill}; stroke: {pointStroke}; stroke-width: {pointStrokeWidth}px; translate: {margin.left}px 0;"
         />
       {/if}
 
