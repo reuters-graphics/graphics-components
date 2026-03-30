@@ -10,7 +10,26 @@ Axis label formatting are customised via the `xAxisConfig` and `yAxisConfig` pro
 
 > 💡TIP: If labels are cut off, adjust the `margin` prop to provide more space for the labels. By default, it is set to `{top: 20, bottom: 20, left: 20, right: 20}`.
 
+
 ### Y-axis formatters
+
+**`yAxisConfig.zeroBase`** 
+
+By default, `yAxisConfig.zeroBase` is `true`, meaning the y-axis starts at zero. To create a non-zero-based chart, set it to `false`.
+
+```svelte
+<script>
+import { LineChart } from '@reuters-graphics/graphics-components';
+
+</script>
+<LineChart 
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  yAxisConfig: { prefix: '$', zeroBase: false } 
+ />
+```
+<Canvas of={LineChartStories.YAxisZeroBase} />
 
 
 **`yAxisConfig.prefix`**, **`yAxisConfig.suffix`** and **`yAxisConfig.mode`**
@@ -27,7 +46,7 @@ Simple text additions applied before/after the formatted number.
 
 ```svelte
 <script>
-import { LineChart, prettifyDate } from '@reuters-graphics/graphics-components';
+import { LineChart } from '@reuters-graphics/graphics-components';
 
 // Format the end value label with a custom function
 const endLabelFormatter = (value: number) => `$${value}`;

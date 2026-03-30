@@ -342,18 +342,17 @@
 />
 <Story
   name="Axis formatting: y-axis custom formatter"
-  exportName="YAxisCustomFormatter"
+  exportName="YAxisZeroBase"
   tags={['!autodocs', '!dev']}
   args={{
     data: stockDummyData
       .filter((d) => d.company === 'AAPL')
-      .map((d) => ({ ...d, endDayVal: d.endDayVal * 100 })),
+      .map((d) => ({ ...d, endDayVal: d.endDayVal })),
     xKey: 'date',
     yKey: 'endDayVal',
     xAxisConfig: { xAxisDateFormat: "%b '%y" },
     yAxisConfig: {
-      yFormatter: yFormatterLocale,
-      mode: 'all-ticks',
+      prefix: '$',
       zeroBase: false,
     },
     height: 250,
