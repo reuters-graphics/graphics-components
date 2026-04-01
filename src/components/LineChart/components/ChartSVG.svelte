@@ -288,9 +288,9 @@
         {@const rectOpacity = area.opacity ?? 0.15}
         <rect
           {x}
-          y={margin.top}
+          y={-margin.top}
           {width}
-          height={chartHeight}
+          height={chartHeight + margin.top}
           fill={rectFill}
           opacity={rectOpacity}
           class="area-highlight"
@@ -321,9 +321,9 @@
         {@const lineOpacity = line.opacity ?? 0.7}
         <line
           x1={lineX}
-          y1={margin.top}
+          y1={-margin.top}
           x2={lineX}
-          y2={margin.top + chartHeight}
+          y2={chartHeight}
           stroke={lineStroke}
           stroke-width={lineStrokeWidth}
           opacity={lineOpacity}

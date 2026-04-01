@@ -24,13 +24,13 @@
     yKey: 'endDayVal',
     verticalLines: [
       {
-        date: '2024-02-15',
+        date: new Date('2024-02-15'),
         label: 'Product Launch',
         stroke: '#e74c3c',
         strokeWidth: 2,
       },
       {
-        date: '2024-04-20',
+        date: new Date('2024-04-20'),
         label: 'Earnings Report',
         stroke: '#3498db',
         strokeDasharray: '5,5',
