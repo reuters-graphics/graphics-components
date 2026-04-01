@@ -14,6 +14,9 @@
     XAxisConfig,
     YAxisConfig,
     YAxisLabelContext,
+    VerticalLineAnnotation,
+    AreaHighlightAnnotation,
+    TextAnnotation,
   } from '../types/index.js';
 
   interface Props {
@@ -25,6 +28,9 @@
     showEndPoint: boolean;
     endPointRadius?: number;
     endValueDecimalPlaces?: number;
+    verticalLines?: VerticalLineAnnotation[];
+    areaHighlights?: AreaHighlightAnnotation[];
+    textAnnotations?: TextAnnotation[];
     width: number;
     height: number;
     margin: { top: number; right: number; bottom: number; left: number };
@@ -48,6 +54,9 @@
     showEndPoint = true,
     endPointRadius,
     endValueDecimalPlaces = 0,
+    verticalLines,
+    areaHighlights,
+    textAnnotations,
     width,
     height,
     margin,
@@ -267,6 +276,118 @@
         </text>
       {/if}
     {/each}
+
+    <!-- Annotations: Area highlights -->
+    {#if areaHighlights && areaHighlights.length > 0}
+      {#each areaHighlights as area, areaIndex (area.id ?? `area-${areaIndex}`)}
+        {@const startX = scales.xScale(area.dateStart)}
+        {@const endX = scales.xScale(area.dateEnd)}
+        {@const width = Math.abs(endX - startX)}
+        {@const x = Math.min(startX, endX)}
+        {@const rectFill = area.fill ?? '#6c8db6'}
+        {@const rectOpacity = area.opacity ?? 0.15}
+        <rect
+          {x}
+          y={margin.top}
+          {width}
+          height={chartHeight}
+          fill={rectFill}
+          opacity={rectOpacity}
+          class="area-highlight"
+          pointer-events="none"
+        />
+        {#if area.label}
+          <text
+            x={x + width / 2}
+            y={margin.top + 20}
+            text-anchor="middle"
+            font-size="12"
+            fill="#666"
+            pointer-events="none"
+            opacity="0.5"
+          >
+            {area.label}
+          </text>
+        {/if}
+      {/each}
+    {/if}
+
+    <!-- Annotations: Vertical lines -->
+    {#if verticalLines && verticalLines.length > 0}
+      {#each verticalLines as line, lineIndex (line.id ?? `line-${lineIndex}`)}
+        {@const lineX = scales.xScale(line.date)}
+        {@const lineStroke = line.stroke ?? '#999'}
+        {@const lineStrokeWidth = line.strokeWidth ?? 2}
+        {@const lineOpacity = line.opacity ?? 0.7}
+        <line
+          x1={lineX}
+          y1={margin.top}
+          x2={lineX}
+          y2={margin.top + chartHeight}
+          stroke={lineStroke}
+          stroke-width={lineStrokeWidth}
+          opacity={lineOpacity}
+          stroke-dasharray={line.strokeDasharray}
+          class="vertical-line-annotation"
+          pointer-events="none"
+        />
+        {#if line.label}
+          <text
+            x={lineX + 4}
+            y={margin.top + 16}
+            font-size="12"
+            fill={line.labelColour ?? '#333'}
+            pointer-events="none"
+          >
+            {line.label}
+          </text>
+        {/if}
+      {/each}
+    {/if}
+
+    <!-- Annotations: Text annotations -->
+    {#if textAnnotations && textAnnotations.length > 0}
+      {#each textAnnotations as annotation, annIndex (annotation.id ?? `annotation-${annIndex}`)}
+        {@const annX = scales.xScale(annotation.date)}
+        {@const annY = scales.yScale(annotation.value)}
+        {@const annXOffset = annotation.xOffset ?? 0}
+        {@const annYOffset = annotation.yOffset ?? -10}
+        {@const annTextAnchor = annotation.textAnchor ?? 'middle'}
+        {@const annFill = annotation.fill ?? '#333'}
+        {@const annFontSize = annotation.fontSize ?? 14}
+        {@const annFontWeight = annotation.fontWeight ?? 'normal'}
+        {#if annotation.background}
+          <!-- Text background -->
+          <rect
+            x={annX +
+              annXOffset -
+              (annTextAnchor === 'start' ? 2
+              : annTextAnchor === 'end' ? (annotation.background.padding ?? 4)
+              : (annotation.background.padding ?? 4))}
+            y={annY + annYOffset - (annotation.background.padding ?? 4)}
+            width={annotation.background.padding ?? 4}
+            height={annotation.background.padding ?? 4}
+            rx={annotation.background.rx ?? 3}
+            fill={annotation.background.fill}
+            opacity="0.9"
+            pointer-events="none"
+          />
+        {/if}
+        <text
+          x={annX + annXOffset}
+          y={annY + annYOffset}
+          text-anchor={annTextAnchor}
+          font-size={annFontSize}
+          fill={annFill}
+          font-weight={annFontWeight}
+          dominant-baseline="middle"
+          class="text-annotation"
+          pointer-events="none"
+        >
+          {annotation.text}
+        </text>
+      {/each}
+    {/if}
 
     <!-- Child content (overlay) -->
     {#if children}

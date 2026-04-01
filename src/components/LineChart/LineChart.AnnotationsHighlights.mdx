@@ -1,0 +1,292 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+
+import * as LineChartStories from './stories/LineChart.Annotations.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Annotations and highlights" />
+
+# Annotations and highlights
+
+The `LineChart` component supports three types of annotations:
+
+- **Vertical lines** — Highlight significant events or time markers
+- **Area highlights** — Highlight time periods of interest
+- **Text annotations** — Add labels with flexible positioning and styling
+
+Annotations can be styled with custom colours, stroke, opacity, etc.
+
+## Vertical line highlights
+
+Use vertical lines to mark important events or dates on your chart.
+
+```svelte
+<LineChart
+  data={data}
+  xKey="date"
+  yKey="value"
+  verticalLines={[
+    {
+      date: new Date('2024-02-15'),
+      label: 'Product Launch',
+      stroke: '#e74c3c',
+      strokeWidth: 2,
+    },
+    {
+      date: new Date('2024-04-20'),
+      label: 'Earnings Report',
+      stroke: '#3498db',
+      strokeDasharray: '5,5',
+    },
+  ]}
+/>
+```
+
+<Canvas of={LineChartStories.VerticalLineHighlight} />
+
+### Vertical line properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `date` | `Date` | — | **Required.** The date where the vertical line should be positioned |
+| `id` | `string` | — | Unique identifier for the annotation |
+| `stroke` | `string` | `'#999'` | Line stroke colour (hex or named colour) |
+| `strokeWidth` | `number` | `2` | Line stroke width in pixels |
+| `strokeDasharray` | `string` | — | Line dash pattern (e.g., `'5,5'` for dashed, `'10,3,3,3'` for dash-dot) |
+| `opacity` | `number` | `0.7` | Line opacity (0-1) |
+| `label` | `string` | — | Optional text label positioned above the line |
+| `labelColour` | `string` | `'#333'` | Colour of the label text |
+
+### Line dash patterns
+
+Create different visual styles for different line types:
+
+```javascript
+// Dashed line
+strokeDasharray: '5,5'
+
+// Dotted line
+strokeDasharray: '2,2'
+
+// Dash-dot line
+strokeDasharray: '10,3,3,3'
+
+// Long dash with gap
+strokeDasharray: '15,5'
+```
+
+<Canvas of={LineChartStories.LineStyleOptions} />
+
+## Area highlights
+
+Highlight time periods or regions of interest with semi-transparent rectangles.
+
+```svelte
+<LineChart
+  data={data}
+  xKey="date"
+  yKey="value"
+  areaHighlights={[
+    {
+      dateStart: new Date('2024-01-01'),
+      dateEnd: new Date('2024-03-31'),
+      label: 'Q1',
+      fill: '#3498db',
+      opacity: 0.1,
+    },
+    {
+      dateStart: new Date('2024-04-01'),
+      dateEnd: new Date('2024-06-30'),
+      label: 'Q2',
+      fill: '#e74c3c',
+      opacity: 0.1,
+    },
+  ]}
+/>
+```
+
+<Canvas of={LineChartStories.AreaHighlights} />
+
+### Area highlight properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `dateStart` | `Date` | — | **Required.** Start date of the highlighted area |
+| `dateEnd` | `Date` | — | **Required.** End date of the highlighted area |
+| `id` | `string` | — | Unique identifier for the highlight |
+| `fill` | `string` | `'#6c8db6'` | Fill colour (hex or named colour) |
+| `opacity` | `number` | `0.15` | Fill opacity (0-1). Lower values create subtle highlights; higher values are more prominent |
+| `label` | `string` | — | Optional text label displayed above the highlighted area |
+
+### Highlight opacity guide
+
+Use opacity to balance emphasis with readability:
+
+| Opacity | Use case |
+|---------|----------|
+| `0.05-0.10` | Subtle background emphasis |
+| `0.10-0.20` | Standard highlight |
+| `0.20-0.30` | Strong emphasis |
+| `0.30+` | Very prominent (may obscure data) |
+
+<Canvas of={LineChartStories.HighlightFillOptions} />
+
+## Text annotations
+
+Add text labels at specific data points with flexible positioning.
+
+```svelte
+<LineChart
+  data={data}
+  xKey="date"
+  yKey="value"
+  textAnnotations={[
+    {
+      date: new Date('2024-01-10'),
+      value: 185.5,
+      text: 'Peak',
+      fill: '#e74c3c',
+      fontSize: 13,
+      fontWeight: 'bold',
+      yOffset: -15,
+    },
+    {
+      date: new Date('2024-03-01'),
+      value: 175.2,
+      text: 'Dip',
+      fill: '#3498db',
+      fontSize: 12,
+      yOffset: 15,
+    },
+  ]}
+/>
+```
+
+<Canvas of={LineChartStories.TextAnnotations} />
+
+### Text annotation properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `date` | `Date` | — | **Required.** The date (x-axis position) where the text should be placed |
+| `value` | `number` | — | **Required.** The y-value (y-axis position) where the text should be placed |
+| `text` | `string` | — | **Required.** The text content to display |
+| `id` | `string` | — | Unique identifier for the annotation |
+| `xOffset` | `number` | `0` | Horizontal offset from the point in pixels |
+| `yOffset` | `number` | `-10` | Vertical offset from the point in pixels (negative = above) |
+| `textAnchor` | `'start' \| 'middle' \| 'end'` | `'middle'` | Horizontal text alignment |
+| `fill` | `string` | `'#333'` | Text colour |
+| `fontSize` | `number` | `14` | Font size in pixels |
+| `fontWeight` | `'normal' \| 'bold' \| number` | `'normal'` | Font weight (also accepts numeric values like 600, 700) |
+| `background` | `object` | — | Optional background highlight for the text |
+| `background.fill` | `string` | — | Background colour |
+| `background.padding` | `number` | `4` | Padding around the text in pixels |
+| `background.rx` | `number` | `3` | Corner radius in pixels |
+
+### Text positioning
+
+Use offsets to position text relative to data points:
+
+```javascript
+// Above the point, left-aligned
+yOffset: -15, xOffset: -10, textAnchor: 'end'
+
+// Below the point, centered
+yOffset: 15, xOffset: 0, textAnchor: 'middle'
+
+// To the right of the point
+xOffset: 10, textAnchor: 'start'
+```
+
+## Combining annotations
+
+Mix and match annotation types for powerful visual communication:
+
+```svelte
+<LineChart
+  data={data}
+  xKey="date"
+  yKey="value"
+  areaHighlights={[
+    {
+      dateStart: new Date('2024-02-15'),
+      dateEnd: new Date('2024-03-15'),
+      fill: '#f39c12',
+      opacity: 0.15,
+    },
+  ]}
+  verticalLines={[
+    {
+      date: new Date('2024-02-15'),
+      label: 'Start',
+      stroke: '#e74c3c',
+    },
+    {
+      date: new Date('2024-03-15'),
+      label: 'End',
+      stroke: '#e74c3c',
+    },
+  ]}
+  textAnnotations={[
+    {
+      date: new Date('2024-02-26'),
+      value: 182,
+      text: 'Campaign Period',
+      fill: '#fff',
+      fontWeight: 'bold',
+      background: {
+        fill: '#f39c12',
+        padding: 8,
+        rx: 4,
+      },
+    },
+  ]}
+/>
+```
+
+<Canvas of={LineChartStories.CombinedAnnotations} />
+
+## Styling customization
+
+### Line styles
+
+Control the appearance of vertical lines with stroke properties:
+
+**Solid line (default)**
+```javascript
+stroke: '#e74c3c'
+strokeWidth: 2
+```
+
+**Dashed line**
+```javascript
+stroke: '#e67e22'
+strokeWidth: 2
+strokeDasharray: '5,5'
+```
+
+**Thin, subtle line**
+```javascript
+stroke: '#27ae60'
+strokeWidth: 1
+opacity: 0.6
+```
+
+### Highlight fills
+
+Choose colours and opacity levels that complement your chart:
+
+```javascript
+// Subtle light blue
+fill: '#3498db'
+opacity: 0.1
+
+// Strong yellow
+fill: '#f39c12'
+opacity: 0.25
+
+// Muted red
+fill: '#e74c3c'
+opacity: 0.12
+```
+
+<Canvas of={LineChartStories.LineStyleOptions} />
+<Canvas of={LineChartStories.HighlightFillOptions} />

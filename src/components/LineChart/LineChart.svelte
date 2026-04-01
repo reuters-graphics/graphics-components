@@ -33,6 +33,9 @@
     endLabelPosition,
     endLabelFormatter,
     endValueDecimalPlaces = 0,
+    verticalLines,
+    areaHighlights,
+    textAnnotations,
     width = 660,
     height = 400,
     margin,
@@ -300,6 +303,9 @@
         {showEndPoint}
         {endPointRadius}
         {endValueDecimalPlaces}
+        {verticalLines}
+        {areaHighlights}
+        {textAnnotations}
         width={containerWidth}
         {height}
         margin={resolvedMargin}
@@ -342,6 +348,9 @@
             {showEndPoint}
             {endPointRadius}
             {endValueDecimalPlaces}
+            {verticalLines}
+            {areaHighlights}
+            {textAnnotations}
             width={chartItemWidth}
             height={chartItemHeight}
             margin={resolvedMargin}

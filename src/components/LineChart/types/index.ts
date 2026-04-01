@@ -201,6 +201,191 @@ export interface XAxisConfig {
 }
 
 /**
+ * Vertical line annotation
+ *
+ * Renders a vertical line at a specific date, useful for highlighting significant events or time periods.
+ */
+export interface VerticalLineAnnotation {
+    /**
+     * The date where the vertical line should be positioned.
+     *
+     * **REQUIRED**
+     */
+    date: Date;
+    /**
+     * Unique identifier for this annotation.
+     */
+    id?: string;
+    /**
+     * Line stroke colour.
+     *
+     * _default_ '#999'
+     */
+    stroke?: string;
+    /**
+     * Line stroke width in pixels.
+     *
+     * _default_ 2
+     */
+    strokeWidth?: number;
+    /**
+     * Line dash pattern (e.g., "5,5" for dashed).
+     *
+     * _default_ undefined (solid line)
+     *
+     * @example
+     * ```
+     * strokeDasharray: '5,5'      // Dashed
+     * strokeDasharray: '10,3,3,3' // Dash-dot
+     * ```
+     */
+    strokeDasharray?: string;
+    /**
+     * Opacity of the line (0-1).
+     *
+     * _default_ 0.7
+     */
+    opacity?: number;
+    /**
+     * Optional text label for the annotation.
+     */
+    label?: string;
+    /**
+     * Label text colour.
+     *
+     * _default_ '#333'
+     */
+    labelColour?: string;
+}
+
+/**
+ * Area highlight annotation
+ *
+ * Renders a semi-transparent rectangle over a specified x-axis range.
+ */
+export interface AreaHighlightAnnotation {
+    /**
+     * Unique identifier for this highlight.
+     */
+    id?: string;
+    /**
+     * Start date of the highlighted area.
+     *
+     * **REQUIRED**
+     */
+    dateStart: Date;
+    /**
+     * End date of the highlighted area.
+     *
+     * **REQUIRED**
+     */
+    dateEnd: Date;
+    /**
+     * Fill colour for the highlight.
+     *
+     * _default_ '#6c8db6'
+     */
+    fill?: string;
+    /**
+     * Opacity of the highlight (0-1).
+     *
+     * _default_ 0.15
+     */
+    opacity?: number;
+    /**
+     * Optional text label for the highlight.
+     */
+    label?: string;
+}
+
+/**
+ * Text annotation
+ *
+ * Renders text at a specific point in the chart with flexible positioning.
+ */
+export interface TextAnnotation {
+    /**
+     * Unique identifier for this annotation.
+     */
+    id?: string;
+    /**
+     * The date (x-axis position) where the text should be placed.
+     *
+     * **REQUIRED**
+     */
+    date: Date;
+    /**
+     * The y-value (y-axis position) where the text should be placed.
+     *
+     * **REQUIRED**
+     */
+    value: number;
+    /**
+     * The text content to display.
+     *
+     * **REQUIRED**
+     */
+    text: string;
+    /**
+     * Horizontal offset from the point in pixels.
+     *
+     * _default_ 0
+     */
+    xOffset?: number;
+    /**
+     * Vertical offset from the point in pixels.
+     *
+     * _default_ -10
+     */
+    yOffset?: number;
+    /**
+     * Text anchor position ('start', 'middle', 'end').
+     *
+     * _default_ 'middle'
+     */
+    textAnchor?: 'start' | 'middle' | 'end';
+    /**
+     * Text colour.
+     *
+     * _default_ '#333'
+     */
+    fill?: string;
+    /**
+     * Font size in pixels.
+     *
+     * _default_ 14
+     */
+    fontSize?: number;
+    /**
+     * Font weight.
+     *
+     * _default_ 'normal'
+     */
+    fontWeight?: 'normal' | 'bold' | number;
+    /**
+     * Optional background highlight for text.
+     */
+    background?: {
+        /**
+         * Background fill colour.
+         */
+        fill: string;
+        /**
+         * Padding around text in pixels.
+         *
+         * _default_ 4
+         */
+        padding?: number;
+        /**
+         * Corner radius in pixels.
+         *
+         * _default_ 3
+         */
+        rx?: number;
+    };
+}
+
+/**
  * Single line/series configuration
  *
     * Defines the appearance and behaviour of a single data line in the chart.
@@ -766,6 +951,50 @@ export interface LineChartProps {
      * ```
      */
     endValueDecimalPlaces?: number;
+
+    // ========== ANNOTATIONS & HIGHLIGHTS ==========
+    /**
+     * Array of vertical line annotations.
+     *
+     * Renders vertical lines at specified dates, useful for highlighting events or time markers.
+     *
+     * @example
+     * ```
+     * verticalLines: [
+     *   { date: new Date('2024-01-15'), label: 'Launch', stroke: '#e74c3c' },
+     *   { date: new Date('2024-02-01'), label: 'Update', strokeDasharray: '5,5' },
+     * ]
+     * ```
+     */
+    verticalLines?: VerticalLineAnnotation[];
+    /**
+     * Array of area highlight annotations.
+     *
+     * Renders semi-transparent rectangles over specified x-axis ranges, useful for highlighting time periods.
+     *
+     * @example
+     * ```
+     * areaHighlights: [
+     *   { dateStart: new Date('2024-01-01'), dateEnd: new Date('2024-03-31'), label: 'Q1' },
+     *   { dateStart: new Date('2024-04-01'), dateEnd: new Date('2024-06-30'), fill: '#f39c12', opacity: 0.2 },
+     * ]
+     * ```
+     */
+    areaHighlights?: AreaHighlightAnnotation[];
+    /**
+     * Array of text annotations.
+     *
+     * Renders text labels at specific points in the chart with flexible positioning.
+     *
+     * @example
+     * ```
+     * textAnnotations: [
+     *   { date: new Date('2024-01-15'), value: 500, text: 'Peak' },
+     *   { date: new Date('2024-02-01'), value: 200, text: 'Dip', fill: '#e74c3c' },
+     * ]
+     * ```
+     */
+    textAnnotations?: TextAnnotation[];
 
     // ========== DIMENSIONS & SCALE ==========
     /**
