@@ -204,6 +204,7 @@ export interface XAxisConfig {
  * Vertical line annotation
  *
  * Renders a vertical line at a specific date, useful for highlighting significant events or time periods.
+ * Style using the `className` and `labelClassName` props with SCSS.
  */
 export interface VerticalLineAnnotation {
     /**
@@ -217,51 +218,24 @@ export interface VerticalLineAnnotation {
      */
     id?: string;
     /**
-     * Line stroke colour.
-     *
-     * _default_ '#999'
-     */
-    stroke?: string;
-    /**
-     * Line stroke width in pixels.
-     *
-     * _default_ 2
-     */
-    strokeWidth?: number;
-    /**
-     * Line dash pattern (e.g., "5,5" for dashed).
-     *
-     * _default_ undefined (solid line)
-     *
-     * @example
-     * ```
-     * strokeDasharray: '5,5'      // Dashed
-     * strokeDasharray: '10,3,3,3' // Dash-dot
-     * ```
-     */
-    strokeDasharray?: string;
-    /**
-     * Opacity of the line (0-1).
-     *
-     * _default_ 0.7
-     */
-    opacity?: number;
-    /**
      * Optional text label for the annotation.
      */
     label?: string;
     /**
-     * Label text colour.
-     *
-     * _default_ '#333'
+     * CSS class added to the rendered line element.
      */
-    labelColour?: string;
+    lineClass?: string;
+    /**
+     * CSS class added to the rendered label text element.
+     */
+    labelClass?: string;
 }
 
 /**
  * Area highlight annotation
  *
  * Renders a semi-transparent rectangle over a specified x-axis range.
+ * Style using the `className` prop with SCSS.
  */
 export interface AreaHighlightAnnotation {
     /**
@@ -281,33 +255,30 @@ export interface AreaHighlightAnnotation {
      */
     dateEnd: Date;
     /**
-     * Fill colour for the highlight.
-     *
-     * _default_ '#6c8db6'
-     */
-    fill?: string;
-    /**
-     * Opacity of the highlight (0-1).
-     *
-     * _default_ 0.15
-     */
-    opacity?: number;
-    /**
      * Optional text label for the highlight.
      */
     label?: string;
+    /**
+     * CSS class added to the rendered highlight rectangle.
+     */
+    className?: string;
 }
 
 /**
  * Text annotation
  *
  * Renders text at a specific point in the chart with flexible positioning.
+ * Style using the `className` prop with SCSS.
  */
 export interface TextAnnotation {
     /**
      * Unique identifier for this annotation.
      */
     id?: string;
+    /**
+     * CSS class added to the rendered text element.
+     */
+    className?: string;
     /**
      * The date (x-axis position) where the text should be placed.
      *
@@ -339,37 +310,15 @@ export interface TextAnnotation {
      */
     yOffset?: number;
     /**
-     * Text anchor position ('start', 'middle', 'end').
+     * Text anchor position.
      *
      * _default_ 'middle'
      */
     textAnchor?: 'start' | 'middle' | 'end';
     /**
-     * Text colour.
-     *
-     * _default_ '#333'
-     */
-    fill?: string;
-    /**
-     * Font size in pixels.
-     *
-     * _default_ 14
-     */
-    fontSize?: number;
-    /**
-     * Font weight.
-     *
-     * _default_ 'normal'
-     */
-    fontWeight?: 'normal' | 'bold' | number;
-    /**
-     * Optional background highlight for text.
+     * Renders a background rectangle behind the text.
      */
     background?: {
-        /**
-         * Background fill colour.
-         */
-        fill: string;
         /**
          * Padding around text in pixels.
          *
@@ -382,6 +331,10 @@ export interface TextAnnotation {
          * _default_ 3
          */
         rx?: number;
+        /**
+         * CSS class added to the background rectangle.
+         */
+        className?: string;
     };
 }
 
