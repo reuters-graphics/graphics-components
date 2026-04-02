@@ -353,6 +353,17 @@ export interface LineSeriesInput {
      */
     strokeWidth?: number;
     /**
+     * CSS class added to the main rendered line path.
+     */
+    lineClass?: string;
+    /**
+     * CSS class added to the rendered series group wrapper.
+     *
+     * Useful for targeting all series elements (line, end point, end label),
+     * especially in small multiples.
+     */
+    seriesClass?: string;
+    /**
      * Whether to display a label at the end of the line.
      *
      * _default_ true

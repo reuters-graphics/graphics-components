@@ -41,9 +41,10 @@ For multi-line charts, data must be in **[wide format](https://data.europa.eu/ap
 
   const data = pivotToWideData(tallData, 'date', 'company', 'endDayVal');
 
+  // Define series configuration for each line
   const series = [
-    { key: 'AAPL', label: 'Apple', colour: '#1f77b4', endLabelType: 'label' },
-    { key: 'GOOGL', label: 'Google', colour: '#2ca02c', endLabelType: 'label' },
+    { key: 'AAPL', label: 'Apple', colour: '#1f77b4', lineClass: 'apple-data-line', endLabelType: 'label' },
+    { key: 'GOOGL', label: 'Google', colour: '#2ca02c', lineClass: 'google-data-line', endLabelType: 'label' },
   ];
 </script>
 

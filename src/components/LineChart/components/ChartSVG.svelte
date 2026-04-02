@@ -227,57 +227,59 @@
     <!-- Lines for each series -->
     {#each series as s, seriesIndex}
       {@const color = getSeriesColor(seriesIndex)}
-      <path
-        d={generatePath(s.key)}
-        class="data-line"
-        style="stroke: {color}; stroke-width: {s.strokeWidth ||
-          2}px; fill: none; translate: {margin.left}px 0;"
-      />
-
-      <!-- End point marker (shown by default) -->
-      {#if (s.showEndPoint ?? showEndPoint) && data.length > 0}
-        {@const lastPoint = data[data.length - 1]}
-        {@const cx = scales.xScale(lastPoint[xKey] as Date)}
-        {@const cy = scales.yScale(lastPoint[s.key] as number)}
-        {@const radius = s.endPointRadius ?? endPointRadius ?? 4}
-        {@const pointFill = s.endPointFill ?? color}
-        {@const pointStroke = s.endPointStroke ?? 'none'}
-        {@const pointStrokeWidth = s.endPointStrokeWidth ?? 0}
-        <circle
-          r={radius}
-          {cx}
-          {cy}
-          class="end-point"
-          style="fill: {pointFill}; stroke: {pointStroke}; stroke-width: {pointStrokeWidth}px; translate: {margin.left}px 0;"
+      <g class={s.seriesClass ? `series ${s.seriesClass}` : 'series'}>
+        <path
+          d={generatePath(s.key)}
+          class={s.lineClass ? `data-line ${s.lineClass}` : 'data-line'}
+          style="stroke: {color}; stroke-width: {s.strokeWidth ||
+            2}px; fill: none; translate: {margin.left}px 0;"
         />
-      {/if}
 
-      <!-- End labels (shown by default) -->
-      {#if (s.showEndLabel ?? true) && data.length > 0}
-        {@const lastPoint = data[data.length - 1]}
-        {@const xOffset = s.endLabelPosition?.xOffset ?? 5}
-        {@const yOffset = s.endLabelPosition?.yOffset ?? 0}
-        {@const textAnchor = s.endLabelPosition?.textAnchor ?? 'start'}
-        {@const x = scales.xScale(lastPoint[xKey] as Date) + xOffset}
-        {@const y = scales.yScale(lastPoint[s.key] as number) + yOffset}
-        {@const endContext = {
-          value: lastPoint[s.key] as number,
-          isTopTick: false,
-          isBottomTick: false,
-          isEndValue: true,
-          tickIndex: -1,
-        } as YAxisLabelContext}
-        <text
-          {x}
-          {y}
-          class="end-label"
-          style="fill: {color}; translate: {margin.left}px 0;"
-          text-anchor={textAnchor}
-          dominant-baseline="middle"
-        >
-          {formatEndLabel(s, lastPoint[s.key] as number, endContext)}
-        </text>
-      {/if}
+        <!-- End point marker (shown by default) -->
+        {#if (s.showEndPoint ?? showEndPoint) && data.length > 0}
+          {@const lastPoint = data[data.length - 1]}
+          {@const cx = scales.xScale(lastPoint[xKey] as Date)}
+          {@const cy = scales.yScale(lastPoint[s.key] as number)}
+          {@const radius = s.endPointRadius ?? endPointRadius ?? 4}
+          {@const pointFill = s.endPointFill ?? color}
+          {@const pointStroke = s.endPointStroke ?? 'none'}
+          {@const pointStrokeWidth = s.endPointStrokeWidth ?? 0}
+          <circle
+            r={radius}
+            {cx}
+            {cy}
+            class="end-point"
+            style="fill: {pointFill}; stroke: {pointStroke}; stroke-width: {pointStrokeWidth}px; translate: {margin.left}px 0;"
+          />
+        {/if}
+
+        <!-- End labels (shown by default) -->
+        {#if (s.showEndLabel ?? true) && data.length > 0}
+          {@const lastPoint = data[data.length - 1]}
+          {@const xOffset = s.endLabelPosition?.xOffset ?? 5}
+          {@const yOffset = s.endLabelPosition?.yOffset ?? 0}
+          {@const textAnchor = s.endLabelPosition?.textAnchor ?? 'start'}
+          {@const x = scales.xScale(lastPoint[xKey] as Date) + xOffset}
+          {@const y = scales.yScale(lastPoint[s.key] as number) + yOffset}
+          {@const endContext = {
+            value: lastPoint[s.key] as number,
+            isTopTick: false,
+            isBottomTick: false,
+            isEndValue: true,
+            tickIndex: -1,
+          } as YAxisLabelContext}
+          <text
+            {x}
+            {y}
+            class="end-label"
+            style="fill: {color}; translate: {margin.left}px 0;"
+            text-anchor={textAnchor}
+            dominant-baseline="middle"
+          >
+            {formatEndLabel(s, lastPoint[s.key] as number, endContext)}
+          </text>
+        {/if}
+      </g>
     {/each}
 
     <AreaHighlightAnnotations
@@ -339,16 +341,12 @@
     font-size: 12px;
   }
 
-  .end-label {
+  text {
     font-size: 11px;
     font-weight: 500;
   }
 
-  .end-point {
-    opacity: 0.95;
-  }
-
-  .data-line {
+  path {
     shape-rendering: crispEdges;
   }
 </style>

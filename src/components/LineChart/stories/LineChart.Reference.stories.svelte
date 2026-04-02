@@ -29,6 +29,8 @@
         label: 'End day value',
         colour: '#1f77b4',
         strokeWidth: 2,
+        lineClass: undefined,
+        seriesClass: undefined,
         showEndLabel: true,
         showEndPoint: true,
         endPointRadius: 4,
