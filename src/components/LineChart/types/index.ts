@@ -342,10 +342,10 @@ export interface LineSeriesInput {
      *
      * @example
      * ```
-     * colour: '#2ca02c'  // Green
+        * lineColour: '#2ca02c'  // Green
      * ```
      */
-    colour?: string;
+    lineColour?: string;
     /**
      * Stroke width of the line in pixels.
      *
@@ -597,8 +597,8 @@ export interface ScaleConfig {
  * <LineChart
  *   data={chartData}
  *   series={[
- *     { key: 'revenue', label: 'Revenue', colour: '#2ca02c' },
- *     { key: 'expenses', label: 'Expenses', colour: '#d62728' },
+ *     { key: 'revenue', label: 'Revenue', lineColour: '#2ca02c' },
+ *     { key: 'expenses', label: 'Expenses', lineColour: '#d62728' },
  *   ]}
  *   xKey="date"
  *   yAxisConfig={{
@@ -675,8 +675,8 @@ export interface LineChartProps {
      * @example
      * ```
      * series: [
-     *   { key: 'revenue', label: 'Revenue', colour: '#2ca02c' },
-     *   { key: 'expenses', label: 'Expenses', colour: '#d62728' },
+    *   { key: 'revenue', label: 'Revenue', lineColour: '#2ca02c' },
+    *   { key: 'expenses', label: 'Expenses', lineColour: '#d62728' },
      * ]
      * ```
      */
@@ -812,6 +812,24 @@ export interface LineChartProps {
      * Applies to all series unless overridden in individual series config.
      */
     showEndLabel?: boolean;
+    /**
+     * Default stroke width for line paths in pixels.
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    strokeWidth?: number;
+    /**
+     * Default CSS class for line paths.
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    lineClass?: string;
+    /**
+     * Default line colour.
+     *
+     * Applies to all series unless overridden in individual series config.
+     */
+    lineColour?: string;
     /**
      * Radius of the end point circle marker in pixels.
      *

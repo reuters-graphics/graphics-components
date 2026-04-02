@@ -27,7 +27,7 @@
       {
         key: 'endDayVal',
         label: 'End day value',
-        colour: '#1f77b4',
+        lineColour: '#1f77b4',
         strokeWidth: 2,
         lineClass: undefined,
         seriesClass: undefined,
@@ -68,6 +68,9 @@
     smallMultiplesEndLabelsMode: 'first',
     smallMultiplesXAxisMode: 'first',
     showEndPoint: true,
+    strokeWidth: undefined,
+    lineClass: undefined,
+    lineColour: undefined,
     endPointRadius: 4,
     endValueDecimalPlaces: undefined,
     width: 660,

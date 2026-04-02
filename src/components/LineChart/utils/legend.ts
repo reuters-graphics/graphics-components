@@ -24,7 +24,7 @@ export function generateLegendItems(series: LineSeriesInput[], defaultColors?: s
 
     return series.map((s, index) => ({
         ...s,
-        color: s.color || defaultColorPalette[index % defaultColorPalette.length]
+        color: s.lineColour || defaultColorPalette[index % defaultColorPalette.length]
     }));
 }
 

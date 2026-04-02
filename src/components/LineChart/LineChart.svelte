@@ -25,6 +25,9 @@
     yKey,
     showEndPoint = true,
     showEndLabel = true,
+    strokeWidth,
+    lineClass,
+    lineColour,
     endPointRadius,
     endPointFill,
     endPointStroke,
@@ -93,6 +96,9 @@
   ) => {
     return inputSeries.map((s) => ({
       ...s,
+      colour: s.lineColour ?? lineColour,
+      strokeWidth: s.strokeWidth ?? strokeWidth,
+      lineClass: s.lineClass ?? lineClass,
       showEndPoint: s.showEndPoint ?? defaultShowEndPoint,
       showEndLabel: s.showEndLabel ?? showEndLabel,
       endPointRadius: s.endPointRadius ?? endPointRadius,

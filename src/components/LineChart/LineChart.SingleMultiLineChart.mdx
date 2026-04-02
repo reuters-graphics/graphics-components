@@ -17,9 +17,44 @@ The `LineChart` component requires different data formats depending on your use 
 ## Single line chart
 
 Simply pass `data`, specify `xKey`, `yKey` and, if necessary, other props to customise axis formatting, and the component will render a single line.
- 
- 
+
 <Canvas of={LineChartStories.SingleLine} sourceState="shown" />
+ 
+ ### Customising line styles
+
+### Line colour and width
+ Use `lineColour` and `strokeWidth` props to set the line colour and width.
+
+ ```svelte
+<LineChart
+  {data} 
+  xKey="date"
+  yKey="endDayVal"
+  lineColour='red'
+  strokeWidth={1.5}
+/>
+```
+
+
+### Other line styles
+Use `lineClass` to assign a CSS class to the line element, and write your styles in a global stylesheet or with `:global(...)` selectors in your component SCSS.
+
+```svelte
+<!-- Single line chart with lineClass -->
+<LineChart
+  {data}
+  xKey="date"
+  yKey="endDayVal"
+  lineClass='apple-data-line'
+/>
+```
+
+```scss
+  // Global styles
+  :global(path.apple-data-line) {
+    stroke-dasharray: 2, 2;
+  } 
+```
 
 ## Multi line chart
 
@@ -39,12 +74,14 @@ For multi-line charts, data must be in **[wide format](https://data.europa.eu/ap
     { date: '2024-02-01', company: 'GOOGL', endDayVal: 410 },
   ];
 
+  // Convert long data to wide format
   const data = pivotToWideData(tallData, 'date', 'company', 'endDayVal');
 
   // Define series configuration for each line
+  // Set `lineColour` and `lineClass` for each line to apply different styles
   const series = [
-    { key: 'AAPL', label: 'Apple', colour: '#1f77b4', lineClass: 'apple-data-line', endLabelType: 'label' },
-    { key: 'GOOGL', label: 'Google', colour: '#2ca02c', lineClass: 'google-data-line', endLabelType: 'label' },
+    { key: 'AAPL', label: 'Apple', lineColour: '#1f77b4', lineClass: 'apple-data-line', endLabelType: 'label' },
+    { key: 'GOOGL', label: 'Google', lineColour: '#2ca02c', lineClass: 'google-data-line', endLabelType: 'label' },
   ];
 </script>
 
@@ -66,5 +103,4 @@ To create small multiples of multi-line charts, see the [small multiples documen
 
 
 <Canvas of={LineChartStories.MultipleLines} />
-
-<Controls of={LineChartStories.MultipleLines}  />
+ <Controls of={LineChartStories.MultipleLines}  sourceState='open'/>

@@ -28,12 +28,13 @@
   tags={['!autodocs', '!dev']}
   args={{
     data: stockDummyData.filter((d) => d.company === 'AAPL'),
+    lineClass: 'apple-data-line',
     xKey: 'date',
     yKey: 'endDayVal',
     xAxisConfig: { xAxisDateFormat: '%b %-d, %Y' },
     yAxisConfig: { suffix: '', prefix: '$', zeroBase: true, mode: 'all-ticks' },
     height: 250,
-    margin: { left: 15, right: 60 },
+    margin: { left: 30, right: 60 },
   }}
 />
 
@@ -50,25 +51,25 @@
       {
         key: 'AAPL',
         label: 'Apple',
-        colour: '#1f77b4',
+        lineColour: '#1f77b4',
         endLabelType: 'label' as const,
       },
       {
         key: 'GOOGL',
         label: 'Google',
-        colour: '#2ca02c',
+        lineColour: '#2ca02c',
         endLabelType: 'label' as const,
       },
       {
         key: 'MSFT',
         label: 'Microsoft',
-        colour: '#ff7f0e',
+        lineColour: '#ff7f0e',
         endLabelType: 'label' as const,
       },
       {
         key: 'AMZN',
         label: 'Amazon',
-        colour: '#d62728',
+        lineColour: '#d62728',
         endLabelType: 'label' as const,
       },
     ],
@@ -78,6 +79,6 @@
     yAxisConfig: { prefix: '$', mode: 'all-ticks' },
     showGridY: false,
     height: 250,
-    margin: { right: 80 },
+    margin: { left: 30, right: 80 },
   }}
 />

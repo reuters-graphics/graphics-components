@@ -170,7 +170,7 @@
       '#e377c2',
       '#7f7f7f',
     ];
-    return series[index]?.colour || colors[index % colors.length];
+    return series[index]?.lineColour || colors[index % colors.length];
   }
 
   function formatEndLabel(

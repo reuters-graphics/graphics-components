@@ -6,28 +6,127 @@ import * as LineChartStories from './stories/LineChart.SmallMultiples.stories.sv
  
 ## Small multiples: single line charts
 
-Each series gets its own chart. If your `data` and `series` are already set up for a multi-line chart, switch `layout` from `'single'` to `'multiples'`.
+For small multiples of single line charts, data must be in **[wide format](https://data.europa.eu/apps/data-visualisation-guide/wide-versus-long-data)**. If your data is in a long format, convert it with `pivotToWideData()`.
+
+<Canvas of={LineChartStories.SmallMultiples}  />
+
+> 💡TIP: Use the `smallMultiplesXAxisMode` prop to control which chart gets x and y axis labels. By default, it's set to `"first-in-row"`. TKTKTK. Change this to be boolean, `smallMultiplesShowAllAxisLabels`.
 
 ```svelte
+<script>
+  import { LineChart, pivotToWideData } from '@reuters-graphics/graphics-components';
+
+  const tallData = [
+    { date: '2024-01-01', company: 'AAPL', endDayVal: 150 },
+    { date: '2024-01-01', company: 'GOOGL', endDayVal: 400 },
+    { date: '2024-02-01', company: 'AAPL', endDayVal: 158 },
+    { date: '2024-02-01', company: 'GOOGL', endDayVal: 410 },
+  ];
+
+  // Convert long data to wide format
+  const data = pivotToWideData(tallData, 'date', 'company', 'endDayVal');
+
+  // Define series configuration for each line
+  // Set `lineColour` and `lineClass` for each line to apply different styles
+  const series = [
+    { key: 'AAPL', label: 'Apple', lineColour: '#1f77b4', lineClass: 'apple-data-line', endLabelType: 'label' },
+    { key: 'GOOGL', label: 'Google', lineColour: '#2ca02c', lineClass: 'google-data-line', endLabelType: 'label' },
+  ];
+</script>
+
+<!-- Set `layout` to "multiples" to create small multiples -->
 <LineChart
   {data}
   {series}
   xKey="date"
+  xAxisConfig={{ "xAxisDateFormat": "%b, '%y" }}
   yAxisConfig={{ prefix: '$' }}
   showGridY={false}
   layout="multiples"
+  smallMultiplesXAxisMode="first-in-row"
+  margin={{ top: 20, right: 30, bottom: 30, left: 40 }}
 />
 ```
 
-<Canvas of={LineChartStories.SmallMultiples} sourceState="shown" />
 
 ## Small multiples: multi-line charts
 
-Use `chartGroups` when each panel should contain multiple lines.
+To make small multiples of multi-line charts, use the `chartGroups` prop to assign series to different panels. Each object in `chartGroups` represents a panel and contains a `seriesKeys` array that lists the keys of the series to include in that panel.
+
+To prepare your wide data for small multiples, use the `pivotToWideData()` utility function to convert from long to wide format if needed.
+
+
+<Canvas of={LineChartStories.SmallMultiplesMultiLineCharts} />
+
 
 ```svelte
+<script lang='ts'>
+import { LineChart, pivotToWideData } from '@reuters-graphics/graphics-components';
+
+// Original data must be in long format, with a column for group (e.g. country), series (e.g. index), and value for the y axis
+const data = [
+    {
+        "country": "USA",
+        "date": "2015-01-01",
+        "index": "GDP growth",
+        "value": 2.9
+    },
+    {
+        "country": "USA",
+        "date": "2016-01-01",
+        "index": "GDP growth",
+        "value": 1.6
+    },
+    // ... more data points for US GDP growth
+    {
+        "country": "USA",
+        "date": "2015-01-01",
+        "index": "Birth rate",
+        "value": 0.3
+    },
+    {
+        "country": "USA",
+        "date": "2016-01-01",
+        "index": "Birth rate",
+        "value": 0.2
+    },
+    // ... more data points for US Birth rate
+    {
+        "country": "Germany",
+        "date": "2017-01-01",
+        "index": "GDP growth",
+        "value": 2.6
+    },
+    {
+        "country": "Germany",
+        "date": "2018-01-01",
+        "index": "GDP growth",
+        "value": 1.5
+    },
+    // ... more data for other countries in the same format
+];
+
+// Define `series` configuration for the multi-line charts. Use `groupKey` to specify the column that defines the groups (e.g. country) and `seriesKey` for the column that defines the series within each group (e.g. index, which represents different metrics like GDP growth or birth rate).
+const series = {
+      data,
+      xKey: 'date',
+      groupKey: 'country',
+      seriesKey: 'index',
+      valueKey: 'value',
+      colours: {
+        'GDP growth': '#1f77b4',
+        'Birth rate': '#d62728',
+      },
+      formatGroupTitle: (country) => country, // Title for each small multiple panel
+    };
+
+// Use `prepareMultilineSmallMultiplesData` to convert the data into the format needed for small multiples with multiple lines. This function will return the transformed data and the chartGroups configuration needed to assign series to panels.
+const { data: smallMultiplesData, chartGroups } = prepareMultilineSmallMultiplesData(series);
+</script>
+
+
 <LineChart
-  {data}
+  data={smallMultiplesData}
   {chartGroups}
   layout="multiples"
   xKey="date"
@@ -39,5 +138,3 @@ Use `chartGroups` when each panel should contain multiple lines.
   showGridY={true}
 />
 ```
-
-<Canvas of={LineChartStories.SmallMultiplesMultiLineCharts} sourceState="shown" />

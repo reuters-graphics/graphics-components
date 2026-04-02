@@ -4,7 +4,6 @@
     pivotToWideData,
     prepareMultilineSmallMultiplesData,
   } from '../utils/index.js';
-  import { slugify } from '../../../utils/index.js';
 
   // Component
   import LineChart from '../LineChart.svelte';
@@ -18,13 +17,6 @@
     component: LineChart,
   });
 
-  type CountryRow = {
-    country: string;
-    date: string;
-    index: string;
-    value: number;
-  };
-
   // Transform tall stock data to wide format for multi-line rendering
   const stockWideData = pivotToWideData(
     stockDummyData,
@@ -33,40 +25,22 @@
     'endDayVal'
   );
 
-  const countryRows = countriesData as CountryRow[];
-  const countriesWithSeriesKey = countryRows.map((row) => ({
-    ...row,
-    seriesKey: `${row.country}__${row.index}`,
-  }));
-
-  const countriesWideData = pivotToWideData(
-    countriesWithSeriesKey,
-    'date',
-    'seriesKey',
-    'value'
-  );
-
-  const indexColorMap: Record<string, string> = {
-    'GDP growth': '#1f77b4',
-    'Birth rate': '#d62728',
+  const series = {
+    data: countriesData,
+    xKey: 'date',
+    groupKey: 'country',
+    seriesKey: 'index',
+    valueKey: 'value',
+    colours: {
+      'GDP growth': '#1f77b4',
+      'Birth rate': '#d62728',
+    },
+    formatGroupTitle: (country: string) => country, // Title for each small multiple panel
   };
 
-  const countryNames = Array.from(
-    new Set(countryRows.map((row) => row.country))
-  );
-  const indexNames = Array.from(new Set(countryRows.map((row) => row.index)));
-
-  const countriesChartGroups = countryNames.map((country) => ({
-    groupId: slugify(country),
-    title: country,
-    series: indexNames.map((index) => ({
-      key: `${country}__${index}`,
-      label: index,
-      colour: indexColorMap[index] || indexColorMap[index.trim()] || '#7f7f7f',
-      endLabelType: 'label' as const,
-      showEndLabel: true,
-    })),
-  }));
+  // Use `prepareMultilineSmallMultiplesData` to convert the data into the format needed for small multiples with multiple lines. This function will return the transformed data and the chartGroups configuration needed to assign series to panels.
+  const { data: smallMultiplesData, chartGroups } =
+    prepareMultilineSmallMultiplesData(series);
 </script>
 
 <!-- Small multiples grid -->
@@ -79,25 +53,25 @@
       {
         key: 'AAPL',
         label: 'Apple',
-        colour: '#1f77b4',
+        lineColour: '#1f77b4',
         endLabelType: 'value' as const,
       },
       {
         key: 'GOOGL',
         label: 'Google',
-        colour: '#2ca02c',
+        lineColour: '#2ca02c',
         endLabelType: 'value' as const,
       },
       {
         key: 'MSFT',
         label: 'Microsoft',
-        colour: '#ff7f0e',
+        lineColour: '#ff7f0e',
         endLabelType: 'value' as const,
       },
       {
         key: 'AMZN',
         label: 'Amazon',
-        colour: '#d62728',
+        lineColour: '#d62728',
         endLabelType: 'value' as const,
       },
     ],
@@ -114,53 +88,11 @@
 <!-- Small multiples with multi-line series -->
 <Story
   name="Small multiples: multi-line charts"
-  tags={['!autodocs', '!dev']}
   exportName="SmallMultiplesMultiLineCharts"
-  args={{
-    data: countriesWideData,
-    chartGroups: countriesChartGroups,
-    layout: 'multiples',
-    xKey: 'date',
-    height: 400,
-    yAxisConfig: {
-      mode: 'all-ticks',
-      suffix: '%',
-    },
-    yTickCount: 3,
-    smallMultiplesEndLabelsMode: 'first',
-    smallMultiplesXAxisMode: 'first-in-row',
-    xAxisConfig: { xAxisDateFormat: `%Y` },
-    showGridY: true,
-    showLegend: false,
-    margin: { right: 80, bottom: 80 },
-  }}
-/>
-
-<!-- Small multiples with helper function -->
-<Story
-  name="Small multiples with helper function"
-  exportName="SmallMultiplesWithHelper"
   tags={['!autodocs', '!dev']}
   args={{
-    ...(() => {
-      const { data: wideData, chartGroups } =
-        prepareMultilineSmallMultiplesData({
-          data: countriesData,
-          xKey: 'date',
-          groupKey: 'country',
-          seriesKey: 'index',
-          valueKey: 'value',
-          colours: {
-            'GDP growth': '#1f77b4',
-            'Birth rate': '#d62728',
-          },
-          formatGroupTitle: (country) => country,
-        });
-      return {
-        data: wideData,
-        chartGroups,
-      };
-    })(),
+    data: smallMultiplesData,
+    chartGroups,
     layout: 'multiples',
     xKey: 'date',
     height: 400,
