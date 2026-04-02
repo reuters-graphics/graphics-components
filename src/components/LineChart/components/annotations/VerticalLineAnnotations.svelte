@@ -21,6 +21,10 @@
 {#if verticalLines && verticalLines.length > 0}
   {#each verticalLines as line, lineIndex (line.id ?? `line-${lineIndex}`)}
     {@const lineX = scales.xScale(line.date)}
+    {@const labelY =
+      line.labelYValue != null ?
+        scales.yScale(line.labelYValue)
+      : chartHeight - 4}
     <line
       x1={lineX}
       y1={-margin.top}
@@ -32,7 +36,7 @@
     {#if line.label}
       <text
         x={lineX + 4}
-        y={chartHeight - 4}
+        y={labelY}
         class={getClasses('vertical-line-annotation-label', line.labelClass)}
         pointer-events="none"
       >

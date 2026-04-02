@@ -204,7 +204,7 @@ export interface XAxisConfig {
  * Vertical line annotation
  *
  * Renders a vertical line at a specific date, useful for highlighting significant events or time periods.
- * Style using the `className` and `labelClassName` props with SCSS.
+ * Style using the `lineClass` and `labelClass` props with SCSS.
  */
 export interface VerticalLineAnnotation {
     /**
@@ -222,6 +222,12 @@ export interface VerticalLineAnnotation {
      */
     label?: string;
     /**
+     * Optional y-axis data value used to position the vertical line label.
+     *
+     * When provided, the label y-position is computed using the chart y-scale.
+     */
+    labelYValue?: number;
+    /**
      * CSS class added to the rendered line element.
      */
     lineClass?: string;
@@ -235,7 +241,7 @@ export interface VerticalLineAnnotation {
  * Area highlight annotation
  *
  * Renders a semi-transparent rectangle over a specified x-axis range.
- * Style using the `className` prop with SCSS.
+ * Style using the `areaClass` prop with SCSS.
  */
 export interface AreaHighlightAnnotation {
     /**
@@ -259,16 +265,26 @@ export interface AreaHighlightAnnotation {
      */
     label?: string;
     /**
+     * Optional y-axis data value used to position the highlight label.
+     *
+     * When provided, the label y-position is computed using the chart y-scale.
+     */
+    labelYValue?: number;
+    /**
      * CSS class added to the rendered highlight rectangle.
      */
-    className?: string;
+    areaClass?: string;
+    /**
+     * CSS class added to the rendered highlight label text element.
+     */
+    labelClass?: string;
 }
 
 /**
  * Text annotation
  *
  * Renders text at a specific point in the chart with flexible positioning.
- * Style using the `className` prop with SCSS.
+ * Style using the `annotationClass` prop with SCSS.
  */
 export interface TextAnnotation {
     /**
@@ -278,7 +294,7 @@ export interface TextAnnotation {
     /**
      * CSS class added to the rendered text element.
      */
-    className?: string;
+    annotationClass?: string;
     /**
      * The date (x-axis position) where the text should be placed.
      *
@@ -297,45 +313,6 @@ export interface TextAnnotation {
      * **REQUIRED**
      */
     text: string;
-    /**
-     * Horizontal offset from the point in pixels.
-     *
-     * _default_ 0
-     */
-    xOffset?: number;
-    /**
-     * Vertical offset from the point in pixels.
-     *
-     * _default_ -10
-     */
-    yOffset?: number;
-    /**
-     * Text anchor position.
-     *
-     * _default_ 'middle'
-     */
-    textAnchor?: 'start' | 'middle' | 'end';
-    /**
-     * Renders a background rectangle behind the text.
-     */
-    background?: {
-        /**
-         * Padding around text in pixels.
-         *
-         * _default_ 4
-         */
-        padding?: number;
-        /**
-         * Corner radius in pixels.
-         *
-         * _default_ 3
-         */
-        rx?: number;
-        /**
-         * CSS class added to the background rectangle.
-         */
-        className?: string;
-    };
 }
 
 /**
@@ -941,13 +918,13 @@ export interface LineChartProps {
      *
      * @example
      * ```
-     * textAnnotations: [
+     * annotations: [
      *   { date: new Date('2024-01-15'), value: 500, text: 'Peak' },
-     *   { date: new Date('2024-02-01'), value: 200, text: 'Dip', fill: '#e74c3c' },
+     *   { date: new Date('2024-02-01'), value: 200, text: 'Dip' },
      * ]
      * ```
      */
-    textAnnotations?: TextAnnotation[];
+    annotations?: TextAnnotation[];
 
     // ========== DIMENSIONS & SCALE ==========
     /**

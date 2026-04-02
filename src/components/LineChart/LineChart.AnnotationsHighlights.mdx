@@ -12,7 +12,7 @@ The `LineChart` component supports three types of annotations:
 - **Area highlights** — Highlight time periods of interest
 - **Text annotations** — Add labels with flexible positioning
 
-Annotations are styled through CSS classes. Assign a `className` to each annotation item and write your SCSS using `:global(...)` selectors to target annotation elements across component boundaries.
+Annotations are styled through CSS classes. Use `lineClass`/`labelClass` for vertical lines, `areaClass` for area highlights, `annotationClass` for text annotations. Write your SCSS using `:global(...)` selectors to target elements across component boundaries.
 
 ## Vertical line highlights
 
@@ -30,14 +30,16 @@ Use vertical lines to mark important events or dates on your chart.
     {
       date: new Date('2024-02-15'), // Use a date object to position the vertical line
       label: 'Product launch', // Text label displayed by the line
+      labelYValue: 5, // Y data value to position the label with y-scale
       lineClass: 'vline--product-launch', // CSS class for the line element
       labelClass: 'vline-label--product-launch', // CSS class for the label text
     }
   ]}
+  margin: { top: 20, right: 30, bottom: 30, left: 40 },
 />
 ```
 
-Use `lineClass` and `labelClass` to assign custom styles to the vertical line and its label. In your SCSS, put these styles in a global style sheet or target these classes with `:global(...)` to apply styles:
+Use `lineClass` and `labelClass` to assign custom styles to the vertical line and its label. Use `labelYValue` to position the label by chart data value (mapped through the y-scale). In your SCSS, put these styles in a global style sheet or target these classes with `:global(...)` to apply styles:
 
 > 💡TIP: Use [translate](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/transform-function/translate) to shift the position of the text labels if necessary.
 
@@ -49,5 +51,111 @@ Use `lineClass` and `labelClass` to assign custom styles to the vertical line an
   :global(text.vline-label--product-launch) {
     fill: orangered;
     font-weight: 500;
+  }
+```
+
+
+
+
+## Text annotations
+
+Add text labels at specific data points with flexible positioning.
+
+<Canvas of={LineChartStories.TextAnnotations} />
+```svelte
+<LineChart
+  data={data}
+  xKey="date"
+  yKey="endVal"
+  annotations={[
+      {
+        date: new Date('2024-02-25'), // Date object for x positioning
+        value: 167, // Y value for vertical positioning
+        text: 'Peak', // Text to display
+        annotationClass: 'annotation--peak', // Class for styling the text annotation
+      },
+      {
+        date: new Date('2024-03-25'),
+        value: 130,
+        text: 'Dip',
+        annotationClass: 'annotation--dip',
+      },
+  ]}
+  margin: { top: 20, right: 30, bottom: 30, left: 40 },
+/>
+```
+
+Use `annotationClass` to assign custom styles to the text annotations. In your SCSS, put these styles in a global style sheet or target these classes with `:global(...)` to apply styles:
+
+> 💡TIP: Use [translate](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/transform-function/translate) to shift the position of the annotations if necessary.
+
+
+```scss
+:global(text.annotation--peak) { fill: #e74c3c; font-weight: bold; }
+:global(text.annotation--dip)  { fill: #3498db; font-style: italic; }
+```
+
+
+
+## Area highlights
+
+Highlight time periods or regions of interest with semi-transparent rectangles.
+
+
+<Canvas of={LineChartStories.AreaHighlights} />
+
+
+```svelte
+<LineChart
+  data={data}
+  xKey="date"
+  yKey="endDayVal"
+  areaHighlights={[
+      {
+        dateStart: new Date('2024-01-01'), // Start date of the highlight area
+        dateEnd: new Date('2024-02-29'), // End date of the highlight area
+        label: 'Q1', // Text label
+        labelYValue: 170, // Y value to position the label
+        areaClass: 'highlight--q1', // CSS class for the highlight rectangle
+        labelClass: 'highlight-label--q1', // CSS class for the label text
+      },
+      {
+        dateStart: new Date('2024-03-01'),
+        dateEnd: new Date('2024-04-30'),
+        label: 'Q2',
+        labelYValue: 170,
+        areaClass: 'highlight--q2',
+        labelClass: 'highlight-label--q2',
+      }
+  ]}
+  margin: { top: 20, right: 30, bottom: 30, left: 40 },
+/>
+```
+
+Use `areaClass` to style the highlighted region and `labelClass` to style the label text. Use `labelYValue` to position the label by chart data value (mapped through the y-scale). In your SCSS, put these styles in a global style sheet or target these classes with `:global(...)` to apply styles:
+
+> 💡TIP: Use [translate](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/transform-function/translate) to shift the position of the annotations if necessary.
+
+
+
+```scss
+  // Highlight area styles
+  :global(rect.highlight--q1) {
+    fill: #3498db;
+    opacity: 0.1;
+  }
+  :global(rect.highlight--q2) {
+    fill: #e74c3c;
+    opacity: 0.1;
+  }
+
+  // Highlight label styles
+  :global(text.highlight-label--q1) {
+    fill: #1f5f93;
+    font-weight: 600;
+  }
+  :global(text.highlight-label--q2) {
+    fill: #a93226;
+    font-weight: 600;
   }
 ```

@@ -33,7 +33,7 @@
     endValueDecimalPlaces?: number;
     verticalLines?: VerticalLineAnnotation[];
     areaHighlights?: AreaHighlightAnnotation[];
-    textAnnotations?: TextAnnotation[];
+    annotations?: TextAnnotation[];
     width: number;
     height: number;
     margin: { top: number; right: number; bottom: number; left: number };
@@ -59,7 +59,7 @@
     endValueDecimalPlaces = 0,
     verticalLines,
     areaHighlights,
-    textAnnotations,
+    annotations,
     width,
     height,
     margin,
@@ -289,7 +289,7 @@
 
     <VerticalLineAnnotations {verticalLines} {scales} {margin} {chartHeight} />
 
-    <TextAnnotations {textAnnotations} {scales} />
+    <TextAnnotations {annotations} {scales} />
 
     <!-- Child content (overlay) -->
     {#if children}

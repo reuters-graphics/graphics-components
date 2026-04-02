@@ -99,7 +99,7 @@
     beforeSVG: undefined,
     verticalLines: undefined,
     areaHighlights: undefined,
-    textAnnotations: undefined,
+    annotations: undefined,
     children: undefined,
     afterChart: undefined,
   }}

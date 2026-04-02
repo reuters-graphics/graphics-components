@@ -35,7 +35,7 @@
     endValueDecimalPlaces = 0,
     verticalLines,
     areaHighlights,
-    textAnnotations,
+    annotations,
     width = 660,
     height = 400,
     margin,
@@ -305,7 +305,7 @@
         {endValueDecimalPlaces}
         {verticalLines}
         {areaHighlights}
-        {textAnnotations}
+        {annotations}
         width={containerWidth}
         {height}
         margin={resolvedMargin}
@@ -350,7 +350,7 @@
             {endValueDecimalPlaces}
             {verticalLines}
             {areaHighlights}
-            {textAnnotations}
+            {annotations}
             width={chartItemWidth}
             height={chartItemHeight}
             margin={resolvedMargin}

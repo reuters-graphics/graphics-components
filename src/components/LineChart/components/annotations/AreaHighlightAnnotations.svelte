@@ -24,20 +24,24 @@
     {@const endX = scales.xScale(area.dateEnd)}
     {@const width = Math.abs(endX - startX)}
     {@const x = Math.min(startX, endX)}
+    {@const labelY =
+      area.labelYValue != null ?
+        scales.yScale(area.labelYValue)
+      : margin.top + 20}
     <rect
       {x}
       y={-margin.top}
       {width}
       height={chartHeight + margin.top}
-      class={getClasses('area-highlight', area.className)}
+      class={getClasses('area-highlight', area.areaClass)}
       pointer-events="none"
     />
     {#if area.label}
       <text
         x={x + width / 2}
-        y={margin.top + 20}
+        y={labelY}
         text-anchor="middle"
-        class="area-highlight-label"
+        class={getClasses('area-highlight-label', area.labelClass)}
         pointer-events="none"
       >
         {area.label}
@@ -47,14 +51,13 @@
 {/if}
 
 <style lang="scss">
-  .area-highlight {
+  rect {
     fill: #6c8db6;
     opacity: 0.15;
   }
 
-  .area-highlight-label {
-    font-size: 12px;
-    fill: #666;
-    opacity: 0.5;
+  text {
+    fill: var(--theme-colour-text-secondary);
+    font-size: var(--theme-font-size-sm);
   }
 </style>
