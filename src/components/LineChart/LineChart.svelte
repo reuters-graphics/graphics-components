@@ -2,6 +2,8 @@
   import { onMount } from 'svelte';
   import ChartSVG from './components/ChartSVG.svelte';
   import { ChartGrid } from '../ChartGrid/index';
+  import Legend from './components/Legend.svelte';
+
   import {
     buildScales,
     computeResponsiveState,
@@ -18,6 +20,7 @@
 
   let {
     data,
+    class: cls = 'line-chart',
     series = [],
     chartGroups,
     layout = 'single',
@@ -280,7 +283,7 @@
   });
 </script>
 
-<div class="line-chart-container" bind:this={container} style="width: 100%;">
+<div class="line-chart-container" bind:this={container}>
   {#if beforeSVG}
     <div class="before-svg">
       {@render beforeSVG()}
@@ -288,93 +291,79 @@
   {/if}
 
   {#if showLegend && legendItems.length > 0}
-    <div class="legend">
-      {#each legendItems as item}
-        <div class="legend-item">
-          <span class="legend-color" style="background-color: {item.color};"
-          ></span>
-          <span class="legend-label">{item.label || item.key}</span>
-        </div>
-      {/each}
-    </div>
+    <Legend {legendItems} />
   {/if}
 
-  <div class="chart-wrapper" style="width: {containerWidth}px;">
-    {#if activeLayout === 'single'}
-      <ChartSVG
-        data={normalizedData}
-        series={activeSeries}
-        {scales}
-        {xKey}
-        {showEndPoint}
-        {endPointRadius}
-        {endValueDecimalPlaces}
-        {verticalLines}
-        {areaHighlights}
-        {annotations}
-        width={containerWidth}
-        {height}
-        margin={resolvedMargin}
-        yAxisConfig={resolvedYAxisConfig}
-        xAxisConfig={resolvedXAxisConfig}
-        {showGridX}
-        {showGridY}
-        {showYAxis}
-        {showXAxis}
-        {yTickCount}
-        {xTickCount}
-        children={overlayChildren}
-      />
-    {:else if activeLayout === 'multiples' && chartGroupItems.length > 0}
-      <ChartGrid
-        items={chartGroupItems}
-        columnsPerRow={activeColumnsPerRow}
-        gap={24}
-      >
-        {#snippet children(item)}
-          {@const tileShowsEndLabels = shouldShowForTile(
-            item.index,
-            smallMultiplesEndLabelsMode,
-            activeColumnsPerRow
-          )}
-          {@const tileShowsXAxis = shouldShowForTile(
-            item.index,
-            smallMultiplesXAxisMode,
-            activeColumnsPerRow
-          )}
-          {@const tileSeries = item.series.map((s: LineSeriesInput) => ({
-            ...s,
-            showEndLabel: tileShowsEndLabels ? (s.showEndLabel ?? true) : false,
-          }))}
-          <ChartSVG
-            data={normalizedData}
-            series={tileSeries}
-            {scales}
-            {xKey}
-            {showEndPoint}
-            {endPointRadius}
-            {endValueDecimalPlaces}
-            {verticalLines}
-            {areaHighlights}
-            {annotations}
-            width={chartItemWidth}
-            height={chartItemHeight}
-            margin={resolvedMargin}
-            yAxisConfig={resolvedYAxisConfig}
-            xAxisConfig={resolvedXAxisConfig}
-            {showGridX}
-            {showGridY}
-            {showYAxis}
-            {showXAxis}
-            showXAxisLabels={tileShowsXAxis}
-            {yTickCount}
-            {xTickCount}
-            children={overlayChildren}
-          />
-        {/snippet}
-      </ChartGrid>
-    {/if}
-  </div>
+  {#if activeLayout === 'single'}
+    <ChartSVG
+      data={normalizedData}
+      series={activeSeries}
+      {scales}
+      {xKey}
+      {showEndPoint}
+      {endPointRadius}
+      {endValueDecimalPlaces}
+      {verticalLines}
+      {areaHighlights}
+      {annotations}
+      width={containerWidth}
+      {height}
+      margin={resolvedMargin}
+      yAxisConfig={resolvedYAxisConfig}
+      xAxisConfig={resolvedXAxisConfig}
+      {showGridX}
+      {showGridY}
+      {showYAxis}
+      {showXAxis}
+      {yTickCount}
+      {xTickCount}
+      children={overlayChildren}
+    />
+  {:else if activeLayout === 'multiples' && chartGroupItems.length > 0}
+    <ChartGrid items={chartGroupItems} {cls}>
+      {#snippet children(item)}
+        {@const tileShowsEndLabels = shouldShowForTile(
+          item.index,
+          smallMultiplesEndLabelsMode,
+          activeColumnsPerRow
+        )}
+        {@const tileShowsXAxis = shouldShowForTile(
+          item.index,
+          smallMultiplesXAxisMode,
+          activeColumnsPerRow
+        )}
+        {@const tileSeries = item.series.map((s: LineSeriesInput) => ({
+          ...s,
+          showEndLabel: tileShowsEndLabels ? (s.showEndLabel ?? true) : false,
+        }))}
+        <ChartSVG
+          data={normalizedData}
+          series={tileSeries}
+          {scales}
+          {xKey}
+          {showEndPoint}
+          {endPointRadius}
+          {endValueDecimalPlaces}
+          {verticalLines}
+          {areaHighlights}
+          {annotations}
+          width={chartItemWidth}
+          height={chartItemHeight}
+          margin={resolvedMargin}
+          yAxisConfig={resolvedYAxisConfig}
+          xAxisConfig={resolvedXAxisConfig}
+          {showGridX}
+          {showGridY}
+          {showYAxis}
+          {showXAxis}
+          showXAxisLabels={tileShowsXAxis}
+          {yTickCount}
+          {xTickCount}
+          children={overlayChildren}
+        />
+      {/snippet}
+    </ChartGrid>
+  {/if}
 
   {#if afterChart}
     <div class="after-chart">
@@ -384,41 +373,6 @@
 </div>
 
 <style lang="scss">
-  .line-chart-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .chart-wrapper {
-    flex: 1;
-  }
-
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 16px;
-    padding: 0 16px;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-  }
-
-  .legend-color {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
-  }
-
-  .legend-label {
-    color: #666;
-  }
-
   .before-svg {
     margin-bottom: 16px;
   }

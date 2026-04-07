@@ -638,6 +638,8 @@ export interface LineChartProps {
      * ```
      */
     data: Datum[];
+    /** Class name for the chart container */
+    class: 'string';
     /**
    * Chart layout mode.
    *

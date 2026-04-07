@@ -46,7 +46,6 @@
 <!-- Small multiples grid -->
 <Story
   name="Small multiples"
-  tags={['!autodocs', '!dev']}
   args={{
     data: stockWideData,
     series: [
@@ -109,3 +108,11 @@
     margin: { right: 80, bottom: 80 },
   }}
 />
+
+<style lang="scss">
+  // :global(.chart-grid.line-chart) {
+  //   @media (max-width: 1200px) {
+  //     grid-template-columns: repeat(2, 1fr);
+  //   }
+  // }
+</style>
