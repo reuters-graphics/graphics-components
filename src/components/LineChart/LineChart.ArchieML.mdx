@@ -1,0 +1,36 @@
+import { Meta, Canvas,Controls } from '@storybook/blocks';
+
+import * as LineChartStories from './stories/LineChart.ArchieML.stories.svelte';
+
+<Meta title="Components/Charts/LineChart/Using with ArchieML" />
+
+# Using with archieML docs and Reuters Graphics Kit
+With the graphics kit, you'll likely get your text value from an ArchieML doc...
+
+```yaml
+# ArchieML doc
+[blocks]
+type: line-chart
+class: apple-stock
+width: wide # Optional
+textWidth: wide # Optional
+[]
+```
+
+... which you'll parse out of a ArchieML block object before passing to the `LineChart` component.
+
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { LineChart, GraphicsBlock } from '@reuters-graphics/graphics-components';
+
+  import content from '$locales/en/content.json';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'line-chart'}
+  {/if}
+{/each}
+```
+<Canvas of={LineChartStories.ArchieMLSingleLine} sourceState="shown" />

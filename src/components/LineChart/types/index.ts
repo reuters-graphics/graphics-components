@@ -639,7 +639,7 @@ export interface LineChartProps {
      */
     data: Datum[];
     /** Class name for the chart container */
-    class: 'string';
+    class?: string;
     /**
    * Chart layout mode.
    *
@@ -961,7 +961,7 @@ export interface LineChartProps {
     /**
      * Width of the chart in pixels.
      *
-     * _default_ 660
+     * By default, the chart fills the parent container width.
      */
     width?: number;
     /**
@@ -970,6 +970,18 @@ export interface LineChartProps {
      * _default_ 400
      */
     height?: number;
+    /**
+     * Number of columns to use for small multiples when `layout: 'multiples'`.
+     *
+     * _default_ 2
+     */
+    numColumns?: number;
+    /**
+     * Breakpoint in pixels below which the small-multiples grid stacks to one column.
+     *
+     * _default_ 768
+     */
+    breakpoint?: number;
     /**
      * Chart margins in pixels.
      *

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import ChartSVG from './components/ChartSVG.svelte';
   import { ChartGrid } from '../ChartGrid/index';
   import Legend from './components/Legend.svelte';
@@ -7,7 +6,6 @@
   import {
     buildScales,
     computeResponsiveState,
-    createResizeObserver,
     generateLegendItems,
     normalizeXAxisData,
   } from './utils/index';
@@ -42,8 +40,10 @@
     verticalLines,
     areaHighlights,
     annotations,
-    width = 660,
+    width,
     height = 400,
+    numColumns,
+    breakpoint = 768,
     margin,
     yAxisConfig,
     xAxisConfig,
@@ -65,13 +65,11 @@
   }: LineChartProps = $props();
 
   // State
-  let containerWidth = $state(width);
+  let windowWidth = $state(Number.POSITIVE_INFINITY);
   let responsiveState = $state<ResponsiveState>({
-    width: width,
+    width: 0,
     layout: layout as 'single' | 'multiples',
   });
-  let container: HTMLDivElement | undefined = $state();
-  let resizeObserver: ResizeObserver | undefined;
 
   // Reactive values
   const activeLayout = $derived(responsive ? responsiveState.layout : layout);
@@ -121,7 +119,19 @@
       return responsiveColumns;
     }
 
+    if (typeof numColumns === 'number' && Number.isFinite(numColumns)) {
+      return Math.max(1, Math.floor(numColumns));
+    }
+
     return activeLayout === 'multiples' ? 2 : 1;
+  });
+
+  const renderedColumnsPerRow = $derived.by(() => {
+    if (activeLayout !== 'multiples') {
+      return 1;
+    }
+
+    return windowWidth <= breakpoint ? 1 : activeColumnsPerRow;
   });
 
   // Prepare series data
@@ -149,31 +159,39 @@
 
   // Compute responsive state
   $effect(() => {
-    if (responsive && containerWidth) {
+    if (responsive && windowWidth) {
       responsiveState = computeResponsiveState(
-        containerWidth,
+        windowWidth,
         true,
         responsiveRules
       );
     }
   });
 
-  // Setup resize observer
-  onMount(() => {
-    if (!container || !responsive) return;
+  const resolveMaxWidthFromClass = (className?: string) => {
+    const token = className || '';
 
-    const observer = createResizeObserver((width) => {
-      containerWidth = width;
-    });
+    if (token.includes('narrower')) return 330;
+    if (token.includes('narrow')) return 510;
+    if (token.includes('wide')) return 930;
+    if (token.includes('wider')) return 1200;
+    if (token.includes('widest') || token.includes('fluid')) return Infinity;
 
-    observer.observe(container);
-    resizeObserver = observer;
+    return 660;
+  };
 
-    return () => {
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-    };
+  const resolvedContainerWidth = $derived.by(() => {
+    if (typeof width === 'number' && Number.isFinite(width) && width > 0) {
+      return width;
+    }
+
+    const maxWidth = resolveMaxWidthFromClass(cls);
+
+    if (!Number.isFinite(maxWidth)) {
+      return Math.max(1, windowWidth || 0);
+    }
+
+    return Math.max(1, Math.min(windowWidth || maxWidth, maxWidth));
   });
 
   // Normalize data: auto-detect and convert x-axis values to dates if needed
@@ -234,13 +252,18 @@
 
   // Calculate item dimensions based on responsive state
   const chartItemWidth = $derived.by(() => {
-    const cols = activeColumnsPerRow || 1;
-    return containerWidth / cols;
+    const cols = renderedColumnsPerRow || 1;
+    return resolvedContainerWidth / cols;
   });
 
   const chartItemHeight = $derived.by(() => {
     if (!chartGroupItems || chartGroupItems.length === 0) return height;
-    const cols = activeColumnsPerRow || 1;
+    const cols = renderedColumnsPerRow || 1;
+
+    if (cols === 1) {
+      return height;
+    }
+
     const rows = Math.ceil(chartGroupItems.length / cols);
     return height / rows;
   });
@@ -262,7 +285,7 @@
       : {
           width: Math.max(
             1,
-            containerWidth - resolvedMargin.left - resolvedMargin.right
+            resolvedContainerWidth - resolvedMargin.left - resolvedMargin.right
           ),
           height: Math.max(
             1,
@@ -283,94 +306,99 @@
   });
 </script>
 
-<div class="line-chart-container" bind:this={container}>
-  {#if beforeSVG}
-    <div class="before-svg">
-      {@render beforeSVG()}
-    </div>
-  {/if}
+<svelte:window bind:innerWidth={windowWidth} />
 
-  {#if showLegend && legendItems.length > 0}
-    <Legend {legendItems} />
-  {/if}
+{#if beforeSVG}
+  <div class="before-svg">
+    {@render beforeSVG()}
+  </div>
+{/if}
 
-  {#if activeLayout === 'single'}
-    <ChartSVG
-      data={normalizedData}
-      series={activeSeries}
-      {scales}
-      {xKey}
-      {showEndPoint}
-      {endPointRadius}
-      {endValueDecimalPlaces}
-      {verticalLines}
-      {areaHighlights}
-      {annotations}
-      width={containerWidth}
-      {height}
-      margin={resolvedMargin}
-      yAxisConfig={resolvedYAxisConfig}
-      xAxisConfig={resolvedXAxisConfig}
-      {showGridX}
-      {showGridY}
-      {showYAxis}
-      {showXAxis}
-      {yTickCount}
-      {xTickCount}
-      children={overlayChildren}
-    />
-  {:else if activeLayout === 'multiples' && chartGroupItems.length > 0}
-    <ChartGrid items={chartGroupItems} {cls}>
-      {#snippet children(item)}
-        {@const tileShowsEndLabels = shouldShowForTile(
-          item.index,
-          smallMultiplesEndLabelsMode,
-          activeColumnsPerRow
-        )}
-        {@const tileShowsXAxis = shouldShowForTile(
-          item.index,
-          smallMultiplesXAxisMode,
-          activeColumnsPerRow
-        )}
-        {@const tileSeries = item.series.map((s: LineSeriesInput) => ({
-          ...s,
-          showEndLabel: tileShowsEndLabels ? (s.showEndLabel ?? true) : false,
-        }))}
-        <ChartSVG
-          data={normalizedData}
-          series={tileSeries}
-          {scales}
-          {xKey}
-          {showEndPoint}
-          {endPointRadius}
-          {endValueDecimalPlaces}
-          {verticalLines}
-          {areaHighlights}
-          {annotations}
-          width={chartItemWidth}
-          height={chartItemHeight}
-          margin={resolvedMargin}
-          yAxisConfig={resolvedYAxisConfig}
-          xAxisConfig={resolvedXAxisConfig}
-          {showGridX}
-          {showGridY}
-          {showYAxis}
-          {showXAxis}
-          showXAxisLabels={tileShowsXAxis}
-          {yTickCount}
-          {xTickCount}
-          children={overlayChildren}
-        />
-      {/snippet}
-    </ChartGrid>
-  {/if}
+{#if showLegend && legendItems.length > 0}
+  <Legend {legendItems} />
+{/if}
 
-  {#if afterChart}
-    <div class="after-chart">
-      {@render afterChart()}
-    </div>
-  {/if}
-</div>
+{#if activeLayout === 'single'}
+  <ChartSVG
+    data={normalizedData}
+    series={activeSeries}
+    {scales}
+    {xKey}
+    {showEndPoint}
+    {endPointRadius}
+    {endValueDecimalPlaces}
+    {verticalLines}
+    {areaHighlights}
+    {annotations}
+    width={resolvedContainerWidth}
+    {height}
+    margin={resolvedMargin}
+    yAxisConfig={resolvedYAxisConfig}
+    xAxisConfig={resolvedXAxisConfig}
+    {showGridX}
+    {showGridY}
+    {showYAxis}
+    {showXAxis}
+    {yTickCount}
+    {xTickCount}
+    children={overlayChildren}
+  />
+{:else if activeLayout === 'multiples' && chartGroupItems.length > 0}
+  <ChartGrid
+    items={chartGroupItems}
+    {cls}
+    numColumns={activeColumnsPerRow}
+    {breakpoint}
+  >
+    {#snippet children(item)}
+      {@const tileShowsEndLabels = shouldShowForTile(
+        item.index,
+        smallMultiplesEndLabelsMode,
+        renderedColumnsPerRow
+      )}
+      {@const tileShowsXAxis = shouldShowForTile(
+        item.index,
+        smallMultiplesXAxisMode,
+        renderedColumnsPerRow
+      )}
+      {@const tileSeries = item.series.map((s: LineSeriesInput) => ({
+        ...s,
+        showEndLabel: tileShowsEndLabels ? (s.showEndLabel ?? true) : false,
+      }))}
+      <ChartSVG
+        data={normalizedData}
+        series={tileSeries}
+        {scales}
+        {xKey}
+        {showEndPoint}
+        {endPointRadius}
+        {endValueDecimalPlaces}
+        {verticalLines}
+        {areaHighlights}
+        {annotations}
+        width={chartItemWidth}
+        height={chartItemHeight}
+        margin={resolvedMargin}
+        yAxisConfig={resolvedYAxisConfig}
+        xAxisConfig={resolvedXAxisConfig}
+        {showGridX}
+        {showGridY}
+        {showYAxis}
+        {showXAxis}
+        showXAxisLabels={tileShowsXAxis}
+        {yTickCount}
+        {xTickCount}
+        children={overlayChildren}
+      />
+    {/snippet}
+  </ChartGrid>
+{/if}
+
+{#if afterChart}
+  <div class="after-chart">
+    {@render afterChart()}
+  </div>
+{/if}
 
 <style lang="scss">
   .before-svg {

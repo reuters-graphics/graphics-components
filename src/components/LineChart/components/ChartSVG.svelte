@@ -332,6 +332,7 @@
 <style lang="scss">
   svg {
     display: block;
+    max-width: 100%;
     font-family: var(
       --line-chart-font-family,
       system-ui,
