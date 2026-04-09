@@ -1,7 +1,6 @@
 <script module lang="ts">
-  import slug from 'slugify';
-
   import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { formatTime, getAuthorPageUrl } from '../../utils/index.js';
   import Byline from './Byline.svelte';
 
   const { Story } = defineMeta({
@@ -22,19 +21,8 @@
     'Anurag Rao',
     'Mariano Zafra',
   ];
-  const formatTime = (datetime: string) =>
-    new Date(datetime).toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short',
-    });
 
   let publishTime = '2021-09-12T00:00:00Z';
-
-  const getAuthorPageUrl = (author: string): string => {
-    const authorSlug = slug(author.trim(), { lower: true });
-    return `https://www.reuters.com/authors/${authorSlug}/`;
-  };
 
   let locale = 'es';
 </script>
@@ -87,7 +75,7 @@
   >
 {/snippet}
 
-<Story name="Translation">
+<Story name="Translation" tags={['!autodocs', '!dev']}>
   In locale = `es`:
   <Byline
     publishTime="2021-09-12T00:00:00Z"
