@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.3.3
+
+### Patch Changes
+
+- 5c65e67: Adds byline translation examples
+
 ## 3.3.2
 
 ### Patch Changes
