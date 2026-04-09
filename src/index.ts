@@ -3,7 +3,7 @@ export { default as cssVariables } from './actions/cssVariables/index';
 export { default as resizeObserver } from './actions/resizeObserver/index';
 
 // Utils
-export { prettifyDate } from './utils/index';
+export { prettifyDate, getAuthorPageUrl, formatTime } from './utils/index';
 
 // Components
 export {

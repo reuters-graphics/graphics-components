@@ -1,6 +1,6 @@
 <!-- @component `Byline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-byline--docs) -->
 <script lang="ts">
-  import { getAuthorPageUrl } from '../../utils';
+  import { getAuthorPageUrl, formatTime } from '../../utils';
   import Block from '../Block/Block.svelte';
   import { apdate } from 'journalize';
   import type { Snippet } from 'svelte';
@@ -73,13 +73,6 @@
     if (!Date.parse(datetime)) return false;
     return true;
   };
-
-  const formatTime = (datetime: string) =>
-    new Date(datetime).toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short',
-    });
 
   const areSameDay = (first: Date, second: Date) =>
     first.getFullYear() === second.getFullYear() &&

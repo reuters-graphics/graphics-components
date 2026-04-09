@@ -83,6 +83,60 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, 
 
 <Canvas of={BylineStories.Customised} />
 
+
+## Translated byline and datelines
+
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customise the byline, published and updated datelines for different languages.
+
+```svelte
+<!-- In App.svelte -->
+<script>
+  import { Byline, getAuthorPageUrl, formatTime } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+
+ // Note: In graphics kit, `locale` is already defined in `App.svelte`
+</script>
+
+<!-- Define custom translation snippets for different languages before using the <Byline/> component -->
+{#snippet esByline()}
+  Por
+  {#each content.authors as author, i}
+    <a
+      class="no-underline whitespace-nowrap text-primary font-bold"
+      href={getAuthorPageUrl(author)}
+      rel="author"
+    >
+      {author.trim()}</a
+    >{#if content.authors.length > 1 && i < content.authors.length - 2},{/if}
+    {#if content.authors.length > 1 && i === content.authors.length - 2}y&nbsp;{/if}
+  {/each}
+{/snippet}
+
+{#snippet esPublished()}
+  Publicado <time datetime="2026-04-08T10:00:00.000Z">
+    {new Date(content.publishTime).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })}&nbsp;&nbsp;{formatTime(content.publishTime)}</time
+  >
+{/snippet}
+
+
+<!-- Conditionally render custom translation snippets depending on the locale -->
+<Byline
+  authors={content.authors}
+  publishTime={content.publishTime}
+  byline={locale === 'es' ? esByline : undefined}
+  published={locale === 'es' ? esPublished : undefined}
+/>
+
+```
+
+
+
+<Canvas of={BylineStories.Translation} />
+
 ## Custom author page
 
 By default, the `Byline` component will hyperlink each author's byline to their Reuters.com page, formatted `https://www.reuters.com/authors/{author-slug}/`.
