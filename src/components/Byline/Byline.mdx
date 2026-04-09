@@ -46,7 +46,7 @@ updateTime: 2021-09-12T12:57:00.000Z
 ```svelte
 <script>
   import { Byline } from '@reuters-graphics/graphics-components';
-  import content from '$locales/en/content.json';
+  let { content }: Props = $props();
 </script>
 
 <Byline
@@ -95,7 +95,8 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customis
     getAuthorPageUrl,
     formatTime,
   } from '@reuters-graphics/graphics-components';
-  import content from '$locales/en/content.json';
+
+  let { content }: Props = $props();
 
   // Note: In graphics kit, `locale` is already defined in `App.svelte`
 </script>
