@@ -91,9 +91,18 @@
       xAxisConfig={{ xAxisDateFormat: '%b %-d, %Y' }}
       yAxisConfig={{ prefix: '$', mode: 'all-ticks' }}
       showGridY={false}
-      height={300}
+      height={160}
       margin={{ bottom: 20, left: 30, right: 100 }}
       numColumns={4}
+      breakpoint={600}
     />
   </GraphicBlock>
 </Story>
+
+<style lang="scss">
+  :global(.stocks-block .chart-grid) {
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

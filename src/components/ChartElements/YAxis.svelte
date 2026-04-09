@@ -28,7 +28,7 @@
 
 <g class="y-axis">
   {#if showAxisLine && axisTop !== undefined && axisBottom !== undefined}
-    <line x1={0} y1={axisTop} x2={0} y2={axisBottom} class="axis-line" />
+    <line x1={0} y1={axisTop} x2={0} y2={axisBottom} class="y axis-line" />
   {/if}
 
   {#each yTicks as tick, tickIndex}

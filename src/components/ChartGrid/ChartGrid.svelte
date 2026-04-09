@@ -62,8 +62,6 @@
     gap: 10px;
     margin: auto;
 
-    // outline: 2px solid blue;
-
     // One column on small screens
     &.is-stacked {
       grid-template-columns: 1fr;

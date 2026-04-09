@@ -80,6 +80,10 @@
     left: margin?.left ?? 20,
   }));
 
+  const chartMargin = $derived.by(() => {
+    return resolvedMargin;
+  });
+
   const resolvedYAxisConfig = $derived.by(() => ({
     ...yAxisConfig,
     mode: yAxisConfig?.mode ?? 'top-only',
@@ -269,28 +273,60 @@
   });
 
   // Build scales using per-tile dimensions in multiples mode
+  const rightFitPadding = $derived.by(() => {
+    if (activeLayout !== 'multiples' || renderedColumnsPerRow !== 1) {
+      return 0;
+    }
+
+    const hasEndLabels = activeSeries.some((s) => s.showEndLabel ?? true);
+    if (!hasEndLabels) {
+      return 0;
+    }
+
+    const maxEndLabelOffset = activeSeries.reduce((maxOffset, s) => {
+      return Math.max(maxOffset, s.endLabelPosition?.xOffset ?? 5);
+    }, 0);
+
+    const maxEndPointRadius = activeSeries.reduce((maxRadius, s) => {
+      return Math.max(maxRadius, s.endPointRadius ?? endPointRadius ?? 4);
+    }, 0);
+
+    // Reserve room for typical end-label text so content remains inside SVG.
+    return 72 + maxEndLabelOffset + maxEndPointRadius;
+  });
+
+  const effectiveScaleConfig = $derived.by(() => {
+    const basePadding = scaleConfig?.padding ?? {};
+    const rightPadding = Math.max(basePadding.right ?? 0, rightFitPadding);
+
+    return {
+      ...scaleConfig,
+      padding: {
+        ...basePadding,
+        right: rightPadding,
+      },
+    };
+  });
+
   const scales = $derived.by(() => {
     const dimensions =
       activeLayout === 'multiples' ?
         {
           width: Math.max(
             1,
-            chartItemWidth - resolvedMargin.left - resolvedMargin.right
+            chartItemWidth - chartMargin.left - chartMargin.right
           ),
           height: Math.max(
             1,
-            chartItemHeight - resolvedMargin.top - resolvedMargin.bottom
+            chartItemHeight - chartMargin.top - chartMargin.bottom
           ),
         }
       : {
           width: Math.max(
             1,
-            resolvedContainerWidth - resolvedMargin.left - resolvedMargin.right
+            resolvedContainerWidth - chartMargin.left - chartMargin.right
           ),
-          height: Math.max(
-            1,
-            height - resolvedMargin.top - resolvedMargin.bottom
-          ),
+          height: Math.max(1, height - chartMargin.top - chartMargin.bottom),
         };
 
     return buildScales(
@@ -298,7 +334,7 @@
       activeSeries,
       xKey,
       dimensions,
-      scaleConfig,
+      effectiveScaleConfig,
       {
         ...resolvedYAxisConfig,
       }
@@ -332,7 +368,7 @@
     {annotations}
     width={resolvedContainerWidth}
     {height}
-    margin={resolvedMargin}
+    margin={chartMargin}
     yAxisConfig={resolvedYAxisConfig}
     xAxisConfig={resolvedXAxisConfig}
     {showGridX}
@@ -378,7 +414,7 @@
         {annotations}
         width={chartItemWidth}
         height={chartItemHeight}
-        margin={resolvedMargin}
+        margin={chartMargin}
         yAxisConfig={resolvedYAxisConfig}
         xAxisConfig={resolvedXAxisConfig}
         {showGridX}

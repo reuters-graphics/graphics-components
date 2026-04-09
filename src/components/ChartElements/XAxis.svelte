@@ -50,12 +50,11 @@
   {/if}
 
   {#each xTicks as tick, tickIndex}
-    {@const x = xScale(tick)}
     {#if showTicks && showLabels}
       <line
-        x1={x}
+        x1={xScale(tick)}
+        x2={xScale(tick)}
         y1={baselineY}
-        x2={x}
         y2={tickEndY}
         class="tick x-tick {useSecondaryStyle ? 'secondary' : ''}"
         style="translate: {marginLeft}px;"
@@ -68,7 +67,7 @@
         : ''}
       {@const lines = Array.isArray(label) ? label : [label]}
       <text
-        {x}
+        x={xScale(tick)}
         y={labelY}
         class="tick-label"
         style="translate: {marginLeft}px;"
@@ -77,7 +76,7 @@
           {#if lineIndex === 0}
             {line}
           {:else}
-            <tspan {x} dy="1.2em">{line}</tspan>
+            <tspan x={xScale(tick)} dy="1.2em">{line}</tspan>
           {/if}
         {/each}
       </text>
