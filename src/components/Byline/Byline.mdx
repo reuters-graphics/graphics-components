@@ -46,7 +46,7 @@ updateTime: 2021-09-12T12:57:00.000Z
 ```svelte
 <script>
   import { Byline } from '@reuters-graphics/graphics-components';
-  import content from '$locales/en/content.json';
+  let { content }: Props = $props();
 </script>
 
 <Byline
@@ -82,6 +82,66 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, 
 ```
 
 <Canvas of={BylineStories.Customised} />
+
+## Translated byline and datelines
+
+Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customise the byline, published and updated datelines for different languages.
+
+```svelte
+<!-- In App.svelte -->
+<script>
+  import {
+    Byline,
+    getAuthorPageUrl,
+    formatTime,
+  } from '@reuters-graphics/graphics-components';
+
+  let { content }: Props = $props();
+
+  // Note: In graphics kit, `locale` is already defined in `App.svelte`
+</script>
+```
+
+```svelte
+<!-- In App.svelte -->
+<!-- Define custom translation snippets for different languages above the <Byline/> component -->
+{#snippet esByline()}
+  Por
+  {#each content.authors as author, i}
+    <a
+      class="no-underline whitespace-nowrap text-primary font-bold"
+      href={getAuthorPageUrl(author)}
+      rel="author"
+    >
+      {author.trim()}</a
+    >{#if content.authors.length > 1 && i < content.authors.length - 2},{/if}
+    {#if content.authors.length > 1 && i === content.authors.length - 2}y&nbsp;{/if}
+  {/each}
+{/snippet}
+
+{#snippet esPublished()}
+  Publicado <time datetime="2026-04-08T10:00:00.000Z">
+    {new Date(content.publishTime).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })}&nbsp;&nbsp;{formatTime(content.publishTime)}</time
+  >
+{/snippet}
+```
+
+```svelte
+<!-- In App.svelte -->
+<!-- Conditionally render custom translation snippets depending on the locale -->
+<Byline
+  authors={content.authors}
+  publishTime={content.publishTime}
+  byline={locale === 'es' ? esByline : undefined}
+  published={locale === 'es' ? esPublished : undefined}
+/>
+```
+
+<Canvas of={BylineStories.Translation} />
 
 ## Custom author page
 
