@@ -83,7 +83,6 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to customise the byline, 
 
 <Canvas of={BylineStories.Customised} />
 
-
 ## Translated byline and datelines
 
 Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customise the byline, published and updated datelines for different languages.
@@ -91,10 +90,14 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customis
 ```svelte
 <!-- In App.svelte -->
 <script>
-  import { Byline, getAuthorPageUrl, formatTime } from '@reuters-graphics/graphics-components';
+  import {
+    Byline,
+    getAuthorPageUrl,
+    formatTime,
+  } from '@reuters-graphics/graphics-components';
   import content from '$locales/en/content.json';
 
- // Note: In graphics kit, `locale` is already defined in `App.svelte`
+  // Note: In graphics kit, `locale` is already defined in `App.svelte`
 </script>
 
 <!-- Define custom translation snippets for different languages before using the <Byline/> component -->
@@ -122,7 +125,6 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customis
   >
 {/snippet}
 
-
 <!-- Conditionally render custom translation snippets depending on the locale -->
 <Byline
   authors={content.authors}
@@ -130,10 +132,7 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customis
   byline={locale === 'es' ? esByline : undefined}
   published={locale === 'es' ? esPublished : undefined}
 />
-
 ```
-
-
 
 <Canvas of={BylineStories.Translation} />
 

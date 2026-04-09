@@ -103,7 +103,6 @@ const prettifyAmPm = (text: string) => {
 export const slugify = (str: string) =>
   slug(str, { lower: true, strict: true });
 
-
 /** Formats a datetime string into a localized time string with hour, minute, and time zone for the dateline */
 export const formatTime = (datetime: string) =>
   new Date(datetime).toLocaleTimeString([], {
