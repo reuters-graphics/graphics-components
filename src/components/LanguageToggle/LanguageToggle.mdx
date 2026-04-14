@@ -6,9 +6,9 @@ import * as LanguageToggleStories from './LanguageToggle.stories.svelte';
 
 # LanguageToggle
 
-The `LanguageToggle` component provides a toggle button for switching between an article written in English and one other language.
+The `LanguageToggle` component creates a toggle button for switching between an article written in English and another language.
 
-> 💡**NOTE:** If a translation of the embed page doesn't exist, then add `LanguageToggle` only if `embedded` is `false` to avoid adding a toggle button to the English embed page.
+> 💡**NOTE:** If a translated embed page does not exist, add `LanguageToggle` conditionally so it only renders when `embedded` is `false`, which prevents a toggle button from appearing on the English embed page.
 
 ```svelte
 <script>
