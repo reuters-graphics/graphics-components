@@ -1,0 +1,118 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as LanguageButtonStories from './LanguageButton.stories.svelte';
+
+<Meta of={LanguageButtonStories} />
+
+# LanguageButton
+
+The `LanguageButton` component creates a button that switches between an article written in English and another language.
+
+> 💡**NOTE:** If a translated embed page does not exist, add `LanguageButton` conditionally so it only renders when `embedded` is `false`. This prevents a toggle button from appearing on the English embed page.
+
+```svelte
+<script>
+  import { LanguageButton } from '@reuters-graphics/graphics-components';
+
+  //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
+  import { base } from '$app/paths';
+
+  // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
+  // Additionally, pass `locale = 'en'` as a prop
+  let { embedded = false, locale = 'en' }: Props = $props();
+</script>
+
+<!-- Pass `embedded` to `LanguageButton` if the embed page is translated -->
+<LanguageButton {locale} {embedded} {base} />
+```
+
+<Canvas of={LanguageButtonStories.Demo} />
+
+## Customise language and button label
+
+By default, the toggle button will switch between English and Spanish, and the `buttonOptions` prop does not need to be passed. To customise the language and button label, pass the `locale` and the button `label` for the translation language as an object to the `buttonOptions` prop.
+
+```svelte
+<script>
+  import { LanguageButton } from '@reuters-graphics/graphics-components';
+
+  //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
+  import { base } from '$app/paths';
+
+  // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
+  // Additionally, pass `locale = 'en'` as a prop
+  let { embedded = false, locale = 'en' }: Props = $props();
+</script>
+
+<!-- Pass `buttonOptions` to customise the language and button label -->
+<LanguageButton
+  {locale}
+  {embedded}
+  {base}
+  buttonOptions={{
+    locale: 'fr',
+    label: 'Lire en français',
+  }}
+/>
+```
+
+<Canvas of={LanguageButtonStories.CustomiseLanguage} />
+
+## Styling
+
+Use global CSS to style the toggle button. The container div has the class `language-button` and the nested button has an id of `translate-button`.
+
+```scss
+:global(div.language-button) {
+  /* Custom styles for the container div */
+
+    button#translate-button {
+        /* Custom styles for the toggle button */
+    }
+}
+
+<Canvas of={LanguageButtonStories.CustomStyle} />
+
+```
+
+## Customising URLs
+
+By default, the `LanguageButton` component will switch from English to the translated version of the main article by appending `/{locale}/` to the base URL. For example, if the English version of the article is at `www.example.com/article/`, the translated version will be at `www.example.com/article/{locale}/`.
+
+If `embedded` is passed, it will switch between English and translated versions of the embed page by appending `/embeds/{locale}/page/` to the base URL. For example, if the English version of the embed page is at `www.example.com/article/embeds/en/page/`, the translated version will be at `www.example.com/article/embeds/{locale}/page/`.
+
+To customise this, pass a function to the `setUrl` prop that returns the URLs you want to link to.
+
+```svelte
+<script>
+  import { LanguageButton } from '@reuters-graphics/graphics-components';
+
+  //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
+  import { base } from '$app/paths';
+
+  // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
+  // Additionally, pass `locale = 'en'` as a prop
+  let { embedded = false, locale = 'en' }: Props = $props();
+
+  // Custom function to return the URLs for the toggle button
+  const setUrl = () => {
+    if (embedded) {
+      if (locale === 'es') {
+        // If we're in the non-English article, link to the English article
+        return `${base}/embeds/en/custom-embed-url/`;
+      } else {
+        return `${base}/embeds/es/custom-embed-url/`;
+      }
+    } else {
+      if (locale === 'es') {
+        // If we're in the non-English article, link to the English article
+        return `${base}/`;
+      } else {
+        return `${base}/es/`;
+      }
+    }
+  };
+</script>
+
+<LanguageButton {locale} {embedded} {setUrl} />
+```
