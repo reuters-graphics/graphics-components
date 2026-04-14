@@ -40,10 +40,6 @@
   </div>
 {/snippet}
 
-<Story name="Basic" tags={['!autodocs', '!dev']}>
-  <LanguageButton locale={undefined}></LanguageButton>
-</Story>
-
 <Story name="Demo" tags={['!autodocs', '!dev']}>
   <div style="display: flex; flex-direction: column; gap: 2rem;">
     {@render demoToggle(
