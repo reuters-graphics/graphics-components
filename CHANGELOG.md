@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.3.4
+
+### Patch Changes
+
+- f1694a0: Adds LanguageButton component
+
 ## 3.3.3
 
 ### Patch Changes
