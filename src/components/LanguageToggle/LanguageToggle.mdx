@@ -17,8 +17,9 @@ The `LanguageToggle` component creates a toggle button for switching between an 
   //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
   import { base } from '$app/paths';
 
-  // If using in the graphics kit, `locale` and `embedded` props will already be available in App.svelte
-  let { embedded = false, locale }: Props = $props();
+  // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
+  // Additionally, pass `locale = 'en'` as a prop
+  let { embedded = false, locale = 'en' }: Props = $props();
 </script>
 
 <!-- Pass `embedded` to `LanguageToggle` if the embed page is translated -->
@@ -38,8 +39,9 @@ By default, the toggle button will switch between English and Spanish, and the `
   //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
   import { base } from '$app/paths';
 
-  // If using in the graphics kit, `locale` and `embedded` props will already be available in App.svelte
-  let { embedded = false, locale }: Props = $props();
+  // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
+  // Additionally, pass `locale = 'en'` as a prop
+  let { embedded = false, locale = 'en' }: Props = $props();
 </script>
 
 <!-- Pass `buttonOptions` to customise the language and button label -->
@@ -88,8 +90,9 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
   //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
   import { base } from '$app/paths';
 
-  // If using in the graphics kit, `locale` and `embedded` props will already be passed into App.svelte
-  let { embedded = false, locale }: Props = $props();
+  // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
+  // Additionally, pass `locale = 'en'` as a prop
+  let { embedded = false, locale = 'en' }: Props = $props();
 
   // Custom function to return the URLs for the toggle button
   const setUrl = () => {
