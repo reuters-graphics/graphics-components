@@ -61,8 +61,12 @@ By default, the toggle button will switch between English and Spanish, and the `
 Use global CSS to style the toggle button. The container div has the class `language-toggle` and the nested button has an id of `translate-btn`.
 
 ```scss
-:global(.language-toggle) {
+:global(div.language-toggle) {
   /* Custom styles for the container div */
+
+    button#translate-btn {
+        /* Custom styles for the toggle button */
+    }
 }
 
 <Canvas of={LanguageToggleStories.CustomStyle} />
@@ -87,6 +91,7 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
   // If using in the graphics kit, `locale` and `embedded` props will already be passed into App.svelte
   let { embedded = false, locale }: Props = $props();
 
+  // Custom function to return the URLs for the toggle button
   const setUrl = () => {
     if (embedded) {
       if (locale === 'es') {
