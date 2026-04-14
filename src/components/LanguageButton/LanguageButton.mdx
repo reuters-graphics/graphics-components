@@ -1,18 +1,18 @@
 import { Meta, Canvas } from '@storybook/blocks';
 
-import * as LanguageToggleStories from './LanguageToggle.stories.svelte';
+import * as LanguageButtonStories from './LanguageButton.stories.svelte';
 
-<Meta of={LanguageToggleStories} />
+<Meta of={LanguageButtonStories} />
 
-# LanguageToggle
+# LanguageButton
 
-The `LanguageToggle` component creates a toggle button for switching between an article written in English and another language.
+The `LanguageButton` component creates a button that switches between an article written in English and another language.
 
-> 💡**NOTE:** If a translated embed page does not exist, add `LanguageToggle` conditionally so it only renders when `embedded` is `false`, which prevents a toggle button from appearing on the English embed page.
+> 💡**NOTE:** If a translated embed page does not exist, add `LanguageButton` conditionally so it only renders when `embedded` is `false`. This prevents a toggle button from appearing on the English embed page.
 
 ```svelte
 <script>
-  import { LanguageToggle } from '@reuters-graphics/graphics-components';
+  import { LanguageButton } from '@reuters-graphics/graphics-components';
 
   //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
   import { base } from '$app/paths';
@@ -22,11 +22,11 @@ The `LanguageToggle` component creates a toggle button for switching between an 
   let { embedded = false, locale = 'en' }: Props = $props();
 </script>
 
-<!-- Pass `embedded` to `LanguageToggle` if the embed page is translated -->
-<LanguageToggle {locale} {embedded} {base} />
+<!-- Pass `embedded` to `LanguageButton` if the embed page is translated -->
+<LanguageButton {locale} {embedded} {base} />
 ```
 
-<Canvas of={LanguageToggleStories.Demo} />
+<Canvas of={LanguageButtonStories.Demo} />
 
 ## Customise language and button label
 
@@ -34,7 +34,7 @@ By default, the toggle button will switch between English and Spanish, and the `
 
 ```svelte
 <script>
-  import { LanguageToggle } from '@reuters-graphics/graphics-components';
+  import { LanguageButton } from '@reuters-graphics/graphics-components';
 
   //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
   import { base } from '$app/paths';
@@ -45,7 +45,7 @@ By default, the toggle button will switch between English and Spanish, and the `
 </script>
 
 <!-- Pass `buttonOptions` to customise the language and button label -->
-<LanguageToggle
+<LanguageButton
   {locale}
   {embedded}
   {base}
@@ -56,14 +56,14 @@ By default, the toggle button will switch between English and Spanish, and the `
 />
 ```
 
-<Canvas of={LanguageToggleStories.CustomiseLanguage} />
+<Canvas of={LanguageButtonStories.CustomiseLanguage} />
 
 ## Styling
 
-Use global CSS to style the toggle button. The container div has the class `language-toggle` and the nested button has an id of `translate-btn`.
+Use global CSS to style the toggle button. The container div has the class `language-button` and the nested button has an id of `translate-btn`.
 
 ```scss
-:global(div.language-toggle) {
+:global(div.language-button) {
   /* Custom styles for the container div */
 
     button#translate-btn {
@@ -71,13 +71,13 @@ Use global CSS to style the toggle button. The container div has the class `lang
     }
 }
 
-<Canvas of={LanguageToggleStories.CustomStyle} />
+<Canvas of={LanguageButtonStories.CustomStyle} />
 
 ```
 
 ## Customising URLs
 
-By default, the `LanguageToggle` component will switch from English to the translated version of the main article by appending `/{locale}/` to the base URL. For example, if the English version of the article is at `www.example.com/article/`, the translated version will be at `www.example.com/article/{locale}/`.
+By default, the `LanguageButton` component will switch from English to the translated version of the main article by appending `/{locale}/` to the base URL. For example, if the English version of the article is at `www.example.com/article/`, the translated version will be at `www.example.com/article/{locale}/`.
 
 If `embedded` is passed, it will switch between English and translated versions of the embed page by appending `/embeds/{locale}/page/` to the base URL. For example, if the English version of the embed page is at `www.example.com/article/embeds/en/page/`, the translated version will be at `www.example.com/article/embeds/{locale}/page/`.
 
@@ -85,7 +85,7 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
 
 ```svelte
 <script>
-  import { LanguageToggle } from '@reuters-graphics/graphics-components';
+  import { LanguageButton } from '@reuters-graphics/graphics-components';
 
   //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
   import { base } from '$app/paths';
@@ -114,5 +114,5 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
   };
 </script>
 
-<LanguageToggle {locale} {embedded} {setUrl} />
+<LanguageButton {locale} {embedded} {setUrl} />
 ```

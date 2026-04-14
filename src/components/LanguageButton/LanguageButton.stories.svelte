@@ -1,10 +1,10 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import LanguageToggle from './LanguageToggle.svelte';
+  import LanguageButton from './LanguageButton.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Text elements/LanguageToggle',
-    component: LanguageToggle,
+    title: 'Components/Text elements/LanguageButton',
+    component: LanguageButton,
     tags: ['autodocs'],
   });
 
@@ -26,7 +26,7 @@
       </button>
       <span class="label">ES</span>
     </div>
-    <LanguageToggle {locale}></LanguageToggle>
+    <LanguageButton {locale}></LanguageButton>
   </div>
 
   <style>
@@ -101,13 +101,13 @@
       </button>
       <span class="label">FR</span>
     </div>
-    <LanguageToggle
+    <LanguageButton
       {locale}
       buttonOptions={{
         locale: 'fr',
         label: 'Lire en français',
       }}
-    ></LanguageToggle>
+    ></LanguageButton>
   </div>
 
   <style>

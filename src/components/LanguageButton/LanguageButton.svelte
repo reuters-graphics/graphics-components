@@ -1,4 +1,4 @@
-<!-- @component `LanguageToggle` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-languagetoggle--docs) -->
+<!-- @component `LanguageButton` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-languagebutton--docs) -->
 <script lang="ts">
   interface Props {
     /** The current locale of the article */
@@ -52,7 +52,7 @@
   };
 </script>
 
-<div class="language-toggle">
+<div class="language-button">
   <a data-sveltekit-reload href={handleLocale()}
     ><button
       id="translate-btn"
