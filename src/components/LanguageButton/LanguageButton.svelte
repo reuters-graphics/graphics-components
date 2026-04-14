@@ -37,9 +37,9 @@
     if (embedded) {
       if (locale === translationLocale) {
         // If we're in the non-English article, link to the English article
-        return `${base}/embeds/${translationLocale}/page`;
-      } else {
         return `${base}/embeds/en/page/`;
+      } else {
+        return `${base}/embeds/${translationLocale}/page`;
       }
     } else {
       if (locale === translationLocale) {
@@ -55,12 +55,12 @@
 <div class="language-button">
   <a data-sveltekit-reload href={handleLocale()}
     ><button
-      id="translate-btn"
+      id="translate-button"
       class="text-sm"
       aria-label="Toggle article language"
-      >{locale === translationLocale ?
+      >{locale === translationLocale ? 'Read in English' : (
         buttonOptions.label
-      : 'Read in English'}</button
+      )}</button
     ></a
   >
 </div>
@@ -70,7 +70,7 @@
     display: flex;
     justify-content: center;
 
-    #translate-btn {
+    #translate-button {
       position: absolute;
       font-weight: 500;
       text-transform: uppercase;
@@ -89,7 +89,7 @@
         color 0.25s ease;
     }
 
-    #translate-btn:hover {
+    #translate-button:hover {
       background-color: #889d9b;
       color: #ebf7f7;
     }

@@ -6,6 +6,8 @@ import * as LanguageButtonStories from './LanguageButton.stories.svelte';
 
 # LanguageButton
 
+<Canvas of={LanguageButtonStories.Basic} />
+
 The `LanguageButton` component creates a button that switches between an article written in English and another language.
 
 > 💡**NOTE:** If a translated embed page does not exist, add `LanguageButton` conditionally so it only renders when `embedded` is `false`. This prevents a toggle button from appearing on the English embed page.
@@ -60,13 +62,13 @@ By default, the toggle button will switch between English and Spanish, and the `
 
 ## Styling
 
-Use global CSS to style the toggle button. The container div has the class `language-button` and the nested button has an id of `translate-btn`.
+Use global CSS to style the toggle button. The container div has the class `language-button` and the nested button has an id of `translate-button`.
 
 ```scss
 :global(div.language-button) {
   /* Custom styles for the container div */
 
-    button#translate-btn {
+    button#translate-button {
         /* Custom styles for the toggle button */
     }
 }
@@ -99,9 +101,9 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
     if (embedded) {
       if (locale === 'es') {
         // If we're in the non-English article, link to the English article
-        return `${base}/embeds/es/custom-embed-url/`;
-      } else {
         return `${base}/embeds/en/custom-embed-url/`;
+      } else {
+        return `${base}/embeds/es/custom-embed-url/`;
       }
     } else {
       if (locale === 'es') {
