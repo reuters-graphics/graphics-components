@@ -76,22 +76,19 @@
       text-transform: uppercase;
       letter-spacing: 0.06rem;
       font-size: var(--theme-font-size-xs);
-      background-color: #d3e1e1;
       color: rgb(91 101 101);
-      padding: 2px 12px;
-      border-radius: 4px;
       z-index: 10;
       cursor: pointer;
       position: relative;
+      background: none;
       border: none;
-      transition:
-        background-color 0.25s ease,
-        color 0.25s ease;
+      transition: color 0.25s ease;
     }
 
     #translate-button:hover {
-      background-color: #889d9b;
-      color: #ebf7f7;
+      color: #333333;
+      text-decoration: underline;
+      border-bottom: none;
     }
   }
 </style>
