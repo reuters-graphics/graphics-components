@@ -83,12 +83,13 @@
       background: none;
       border: none;
       transition: color 0.25s ease;
+      text-decoration: underline;
+      text-decoration-color: #d5d5d5;
     }
 
     #translate-button:hover {
       color: #333333;
       text-decoration: underline;
-      border-bottom: none;
     }
   }
 </style>
