@@ -84,7 +84,7 @@
       border: none;
       transition: color 0.25s ease;
       text-decoration: underline;
-      text-decoration-color: #d5d5d5;
+      text-decoration-color: #afafaf;
     }
 
     #translate-button:hover {
