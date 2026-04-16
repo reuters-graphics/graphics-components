@@ -1,18 +1,10 @@
 {
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "svelte",
-    "jsx"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "svelte", "jsx"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "emmet.excludeLanguages": [
-    "markdown",
-    "scss"
-  ],
+  "emmet.excludeLanguages": ["markdown", "scss"],
   "files.associations": {
     "*.svx": "mdx"
   },
