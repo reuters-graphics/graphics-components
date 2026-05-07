@@ -1,0 +1,27 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as GeocoderStories from './Geocoder.stories.svelte';
+
+<Meta of={GeocoderStories} />
+
+# Geocoder
+
+The `Geocoder` component provides an autocomplete location search powered by the [Mapbox Geocoding v6 API](https://docs.mapbox.com/api/search/geocoding-v6/). It returns coordinates and a place name via the `onselect` callback.
+
+```svelte
+<script>
+  import { Geocoder } from '@reuters-graphics/graphics-components';
+
+  const MAPBOX_TOKEN = 'your_mapbox_token';
+
+  function handleSelect(location) {
+    console.log(location.name, location.lng, location.lat);
+  }
+</script>
+
+<Geocoder accessToken={MAPBOX_TOKEN} onselect={handleSelect} />
+```
+
+The `accessToken` prop is required. Look up the Reuters Mapbox token in the team's 1Password vault. All [Mapbox forward geocoding options](https://docs.mapbox.com/api/search/geocoding-v6/#forward-geocoding) are available as props, including `country`, `language`, `types`, `bbox`, `proximity`, `limit`, and `worldview`.
+
+<Canvas of={GeocoderStories.Demo} />

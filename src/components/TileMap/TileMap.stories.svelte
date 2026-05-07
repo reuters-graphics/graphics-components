@@ -2,6 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import TileMap from './TileMap.svelte';
   import TileMapLayer from './TileMapLayer.svelte';
+  import Geocoder from '../Geocoder/Geocoder.svelte';
   import type { FeatureCollection, Polygon, Point } from 'geojson';
 
   // Example GeoJSON data - Central Park polygon
@@ -82,6 +83,12 @@
       },
     },
   });
+</script>
+
+<script lang="ts">
+  import type { Map as MapType } from 'maplibre-gl';
+  const mapboxAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? '';
+  let geocoderMapRef: MapType;
 </script>
 
 <Story
@@ -200,5 +207,31 @@
         'circle-stroke-color': '#ffffff',
       }}
     />
+  </TileMap>
+</Story>
+
+<Story name="With Geocoder" tags={['!autodocs']}>
+  <TileMap
+    id="geocoder-map"
+    center={[-98, 39]}
+    zoom={3}
+    interactive={true}
+    title="Map with Geocoder"
+    description="Search for a location to fly the map there."
+    height="500px"
+    onMapReady={(map) => {
+      geocoderMapRef = map;
+    }}
+  >
+    <div
+      style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; width: min(500px, calc(100% - 20px));"
+    >
+      <Geocoder
+        accessToken={mapboxAccessToken}
+        onselect={(loc) => {
+          geocoderMapRef?.flyTo({ center: [loc.lng, loc.lat], zoom: 10 });
+        }}
+      />
+    </div>
   </TileMap>
 </Story>

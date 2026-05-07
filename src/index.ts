@@ -24,6 +24,8 @@ export { default as DocumentCloud } from './components/DocumentCloud/DocumentClo
 export { default as EmbedPreviewerLink } from './components/EmbedPreviewerLink/EmbedPreviewerLink.svelte';
 export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.svelte';
 export { default as Framer } from './components/Framer/Framer.svelte';
+export { default as Geocoder } from './components/Geocoder/Geocoder.svelte';
+export { geocode } from './components/Geocoder/geocode';
 export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.svelte';
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as Headpile } from './components/Headpile/Headpile.svelte';
@@ -69,3 +71,9 @@ export type {
   HeadlineSize,
   ScrollerVideoInstance,
 } from './components/@types/global';
+
+export type {
+  GeocodeOptions,
+  GeocodeFeature,
+  GeocodeFeatureType,
+} from './components/Geocoder/geocode';
