@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.4.1
+
+### Patch Changes
+
+- f751e94: Adds trailing slash to LanguageButton
+
 ## 3.4.0
 
 ### Minor Changes
