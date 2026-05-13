@@ -35,7 +35,7 @@
     {#each yTicks as tick}
       {@const y = marginTop + yScale(tick)}
       <line
-        x1={marginLeft}
+        x1={0}
         y1={y}
         x2={width - marginRight}
         y2={y}
