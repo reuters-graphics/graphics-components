@@ -39,14 +39,14 @@
         // If we're in the non-English article, link to the English article
         return `${base}/embeds/en/page/`;
       } else {
-        return `${base}/embeds/${translationLocale}/page`;
+        return `${base}/embeds/${translationLocale}/page/`;
       }
     } else {
       if (locale === translationLocale) {
         // If we're in the non-English article, link to the English article
         return `${base}/`;
       } else {
-        return `${base}/${translationLocale}`;
+        return `${base}/${translationLocale}/`;
       }
     }
   };
