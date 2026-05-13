@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.4.0
+
+### Minor Changes
+
+- f8616ed: Add Geocoder component for autocomplete location search using Mapbox Geocoding v6 API
+
 ## 3.3.4
 
 ### Patch Changes
