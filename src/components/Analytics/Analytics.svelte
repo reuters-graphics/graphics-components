@@ -10,6 +10,12 @@
   }
 
   export { registerPageview };
+  export {
+    trackEvent,
+    trackPageView,
+    trackIdentity,
+    createTrackEvent,
+  } from './providers/rpta';
 </script>
 
 <script lang="ts">

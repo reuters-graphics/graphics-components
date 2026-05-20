@@ -21,6 +21,24 @@ declare global {
     };
     /** Graphics ads */
     graphicsAdQueue: any[];
+    /** Raptor Platform Tracking Analytics */
+    rpta: {
+      initialized?: boolean;
+      cmd: Array<() => void>;
+      trackEvent: (
+        eventName: string,
+        properties?: Record<string, unknown>
+      ) => void;
+      trackPageView: (
+        category: string,
+        properties?: Record<string, unknown>
+      ) => void;
+      trackIdentity: (
+        userId: string,
+        properties?: Record<string, unknown>
+      ) => void;
+      executeCMD: (cmds: Array<() => void>) => void;
+    };
   }
 }
 
