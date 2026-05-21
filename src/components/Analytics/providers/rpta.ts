@@ -37,7 +37,11 @@ export interface RPTAEventProperties {
 function isReutersProduction() {
   if (typeof window === 'undefined') return false;
   const hostname = window.location?.hostname;
-  return hostname === 'reuters.com' || hostname?.endsWith('.reuters.com');
+  return (
+    hostname === 'reuters.com' ||
+    hostname?.endsWith('.reuters.com') ||
+    hostname === 'graphics.thomsonreuters.com'
+  );
 }
 
 function ensureRPTA() {
@@ -51,9 +55,13 @@ export const trackEvent = (
   properties?: RPTAEventProperties
 ) => {
   if (!ensureRPTA()) return;
-  window.rpta.cmd.push(() => {
+  if (window.rpta.initialized) {
     window.rpta.trackEvent(eventName, properties);
-  });
+  } else {
+    window.rpta.cmd.push(() => {
+      window.rpta.trackEvent(eventName, properties);
+    });
+  }
 };
 
 export const trackPageView = (
@@ -61,9 +69,13 @@ export const trackPageView = (
   properties?: RPTAEventProperties
 ) => {
   if (!ensureRPTA()) return;
-  window.rpta.cmd.push(() => {
+  if (window.rpta.initialized) {
     window.rpta.trackPageView(category, properties);
-  });
+  } else {
+    window.rpta.cmd.push(() => {
+      window.rpta.trackPageView(category, properties);
+    });
+  }
 };
 
 export const trackIdentity = (
@@ -71,9 +83,13 @@ export const trackIdentity = (
   properties?: RPTAEventProperties
 ) => {
   if (!ensureRPTA()) return;
-  window.rpta.cmd.push(() => {
+  if (window.rpta.initialized) {
     window.rpta.trackIdentity(userId, properties);
-  });
+  } else {
+    window.rpta.cmd.push(() => {
+      window.rpta.trackIdentity(userId, properties);
+    });
+  }
 };
 
 export const createTrackEvent =
