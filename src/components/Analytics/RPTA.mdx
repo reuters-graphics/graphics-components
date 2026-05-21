@@ -4,11 +4,23 @@ import * as RPTAStories from './RPTA.stories.svelte';
 
 <Meta of={RPTAStories} />
 
-# RPTA (Raptor Platform Tracking Analytics)
+# RPTA
 
-RPTA is the unified analytics layer on reuters.com. It dispatches events to downstream providers (Segment, Chartbeat, GTM, etc.) and is initialized by the platform before your code runs.
+The Raptor Platform Tracking Analytics (RPTA) is the unified analytics layer on reuters.com. It dispatches events to downstream providers via the Segment analytics.js module.
 
-These functions are low-level tools that any project can import and use directly, or wrap with project-specific defaults using `createTrackEvent`.
+The function documented here are low-level tools that any project can import and use directly, or wrap with project-specific defaults using `createTrackEvent`.
+
+## Setup
+
+To enable RPTA tracking, pass the `rpta` prop to the `Analytics` component. This loads the Segment SDK and wires it to RPTA so that tracking calls are dispatched to downstream providers.
+
+```svelte
+<script>
+  import { Analytics } from '@reuters-graphics/graphics-components';
+</script>
+
+<Analytics rpta />
+```
 
 ## Basic usage
 

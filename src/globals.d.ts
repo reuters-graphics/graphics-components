@@ -21,9 +21,17 @@ declare global {
     };
     /** Graphics ads */
     graphicsAdQueue: any[];
+    /** Segment analytics.js */
+    analytics: {
+      track: (event: string, properties?: Record<string, unknown>) => void;
+      page: (category: string, properties?: Record<string, unknown>) => void;
+      identify: (...args: unknown[]) => void;
+      [key: string]: unknown;
+    };
     /** Raptor Platform Tracking Analytics */
     rpta: {
       initialized?: boolean;
+      debug?: boolean;
       cmd: Array<() => void>;
       trackEvent: (
         eventName: string,
