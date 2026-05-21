@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/blocks';
+
+import * as RPTAStories from './RPTA.stories.svelte';
+
+<Meta of={RPTAStories} />
+
+# RPTA
+
+The Raptor Platform Tracking Analytics (RPTA) is the unified analytics layer on reuters.com. It dispatches events to downstream providers via the Segment analytics.js module.
+
+The function documented here are low-level tools that any project can import and use directly, or wrap with project-specific defaults using `createTrackEvent`.
+
+## Setup
+
+To enable RPTA tracking, pass the `rpta` prop to the `Analytics` component. This loads the Segment SDK and wires it to RPTA so that tracking calls are dispatched to downstream providers.
+
+```svelte
+<script>
+  import { Analytics } from '@reuters-graphics/graphics-components';
+</script>
+
+<Analytics rpta />
+```
+
+## Basic usage
+
+```typescript
+import { trackEvent } from '@reuters-graphics/graphics-components';
+
+trackEvent('ui.interaction', {
+  category: 'Article',
+  label: 'Read more clicked',
+  nonInteraction: 0,
+  uiInteraction: 1,
+  ui_element: 'read-more-button',
+});
+```
+
+## Creating a project-specific tracker
+
+Use `createTrackEvent` to build a wrapper that automatically includes default properties on every event. This is the recommended pattern for downstream projects that want consistent metadata on all their tracking calls.
+
+```typescript
+import { createTrackEvent } from '@reuters-graphics/graphics-components';
+
+// Create a tracker with defaults baked in
+const trackProjectEvent = createTrackEvent({
+  content_type: 'Interactive',
+  content_channel: 'Graphics',
+  topic_channel: 'World',
+  topic_sub_channel: 'Conflict',
+});
+```
+
+Then use it throughout your components:
+
+```typescript
+// Share button click
+trackProjectEvent('ui.interaction', {
+  category: 'My Project',
+  label: 'Share',
+  ui_element: 'share-icon',
+  nonInteraction: 0,
+  uiInteraction: 1,
+});
+
+// Carousel navigation
+trackProjectEvent('ui.interaction', {
+  category: 'My Project',
+  label: 'Next slide',
+  ui_element: 'carousel-arrow',
+  ui_element_position: 3,
+});
+```
+
+Per-call properties override defaults, so you can customize individual events as needed.
+
+## Page views and identity
+
+```typescript
+import {
+  trackPageView,
+  trackIdentity,
+} from '@reuters-graphics/graphics-components';
+
+// Track a virtual page view (e.g. after client-side navigation)
+trackPageView('Graphics', {
+  content_type: 'Interactive',
+});
+
+// Identify a user
+trackIdentity('user-abc-123');
+```
+
+## Environments
+
+These functions are production-gated automatically. They silently no-op on any hostname other than `reuters.com`, so you don't need to wrap them in environment checks.

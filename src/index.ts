@@ -9,7 +9,12 @@ export { prettifyDate, getAuthorPageUrl, formatTime } from './utils/index';
 export {
   default as Analytics,
   registerPageview,
+  trackEvent,
+  trackPageView,
+  trackIdentity,
+  createTrackEvent,
 } from './components/Analytics/Analytics.svelte';
+export type { RPTAEventProperties } from './components/Analytics/providers/rpta';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as BlogPost } from './components/BlogPost/BlogPost.svelte';
 export { default as BlogTOC } from './components/BlogTOC/BlogTOC.svelte';

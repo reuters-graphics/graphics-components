@@ -10,6 +10,12 @@
   }
 
   export { registerPageview };
+  export {
+    trackEvent,
+    trackPageView,
+    trackIdentity,
+    createTrackEvent,
+  } from './providers/rpta';
 </script>
 
 <script lang="ts">
@@ -20,15 +26,22 @@
   import { onMount } from 'svelte';
   import { ga, chartbeat } from './providers';
   import GoogleTagManager from './GTM.svelte';
+  import RPTALoader from './RPTALoader.svelte';
 
   interface Props {
     /**
      * Used to associate a page with its author(s) in Chartbeat.
      */
     authors?: Author[];
+    /**
+     * Enable RPTA event tracking via Segment. Loads the Segment analytics.js SDK
+     * and wires it to RPTA so that trackEvent, trackPageView, and trackIdentity
+     * calls are dispatched to downstream providers.
+     */
+    rpta?: boolean;
   }
 
-  let { authors = [] }: Props = $props();
+  let { authors = [], rpta = false }: Props = $props();
 
   onMount(() => {
     ga();
@@ -37,3 +50,6 @@
 </script>
 
 <GoogleTagManager />
+{#if rpta}
+  <RPTALoader />
+{/if}
