@@ -37,7 +37,7 @@ export interface RPTAEventProperties {
 function isReutersProduction() {
   if (typeof window === 'undefined') return false;
   const hostname = window.location?.hostname;
-  return hostname === 'www.reuters.com' || hostname === 'reuters.com';
+  return hostname === 'reuters.com' || hostname?.endsWith('.reuters.com');
 }
 
 function ensureRPTA() {
