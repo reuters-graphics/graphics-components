@@ -5,8 +5,10 @@
   import 'prism-themes/themes/prism-nord.css';
 </script>
 
-<Theme>
-  <Article>
-    <slot />
-  </Article>
-</Theme>
+<div id="reuters-graphics-svelte-app">
+  <Theme>
+    <Article>
+      <slot />
+    </Article>
+  </Theme>
+</div>

@@ -6,10 +6,26 @@
  * Copyright 2023 Reuters Graphics Style Guide
  */
 
-// Base style rules
-@use 'reset/main' as reset;
+// Truly global — baseline reset & fonts at the stylesheet root
+@use 'reset/normalize';
 @use 'fonts/font-faces' as font-faces;
+
+// Element-level rules scoped to the app wrapper
+@use 'reset/main' as reset;
+@use 'reset/typography' as typography;
+
+// Class-based utilities
+@use 'token-classes' as *;
+
+// Colour palette
 @use 'colours/main' as colours;
 
-// Token classes
-@use 'token-classes' as *;
+// Root styles
+@include reset.root-styles;
+@include typography.root-styles;
+
+// Scoped styles
+#reuters-graphics-svelte-app {
+  @include reset.scoped-styles;
+  @include typography.scoped-styles;
+}
