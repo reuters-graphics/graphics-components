@@ -976,7 +976,7 @@ or unavailable values across all legend modes.
           class="proportional-chart"
           viewBox={`0 0 ${proportionalState.chartWidth} ${proportionalState.chartHeight}`}
           role="img"
-          aria-hidden="true"
+          aria-label={title || 'Proportional symbol legend'}
         >
           {#each proportionalState.entries as symbol (symbol.key)}
             {#if symbol.radius > 0}
