@@ -1039,6 +1039,9 @@ or unavailable values across all legend modes.
     line-height: 1.15;
     text-align: left;
     color: var(--theme-colour-text-primary);
+    // Rendered inside a `GraphicBlock`, which owns the spacing above the
+    // legend; zero the heading's default top margin so it doesn't add to it.
+    margin-top: 0;
     margin-bottom: 0;
   }
 
