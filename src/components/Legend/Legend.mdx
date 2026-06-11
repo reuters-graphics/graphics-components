@@ -1,0 +1,67 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as LegendStories from './Legend.stories.svelte';
+
+<Meta of={LegendStories} />
+
+# Legend
+
+A legend or key for maps and data displays. Renders one of five
+modes.
+
+They are:
+
+- **`threshold`** — discrete bins with color swatches and break ticks
+- **`continuous`** — a continuous gradient with axis ticks
+- **`diverging`** — threshold bins with a highlighted midpoint
+- **`categorical`** — square swatches with labels in a horizontal row
+- **`proportional-symbols`** — nested circles with leader lines and labels
+
+The optional `noData` prop renders a separate fallback swatch for missing,
+unknown, or unavailable values across every mode.
+
+The legend sizes itself to the text well with the `width` prop, matching the
+other graphics components.
+
+## Threshold
+
+Discrete bins, each with its own color. Labels are generated from the numeric
+bounds unless you pass an explicit `label`.
+
+<Canvas of={LegendStories.Threshold} />
+
+## Continuous gradient
+
+A smooth gradient built from ordered `stops`. Pass `ticks` to control the axis
+labels.
+
+<Canvas of={LegendStories.ContinuousGradient} />
+
+## Diverging midpoint
+
+Threshold bins centered on a highlighted `midpoint`. Use `formatter` to control
+how numeric boundaries are displayed.
+
+<Canvas of={LegendStories.DivergingMidpoint} />
+
+## Categorical
+
+Square swatches with labels laid out in a wrapping row.
+
+<Canvas of={LegendStories.Categorical} />
+
+## Proportional symbols
+
+Nested circles sized by area, with leader lines and labels.
+
+<Canvas of={LegendStories.ProportionalSymbols} />
+
+## With a map
+
+`Legend` is standalone and can be placed anywhere in the layout, including above
+or below a `TileMap`.
+
+<Canvas of={LegendStories.MapLayout} />
+
+## Props
+
+<Controls of={LegendStories.Threshold} />

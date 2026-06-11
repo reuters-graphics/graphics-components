@@ -79,6 +79,12 @@
     textWidth?: ContainerWidth;
     /** Callback function that receives the map instance when ready */
     onMapReady?: (map: maplibregl.Map) => void;
+    /**
+     * Optional content rendered inside the map's `GraphicBlock`, directly above
+     * the map. Use it to share a single block — with one title and the standard
+     * spacing — between the map and an accompanying element such as a `Legend`.
+     */
+    legend?: Snippet;
     /** Child components (e.g., TileMapLayer) */
     children?: Snippet;
   }
@@ -99,6 +105,7 @@
     width = 'normal',
     textWidth = 'normal',
     onMapReady,
+    legend,
     children,
   }: Props = $props();
 
@@ -174,6 +181,11 @@
 </script>
 
 <GraphicBlock {width} {textWidth} {title} {description} {notes}>
+  {#if legend}
+    <div class="map-legend">
+      {@render legend()}
+    </div>
+  {/if}
   <div class="map" {id}>
     <div
       bind:this={mapContainer}
@@ -195,5 +207,10 @@
   .map-container {
     width: 100%;
     position: relative;
+  }
+
+  /* Sit the legend snug above the map, sharing the block's spacing. */
+  .map-legend {
+    margin-bottom: 0.5rem;
   }
 </style>
