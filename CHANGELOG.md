@@ -1,5 +1,12 @@
 # @reuters-graphics/graphics-components
 
+## 3.5.0
+
+### Minor Changes
+
+- 1c5ef34: Add Legend component for maps and data displays, with threshold, continuous, diverging, categorical, and proportional-symbols modes and an optional no-data swatch.
+- 1c5ef34: Add an optional `legend` snippet to `TileMap` so a legend and map can share a single `GraphicBlock`, with one title and the standard block spacing, instead of being stacked as separate blocks.
+
 ## 3.4.1
 
 ### Patch Changes
