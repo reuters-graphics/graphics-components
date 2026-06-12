@@ -59,8 +59,7 @@ function discoverEmbeds() {
     .filter((name) => {
       const dir = resolve(EMBEDS_DIR, name);
       return (
-        statSync(dir).isDirectory() &&
-        existsSync(resolve(dir, '+page.svelte'))
+        statSync(dir).isDirectory() && existsSync(resolve(dir, '+page.svelte'))
       );
     })
     .map((name) => ({
@@ -151,7 +150,9 @@ if (embeds.length === 0) {
   process.exit(0);
 }
 
-console.log(`Found ${embeds.length} embed(s): ${embeds.map((e) => e.name).join(', ')}`);
+console.log(
+  `Found ${embeds.length} embed(s): ${embeds.map((e) => e.name).join(', ')}`
+);
 
 const chromePath = findChrome();
 console.log(`Using Chrome: ${chromePath}`);
@@ -170,7 +171,9 @@ const browser = await puppeteer.launch({
 
 try {
   for (const embed of embeds) {
-    console.log(`  Screenshotting ${embed.name} (${embed.width}x${embed.height}) ...`);
+    console.log(
+      `  Screenshotting ${embed.name} (${embed.width}x${embed.height}) ...`
+    );
     const page = await browser.newPage();
     await page.setViewport({ width: embed.width, height: embed.height });
     await page.goto(`${BASE}${embed.path}`, {
