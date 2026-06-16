@@ -1,3 +1,37 @@
+/**
+ * A manually authored referral, used to populate `ReferralBlock` with your own
+ * stories instead of fetching recent stories from Reuters.com.
+ */
+export interface ReferralItem {
+  /** URL the referral links to. Used as-is, so include the full address. */
+  url: string;
+  /** Kicker or category text shown above the title. */
+  kicker: string;
+  /** Headline text for the referral. */
+  title: string;
+  /** URL of the thumbnail image. */
+  imageUrl: string;
+  /** Alt text for the thumbnail image. */
+  imageAlt?: string;
+  /**
+   * Publish time shown beneath the title. Accepts a `Date` or any value the
+   * `Date` constructor understands (e.g. an ISO string). Omit to hide the time.
+   */
+  time?: Date | string | number;
+}
+
+/**
+ * Anchor [target](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target)
+ * for a referral link. The standard keywords are suggested, but any named
+ * browsing context is allowed.
+ */
+export type LinkTarget =
+  | '_self'
+  | '_blank'
+  | '_parent'
+  | '_top'
+  | (string & {});
+
 export interface Referrals {
   statusCode: number;
   message: string;
@@ -32,7 +66,7 @@ export interface Article {
   authors: Author[];
   kicker: Kicker;
   content_elements: unknown[];
-  headline_category?: unknown;
+  headline_category?: string;
   content?: {
     third_party?: unknown;
   };

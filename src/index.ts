@@ -45,6 +45,7 @@ export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
 export { pym } from './components/PymChild/state.svelte';
 export { default as ReferralBlock } from './components/ReferralBlock/ReferralBlock.svelte';
+export { default as Referral } from './components/ReferralBlock/Referral.svelte';
 export { default as ReutersGraphicsLogo } from './components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
 export { default as ReutersLogo } from './components/ReutersLogo/ReutersLogo.svelte';
 export { default as Scroller } from './components/Scroller/Scroller.svelte';
@@ -72,6 +73,9 @@ export type {
   HeadlineSize,
   ScrollerVideoInstance,
 } from './components/@types/global';
+
+export type { ReferralItem } from './components/ReferralBlock/types';
+export type { LinkTarget } from './components/ReferralBlock/types';
 
 export type {
   GeocodeOptions,
