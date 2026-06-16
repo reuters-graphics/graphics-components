@@ -15,6 +15,9 @@ export { default as BlogPost } from './components/BlogPost/BlogPost.svelte';
 export { default as BlogTOC } from './components/BlogTOC/BlogTOC.svelte';
 export { default as AdScripts } from './components/AdSlot/AdScripts.svelte';
 export { default as BeforeAfter } from './components/BeforeAfter/BeforeAfter.svelte';
+export { default as Bio } from './components/BioBox/Bio.svelte';
+export { default as BioBox } from './components/BioBox/BioBox.svelte';
+export { default as SocialLinks } from './components/BioBox/SocialLinks.svelte';
 export { default as Block } from './components/Block/Block.svelte';
 export { default as ClockWall } from './components/ClockWall/ClockWall.svelte';
 export { default as BodyText } from './components/BodyText/BodyText.svelte';
@@ -72,6 +75,12 @@ export type {
   HeadlineSize,
   ScrollerVideoInstance,
 } from './components/@types/global';
+
+export type {
+  Author,
+  SocialLink,
+  SocialPlatform,
+} from './components/BioBox/types';
 
 export type {
   GeocodeOptions,
