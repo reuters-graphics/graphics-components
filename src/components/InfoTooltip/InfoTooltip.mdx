@@ -1,0 +1,48 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as InfoTooltipStories from './InfoTooltip.stories.svelte';
+
+<Meta of={InfoTooltipStories} />
+
+# InfoTooltip
+
+The `InfoTooltip` component shows a small info icon that reveals a tooltip on
+hover or keyboard focus. Use it to attach a brief explanation to a label,
+heading, chart axis, or legend without cluttering the layout.
+
+```svelte
+<script>
+  import { InfoTooltip } from '@reuters-graphics/graphics-components';
+</script>
+
+<span style="display: inline-flex; align-items: center; gap: 6px;">
+  Difference from normal high
+  <InfoTooltip text="Difference from the 1961–1990 average high temperature." />
+</span>
+```
+
+<Canvas of={InfoTooltipStories.InALabel} />
+
+## Positioning
+
+By default the tooltip opens below the icon. Set `above` to open it above
+instead — handy when the icon sits near the bottom of a container.
+
+<Canvas of={InfoTooltipStories.Above} />
+
+## Custom content
+
+For richer tooltips, pass content as children instead of the `text` prop. The
+children take precedence over `text`.
+
+```svelte
+<InfoTooltip>
+  Read more in our <a href="/methodology/">methodology</a>.
+</InfoTooltip>
+```
+
+## Accessibility
+
+The icon is a real `<button>` so it's reachable by keyboard, and its
+`aria-describedby` is wired to the tooltip, which carries `role="tooltip"`. The
+tooltip reveals on both `:hover` and `:focus-visible`.

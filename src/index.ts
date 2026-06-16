@@ -33,6 +33,7 @@ export { default as HeroHeadline } from './components/HeroHeadline/HeroHeadline.
 export { default as HorizontalScroller } from './components/HorizontalScroller/HorizontalScroller.svelte';
 export { default as EndNotes } from './components/EndNotes/EndNotes.svelte';
 export { default as InfoBox } from './components/InfoBox/InfoBox.svelte';
+export { default as InfoTooltip } from './components/InfoTooltip/InfoTooltip.svelte';
 export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
 export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.svelte';
 export { default as LanguageButton } from './components/LanguageButton/LanguageButton.svelte';
