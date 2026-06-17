@@ -1,5 +1,16 @@
 # @reuters-graphics/graphics-components
 
+## 3.6.0
+
+### Minor Changes
+
+- cda3bf9: Add `BioBox`, an accessible author-bio box that echoes the contributor box at the bottom of Reuters.com stories. Each author can show a name, job title, short bio, avatar (falling back to the Reuters Kinesis logo) and a row of contact/social links. Social links reflow below the bio text on narrow screens. Also exports the supporting `Bio` and `SocialLinks` components and the `Author`, `SocialLink` and `SocialPlatform` types.
+- 01384da: Add a `stories` prop to `ReferralBlock` so you can supply your own hand-picked referrals instead of fetching recent stories from Reuters.com. Extract the single-card markup into a new exported `Referral` component for reuse in other layouts, and export `ReferralItem` and `LinkTarget` types.
+
+### Patch Changes
+
+- d4f605f: Reduce `InfoBox` interior inline padding on mobile. The fluid `fpx-6` padding kept a ~2.25rem minimum that squeezed the text in narrow viewports; it now tightens to the page gutter (1rem) below 768px.
+
 ## 3.5.0
 
 ### Minor Changes
