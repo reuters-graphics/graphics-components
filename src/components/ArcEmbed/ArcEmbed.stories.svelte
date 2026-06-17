@@ -2,7 +2,6 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import ArcEmbed from './ArcEmbed.svelte';
   import ArcHeader from './ArcHeader.svelte';
-  import ArcFonts from './ArcFonts.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Embeds/ArcEmbed',
@@ -21,11 +20,11 @@
 </script>
 
 <!--
-  A full embed: the Knowledge font, a homepage-style header with a linked
-  kicker, a photo in the stage and a caption in the footer.
+  A full embed: a homepage-style header with a linked kicker, a photo in the
+  stage and a caption in the footer. ArcEmbed loads the Reuters Knowledge font
+  for you.
 -->
 <Story name="Demo">
-  <ArcFonts />
   <ArcEmbed stageHeight={420}>
     {#snippet header()}
       <ArcHeader
@@ -51,7 +50,6 @@
   The minimum: just a header and a stage, with no footer.
 -->
 <Story name="Without footer" tags={['!autodocs', '!dev']}>
-  <ArcFonts />
   <ArcEmbed stageHeight={300}>
     {#snippet header()}
       <ArcHeader
@@ -71,6 +69,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
+    margin: 0;
     object-fit: cover;
   }
 

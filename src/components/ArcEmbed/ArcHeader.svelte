@@ -66,6 +66,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-bottom: 1rem;
 
     span.arc-kicker,
     a.arc-kicker {
