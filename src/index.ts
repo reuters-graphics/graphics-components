@@ -10,6 +10,9 @@ export {
   default as Analytics,
   registerPageview,
 } from './components/Analytics/Analytics.svelte';
+export { default as ArcEmbed } from './components/ArcEmbed/ArcEmbed.svelte';
+export { default as ArcHeader } from './components/ArcEmbed/ArcHeader.svelte';
+export { default as ArcFonts } from './components/ArcEmbed/ArcFonts.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as BlogPost } from './components/BlogPost/BlogPost.svelte';
 export { default as BlogTOC } from './components/BlogTOC/BlogTOC.svelte';
