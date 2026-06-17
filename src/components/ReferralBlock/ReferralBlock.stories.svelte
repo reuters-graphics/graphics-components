@@ -53,15 +53,7 @@
     argTypes: {
       width: {
         control: 'select',
-        options: [
-          'narrower',
-          'narrow',
-          'normal',
-          'wide',
-          'wider',
-          'widest',
-          'fluid',
-        ],
+        options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
       },
       section: {
         control: 'select',

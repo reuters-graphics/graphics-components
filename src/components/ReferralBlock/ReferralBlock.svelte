@@ -12,6 +12,8 @@
   import type { ContainerWidth } from '../@types/global';
   import type { ReferralItem, LinkTarget } from './types';
 
+  type ReferralBlockWidth = Exclude<ContainerWidth, 'narrower' | 'narrow'>;
+
   interface Props {
     /**
      * Section ID, which is often the URL path to the section page on reuters.com.
@@ -42,9 +44,9 @@
      */
     heading?: string;
     /**
-     * Width of the component within the text well: 'narrower' | 'narrow' | 'normal' | 'wide' | 'wider' | 'widest' | 'fluid'
+     * Width of the component within the text well: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid'
      */
-    width?: ContainerWidth;
+    width?: ReferralBlockWidth;
     /** Add an ID to target with SCSS. */
     id?: string;
     /** Add a class to target with SCSS. */
