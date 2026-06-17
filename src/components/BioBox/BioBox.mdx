@@ -1,0 +1,48 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as BioBoxStories from './BioBox.stories.svelte';
+
+<Meta of={BioBoxStories} />
+
+# BioBox
+
+The `BioBox` component shows one or more author biographies in a bordered box, echoing the contributor box at the bottom of Reuters.com stories.
+
+Each author can include a name, job title, short bio, avatar image and a row of contact and social links (email, X, LinkedIn, Facebook, Instagram, Bluesky or a generic link). When no avatar is provided, the Reuters Kinesis logo is shown instead.
+
+On narrow screens the social links move below the bio text so names and titles stay readable.
+
+```svelte
+<script>
+  import { BioBox } from '@reuters-graphics/graphics-components';
+
+  const authors = [
+    {
+      name: 'Ben Welsh',
+      title: 'News Applications Editor',
+      bio: 'Ben Welsh leads the development of dashboards, databases and other automated systems.',
+      imageUrl: 'https://www.reuters.com/.../avatar.jpg',
+      links: [
+        { platform: 'email', url: 'ben.welsh@thomsonreuters.com' },
+        { platform: 'x', url: 'https://x.com/palewire' },
+        { platform: 'linkedin', url: 'https://www.linkedin.com/in/palewire' },
+        { platform: 'link', url: 'https://palewi.re/who-is-ben-welsh/' },
+      ],
+    },
+  ];
+</script>
+
+<BioBox {authors} />
+```
+
+<Canvas of={BioBoxStories.Demo} />
+
+## Single author
+
+<Canvas of={BioBoxStories.SingleAuthor} />
+
+## Logo fallback
+
+When an author has no `imageUrl`, the box falls back to the Reuters Kinesis logo.
+
+<Canvas of={BioBoxStories.LogoFallback} />
