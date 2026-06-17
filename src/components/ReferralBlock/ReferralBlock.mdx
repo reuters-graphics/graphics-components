@@ -41,4 +41,43 @@ TK - Check if this is still relevant.
 ```
 
 <Canvas of={ReferralBlockStories.ByCollection} />
+
+## Manual stories
+
+Pass a `stories` array to populate the block with your own one-off referrals
+instead of fetching them over the wire. When `stories` is set, the
+`section`/`collection` fetch is skipped entirely and your stories render as-is —
+which also means they show up in any environment, not just production
+`www.reuters.com`.
+
+Each story matches the `ReferralItem` type. Only `url`, `kicker`, `title` and
+`imageUrl` are required; `imageAlt` and `time` are optional (omit `time` to hide
+the publish time).
+
+```svelte
+<script>
+  import { ReferralBlock } from '@reuters-graphics/graphics-components';
+
+  const stories = [
+    {
+      url: 'https://www.reuters.com/world/europe/',
+      kicker: 'Europe',
+      title: 'A hand-picked story you provide yourself',
+      imageUrl: 'https://www.reuters.com/your-thumbnail.jpg',
+      imageAlt: 'Describe the image',
+      time: new Date('2026-06-16T12:00:00Z'),
+    },
+    {
+      url: 'https://www.reuters.com/business/energy/',
+      kicker: 'Energy',
+      title: 'Another one-off referral with no publish time',
+      imageUrl: 'https://www.reuters.com/another-thumbnail.jpg',
+    },
+  ];
+</script>
+
+<ReferralBlock {stories} heading="Related coverage" class="fmy-0" />
+```
+
+<Canvas of={ReferralBlockStories.ManualStories} />
 ```

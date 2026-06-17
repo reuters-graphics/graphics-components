@@ -2,16 +2,17 @@
 <script lang="ts">
   // Utils
   import { onMount } from 'svelte';
-  import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';
-  import { articleIsNotCurrentPage } from './filterCurrentPage';
+  import { fetchReferrals } from './getReferrals';
 
   // Components
   import Block from '../Block/Block.svelte';
+  import Referral from './Referral.svelte';
 
   // Types
-  import type { Article } from './types';
-  import type { Referrals } from './types';
-  type ContainerWidth = 'normal' | 'wide' | 'wider' | 'widest' | 'fluid';
+  import type { ContainerWidth } from '../@types/global';
+  import type { ReferralItem, LinkTarget } from './types';
+
+  type ReferralBlockWidth = Exclude<ContainerWidth, 'narrower' | 'narrow'>;
 
   interface Props {
     /**
@@ -25,13 +26,19 @@
      */
     collection?: string;
     /**
+     * Provide your own referrals instead of fetching recent stories from
+     * Reuters.com. When set, the `section`/`collection` fetch is skipped and
+     * these stories are rendered as-is.
+     */
+    stories?: ReferralItem[];
+    /**
      * Number of referrals to show.
      */
     number?: number;
     /**
      * Link [target](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target), e.g., `_blank` or `_parent`.
      */
-    linkTarget?: string;
+    linkTarget?: LinkTarget;
     /**
      * Add a heading to the referral block.
      */
@@ -39,7 +46,7 @@
     /**
      * Width of the component within the text well: 'normal' | 'wide' | 'wider' | 'widest' | 'fluid'
      */
-    width?: ContainerWidth;
+    width?: ReferralBlockWidth;
     /** Add an ID to target with SCSS. */
     id?: string;
     /** Add a class to target with SCSS. */
@@ -49,6 +56,7 @@
   let {
     section = '/world/',
     collection,
+    stories = [],
     number = 4,
     linkTarget = '_self',
     heading = '',
@@ -59,51 +67,27 @@
 
   let clientWidth = $state(0);
 
-  const SECTION_API = 'recent-stories-by-sections-v1';
+  let fetchedReferrals: ReferralItem[] = $state([]);
 
-  /** @TODO - Check if collections alias API still exists*/
-  const COLLECTION_API = 'articles-by-collection-alias-or-id-v1';
+  // Manually provided stories take precedence. Otherwise, only show fetched
+  // stories once the API returns the full requested number, which avoids
+  // rendering a partial block.
+  const referrals = $derived<ReferralItem[]>(
+    stories.length ? stories
+    : fetchedReferrals.length === number ? fetchedReferrals
+    : []
+  );
 
-  let referrals: Article[] = $state([]);
-
-  const getReferrals = async () => {
-    if (typeof window === 'undefined') return;
-    // fetch only reliably works on prod sites
-    if (window?.location?.hostname !== 'www.reuters.com') return;
-    const isCollection = Boolean(collection);
-    const API = isCollection ? COLLECTION_API : SECTION_API;
-    try {
-      const response = await fetch(
-        `https://www.reuters.com/pf/api/v3/content/fetch/${API}?` +
-          new URLSearchParams({
-            query: JSON.stringify({
-              section_ids: isCollection ? undefined : section,
-              collection_alias: isCollection ? collection : undefined,
-              size: 20,
-              website: 'reuters',
-            }),
-          })
-      );
-
-      const data = (await response.json()) as Referrals;
-
-      const articles = data.result.articles
-        .filter((a) => a?.headline_category || a?.kicker?.name)
-        .filter((a) => a?.thumbnail?.url)
-        .filter((a) => !a?.content?.third_party)
-        .filter(articleIsNotCurrentPage)
-        .slice(0, number);
-
-      referrals = articles;
-    } catch {
-      console.warn('Unable to fetch referral links.');
-    }
-  };
-
-  onMount(getReferrals);
+  onMount(() => {
+    // Skip the network request entirely when stories are supplied by hand.
+    if (stories.length) return;
+    fetchReferrals({ section, collection, number }).then((items) => {
+      fetchedReferrals = items;
+    });
+  });
 </script>
 
-{#if referrals.length === number}
+{#if referrals.length}
   <Block {width} {id} class="referrals-block {cls}">
     <div
       class="block-container"
@@ -124,51 +108,12 @@
         class:xs={clientWidth && clientWidth < 450}
       >
         {#each referrals as referral}
-          <div class="referral">
-            <a
-              href="https://www.reuters.com{referral.canonical_url}"
-              target={linkTarget}
-              rel={linkTarget === '_blank' ? 'noreferrer' : null}
-            >
-              <div class="referral-pack flex justify-around my-0 mx-auto">
-                <div
-                  class="headline"
-                  class:xs={clientWidth && clientWidth < 450}
-                >
-                  <div
-                    class="kicker m-0 body-caption leading-tighter"
-                    data-chromatic="ignore"
-                  >
-                    {referral.headline_category || referral.kicker.name}
-                  </div>
-                  <div
-                    class="title m-0 body-caption leading-tighter"
-                    data-chromatic="ignore"
-                  >
-                    {referral.title}
-                  </div>
-                  <div
-                    class="publish-time body-caption leading-tighter"
-                    data-chromatic="ignore"
-                  >
-                    {getTime(new Date(referral.display_time))}
-                  </div>
-                </div>
-                <div
-                  class="image-container block m-0 overflow-hidden relative"
-                  class:xs={clientWidth && clientWidth < 450}
-                >
-                  <img
-                    class="block object-cover m-0 w-full"
-                    data-chromatic="ignore"
-                    src={referral.thumbnail.url}
-                    alt={referral.thumbnail.alt_text ||
-                      referral.thumbnail.caption}
-                  />
-                </div>
-              </div>
-            </a>
-          </div>
+          <Referral
+            {...referral}
+            {linkTarget}
+            compact={clientWidth > 0 && clientWidth < 450}
+            stacked={clientWidth > 0 && clientWidth < 750}
+          />
         {/each}
       </div>
     </div>
@@ -176,8 +121,6 @@
 {/if}
 
 <style lang="scss">
-  @use '../../scss/mixins' as mixins;
-
   div.block-container.stacked {
     display: flex;
     flex-direction: column;
@@ -193,66 +136,8 @@
   }
 
   .referral-container {
-    a {
-      text-decoration: none;
-    }
     &.stacked {
       max-width: 450px;
-      .referral {
-        width: 100%;
-        .headline {
-          width: calc(100% - 7rem);
-        }
-      }
-    }
-    .referral {
-      display: block;
-      width: calc(50% - 30px);
-      max-width: 450px;
-      @include mixins.fmy-1;
-
-      &:hover {
-        .title {
-          text-decoration: underline;
-        }
-        img {
-          filter: brightness(85%);
-        }
-      }
-
-      .headline {
-        display: inline-block;
-        width: calc(100% - 9rem);
-        @include mixins.fpr-2;
-        .kicker {
-          @include mixins.text-xxs;
-          font-family: Knowledge, sans-serif;
-        }
-        .title {
-          @include mixins.font-medium;
-          @include mixins.text-sm;
-          @include mixins.text-primary;
-          font-family: Knowledge, sans-serif;
-        }
-        .publish-time {
-          @include mixins.text-xxs;
-          font-family: Knowledge, sans-serif;
-        }
-      }
-      .image-container {
-        border-radius: 0.25rem;
-        border: 1px solid mixins.$theme-colour-brand-rules;
-        width: 9rem;
-        &.xs {
-          width: 7rem;
-        }
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: filter 0.1s;
-        }
-      }
     }
   }
 </style>
