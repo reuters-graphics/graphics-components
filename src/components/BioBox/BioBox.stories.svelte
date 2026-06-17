@@ -30,21 +30,15 @@
   const { Story } = defineMeta({
     title: 'Components/Page furniture/BioBox',
     component: BioBox,
-    argTypes: {
-      width: {
-        control: 'select',
-        options: ['normal', 'wide', 'wider', 'widest', 'fluid'],
-      },
-    },
   });
 </script>
 
-<Story name="Demo" args={{ authors, width: 'normal' }} />
+<Story name="Demo" args={{ authors }} />
 
 <Story
   name="Single author"
   exportName="SingleAuthor"
-  args={{ authors: [authors[1]], width: 'normal' }}
+  args={{ authors: [authors[1]] }}
 />
 
 <Story
@@ -59,6 +53,5 @@
         links: [{ platform: 'link', url: 'https://www.reuters.com/graphics/' }],
       },
     ],
-    width: 'normal',
   }}
 />
