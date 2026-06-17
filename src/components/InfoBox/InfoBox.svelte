@@ -108,6 +108,15 @@
       border-color: var(--theme-colour-brand-rules);
     }
 
+    // The fluid inline padding (`fpx-6`) keeps a ~2.25rem minimum, which
+    // squeezes the text on narrow screens. Tighten it to match the page
+    // gutter on mobile.
+    @media (max-width: 767px) {
+      :global(.article-block) {
+        padding-inline: 1rem;
+      }
+    }
+
     &.light {
       :global(.article-block) {
         background-color: rgb(250 250 250 / 100%);
