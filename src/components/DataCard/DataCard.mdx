@@ -1,0 +1,339 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as DataCardStories from './DataCard.stories.svelte';
+
+<Meta of={DataCardStories} />
+
+# DataCard
+
+A small grammar for building consistent **data cards** — compact panels that
+pair a headline statistic with supporting labels, charts and footnotes. They
+were built for the bottom-of-map overlays on the Reuters Climate Monitor, but
+the pieces are presentational and work anywhere.
+
+Compose a card from a `DataCard` shell and the grammar primitives:
+
+- **`DataCard`** — the card shell (with an optional link mode). Each card is its
+  own CSS size container, so its type scales to the card's own rendered width.
+- **`DataCardTopline`** — the bold heading row.
+- **`DataCardBigNumber`** — a large tabular-figure statistic with optional unit.
+- **`DataCardLabel`** — a small label, optionally `muted` for context.
+- **`DataCardColumns`** — a flex row for side-by-side value columns.
+- **`DataCardColumn`** — a single value column inside `DataCardColumns`.
+- **`DataCardChartWrap`** — a flex-growing wrapper for a chart.
+- **`DataCardFootnote`** — small print pinned to the bottom of the card.
+- **`DataCardRow`** — lays out several cards in a row that becomes a swipe
+  carousel on mobile.
+
+```svelte
+<script>
+  import {
+    DataCard,
+    DataCardTopline,
+    DataCardBigNumber,
+    DataCardLabel,
+    DataCardColumns,
+    DataCardColumn,
+    DataCardFootnote,
+  } from '@reuters-graphics/graphics-components';
+</script>
+
+<DataCard width="double">
+  <DataCardTopline>Today's high</DataCardTopline>
+  <DataCardColumns>
+    <DataCardColumn>
+      <DataCardBigNumber value="80" unit="°F" />
+      <DataCardLabel>Forecast</DataCardLabel>
+    </DataCardColumn>
+    <DataCardColumn>
+      <DataCardBigNumber value="+4.2" unit="°" color="#d64000" />
+      <DataCardLabel color="#d64000">Above normal</DataCardLabel>
+    </DataCardColumn>
+  </DataCardColumns>
+  <DataCardFootnote>* Calculated in UTC for comparison</DataCardFootnote>
+</DataCard>
+```
+
+## A single card
+
+The simplest card pairs a topline with one headline statistic.
+
+<Canvas of={DataCardStories.Card} />
+
+Each card is a CSS size container, so it **fills the width it's given** (up to
+`max-width`) rather than shrink-wrapping its content — that's what lets cards
+line up cleanly in a `DataCardRow`. So rather than wrapping a lone stat in a
+sizing `div`, pick a named width.
+
+## Width
+
+A card takes a named **`width`** prop with two sizes. It sets the card's
+`max-width`, and because the card is a size container its type scales to match:
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        <code>width</code>
+      </th>
+      <th>max-width</th>
+      <th>use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>single</code>
+      </td>
+      <td>115px</td>
+      <td>one-number cards (the default)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>double</code>
+      </td>
+      <td>230px</td>
+      <td>two-column cards and charts</td>
+    </tr>
+  </tbody>
+</table>
+
+```svelte
+<DataCard width="double">…</DataCard>
+```
+
+Need a one-off size? Override either with the `--dc-card-max-width` CSS
+variable — it always wins over the named width.
+
+```svelte
+<DataCard style="--dc-card-max-width: 280px;">…</DataCard>
+```
+
+## A row of cards
+
+`DataCardRow` lays cards side by side and gives them a shared, definite width so
+their type scales consistently. Pass `maxWidth` to cap and center the row. When
+every card fits, they sit centered with no scrolling:
+
+<Canvas of={DataCardStories.Row} />
+
+The same row turns into a horizontal swipe carousel **only when the cards don't
+all fit** — there's no separate "carousel mode" to opt into. Overflow is measured
+from the row's own width, so it works whether the row is narrowed by a small
+viewport, a Pym iframe or a constrained parent. When it overflows it scrolls with
+scroll-snap (and scroll-chaining guards, so a fling at the first/last card
+doesn't nudge the surrounding page sideways); when there's room for every card it
+stays the plain centered row above:
+
+<Canvas of={DataCardStories.Carousel} />
+
+## Two columns
+
+Wrap each value in a `DataCardColumn` and group them in `DataCardColumns` to
+place two (or more) columns side by side inside a single card — handy for a
+value and its comparison. Each `DataCardColumn` flexes to share the row evenly,
+so there's no need to hand-roll `flex` styles.
+
+<Canvas of={DataCardStories.TwoColumns} />
+
+## With a chart
+
+`DataCardChartWrap` grows to fill the leftover card height beneath fixed-size
+siblings — drop a chart, sparkline or SVG inside it.
+
+<Canvas of={DataCardStories.WithAChart} />
+
+The same wrapper works in a `single`-width card for a compact sparkline beneath a
+headline number — here a president's approval trend.
+
+<Canvas of={DataCardStories.SingleColumnChart} />
+
+## As a link
+
+Pass `href` to render the whole card as a link with a hover affordance.
+
+<Canvas of={DataCardStories.AsALink} />
+
+## Theming
+
+Cards read Reuters theme tokens (`--theme-colour-text-primary`,
+`--theme-colour-text-secondary`, `--theme-colour-brand-rules`,
+`--theme-font-family-sans-serif`) so they pick up a surrounding `Theme`
+automatically, falling back to sensible defaults otherwise. Fine-grained sizing
+can be overridden with the `--dc-*` custom properties below. Set them on a card
+(or any ancestor — they inherit) to tune a single instance or a whole group.
+
+<table>
+  <thead>
+    <tr>
+      <th>Custom property</th>
+      <th>Default</th>
+      <th>Controls</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--dc-card-padding</code>
+      </td>
+      <td>
+        <code>12px</code>
+      </td>
+      <td>Inner padding of the card.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-card-min-width</code>
+      </td>
+      <td>
+        <code>0</code>
+      </td>
+      <td>Minimum card width.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-card-width</code>
+      </td>
+      <td>
+        <code>115px</code> / <code>230px</code>
+      </td>
+      <td>
+        Card width for the <code>single</code> / <code>double</code> tier (set
+        by the <code>width</code> prop).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-card-max-width</code>
+      </td>
+      <td>
+        <em>unset</em>
+      </td>
+      <td>Explicit width override; wins over the named width.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-line-height</code>
+      </td>
+      <td>
+        <code>1.4</code>
+      </td>
+      <td>Line-height of card content.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-topline-size</code>
+      </td>
+      <td>
+        <code>12px</code>
+      </td>
+      <td>
+        <code>DataCardTopline</code> font size.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-big-number-size</code>
+      </td>
+      <td>
+        <code>clamp(24px, 47cqi, 42px)</code>
+      </td>
+      <td>
+        <code>DataCardBigNumber</code> value font size.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-big-number-unit-size</code>
+      </td>
+      <td>
+        <code>clamp(11px, 16cqi, 14px)</code>
+      </td>
+      <td>
+        <code>DataCardBigNumber</code> unit font size.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-big-number-value-color</code>
+      </td>
+      <td>
+        <code>currentColor</code>
+      </td>
+      <td>
+        <code>DataCardBigNumber</code> value colour (the <code>color</code> prop
+        sets this).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-label-size</code>
+      </td>
+      <td>
+        <code>12px</code>
+      </td>
+      <td>
+        <code>DataCardLabel</code> font size.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-label-color</code>
+      </td>
+      <td>
+        <code>--theme-colour-text-secondary</code>
+      </td>
+      <td>
+        <code>DataCardLabel</code> text colour.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-sublabel-size</code>
+      </td>
+      <td>
+        <code>11px</code>
+      </td>
+      <td>
+        Muted <code>DataCardLabel</code> font size.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-label-muted-color</code>
+      </td>
+      <td>
+        <code>#999</code>
+      </td>
+      <td>
+        Muted <code>DataCardLabel</code> text colour.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-footnote-size</code>
+      </td>
+      <td>
+        <code>10px</code>
+      </td>
+      <td>
+        <code>DataCardFootnote</code> font size.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--dc-row-max-width</code>
+      </td>
+      <td>
+        <code>none</code>
+      </td>
+      <td>
+        <code>DataCardRow</code> max width (set by the <code>maxWidth</code>{' '}
+        prop).
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Props
+
+<Controls of={DataCardStories.Card} />
