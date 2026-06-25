@@ -23,26 +23,6 @@ When you don't pass a `url`, the component reads the live `window.location.href`
 />
 ```
 
-## Using with ArchieML docs
-
-With the graphics kit, you'll likely get your headline from an ArchieML doc...
-
-```yaml
-# ArchieML doc
-headline: An example Reuters graphic
-```
-
-... which you'll pass to the `ShareBar` component, leaving `url` unset so it shares the live page URL.
-
-```svelte
-<script>
-  import { ShareBar } from '@reuters-graphics/graphics-components';
-  let { content }: Props = $props();
-</script>
-
-<ShareBar headline={content.headline} />
-```
-
 <Canvas of={ShareBarStories.Demo} />
 
 ## Without the licensing button
