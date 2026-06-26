@@ -1,0 +1,69 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ArcEmbedStories from './ArcEmbed.stories.svelte';
+
+<Meta of={ArcEmbedStories} />
+
+# ArcEmbed
+
+`ArcEmbed` is a small, reusable starter kit for building iframed embeds for the **Arc** content management system that runs Reuters.com. It supplies the shared chrome — a light `Theme`, the Reuters Knowledge font, [Pym.js](https://blog.apps.npr.org/pym.js/) iframe resizing and a simple stacked layout — with no styling tied to any one graphic, so you can drop your own header, stage (the main visual) and footer into named snippets and match the look of the homepage.
+
+The kit has two pieces you'll use directly:
+
+- **`ArcEmbed`** — the frame: header, a positioned `stage` for your visual, and an optional footer. It loads the Reuters Knowledge font for you.
+- **`ArcHeader`** — a homepage-style title block with an optional kicker, headline and dek.
+
+```svelte
+<script>
+  import { ArcEmbed, ArcHeader } from '@reuters-graphics/graphics-components';
+</script>
+
+<ArcEmbed stageHeight={420}>
+  {#snippet header()}
+    <ArcHeader
+      kicker="Wildlife"
+      kickerUrl="https://www.reuters.com/"
+      headline="The great white's comeback"
+      dek="Conservation efforts have helped a feared predator rebound along the coast."
+    />
+  {/snippet}
+  {#snippet stage()}
+    <!-- Your map, chart or photo goes here. -->
+    <img src={photo} alt="A great white shark" />
+  {/snippet}
+  {#snippet footer()}
+    <p class="caption">A great white shark off the coast. REUTERS</p>
+  {/snippet}
+</ArcEmbed>
+```
+
+<Canvas of={ArcEmbedStories.Demo} />
+
+## The stage
+
+The `stage` is a positioned (`position: relative`) area sized by the `stageHeight` prop, so your graphic and any controls or overlays can absolutely position themselves within it. Anything that needs to sit _below_ the visual — captions, summaries, credits — goes in the optional `footer` snippet.
+
+```svelte
+<ArcEmbed stageHeight={300}>
+  {#snippet header()}
+    <ArcHeader headline="A simple embed" />
+  {/snippet}
+  {#snippet stage()}
+    <img src={photo} alt="A great white shark" />
+  {/snippet}
+</ArcEmbed>
+```
+
+## Fonts
+
+Reuters.com uses a different cut of the Knowledge font than the one that ships with our standard graphics kit. `ArcEmbed` loads that version for you, so in most cases you don't need to think about fonts at all. It registers the font under its own name, `ArcKnowledge`, so it sits alongside the kit's standard Knowledge font rather than replacing it. The files are served from the Reuters graphics CDN because the copies on Reuters.com can't be loaded by other websites — they're missing the cross-origin header a browser needs before it will use a font from another domain.
+
+If you need the font somewhere outside an `ArcEmbed` — say, on a standalone page that shares the same layout — you can load it on its own with `ArcFonts`:
+
+```svelte
+<script>
+  import { ArcFonts } from '@reuters-graphics/graphics-components';
+</script>
+
+<ArcFonts />
+```
