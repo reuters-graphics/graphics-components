@@ -1,0 +1,36 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ShareBarStories from './ShareBar.stories.svelte';
+
+<Meta of={ShareBarStories} />
+
+# ShareBar
+
+The `ShareBar` component shows a row of share buttons — X, Facebook, LinkedIn, Email and Copy link — alongside an optional **Purchase Licensing Rights** button, echoing the share toolbar on Reuters.com stories.
+
+The social buttons open the platform's share dialog in a popup window, Email opens the reader's mail client, and Copy link writes the URL to the clipboard with a brief "Link copied" confirmation. The clipboard copy uses an `execCommand` fallback so it still works inside cross-origin iframes (how Reuters embeds graphics), where the async Clipboard API is blocked.
+
+When you don't pass a `url`, the component reads the live `window.location.href` at click time, so a shared link reproduces the reader's current view.
+
+```svelte
+<script>
+  import { ShareBar } from '@reuters-graphics/graphics-components';
+</script>
+
+<ShareBar
+  url="https://www.reuters.com/graphics/example-story/"
+  headline="An example Reuters graphic"
+/>
+```
+
+<Canvas of={ShareBarStories.Demo} />
+
+## Without the licensing button
+
+Set `showLicensing={false}` to hide the **Purchase Licensing Rights** button and show only the share icons.
+
+```svelte
+<ShareBar headline="An example Reuters graphic" showLicensing={false} />
+```
+
+<Canvas of={ShareBarStories.WithoutLicensing} />
