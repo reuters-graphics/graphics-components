@@ -23,6 +23,7 @@ In the graphics kit the article body lives in `src/lib/App.svelte`. Rather than 
 
 {#each content.blocks as block}
 {#if block.type === 'text'}
+
 <BodyText text={block.text} />
 {:else if block.type === 'photo'}
 <FeaturePhoto src={block.src} altText={block.altText} caption={block.caption} />
