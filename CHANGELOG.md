@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.7.0
+
+### Minor Changes
+
+- 5858d14: Add `ShareBar` component — a row of X, Facebook, LinkedIn, Email and Copy link share buttons plus an optional "Purchase Licensing Rights" button, echoing the share toolbar on Reuters.com stories.
+
 ## 3.6.0
 
 ### Minor Changes
