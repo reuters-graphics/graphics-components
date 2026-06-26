@@ -1,0 +1,43 @@
+import { Meta, Canvas, Source } from '@storybook/blocks';
+
+import * as DefaultPageStories from './DefaultPage.stories.svelte';
+
+<Meta of={DefaultPageStories} />
+
+# Default page
+
+Most Reuters graphics stories are built from the same handful of components, laced together inside the [`Article`](?path=/docs/components-page-layout-article--docs) text well. This composition strings them together in the order you'll usually reach for them — a working dress rehearsal for the real thing.
+
+In a real project the whole story is wrapped in a [`Theme`](?path=/docs/components-styles-theme--docs) and bracketed by a [`SiteHeader`](?path=/docs/components-page-furniture-siteheader--docs) and [`SiteFooter`](?path=/docs/components-page-furniture-sitefooter--docs), which the graphics-kit page template provides for you.
+
+<Canvas of={DefaultPageStories.Demo} />
+
+## Putting it together
+
+In the graphics kit the article body lives in `src/lib/App.svelte`. Rather than hand-placing each component, drive the body from a single structured `content` object — an ArchieML doc or `content.json` — and map over an ordered list of blocks. That keeps the markup small and the ordering data-driven, the same approach the [story source](https://github.com/reuters-graphics/graphics-components/blob/main/src/compositions/DefaultPage.stories.svelte) uses:
+
+<Source
+  language="svelte"
+  dark
+  code={`<Headline {...content} />
+
+{#each content.blocks as block}
+{#if block.type === 'text'}
+<BodyText text={block.text} />
+{:else if block.type === 'photo'}
+<FeaturePhoto src={block.src} altText={block.altText} caption={block.caption} />
+{:else if block.type === 'graphic'}
+<GraphicBlock title={block.title} description={block.description} notes={block.notes} />
+{:else if block.type === 'video'}
+<Video src={block.src} ariaDescription={block.ariaDescription} notes={block.notes} />
+{/if}
+{/each}
+
+<InfoBox title={content.infoBox.title} text={content.infoBox.text} />
+<EndNotes notes={content.endNotes} />
+<ShareBar url={content.shareUrl} headline={content.hed} />
+<BioBox authors={content.bioAuthors} />
+<ReferralBlock heading="Read next" stories={content.referrals} />
+`} />
+
+The whole `Article` is then wrapped in a `Theme` and placed between a `SiteHeader` and `SiteFooter` on the page — see [Page layout](?path=/docs/components-page-layout-intro--docs) for the surrounding structure.
