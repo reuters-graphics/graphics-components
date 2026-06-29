@@ -32,3 +32,5 @@ The library ships with a full SCSS design system: spacing tokens, typography uti
 - **[Guides](./guides/index.md)** — Integration guides, design system reference, theming, SCSS tokens, and colour palettes.
 
 To find a specific component, start with `./components/index.md` for the full list, then open the individual component file. To understand the design system (spacing, colours, typography), start with `./guides/index.md`.
+
+These docs are automatically generated from components' code structure, SCSS files and also from human-friendly documentation written using Storybook's MDX and Component Story Format syntax.
