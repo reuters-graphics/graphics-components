@@ -53,11 +53,11 @@ async function run() {
     writeFile(
       join(OUT_GUIDES, 'index.md'),
       generateGuidesIndexMarkdown(allGuideEntries),
-      'utf-8',
+      'utf-8'
     ),
     copyFile(
       join(import.meta.dirname, 'master-index.md'),
-      join(OUT_ROOT, 'index.md'),
+      join(OUT_ROOT, 'index.md')
     ),
   ]);
 
@@ -79,7 +79,7 @@ async function runComponents(): Promise<ComponentDoc[]> {
       await writeFile(
         join(OUT_COMPONENTS, `${entry.name}.md`),
         generateComponentMarkdown(doc),
-        'utf-8',
+        'utf-8'
       );
       process.stdout.write(`  ✓ ${entry.name}\n`);
     } catch (err) {
@@ -90,9 +90,13 @@ async function runComponents(): Promise<ComponentDoc[]> {
   await writeFile(
     join(OUT_COMPONENTS, 'index.md'),
     generateComponentsIndexMarkdown(
-      docs.map((d) => ({ name: d.name, title: d.title, description: d.description })),
+      docs.map((d) => ({
+        name: d.name,
+        title: d.title,
+        description: d.description,
+      }))
     ),
-    'utf-8',
+    'utf-8'
   );
 
   return docs;
@@ -113,10 +117,14 @@ async function discoverComponents(): Promise<ComponentEntry[]> {
         name,
         dir,
         sveltePath,
-        storiesPath: existsSync(join(dir, `${name}.stories.svelte`))
-          ? join(dir, `${name}.stories.svelte`)
+        storiesPath:
+          existsSync(join(dir, `${name}.stories.svelte`)) ?
+            join(dir, `${name}.stories.svelte`)
           : null,
-        mdxPath: existsSync(join(dir, `${name}.mdx`)) ? join(dir, `${name}.mdx`) : null,
+        mdxPath:
+          existsSync(join(dir, `${name}.mdx`)) ?
+            join(dir, `${name}.mdx`)
+          : null,
       });
     }
   }
@@ -134,8 +142,9 @@ async function discoverComponents(): Promise<ComponentEntry[]> {
         name,
         dir,
         sveltePath: existsSync(sveltePath) ? sveltePath : join(dir, 'index.ts'),
-        storiesPath: existsSync(join(dir, `${name}.stories.svelte`))
-          ? join(dir, `${name}.stories.svelte`)
+        storiesPath:
+          existsSync(join(dir, `${name}.stories.svelte`)) ?
+            join(dir, `${name}.stories.svelte`)
           : null,
         mdxPath: existsSync(mdxPath) ? mdxPath : null,
       });
@@ -149,10 +158,12 @@ async function buildComponentDoc(entry: ComponentEntry): Promise<ComponentDoc> {
   const isSvelte = entry.sveltePath.endsWith('.svelte');
 
   const [propsResult, storiesResult, prose] = await Promise.all([
-    isSvelte
-      ? extractProps(entry.sveltePath)
-      : Promise.resolve({ props: [], exportedTypes: [], description: undefined }),
-    entry.storiesPath ? extractStories(entry.storiesPath) : Promise.resolve(null),
+    isSvelte ?
+      extractProps(entry.sveltePath)
+    : Promise.resolve({ props: [], exportedTypes: [], description: undefined }),
+    entry.storiesPath ?
+      extractStories(entry.storiesPath)
+    : Promise.resolve(null),
     entry.mdxPath ? extractMdxProse(entry.mdxPath) : Promise.resolve(''),
   ]);
 
@@ -181,11 +192,21 @@ async function runGuides(): Promise<GuideIndexEntry[]> {
     try {
       const doc = await extractDoc(entry);
       if (!doc.prose.trim()) continue;
-      await writeFile(join(OUT_GUIDES, entry.destFile), generateDocMarkdown(doc), 'utf-8');
-      entries.push({ heading: doc.heading, description: doc.description, destFile: entry.destFile });
+      await writeFile(
+        join(OUT_GUIDES, entry.destFile),
+        generateDocMarkdown(doc),
+        'utf-8'
+      );
+      entries.push({
+        heading: doc.heading,
+        description: doc.description,
+        destFile: entry.destFile,
+      });
       process.stdout.write(`  ✓ guides/${entry.destFile}\n`);
     } catch (err) {
-      process.stderr.write(`  ✗ guides/${entry.destFile}: ${(err as Error).message}\n`);
+      process.stderr.write(
+        `  ✗ guides/${entry.destFile}: ${(err as Error).message}\n`
+      );
     }
   }
 
@@ -201,7 +222,8 @@ async function runTokens(): Promise<GuideIndexEntry[]> {
     const coloursData = await extractColours(SRC_SCSS);
     const md = generateColoursMarkdown(coloursData);
     await writeFile(join(OUT_GUIDES, 'colours.md'), md, 'utf-8');
-    const totalFamilies = coloursData.primary.length + coloursData.thematic.length;
+    const totalFamilies =
+      coloursData.primary.length + coloursData.thematic.length;
     entries.push({
       heading: 'Colour Palettes',
       description: `CSS custom properties for ${totalFamilies} colour families (primary + thematic).`,
@@ -218,7 +240,8 @@ async function runTokens(): Promise<GuideIndexEntry[]> {
     await writeFile(join(OUT_GUIDES, 'tokens.md'), md, 'utf-8');
     entries.push({
       heading: 'Style Tokens',
-      description: 'Spacing utilities (margin/padding), typography classes, and fluid spacers.',
+      description:
+        'Spacing utilities (margin/padding), typography classes, and fluid spacers.',
       destFile: 'tokens.md',
     });
     process.stdout.write(`  ✓ guides/tokens.md\n`);

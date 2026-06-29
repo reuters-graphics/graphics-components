@@ -9,7 +9,9 @@ export interface StoriesExtractResult {
   argTypes: Record<string, ArgTypeDef>;
 }
 
-export async function extractStories(filePath: string): Promise<StoriesExtractResult | null> {
+export async function extractStories(
+  filePath: string
+): Promise<StoriesExtractResult | null> {
   if (!existsSync(filePath)) return null;
 
   const source = await readFile(filePath, 'utf-8');
@@ -34,7 +36,9 @@ function extractModuleScript(source: string): string {
 }
 
 function extractRegularScript(source: string): string {
-  const match = source.match(/<script(?!\s+module)(?![^>]*\bmodule\b)[^>]*>([\s\S]*?)<\/script>/);
+  const match = source.match(
+    /<script(?!\s+module)(?![^>]*\bmodule\b)[^>]*>([\s\S]*?)<\/script>/
+  );
   return match ? match[1] : '';
 }
 
@@ -54,7 +58,10 @@ interface DefineMetaResult {
 function parseDefineMeta(moduleContent: string): DefineMetaResult {
   if (!moduleContent.trim()) return { title: '', argTypes: {} };
 
-  const project = new Project({ useInMemoryFileSystem: true, skipAddingFilesFromTsConfig: true });
+  const project = new Project({
+    useInMemoryFileSystem: true,
+    skipAddingFilesFromTsConfig: true,
+  });
   const file = project.createSourceFile('module.ts', moduleContent);
 
   const callExpr = file
@@ -75,22 +82,25 @@ function parseDefineMeta(moduleContent: string): DefineMetaResult {
     .find(
       (p) =>
         p.getKind() === SyntaxKind.PropertyAssignment &&
-        p.asKindOrThrow(SyntaxKind.PropertyAssignment).getName() === 'title',
+        p.asKindOrThrow(SyntaxKind.PropertyAssignment).getName() === 'title'
     );
 
   const title =
-    titleProp?.getKind() === SyntaxKind.PropertyAssignment
-      ? stripQuotes(
-          titleProp.asKindOrThrow(SyntaxKind.PropertyAssignment).getInitializer()?.getText() ?? '',
-        )
-      : '';
+    titleProp?.getKind() === SyntaxKind.PropertyAssignment ?
+      stripQuotes(
+        titleProp
+          .asKindOrThrow(SyntaxKind.PropertyAssignment)
+          .getInitializer()
+          ?.getText() ?? ''
+      )
+    : '';
 
   const argTypesProp = obj
     .getProperties()
     .find(
       (p) =>
         p.getKind() === SyntaxKind.PropertyAssignment &&
-        p.asKindOrThrow(SyntaxKind.PropertyAssignment).getName() === 'argTypes',
+        p.asKindOrThrow(SyntaxKind.PropertyAssignment).getName() === 'argTypes'
     );
 
   const argTypes: Record<string, ArgTypeDef> = {};
@@ -99,13 +109,16 @@ function parseDefineMeta(moduleContent: string): DefineMetaResult {
       .asKindOrThrow(SyntaxKind.PropertyAssignment)
       .getInitializer();
     if (argTypesInit?.getKind() === SyntaxKind.ObjectLiteralExpression) {
-      const argTypesObj = argTypesInit.asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+      const argTypesObj = argTypesInit.asKindOrThrow(
+        SyntaxKind.ObjectLiteralExpression
+      );
       for (const prop of argTypesObj.getProperties()) {
         if (prop.getKind() !== SyntaxKind.PropertyAssignment) continue;
         const pa = prop.asKindOrThrow(SyntaxKind.PropertyAssignment);
         const name = pa.getName();
         const val = pa.getInitializer();
-        if (!val || val.getKind() !== SyntaxKind.ObjectLiteralExpression) continue;
+        if (!val || val.getKind() !== SyntaxKind.ObjectLiteralExpression)
+          continue;
         const valObj = val.asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
         const def: ArgTypeDef = {};
         for (const vp of valObj.getProperties()) {
@@ -137,7 +150,10 @@ function buildVarMap(scriptContent: string): Map<string, string> {
   const map = new Map<string, string>();
   if (!scriptContent.trim()) return map;
 
-  const project = new Project({ useInMemoryFileSystem: true, skipAddingFilesFromTsConfig: true });
+  const project = new Project({
+    useInMemoryFileSystem: true,
+    skipAddingFilesFromTsConfig: true,
+  });
   const file = project.createSourceFile('script.ts', scriptContent);
 
   for (const varDecl of file.getVariableDeclarations()) {
@@ -152,7 +168,10 @@ function buildVarMap(scriptContent: string): Map<string, string> {
 
 // ── Template Story element parsing ────────────────────────────────────────
 
-function parseStoryElements(template: string, varMap: Map<string, string>): StoryDef[] {
+function parseStoryElements(
+  template: string,
+  varMap: Map<string, string>
+): StoryDef[] {
   const stories: StoryDef[] = [];
   let i = 0;
 
@@ -221,7 +240,7 @@ function parseStoryElements(template: string, varMap: Map<string, string>): Stor
 function parseStoryAttributes(
   attrString: string,
   varMap: Map<string, string>,
-  hasTemplate: boolean,
+  hasTemplate: boolean
 ): StoryDef | null {
   const name = extractStringAttr(attrString, 'name');
   if (!name) return null;
@@ -235,7 +254,10 @@ function parseStoryAttributes(
 }
 
 // Extract a quoted string attribute: name="value" or name='value'
-function extractStringAttr(attrString: string, attrName: string): string | null {
+function extractStringAttr(
+  attrString: string,
+  attrName: string
+): string | null {
   const re = new RegExp(`${attrName}=["']([^"']*)["']`);
   const match = attrString.match(re);
   return match ? match[1] : null;
@@ -274,21 +296,25 @@ function extractArgsObjectText(attrString: string): string | null {
 // Parse a JS object literal text and resolve variable references
 function resolveArgsObject(
   objectText: string,
-  varMap: Map<string, string>,
+  varMap: Map<string, string>
 ): Record<string, unknown> {
   // Wrap in a const to make it parseable as a statement
   const src = `const __args = ${objectText.startsWith('{') ? objectText : '{' + objectText + '}'}`;
   const result: Record<string, unknown> = {};
 
   try {
-    const project = new Project({ useInMemoryFileSystem: true, skipAddingFilesFromTsConfig: true });
+    const project = new Project({
+      useInMemoryFileSystem: true,
+      skipAddingFilesFromTsConfig: true,
+    });
     const file = project.createSourceFile('args.ts', src);
 
     const decl = file.getVariableDeclaration('__args');
     if (!decl) return result;
 
     const init = decl.getInitializer();
-    if (!init || init.getKind() !== SyntaxKind.ObjectLiteralExpression) return result;
+    if (!init || init.getKind() !== SyntaxKind.ObjectLiteralExpression)
+      return result;
 
     const obj = init.asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
 
@@ -302,8 +328,9 @@ function resolveArgsObject(
         if (valNode.getKind() === SyntaxKind.Identifier) {
           // Variable reference
           const varName = valNode.getText();
-          result[propName] = varMap.has(varName)
-            ? { __raw: varMap.get(varName)! }
+          result[propName] =
+            varMap.has(varName) ?
+              { __raw: varMap.get(varName)! }
             : { __ref: varName };
         } else {
           result[propName] = { __raw: valNode.getText() };
@@ -311,8 +338,9 @@ function resolveArgsObject(
       } else if (prop.getKind() === SyntaxKind.ShorthandPropertyAssignment) {
         const spa = prop.asKindOrThrow(SyntaxKind.ShorthandPropertyAssignment);
         const propName = spa.getName();
-        result[propName] = varMap.has(propName)
-          ? { __raw: varMap.get(propName)! }
+        result[propName] =
+          varMap.has(propName) ?
+            { __raw: varMap.get(propName)! }
           : { __ref: propName };
       }
     }
@@ -339,7 +367,10 @@ function dedentCode(raw: string): string {
 
   const minIndent = lines
     .filter((l) => l.trim().length > 0)
-    .reduce((min, l) => Math.min(min, l.match(/^(\s*)/)?.[1].length ?? 0), Infinity);
+    .reduce(
+      (min, l) => Math.min(min, l.match(/^(\s*)/)?.[1].length ?? 0),
+      Infinity
+    );
 
   const remove = isFinite(minIndent) ? minIndent : 0;
   return lines.map((l) => l.slice(remove)).join('\n');

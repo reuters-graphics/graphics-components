@@ -1,17 +1,69 @@
 [
-  { "srcPath": "intro.mdx",                                  "destFile": "intro.md",                      "title": "Introduction" },
-  { "srcPath": "layout/intro.mdx",                           "destFile": "layout.md",                     "title": "Page Layout" },
-  { "srcPath": "styles/intro.mdx",                           "destFile": "styles.md",                     "title": "Styles & SCSS" },
-  { "srcPath": "theming/css-variables.mdx",                  "destFile": "theming.md",                    "title": "Theming with CSS Variables" },
-  { "srcPath": "actions/intro.mdx",                          "destFile": "actions.md",                    "title": "Svelte Actions" },
-  { "srcPath": "guides/graphics-kit.mdx",                    "destFile": "graphics-kit.md",               "title": "Graphics Kit Integration" },
-  { "srcPath": "guides/archieml.mdx",                        "destFile": "archieml.md",                   "title": "Using ArchieML" },
-  { "srcPath": "guides/customising-with-scss.mdx",           "destFile": "customising-with-scss.md",      "title": "Customising with SCSS" },
-  { "srcPath": "guides/svelte-components.mdx",               "destFile": "svelte-components.md",          "title": "Svelte Components Basics" },
-  { "srcPath": "guides/getting-help.mdx",                    "destFile": "getting-help.md",               "title": "Getting Help" },
-  { "srcPath": "guides/using-docs.mdx",                      "destFile": "using-docs.md",                 "title": "Using the Docs" },
-  { "srcPath": "contributing/component-guidelines.mdx",      "destFile": "contributing-guidelines.md",    "title": "Component Guidelines" },
-  { "srcPath": "contributing/quickstart.mdx",                "destFile": "contributing-quickstart.md",    "title": "Contributor Quickstart" },
-  { "srcPath": "contributing/writing-component-stories.mdx", "destFile": "contributing-stories.md",       "title": "Writing Component Stories" },
-  { "srcPath": "llms/llms.mdx",                               "destFile": "llm-docs.md",                   "title": "LLM Docs" }
+  { "srcPath": "intro.mdx", "destFile": "intro.md", "title": "Introduction" },
+  {
+    "srcPath": "layout/intro.mdx",
+    "destFile": "layout.md",
+    "title": "Page Layout"
+  },
+  {
+    "srcPath": "styles/intro.mdx",
+    "destFile": "styles.md",
+    "title": "Styles & SCSS"
+  },
+  {
+    "srcPath": "theming/css-variables.mdx",
+    "destFile": "theming.md",
+    "title": "Theming with CSS Variables"
+  },
+  {
+    "srcPath": "actions/intro.mdx",
+    "destFile": "actions.md",
+    "title": "Svelte Actions"
+  },
+  {
+    "srcPath": "guides/graphics-kit.mdx",
+    "destFile": "graphics-kit.md",
+    "title": "Graphics Kit Integration"
+  },
+  {
+    "srcPath": "guides/archieml.mdx",
+    "destFile": "archieml.md",
+    "title": "Using ArchieML"
+  },
+  {
+    "srcPath": "guides/customising-with-scss.mdx",
+    "destFile": "customising-with-scss.md",
+    "title": "Customising with SCSS"
+  },
+  {
+    "srcPath": "guides/svelte-components.mdx",
+    "destFile": "svelte-components.md",
+    "title": "Svelte Components Basics"
+  },
+  {
+    "srcPath": "guides/getting-help.mdx",
+    "destFile": "getting-help.md",
+    "title": "Getting Help"
+  },
+  {
+    "srcPath": "guides/using-docs.mdx",
+    "destFile": "using-docs.md",
+    "title": "Using the Docs"
+  },
+  {
+    "srcPath": "contributing/component-guidelines.mdx",
+    "destFile": "contributing-guidelines.md",
+    "title": "Component Guidelines"
+  },
+  {
+    "srcPath": "contributing/quickstart.mdx",
+    "destFile": "contributing-quickstart.md",
+    "title": "Contributor Quickstart"
+  },
+  {
+    "srcPath": "contributing/writing-component-stories.mdx",
+    "destFile": "contributing-stories.md",
+    "title": "Writing Component Stories"
+  },
+  { "srcPath": "llms/llms.mdx", "destFile": "llm-docs.md", "title": "LLM Docs" }
 ]

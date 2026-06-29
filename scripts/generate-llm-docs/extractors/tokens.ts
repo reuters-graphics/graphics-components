@@ -44,7 +44,7 @@ async function readColourDir(dir: string): Promise<ColourFamily[]> {
 }
 
 function parseCssCustomProperties(
-  scss: string,
+  scss: string
 ): Array<{ variable: string; value: string }> {
   const re = /(--[\w-]+):\s*([^;]+);/g;
   return [...scss.matchAll(re)].map((m) => ({
@@ -83,15 +83,35 @@ export async function extractTokens(scssRoot: string): Promise<TokensData> {
   ]);
 
   const [fluidMarginTable, fluidPaddingTable] = await Promise.all([
-    compileTokenTable(join(spacersDir, '_fluid-margin.scss'), 'Fluid margin', /^\.fm-\d/),
-    compileTokenTable(join(spacersDir, '_fluid-padding.scss'), 'Fluid padding', /^\.fp-\d/),
+    compileTokenTable(
+      join(spacersDir, '_fluid-margin.scss'),
+      'Fluid margin',
+      /^\.fm-\d/
+    ),
+    compileTokenTable(
+      join(spacersDir, '_fluid-padding.scss'),
+      'Fluid padding',
+      /^\.fp-\d/
+    ),
   ]);
 
   const typographyTables = (
     await Promise.all([
-      compileTokenTable(join(textDir, '_font-size.scss'), 'Font size', /^\.text-/),
-      compileTokenTable(join(textDir, '_font-weight.scss'), 'Font weight', /^\.font-/),
-      compileTokenTable(join(textDir, '_line-height.scss'), 'Line height', /^\.leading-/),
+      compileTokenTable(
+        join(textDir, '_font-size.scss'),
+        'Font size',
+        /^\.text-/
+      ),
+      compileTokenTable(
+        join(textDir, '_font-weight.scss'),
+        'Font weight',
+        /^\.font-/
+      ),
+      compileTokenTable(
+        join(textDir, '_line-height.scss'),
+        'Line height',
+        /^\.leading-/
+      ),
     ])
   ).filter((t): t is TokenTable => t !== null);
 
@@ -120,11 +140,14 @@ function parseScssMap(src: string): SpacerLevel[] {
 async function compileTokenTable(
   filePath: string,
   title: string,
-  filter: RegExp,
+  filter: RegExp
 ): Promise<TokenTable | null> {
   if (!existsSync(filePath)) return null;
   try {
-    const result = sassCompile(filePath, { style: 'expanded', quietDeps: true });
+    const result = sassCompile(filePath, {
+      style: 'expanded',
+      quietDeps: true,
+    });
     const rows = parseCssClasses(result.css, filter);
     if (rows.length === 0) return null;
     return { title, rows };
@@ -134,7 +157,10 @@ async function compileTokenTable(
 }
 
 // Parse expanded CSS into [className, properties] pairs
-function parseCssClasses(css: string, filter?: RegExp): Array<[string, string]> {
+function parseCssClasses(
+  css: string,
+  filter?: RegExp
+): Array<[string, string]> {
   // Match .selector { ... } blocks — handles comma-grouped selectors
   const blockRe = /([^{}]+)\{([^{}]+)\}/g;
   const rows: Array<[string, string]> = [];

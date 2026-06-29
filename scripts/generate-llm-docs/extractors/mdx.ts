@@ -36,13 +36,16 @@ export async function extractMdxProse(filePath: string): Promise<string> {
 
 function stripMdxNodes() {
   return (tree: Node) => {
-    visit(tree, (node: Node, index: number | undefined, parent: Parent | undefined) => {
-      if (MDX_ELEMENT_TYPES.has(node.type)) {
-        if (parent && index !== undefined) {
-          parent.children.splice(index, 1);
-          return [SKIP, index];
+    visit(
+      tree,
+      (node: Node, index: number | undefined, parent: Parent | undefined) => {
+        if (MDX_ELEMENT_TYPES.has(node.type)) {
+          if (parent && index !== undefined) {
+            parent.children.splice(index, 1);
+            return [SKIP, index];
+          }
         }
       }
-    });
+    );
   };
 }

@@ -17,7 +17,7 @@ export function generateComponentMarkdown(doc: ComponentDoc): string {
   }
 
   sections.push(
-    `**Import:** \`import { ${doc.name} } from '@reuters-graphics/graphics-components'\`\n`,
+    `**Import:** \`import { ${doc.name} } from '@reuters-graphics/graphics-components'\`\n`
   );
 
   // Props table
@@ -49,7 +49,7 @@ export function generateDocMarkdown(doc: ExtractedDoc): string {
 }
 
 export function generateComponentsIndexMarkdown(
-  entries: Array<{ name: string; title: string; description?: string }>,
+  entries: Array<{ name: string; title: string; description?: string }>
 ): string {
   const lines: string[] = [
     '# Components\n',
@@ -60,7 +60,9 @@ export function generateComponentsIndexMarkdown(
 
   for (const entry of entries) {
     const desc = entry.description ? escapeCell(entry.description) : '—';
-    lines.push(`| [${entry.name}](./${entry.name}.md) | ${escapeCell(entry.title)} | ${desc} |`);
+    lines.push(
+      `| [${entry.name}](./${entry.name}.md) | ${escapeCell(entry.title)} | ${desc} |`
+    );
   }
 
   return lines.join('\n') + '\n';
@@ -72,7 +74,9 @@ export interface GuideIndexEntry {
   destFile: string;
 }
 
-export function generateGuidesIndexMarkdown(entries: GuideIndexEntry[]): string {
+export function generateGuidesIndexMarkdown(
+  entries: GuideIndexEntry[]
+): string {
   const lines: string[] = [
     '# Guides\n',
     'Conceptual documentation, integration guides, and design system reference.\n',
@@ -88,12 +92,11 @@ export function generateGuidesIndexMarkdown(entries: GuideIndexEntry[]): string 
   return lines.join('\n') + '\n';
 }
 
-
 // ── Section renderers ──────────────────────────────────────────────────────
 
 function renderPropsTable(
   props: PropDef[],
-  argTypes: Record<string, { control?: unknown; options?: string[] }>,
+  argTypes: Record<string, { control?: unknown; options?: string[] }>
 ): string {
   const rows = props.map((p) => {
     const req = p.required && p.default === undefined ? '✓' : '';
@@ -107,12 +110,14 @@ function renderPropsTable(
     return `| \`${p.name}\` | \`${escapeCell(p.type)}\` | ${def} | ${req} | ${desc}${hint} |`;
   });
 
-  return [
-    '## Props\n',
-    '| Prop | Type | Default | Required | Description |',
-    '|------|------|---------|:--------:|-------------|',
-    ...rows,
-  ].join('\n') + '\n';
+  return (
+    [
+      '## Props\n',
+      '| Prop | Type | Default | Required | Description |',
+      '|------|------|---------|:--------:|-------------|',
+      ...rows,
+    ].join('\n') + '\n'
+  );
 }
 
 function renderTypes(types: string[]): string {
@@ -145,7 +150,10 @@ function renderProse(prose: string): string {
 
 // ── Component usage rendering ──────────────────────────────────────────────
 
-function renderComponentUsage(componentName: string, args: Record<string, unknown>): string {
+function renderComponentUsage(
+  componentName: string,
+  args: Record<string, unknown>
+): string {
   const entries = Object.entries(args);
   if (entries.length === 0) return `<${componentName} />`;
 
@@ -176,7 +184,10 @@ function renderProp(name: string, value: unknown): string | null {
 
   if (text.length > MAX_VALUE_LENGTH) {
     // Don't truncate mid-syntax — indicate the shape with a comment instead
-    const shape = text.startsWith('[') ? 'array' : text.startsWith('{') ? 'object' : 'value';
+    const shape =
+      text.startsWith('[') ? 'array'
+      : text.startsWith('{') ? 'object'
+      : 'value';
     return `  ${name}={/* ${shape} — see Props/Types for full type */}`;
   }
 
@@ -201,7 +212,10 @@ function renderValue(value: unknown): RenderedValue | null {
       return { mode: 'expr', text: raw };
     }
     if ('__ref' in value) {
-      return { mode: 'expr', text: `/* ${(value as { __ref: string }).__ref} */` };
+      return {
+        mode: 'expr',
+        text: `/* ${(value as { __ref: string }).__ref} */`,
+      };
     }
   }
 
@@ -235,7 +249,7 @@ export function generateColoursMarkdown(data: ColoursData): string {
     '# Colour Palettes\n',
     'CSS custom properties set on `:root`. Import a palette to use its variables:\n',
     '```scss',
-    "// Example: import the blue palette",
+    '// Example: import the blue palette',
     "@use '@reuters-graphics/graphics-components/scss/colours/primary/blue';",
     '```\n',
     'Then reference variables with `var(--blue-500)` etc.\n',
@@ -257,7 +271,7 @@ export function generateColoursMarkdown(data: ColoursData): string {
   if (data.thematic.length > 0) {
     lines.push('## Thematic palettes\n');
     lines.push(
-      'Import thematic palettes to access branded colour tokens used by the `Theme` component.\n',
+      'Import thematic palettes to access branded colour tokens used by the `Theme` component.\n'
     );
     for (const family of data.thematic) {
       lines.push(`### ${family.name}\n`);
@@ -308,14 +322,15 @@ export function generateTokensMarkdown(data: TokensData): string {
   lines.push('## Spacing\n');
   lines.push(
     'Static spacing uses the Tailwind scale: 1 unit = 0.25rem. ' +
-      'So `.m-4` = 1rem, `.m-8` = 2rem, `.my-6` = 1.5rem block margin.\n',
+      'So `.m-4` = 1rem, `.m-8` = 2rem, `.my-6` = 1.5rem block margin.\n'
   );
 
   if (data.marginScale.length > 0) {
     lines.push('### Static margin\n');
     lines.push('| Prefix | Property |');
     lines.push('|--------|---------|');
-    for (const [prefix, prop] of MARGIN_PREFIXES) lines.push(`| ${prefix} | ${prop} |`);
+    for (const [prefix, prop] of MARGIN_PREFIXES)
+      lines.push(`| ${prefix} | ${prop} |`);
     lines.push('');
     lines.push('Available levels and their values:\n');
     lines.push('| Level | Value |');
@@ -331,7 +346,8 @@ export function generateTokensMarkdown(data: TokensData): string {
     lines.push('Same scale as margin. Prefixes:\n');
     lines.push('| Prefix | Property |');
     lines.push('|--------|---------|');
-    for (const [prefix, prop] of PADDING_PREFIXES) lines.push(`| ${prefix} | ${prop} |`);
+    for (const [prefix, prop] of PADDING_PREFIXES)
+      lines.push(`| ${prefix} | ${prop} |`);
     lines.push('');
   }
 
@@ -340,7 +356,7 @@ export function generateTokensMarkdown(data: TokensData): string {
     lines.push(
       'Fluid values scale with viewport width. ' +
         'Use SCSS `@extend` to apply: `@extend %fmy-4;`. ' +
-        'Direct utility classes are also available for levels 0–9.\n',
+        'Direct utility classes are also available for levels 0–9.\n'
     );
     lines.push('| Class | Properties |');
     lines.push('|-------|------------|');

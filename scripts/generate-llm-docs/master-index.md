@@ -7,13 +7,19 @@ The library ships with a full SCSS design system: spacing tokens, typography uti
 **Install:** `pnpm add @reuters-graphics/graphics-components`
 
 **Import components:**
+
 ```svelte
 <script>
-  import { BodyText, Legend, ShareBar } from '@reuters-graphics/graphics-components';
+  import {
+    BodyText,
+    Legend,
+    ShareBar,
+  } from '@reuters-graphics/graphics-components';
 </script>
 ```
 
 **Import SCSS:**
+
 ```scss
 @use '@reuters-graphics/graphics-components/scss/main';
 ```
