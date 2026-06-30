@@ -32,19 +32,18 @@ Each component file contains a props table with types, defaults, and JSDoc descr
 
 ## Using in a consuming project
 
-After installing the package, run the bin script to copy the docs into your project:
+This library declares its LLM docs via the `"llms"` field in `package.json`:
 
-```bash
-npx graphics-components-llm-docs
+```json
+"llms": {
+  "description": ["..."],
+  "files": ["./dist/llm-docs/**/*"]
+}
 ```
 
-This copies `dist/llm-docs/` to `./llms/graphics-components/` in your project root and creates or updates `CLAUDE.md` with a pointer to the docs so agents can find them automatically. Run it again after upgrading the package to refresh the docs.
+Consuming projects — the Graphics Kit and any future projects — use a `sync:llm-docs` script that reads this field across all installed `@reuters-graphics/*` packages and copies the matched files to `.claude/llms/{package-name}/` in the project root, then writes a `CLAUDE.md` entry using the `description`. Running that sync script after `pnpm install` keeps all library docs current automatically.
 
-To copy to a custom location, pass a path as the first argument:
-
-```bash
-npx graphics-components-llm-docs ./my/custom/path
-```
+See the Graphics Kit for the sync script implementation.
 
 ## Maintaining the generator
 
