@@ -34,8 +34,8 @@ async function updateAgentDocs(docsPath) {
   const agentsMd = resolve('AGENTS.md');
 
   const { name } = pkg;
-  const description =
-    pkg.llms?.description ?? `LLM reference docs for ${name}.`;
+  const raw = pkg.llms?.description ?? `LLM reference docs for ${name}.`;
+  const description = Array.isArray(raw) ? raw.join('\n') : raw;
 
   const pointer = [
     `## ${name}`,
