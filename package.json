@@ -151,7 +151,9 @@
       "alongside a full SCSS design system with spacing tokens, typography utilities, colour palettes,",
       "and CSS custom properties for theming."
     ],
-    "files": ["./dist/llm-docs/**/*"]
+    "files": [
+      "./dist/llm-docs/**/*"
+    ]
   },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
