@@ -29,12 +29,8 @@
     "test": "vitest"
   },
   "license": "MIT",
-  "bin": {
-    "graphics-components-llm-docs": "./bin/llm-docs.js"
-  },
   "files": [
     "dist",
-    "bin",
     "!dist/**/*.stories.*",
     "!dist/**/*.mdx",
     "!dist/**/demo",
