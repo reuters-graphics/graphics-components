@@ -5,8 +5,12 @@ import { fileURLToPath } from 'node:url';
 import { join, dirname, resolve, relative } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const pkg = JSON.parse(
+  await readFile(join(__dirname, '../package.json'), 'utf-8')
+);
+
 const src = join(__dirname, '../dist/llm-docs');
-const dest = resolve(process.argv[2] ?? './llms/graphics-components');
+const dest = resolve(process.argv[2] ?? './.claude/llms/graphics-components');
 const destRelative = './' + relative(process.cwd(), dest);
 
 if (!existsSync(src)) {
@@ -29,15 +33,18 @@ async function updateAgentDocs(docsPath) {
   const claudeMd = resolve('CLAUDE.md');
   const agentsMd = resolve('AGENTS.md');
 
+  const { name } = pkg;
+  const description =
+    pkg.llms?.description ?? `LLM reference docs for ${name}.`;
+
   const pointer = [
-    '## @reuters-graphics/graphics-components',
+    `## ${name}`,
     '',
-    `LLM reference docs for the Reuters Graphics Svelte component library are in \`${docsPath}/\`.`,
-    `See \`${docsPath}/index.md\` for an overview, \`${docsPath}/components/\` for per-component`,
-    `props and usage examples, and \`${docsPath}/guides/\` for integration guides and design system reference.`,
+    description,
+    '',
+    `LLM reference docs: \`${docsPath}/index.md\``,
   ].join('\n');
 
-  // Prefer CLAUDE.md; fall back to AGENTS.md if it already exists
   const targetFile =
     existsSync(agentsMd) && !existsSync(claudeMd) ? agentsMd : claudeMd;
   const fileName = targetFile === claudeMd ? 'CLAUDE.md' : 'AGENTS.md';

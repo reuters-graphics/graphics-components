@@ -148,6 +148,10 @@
     "./scss/*": "./dist/scss/*",
     "./llm-docs/*": "./dist/llm-docs/*"
   },
+  "llms": {
+    "description": "Svelte 5 component library for Reuters Graphics journalism. Provides components for page layout, text elements, multimedia, maps, and data visualisation, alongside a full SCSS design system with spacing tokens, typography utilities, colour palettes, and CSS custom properties for theming.",
+    "files": ["./dist/llm-docs/**/*"]
+  },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bugs": {
