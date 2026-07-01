@@ -70,6 +70,13 @@ describe('emphasizePlaceLabels', () => {
       prop: 'text-halo-width',
       val: 1.6,
     });
+    // Pins opacity to 1 so the near-black color isn't faded to gray by the
+    // style's zoom-driven text-opacity ramp.
+    expect(calls).toContainEqual({
+      id: 'city_labels',
+      prop: 'text-opacity',
+      val: 1,
+    });
   });
 
   it('respects custom options', () => {

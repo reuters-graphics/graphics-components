@@ -31,6 +31,11 @@ export interface EmphasizeLabelsOptions {
  * give them a strong white halo so they stay legible on top of colored data
  * overlays.
  *
+ * The default protomaps style fades place labels with a zoom-driven
+ * `text-opacity` (city labels only reach full strength around zoom 9), so this
+ * also pins `text-opacity` to 1 — otherwise the near-black color reads as gray
+ * at the low-to-mid zooms typical of a choropleth.
+ *
  * Targets the `place` source-layer symbol layers of the default Reuters
  * protomaps style. On a style that doesn't have them it's a **no-op** (the
  * per-layer checks and `try/catch` make it degrade gracefully), so it's safe to
@@ -56,6 +61,7 @@ export function emphasizePlaceLabels(
       map.setPaintProperty(layer.id, 'text-halo-color', haloColor);
       map.setPaintProperty(layer.id, 'text-halo-width', haloWidth);
       map.setPaintProperty(layer.id, 'text-halo-blur', 0);
+      map.setPaintProperty(layer.id, 'text-opacity', 1);
     } catch {
       /* layer isn't paintable in this style; skip it */
     }
