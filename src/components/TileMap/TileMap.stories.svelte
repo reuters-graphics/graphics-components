@@ -296,7 +296,7 @@
       beneathLabels
       paint={{
         'fill-color': '#d64000',
-        'fill-opacity': 0.6,
+        'fill-opacity': 0.75,
       }}
     />
   </TileMap>
