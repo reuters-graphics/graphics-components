@@ -21,6 +21,7 @@
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
   import type { ProjectionSpecification } from 'maplibre-gl';
+  import { emphasizePlaceLabels } from './labels';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
   interface Props {
@@ -66,6 +67,13 @@
      */
     styleUrl?: string;
     /**
+     * Darken the basemap's place labels and give them a strong white halo, so
+     * city/region names stay readable over colored data layers. Applied once on
+     * map load; a no-op on styles without `place` labels (e.g. non-default
+     * `styleUrl`s), so it degrades gracefully.
+     */
+    emphasizeLabels?: boolean;
+    /**
      * Map height (default: '500px')
      */
     height?: string;
@@ -101,6 +109,7 @@
     projection,
     interactive = true,
     styleUrl = 'https://graphics.thomsonreuters.com/reuters-protomaps/style.json',
+    emphasizeLabels = false,
     height = '500px',
     width = 'normal',
     textWidth = 'normal',
@@ -153,6 +162,28 @@
         map.addControl(
           new maplibregl.NavigationControl({ showCompass: false })
         );
+      }
+
+      // Darken the basemap's place labels so they read over data layers. Some
+      // styles keep applying their own label paint for a moment after the style
+      // loads, so a single call at `load` can be overridden and leave the
+      // labels their default (lighter) color. Apply on the first `styledata`
+      // where the place labels are present, then stop listening.
+      if (emphasizeLabels) {
+        const applyLabelEmphasis = () => {
+          if (!map) return;
+          const hasPlaceLabels = map
+            .getStyle()
+            ?.layers?.some(
+              (l) =>
+                l.type === 'symbol' &&
+                (l as { 'source-layer'?: string })['source-layer'] === 'place'
+            );
+          if (!hasPlaceLabels) return;
+          emphasizePlaceLabels(map);
+          map.off('styledata', applyLabelEmphasis);
+        };
+        map.on('styledata', applyLabelEmphasis);
       }
 
       // Call the callback when map is ready

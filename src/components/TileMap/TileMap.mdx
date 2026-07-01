@@ -193,6 +193,7 @@ You can also pass a URL string to fetch GeoJSON data:
 - **paint**: `Record<string, unknown>` - Paint properties for the layer
 - **layout**: `Record<string, unknown>` - Layout properties for the layer
 - **beforeId**: `string` - Layer ID to insert before (for ordering)
+- **beneathLabels**: `boolean` - Insert the layer beneath the basemap's labels so place names stay readable on top of it (default: `false`). Ignored when `beforeId` is set. A no-op on styles with no symbol layers.
 - **minZoom**: `number` - Minimum zoom level to display layer
 - **maxZoom**: `number` - Maximum zoom level to display layer
 - **filter**: `unknown[]` - Filter expression for the layer
@@ -281,6 +282,7 @@ For more control over the map, you can use the `onMapReady` callback to access t
 - **maxZoom**: `number` - Maximum zoom level (default: `22`)
 - **interactive**: `boolean` - Enable interactive controls (default: `true`)
 - **styleUrl**: `string` - Map style URL (default: Reuters Protomaps style)
+- **emphasizeLabels**: `boolean` - Darken the basemap's place labels and add a white halo so city/region names stay readable over colored data layers (default: `false`). Applied on map load; a no-op on styles without `place` labels.
 - **height**: `string` - Map height in CSS units (default: `'500px'`)
 - **width**: `ContainerWidth` - Width within the text well (default: `'normal'`)
 - **onMapReady**: `(map: maplibregl.Map) => void` - Callback when map is ready

@@ -4,6 +4,7 @@
   import type { Map as MaplibreMap, GeoJSONSource } from 'maplibre-gl';
   import type { Writable } from 'svelte/store';
   import type { GeoJSON } from 'geojson';
+  import { findFirstSymbolLayerId } from './labels';
 
   interface Props {
     /**
@@ -40,6 +41,12 @@
      */
     beforeId?: string;
     /**
+     * Insert this layer beneath the basemap's labels, so place names and other
+     * symbol layers stay readable on top of it. Ignored when `beforeId` is set
+     * (that takes precedence). A no-op on styles with no symbol layers.
+     */
+    beneathLabels?: boolean;
+    /**
      * Minimum zoom level to display layer
      */
     minZoom?: number;
@@ -60,6 +67,7 @@
     paint = {},
     layout = {},
     beforeId,
+    beneathLabels = false,
     minZoom,
     maxZoom,
     filter,
@@ -146,7 +154,11 @@
         if (maxZoom !== undefined) layerConfig.maxzoom = maxZoom;
         if (filter) layerConfig.filter = filter;
 
-        map.addLayer(layerConfig as never, beforeId);
+        // An explicit `beforeId` wins; otherwise `beneathLabels` inserts the
+        // layer just below the first symbol (label) layer so labels stay on top.
+        const insertBefore =
+          beforeId ?? (beneathLabels ? findFirstSymbolLayerId(map) : undefined);
+        map.addLayer(layerConfig as never, insertBefore);
       }
 
       isInitialized = true;
