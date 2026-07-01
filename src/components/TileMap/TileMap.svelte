@@ -174,8 +174,14 @@
         }
 
         // Darken the basemap's place labels so they read over data layers.
+        // Apply now, then re-assert once the map settles — some styles finish
+        // applying their own label paint just after `load`, which would
+        // otherwise win and leave the labels their default (lighter) color.
         if (emphasizeLabels) {
           emphasizePlaceLabels(map);
+          map.once('idle', () => {
+            if (map) emphasizePlaceLabels(map);
+          });
         }
 
         if (onMapReady) {
