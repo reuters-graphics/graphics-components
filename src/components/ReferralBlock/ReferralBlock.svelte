@@ -62,7 +62,7 @@
     heading = '',
     width = 'wide',
     id = '',
-    class: cls = 'fmy-8',
+    class: cls = 'fmy-5',
   }: Props = $props();
 
   let clientWidth = $state(0);

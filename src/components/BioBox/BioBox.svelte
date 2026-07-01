@@ -13,7 +13,7 @@
     class?: string;
   }
 
-  let { authors, id = '', class: cls = 'fmy-8' }: Props = $props();
+  let { authors, id = '', class: cls = 'fmy-5' }: Props = $props();
 </script>
 
 {#if authors.length}

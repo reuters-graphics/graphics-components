@@ -23,7 +23,7 @@
   let { notes }: Props = $props();
 </script>
 
-<Block class="notes fmt-6 fmb-8">
+<Block class="notes fmy-5">
   {#each notes as note}
     <div class="note-title">
       <Markdown source={note.title} />

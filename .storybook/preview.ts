@@ -15,7 +15,14 @@ SyntaxHighlighter.registerLanguage('markdown', markdown);
 
 const preview: Preview = {
   // @ts-ignore Is OK
-  decorators: [() => Wrapper],
+  decorators: [
+    // Wrap every story in Theme + Article. A story can switch the base theme by
+    // setting a `theme: 'dark'` parameter (defaults to light).
+    (_story, context) => ({
+      Component: Wrapper,
+      props: { base: context.parameters.theme === 'dark' ? 'dark' : 'light' },
+    }),
+  ],
   tags: ['autodocs', 'autodocs', 'autodocs', 'autodocs'],
   parameters: {
     viewMode: 'docs',
@@ -47,6 +54,8 @@ const preview: Preview = {
           ],
           'Components',
           ['*', ['Intro', '*']],
+          'Compositions',
+          ['Default page', '*'],
           'Styles',
           [
             'Intro',
