@@ -29,6 +29,74 @@
     ],
   };
 
+  // Simplified outline of the state of Iowa, for the "labels above data" demo.
+  const iowaData: FeatureCollection<Polygon> = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'Polygon',
+          coordinates: [
+            [
+              [-91.3684, 43.5014],
+              [-91.2151, 43.5014],
+              [-91.2041, 43.3535],
+              [-91.0562, 43.2549],
+              [-91.1767, 43.1344],
+              [-91.1439, 42.9099],
+              [-91.0672, 42.7511],
+              [-90.7112, 42.636],
+              [-90.64, 42.5101],
+              [-90.4209, 42.3293],
+              [-90.3935, 42.2253],
+              [-90.169, 42.1267],
+              [-90.1416, 42.0007],
+              [-90.1799, 41.809],
+              [-90.3114, 41.7433],
+              [-90.3442, 41.5899],
+              [-90.6564, 41.464],
+              [-91.0453, 41.4147],
+              [-91.111, 41.2394],
+              [-90.9467, 41.097],
+              [-90.9631, 40.9218],
+              [-91.0946, 40.8232],
+              [-91.122, 40.6698],
+              [-91.4013, 40.5603],
+              [-91.4177, 40.3795],
+              [-91.5272, 40.4124],
+              [-91.7299, 40.615],
+              [-91.834, 40.6096],
+              [-93.258, 40.5822],
+              [-94.6327, 40.5712],
+              [-95.7664, 40.5877],
+              [-95.8814, 40.7191],
+              [-95.8266, 40.9765],
+              [-95.9252, 41.2011],
+              [-95.9198, 41.453],
+              [-96.095, 41.5406],
+              [-96.1224, 41.6776],
+              [-96.0622, 41.7981],
+              [-96.1279, 41.9733],
+              [-96.2648, 42.039],
+              [-96.4455, 42.4882],
+              [-96.6318, 42.7072],
+              [-96.5441, 42.8551],
+              [-96.5113, 43.0523],
+              [-96.4346, 43.1235],
+              [-96.5606, 43.2221],
+              [-96.5277, 43.3973],
+              [-96.5825, 43.4795],
+              [-96.451, 43.5014],
+              [-91.3684, 43.5014],
+            ],
+          ],
+        },
+      },
+    ],
+  };
+
   // Reuters office location
   const reutersOfficePoint: FeatureCollection<Point> = {
     type: 'FeatureCollection',
@@ -205,6 +273,30 @@
         'circle-color': '#9c27b0',
         'circle-stroke-width': 2,
         'circle-stroke-color': '#ffffff',
+      }}
+    />
+  </TileMap>
+</Story>
+
+<Story name="Labels above data" tags={['!autodocs']}>
+  <TileMap
+    id="labels-map"
+    center={[-93.5, 42]}
+    zoom={6}
+    interactive={true}
+    emphasizeLabels
+    title="Keeping labels readable over data"
+    description="`emphasizeLabels` (on the map) darkens the basemap's place labels and adds a white halo; `beneathLabels` (on the fill layer) inserts the data below the labels, so city names across Iowa stay on top of the colored overlay."
+    height="500px"
+  >
+    <TileMapLayer
+      id="iowa-fill"
+      data={iowaData}
+      type="fill"
+      beneathLabels
+      paint={{
+        'fill-color': '#d64000',
+        'fill-opacity': 0.6,
       }}
     />
   </TileMap>
