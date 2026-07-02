@@ -12,12 +12,25 @@
     searchPlaceholder?: string;
     /** Callback fired when a location is selected from the results. */
     onselect?: (location: { lng: number; lat: number; name: string }) => void;
+    /**
+     * Minimum number of characters before a request is made. Raising this
+     * cuts the number of paid geocoding requests per search. Defaults to 2.
+     */
+    minLength?: number;
+    /**
+     * Debounce window in milliseconds between the last keystroke and the
+     * request. Raising this fires fewer requests while the user is still
+     * typing (each request is billed). Defaults to 300.
+     */
+    debounceMs?: number;
   }
 
   let {
     accessToken,
     searchPlaceholder = 'Search for a location',
     onselect,
+    minLength = 2,
+    debounceMs = 300,
     autocomplete = true,
     bbox,
     country,
@@ -49,7 +62,7 @@
     clearTimeout(debounceTimer);
     abortController?.abort();
 
-    if (query.length < 2) {
+    if (query.length < minLength) {
       suggestions = [];
       return;
     }
@@ -78,7 +91,7 @@
         if (e instanceof DOMException && e.name === 'AbortError') return;
         console.error('Geocoder error:', e);
       }
-    }, 300);
+    }, debounceMs);
   }
 
   onDestroy(() => {

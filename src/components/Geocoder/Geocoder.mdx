@@ -24,4 +24,6 @@ The `Geocoder` component provides an autocomplete location search powered by the
 
 The `accessToken` prop is required. Look up the Reuters Mapbox token in the team's 1Password vault. All [Mapbox forward geocoding options](https://docs.mapbox.com/api/search/geocoding-v6/#forward-geocoding) are available as props, including `country`, `language`, `types`, `bbox`, `proximity`, `limit`, and `worldview`.
 
+To reduce the number of paid geocoding requests, use `minLength` (minimum characters before searching, default `2`) and `debounceMs` (delay after the last keystroke before requesting, default `300`). Raising them fires fewer requests while the user is still typing.
+
 <Canvas of={GeocoderStories.Demo} />
