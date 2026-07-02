@@ -2,6 +2,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { geocode, type GeocodeFeature, type GeocodeOptions } from './geocode';
+  import { normalizeMinLength, normalizeDebounceMs } from './normalize';
   import MagnifyingGlass from '../SearchInput/components/MagnifyingGlass.svelte';
   import X from '../SearchInput/components/X.svelte';
 
@@ -12,12 +13,25 @@
     searchPlaceholder?: string;
     /** Callback fired when a location is selected from the results. */
     onselect?: (location: { lng: number; lat: number; name: string }) => void;
+    /**
+     * Minimum number of characters before a request is made. Raising this
+     * cuts the number of paid geocoding requests per search. Defaults to 2.
+     */
+    minLength?: number;
+    /**
+     * Debounce window in milliseconds between the last keystroke and the
+     * request. Raising this fires fewer requests while the user is still
+     * typing (each request is billed). Defaults to 300.
+     */
+    debounceMs?: number;
   }
 
   let {
     accessToken,
     searchPlaceholder = 'Search for a location',
     onselect,
+    minLength = 2,
+    debounceMs = 300,
     autocomplete = true,
     bbox,
     country,
@@ -44,12 +58,22 @@
   let debounceTimer: ReturnType<typeof setTimeout>;
   let abortController: AbortController | null = null;
 
+  // Normalize the throttling props so a non-numeric value passed via markup
+  // (e.g. `minLength="two"`) can't coerce to NaN and disable the gate — which
+  // would bill a request on every keystroke. Fall back to the documented
+  // defaults, clamped to sane floors.
+  let effectiveMinLength = $derived(normalizeMinLength(minLength));
+  let effectiveDebounceMs = $derived(normalizeDebounceMs(debounceMs));
+
   function handleInput() {
     selectedIndex = -1;
     clearTimeout(debounceTimer);
     abortController?.abort();
 
-    if (query.length < 2) {
+    // Trim first so whitespace-only input (e.g. "  ") doesn't clear the gate
+    // and bill a request for an empty search.
+    const trimmed = query.trim();
+    if (trimmed.length < effectiveMinLength) {
       suggestions = [];
       return;
     }
@@ -58,7 +82,7 @@
       abortController = new AbortController();
       try {
         suggestions = await geocode(
-          query,
+          trimmed,
           {
             accessToken,
             autocomplete,
@@ -78,7 +102,7 @@
         if (e instanceof DOMException && e.name === 'AbortError') return;
         console.error('Geocoder error:', e);
       }
-    }, 300);
+    }, effectiveDebounceMs);
   }
 
   onDestroy(() => {
