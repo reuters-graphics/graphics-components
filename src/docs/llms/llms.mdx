@@ -1,0 +1,76 @@
+import { Meta } from '@storybook/blocks';
+import { parameters } from '../utils/docsPage.js';
+
+<Meta title="Guides/LLM Docs" parameters={{ ...parameters }} />
+
+# LLM Docs
+
+This library ships machine-readable documentation designed to be used as context for AI agents and LLMs. The docs are generated at build time from source — Svelte component props, Storybook stories, MDX prose, and SCSS token files — and packaged inside the npm distribution so a consuming project can pull them in with a single command.
+
+## What gets generated
+
+Running `pnpm generate:llm-docs` produces a `dist/llm-docs/` directory with the following structure:
+
+```
+dist/llm-docs/
+  index.md              ← Library overview and section links
+  components/
+    index.md            ← All components with category and description
+    BodyText.md         ← Per-component: props table, types, usage examples
+    Legend.md
+    ...
+  guides/
+    index.md            ← All guides with descriptions
+    archieml.md         ← Integration guides extracted from MDX prose
+    colours.md          ← Full colour palette tables (generated from SCSS)
+    tokens.md           ← Spacing and typography utility class reference
+    theming.md
+    ...
+```
+
+Each component file contains a props table with types, defaults, and JSDoc descriptions; TypeScript type definitions for any exported types; and Svelte usage examples extracted from Storybook stories.
+
+## Using in a consuming project
+
+This library declares its LLM docs via the `"llms"` field in `package.json`:
+
+```json
+"llms": {
+  "description": ["..."],
+  "files": ["./dist/llm-docs/**/*"]
+}
+```
+
+Consuming projects — the Graphics Kit and any future projects — use a `sync:llm-docs` script that reads this field across all installed `@reuters-graphics/*` packages and copies the matched files to `.claude/llms/{package-name}/` in the project root, then writes a `CLAUDE.md` entry using the `description`. Running that sync script after `pnpm install` keeps all library docs current automatically.
+
+See the Graphics Kit for the sync script implementation.
+
+## Maintaining the generator
+
+The generation pipeline lives in `scripts/generate-llm-docs/` and runs as part of the `build` script. It has two plain-file configuration points that can be edited without touching any TypeScript.
+
+### docs-map.json
+
+`scripts/generate-llm-docs/docs-map.json` lists the MDX files from `src/docs/` that get extracted into `guides/`. Each entry maps a source path (relative to `src/docs/`) to an output filename and a fallback title:
+
+```json
+[
+  {
+    "srcPath": "guides/archieml.mdx",
+    "destFile": "archieml.md",
+    "title": "Using ArchieML"
+  }
+]
+```
+
+Add a new entry when a new guide is written in `src/docs/`. Remove or update entries when guides move or are renamed. The MDX extractor strips JSX components (`<Canvas>`, `<Meta>`, imports) and preserves the prose, so only files with meaningful prose content are worth including.
+
+Some files in `src/docs/` are intentionally omitted — `theme-builder/` (a React application with no extractable prose), `styles/tokens/` (interactive data tables with no prose), and `docs-components/` and `utils/` (internal tooling). The colour and token reference docs are generated directly from SCSS source instead.
+
+### master-index.md
+
+`scripts/generate-llm-docs/master-index.md` is the static `index.md` that lands at the root of `dist/llm-docs/`. Edit it directly to update the library overview, install instructions, or section descriptions. No code changes required.
+
+### Component docs
+
+Component documentation is generated automatically by scanning `src/components/` — no configuration needed. Every component directory that contains a `.svelte` file is processed. Props, defaults, and JSDoc descriptions come from the TypeScript `interface Props {}` block; usage examples come from `<Story>` elements in the `.stories.svelte` file; prose comes from the `.mdx` file. New components are picked up on the next build.
