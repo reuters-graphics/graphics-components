@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 3.10.1
+
+### Patch Changes
+
+- e250fba: Fix: include `dist/llm-docs/` in published package by adding `generate:llm-docs` to the `prepare` lifecycle script. Previously `svelte-package` cleared `dist/` when `prepare` ran before packing, wiping the llm-docs that the `build` step had generated.
+
 ## 3.10.0
 
 ### Minor Changes
