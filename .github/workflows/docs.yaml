@@ -2,6 +2,8 @@ name: Manually publish docs
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   docs:

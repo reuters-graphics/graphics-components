@@ -19,7 +19,7 @@
     "format": "prettier . --write",
     "generate:llm-docs": "tsx scripts/generate-llm-docs/index.ts",
     "build": "rimraf ./dist && svelte-package -i ./src && pnpm generate:llm-docs && publint",
-    "prepare": "svelte-package -i ./src",
+    "prepare": "svelte-package -i ./src && pnpm generate:llm-docs",
     "build:docs": "storybook build -o docs",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
