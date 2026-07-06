@@ -79,9 +79,10 @@ export function buildBootstrapScript(overrides: BootstrapOptions = {}): string {
   var unit = fromStorage() || fromCookie() || localeDefault() || FALLBACK;
   try { document.documentElement.setAttribute(ATTR, unit); } catch (e) {}
   window.__temperatureUnit = unit;
-  window.getTemperatureUnit = function () { return window.__temperatureUnit; };
+  if (!window.getTemperatureUnit) {
+    window.getTemperatureUnit = function () { return window.__temperatureUnit; };
+  }
   if (!window.setTemperatureUnit) {
-    window.setTemperatureUnit = function (u) {
       if (!valid(u)) return;
       window.dispatchEvent(new CustomEvent(EVENT, { detail: { unit: u } }));
     };
