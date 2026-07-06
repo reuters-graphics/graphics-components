@@ -8,11 +8,10 @@
   with no per-node JS. Defaults to Celsius when the attribute is absent (e.g. no
   JS).
 
-  Flash-free rendering needs a static CSS selector, so this component keys off
-  the toolkit's default `data-temp-unit` attribute. If you override
-  `UnitConfig.attribute`, keep the DOM attribute name as `data-temp-unit` for the
-  display (the state, bootstrap and toggle can still use your custom name), or
-  provide matching CSS.
+  Flash-free rendering needs a static CSS selector, so this component always keys off
+  the default `data-temp-unit` attribute. If you change `UnitConfig.attribute` for
+  the bootstrap/state/toggle, this component will not respond unless you also
+  provide matching CSS selectors (or keep the attribute name as `data-temp-unit`).
 
   ```svelte
   <Temperature celsius={22.4} digits={1} />
