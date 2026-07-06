@@ -27,7 +27,7 @@
   import Article from '../Article/Article.svelte';
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
@@ -38,7 +38,7 @@
   </Article>
 </Story>
 
-<Story name="Custom layout" exportName="CustomLayout">
+<Story asChild name="Custom layout" exportName="CustomLayout">
   <Block width="fluid">
     <!-- Enter bootstrap grid! -->
     <div id="block-flex-example">
@@ -55,7 +55,7 @@
   </Block>
 </Story>
 
-<Story name="Snap widths" exportName="SnapWidthsBasic">
+<Story asChild name="Snap widths" exportName="SnapWidthsBasic">
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>
@@ -67,7 +67,7 @@
   </Article>
 </Story>
 
-<Story name="Snap and skip widths" exportName="SnapSkipWidths">
+<Story asChild name="Snap and skip widths" exportName="SnapSkipWidths">
   <Article id="block-demo-article">
     <div class="article-boundaries">
       <div class="label">Article</div>

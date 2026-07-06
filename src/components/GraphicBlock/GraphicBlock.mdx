@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as GraphicBlockStories from './GraphicBlock.stories.svelte';
 
@@ -65,7 +65,7 @@ To pass your ai2svelte graphic into `GraphicBlock` component, import your ai2sve
   import LogBlock from './components/dev/LogBlock.svelte';
 
   // If using with the graphics kit
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
 
   // A built-in helper function in Graphis Kit for validating container width
   import { containerWidth } from '$utils/propValidators';
@@ -95,7 +95,7 @@ To pass your ai2svelte graphic into `GraphicBlock` component, import your ai2sve
         ariaDescription={block.altText}
       >
         <!-- In graphics kit, pass the `assetsPath` prop -->
-        <AiChart assetsPath={assets || '/'} />
+        <AiChart assetsPath={asset('/').replace(/\/$/, '')} />
       </GraphicBlock>
     {/if}
   {/if}
@@ -145,7 +145,7 @@ The `ariaDescription` string will be processed as markdown, so you can add multi
   ariaDescription="A map showing the shake intensity produced by the earthquake."
 >
   <!-- In graphics kit, pass the `assetsPath` prop -->
-  <AiChart assetsPath={assets || '/'} />
+  <AiChart assetsPath={asset('/').replace(/\/$/, '')} />
 </GraphicBlock>
 ```
 
@@ -166,7 +166,7 @@ Sometimes, instead of a simple sentence, we want to provide a data table or some
   notes="Note: A shakemap represents the ground shaking produced by an earthquake."
 >
   <!-- In graphics kit, pass the `assetsPath` prop -->
-  <AiChart assetsPath={assets || '/'} />
+  <AiChart assetsPath={asset('/').replace(/\/$/, '')} />
 
   <!-- Custom ARIA description snippet -->
   {#snippet ariaDescription()}

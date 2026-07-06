@@ -8,7 +8,7 @@
   });
 </script>
 
-<Story name="Demo" tags={['!autodocs', '!dev']}>
+<Story asChild name="Demo" tags={['!autodocs', '!dev']}>
   <div>
     <ToolsHeader />
   </div>

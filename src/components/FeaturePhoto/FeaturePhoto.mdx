@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as FeaturePhotoStories from './FeaturePhoto.stories.svelte';
 
@@ -11,11 +11,11 @@ The `FeaturePhoto` component adds a full-width photo.
 ```svelte
 <script>
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 </script>
 
 <FeaturePhoto
-  src={`${assets}/images/myImage.jpg`}
+  src={asset('/images/myImage.jpg')}
   altText="Some alt text"
   caption="A caption"
 />
@@ -48,7 +48,7 @@ caption: Carcharodon carcharias - REUTERS
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
 
   import content from '$locales/en/content.json';
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
 </script>
 
 {#each content.blocks as block}
@@ -57,7 +57,7 @@ caption: Carcharodon carcharias - REUTERS
   {:else if block.type === 'photo'}
     <FeaturePhoto
       width={block.width}
-      src={`${assets}/${block.src}`}
+      src={asset(`/${block.src}`)}
       altText={block.altText}
       caption={block.caption}
     />

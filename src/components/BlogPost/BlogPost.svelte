@@ -10,9 +10,10 @@
      */
     slugTitle: string;
     /**
-     * Base path prepended to the copied URL, e.g. "/graphics", usually gotten from base store in SvelteKit.
+     * SvelteKit's `resolve` function from `$app/paths`, used to build the post's
+     * canonical URL against your project's base path. Defaults to an identity function.
      */
-    base: string;
+    resolve?(pathname: string): string;
     /** Array of author names, which will be slugified to create links to Reuters author pages */
     authors: string[];
     /** Publish time as a datetime string. */
@@ -33,7 +34,7 @@
   let {
     title = 'Reuters Graphics blog post',
     slugTitle = 'Reuters Graphics blog post',
-    base = '',
+    resolve = (pathname: string) => pathname,
     authors = [],
     publishTime = '',
     updateTime = '',
@@ -54,14 +55,14 @@
   <PostHeadline
     hed={title}
     sluggableHed={slugTitle}
-    {base}
+    {resolve}
     {authors}
     {publishTime}
     {updateTime}
     {id}
     {cls}
   />
-  <a href="{base}/{shortPubDate}/{slugify(slugTitle)}/" hidden>
+  <a href={resolve(`/${shortPubDate}/${slugify(slugTitle)}/`)} hidden>
     {title}
   </a>
   {@render children?.()}

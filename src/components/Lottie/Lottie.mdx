@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 import * as LottieStories from './Lottie.stories.svelte';
 import CompositionMarkerImage from './assets/marker.jpg?url';
@@ -84,7 +84,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   import { Lottie } from '@reuters-graphics/graphics-components';
 
   // Graphics kit only
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
   import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 </script>
 
@@ -92,7 +92,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <Lottie
-      src={`${assets}/${block.src}`}
+      src={asset(`/${block.src}`)}
       autoplay={truthy(block.autoplay)}
       loop={truthy(block.loop)}
       showDebugInfo={truthy(block.showDebugInfo)}
@@ -135,7 +135,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   import { Lottie } from '@reuters-graphics/graphics-components';
 
   // Graphics kit only
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
   import { truthy } from '$utils/propValidators'; // 👈 If using in the graphics kit...
 </script>
 
@@ -143,7 +143,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
     <Lottie
-      src={`${assets}/${block.src}`}
+      src={asset(`/${block.src}`)}
       segment={[parseInt(block.segment.start), parseInt(block.segment.end)]}
       showDebugInfo={truthy(block.showDebugInfo)}
       loop={truthy(block.loop)}
@@ -350,7 +350,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     Lottie,
     LottieForeground,
   } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
 
   // Make an object of components to use as foregrounds
   const Components = $state({
@@ -361,7 +361,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
 {#each content.blocks as block}
   <!-- Inside the content.blocks for loop... -->
   {#if block.type == 'lottie'}
-    <Lottie src={`${assets}/${block.src}`}>
+    <Lottie src={asset(`/${block.src}`)}>
       {#each block.foregrounds as foreground}
         {#if foreground.type == 'text'}
           <LottieForeground

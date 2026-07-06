@@ -20,7 +20,7 @@
   });
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <BodyText
     text="Bacon ipsum dolor amet turducken buffalo beef ribs bresaola pancetta ribeye pork belly doner hamburger biltong cupim porchetta chuck ham tenderloin. Turducken bresaola jerky chicken."
   />

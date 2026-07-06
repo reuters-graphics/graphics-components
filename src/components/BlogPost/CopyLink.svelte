@@ -9,8 +9,11 @@
     publishedDate?: string;
     /** The heading of the post. */
     hed?: string;
-    /** Base path prepended to the copied URL, e.g. "/graphics". */
-    base: string;
+    /**
+     * SvelteKit's `resolve` function from `$app/paths`, used to build the copied URL
+     * against your project's base path. Defaults to an identity function.
+     */
+    resolve?(pathname: string): string;
     /** The ARIA label for the copy link button. */
     ariaLabel?: string;
     /** The message to display before copying the link. */
@@ -22,7 +25,7 @@
   let {
     publishedDate = '',
     hed = '',
-    base = '',
+    resolve = (pathname: string) => pathname,
     ariaLabel = 'Copy link to this post',
     copyMessageBefore = 'Copy link',
     copyMessageAfter = 'Copied',
@@ -44,7 +47,7 @@
       e.preventDefault();
       clicked = true;
       navigator.clipboard.writeText(
-        `${window.location.origin}${base}/${publishDate}/${slugify(hed)}/`
+        `${window.location.origin}${resolve(`/${publishDate}/${slugify(hed)}/`)}`
       );
       setTimeout(() => {
         clicked = false;

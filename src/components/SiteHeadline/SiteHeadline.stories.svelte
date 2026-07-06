@@ -39,7 +39,7 @@
   }}
 />
 
-<Story name="ArchieML" tags={['!autodocs', '!dev']}>
+<Story asChild name="ArchieML" tags={['!autodocs', '!dev']}>
   <SiteHeadline
     hed={content.hed}
     section={content.section}

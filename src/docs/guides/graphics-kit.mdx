@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 import { parameters } from '../utils/docsPage.js';
 import Highlight from '../docs-components/Highlight/Highlight';
 
@@ -19,16 +19,16 @@ When working with multimedia files like images or videos, components expect all 
 
 ❌ `./myImage.jpg`
 
-In the graphics kit, that means you'll need to prefix relative paths with the special [`assets`](https://svelte.dev/docs/kit/$app-paths#assets) SvelteKit module that contains the root URL for your project. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
+In the graphics kit, that means you'll need to prefix relative paths with the special [`asset`](https://svelte.dev/docs/kit/$app-paths#asset) SvelteKit helper that resolves the path to the root URL for your project. Many examples in these docs show how to do it. But it's also easy enough to demo again here!
 
 ```svelte
 <script>
   import { FeaturePhoto } from '@reuters-graphics/graphics-components';
 
-  // Import the assets module if it's not already there.
-  import { assets } from '$app/paths';
+  // Import the asset helper if it's not already there.
+  import { asset } from '$app/paths';
 </script>
 
-<!-- Use the assets module to prefix the path to your image. -->
-<FeautrePhoto src="{assets}/imgs/myImage.jpg" />
+<!-- Use the asset helper to prefix the path to your image. -->
+<FeautrePhoto src={asset('/imgs/myImage.jpg')} />
 ```

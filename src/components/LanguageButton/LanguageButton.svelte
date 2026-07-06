@@ -5,8 +5,11 @@
     locale: string | undefined;
     /** Whether the article is embedded */
     embedded?: boolean;
-    /** The base URL for the article */
-    base?: string;
+    /**
+     * SvelteKit's `resolve` function from `$app/paths`, used to build locale links
+     * against your project's base path. Defaults to an identity function.
+     */
+    resolve?(pathname: string): string;
     /** Options for the language toggle button */
     buttonOptions?: {
       locale: string;
@@ -19,7 +22,7 @@
   let {
     locale = 'en',
     embedded = false,
-    base,
+    resolve = (pathname: string) => pathname,
     buttonOptions = {
       locale: 'es',
       label: 'Leer en español',
@@ -37,16 +40,16 @@
     if (embedded) {
       if (locale === translationLocale) {
         // If we're in the non-English article, link to the English article
-        return `${base}/embeds/en/page/`;
+        return resolve('/embeds/en/page/');
       } else {
-        return `${base}/embeds/${translationLocale}/page/`;
+        return resolve(`/embeds/${translationLocale}/page/`);
       }
     } else {
       if (locale === translationLocale) {
         // If we're in the non-English article, link to the English article
-        return `${base}/`;
+        return resolve('/');
       } else {
-        return `${base}/${translationLocale}/`;
+        return resolve(`/${translationLocale}/`);
       }
     }
   };

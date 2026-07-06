@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Customiser from './Customiser/Customiser';
 import NewTheme from './NewTheme/NewTheme.jsx';
 import ThemeSwitch from './ThemeSwitch/Switch';
-import { Unstyled } from '@storybook/blocks';
+import { Unstyled } from '@storybook/addon-docs/blocks';
 // @ts-ignore scss
 import classes from './styles.module.scss';
 import { cloneDeep } from 'es-toolkit';

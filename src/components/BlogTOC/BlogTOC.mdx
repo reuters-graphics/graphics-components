@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as BlogTOCStories from './BlogTOC.stories.svelte';
 
@@ -11,7 +11,7 @@ The `BlogTOC` component renders a collapsible table of contents for a graphics b
 ```svelte
 <script>
   import { BlogTOC } from '@reuters-graphics/graphics-components';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
 </script>
 
 <BlogTOC
@@ -27,11 +27,11 @@ The `BlogTOC` component renders a collapsible table of contents for a graphics b
       publishTime: '2024-10-02T09:15:00Z',
     },
   ]}
-  {base}
+  {resolve}
 />
 ```
 
-The `base` prop should be set to your SvelteKit `base` path (e.g. `"/graphics"`) so that post links resolve correctly.
+Pass SvelteKit's `resolve` function (from `$app/paths`) so that post links resolve correctly against your project's base path.
 
 Each post in the `posts` array must have:
 

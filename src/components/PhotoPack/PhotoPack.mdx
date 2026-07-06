@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as PhotoPackStories from './PhotoPack.stories.svelte';
 
@@ -110,14 +110,14 @@ gap: 10 # Optional; must be a number.
 <!-- App.svelte -->
 <script>
   import { PhotoPack } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 
   import content from '$locales/en/content.json';
 </script>
 
 {#each content.blocks as block}
   {#if block.type === 'photo-pack'}
-    <!-- Pass `assets` into the image source in graphics kit -->
+    <!-- Use `asset` for the image source in graphics kit -->
     <PhotoPack
       id={block.id}
       class={block.class}
@@ -126,7 +126,7 @@ gap: 10 # Optional; must be a number.
       gap={Number(block.gap)}
       images={block.images.map((img) => ({
         ...img,
-        src: `${assets}/${img.src}`,
+        src: asset(`/${img.src}`),
       }))}
       layouts={[
         { breakpoint: 750, rows: [2, 3] },
@@ -165,10 +165,10 @@ The smart defaults use a **bottom-heavy distribution**, meaning earlier rows hav
   import { PhotoPack } from '@reuters-graphics/graphics-components';
 
   const images = [
-    { src: `${assets}/image1.jpg`, altText: 'Photo 1', caption: 'Caption 1' },
-    { src: `${assets}/image2.jpg`, altText: 'Photo 2', caption: 'Caption 2' },
-    { src: `${assets}/image3.jpg`, altText: 'Photo 3', caption: 'Caption 3' },
-    { src: `${assets}/image4.jpg`, altText: 'Photo 4', caption: 'Caption 4' },
+    { src: asset('/image1.jpg'), altText: 'Photo 1', caption: 'Caption 1' },
+    { src: asset('/image2.jpg'), altText: 'Photo 2', caption: 'Caption 2' },
+    { src: asset('/image3.jpg'), altText: 'Photo 3', caption: 'Caption 3' },
+    { src: asset('/image4.jpg'), altText: 'Photo 4', caption: 'Caption 4' },
   ];
 </script>
 

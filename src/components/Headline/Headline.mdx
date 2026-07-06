@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as HeadlineStories from './Headline.stories.svelte';
 
@@ -96,7 +96,7 @@ To add a crown image, use the `crown` [snippet](https://svelte.dev/docs/svelte/s
 ```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
 </script>
 
 <Headline
@@ -125,7 +125,7 @@ Add a full graphic or any other component in the crown.
 ```svelte
 <script>
   import { Headline } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // If in Graphis Kit
+  import { asset } from '$app/paths'; // If in Graphis Kit
 
   import Map from './ai2svelte/graphic.svelte'; // Import the crown graphic component
 </script>
@@ -142,7 +142,7 @@ Add a full graphic or any other component in the crown.
   <!-- Add a crown graphic -->
   {#snippet crown()}
     <!-- Pass `assetsPath` if in graphics kit -->
-    <Map assetsPath={assets || '/'} />
+    <Map assetsPath={asset('/').replace(/\/$/, '')} />
   {/snippet}
 </Headline>
 ```

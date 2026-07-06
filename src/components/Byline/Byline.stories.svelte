@@ -75,7 +75,7 @@
   >
 {/snippet}
 
-<Story name="Translation" tags={['!autodocs', '!dev']}>
+<Story asChild name="Translation" tags={['!autodocs', '!dev']}>
   In locale = `es`:
   <Byline
     publishTime="2021-09-12T00:00:00Z"

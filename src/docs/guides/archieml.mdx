@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 import { parameters } from '../utils/docsPage.js';
 import Herbie from '../docs-components/Herbie/Herbie';
 
@@ -87,7 +87,7 @@ Notice all the values in the data are **strings**. More on that soon.
 ```svelte
 <script>
   // These are usually already imported for you
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
   // Your ArchieML doc
   import content from '$locales/en/content.json';
 
@@ -102,7 +102,7 @@ Notice all the values in the data are **strings**. More on that soon.
     <ProfileCard
       name={block.name}
       age={parseInt(block.age)}
-      img={`${assets}/${block.picture}`}
+      img={asset(`/${block.picture}`)}
       birthday={new Date(block.birthday)}
       bio={block.bio}
       isGood={block.isGood === 'true'}
@@ -138,7 +138,7 @@ Once we've identified we have the right block for our component, we need to conv
 <ProfileCard
   name={block.name}
   age={parseInt(block.age)}
-  img={`${assets}/${block.picture}`}
+  img={asset(`/${block.picture}`)}
   birthday={new Date(block.birthday)}
   bio={block.bio}
   isGood={block.isGood === 'true'}
@@ -163,10 +163,10 @@ For example, we're converting Tom's age into a number with JavaScript's [parseIn
 {block.isGood === 'true'}
 ```
 
-**Especially note** how we're using the `assets` module we talked about in ["Using with the graphics kit"](./?path=/docs/guides-using-with-the-graphics-kit--docs) to turn the _relative_ path to Tom's profile pic in our ArchieML doc into an _absolute_ path that will have the full `https://reuters.com...` bit attached.
+**Especially note** how we're using the `asset` helper we talked about in ["Using with the graphics kit"](./?path=/docs/guides-using-with-the-graphics-kit--docs) to turn the _relative_ path to Tom's profile pic in our ArchieML doc into an _absolute_ path that will have the full `https://reuters.com...` bit attached.
 
 ```svelte
-{`${assets}/${block.picture}`}
+{asset(`/${block.picture}`)}
 ```
 
 ### Sum it all up 🏁
@@ -196,7 +196,7 @@ Let's look at another example component:
       date: new Date('1992-01-01'),
       subhed:
         'Cynthia Dwork and Moni Naor come with an idea for "cryptocurrency"',
-      img: `${assets}/images/dwork-naor.jpeg`,
+      img: asset('/images/dwork-naor.jpeg'),
     },
     {
       date: new Date('2008-08-18'),
@@ -206,7 +206,7 @@ Let's look at another example component:
     {
       date: new Date('2013-07-22'),
       subhed: 'The Winklevoss twins buy in',
-      img: `${assets}/images/winkle-boys.jpeg`,
+      img: asset('/images/winkle-boys.jpeg'),
     },
   ]}
 />
@@ -304,7 +304,7 @@ But this is a problem we can solve by looping over our JSON data and making a ne
     let link;
 
     if (d.img) {
-      img = `${assets}/${d.img}`;
+      img = asset(`/${d.img}`);
     }
     if (d.link) {
       link = d.link;
@@ -378,7 +378,7 @@ const timelineDates = timelineBlock.dates.map((d) => {
 
   // If our date has an image, we'll make it an absolute URL
   if (d.img) {
-    img = `${assets}/${d.img}`;
+    img = asset(`/${d.img}`);
   }
 
   // If it has a link, we'll just pass that on, as is

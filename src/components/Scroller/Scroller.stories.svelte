@@ -140,7 +140,7 @@
   }}
 />
 
-<Story name="ArchieML and ai2svelte" exportName="ArchieML">
+<Story asChild name="ArchieML and ai2svelte" exportName="ArchieML">
   <Scroller
     id={docBlock.id}
     foregroundPosition={docBlock.foregroundPosition}
@@ -178,7 +178,7 @@
   }}
 />
 
-<Story
+<Story asChild
   name="Custom foreground with ArchiemL"
   exportName="CustomforegroundArchieML"
 >
