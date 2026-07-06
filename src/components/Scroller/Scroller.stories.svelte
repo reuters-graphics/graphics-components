@@ -178,7 +178,8 @@
   }}
 />
 
-<Story asChild
+<Story
+  asChild
   name="Custom foreground with ArchiemL"
   exportName="CustomforegroundArchieML"
 >

@@ -172,7 +172,8 @@
   <ScrollerVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 
-<Story asChild
+<Story
+  asChild
   name="Time-based foregrounds with ArchieML"
   exportName="ArchieMLForegrounds"
   {args}
@@ -180,7 +181,8 @@
   <WithTextForegrounds />
 </Story>
 
-<Story asChild
+<Story
+  asChild
   name="Time-based component foregrounds with ArchieML"
   exportName="ComponentArchieMLForegrounds"
   {args}

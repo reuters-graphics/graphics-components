@@ -13,7 +13,8 @@
   });
 </script>
 
-<Story asChild
+<Story
+  asChild
   name="Demo"
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
