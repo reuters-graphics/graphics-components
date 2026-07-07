@@ -41,8 +41,8 @@
 </script>
 
 <Story name="Demo" args={{ autoplay: true, showDebugInfo: true }}>
-  {#snippet children(args)}
-    <Lottie src={DemoLottie} {...args} />
+  {#snippet template(args)}
+    <Lottie {...args} src={DemoLottie} />
   {/snippet}
 </Story>
 
@@ -56,8 +56,8 @@
     speed: 0.5,
   }}
 >
-  {#snippet children(args)}
-    <Lottie src={DemoLottie} {...args} />
+  {#snippet template(args)}
+    <Lottie {...args} src={DemoLottie} />
   {/snippet}
 </Story>
 
@@ -71,29 +71,29 @@
     mode: 'bounce',
   }}
 >
-  {#snippet children(args)}
-    <Lottie src={MarkerSample} {...args} />
+  {#snippet template(args)}
+    <Lottie {...args} src={MarkerSample} />
   {/snippet}
 </Story>
 
 <Story name="Themes" args={{ autoplay: true, showDebugInfo: true }}>
-  {#snippet children(args)}
+  {#snippet template(args)}
     <Lottie
+      {...args}
       src={ThemesSample}
       bind:progress
       themeId={progress < 0.33 ? 'Water'
       : progress < 0.66 ? 'air'
       : 'earth'}
-      {...args}
     />
   {/snippet}
 </Story>
 
-<Story name="Using with ScrollerBase" exportName="ScrollerBase">
+<Story asChild name="Using with ScrollerBase" exportName="ScrollerBase">
   <WithScrollerBase />
 </Story>
 
-<Story name="With foregrounds">
+<Story asChild name="With foregrounds">
   <Lottie src={ForegroundSample} autoplay showDebugInfo>
     <LottieForeground
       startFrame={0}

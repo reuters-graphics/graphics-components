@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 import * as ScrollerVideoStories from './ScrollerVideo.stories.svelte';
 
@@ -183,7 +183,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
     ScrollerVideo,
     ScrollerVideoForeground,
   } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 </script>
 
 {#each content.blocks as block}
@@ -191,7 +191,7 @@ With the graphics kit, you'll likely get your text and prop values from an Archi
   {#if block.type == 'scroller-video'}
     <ScrollerVideo
       id={block.id}
-      src={`${assets}/${block.src}`}
+      src={asset(`/${block.src}`)}
       height={block.height}
     >
       <!-- Loop through foregrounds to add text blurbs that appear/disappear at specific times -->
@@ -271,7 +271,7 @@ endTime: 0.3 # When to stop showing the headline
 
 ```svelte
 <script lang="ts">
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
   import {
     Headline,
     GraphicBlock,
@@ -333,11 +333,11 @@ endTime: 0.3 # When to stop showing the headline
 
     <!-- Render the ScrollVideo snippet for different screen sizes -->
     {#if width < 600}
-      {@render ScrollVideo(block.height, `${assets}/${block.srcSm}`)}
+      {@render ScrollVideo(block.height, asset(`/${block.srcSm}`))}
     {:else if width < 1200}
-      {@render ScrollVideo(block.height, `${assets}/${block.srcMd}`)}
+      {@render ScrollVideo(block.height, asset(`/${block.srcMd}`))}
     {:else}
-      {@render ScrollVideo(block.height, `${assets}/${block.srcLg}`)}
+      {@render ScrollVideo(block.height, asset(`/${block.srcLg}`))}
     {/if}
   {/if}
 {/each}

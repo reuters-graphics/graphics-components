@@ -39,7 +39,7 @@
   import QuakeMap from './demo/graphics/quakemap.svelte';
 </script>
 
-<Story name="Photo hero" exportName="PhotoHero">
+<Story asChild name="Photo hero" exportName="PhotoHero">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
@@ -55,7 +55,7 @@
   />
 </Story>
 
-<Story name="Transparent header" exportName="TransparentHeader">
+<Story asChild name="Transparent header" exportName="TransparentHeader">
   <div class="transparent-header">
     <Block width="fluid" class="chromatic-ignore">
       <SiteHeader />
@@ -72,7 +72,7 @@
   </div>
 </Story>
 
-<Story name="Ai2svelte hero" exportName="Ai2svelteHero">
+<Story asChild name="Ai2svelte hero" exportName="Ai2svelteHero">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
@@ -141,7 +141,7 @@
   </style>
 </Story>
 
-<Story name="Video hero" exportName="VideoHero">
+<Story asChild name="Video hero" exportName="VideoHero">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>
@@ -184,7 +184,7 @@
   </style>
 </Story>
 
-<Story name="Inline hero" exportName="InlineHero">
+<Story asChild name="Inline hero" exportName="InlineHero">
   <Block width="fluid" class="chromatic-ignore">
     <SiteHeader />
   </Block>

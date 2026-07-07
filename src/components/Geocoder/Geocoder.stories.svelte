@@ -16,7 +16,7 @@
   }
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <div style="min-height: 330px; padding-top: 1rem;">
     <Geocoder {accessToken} onselect={handleSelect} />
   </div>

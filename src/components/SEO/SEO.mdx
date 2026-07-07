@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as SEOStories from './SEO.stories.svelte';
 
@@ -55,7 +55,7 @@ shareImgAlt: Alt text for share image.
   import { SEO } from '@reuters-graphics/graphics-components';
   import pkg from '$pkg';
   import content from '$locales/en/content.json';
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
   import { page } from '$app/stores';
 </script>
 
@@ -66,7 +66,7 @@ shareImgAlt: Alt text for share image.
   seoDescription={content.seoDescription}
   shareTitle={content.shareTitle}
   shareDescription={content.shareDescription}
-  shareImgPath={`${assets}/${content.shareImgPath}`}
+  shareImgPath={asset(`/${content.shareImgPath}`)}
   shareImgAlt={content.shareImgAlt}
   publishTime={pkg?.reuters?.graphic?.published}
   updateTime={pkg?.reuters?.graphic?.updated}

@@ -9,4 +9,4 @@
   });
 </script>
 
-<Story name="Demo"><ScrollerDemo /></Story>
+<Story asChild name="Demo"><ScrollerDemo /></Story>

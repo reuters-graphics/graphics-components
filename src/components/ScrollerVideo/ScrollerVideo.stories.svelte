@@ -144,17 +144,17 @@
 
 <svelte:window bind:innerWidth={width} />
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <ScrollerVideo {...args} src={videoSrc.Goldengate} />
 </Story>
 
-<Story name="Object Fit">
+<Story asChild name="Object Fit">
   <Block width="normal">
     <ScrollerVideo {...args} src={videoSrc.Goldengate} objectFit="contain" />
   </Block>
 </Story>
 
-<Story name="Responsive videos" exportName="ResponsiveVideos">
+<Story asChild name="Responsive videos" exportName="ResponsiveVideos">
   {#if width < 600}
     <ScrollerVideo {...args} src={videoSrc.Video_SM} />
   {:else if width < 1200}
@@ -164,15 +164,16 @@
   {/if}
 </Story>
 
-<Story name="Embed version" exportName="Embed">
+<Story asChild name="Embed version" exportName="Embed">
   <Embedded />
 </Story>
 
-<Story name="Autoplay">
+<Story asChild name="Autoplay">
   <ScrollerVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 
 <Story
+  asChild
   name="Time-based foregrounds with ArchieML"
   exportName="ArchieMLForegrounds"
   {args}
@@ -181,6 +182,7 @@
 </Story>
 
 <Story
+  asChild
   name="Time-based component foregrounds with ArchieML"
   exportName="ComponentArchieMLForegrounds"
   {args}
@@ -188,10 +190,10 @@
   <WithAi2svelteForegrounds />
 </Story>
 
-<Story name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
+<Story asChild name="Using with ScrollerBase" exportName="ScrollerBase" {args}>
   <WithScrollerBase />
 </Story>
 
-<Story name="Advanced usecases" exportName="Advanced" {args}>
+<Story asChild name="Advanced usecases" exportName="Advanced" {args}>
   <AdvancedUsecases />
 </Story>

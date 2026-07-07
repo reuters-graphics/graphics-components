@@ -1,6 +1,10 @@
 <script lang="ts">
-  export let value = 0;
-  export let label = 'label';
+  interface Props {
+    value?: number;
+    label?: string;
+  }
+
+  let { value = $bindable(0), label = 'label' }: Props = $props();
 
   function drag(node: HTMLElement) {
     function handleMousedown() {

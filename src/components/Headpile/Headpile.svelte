@@ -28,9 +28,9 @@
        * Headshot image src. Be sure to prefix the image
        *
        * ```typescript
-       * import { assets } from '$app/paths';
+       * import { asset } from '$app/paths';
        *
-       * const imgSrc = `${assets}/images/my-image.jpg`;
+       * const imgSrc = asset('/images/my-image.jpg');
        * ```
        */
       img: string;

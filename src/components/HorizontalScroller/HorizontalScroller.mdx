@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 import * as HorizontalScrollerStories from './HorizontalScroller.stories.svelte';
 
@@ -171,7 +171,7 @@ allow_overflow: true
   import AiGraphic from './ai2svelte/ai-graphic.svelte';
 
   // If using with the graphics kit
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
 
   // Optional easing function
   import { sineInOut } from 'svelte/easing';
@@ -180,7 +180,7 @@ allow_overflow: true
 <!-- Wrap `HorizontalScroller` in a fluid container for a full bleed experience -->
 <Block width="fluid">
   <HorizontalScroller height="800lvh" easing={sineInOut} showDebugInfo>
-    <AiGraphic assetsPath={assets} />
+    <AiGraphic assetsPath={asset('/').replace(/\/$/, '')} />
   </HorizontalScroller>
 </Block>
 ```
@@ -211,7 +211,7 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
   import { sineInOut } from 'svelte/easing';
 
   // If using with the graphics kit
-  import { assets } from '$app/paths';
+  import { asset } from '$app/paths';
 
   // bind progress for advanced interactivity
   let progress: number = $state(0);
@@ -275,7 +275,7 @@ This demo has a tagged `png` [layer](https://reuters-graphics.github.io/ai2svelt
     showDebugInfo={true}
   >
     <AiGraphic
-      assetsPath={assets}
+      assetsPath={asset('/').replace(/\/$/, '')}
       {onArtboardChange}
       taggedText={{
         htext: {

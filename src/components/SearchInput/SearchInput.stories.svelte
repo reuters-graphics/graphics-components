@@ -19,6 +19,6 @@
   }
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <SearchInput onsearch={handleSearchInput} />
 </Story>

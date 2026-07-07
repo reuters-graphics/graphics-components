@@ -1,13 +1,13 @@
 import '../src/scss/main.scss';
 import './preview.scss';
 
-import { SyntaxHighlighter } from '@storybook/components';
+import { SyntaxHighlighter } from 'storybook/internal/components';
 import Wrapper from './Wrapper.svelte';
 import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import svelte from './svelte-highlighting.js';
 
-import type { Preview } from '@storybook/svelte';
+import type { Preview } from '@storybook/sveltekit';
 
 SyntaxHighlighter.registerLanguage('scss', scss);
 SyntaxHighlighter.registerLanguage('svelte', svelte);

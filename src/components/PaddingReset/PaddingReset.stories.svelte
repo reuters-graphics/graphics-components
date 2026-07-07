@@ -15,7 +15,7 @@
   import sharkSrc from './shark.jpg';
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <!-- Fluid block -->
   <Block {width}>
     <img src={sharkSrc} alt="shark" class="fmb-1" />

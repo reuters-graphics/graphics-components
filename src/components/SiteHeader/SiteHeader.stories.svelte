@@ -1,6 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import { expect, userEvent, within, waitFor } from '@storybook/test';
+  import { expect, userEvent, within, waitFor } from 'storybook/test';
   import SiteHeader from './SiteHeader.svelte';
   import Theme from '../Theme/Theme.svelte';
 
@@ -14,6 +14,7 @@
 </script>
 
 <Story
+  asChild
   name="Demo"
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -30,7 +31,7 @@
   </div>
 </Story>
 
-<Story name="Customised theme">
+<Story asChild name="Customised theme">
   <div>
     <Theme base="dark">
       <SiteHeader />

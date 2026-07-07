@@ -130,8 +130,9 @@
     },
   }}
 >
-  {#snippet children(args)}
-    {@const { imageCount, ...photoPackProps } = args as SmartDefaultsArgs}
+  {#snippet template(args)}
+    {@const { imageCount, ...photoPackProps } =
+      args as unknown as SmartDefaultsArgs}
     <PhotoPack
       {...photoPackProps}
       images={allImages.slice(0, imageCount || 4)}
