@@ -83,6 +83,7 @@ export function buildBootstrapScript(overrides: BootstrapOptions = {}): string {
     window.getTemperatureUnit = function () { return window.__temperatureUnit; };
   }
   if (!window.setTemperatureUnit) {
+    window.setTemperatureUnit = function (u) {
       if (!valid(u)) return;
       window.dispatchEvent(new CustomEvent(EVENT, { detail: { unit: u } }));
     };

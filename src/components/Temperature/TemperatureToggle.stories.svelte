@@ -4,9 +4,8 @@
   import Temperature from './Temperature.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Utilities/TemperatureToggle',
+    title: 'Components/Controls/TemperatureToggle',
     component: TemperatureToggle,
-    tags: ['autodocs'],
   });
 </script>
 

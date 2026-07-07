@@ -112,6 +112,7 @@ export {
   buildBootstrapScript,
   TEMPERATURE_UNIT_BOOTSTRAP,
 } from './components/Temperature/bootstrap';
+export { createUnitBootstrapHandle } from './components/Temperature/sveltekit';
 export {
   type UnitStateOptions,
   TemperatureUnitState,

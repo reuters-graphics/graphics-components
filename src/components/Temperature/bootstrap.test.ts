@@ -64,7 +64,6 @@ function runUnitBootstrap(script: string, opts: RunOpts = {}): RunResult {
     addEventListener: (type: string, cb: (e: unknown) => void) => void;
     dispatchEvent: (evt: { type: string }) => boolean;
     CustomEvent: typeof CustomEventMock;
-    getTemperatureUnit: () => string;
     [key: string]: unknown;
   } = {
     addEventListener: (type: string, cb: (e: unknown) => void) => {
@@ -76,7 +75,6 @@ function runUnitBootstrap(script: string, opts: RunOpts = {}): RunResult {
       return true;
     },
     CustomEvent: CustomEventMock,
-    getTemperatureUnit: () => '',
   };
 
   const sandbox = {
@@ -97,7 +95,7 @@ function runUnitBootstrap(script: string, opts: RunOpts = {}): RunResult {
 
   return {
     attr: () => attrs['data-temp-unit'],
-    unit: () => windowMock.getTemperatureUnit(),
+    unit: () => (windowMock.getTemperatureUnit as () => string)(),
     store,
     cookie: () => cookieState.value,
     dispatch: (unit: string) =>
