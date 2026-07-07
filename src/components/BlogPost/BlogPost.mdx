@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as BlogPostStories from './BlogPost.stories.svelte';
 
@@ -11,7 +11,7 @@ The `BlogPost` component renders a single entry in a graphics blog page, includi
 ```svelte
 <script>
   import { BlogPost } from '@reuters-graphics/graphics-components';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
 </script>
 
 <BlogPost
@@ -20,7 +20,7 @@ The `BlogPost` component renders a single entry in a graphics blog page, includi
   authors={['John Smith', 'Jane Doe']}
   publishTime="2024-10-01T18:30:00Z"
   updateTime="2024-10-01T21:45:00Z"
-  {base}
+  {resolve}
 >
   <!-- Post body content goes here -->
 </BlogPost>

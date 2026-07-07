@@ -11,7 +11,7 @@
 
 <Story name="Demo" />
 
-<Story name="Customised theme">
+<Story asChild name="Customised theme">
   <div>
     <Theme base="dark">
       <SiteFooter />

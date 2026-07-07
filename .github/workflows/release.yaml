@@ -10,7 +10,7 @@ jobs:
     uses: reuters-graphics/action-workflows/.github/workflows/changesets-release.yaml@main
     secrets: inherit
     with:
-      node_version: '20'
+      node_version: '22'
 
   notify-downstream:
     needs: release

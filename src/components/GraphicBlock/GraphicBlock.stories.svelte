@@ -23,7 +23,7 @@
   import PlaceholderImg from './demo/placeholder.png';
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <GraphicBlock
     title="Title for my chart"
     description="Some description for your chart."
@@ -35,7 +35,7 @@
   </GraphicBlock>
 </Story>
 
-<Story name="Ai2svelte and ArchieML" exportName="Ai2SvelteAndArchieML">
+<Story asChild name="Ai2svelte and ArchieML" exportName="Ai2SvelteAndArchieML">
   <GraphicBlock
     title="Earthquake in Haiti"
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
@@ -63,7 +63,7 @@
   </GraphicBlock>
 </Story>
 
-<Story name="AREA description" exportName="AriaDescription">
+<Story asChild name="AREA description" exportName="AriaDescription">
   <GraphicBlock
     title="Earthquake in Haiti"
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."

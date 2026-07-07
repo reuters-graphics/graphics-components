@@ -199,7 +199,7 @@
   }}
 />
 
-<Story name="With GeoJSON layers" tags={['!autodocs']}>
+<Story asChild name="With GeoJSON layers" tags={['!autodocs']}>
   <TileMap
     id="geojson-map"
     center={[-73.9712, 40.7831]}
@@ -278,7 +278,7 @@
   </TileMap>
 </Story>
 
-<Story name="Labels above data" tags={['!autodocs']}>
+<Story asChild name="Labels above data" tags={['!autodocs']}>
   <TileMap
     id="labels-map"
     center={[-93.5, 42]}
@@ -302,7 +302,7 @@
   </TileMap>
 </Story>
 
-<Story name="With Geocoder" tags={['!autodocs']}>
+<Story asChild name="With Geocoder" tags={['!autodocs']}>
   <TileMap
     id="geocoder-map"
     center={[-98, 39]}

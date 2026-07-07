@@ -26,13 +26,13 @@
 
 <svelte:window bind:innerWidth={width} />
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <DemoComponent>
     <DemoSnippetBlock />
   </DemoComponent>
 </Story>
 
-<Story name="With stops and easing" exportName="WithStops">
+<Story asChild name="With stops and easing" exportName="WithStops">
   <DemoComponent
     stops={[0.2, 0.5, 0.9]}
     duration={400}
@@ -43,7 +43,7 @@
   </DemoComponent>
 </Story>
 
-<Story name="Extended boundaries">
+<Story asChild name="Extended boundaries">
   <DemoComponent
     mappedStart={-0.5}
     mappedEnd={1.5}
@@ -54,20 +54,20 @@
   </DemoComponent>
 </Story>
 
-<Story name="Custom children">
+<Story asChild name="Custom children">
   <DemoComponent>
     <CustomChildrenBlock />
   </DemoComponent>
 </Story>
 
-<Story name="Scrollable ai2svelte">
+<Story asChild name="Scrollable ai2svelte">
   <ScrollableGraphic />
 </Story>
 
-<Story name="Scrollable ai2svelte (advanced)">
+<Story asChild name="Scrollable ai2svelte (advanced)">
   <AdvancedScrollableGraphic />
 </Story>
 
-<Story name="With ScrollerBase">
+<Story asChild name="With ScrollerBase">
   <WithScrollerBaseComponent />
 </Story>

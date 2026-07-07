@@ -196,8 +196,8 @@
 {/snippet}
 
 <svelte:window
-  on:click={setInteractedWithDom}
-  on:touchstart={setInteractedWithDom}
+  onclick={setInteractedWithDom}
+  ontouchstart={setInteractedWithDom}
 />
 
 <GraphicBlock

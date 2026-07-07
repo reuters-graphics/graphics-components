@@ -40,7 +40,7 @@
   </div>
 {/snippet}
 
-<Story name="Demo" tags={['!autodocs', '!dev']}>
+<Story asChild name="Demo" tags={['!autodocs', '!dev']}>
   <div style="display: flex; flex-direction: column; gap: 2rem;">
     {@render demoToggle(
       spanishLocale,
@@ -55,7 +55,7 @@
   </div>
 </Story>
 
-<Story name="CustomiseLanguage" tags={['!autodocs', '!dev']}>
+<Story asChild name="CustomiseLanguage" tags={['!autodocs', '!dev']}>
   <div style="display: flex; flex-direction: column; gap: 2rem;">
     {@render demoToggle(
       frenchLocale,

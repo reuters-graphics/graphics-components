@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 import * as EmbedPreviewerLinkStories from './EmbedPreviewerLink.stories.svelte';
 
@@ -12,7 +12,7 @@ The `EmbedPreviewerLink` component is a tool for previewing the embeds in develo
 <script>
   import { EmbedPreviewerLink } from '@reuters-graphics/graphics-components';
 
-  import { dev } from '$app/env';
+  import { dev } from '$app/environment';
 </script>
 
 <EmbedPreviewerLink {dev} />

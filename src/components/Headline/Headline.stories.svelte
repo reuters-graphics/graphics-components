@@ -32,7 +32,7 @@
   }}
 />
 
-<Story name="With byline and dateline" exportName="Byline">
+<Story asChild name="With byline and dateline" exportName="Byline">
   <Headline
     hed={'Reuters Graphics Interactive'}
     dek={'The beginning of a beautiful page'}

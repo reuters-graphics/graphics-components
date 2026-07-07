@@ -24,7 +24,7 @@
   import BodyText from '../BodyText/BodyText.svelte';
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <div class="reset-article">
     <Theme theme={themes.light} base="light">
       <ThemedPage />
@@ -32,7 +32,7 @@
   </div>
 </Story>
 
-<Story name="Custom theme" exportName="CustomTheme">
+<Story asChild name="Custom theme" exportName="CustomTheme">
   <Theme
     base="dark"
     theme={{
@@ -44,7 +44,7 @@
   </Theme>
 </Story>
 
-<Story name="Custom font" exportName="CustomFont">
+<Story asChild name="Custom font" exportName="CustomFont">
   <Theme
     base="light"
     theme={{
@@ -64,7 +64,7 @@
   </Theme>
 </Story>
 
-<Story name="Background patterns" exportName="BackgroundPatterns">
+<Story asChild name="Background patterns" exportName="BackgroundPatterns">
   <div id="pattern-bg">
     <Theme
       base="dark"
@@ -85,7 +85,7 @@
   </div>
 </Story>
 
-<Story name="Inheritance" tags={['!autodocs', '!dev']}>
+<Story asChild name="Inheritance" tags={['!autodocs', '!dev']}>
   <Theme theme={themes.light}>
     <div class="themed">
       <p>Theme</p>

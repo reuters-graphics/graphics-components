@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as LanguageButtonStories from './LanguageButton.stories.svelte';
 
@@ -14,8 +14,8 @@ The `LanguageButton` component creates a button that switches between an article
 <script>
   import { LanguageButton } from '@reuters-graphics/graphics-components';
 
-  //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
-  import { base } from '$app/paths';
+  //  If using in the graphics kit, use `resolve` from `$app/paths` to ensure the toggle links to the correct URL
+  import { resolve } from '$app/paths';
 
   // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
   // Additionally, pass `locale = 'en'` as a prop
@@ -23,7 +23,7 @@ The `LanguageButton` component creates a button that switches between an article
 </script>
 
 <!-- Pass `embedded` to `LanguageButton` if the embed page is translated -->
-<LanguageButton {locale} {embedded} {base} />
+<LanguageButton {locale} {embedded} {resolve} />
 ```
 
 <Canvas of={LanguageButtonStories.Demo} />
@@ -36,8 +36,8 @@ By default, the toggle button will switch between English and Spanish, and the `
 <script>
   import { LanguageButton } from '@reuters-graphics/graphics-components';
 
-  //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
-  import { base } from '$app/paths';
+  //  If using in the graphics kit, use `resolve` from `$app/paths` to ensure the toggle links to the correct URL
+  import { resolve } from '$app/paths';
 
   // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
   // Additionally, pass `locale = 'en'` as a prop
@@ -48,7 +48,7 @@ By default, the toggle button will switch between English and Spanish, and the `
 <LanguageButton
   {locale}
   {embedded}
-  {base}
+  {resolve}
   buttonOptions={{
     locale: 'fr',
     label: 'Lire en français',
@@ -87,8 +87,8 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
 <script>
   import { LanguageButton } from '@reuters-graphics/graphics-components';
 
-  //  If using in the graphics kit, use `base` from `$app/paths` to ensure the toggle links to the correct URL
-  import { base } from '$app/paths';
+  //  If using in the graphics kit, use `resolve` from `$app/paths` to ensure the toggle links to the correct URL
+  import { resolve } from '$app/paths';
 
   // If using in the graphics kit, `embedded` prop will already be available in App.svelte.
   // Additionally, pass `locale = 'en'` as a prop
@@ -99,16 +99,16 @@ To customise this, pass a function to the `setUrl` prop that returns the URLs yo
     if (embedded) {
       if (locale === 'es') {
         // If we're in the non-English article, link to the English article
-        return `${base}/embeds/en/custom-embed-url/`;
+        return resolve('/embeds/en/custom-embed-url/');
       } else {
-        return `${base}/embeds/es/custom-embed-url/`;
+        return resolve('/embeds/es/custom-embed-url/');
       }
     } else {
       if (locale === 'es') {
         // If we're in the non-English article, link to the English article
-        return `${base}/`;
+        return resolve('/');
       } else {
-        return `${base}/es/`;
+        return resolve('/es/');
       }
     }
   };

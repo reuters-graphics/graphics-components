@@ -1,4 +1,4 @@
-import { Canvas, Unstyled } from '@storybook/blocks';
+import { Canvas, Unstyled } from '@storybook/addon-docs/blocks';
 
 import React from 'react';
 import flatten from '../../../components/Theme/utils/flatten';

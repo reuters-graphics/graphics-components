@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as HeroHeadlineStories from './HeroHeadline.stories.svelte';
 
@@ -18,14 +18,14 @@ To use a photo as the hero, simply pass the image source to the `img` prop.
 <!-- App.svelte -->
 <script>
   import { HeroHeadline } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 
   let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
 
 <HeroHeadline
   {embedded}
-  img={`${assets}/images/polar-bear.jpg`}
+  img={asset('/images/polar-bear.jpg')}
   ariaDescription="A photo of a polar bear"
   notes="Photo by REUTERS"
   section={'World News'}
@@ -75,7 +75,7 @@ To customise styles, use CSS to target the class passed to `HeroHeadline`.
 
   import QuakeMap from './ai2svelte/graphic.svelte'; // Your ai2svelte component
 
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 
   let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
@@ -106,7 +106,7 @@ To customise styles, use CSS to target the class passed to `HeroHeadline`.
     ariaDescription="Earthquake impact map"
   >
     <!-- Pass `assetsPath` if in graphics kit -->
-    <QuakeMap assetsPath={assets || '/'} />
+    <QuakeMap assetsPath={asset('/').replace(/\/$/, '')} />
   </GraphicBlock>
 </HeroHeadline>
 ```
@@ -162,7 +162,7 @@ To add a video as the hero, use the [Video](?path=/docs/components-multimedia-vi
 ```svelte
 <script>
   import { HeroHeadline, Video } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 
   let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
@@ -182,8 +182,8 @@ To add a video as the hero, use the [Video](?path=/docs/components-multimedia-vi
     showControls={false}
     preloadVideo="auto"
     playVideoWhenInView={false}
-    src={`${assets}/videos/intro.mp4`}
-    poster={`${assets}/images/video-poster-intro.jpg`}
+    src={asset('/videos/intro.mp4')}
+    poster={asset('/images/video-poster-intro.jpg')}
     notes="Drone footage from the Village 8 refugee camp in Sudan."
     ariaDescription="Aerial footage of people houses in refugee camp"
   />
@@ -224,7 +224,7 @@ To use a photo, graphic, video, etc. as an inline hero -- i.e., to make the hero
     HeroHeadline,
     GraphicBlock,
   } from '@reuters-graphics/graphics-components';
-  import { assets } from '$app/paths'; // 👈 If using in the graphics kit...
+  import { asset } from '$app/paths'; // 👈 If using in the graphics kit...
 
   let { embedded = false } = $props(); // 👈 If using in the graphics kit...
 </script>
@@ -248,7 +248,7 @@ To use a photo, graphic, video, etc. as an inline hero -- i.e., to make the hero
     notes="Source: Satellite image from Google, Maxar Technologies, CNES/Airbus, Landsat/Copernicus"
   >
     <!-- Pass `assetsPath` if in graphics kit -->
-    <CrashMap assetsPath={assets || '/'} />
+    <CrashMap assetsPath={asset('/').replace(/\/$/, '')} />
   </GraphicBlock>
 </HeroHeadline>
 ```

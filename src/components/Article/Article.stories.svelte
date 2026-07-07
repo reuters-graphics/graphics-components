@@ -9,7 +9,7 @@
   });
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <Article id="article-story-basic">
     <div class="demo-container">
       <div class="background-label">Article well</div>
@@ -18,7 +18,7 @@
   </Article>
 </Story>
 
-<Story name="Custom columns" exportName="CustomColumns">
+<Story asChild name="Custom columns" exportName="CustomColumns">
   <h3>Default column widths</h3>
 
   <Article id="article-column-widths-demo">

@@ -3,6 +3,7 @@
  */
 
 .docblock-source {
+  position: relative;
   border: 6px solid #333 !important;
   overflow: hidden;
   border-radius: 6px !important;
@@ -10,6 +11,21 @@
     0 10px 20px rgba(0, 0, 0, 0.19),
     0 6px 6px rgba(0, 0, 0, 0.23) !important;
   padding: 0 !important;
+
+  /**
+   * Storybook 10 renders the copy button inside a wrapper that sits in normal
+   * flow alongside the (Radix ScrollArea) code, producing a full-height column
+   * with the toolbar's light background. Float that wrapper into the top-right
+   * corner instead — the Radix scroll root is the `[dir]` child, the copy
+   * wrapper is the other one.
+   */
+  > div:not([dir]) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+
   button {
     background-color: #0071a1;
     color: white;

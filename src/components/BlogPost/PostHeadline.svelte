@@ -16,8 +16,11 @@
      * published links to the post.
      */
     sluggableHed: string;
-    /** Base path prepended to the copied URL, e.g. "/graphics". */
-    base: string;
+    /**
+     * SvelteKit's `resolve` function from `$app/paths`, used to build the copied URL
+     * against your project's base path. Defaults to an identity function.
+     */
+    resolve?(pathname: string): string;
     /** Array of author names, which will be slugified to create links to Reuters author pages */
     authors: string[];
     /** Publish time as a datetime string. */
@@ -33,7 +36,7 @@
   let {
     hed = 'Reuters Graphics blog post',
     sluggableHed = 'Reuters Graphics blog post',
-    base = '',
+    resolve = (pathname: string) => pathname,
     authors = [],
     publishTime = '',
     updateTime = '',
@@ -105,7 +108,7 @@
               <CopyLink
                 hed={sluggableHed}
                 publishedDate={publishTime}
-                {base}
+                {resolve}
               /></span
             >
           </a>

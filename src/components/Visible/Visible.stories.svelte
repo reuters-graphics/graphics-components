@@ -10,6 +10,6 @@
   });
 </script>
 
-<Story name="Demo">
+<Story asChild name="Demo">
   <VisibleDemo />
 </Story>

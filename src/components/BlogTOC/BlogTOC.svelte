@@ -19,8 +19,11 @@
 
   interface Props {
     posts: Post[];
-    /** Base path prepended to post links, e.g. "/graphics". */
-    base: string;
+    /**
+     * SvelteKit's `resolve` function from `$app/paths`, used to build post links
+     * against your project's base path. Defaults to an identity function.
+     */
+    resolve?(pathname: string): string;
     /** The label for the table of contents toggle button. */
     label?: string;
     /** The maximum height of the table of contents list in pixels. */
@@ -29,7 +32,7 @@
 
   let {
     posts,
-    base = '',
+    resolve = (pathname: string) => pathname,
     label = 'Show all articles',
     maxHeight = 300,
   }: Props = $props();
@@ -51,7 +54,7 @@
           const existing = acc.find((entry) => entry.dateKey === dateKey);
           const event = {
             title: post.title,
-            titleLink: `${base}/#${slugify(post.slugTitle)}`,
+            titleLink: `${resolve('/')}#${slugify(post.slugTitle)}`,
           };
           if (existing) {
             existing.events.push(event);

@@ -3,7 +3,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 
 const config: UserConfig = defineConfig({
   css: {
-    preprocessorOptions: { scss: { quietDeps: true, api: 'modern-compiler' } },
+    preprocessorOptions: { scss: { quietDeps: true } },
   },
   plugins: [sveltekit()],
 });

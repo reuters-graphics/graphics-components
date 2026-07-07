@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import ImportSnippet from './ImportSnippet';
-import { Unstyled } from '@storybook/blocks';
+import { Unstyled } from '@storybook/addon-docs/blocks';
 // @ts-ignore scss
 import classes from './styles.module.scss';
 
