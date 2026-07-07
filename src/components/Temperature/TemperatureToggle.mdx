@@ -28,7 +28,7 @@ switch units — the temperature updates instantly with no reflow.
 ```
 
 `TemperatureToggle` flips the shared unit state, persists the explicit choice to
-`localStorage` (mirrored to a cookie) and broadcasts a `temperature-unit-changed`
+`localStorage` and broadcasts a `temperature-unit-changed`
 window event so every `Temperature`, chart and cross-bundle listener updates
 together. With no props it drives the shared singleton; pass an explicit `state`
 to control a scoped `TemperatureUnitState`.
@@ -87,7 +87,7 @@ const langHandle: Handle = ({ event, resolve }) =>
 export const handle = sequence(langHandle, createUnitBootstrapHandle());
 ```
 
-The injected script resolves the unit (stored choice → cookie → locale/time-zone
+The injected script resolves the unit (stored choice → locale/time-zone
 default → fallback), sets the `<html>` attribute, and exposes
 `window.getTemperatureUnit()` / `window.setTemperatureUnit()` for non-Svelte or
 cross-bundle code. Pass options to customise it, e.g.

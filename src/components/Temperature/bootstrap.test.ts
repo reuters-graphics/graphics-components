@@ -8,7 +8,6 @@ interface RunOpts {
   languages?: string[];
   timeZone?: string;
   storage?: Record<string, string>;
-  cookie?: string;
 }
 
 /** The observable results after running a unit bootstrap script. */
@@ -16,7 +15,6 @@ interface RunResult {
   attr: () => string;
   unit: () => string;
   store: Record<string, string>;
-  cookie: () => string;
   dispatch: (unit: string) => void;
 }
 
@@ -26,11 +24,10 @@ interface RunResult {
  * `buildBootstrapScript()` output.
  */
 function runUnitBootstrap(script: string, opts: RunOpts = {}): RunResult {
-  const { languages = [], timeZone = 'UTC', storage = {}, cookie = '' } = opts;
+  const { languages = [], timeZone = 'UTC', storage = {} } = opts;
   const attrs: Record<string, string> = {};
   const listeners: Record<string, Array<(e: unknown) => void>> = {};
   const store: Record<string, string> = { ...storage };
-  const cookieState = { value: cookie };
 
   const localStorageMock = {
     getItem: (k: string) => (k in store ? store[k] : null),
@@ -44,12 +41,6 @@ function runUnitBootstrap(script: string, opts: RunOpts = {}): RunResult {
         attrs[k] = v;
       },
       getAttribute: (k: string) => (k in attrs ? attrs[k] : null),
-    },
-    get cookie() {
-      return cookieState.value;
-    },
-    set cookie(v: string) {
-      cookieState.value = v.split(';')[0];
     },
   };
   class CustomEventMock {
@@ -97,7 +88,6 @@ function runUnitBootstrap(script: string, opts: RunOpts = {}): RunResult {
     attr: () => attrs['data-temp-unit'],
     unit: () => (windowMock.getTemperatureUnit as () => string)(),
     store,
-    cookie: () => cookieState.value,
     dispatch: (unit: string) =>
       windowMock.dispatchEvent(
         new CustomEventMock('temperature-unit-changed', { detail: { unit } })
@@ -139,14 +129,6 @@ describe('buildBootstrapScript (executed)', () => {
     expect(b.unit()).toBe('celsius');
   });
 
-  it('falls back to the cookie mirror when localStorage is empty', () => {
-    const b = runBootstrap({
-      languages: ['fr-FR'], // would be celsius
-      cookie: 'temperature-unit=fahrenheit',
-    });
-    expect(b.attr()).toBe('fahrenheit');
-  });
-
   it('persists + re-syncs on the change event', () => {
     const b = runBootstrap({ languages: ['en-US'] });
     expect(b.unit()).toBe('fahrenheit');
@@ -156,7 +138,6 @@ describe('buildBootstrapScript (executed)', () => {
     expect(b.unit()).toBe('celsius');
     expect(b.attr()).toBe('celsius');
     expect(b.store['temperature-unit']).toBe('celsius');
-    expect(b.cookie()).toContain('temperature-unit=celsius');
   });
 
   it('ignores invalid units on the change event', () => {
@@ -177,17 +158,5 @@ describe('buildBootstrapScript fahrenheitRegions override', () => {
     expect(runUnitBootstrap(script, { languages: ['en-US'] }).attr()).toBe(
       'celsius'
     );
-  });
-});
-
-describe('buildBootstrapScript cookie parsing', () => {
-  it('reads a configured cookie name with regex metacharacters', () => {
-    const script = buildBootstrapScript({ cookieName: 'temp.unit' });
-    expect(
-      runUnitBootstrap(script, {
-        languages: ['en-US'], // would be fahrenheit
-        cookie: 'temp.unit=celsius',
-      }).attr()
-    ).toBe('celsius');
   });
 });

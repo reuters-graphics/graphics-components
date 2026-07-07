@@ -2,7 +2,7 @@
   @component Celsius/Fahrenheit toggle.
 
   A clickable switch that flips the shared (or provided) unit state, persisting
-  the explicit choice to localStorage + cookie and broadcasting it so every
+  the explicit choice to localStorage and broadcasting it so every
   `Temperature`, chart and cross-bundle listener updates. Uses the `switch` role
   with `aria-checked` for accessibility.
 

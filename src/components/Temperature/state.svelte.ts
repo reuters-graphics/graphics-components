@@ -12,7 +12,7 @@ import { getContext, hasContext, setContext } from 'svelte';
 import { resolveConfig, type UnitConfig } from './config';
 import { browserDefaultUnit } from './detect';
 import { readUnitAttribute, writeUnitAttribute } from './attribute';
-import { readCookieUnit, readStoredUnit, writeStoredUnit } from './storage';
+import { readStoredUnit, writeStoredUnit } from './storage';
 import {
   convertDelta,
   convertTemperature,
@@ -24,7 +24,7 @@ import {
 
 /** Construction options: any {@link UnitConfig} field plus an explicit seed. */
 export type UnitStateOptions = Partial<UnitConfig> & {
-  /** Force the initial unit (e.g. an SSR value from a cookie). */
+  /** Force the initial unit (e.g. an explicit SSR value). */
   initial?: TemperatureUnit;
 };
 
@@ -46,7 +46,6 @@ export class TemperatureUnitState {
       this.current =
         readUnitAttribute(this.config.attribute) ??
         readStoredUnit(this.config.storageKey) ??
-        readCookieUnit(this.config.cookieName) ??
         browserDefaultUnit();
     } else {
       this.current = this.config.fallback;
@@ -74,7 +73,7 @@ export class TemperatureUnitState {
     }
     this.current = unit;
     writeUnitAttribute(unit, this.config.attribute);
-    writeStoredUnit(unit, this.config);
+    writeStoredUnit(unit, { storageKey: this.config.storageKey });
     if (typeof window !== 'undefined') {
       window.dispatchEvent(
         new CustomEvent(this.config.eventName, { detail: { unit } })

@@ -7,8 +7,8 @@
  * module builds that script as a self-contained string a host can drop into its
  * app template (SvelteKit `app.html`, an Astro layout `<head>`, plain HTML, …).
  *
- * The script, in order: resolves the unit (localStorage → cookie → locale/zone
- * → fallback), sets the `<html>` attribute components render against, exposes a
+ * The script, in order: resolves the unit (localStorage → locale/zone →
+ * fallback), sets the `<html>` attribute components render against, exposes a
  * tiny `window.getTemperatureUnit()/setTemperatureUnit()` bridge for non-Svelte
  * or cross-bundle code, and listens for the change event to persist + re-sync.
  *
@@ -44,7 +44,6 @@ export function buildBootstrapScript(overrides: BootstrapOptions = {}): string {
 
   return `(function () {
   var STORAGE_KEY = ${s(c.storageKey)};
-  var COOKIE = ${s(c.cookieName)};
   var ATTR = ${s(c.attribute)};
   var EVENT = ${s(c.eventName)};
   var FALLBACK = ${s(c.fallback)};
@@ -71,12 +70,10 @@ export function buildBootstrapScript(overrides: BootstrapOptions = {}): string {
     return usesFahrenheitByZone() ? 'fahrenheit' : 'celsius';
   }
   function fromStorage() { try { var v = localStorage.getItem(STORAGE_KEY); return valid(v) ? v : null; } catch (e) { return null; } }
-  function fromCookie() { try { var parts = document.cookie.split(';'); for (var i = 0; i < parts.length; i++) { var p = parts[i]; var eq = p.indexOf('='); if (eq === -1) continue; if (p.slice(0, eq).trim() !== COOKIE) continue; var v = decodeURIComponent(p.slice(eq + 1).trim()); return valid(v) ? v : null; } return null; } catch (e) { return null; } }
   function persist(u) {
     try { localStorage.setItem(STORAGE_KEY, u); } catch (e) {}
-    try { document.cookie = COOKIE + '=' + u + '; path=/; max-age=31536000; SameSite=Lax'; } catch (e) {}
   }
-  var unit = fromStorage() || fromCookie() || localeDefault() || FALLBACK;
+  var unit = fromStorage() || localeDefault() || FALLBACK;
   try { document.documentElement.setAttribute(ATTR, unit); } catch (e) {}
   window.__temperatureUnit = unit;
   if (!window.getTemperatureUnit) {

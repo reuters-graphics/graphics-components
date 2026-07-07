@@ -100,7 +100,6 @@ export {
 } from './components/Temperature/config';
 export {
   readStoredUnit,
-  readCookieUnit,
   writeStoredUnit,
 } from './components/Temperature/storage';
 export {
