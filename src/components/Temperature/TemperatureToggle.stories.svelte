@@ -14,7 +14,7 @@
   `Temperature` on the page — and any cross-bundle listener on the
   `temperature-unit-changed` window event — updates in lock-step.
 -->
-<Story name="Demo">
+<Story asChild name="Demo">
   <div style="display: flex; align-items: center; gap: 16px;">
     <TemperatureToggle />
     <span style="font-size: 20px;">

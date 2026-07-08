@@ -57,11 +57,17 @@ export class TemperatureUnitState {
   }
 
   // Keep the window in sync when *another* source dispatches the event (e.g. a
-  // second toggle instance, or a cross-bundle script).
+  // second toggle instance, or a cross-bundle script). The dispatcher may not
+  // have written the attribute/storage itself (e.g. a manual
+  // `window.dispatchEvent(...)` with no bootstrap script installed), so this
+  // handler mirrors `set()`'s persistence to keep the `<html>` attribute,
+  // localStorage, and every `Temperature` display in sync.
   #onExternalChange = (event: Event) => {
     const unit = (event as CustomEvent).detail?.unit;
     if (isTemperatureUnit(unit) && unit !== this.current) {
       this.current = unit;
+      writeUnitAttribute(unit, this.config.attribute);
+      writeStoredUnit(unit, { storageKey: this.config.storageKey });
     }
   };
 
