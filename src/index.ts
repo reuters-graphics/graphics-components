@@ -67,10 +67,58 @@ export { default as Lottie } from './components/Lottie/Lottie.svelte';
 export { default as LottieForeground } from './components/Lottie/LottieForeground.svelte';
 export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svelte';
 export { default as Table } from './components/Table/Table.svelte';
+export { default as Temperature } from './components/Temperature/Temperature.svelte';
+export { default as TemperatureToggle } from './components/Temperature/TemperatureToggle.svelte';
 export { default as Theme, themes } from './components/Theme/Theme.svelte';
 export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.svelte';
 export { default as Video } from './components/Video/Video.svelte';
 export { default as Visible } from './components/Visible/Visible.svelte';
+
+// Temperature toolkit (pure helpers, detection, storage, bootstrap + state)
+export {
+  type TemperatureUnit,
+  type FormatOptions,
+  TEMPERATURE_UNITS,
+  isTemperatureUnit,
+  otherUnit,
+  convertTemperature,
+  convertDelta,
+  unitSuffix,
+  formatTemperature,
+  formatDelta,
+} from './components/Temperature/units';
+export {
+  type DefaultUnitInput,
+  FAHRENHEIT_REGIONS,
+  resolveDefaultUnit,
+  browserDefaultUnit,
+} from './components/Temperature/detect';
+export {
+  type UnitConfig,
+  DEFAULT_CONFIG,
+  resolveConfig,
+} from './components/Temperature/config';
+export {
+  readStoredUnit,
+  writeStoredUnit,
+} from './components/Temperature/storage';
+export {
+  readUnitAttribute,
+  writeUnitAttribute,
+} from './components/Temperature/attribute';
+export {
+  type BootstrapOptions,
+  buildBootstrapScript,
+  TEMPERATURE_UNIT_BOOTSTRAP,
+} from './components/Temperature/bootstrap';
+export { createUnitBootstrapHandle } from './components/Temperature/sveltekit';
+export {
+  type UnitStateOptions,
+  TemperatureUnitState,
+  setUnitContext,
+  getUnitContext,
+  defaultUnitState,
+} from './components/Temperature/state.svelte';
 
 export type {
   ContainerWidth,

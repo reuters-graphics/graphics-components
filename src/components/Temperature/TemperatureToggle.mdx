@@ -1,0 +1,111 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as TemperatureToggleStories from './TemperatureToggle.stories.svelte';
+
+<Meta of={TemperatureToggleStories} />
+
+# TemperatureToggle
+
+A small, framework-agnostic toolkit for showing temperatures in the reader's
+preferred unit. It ships two Svelte components — `TemperatureToggle` (a °C/°F
+switch) and `Temperature` (a flash-free display) — plus the pure conversion,
+locale-detection, storage and reactive-state helpers they are built on.
+
+Nothing here is climate- or Reuters-specific: values go in as Celsius and render
+as °C or °F based on one shared, persisted preference. Use the toggle below to
+switch units — the temperature updates instantly with no reflow.
+
+<Canvas of={TemperatureToggleStories.Demo} />
+
+## Toggle the unit
+
+```svelte
+<script>
+  import { TemperatureToggle } from '@reuters-graphics/graphics-components';
+</script>
+
+<TemperatureToggle />
+```
+
+`TemperatureToggle` flips the shared unit state, persists the explicit choice to
+`localStorage` and broadcasts a `temperature-unit-changed`
+window event so every `Temperature`, chart and cross-bundle listener updates
+together. With no props it drives the shared singleton; pass an explicit `state`
+to control a scoped `TemperatureUnitState`.
+
+## Display a temperature
+
+```svelte
+<script>
+  import { Temperature } from '@reuters-graphics/graphics-components';
+</script>
+
+<p>Today's high: <Temperature celsius={31.2} digits={1} /></p>
+<p>Anomaly vs. normal: <Temperature celsius={3.4} digits={1} delta /></p>
+```
+
+`Temperature` takes a value in **degrees Celsius** and renders it in whichever
+unit the reader prefers. Both the °C and °F strings are rendered and CSS shows
+exactly one based on the `data-temp-unit` attribute on `<html>`, so even
+server-rendered / prerendered markup never flashes the wrong unit and toggling
+swaps every value on the page instantly with no per-node JavaScript.
+
+Props: `celsius` (required), `delta` (render a signed difference like `+5°F`),
+`digits` (decimal places, default `0`), `suffix` (append the degree suffix,
+default `true`) and `degree` (include the degree ring, default `true`).
+
+## Flash-free rendering
+
+Showing the right unit with no flash needs the `data-temp-unit` attribute set on
+`<html>` **before first paint**. Add the bootstrap `handle` to your app's
+`hooks.server.ts`, exactly as the Reuters Climate Monitor does. The graphics kit
+already scaffolds that file with a language handle, so compose the two with
+`sequence()` — paste this over the generated `src/hooks.server.ts`:
+
+```ts
+// src/hooks.server.ts
+import type { Handle, RequestEvent } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
+import tags from 'language-tags';
+import { createUnitBootstrapHandle } from '@reuters-graphics/graphics-components';
+
+const getLang = (event: RequestEvent) => {
+  // lang is encoded in the URL pathname
+  const matches = /\/([a-z]{2})\//g.exec(event.url.pathname);
+  if (!matches) return 'en';
+  if (matches[1] && tags.check(matches[1])) return matches[1];
+  return 'en';
+};
+
+// The scaffold's default handle: set the <html lang> attribute from the URL.
+const langHandle: Handle = ({ event, resolve }) =>
+  resolve(event, {
+    transformPageChunk: ({ html }) => html.replace('%lang%', getLang(event)),
+  });
+
+// Inject the temperature-unit pre-paint bootstrap into <head>.
+export const handle = sequence(langHandle, createUnitBootstrapHandle());
+```
+
+The injected script resolves the unit (stored choice → locale/time-zone
+default → fallback), sets the `<html>` attribute, and exposes
+`window.getTemperatureUnit()` / `window.setTemperatureUnit()` for non-Svelte or
+cross-bundle code. Pass options to customise it, e.g.
+`createUnitBootstrapHandle({ fahrenheitRegions, storageKey })`.
+
+## First-visit default
+
+A reader with no saved choice gets a locale-aware default: Fahrenheit for the
+handful of countries that use it (the US, Liberia, and a few others) and Celsius
+for the rest of the world.
+
+```ts
+import {
+  resolveDefaultUnit,
+  browserDefaultUnit,
+} from '@reuters-graphics/graphics-components';
+
+resolveDefaultUnit({ languages: ['en-US'] }); // 'fahrenheit'
+resolveDefaultUnit({ languages: ['en-GB'] }); // 'celsius'
+browserDefaultUnit(); // reads navigator + Intl (SSR-safe)
+```
