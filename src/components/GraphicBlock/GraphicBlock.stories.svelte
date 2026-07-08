@@ -74,7 +74,11 @@
   </GraphicBlock>
 </Story>
 
-<Story asChild name="Custom AREA description" exportName="CustomAriaDescription">
+<Story
+  asChild
+  name="Custom AREA description"
+  exportName="CustomAriaDescription"
+>
   <GraphicBlock
     title="Earthquake in Haiti"
     description="The 7.2-magnitude earthquake struck at 8:29 a.m. EST, Aug. 14, 2021."
