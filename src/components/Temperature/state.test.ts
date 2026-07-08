@@ -84,3 +84,79 @@ describe('TemperatureUnitState external change handling', () => {
     state.destroy();
   });
 });
+
+describe('TemperatureUnitState multi-instance sync', () => {
+  it('state.set() on one instance is reflected by every other live instance', () => {
+    const store = stubLocalStorage();
+    const { attributes } = stubDom();
+
+    // Two independent instances, as if two components each provided their
+    // own state via context instead of sharing the default singleton.
+    const a = new TemperatureUnitState({ initial: 'celsius' });
+    const b = new TemperatureUnitState({ initial: 'celsius' });
+
+    a.set('fahrenheit');
+
+    expect(a.current).toBe('fahrenheit');
+    expect(b.current).toBe('fahrenheit');
+    expect(attributes['data-temp-unit']).toBe('fahrenheit');
+    expect(store['temperature-unit']).toBe('fahrenheit');
+
+    a.destroy();
+    b.destroy();
+  });
+
+  it('a window.setTemperatureUnit()-style bridge call syncs every live instance', () => {
+    const store = stubLocalStorage();
+    const { attributes } = stubDom();
+
+    // Mirrors the bridge function the pre-paint bootstrap installs on
+    // `window` for non-Svelte/cross-bundle callers (see bootstrap.ts).
+    const bridgeWindow = window as unknown as {
+      setTemperatureUnit: (unit: string) => void;
+    };
+    bridgeWindow.setTemperatureUnit = (unit: string) => {
+      if (unit !== 'celsius' && unit !== 'fahrenheit') return;
+      window.dispatchEvent(
+        new CustomEvent('temperature-unit-changed', { detail: { unit } })
+      );
+    };
+
+    const a = new TemperatureUnitState({ initial: 'celsius' });
+    const b = new TemperatureUnitState({ initial: 'celsius' });
+
+    bridgeWindow.setTemperatureUnit('fahrenheit');
+
+    expect(a.current).toBe('fahrenheit');
+    expect(b.current).toBe('fahrenheit');
+    expect(attributes['data-temp-unit']).toBe('fahrenheit');
+    expect(store['temperature-unit']).toBe('fahrenheit');
+
+    a.destroy();
+    b.destroy();
+  });
+
+  it('a raw shared event dispatch syncs every live instance', () => {
+    const store = stubLocalStorage();
+    const { attributes } = stubDom();
+
+    const a = new TemperatureUnitState({ initial: 'celsius' });
+    const b = new TemperatureUnitState({ initial: 'celsius' });
+
+    // No `set()`/bridge involved at all — just the raw window event, as a
+    // cross-bundle emitter with no bootstrap script installed might dispatch.
+    window.dispatchEvent(
+      new CustomEvent('temperature-unit-changed', {
+        detail: { unit: 'fahrenheit' },
+      })
+    );
+
+    expect(a.current).toBe('fahrenheit');
+    expect(b.current).toBe('fahrenheit');
+    expect(attributes['data-temp-unit']).toBe('fahrenheit');
+    expect(store['temperature-unit']).toBe('fahrenheit');
+
+    a.destroy();
+    b.destroy();
+  });
+});
