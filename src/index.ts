@@ -10,6 +10,7 @@ export {
   default as Analytics,
   registerPageview,
 } from './components/Analytics/Analytics.svelte';
+export { default as ArcRendering } from './components/ArcRendering/ArcRendering.svelte';
 export { default as Article } from './components/Article/Article.svelte';
 export { default as BlogPost } from './components/BlogPost/BlogPost.svelte';
 export { default as BlogTOC } from './components/BlogTOC/BlogTOC.svelte';

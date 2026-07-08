@@ -1,155 +1,169 @@
 @use '../mixins' as *;
 
-html {
-  font-size: 100%;
+// Applies to entire page — safe at root
+@mixin root-styles {
+  html {
+    font-size: 100%;
+
+    // Font-smoothing
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-body {
-  font-size: 1rem;
-  color: #404040;
+// Applies elements scoped to #reuters-graphics-svelte-app
+@mixin scoped-styles {
   @include font-knowledge;
   @include font-regular;
   @include leading-tight;
-
-  // Font-smoothing
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  color: $theme-colour-text-primary;
 
   .theme {
-    font-size: calc(0.9 * var(--theme-font-size-base));
-    color: var(--theme-colour-text-primary);
     @include font-sans;
+    // Theme blocks render at 90% of the host page's base font size
+    // so embedded graphics sit slightly smaller than surrounding body copy.
+    font-size: calc(0.9 * var(--theme-font-size-base));
+    color: var(--theme-colour-text-primary, #{$theme-colour-text-primary});
   }
-}
 
-// SIZE RANGE REFERENCE //
-// xxs: 12.64px
-// xs: 14.22px
-// sm: 16.00px → 16.80px
-// base: 18.00px → 21.00px
-// lg: 20.25px → 26.25px
-// xl: 22.78px → 32.81px
-// 2xl: 25.63px → 41.02px
-// 3xl: 28.83px → 51.27px
-// 4xl: 32.44px → 64.09px
-// 5xl: 36.49px → 80.11px
-// 6xl: 41.05px → 100.14px
+  // SIZE RANGE REFERENCE //
+  // xxs: 12.64px
+  // xs: 14.22px
+  // sm: 16.00px → 16.80px
+  // base: 18.00px → 21.00px
+  // lg: 20.25px → 26.25px
+  // xl: 22.78px → 32.81px
+  // 2xl: 25.63px → 41.02px
+  // 3xl: 28.83px → 51.27px
+  // 4xl: 32.44px → 64.09px
+  // 5xl: 36.49px → 80.11px
+  // 6xl: 41.05px → 100.14px
 
-/////////////
-// HEADINGS
-/////////////
+  /////////////
+  // HEADINGS
+  /////////////
 
-h1 {
-  @include h1;
-}
+  h1 {
+    @include h1;
+  }
 
-h2 {
-  @include h2;
-}
+  h2 {
+    @include h2;
+  }
 
-h3 {
-  @include h3;
-}
+  h3 {
+    @include h3;
+  }
 
-h4,
-h5,
-h6 {
-  @include h4;
-}
+  h4,
+  h5,
+  h6 {
+    @include h4;
+  }
 
-//////////////
-// Body text
-//////////////
+  //////////////
+  // Body text
+  //////////////
 
-text {
-  @include body-note;
-}
+  // <text> is an SVG element — applies body-note styling
+  // to text rendered inside charts and visualizations.
+  svg text {
+    @include body-note;
+  }
 
-p {
-  display: block;
-  @include body-text;
-}
-
-ol,
-ul {
-  display: block;
-  @include body-text;
-  @include fmb-6;
-  @include fpl-4;
-  list-style-position: outside;
+  p {
+    @include body-text;
+  }
 
   ol,
   ul {
+    @include body-text;
+    @include fmb-6;
     @include fpl-4;
-    @include fmb-2;
+    list-style-position: outside;
+
+    ol,
+    ul {
+      @include fpl-4;
+      @include fmb-2;
+    }
+
+    li {
+      @include fmy-1;
+
+      &::marker {
+        @include font-light;
+        @include font-note;
+        @include text-sm;
+        @include text-secondary;
+      }
+    }
   }
 
-  li {
-    @include fmy-1;
+  ul {
+    list-style-type: disc;
   }
 
-  li::marker {
-    @include font-light;
-    @include font-note;
+  ol {
+    list-style-type: decimal;
+  }
+
+  a {
+    @include body-link;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    @include font-bold;
+  }
+
+  pre,
+  code,
+  kbd {
+    @include font-mono;
     @include text-sm;
     @include text-secondary;
+    @include fmx-0;
+    @include fmt-0;
+    @include fmb-3;
   }
-}
 
-ul {
-  list-style-type: disc;
-}
-
-a {
-  @include body-link;
-}
-
-em {
-  font-style: italic;
-}
-
-strong {
-  @include font-bold;
-}
-
-pre,
-code,
-kbd {
-  @include font-mono;
-  @include text-sm;
-  @include text-secondary;
-  @include fmx-0;
-  @include fmt-0;
-  @include fmb-3;
-}
-
-kbd {
-  background-color: $theme-colour-text-primary;
-  color: $theme-colour-background;
-  border-radius: 0.3rem;
-  @include fpx-2;
-  @include fpy-1;
-}
-
-figcaption {
-  @include body-caption;
-  @include fmb-0;
-}
-
-blockquote {
-  @include fmx-0;
-  @include fmy-6;
-  p {
-    @include body-note;
-    @include font-light;
-    @include text-lg;
+  kbd {
+    @include fpx-2;
+    @include fpy-1;
+    background-color: $theme-colour-text-primary;
+    color: $theme-colour-background;
+    border-radius: 0.3rem;
   }
+
+  figcaption {
+    @include body-caption;
+    @include fmb-0;
+  }
+
   blockquote {
-    @include fmt-3;
+    @include fmx-0;
+    @include fmy-6;
+
     p {
-      @include body-caption;
-      @include text-sm;
-      @include fmb-0;
+      @include body-note;
+      @include font-light;
+      @include text-lg;
+    }
+
+    // Nested blockquote = attribution / sub-quote, rendered smaller.
+    blockquote {
+      @include fmt-3;
+
+      p {
+        @include body-caption;
+        @include text-sm;
+        @include fmb-0;
+      }
     }
   }
 }

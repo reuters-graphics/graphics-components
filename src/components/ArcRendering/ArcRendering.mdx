@@ -1,0 +1,64 @@
+import { Meta, Canvas } from '@storybook/blocks';
+
+import * as ArcRenderingStories from './ArcRendering.stories.svelte';
+
+<Meta of={ArcRenderingStories} />
+
+# ArcRendering
+
+The `ArcRendering` component configures how a page is rendered when published on reuters.com.
+
+It does two things:
+
+1. Sets a Svelte context (`arcxp:renderMode`) so descendant components can detect whether they are being rendered inside the reuters.com shell or standalone.
+2. Injects a JSON-LD `<script>` tag into the document `<head>` containing metadata that Arc XP uses to show the Reuters Header and Footer, paywall status and leaderboard ad.
+
+
+
+
+> **Note:** Don't use this component for embed pages.
+
+## Props
+
+- **`shell`** (`boolean`, default `true`) — When `true`, the page is wrapped in the reuters.com shell (site header, navigation and footer). Set to `false` for standalone embeds or legacy graphics.
+- **`paywall`** (`boolean`, default `false`) — When `true`, marks the page as paywalled (`isAccessibleForFree: false` in the JSON-LD).
+- **`leaderboardAd`** (`boolean`, default `true`) — When `false`, suppresses the leaderboard ad on the page.
+
+
+```svelte
+<script>
+  import { ArcRendering, Theme } from '@reuters-graphics/graphics-components';
+</script>
+
+<Theme base="light">
+  <ArcRendering shell={true} paywall={true} leaderboardAd={true}>
+   <!-- page content -->
+  </ArcRendering>
+</Theme>
+```
+
+{/* <Canvas of={ArcRenderingStories.Default} /> */}
+
+
+When rendered inside the shell, it adds the header and footer from dotcom by default. If you need to use the legacy furniture, import them directly into your page.svelte
+
+```svelte
+<script>
+  import { ArcRendering, Theme } from '@reuters-graphics/graphics-components';
+  import { isReutersApp } from '$utils/env';
+</script>
+
+<Theme base="light">
+  {#if !isReutersApp(page.url)}
+    <SiteHeader />
+  {/if}
+
+  <ArcRendering shell={false} paywall={true} leaderboardAd={true}>
+   <!-- page content -->
+  </ArcRendering>
+
+  {#if !isReutersApp(page.url)}
+    <SiteFooter />
+  {/if}
+</Theme>
+```
