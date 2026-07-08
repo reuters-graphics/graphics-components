@@ -72,7 +72,7 @@
   }}
 />
 
-<Story name="Text elements" exportName="Text">
+<Story asChild name="Text elements" exportName="Text">
   <Video
     src={SilentVideo}
     ariaDescription="Required description of your video for screen readers."

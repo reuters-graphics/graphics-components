@@ -211,7 +211,7 @@
   </HeroHeadline>
 </Story>
 
-<Story name="Custom hed" exportName="CustomHed">
+<Story asChild name="Custom hed" exportName="CustomHed">
   <HeroHeadline
     class="custom-hed"
     authors={[

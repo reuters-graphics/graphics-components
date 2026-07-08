@@ -32,7 +32,7 @@
   }}
 />
 
-<Story name="With text" exportName="WithText">
+<Story asChild name="With text" exportName="WithText">
   <BeforeAfter
     beforeSrc={beforeImg}
     beforeAlt="Satellite image of Russian base at Myrne taken on July 7, 2020."
