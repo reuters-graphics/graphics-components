@@ -45,7 +45,7 @@
   />
 </Story>
 
-<Story name="Custom hed and dek" exportName="CustomHedDek">
+<Story asChild name="Custom hed and dek" exportName="CustomHedDek">
   <Headline width="wide">
     {#snippet hed()}
       <h1 class="custom-hed">
@@ -64,7 +64,7 @@
   </Headline>
 </Story>
 
-<Story name="Crown image" exportName="CrownImage">
+<Story asChild name="Crown image" exportName="CrownImage">
   <Headline
     class="!fmt-3"
     hed="Europa"
@@ -82,7 +82,7 @@
   </Headline>
 </Story>
 
-<Story name="Crown graphic" exportName="CrownGraphic">
+<Story asChild name="Crown graphic" exportName="CrownGraphic">
   <Headline
     width="wider"
     class="!fmt-1"

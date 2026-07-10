@@ -262,7 +262,7 @@
   }}
 />
 
-<Story name="Map Layout" tags={['!autodocs']}>
+<Story asChild name="Map Layout" tags={['!autodocs']}>
   <TileMap
     id="legend-demo-map"
     center={[0, 20]}

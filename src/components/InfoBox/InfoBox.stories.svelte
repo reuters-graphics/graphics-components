@@ -41,7 +41,7 @@
     text: "- **Food crisis**: [Russia's invasion of Ukraine](#) in late February dramatically worsened the outlook for already inflated global food prices. \n- **Under fire**: Civillian homes destroyed in the conflict and Russia accused of war crimes. \n- **Nordstream sabotage**: A series of clandestine bombings and subsequent underwater gas leaks occurred on the Nord Stream 1 and Nord Stream 2 natural gas pipelines. ",
   }}
 />
-<Story name="Customised" tags={['!autodocs', '!dev']}>
+<Story asChild name="Customised" tags={['!autodocs', '!dev']}>
   <InfoBox>
     {#snippet header()}
       <h3>Global video game market</h3>
