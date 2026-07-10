@@ -30,6 +30,31 @@ The `SEO` component adds essential metadata to pages.
     { name: 'Jane Doe', link: 'https://www.reuters.com/authors/jane-doe/' },
     { name: 'John Doe', link: 'https://www.reuters.com/authors/john-doe/' },
   ]}
+  articleSection="Graphics"
+  keywords={['Reuters graphics', 'COVID-19', 'coronavirus']}
+  locale="en_GB"
+  shareImgWidth={1200}
+  shareImgHeight={630}
+/>
+```
+
+The `articleSection`, `keywords`, `locale`, `shareImgWidth` and `shareImgHeight` props are all optional. Setting the image dimensions and a specific section/keywords improves how the page appears in search results and social/link previews.
+
+## Multi-locale graphics pages
+
+Most graphics ship in a single language, but when a graphic is published in more than one, pass `alternates` to emit [`hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions) links (and matching `og:locale:alternate` tags). This tells Google to serve the right language in the right region and to treat the versions as one story rather than competing duplicates.
+
+List _every_ language version — including the current page — plus an `x-default` that points to your best fallback (usually the default-language version). Each entry's `hreflang` is a [BCP-47](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) tag.
+
+```svelte
+<SEO
+  {...otherProps}
+  locale="en_GB"
+  alternates={[
+    { hreflang: 'x-default', href: 'https://www.reuters.com/graphics/story/' },
+    { hreflang: 'en-GB', href: 'https://www.reuters.com/graphics/story/' },
+    { hreflang: 'es', href: 'https://www.reuters.com/graphics/story/es/' },
+  ]}
 />
 ```
 
@@ -46,6 +71,9 @@ shareTitle: Page title for social media
 shareDescription: Page description for social media
 shareImgPath: images/reuters-graphics.jpg
 shareImgAlt: Alt text for share image.
+section: World News
+keywords: keywords, separated by, commas
+locale: en_GB
 ```
 
 ... which you'll pass to the `SEO` component.
@@ -60,7 +88,7 @@ shareImgAlt: Alt text for share image.
 </script>
 
 <SEO
-  baseUrl={VITE_BASE_URL}
+  baseUrl={__BASE_URL__}
   pageUrl={$page.url}
   seoTitle={content.seoTitle}
   seoDescription={content.seoDescription}
@@ -71,10 +99,16 @@ shareImgAlt: Alt text for share image.
   publishTime={pkg?.reuters?.graphic?.published}
   updateTime={pkg?.reuters?.graphic?.updated}
   authors={pkg?.reuters?.graphic?.authors}
+  articleSection={content.section}
+  keywords={content.keywords
+    ?.split(',')
+    .map((k) => k.trim())
+    .filter(Boolean)}
+  locale={content.locale}
 />
 ```
 
-> **Note:** For _reasons_, we can't document the value of `VITE_BASE_URL` below. It's `import` + `.meta.env.BASE_URL` (concatenate all that) in the graphics kit and other Vite-based rigs.
+> **Note:** `__BASE_URL__` is a build-time global available throughout graphics kit projects — no import needed. It's the project's fully-qualified base URL (origin + trailing slash), i.e. the address of the project homepage. `SEO` uses it to derive the page's origin for canonical and share tags.
 
 <Canvas of={SEOStories.Demo} />
 ```

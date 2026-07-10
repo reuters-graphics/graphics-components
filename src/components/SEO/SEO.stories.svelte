@@ -19,5 +19,29 @@
     shareDescription: 'A description for Twitter/Facebook',
     shareImgPath:
       'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/assets/images/share.jpg',
+    shareImgAlt: 'An image showing global COVID infection rates',
+    shareImgWidth: 1200,
+    shareImgHeight: 630,
+    publishTime: '2020-09-15T00:00:00.000Z',
+    updateTime: '2021-01-10T12:30:00.000Z',
+    articleSection: 'Graphics',
+    keywords: ['Reuters graphics', 'COVID-19', 'coronavirus'],
+    authors: [
+      { name: 'Jane Doe', link: 'https://www.reuters.com/authors/jane-doe/' },
+    ],
+    alternates: [
+      {
+        hreflang: 'x-default',
+        href: 'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/',
+      },
+      {
+        hreflang: 'en-GB',
+        href: 'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/',
+      },
+      {
+        hreflang: 'es',
+        href: 'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/es/',
+      },
+    ],
   }}
 />
