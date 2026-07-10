@@ -1,5 +1,7 @@
 <!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytic-seo--docs) -->
 <script lang="ts">
+  import { getOrigin } from './origin';
+
   interface GraphicAuthor {
     name: string;
     link: string;
@@ -65,18 +67,7 @@
     updateTime = '',
     authors = [],
   }: Props = $props();
-  const getOrigin = (baseUrl: string) => {
-    try {
-      return new URL(baseUrl).origin;
-    } catch {
-      // This handles a weird case where Vite's base path is
-      // reset to './' after the app hydrates...
-      if (typeof window !== 'undefined') return getOrigin(window.location.href);
-      return '';
-    }
-  };
-
-  let origin = $derived(getOrigin(baseUrl));
+  let origin = $derived(getOrigin(baseUrl, pageUrl));
   let canonicalUrl = $derived(
     (origin + (pageUrl?.pathname || '')).replace(/index\.html\/$/, '')
   );
