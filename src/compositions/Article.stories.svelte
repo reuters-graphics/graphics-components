@@ -16,7 +16,7 @@
   import sharkPhoto from '../components/FeaturePhoto/images/shark.jpg';
   import demoVideo from '../components/Video/demo/silent-video.mp4';
 
-  // A "default page" is assembled from a standard set of components inside the
+  // An article page is assembled from a standard set of components inside the
   // `Article` text well. Storybook's global decorator already wraps every story
   // in `Theme` + `Article` (the same furniture the graphics-kit page template
   // provides), so the stories below render just the page *contents* a graphics
@@ -25,7 +25,7 @@
   // block.
 
   const { Story } = defineMeta({
-    title: 'Compositions/Default page',
+    title: 'Compositions/Article',
     parameters: {
       // This is a documentation-only composition, so hide the controls table.
       controls: { disable: true },
@@ -43,7 +43,7 @@
     const canvas = within(canvasElement);
     // The headline opens the story.
     await expect(
-      canvas.getByText('A default graphics page')
+      canvas.getByText('A sample graphics page')
     ).toBeInTheDocument();
     // The share toolbar renders its buttons.
     await expect(canvas.getByTestId('ShareBar')).toBeInTheDocument();
@@ -82,7 +82,7 @@
   }
 
   const content: PageContent = {
-    hed: 'A default graphics page',
+    hed: 'A sample graphics page',
     dek: 'A standalone headline, dek and byline open the story.',
     section: 'Graphics',
     authors: ['Dea Bankova', 'Mariano Zafra'],

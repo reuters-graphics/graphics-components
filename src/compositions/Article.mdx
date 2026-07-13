@@ -1,20 +1,20 @@
 import { Meta, Canvas, Source } from '@storybook/blocks';
 
-import * as DefaultPageStories from './DefaultPage.stories.svelte';
+import * as ArticleStories from './Article.stories.svelte';
 
-<Meta of={DefaultPageStories} />
+<Meta of={ArticleStories} />
 
-# Default page
+# Article
 
 Most Reuters graphics stories are built from the same handful of components, laced together inside the [`Article`](?path=/docs/components-page-layout-article--docs) text well. This composition strings them together in the order you'll usually reach for them — a working dress rehearsal for the real thing.
 
 In a real project the whole story is wrapped in a [`Theme`](?path=/docs/components-styles-theme--docs) and bracketed by a [`SiteHeader`](?path=/docs/components-page-furniture-siteheader--docs) and [`SiteFooter`](?path=/docs/components-page-furniture-sitefooter--docs), which the graphics-kit page template provides for you.
 
-<Canvas of={DefaultPageStories.Demo} />
+<Canvas of={ArticleStories.Demo} />
 
 ## Putting it together
 
-In the graphics kit the article body lives in `src/lib/App.svelte`. Rather than hand-placing each component, drive the body from a single structured `content` object — an ArchieML doc or `content.json` — and map over an ordered list of blocks. That keeps the markup small and the ordering data-driven, the same approach the [story source](https://github.com/reuters-graphics/graphics-components/blob/main/src/compositions/DefaultPage.stories.svelte) uses:
+In the graphics kit the article body lives in `src/lib/App.svelte`. Rather than hand-placing each component, drive the body from a single structured `content` object — an ArchieML doc or `content.json` — and map over an ordered list of blocks. That keeps the markup small and the ordering data-driven, the same approach the [story source](https://github.com/reuters-graphics/graphics-components/blob/main/src/compositions/Article.stories.svelte) uses:
 
 <Source
   language="svelte"

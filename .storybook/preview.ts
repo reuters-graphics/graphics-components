@@ -55,7 +55,7 @@ const preview: Preview = {
           'Components',
           ['*', ['Intro', '*']],
           'Compositions',
-          ['Default page', '*'],
+          ['Article', '*'],
           'Styles',
           [
             'Intro',
