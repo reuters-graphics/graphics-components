@@ -1,6 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import { expect, within } from '@storybook/test';
+  import { expect, within } from 'storybook/test';
   import Headline from '../components/Headline/Headline.svelte';
   import BodyText from '../components/BodyText/BodyText.svelte';
   import FeaturePhoto from '../components/FeaturePhoto/FeaturePhoto.svelte';
@@ -26,6 +26,10 @@
 
   const { Story } = defineMeta({
     title: 'Compositions/Article',
+    // Render every Story with the shared `template` snippet defined below, so
+    // the variants differ only by their parameters (theme), not by duplicated
+    // markup.
+    render: template,
     parameters: {
       // This is a documentation-only composition, so hide the controls table.
       controls: { disable: true },
@@ -201,15 +205,12 @@
   };
 </script>
 
-<script lang="ts">
-  import { setTemplate } from '@storybook/addon-svelte-csf';
-
-  // Share one template across every story so the variants below differ only by
-  // their parameters (theme, viewport), not by duplicated markup.
-  setTemplate(page);
-</script>
-
-{#snippet page(
+<!--
+  The shared `template` snippet is referenced by `defineMeta({ render })` above,
+  so every Story renders through it and the variants differ only by their
+  parameters (the dark variant reads its `theme` from `context`).
+-->
+{#snippet template(
   _args: Record<string, unknown>,
   context: { parameters?: { theme?: string } }
 )}
