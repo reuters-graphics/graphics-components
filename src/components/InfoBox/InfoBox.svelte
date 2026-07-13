@@ -63,7 +63,7 @@
   <Block
     {width}
     {id}
-    class="{cls} fmy-6 fpx-6 fpy-5 border border-solid rounded"
+    class="{cls} fmy-5 fpx-6 fpy-5 border border-solid rounded"
   >
     {#if header}
       <div class="header fmb-2">

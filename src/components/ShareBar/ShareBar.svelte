@@ -27,7 +27,7 @@
     licensingUrl = 'https://www.reutersagency.com/en/licensereuterscontent/?utm_medium=rcom-article-media&utm_campaign=rcom-rcp-lead',
     showLicensing = true,
     id = '',
-    class: cls = 'fmy-8',
+    class: cls = 'fmy-5',
   }: Props = $props();
 
   let copied = $state(false);
