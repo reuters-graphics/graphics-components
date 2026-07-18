@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import ArcKicker from './ArcKicker.svelte';
 
   interface Props {
     /** Small label above the headline, e.g. a section name. */
@@ -28,23 +29,7 @@
 
 <div class="arc-header">
   {#if kicker}
-    {#if kickerUrl}
-      <a class="arc-kicker" href={kickerUrl} target="_blank" rel="noopener"
-        >{kicker}
-        <svg
-          class="chevron"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 15 9"
-          aria-hidden="true"
-          ><path
-            d="M14.093.337c-.411-.45-1.028-.45-1.44 0L7.2 6.3 1.749.337c-.411-.45-1.028-.45-1.44 0a1.16 1.16 0 0 0 0 1.576l6.171 6.75c.206.225.515.337.72.337.205 0 .515-.112.72-.338l6.172-6.75a1.16 1.16 0 0 0 0-1.575h.001Z"
-          /></svg
-        ></a
-      >
-    {:else}
-      <span class="arc-kicker">{kicker}</span>
-    {/if}
+    <ArcKicker {kicker} href={kickerUrl} />
   {/if}
   <div>
     {#if headlineUrl}
@@ -67,27 +52,6 @@
     flex-direction: column;
     gap: 12px;
     margin-bottom: 1rem;
-
-    span.arc-kicker,
-    a.arc-kicker {
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 24px;
-      color: rgb(64, 64, 64);
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    a.arc-kicker .chevron {
-      width: 0.6em;
-      height: 0.6em;
-      transform: rotate(-90deg);
-      vertical-align: baseline;
-      margin-left: 2px;
-    }
 
     .arc-headline {
       margin: 0;

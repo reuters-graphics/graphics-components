@@ -84,8 +84,22 @@
   }
 
   .arc-embed-stage {
+    position: relative;
     width: 100%;
     height: 100%;
+
+    // Reserve the intended box for common SVG chart/map output before any
+    // project-level CSS hydrates. The climate-monitor prototype fixed its
+    // layout flash by giving SVGs explicit dimensions; ArcEmbed extends that
+    // public frame guarantee to staged SVGs while still allowing consumers to
+    // override sizing with their own classes/styles.
+    :global(svg:not([width])) {
+      width: 100%;
+    }
+
+    :global(svg:not([height])) {
+      height: 100%;
+    }
   }
 
   .arc-embed-footer {

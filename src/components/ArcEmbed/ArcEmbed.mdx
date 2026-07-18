@@ -1,4 +1,4 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
 import * as ArcEmbedStories from './ArcEmbed.stories.svelte';
 
@@ -8,10 +8,11 @@ import * as ArcEmbedStories from './ArcEmbed.stories.svelte';
 
 `ArcEmbed` is a small, reusable starter kit for building iframed embeds for the **Arc** content management system that runs Reuters.com. It supplies the shared chrome — a light `Theme`, the Reuters Knowledge font, [Pym.js](https://blog.apps.npr.org/pym.js/) iframe resizing and a simple stacked layout — with no styling tied to any one graphic, so you can drop your own header, stage (the main visual) and footer into named snippets and match the look of the homepage.
 
-The kit has two pieces you'll use directly:
+The kit has three pieces you can use directly:
 
 - **`ArcEmbed`** — the frame: header, a positioned `stage` for your visual, and an optional footer. It loads the Reuters Knowledge font for you.
 - **`ArcHeader`** — a homepage-style title block with an optional kicker, headline and dek.
+- **`ArcKicker`** — the focused kicker subcomponent used by `ArcHeader`, exported for cases where you need that Reuters.com label pattern outside the standard header.
 
 ```svelte
 <script>
@@ -39,9 +40,17 @@ The kit has two pieces you'll use directly:
 
 <Canvas of={ArcEmbedStories.Demo} />
 
+## Fully configured example
+
+This composition shows the major configurable elements together: a linked kicker, linked headline, dek, extra header controls, an SVG visual, stage overlays and a richer footer. The SVG intentionally relies on `ArcEmbed`'s stage sizing guard so the embed reserves the visual area before downstream CSS and scripts finish loading.
+
+<Canvas of={ArcEmbedStories.FullyTrickedOut} />
+
 ## The stage
 
 The `stage` is a positioned (`position: relative`) area sized by the `stageHeight` prop, so your graphic and any controls or overlays can absolutely position themselves within it. Anything that needs to sit _below_ the visual — captions, summaries, credits — goes in the optional `footer` snippet.
+
+For SVG charts and maps, `ArcEmbed` also gives staged SVG elements without explicit dimensions a definite `width: 100%` and `height: 100%` box. That mirrors the climate-monitor prototype's fixed SVG sizing pattern and helps avoid flash-of-unstyled-content/layout flashes in iframed homepage embeds while still letting consumers override dimensions with their own SVG attributes or CSS.
 
 ```svelte
 <ArcEmbed stageHeight={300}>
