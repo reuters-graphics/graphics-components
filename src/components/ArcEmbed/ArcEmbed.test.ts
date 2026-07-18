@@ -29,12 +29,14 @@ describe('ArcEmbed', () => {
     expect(body).toContain('viewBox="0 0 640 360"');
   });
 
-  it('sizes staged SVGs without explicit dimensions to prevent layout flashes', () => {
+  it('sizes direct child staged SVGs without explicit dimensions to prevent layout flashes', () => {
     const source = readFileSync(
       new URL('./ArcEmbed.svelte', import.meta.url),
       'utf8'
     );
 
+    // Svelte's server render output does not include component-scoped SCSS, so
+    // assert this specific selector contract in source to catch regressions.
     expect(source).toContain('> :global(svg:not([width]))');
     expect(source).toContain('width: 100%;');
     expect(source).toContain('> :global(svg:not([height]))');
@@ -42,14 +44,16 @@ describe('ArcEmbed', () => {
   });
 
   it('does not disable viewport zooming', () => {
-    const source = readFileSync(
-      new URL('./ArcEmbed.svelte', import.meta.url),
-      'utf8'
-    );
+    const { head } = render(ArcEmbed, {
+      props: {
+        header: snippet('<h1>Header</h1>'),
+        stage: snippet('<div>Stage</div>'),
+      },
+    });
 
-    expect(source).toContain('width=device-width, initial-scale=1.0');
-    expect(source).not.toContain('maximum-scale=1');
-    expect(source).not.toContain('user-scalable=no');
+    expect(head).toContain('width=device-width, initial-scale=1.0');
+    expect(head).not.toContain('maximum-scale=1');
+    expect(head).not.toContain('user-scalable=no');
   });
 
   it('renders optional footer content', () => {

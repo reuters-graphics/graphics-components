@@ -41,10 +41,10 @@
     line-height: 24px;
     color: rgb(64, 64, 64);
     text-decoration: none;
+  }
 
-    &:hover {
-      text-decoration: underline;
-    }
+  a.arc-kicker:hover {
+    text-decoration: underline;
   }
 
   a.arc-kicker .chevron {
