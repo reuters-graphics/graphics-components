@@ -50,7 +50,7 @@ This composition shows the major configurable elements together: a linked kicker
 
 The `stage` is a positioned (`position: relative`) area sized by the `stageHeight` prop, so your graphic and any controls or overlays can absolutely position themselves within it. Anything that needs to sit _below_ the visual — captions, summaries, credits — goes in the optional `footer` snippet.
 
-For SVG charts and maps, `ArcEmbed` also gives staged SVG elements without explicit dimensions a definite `width: 100%` and `height: 100%` box. That mirrors the climate-monitor prototype's fixed SVG sizing pattern and helps avoid flash-of-unstyled-content/layout flashes in iframed homepage embeds while still letting consumers override dimensions with their own SVG attributes or CSS.
+For SVG charts and maps, `ArcEmbed` also gives direct-child staged SVG elements without explicit dimensions a definite `width: 100%` and `height: 100%` box. That mirrors the climate-monitor prototype's fixed SVG sizing pattern and helps avoid flash-of-unstyled-content/layout flashes in iframed homepage embeds while still letting consumers override dimensions with their own SVG attributes or CSS, and without resizing small icon SVGs inside overlays or controls.
 
 ```svelte
 <ArcEmbed stageHeight={300}>

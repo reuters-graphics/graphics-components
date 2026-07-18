@@ -38,10 +38,7 @@
 </script>
 
 <svelte:head>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </svelte:head>
 
 <ArcFonts />
@@ -93,11 +90,11 @@
     // layout flash by giving SVGs explicit dimensions; ArcEmbed extends that
     // public frame guarantee to staged SVGs while still allowing consumers to
     // override sizing with their own classes/styles.
-    :global(svg:not([width])) {
+    > :global(svg:not([width])) {
       width: 100%;
     }
 
-    :global(svg:not([height])) {
+    > :global(svg:not([height])) {
       height: 100%;
     }
   }

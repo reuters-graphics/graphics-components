@@ -14,7 +14,7 @@
 </script>
 
 {#if href}
-  <a class="arc-kicker" {href} target="_blank" rel="noopener"
+  <a class="arc-kicker" {href} target="_blank" rel="noopener noreferrer"
     >{kicker}
     <svg
       class="chevron"

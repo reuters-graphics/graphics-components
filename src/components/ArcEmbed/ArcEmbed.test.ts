@@ -35,10 +35,21 @@ describe('ArcEmbed', () => {
       'utf8'
     );
 
-    expect(source).toContain(':global(svg:not([width]))');
+    expect(source).toContain('> :global(svg:not([width]))');
     expect(source).toContain('width: 100%;');
-    expect(source).toContain(':global(svg:not([height]))');
+    expect(source).toContain('> :global(svg:not([height]))');
     expect(source).toContain('height: 100%;');
+  });
+
+  it('does not disable viewport zooming', () => {
+    const source = readFileSync(
+      new URL('./ArcEmbed.svelte', import.meta.url),
+      'utf8'
+    );
+
+    expect(source).toContain('width=device-width, initial-scale=1.0');
+    expect(source).not.toContain('maximum-scale=1');
+    expect(source).not.toContain('user-scalable=no');
   });
 
   it('renders optional footer content', () => {
@@ -71,7 +82,7 @@ describe('ArcHeader and ArcKicker', () => {
     expect(body).toMatch(/class="[^"]*arc-kicker/);
     expect(body).toContain('href="https://www.reuters.com/sustainability/"');
     expect(body).toContain('target="_blank"');
-    expect(body).toContain('rel="noopener"');
+    expect(body).toContain('rel="noopener noreferrer"');
     expect(body).toContain('A fully configured embed');
     expect(body).toContain('A dek explains what readers can do in the embed.');
     expect(body).toContain('Search places');

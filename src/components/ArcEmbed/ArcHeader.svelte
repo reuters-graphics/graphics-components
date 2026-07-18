@@ -34,7 +34,9 @@
   <div>
     {#if headlineUrl}
       <h2 class="arc-headline">
-        <a href={headlineUrl} target="_blank" rel="noopener">{headline}</a>
+        <a href={headlineUrl} target="_blank" rel="noopener noreferrer">
+          {headline}
+        </a>
       </h2>
     {:else}
       <h2 class="arc-headline">{headline}</h2>
