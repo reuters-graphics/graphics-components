@@ -25,6 +25,8 @@ export { default as Byline } from './components/Byline/Byline.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';
 export { default as DocumentCloud } from './components/DocumentCloud/DocumentCloud.svelte';
 export { default as EmbedPreviewerLink } from './components/EmbedPreviewerLink/EmbedPreviewerLink.svelte';
+export { default as FaqBox } from './components/FaqBox/FaqBox.svelte';
+export type { FaqItem } from './components/FaqBox/types';
 export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.svelte';
 export { default as Framer } from './components/Framer/Framer.svelte';
 export { default as Geocoder } from './components/Geocoder/Geocoder.svelte';

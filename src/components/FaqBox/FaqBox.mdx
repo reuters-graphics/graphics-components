@@ -1,0 +1,62 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as FaqBoxStories from './FaqBox.stories.svelte';
+
+<Meta of={FaqBoxStories} />
+
+# FaqBox
+
+The `FaqBox` component renders a list of frequently asked questions as a stack of collapsible disclosures. Questions are collapsed by default — so the page stays short at rest and expands on demand — and each answer is a markdown string, so inline links and emphasis are supported.
+
+It's built on native `<details>`/`<summary>` elements, which are keyboard- and screen-reader-accessible without extra ARIA wiring.
+
+```svelte
+<script>
+  import { FaqBox } from '@reuters-graphics/graphics-components';
+</script>
+
+<FaqBox
+  faq={[
+    {
+      q: "Why doesn't your data always match other sources?",
+      a: 'Different organisations use different methods, models and reporting windows, so small differences are expected.',
+    },
+    {
+      q: 'How often is this updated?',
+      a: 'The figures refresh automatically throughout the day as new data is published.',
+    },
+  ]}
+/>
+```
+
+<Canvas of={FaqBoxStories.Demo} />
+
+The section heading defaults to "Frequently asked questions" and can be overridden with the `title` prop. Malformed entries (a missing question or answer) are skipped, and the whole section is omitted when no valid items remain.
+
+## Using with ArchieML docs
+
+With the graphics kit, you'll likely get your questions from an ArchieML doc...
+
+```yaml
+# Archie ML doc
+[faq]
+
+q: Why doesn't your data always match other sources?
+a: Different organisations use different methods, models and reporting windows, so small differences are expected.
+
+q: How often is this updated?
+a: The figures refresh automatically throughout the day as new data is published.
+[]
+```
+
+... which you'll pass straight to the `FaqBox` component.
+
+```svelte
+<!-- graphics kit -->
+<script>
+  import { FaqBox } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+</script>
+
+<FaqBox faq={content.faq} />
+```
