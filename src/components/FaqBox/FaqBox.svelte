@@ -52,8 +52,10 @@
           Native <details>/<summary> disclosures are keyboard- and
           screen-reader-accessible without extra ARIA wiring. Collapsed by
           default so the section stays short at rest and expands on demand.
+          No key: questions aren't guaranteed unique (CMS/ArchieML content),
+          and the list is only ever replaced wholesale, so index keying is safe.
         -->
-        {#each items as item (item.q)}
+        {#each items as item}
           <details class="faq-item">
             <summary class="faq-question">
               <span class="faq-question-text">{item.q}</span>
