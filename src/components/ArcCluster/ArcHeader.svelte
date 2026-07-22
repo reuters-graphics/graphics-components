@@ -1,6 +1,6 @@
 <!--
   @component `ArcHeader` renders the kicker, headline and dek at the top of an
-  `ArcEmbed`, styled to match the section headers on Reuters.com so an embed
+  `ArcCluster`, styled to match the section headers on Reuters.com so an embed
   reads as part of the homepage. All fields are optional except `headline`, and
   the kicker and headline can each link out.
 -->

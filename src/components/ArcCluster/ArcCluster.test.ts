@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { render } from 'svelte/server';
 import { createRawSnippet } from 'svelte';
-import ArcEmbed from './ArcEmbed.svelte';
+import ArcCluster from './ArcCluster.svelte';
 import ArcHeader from './ArcHeader.svelte';
 import ArcKicker from './ArcKicker.svelte';
 import ArcFonts from './ArcFonts.svelte';
@@ -11,9 +11,9 @@ function snippet(html: string) {
   return createRawSnippet(() => ({ render: () => html }));
 }
 
-describe('ArcEmbed', () => {
+describe('ArcCluster', () => {
   it('sets a fixed stage height and CSS variable for pre-hydration layout', () => {
-    const { body } = render(ArcEmbed, {
+    const { body } = render(ArcCluster, {
       props: {
         stageHeight: 360,
         header: snippet('<h1>Header</h1>'),
@@ -23,16 +23,16 @@ describe('ArcEmbed', () => {
       },
     });
 
-    expect(body).toMatch(/class="[^"]*arc-embed-stage-wrapper/);
+    expect(body).toMatch(/class="[^"]*arc-cluster-stage-wrapper/);
     expect(body).toContain(
-      'style="height: 360px; --arc-embed-stage-height: 360px;"'
+      'style="height: 360px; --arc-cluster-stage-height: 360px;"'
     );
     expect(body).toContain('viewBox="0 0 640 360"');
   });
 
   it('sizes direct child staged SVGs without explicit dimensions to prevent layout flashes', () => {
     const source = readFileSync(
-      new URL('./ArcEmbed.svelte', import.meta.url),
+      new URL('./ArcCluster.svelte', import.meta.url),
       'utf8'
     );
 
@@ -45,7 +45,7 @@ describe('ArcEmbed', () => {
   });
 
   it('lets the stage grow with its content when stageHeight is "auto"', () => {
-    const { body } = render(ArcEmbed, {
+    const { body } = render(ArcCluster, {
       props: {
         stageHeight: 'auto',
         header: snippet('<h1>Header</h1>'),
@@ -53,13 +53,13 @@ describe('ArcEmbed', () => {
       },
     });
 
-    expect(body).toMatch(/class="[^"]*arc-embed-stage-wrapper[^"]*is-flow/);
-    expect(body).toMatch(/class="[^"]*arc-embed-stage[^"]*is-flow/);
-    expect(body).not.toContain('--arc-embed-stage-height');
+    expect(body).toMatch(/class="[^"]*arc-cluster-stage-wrapper[^"]*is-flow/);
+    expect(body).toMatch(/class="[^"]*arc-cluster-stage[^"]*is-flow/);
+    expect(body).not.toContain('--arc-cluster-stage-height');
   });
 
   it('does not disable viewport zooming', () => {
-    const { head } = render(ArcEmbed, {
+    const { head } = render(ArcCluster, {
       props: {
         header: snippet('<h1>Header</h1>'),
         stage: snippet('<div>Stage</div>'),
@@ -72,7 +72,7 @@ describe('ArcEmbed', () => {
   });
 
   it('renders optional footer content', () => {
-    const { body } = render(ArcEmbed, {
+    const { body } = render(ArcCluster, {
       props: {
         header: snippet('<h1>Header</h1>'),
         stage: snippet('<div>Stage</div>'),
@@ -80,12 +80,23 @@ describe('ArcEmbed', () => {
       },
     });
 
-    expect(body).toMatch(/class="[^"]*arc-embed-footer/);
+    expect(body).toMatch(/class="[^"]*arc-cluster-footer/);
     expect(body).toContain('Caption and source');
   });
 
+  it('renders without a header snippet for embeds that omit their own title', () => {
+    const { body } = render(ArcCluster, {
+      props: {
+        stage: snippet('<div>Stage</div>'),
+      },
+    });
+
+    expect(body).toContain('Stage');
+    expect(body).toMatch(/class="[^"]*arc-cluster-stage/);
+  });
+
   it('loads the ArcKnowledge font automatically so consumers do not add ArcFonts themselves', () => {
-    const { head } = render(ArcEmbed, {
+    const { head } = render(ArcCluster, {
       props: {
         header: snippet('<h1>Header</h1>'),
         stage: snippet('<div>Stage</div>'),
