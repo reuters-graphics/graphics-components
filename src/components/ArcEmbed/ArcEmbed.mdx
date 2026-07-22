@@ -61,7 +61,9 @@ For SVG charts and maps, `ArcEmbed` also gives direct-child staged SVG elements 
 
 ## Two-column Datawrapper embed
 
-A common homepage pattern is two charts side by side that stack on narrow screens. Set `stageHeight="auto"` so the stage grows with the charts, drop two [`DatawrapperChart`](/docs/components-graphics-datawrapperchart--docs) components (each `width="fluid"`) into a responsive CSS grid, and let Datawrapper's own resizing keep each iframe at the right height. Leave off `title`/`description`/`notes` so each chart uses its own built-in headline and footer.
+A common homepage pattern is two charts side by side that stack on narrow screens. Set `stageHeight="auto"` so the stage grows with the charts, drop two [`DatawrapperChart`](/docs/components-graphics-datawrapperchart--docs) components (each `width="fluid"`) into a responsive CSS grid, and leave off `title`/`description`/`notes` so each chart uses its own built-in headline and footer.
+
+Two charts with different chrome — here the transits chart carries a legend the crude chart doesn't — report different heights, so their columns won't line up. While they sit side by side, pin both iframes to a uniform height tall enough for the taller chart (Datawrapper draws each chart at its natural height inside the frame and pads the rest, so too short a value clips content). Below the stacking breakpoint the charts run full width, one above the other, so let them fall back to their natural heights.
 
 <Canvas of={ArcEmbedStories.TwoColumnDatawrapper} />
 
@@ -109,22 +111,26 @@ A common homepage pattern is two charts side by side that stack on narrow screen
     gap: 24px;
   }
 
-  /* DatawrapperChart wraps each chart in a GraphicBlock that adds a fluid
-     top/bottom margin; drop it so the charts sit flush in the grid. */
+  /* DatawrapperChart wraps each chart in a GraphicBlock whose `fluid` width
+     adds full-bleed horizontal margins and extra width to break out of the
+     text well; contain it so each chart sits flush inside its grid cell. */
   .dw-columns :global(.graphic) {
-    margin-top: 0;
-    margin-bottom: 0;
+    width: 100%;
+    margin: 0;
   }
 
-  /* Each Datawrapper iframe self-sizes to its own content, so two charts with
-     different content end up at different heights. Pin them to a shared height
-     so the columns line up; the responsive charts stretch to fill it. */
-  .dw-columns :global(.datawrapper-chart iframe) {
-    height: 460px !important;
+  /* While the charts sit side by side, pin both frames to a uniform height
+     tall enough for the taller chart so nothing is clipped. */
+  @media (min-width: 901px) {
+    .dw-columns :global(.datawrapper-chart iframe) {
+      height: 475px !important;
+    }
   }
 
-  /* Stack the charts on narrow screens. */
-  @media (max-width: 600px) {
+  /* Stack on narrow screens and let the charts return to their natural
+     heights. The breakpoint is wide enough that the columns never get so
+     narrow that the taller chart's headline wraps and outgrows the frame. */
+  @media (max-width: 900px) {
     .dw-columns {
       grid-template-columns: 1fr;
     }

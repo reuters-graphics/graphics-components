@@ -127,22 +127,31 @@
     grid-template-columns: 1fr 1fr;
     gap: 24px;
 
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-    }
-
-    // DatawrapperChart wraps each chart in a GraphicBlock that adds a fluid
-    // top/bottom margin (`fmy-6`); drop it so the charts sit flush in the grid.
+    // DatawrapperChart wraps each chart in a GraphicBlock whose `fluid` width
+    // adds full-bleed horizontal margins and extra width to break out of the
+    // text well; contain it so each chart sits flush inside its grid cell.
     :global(.graphic) {
-      margin-top: 0;
-      margin-bottom: 0;
+      width: 100%;
+      margin: 0;
     }
 
-    // Each Datawrapper iframe self-sizes to its own content, so two charts with
-    // different content end up at different heights. Pin them to a shared
-    // height so the columns line up; the responsive charts stretch to fill it.
-    :global(.datawrapper-chart iframe) {
-      height: 460px !important;
+    // Two Datawrapper charts with different chrome (the transits chart carries a
+    // legend the crude chart doesn't) self-size to different heights, so their
+    // columns don't line up. While they sit side by side, pin both frames to a
+    // uniform height tall enough for the taller chart so nothing is clipped.
+    // Below the stacking breakpoint the charts run full width one above the
+    // other, so we let them return to their natural heights.
+    @media (min-width: 901px) {
+      :global(.datawrapper-chart iframe) {
+        height: 475px !important;
+      }
+    }
+
+    // Stack on narrow screens. The breakpoint is set wide enough that the
+    // columns never get so narrow that the taller chart's headline wraps (which
+    // would push its natural height past the pinned frame and clip it).
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
     }
   }
 </style>
