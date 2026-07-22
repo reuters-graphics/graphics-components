@@ -5,6 +5,7 @@ import { createRawSnippet } from 'svelte';
 import ArcEmbed from './ArcEmbed.svelte';
 import ArcHeader from './ArcHeader.svelte';
 import ArcKicker from './ArcKicker.svelte';
+import ArcFonts from './ArcFonts.svelte';
 
 function snippet(html: string) {
   return createRawSnippet(() => ({ render: () => html }));
@@ -68,6 +69,20 @@ describe('ArcEmbed', () => {
     expect(body).toMatch(/class="[^"]*arc-embed-footer/);
     expect(body).toContain('Caption and source');
   });
+
+  it('loads the ArcKnowledge font automatically so consumers do not add ArcFonts themselves', () => {
+    const { head } = render(ArcEmbed, {
+      props: {
+        header: snippet('<h1>Header</h1>'),
+        stage: snippet('<div>Stage</div>'),
+      },
+    });
+
+    expect(head).toContain("font-family: 'ArcKnowledge';");
+    expect(head).toContain(
+      'https://graphics.thomsonreuters.com/arc-assets/fonts/knowledge-arc/knowledge-regular.woff2'
+    );
+  });
 });
 
 describe('ArcHeader and ArcKicker', () => {
@@ -110,5 +125,44 @@ describe('ArcHeader and ArcKicker', () => {
     expect(body).toContain('width="15"');
     expect(body).toContain('height="9"');
     expect(body).toContain('viewBox="0 0 15 9"');
+  });
+
+  it('renders a plain headline with no anchor when headlineUrl is omitted', () => {
+    const { body } = render(ArcHeader, {
+      props: { headline: 'An unlinked headline' },
+    });
+
+    expect(body).toMatch(
+      /<h2 class="[^"]*arc-headline[^"]*">An unlinked headline<\/h2>/
+    );
+    expect(body).not.toContain('<a');
+  });
+
+  it('omits the kicker entirely when no kicker is provided', () => {
+    const { body } = render(ArcHeader, {
+      props: { headline: 'Headline only' },
+    });
+
+    expect(body).not.toContain('arc-kicker');
+  });
+});
+
+describe('ArcFonts', () => {
+  it('injects the ArcKnowledge @font-face at all three weights from the graphics CDN', () => {
+    const { head } = render(ArcFonts);
+
+    expect(head).toContain("font-family: 'ArcKnowledge';");
+    expect(head).toContain(
+      'https://graphics.thomsonreuters.com/arc-assets/fonts/knowledge-arc/knowledge-regular.woff2'
+    );
+    expect(head).toContain(
+      'https://graphics.thomsonreuters.com/arc-assets/fonts/knowledge-arc/knowledge-medium.woff2'
+    );
+    expect(head).toContain(
+      'https://graphics.thomsonreuters.com/arc-assets/fonts/knowledge-arc/knowledge-bold.woff2'
+    );
+    expect(head).toContain('font-weight: 400;');
+    expect(head).toContain('font-weight: 500;');
+    expect(head).toContain('font-weight: 700;');
   });
 });
