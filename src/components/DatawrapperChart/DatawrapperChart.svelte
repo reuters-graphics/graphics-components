@@ -33,6 +33,15 @@
     src: string;
     /** iframe scrolling option */
     scrolling: ScrollingOption;
+    /**
+     * Pin the chart iframe to a fixed pixel height instead of letting it
+     * auto-resize to the height Datawrapper reports. Useful for lining several
+     * charts up at a uniform height in a grid. Pair it with `?fitchart=true` on
+     * the chart `src` so Datawrapper stretches the plot to fill the fixed
+     * height; without that flag the chart keeps its natural height and pads or
+     * clips the difference.
+     */
+    height?: number;
     /** Width of the chart within the text well. */
     width: ContainerWidth;
     /**
@@ -56,6 +65,7 @@
     id = '',
     src,
     scrolling = 'no',
+    height,
     width = 'normal',
     textWidth = 'normal',
     titleSnippet,
@@ -66,6 +76,8 @@
 
   // eslint-disable-next-line
   const frameFiller = (e: any) => {
+    // When a fixed `height` is set, leave the frame pinned to it.
+    if (height !== undefined) return;
     if (void 0 !== e.data['datawrapper-height']) {
       const t = [frameElement];
       for (const a in e.data['datawrapper-height']) {
@@ -107,7 +119,12 @@
       {scrolling}
       frameborder="0"
       data-chromatic="ignore"
-      style="width: 0; min-width: 100% !important; border: none;"
+      {height}
+      style="width: 0; min-width: 100% !important; border: none;{(
+        height !== undefined
+      ) ?
+        ` height: ${height}px;`
+      : ''}"
     ></iframe>
   </div>
 

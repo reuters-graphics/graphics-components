@@ -1,0 +1,168 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as ArcClusterStories from './ArcCluster.stories.svelte';
+
+<Meta of={ArcClusterStories} />
+
+# ArcCluster
+
+`ArcCluster` is a small, reusable starter kit for building iframed embeds for the **Arc** content management system that runs Reuters.com. It supplies the shared chrome — a light `Theme`, the Reuters Knowledge font, [Pym.js](https://blog.apps.npr.org/pym.js/) iframe resizing and a simple stacked layout — with no styling tied to any one graphic, so you can drop your own header, stage (the main visual) and footer into named snippets and match the look of the homepage.
+
+The kit has three pieces you can use directly:
+
+- **`ArcCluster`** — the frame: header, a positioned `stage` for your visual, and an optional footer. It loads the Reuters Knowledge font for you.
+- **`ArcHeader`** — a homepage-style title block with an optional kicker, headline and dek.
+- **`ArcKicker`** — the focused kicker subcomponent used by `ArcHeader`, exported for cases where you need that Reuters.com label pattern outside the standard header.
+
+```svelte
+<script>
+  import { ArcCluster, ArcHeader } from '@reuters-graphics/graphics-components';
+</script>
+
+<ArcCluster stageHeight={420}>
+  {#snippet header()}
+    <ArcHeader
+      kicker="Wildlife"
+      kickerUrl="https://www.reuters.com/"
+      headline="The great white's comeback"
+      dek="Conservation efforts have helped a feared predator rebound along the coast."
+    />
+  {/snippet}
+  {#snippet stage()}
+    <!-- Your map, chart or photo goes here. -->
+    <img src={photo} alt="A great white shark" />
+  {/snippet}
+  {#snippet footer()}
+    <p class="caption">A great white shark off the coast. REUTERS</p>
+  {/snippet}
+</ArcCluster>
+```
+
+<Canvas of={ArcClusterStories.Demo} />
+
+## The stage
+
+The `stage` holds your main visual. It's a positioned (`position: relative`) box, so the graphic and any overlays or controls can absolutely position themselves inside it. Anything that belongs _below_ the visual — captions, summaries, credits — goes in the optional `footer` snippet.
+
+There are two ways to size it.
+
+### Fixed height
+
+Pass a pixel value to `stageHeight` for a visual that fills a known box, like a photo or a full-bleed chart. The stage reserves that height before anything loads, so the embed doesn't jump around as the page hydrates. The Demo at the top of this page uses a fixed height with a photo.
+
+A direct-child `<svg>` with no `width`/`height` of its own is stretched to fill that box automatically, so a chart or map drops straight in without extra CSS:
+
+```svelte
+<ArcCluster stageHeight={260}>
+  {#snippet header()}
+    <ArcHeader headline="A self-filling SVG" />
+  {/snippet}
+  {#snippet stage()}
+    <svg viewBox="0 0 320 180"><!-- your chart --></svg>
+  {/snippet}
+</ArcCluster>
+```
+
+<Canvas of={ArcClusterStories.FixedHeightSvg} />
+
+Small icon SVGs nested inside overlays or controls are left alone, and you can always override the sizing with your own attributes, classes or CSS.
+
+### Auto height
+
+Pass `stageHeight="auto"` for self-sizing content — a photo shown at its natural aspect ratio, a Datawrapper chart, a responsive multi-column layout — and the stage grows to fit whatever you put in it, skipping the SVG guard so nothing is clipped or forced to full height:
+
+```svelte
+<ArcCluster stageHeight="auto">
+  {#snippet header()}
+    <ArcHeader headline="A stage that grows with its content" />
+  {/snippet}
+  {#snippet stage()}
+    <img src={photo} alt="A great white shark" style="width:100%;height:auto" />
+  {/snippet}
+</ArcCluster>
+```
+
+<Canvas of={ArcClusterStories.AutoHeightStage} />
+
+Unlike the fixed-height Demo above — where the photo is cropped to fill a set box — the visual here keeps its full aspect ratio and the stage sizes itself to match. The [two-column Datawrapper embed](#two-column-datawrapper-embed) below uses the same mode for a responsive grid of charts.
+
+## Two-column Datawrapper embed
+
+A common pattern on the homepage, topic pages or section fronts is two charts side by side that stack on narrow screens. Set `stageHeight="auto"` so the stage grows with the charts, drop two [`DatawrapperChart`](/docs/components-graphics-datawrapperchart--docs) components (each `width="fluid"`) into a responsive CSS grid, and leave off `title`/`description`/`notes` so each chart uses its own built-in headline and footer.
+
+Two charts with different chrome — here the transits chart carries a legend the crude chart doesn't — report different heights, so their columns won't line up. Fix it in two parts: give both a matching `height` prop to pin their frames to the same size, and add [`?fitchart=true`](https://developer.datawrapper.de/docs/render-flags) to each chart's `src` so Datawrapper stretches the plot to fill that fixed height instead of leaving whitespace under the shorter chart. The footers and plot areas then line up.
+
+<Canvas of={ArcClusterStories.TwoColumnDatawrapper} />
+
+```svelte
+<script>
+  import {
+    ArcCluster,
+    DatawrapperChart,
+  } from '@reuters-graphics/graphics-components';
+</script>
+
+<ArcCluster stageHeight="auto">
+  {#snippet stage()}
+    <div class="dw-columns">
+      <DatawrapperChart
+        width="fluid"
+        textWidth="fluid"
+        src="https://datawrapper.dwcdn.net/8lZUu/?fitchart=true"
+        frameTitle="Crude oil at sea"
+        ariaLabel="Chart: crude oil at sea"
+        id="dw-8lZUu"
+        scrolling="no"
+        height={470}
+      />
+      <DatawrapperChart
+        width="fluid"
+        textWidth="fluid"
+        src="https://datawrapper.dwcdn.net/GEfzN/?fitchart=true"
+        frameTitle="Oil-tanker transits through the Strait of Hormuz"
+        ariaLabel="Chart: oil-tanker transits through the Strait of Hormuz"
+        id="dw-GEfzN"
+        scrolling="no"
+        height={470}
+      />
+    </div>
+  {/snippet}
+</ArcCluster>
+
+<style>
+  .dw-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* DatawrapperChart wraps each chart in a GraphicBlock whose `fluid` width
+     adds full-bleed horizontal margins and extra width to break out of the
+     text well; contain it so each chart sits flush inside its grid cell. */
+  .dw-columns :global(.graphic) {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Stack on narrow screens. */
+  @media (max-width: 600px) {
+    .dw-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+```
+
+## Fonts
+
+Reuters.com uses a different cut of the Knowledge font than the one that ships with our standard graphics kit. `ArcCluster` loads that version for you, so in most cases you don't need to think about fonts at all. It registers the font under its own name, `ArcKnowledge`, so it sits alongside the kit's standard Knowledge font rather than replacing it. The files are served from the Reuters graphics CDN because the copies on Reuters.com can't be loaded by other websites — they're missing the cross-origin header a browser needs before it will use a font from another domain.
+
+If you need the font somewhere outside an `ArcCluster` — say, on a standalone page that shares the same layout — you can load it on its own with `ArcFonts`:
+
+```svelte
+<script>
+  import { ArcFonts } from '@reuters-graphics/graphics-components';
+</script>
+
+<ArcFonts />
+```
