@@ -44,6 +44,20 @@ describe('ArcEmbed', () => {
     expect(source).toContain('height: 100%;');
   });
 
+  it('lets the stage grow with its content when stageHeight is "auto"', () => {
+    const { body } = render(ArcEmbed, {
+      props: {
+        stageHeight: 'auto',
+        header: snippet('<h1>Header</h1>'),
+        stage: snippet('<div>Flowing content</div>'),
+      },
+    });
+
+    expect(body).toMatch(/class="[^"]*arc-embed-stage-wrapper[^"]*is-flow/);
+    expect(body).toMatch(/class="[^"]*arc-embed-stage[^"]*is-flow/);
+    expect(body).not.toContain('--arc-embed-stage-height');
+  });
+
   it('does not disable viewport zooming', () => {
     const { head } = render(ArcEmbed, {
       props: {

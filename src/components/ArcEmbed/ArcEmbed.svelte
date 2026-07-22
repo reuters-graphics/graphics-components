@@ -22,8 +22,13 @@
     stage: Snippet;
     /** Optional content rendered below the stage. */
     footer?: Snippet;
-    /** Height of the stage, in pixels. */
-    stageHeight?: number;
+    /**
+     * Height of the stage, in pixels, for self-contained visuals (SVGs, maps)
+     * that fill a known box. Pass `'auto'` to let the stage grow with its
+     * content instead — use this for self-sizing embeds like Datawrapper
+     * charts or a responsive multi-column layout.
+     */
+    stageHeight?: number | 'auto';
     /** Extra class on the root element. */
     class?: string;
   }
@@ -35,6 +40,8 @@
     stageHeight = 420,
     class: cls = '',
   }: Props = $props();
+
+  const isFlow = $derived(stageHeight === 'auto');
 </script>
 
 <svelte:head>
@@ -49,9 +56,12 @@
 
     <div
       class="arc-embed-stage-wrapper"
-      style="height: {stageHeight}px; --arc-embed-stage-height: {stageHeight}px;"
+      class:is-flow={isFlow}
+      style={isFlow ? '' : (
+        `height: ${stageHeight}px; --arc-embed-stage-height: ${stageHeight}px;`
+      )}
     >
-      <div class="arc-embed-stage">
+      <div class="arc-embed-stage" class:is-flow={isFlow}>
         {@render stage()}
       </div>
     </div>
@@ -89,13 +99,22 @@
     // project-level CSS hydrates. The climate-monitor prototype fixed its
     // layout flash by giving SVGs explicit dimensions; ArcEmbed extends that
     // public frame guarantee to staged SVGs while still allowing consumers to
-    // override sizing with their own classes/styles.
-    > :global(svg:not([width])) {
-      width: 100%;
+    // override sizing with their own classes/styles. Only applied to the
+    // fixed-height stage; a flow stage sizes itself to its content.
+    &:not(.is-flow) {
+      > :global(svg:not([width])) {
+        width: 100%;
+      }
+
+      > :global(svg:not([height])) {
+        height: 100%;
+      }
     }
 
-    > :global(svg:not([height])) {
-      height: 100%;
+    // A flow stage grows with its content, for self-sizing embeds like
+    // Datawrapper charts or a responsive multi-column layout.
+    &.is-flow {
+      height: auto;
     }
   }
 

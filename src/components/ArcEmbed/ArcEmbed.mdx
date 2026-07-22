@@ -44,6 +44,8 @@ The kit has three pieces you can use directly:
 
 The `stage` is a positioned (`position: relative`) area sized by the `stageHeight` prop, so your graphic and any controls or overlays can absolutely position themselves within it. Anything that needs to sit _below_ the visual — captions, summaries, credits — goes in the optional `footer` snippet.
 
+For self-sizing embeds — a Datawrapper chart, a responsive multi-column layout — pass `stageHeight="auto"` instead of a pixel value. The stage then grows to fit its content and skips the fixed-box SVG guard, so nothing is clipped or forced to `100%` height.
+
 For SVG charts and maps, `ArcEmbed` also gives direct-child staged SVG elements without explicit dimensions a definite `width: 100%` and `height: 100%` box. That mirrors the climate-monitor prototype's fixed SVG sizing pattern and helps avoid flash-of-unstyled-content/layout flashes in iframed homepage embeds while still letting consumers override dimensions with their own SVG attributes or CSS, and without resizing small icon SVGs inside overlays or controls.
 
 ```svelte
@@ -55,6 +57,79 @@ For SVG charts and maps, `ArcEmbed` also gives direct-child staged SVG elements 
     <img src={photo} alt="A great white shark" />
   {/snippet}
 </ArcEmbed>
+```
+
+## Two-column Datawrapper embed
+
+A common homepage pattern is two charts side by side that stack on narrow screens. Set `stageHeight="auto"` so the stage grows with the charts, drop two [`DatawrapperChart`](/docs/components-graphics-datawrapperchart--docs) components (each `width="fluid"`) into a responsive CSS grid, and let Datawrapper's own resizing keep each iframe at the right height. Leave off `title`/`description`/`notes` so each chart uses its own built-in headline and footer.
+
+<Canvas of={ArcEmbedStories.TwoColumnDatawrapper} />
+
+```svelte
+<script>
+  import {
+    ArcEmbed,
+    ArcKicker,
+    DatawrapperChart,
+  } from '@reuters-graphics/graphics-components';
+</script>
+
+<ArcEmbed stageHeight="auto">
+  {#snippet header()}
+    <ArcKicker kicker="Data" href="https://www.reuters.com/data/" />
+  {/snippet}
+  {#snippet stage()}
+    <div class="dw-columns">
+      <DatawrapperChart
+        width="fluid"
+        textWidth="fluid"
+        src="https://datawrapper.dwcdn.net/8lZUu/"
+        frameTitle="Crude oil at sea"
+        ariaLabel="Chart: crude oil at sea"
+        id="dw-8lZUu"
+        scrolling="no"
+      />
+      <DatawrapperChart
+        width="fluid"
+        textWidth="fluid"
+        src="https://datawrapper.dwcdn.net/GEfzN/"
+        frameTitle="Oil-tanker transits through the Strait of Hormuz"
+        ariaLabel="Chart: oil-tanker transits through the Strait of Hormuz"
+        id="dw-GEfzN"
+        scrolling="no"
+      />
+    </div>
+  {/snippet}
+</ArcEmbed>
+
+<style>
+  .dw-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* DatawrapperChart wraps each chart in a GraphicBlock that adds a fluid
+     top/bottom margin; drop it so the charts sit flush in the grid. */
+  .dw-columns :global(.graphic) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* Each Datawrapper iframe self-sizes to its own content, so two charts with
+     different content end up at different heights. Pin them to a shared height
+     so the columns line up; the responsive charts stretch to fill it. */
+  .dw-columns :global(.datawrapper-chart iframe) {
+    height: 460px !important;
+  }
+
+  /* Stack the charts on narrow screens. */
+  @media (max-width: 600px) {
+    .dw-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 ```
 
 ## Fonts
