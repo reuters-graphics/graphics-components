@@ -47,6 +47,7 @@ export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.sve
 export { default as LanguageButton } from './components/LanguageButton/LanguageButton.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as Legend } from './components/Legend/Legend.svelte';
+export { default as MapMarkerCallout } from './components/MapMarkerCallout/MapMarkerCallout.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
@@ -146,6 +147,8 @@ export type {
   GeocodeFeature,
   GeocodeFeatureType,
 } from './components/Geocoder/geocode';
+
+export type { MapMarkerCalloutPlacement } from './components/MapMarkerCallout/MapMarkerCallout.svelte';
 
 export type {
   LegendMode,

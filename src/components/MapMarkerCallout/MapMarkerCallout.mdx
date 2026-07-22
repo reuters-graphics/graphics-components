@@ -1,0 +1,42 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as MapMarkerCalloutStories from './MapMarkerCallout.stories.svelte';
+
+<Meta of={MapMarkerCalloutStories} />
+
+# MapMarkerCallout
+
+A small, presentational callout for annotated map points. It renders a framed
+surface, a leader line and an anchor dot, but it does **not** know about map
+libraries, coordinates, overlay lifecycles, click handling or project-specific
+data.
+
+Use it inside whatever overlay system positions an element at a projected map
+point.
+
+## Default
+
+<Canvas of={MapMarkerCalloutStories.Default} />
+
+## Flipped
+
+Use `flip` when the callout should extend left from the anchor point.
+
+<Canvas of={MapMarkerCalloutStories.Flipped} />
+
+## Above and below
+
+Use `placement="above"` or `placement="below"` to control whether the surface
+sits above or below its anchor.
+
+<Canvas of={MapMarkerCalloutStories.AboveAndBelow} />
+
+## Rich content
+
+The children snippet can contain labels or richer compact content. Keep it short
+so it remains legible in small map viewports.
+
+<Canvas of={MapMarkerCalloutStories.RichContent} />
+
+## Props
+
+<Controls of={MapMarkerCalloutStories.Default} />
