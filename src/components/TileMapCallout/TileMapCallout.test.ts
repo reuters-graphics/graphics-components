@@ -8,6 +8,7 @@ import TileMapCallout, {
   normalizeTileMapCalloutDimension,
   normalizeTileMapCalloutFlip,
   normalizeTileMapCalloutPlacement,
+  resolveTileMapCalloutGeometry,
 } from './TileMapCallout.svelte';
 
 describe('TileMapCallout helpers', () => {
@@ -64,6 +65,39 @@ describe('TileMapCallout helpers', () => {
     );
     expect(normalizeTileMapCalloutDimension('32', 14)).toBe(14);
     expect(normalizeTileMapCalloutDimension(undefined, 3)).toBe(3);
+  });
+
+  it('resolves the default leader geometry', () => {
+    const geometry = resolveTileMapCalloutGeometry(14, 14, 3);
+    expect(geometry).toEqual({
+      leaderWidth: 14,
+      svgHeight: 20,
+      dotCx: 3,
+      dotCxFlipped: 11,
+      dotCyAbove: 17,
+      dotCyBelow: 3,
+    });
+  });
+
+  it('keeps the SVG canvas valid when dimensions collapse to zero', () => {
+    // A zero leaderWidth must not produce a 0-width SVG/viewBox: clamp to at
+    // least the dot diameter so the dot still renders, and the surface offset
+    // (which reuses leaderWidth) stays aligned with the line.
+    const withDot = resolveTileMapCalloutGeometry(0, 0, 3);
+    expect(withDot.leaderWidth).toBe(6);
+    expect(withDot.svgHeight).toBe(6);
+
+    // Everything zero still yields a positive 1px canvas rather than 0.
+    const degenerate = resolveTileMapCalloutGeometry(0, 0, 0);
+    expect(degenerate.leaderWidth).toBe(1);
+    expect(degenerate.svgHeight).toBe(1);
+  });
+
+  it('does not shrink an explicitly large leader below its requested size', () => {
+    const geometry = resolveTileMapCalloutGeometry(40, 32, 5);
+    expect(geometry.leaderWidth).toBe(40);
+    expect(geometry.svgHeight).toBe(42);
+    expect(geometry.dotCxFlipped).toBe(35);
   });
 });
 

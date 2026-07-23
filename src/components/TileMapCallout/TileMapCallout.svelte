@@ -72,6 +72,46 @@ placement and lifecycle through the map context.
     value: unknown,
     fallback: number
   ): number => (isFiniteNumber(value) && value >= 0 ? value : fallback);
+
+  export interface TileMapCalloutGeometry {
+    /** SVG canvas width and the surface's inline offset from the dot (px). */
+    leaderWidth: number;
+    /** SVG canvas height (px). */
+    svgHeight: number;
+    /** Dot centre x for the default (non-flipped) side. */
+    dotCx: number;
+    /** Dot centre x when flipped to the right of the surface. */
+    dotCxFlipped: number;
+    /** Dot centre y for `placement="above"`. */
+    dotCyAbove: number;
+    /** Dot centre y for `placement="below"`. */
+    dotCyBelow: number;
+  }
+
+  /**
+   * Resolve the leader-line SVG geometry from normalized dimensions. The canvas
+   * span is clamped to a positive size (at least the dot diameter, and at least
+   * `1`) so a zero-ish `leaderWidth`/`leaderHeight` can't collapse the SVG
+   * `width`/`viewBox` to an invalid `0`. The clamped `leaderWidth` is the single
+   * value used for the SVG width, the line endpoint AND the surface offset, so
+   * the line and label stay aligned — including when flipped.
+   */
+  export const resolveTileMapCalloutGeometry = (
+    leaderWidth: number,
+    leaderHeight: number,
+    dotRadius: number
+  ): TileMapCalloutGeometry => {
+    const clampedLeaderWidth = Math.max(leaderWidth, dotRadius * 2, 1);
+    const svgHeight = Math.max(leaderHeight + dotRadius * 2, 1);
+    return {
+      leaderWidth: clampedLeaderWidth,
+      svgHeight,
+      dotCx: dotRadius,
+      dotCxFlipped: clampedLeaderWidth - dotRadius,
+      dotCyAbove: svgHeight - dotRadius,
+      dotCyBelow: dotRadius,
+    };
+  };
 </script>
 
 <script lang="ts">
@@ -147,16 +187,19 @@ placement and lifecycle through the map context.
       DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS
     )
   );
-  let svgHeight = $derived(safeLeaderHeight + safeDotRadius * 2);
-  let dotCx = $derived(safeDotRadius);
-  let dotCxFlipped = $derived(safeLeaderWidth - safeDotRadius);
-  let dotCyAbove = $derived(svgHeight - safeDotRadius);
-  let dotCyBelow = $derived(safeDotRadius);
+  let geometry = $derived(
+    resolveTileMapCalloutGeometry(
+      safeLeaderWidth,
+      safeLeaderHeight,
+      safeDotRadius
+    )
+  );
   // Feed the same values to the CSS via custom properties on the callout root:
   // `--tile-map-callout-leader-width` sets the surface's inline offset and
-  // `--tile-map-callout-dot-radius` anchors the transform onto the dot.
+  // `--tile-map-callout-dot-radius` anchors the transform onto the dot. The
+  // offset uses the clamped `geometry.leaderWidth` so it matches the SVG.
   let calloutStyle = $derived(
-    `--tile-map-callout-leader-width: ${safeLeaderWidth}px; ` +
+    `--tile-map-callout-leader-width: ${geometry.leaderWidth}px; ` +
       `--tile-map-callout-dot-radius: ${safeDotRadius}px;`
   );
 
@@ -222,40 +265,40 @@ placement and lifecycle through the map context.
     </div>
     <div class="leader-line" aria-hidden="true">
       <svg
-        width={safeLeaderWidth}
-        height={svgHeight}
-        viewBox="0 0 {safeLeaderWidth} {svgHeight}"
+        width={geometry.leaderWidth}
+        height={geometry.svgHeight}
+        viewBox="0 0 {geometry.leaderWidth} {geometry.svgHeight}"
         focusable="false"
       >
         {#if isBelow}
           <line
-            x1={safeFlip ? dotCxFlipped : dotCx}
-            y1={dotCyBelow}
-            x2={safeFlip ? 0 : safeLeaderWidth}
-            y2={svgHeight}
+            x1={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            y1={geometry.dotCyBelow}
+            x2={safeFlip ? 0 : geometry.leaderWidth}
+            y2={geometry.svgHeight}
             stroke="currentColor"
             stroke-width="1"
             vector-effect="non-scaling-stroke"
           />
           <circle
-            cx={safeFlip ? dotCxFlipped : dotCx}
-            cy={dotCyBelow}
+            cx={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            cy={geometry.dotCyBelow}
             r={safeDotRadius}
             fill="currentColor"
           />
         {:else}
           <line
-            x1={safeFlip ? dotCxFlipped : dotCx}
-            y1={dotCyAbove}
-            x2={safeFlip ? 0 : safeLeaderWidth}
+            x1={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            y1={geometry.dotCyAbove}
+            x2={safeFlip ? 0 : geometry.leaderWidth}
             y2={0}
             stroke="currentColor"
             stroke-width="1"
             vector-effect="non-scaling-stroke"
           />
           <circle
-            cx={safeFlip ? dotCxFlipped : dotCx}
-            cy={dotCyAbove}
+            cx={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            cy={geometry.dotCyAbove}
             r={safeDotRadius}
             fill="currentColor"
           />
