@@ -272,6 +272,7 @@ placement and lifecycle through the map context.
     order: 0;
     margin-block-end: -1px;
     margin-inline-start: var(--tile-map-callout-leader-width);
+    width: max-content;
     max-width: var(--tile-map-callout-surface-max-width);
     box-sizing: border-box;
     background: var(--tile-map-callout-surface-background);
