@@ -1,4 +1,8 @@
-<!-- @component `PymChild` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-pymchild--docs) -->
+<!--
+  @component A renderless helper that starts a Pym.js child on mount so an embed can resize its parent iframe; stores the instance in shared state.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-pymchild--docs)
+-->
 <script lang="ts">
   import pym from 'pym.js';
   import { pym as pymState } from './state.svelte.js';

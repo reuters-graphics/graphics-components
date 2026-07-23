@@ -1,3 +1,8 @@
+<!--
+  @component A dev harness that previews graphic pages in a resizable Pym.js iframe, with a picker to switch between embeds.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-framer--docs)
+-->
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faDesktop, faLink } from '@fortawesome/free-solid-svg-icons';

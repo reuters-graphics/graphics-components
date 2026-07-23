@@ -1,4 +1,8 @@
-<!-- @component `BodyText` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-bodytext--docs) -->
+<!--
+  @component A body-copy block that renders a markdown string into styled article prose.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-bodytext--docs)
+-->
 <script lang="ts">
   import { Markdown } from '@reuters-graphics/svelte-markdown';
   import Block from '../Block/Block.svelte';

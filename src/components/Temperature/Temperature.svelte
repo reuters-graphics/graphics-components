@@ -1,25 +1,4 @@
-<!--
-  @component Flash-free temperature display.
-
-  Renders a Celsius value in whichever unit the reader prefers. Both the °C and
-  °F strings are rendered and CSS shows exactly one based on the `data-temp-unit`
-  attribute the pre-paint bootstrap sets on `<html>` — so even server-rendered
-  markup never flashes the wrong unit and toggling swaps every instance instantly
-  with no per-node JS. Defaults to Celsius when the attribute is absent (e.g. no
-  JS).
-
-  Flash-free rendering needs a static CSS selector, so this component always keys off
-  the default `data-temp-unit` attribute. If you change `UnitConfig.attribute` for
-  the bootstrap/state/toggle, this component will not respond unless you also
-  provide matching CSS selectors (or keep the attribute name as `data-temp-unit`).
-
-  ```svelte
-  <Temperature celsius={22.4} digits={1} />
-  <Temperature celsius={3} delta />
-  ```
-
-  Renders e.g. `72°F` / `22.4°C`, or `+5°F` / `+3°C` for a delta.
--->
+<!-- @component A flash-free temperature reading that shows a Celsius value in the reader's preferred unit via CSS. Pairs with TemperatureToggle. -->
 <script lang="ts">
   import { formatDelta, formatTemperature } from './units';
 

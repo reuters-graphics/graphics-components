@@ -1,4 +1,8 @@
-<!-- @component `Map` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-map--docs) -->
+<!--
+  @component A MapLibre/PMTiles vector map (in a GraphicBlock) with configurable centre, zoom, projection and style; provides context for child layers and callouts.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemap--docs)
+-->
 <script lang="ts" module>
   import { Protocol } from 'pmtiles';
   import maplibregl from 'maplibre-gl';

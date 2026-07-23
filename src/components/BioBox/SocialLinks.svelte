@@ -1,4 +1,4 @@
-<!-- @component `SocialLinks` renders a row of accessible icon links (email, X, LinkedIn, etc.) for a single author. Used by `Bio`. -->
+<!-- @component A row of accessible social and email icon links for one author. Used inside Bio. -->
 <script lang="ts">
   import type { SocialLink, SocialPlatform } from './types';
 

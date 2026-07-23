@@ -1,3 +1,4 @@
+<!-- @component Loads the Reuters and Freestar ad scripts, ad-network preconnects and OneTrust consent that ad slots need to fill — renders nothing visible itself. -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { loadBootstrap } from './adScripts/bootstrap';

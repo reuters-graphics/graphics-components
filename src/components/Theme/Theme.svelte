@@ -1,4 +1,8 @@
-<!-- @component `Theme` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-theming-theme--docs) -->
+<!--
+  @component A wrapper that applies a theme to its children as CSS custom properties, merging a custom theme over a light or dark base.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-theming-theme--docs)
+-->
 <script module lang="ts">
   import light from './themes/light.js';
   import dark from './themes/dark.js';

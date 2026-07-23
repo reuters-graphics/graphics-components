@@ -1,13 +1,7 @@
 <!--
-  @component `ArcCluster` is the generic frame for an iframed embed served into the
-  Arc content management system that runs Reuters.com. It provides the shared
-  chrome — a light theme, the Reuters Knowledge font (loaded automatically, so
-  you don't have to add `ArcFonts` yourself), Pym.js iframe resizing and a
-  stacked layout — without any project-specific styling, so any graphic can
-  drop its own header, stage (the main visual) and footer into the named
-  snippets and match the look of the homepage. The stage is a positioned area,
-  so adapters can absolutely position their own controls and overlays within it,
-  and the footer holds anything below the stage (captions, summaries, credits).
+  @component A frame for iframed embeds in Reuters.com's Arc CMS, providing the light theme, Arc font, Pym.js resizing and a header/stage/footer layout.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-embeds-arccluster--docs)
 -->
 <script lang="ts">
   import type { Snippet } from 'svelte';

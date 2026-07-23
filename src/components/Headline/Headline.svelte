@@ -1,4 +1,8 @@
-<!-- @component `Headline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-headline--docs) -->
+<!--
+  @component A centred story headline with kicker and dek, and an embedded Byline for authors and timestamps.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-headline--docs)
+-->
 <script lang="ts">
   // Types
   import type { HeadlineSize } from './../@types/global';

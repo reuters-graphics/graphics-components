@@ -1,4 +1,8 @@
-<!-- @component `SimpleTimeline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs) -->
+<!--
+  @component A vertical dated timeline rendering an array of dates, each with events that can carry a title, link and context.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-simpletimeline--docs)
+-->
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faLink } from '@fortawesome/free-solid-svg-icons';

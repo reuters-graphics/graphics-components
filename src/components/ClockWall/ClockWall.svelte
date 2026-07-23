@@ -1,3 +1,8 @@
+<!--
+  @component A row of live analog clocks showing the current time across a list of cities or time zones.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-blog-clockwall--docs)
+-->
 <script lang="ts">
   import type { ComponentProps } from 'svelte';
   import type { ContainerWidth } from '../@types/global';

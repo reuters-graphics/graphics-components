@@ -1,4 +1,8 @@
-<!-- @component `PaddingReset` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-paddingreset--docs) -->
+<!--
+  @component Re-applies the article's horizontal padding to content inside a fluid, full-width Block so captions stay aligned to the text gutter.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-paddingreset--docs)
+-->
 <script lang="ts">
   import type { Snippet } from 'svelte';
 

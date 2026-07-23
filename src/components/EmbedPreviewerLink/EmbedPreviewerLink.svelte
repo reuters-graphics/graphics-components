@@ -1,3 +1,8 @@
+<!--
+  @component A dev-only floating link to the embed previewer page; renders nothing unless `dev` is true.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-embedpreviewerlink--docs)
+-->
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faWindowRestore } from '@fortawesome/free-regular-svg-icons';

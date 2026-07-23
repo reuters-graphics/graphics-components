@@ -1,4 +1,8 @@
-<!-- @component `FeaturePhoto` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-featurephoto--docs) -->
+<!--
+  @component A full-width feature image with an optional caption and lazy-loading; flags a warning when alt text is missing.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-featurephoto--docs)
+-->
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { ContainerWidth } from '../@types/global';

@@ -1,4 +1,8 @@
-<!-- @component `Block` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-block--docs) -->
+<!--
+  @component A centred layout container that constrains its children to a chosen article column width, from narrower to fluid.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-block--docs)
+-->
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import type { ContainerWidth } from '../@types/global';

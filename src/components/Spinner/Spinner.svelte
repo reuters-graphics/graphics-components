@@ -1,4 +1,8 @@
-<!-- @component `Spinner` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-spinner--docs) -->
+<!--
+  @component A CSS loading spinner (rotating ring) with configurable colour, size, thickness and speed.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-spinner--docs)
+-->
 <script lang="ts">
   interface Props {
     /** Primary colour of the spinner. */

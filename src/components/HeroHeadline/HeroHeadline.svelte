@@ -1,4 +1,8 @@
-<!-- @component `HeroHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-heroheadline--docs) -->
+<!--
+  @component A full-viewport page opener composing Headline, Byline and hero media (background image, FeaturePhoto or custom graphic).
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-heroheadline--docs)
+-->
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import type { HeadlineSize } from '../@types/global';

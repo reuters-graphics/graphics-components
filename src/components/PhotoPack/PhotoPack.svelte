@@ -1,4 +1,8 @@
-<!-- @component `PhotoPack` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-photopack--docs) -->
+<!--
+  @component A responsive photo grid that arranges images into rows via breakpoint layouts, with per-image markdown captions.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-photopack--docs)
+-->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import PaddingReset from '../PaddingReset/PaddingReset.svelte';

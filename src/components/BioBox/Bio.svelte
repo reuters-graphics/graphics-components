@@ -1,4 +1,4 @@
-<!-- @component `Bio` renders a single author's avatar, name, title, social links and biography. Used by `BioBox`, but works on its own. -->
+<!-- @component One author's card — avatar (falling back to the Kinesis logo), name, title, social links and bio. Used by BioBox, but works standalone. -->
 <script lang="ts">
   import KinesisLogo from '../KinesisLogo/KinesisLogo.svelte';
   import SocialLinks from './SocialLinks.svelte';

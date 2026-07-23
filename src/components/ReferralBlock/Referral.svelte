@@ -1,4 +1,4 @@
-<!-- @component `Referral` renders a single referral card (a linked headline, kicker, time and thumbnail). It's used by `ReferralBlock` but can be dropped into any layout on its own. -->
+<!-- @component One related-story referral card — linked headline, kicker, time and thumbnail. Used by ReferralBlock, but works standalone. -->
 <script lang="ts">
   // Utils
   import { getTime } from '../SiteHeader/NavBar/NavDropdown/StoryCard/time';

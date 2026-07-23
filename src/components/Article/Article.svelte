@@ -1,4 +1,8 @@
-<!-- @component `Article` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-article--docs) -->
+<!--
+  @component The top-level wrapper for a graphics story, rendering `<main>`/`<article>` with configurable column widths and an embedded mode for embeds.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-layout-article--docs)
+-->
 <script lang="ts">
   interface ColumnWidths {
     /** Narrower column width */

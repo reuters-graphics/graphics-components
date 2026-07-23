@@ -1,4 +1,8 @@
-<!-- @component `ShareBar` shows a row of share buttons (X, Facebook, LinkedIn, Email, Copy link) and an optional "Purchase Licensing Rights" button, echoing the share toolbar on Reuters.com stories. [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-sharebar--docs) -->
+<!--
+  @component A row of social share buttons (X, Facebook, LinkedIn, email, copy link) plus an optional licensing button, mirroring Reuters.com's share toolbar.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-sharebar--docs)
+-->
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import Block from '../Block/Block.svelte';

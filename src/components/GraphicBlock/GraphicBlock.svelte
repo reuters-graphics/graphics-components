@@ -1,4 +1,8 @@
-<!-- @component `GraphicBlock` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-graphicblock--docs) -->
+<!--
+  @component A wrapper that frames a chart or graphic with an optional title, description, notes and ARIA description.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-graphicblock--docs)
+-->
 <script lang="ts">
   // Types
   import type { ContainerWidth } from '../@types/global';

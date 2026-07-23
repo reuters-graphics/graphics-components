@@ -1,4 +1,8 @@
-<!-- @component `SearchInput` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-controls-searchinput--docs) -->
+<!--
+  @component A search text box with a magnifying-glass icon and clear button, firing an `onsearch` callback as the query changes.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-controls-searchinput--docs)
+-->
 <script lang="ts">
   import MagnifyingGlass from './components/MagnifyingGlass.svelte';
   import X from './components/X.svelte';

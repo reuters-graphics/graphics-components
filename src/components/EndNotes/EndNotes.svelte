@@ -1,4 +1,8 @@
-<!-- @component `EndNotes` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-endnotes--docs) -->
+<!--
+  @component End-of-story notes such as Sources or Edited by, rendered from an array of title and markdown pairs.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-endnotes--docs)
+-->
 <script lang="ts">
   interface EndNote {
     /**

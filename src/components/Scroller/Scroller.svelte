@@ -1,4 +1,8 @@
-<!-- @component `Scroller` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-scroller--docs) -->
+<!--
+  @component A scrollytelling component that drives background graphics from an array of steps with foreground text; built on ScrollerBase.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-scroller--docs)
+-->
 <script lang="ts">
   import ScrollerBase from '../ScrollerBase/ScrollerBase.svelte';
   import Background from './Background.svelte';

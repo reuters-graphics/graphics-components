@@ -1,4 +1,8 @@
-<!-- @component `BeforeAfter` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-beforeafter--docs) -->
+<!--
+  @component An image-comparison slider with a draggable, keyboard-accessible handle for revealing a before/after image pair.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-beforeafter--docs)
+-->
 <script lang="ts">
   import { type Snippet } from 'svelte';
   import { throttle } from 'es-toolkit';
