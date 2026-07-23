@@ -1,6 +1,7 @@
-<!-- @component A compact sponsor-logo ad slot with an optional label above — the smallest of the ad units. -->
-<!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
-<!-- @component `SponsorshipAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-sponsorshipad--docs) -->
+<!-- @component A compact sponsor-logo ad slot with an optional label above — the smallest of the ad units. 
+ 
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-sponsorshipad--docs)
+-->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import type { SponsorshipAdType } from './@types/ads';
