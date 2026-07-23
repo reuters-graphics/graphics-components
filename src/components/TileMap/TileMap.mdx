@@ -243,6 +243,44 @@ You can combine multiple layers to create rich visualizations:
 </TileMap>
 ```
 
+## Adding coordinate callouts
+
+Use `TileMapCallout` when you want a framed annotation attached to a map coordinate without writing MapLibre marker glue yourself. Render it as a child of `TileMap` and pass a longitude/latitude pair.
+
+<Canvas of={TileMapStories.WithCallouts} />
+
+```svelte
+<script lang="ts">
+  import {
+    TileMap,
+    TileMapCallout,
+  } from '@reuters-graphics/graphics-components';
+</script>
+
+<TileMap center={[-73.9868, 40.7567]} zoom={13}>
+  <TileMapCallout lngLat={[-73.9868, 40.7567]}>Times Square</TileMapCallout>
+
+  <TileMapCallout
+    lngLat={{ longitude: -73.9776, latitude: 40.7527 }}
+    placement="below"
+    flip
+  >
+    Bryant Park
+  </TileMapCallout>
+</TileMap>
+```
+
+`placement="above" | "below"` moves the callout surface above or below the coordinate, while `flip` moves the surface to the left of the coordinate. Use these together to keep labels clear of important map features and viewport edges.
+
+### TileMapCallout Props
+
+- **lngLat**: `[longitude, latitude] | { lng, lat } | { lon, lat } | { longitude, latitude }` (required) - Coordinate to attach the callout to
+- **placement**: `'above' | 'below'` - Place the callout surface above or below the coordinate (default: `'above'`)
+- **flip**: `boolean` - Flip the callout surface to the left of the coordinate (default: `false`)
+- **class**: `string` - Add custom classes to the callout surface
+- **id**: `string` - Add an id to the MapLibre marker wrapper
+- **children**: `Snippet` - Short label or compact rich content
+
 ## Advanced usage
 
 For more control over the map, you can use the `onMapReady` callback to access the MapLibre GL instance:

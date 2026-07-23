@@ -1,0 +1,30 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as TileMapCalloutStories from './TileMapCallout.stories.svelte';
+
+<Meta of={TileMapCalloutStories} />
+
+# TileMapCallout
+
+A labelled callout for [`TileMap`](/docs/components-graphics-tilemap--docs). Drop it in as a child of a `TileMap`, give it a coordinate, and it manages the MapLibre marker lifecycle for you — placing a leader line and label that stay pinned to the point as the map pans and zooms.
+
+```svelte
+<script>
+  import {
+    TileMap,
+    TileMapCallout,
+  } from '@reuters-graphics/graphics-components';
+</script>
+
+<TileMap id="my-map" center={[-73.9868, 40.7567]} zoom={13} height="500px">
+  <TileMapCallout lngLat={[-73.9868, 40.7567]}>Times Square</TileMapCallout>
+</TileMap>
+```
+
+<Canvas of={TileMapCalloutStories.DropInTileMapCallout} />
+
+## Placement and flip
+
+Use `placement` (`above` or `below`) and `flip` to position the label around its anchor so it stays clear of nearby map features or the viewport edges. Pass any content as children — a short string or richer markup.
+
+<Canvas of={TileMapCalloutStories.PlacementAndFlip} />
