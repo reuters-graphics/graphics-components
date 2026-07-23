@@ -1,4 +1,8 @@
-<!-- @component A container that pans its children sideways as the reader scrolls down, with optional snap stops and easing. -->
+<!--
+  @component A container that pans its children sideways as the reader scrolls down, with optional snap stops and easing.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-horizontalscroller--docs)
+-->
 <script lang="ts">
   import { onMount, type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';

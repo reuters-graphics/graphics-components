@@ -1,4 +1,8 @@
-<!-- @component The low-level scroll engine (a Svelte 5 port of svelte-scroller) exposing background/foreground slots and scroll bindings. Powers Scroller. -->
+<!--
+  @component The low-level scroll engine (a Svelte 5 port of svelte-scroller) exposing background/foreground slots and scroll bindings. Powers Scroller.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-scrollerbase--docs)
+-->
 <!-- This is a Svelte 5 version of [svelte-scroller](https://github.com/sveltejs/svelte-scroller) -->
 <script module lang="ts">
   const handlers: Array<() => void> = [];

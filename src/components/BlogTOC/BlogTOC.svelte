@@ -1,4 +1,8 @@
-<!-- @component A collapsible table of contents for a live blog, grouping posts by date with in-page anchor links. Pairs with BlogPost. -->
+<!--
+  @component A collapsible table of contents for a live blog, grouping posts by date with in-page anchor links. Pairs with BlogPost.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-blog-blogtoc--docs)
+-->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import TOCList from './TOCList.svelte';

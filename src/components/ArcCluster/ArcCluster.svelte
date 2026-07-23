@@ -1,4 +1,8 @@
-<!-- @component A frame for iframed embeds in Reuters.com's Arc CMS, providing the light theme, Arc font, Pym.js resizing and a header/stage/footer layout. -->
+<!--
+  @component A frame for iframed embeds in Reuters.com's Arc CMS, providing the light theme, Arc font, Pym.js resizing and a header/stage/footer layout.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-embeds-arccluster--docs)
+-->
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import ArcFonts from './ArcFonts.svelte';

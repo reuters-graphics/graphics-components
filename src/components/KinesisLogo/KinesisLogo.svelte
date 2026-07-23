@@ -1,7 +1,7 @@
 <!--
   @component The Kinesis dot-pattern logo as inline SVG, with configurable fill colour and width.
 
-  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-reuterslogo--docs)
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-kinesislogo--docs)
 -->
 <script lang="ts">
   interface Props {

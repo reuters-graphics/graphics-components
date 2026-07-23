@@ -1,7 +1,7 @@
 <!--
   @component A data-driven table from an array of records, with optional search, filtering, sorting, pagination and custom cell formatters.
 
-  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs)
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-table--docs)
 -->
 <script lang="ts">
   /** Import local helpers */

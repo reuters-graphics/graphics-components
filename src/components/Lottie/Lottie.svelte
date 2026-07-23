@@ -1,4 +1,8 @@
-<!-- @component A canvas player for Lottie/dotLottie animations, supporting autoplay, loops, segments, hover-play and scroll-driven progress. -->
+<!--
+  @component A canvas player for Lottie/dotLottie animations, supporting autoplay, loops, segments, hover-play and scroll-driven progress.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-lottie--docs)
+-->
 <script lang="ts">
   // Libraries & utils
   import { onMount, setContext } from 'svelte';
