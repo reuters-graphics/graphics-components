@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.5.0
+
+### Minor Changes
+
+- 47b64d0: Add `TileMapCallout`, a MapLibre-aware callout component that can be rendered as a child of `TileMap` and attached to a longitude/latitude coordinate without custom MapLibre glue.
+
 ## 4.4.0
 
 ### Minor Changes
