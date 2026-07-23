@@ -163,10 +163,10 @@ coordinates, event handling, or data models.
     align-items: flex-end;
   }
 
-  .callout-surface {
+.callout-surface {
     order: 0;
     margin-block-end: -1px;
-    margin-inline-start: 32px;
+    margin-inline-start: var(--map-marker-callout-leader-width, 32px);
     max-width: var(--map-marker-callout-surface-max-width);
     box-sizing: border-box;
     background: var(--map-marker-callout-surface-background);
@@ -182,7 +182,7 @@ coordinates, event handling, or data models.
 
   .map-marker-callout.flip .callout-surface {
     margin-inline-start: 0;
-    margin-inline-end: 32px;
+    margin-inline-end: var(--map-marker-callout-leader-width, 32px);
   }
 
   .leader-line {
