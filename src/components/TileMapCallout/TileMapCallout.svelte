@@ -133,12 +133,13 @@ placement and lifecycle through the map context.
     class?: string;
     /** Add an id to the MapLibre marker wrapper. */
     id?: string;
-    /**
-     * Leader-line width in px — the horizontal distance from the marker dot to
-     * the callout surface. Also sets the surface's offset from the dot so the
-     * line and surface always line up. Defaults to `14`.
-     */
-    leaderWidth?: number;
+/**
+ * Leader-line width in px — horizontal distance from the dot edge to the callout
+ * surface. Values are normalized to non-negative finite numbers; when the
+ * requested width would collapse the SVG (e.g. `0`), it is clamped to at least
+ * the dot diameter (and at least `1px`) so the dot/offset stay aligned.
+ * Defaults to `14`.
+ */
     /**
      * Leader-line height in px — the vertical distance the diagonal rises
      * (`placement="above"`) or drops (`placement="below"`). Defaults to `14`.
