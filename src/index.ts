@@ -28,6 +28,7 @@ export { default as BodyText } from './components/BodyText/BodyText.svelte';
 export { default as Byline } from './components/Byline/Byline.svelte';
 export { default as DatawrapperChart } from './components/DatawrapperChart/DatawrapperChart.svelte';
 export { default as DocumentCloud } from './components/DocumentCloud/DocumentCloud.svelte';
+export { default as EmbedMetadata } from './components/EmbedMetadata/EmbedMetadata.svelte';
 export { default as EmbedPreviewerLink } from './components/EmbedPreviewerLink/EmbedPreviewerLink.svelte';
 export { default as FaqBox } from './components/FaqBox/FaqBox.svelte';
 export type { FaqItem } from './components/FaqBox/types';

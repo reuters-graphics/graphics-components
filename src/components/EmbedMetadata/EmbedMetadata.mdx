@@ -1,0 +1,65 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as EmbedMetadataStories from './EmbedMetadata.stories.svelte';
+
+<Meta of={EmbedMetadataStories} />
+
+# EmbedMetadata
+
+The `EmbedMetadata` component adds the essential metadata for **embed pages** and wires up a [Pym.js](https://blog.apps.npr.org/pym.js/) child instance so the embed can resize itself inside its parent frame.
+
+```svelte
+<script>
+  import { EmbedMetadata } from '@reuters-graphics/graphics-components';
+</script>
+
+<EmbedMetadata
+  baseUrl="https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps"
+  pageUrl={new URL(
+    'https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/embeds/en/global-cases/'
+  )}
+  previewImgPath="https://www.reuters.com/graphics/world-coronavirus-tracker-and-maps/assets/images/share.jpg"
+  polling={500}
+/>
+```
+
+The `polling` prop is passed straight through to the [`PymChild`](/docs/components-utilities-pymchild--docs) component that `EmbedMetadata` renders — you don't need to add `PymChild` separately.
+
+Because `EmbedMetadata` already mounts a Pym.js child, you can access it via `pym` elsewhere to send custom height updates to the parent frame:
+
+```svelte
+<script>
+  import { EmbedMetadata, pym } from '@reuters-graphics/graphics-components';
+
+  const updateHeight = () => {
+    if (pym.child) pym.child.sendHeight();
+  };
+</script>
+
+<EmbedMetadata {...props} />
+
+<button onclick={updateHeight}>Update height</button>
+```
+
+## Using with the graphics kit
+
+**Use this component on every embed page in the graphics kit** _instead of_ the [`SEO`](/docs/components-page-metadata-seo--docs) component, which is meant for full, standalone pages. Embeds live inside a parent article, so they don't need the full set of SEO tags, JSON-LD structured data or article metadata `SEO` provides — and they must never be indexed on their own. `EmbedMetadata` sets only what an embed needs: a canonical link and `og:url`, an `og:image`, and a `noindex, nofollow, noarchive` robots tag.
+
+```svelte
+<!-- pages/embeds/en/map/+page.svelte -->
+<script>
+  import { EmbedMetadata } from '@reuters-graphics/graphics-components';
+  import { asset } from '$app/paths';
+  import { page } from '$app/stores';
+</script>
+
+<EmbedMetadata
+  baseUrl={__BASE_URL__}
+  pageUrl={$page.url}
+  previewImgPath={asset(`/images/my-embed-preview.jpg`)}
+/>
+```
+
+> **Note:** `__BASE_URL__` is a build-time global available throughout graphics kit projects — no import needed. It's the project's fully-qualified base URL (origin + trailing slash), i.e. the address of the project homepage. `EmbedMetadata` uses it to derive the page's origin for the canonical and share tags.
+
+<Canvas of={EmbedMetadataStories.Demo} />

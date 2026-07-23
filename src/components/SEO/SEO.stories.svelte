@@ -3,7 +3,7 @@
   import SEO from './SEO.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Ads & analytics/SEO',
+    title: 'Components/Page metadata/SEO',
     component: SEO,
   });
 </script>

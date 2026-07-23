@@ -1,4 +1,8 @@
-<!-- @component `SEO` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytic-seo--docs) -->
+<!-- 
+  @component Renders the full suite of SEO and social-sharing metadata (title, description, Open Graph, Twitter cards, JSON-LD structured data) for standalone graphics pages on reuters.com. For embed/iframe pages use `EmbedMetadata` instead.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-metadata-seo--docs)
+-->
 <script lang="ts">
   interface GraphicAuthor {
     name: string;
