@@ -1,5 +1,13 @@
 # @reuters-graphics/graphics-components
 
+## 4.5.1
+
+### Patch Changes
+
+- a4c8e0c: Add `EmbedMetadata` component, a stripped-down alternative to `SEO` for embed pages. It sets a canonical link, `og:url`, `og:image` and a `noindex, nofollow, noarchive` robots tag, and mounts a `PymChild` instance for embed resizing.
+
+  Move the `SEO` and `EmbedMetadata` stories into a new `Components/Page metadata` category in Storybook.
+
 ## 4.5.0
 
 ### Minor Changes
