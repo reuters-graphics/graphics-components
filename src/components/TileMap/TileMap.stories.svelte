@@ -2,6 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import TileMap from './TileMap.svelte';
   import TileMapLayer from './TileMapLayer.svelte';
+  import TileMapCallout from '../TileMapCallout/TileMapCallout.svelte';
   import Geocoder from '../Geocoder/Geocoder.svelte';
   import type { FeatureCollection, Polygon, Point } from 'geojson';
 
@@ -299,6 +300,27 @@
         'fill-opacity': 0.75,
       }}
     />
+  </TileMap>
+</Story>
+
+<Story asChild name="With callouts" tags={['!autodocs']}>
+  <TileMap
+    id="callout-map"
+    center={[-73.9868, 40.7567]}
+    zoom={13}
+    interactive={true}
+    title="Map with coordinate callouts"
+    description="TileMapCallout can be rendered directly inside TileMap and manages the MapLibre marker lifecycle for the coordinate."
+    notes="The examples show above, below and flipped placement so labels can avoid important map features or viewport edges."
+    height="500px"
+  >
+    <TileMapCallout lngLat={[-73.9868, 40.7567]}>Times Square</TileMapCallout>
+    <TileMapCallout lngLat={[-73.9776, 40.7527]} placement="above" flip>
+      Grand Central
+    </TileMapCallout>
+    <TileMapCallout lngLat={[-73.9942, 40.7505]} placement="below">
+      Penn Station
+    </TileMapCallout>
   </TileMap>
 </Story>
 
