@@ -28,3 +28,21 @@ A labelled callout for [`TileMap`](/docs/components-graphics-tilemap--docs). Dro
 Use `placement` (`above` or `below`) and `flip` to position the label around its anchor so it stays clear of nearby map features or the viewport edges. Pass any content as children — a short string or richer markup.
 
 <Canvas of={TileMapCalloutStories.PlacementAndFlip} />
+
+## Leader geometry
+
+The leader line and marker dot default to a compact 14×14px line with a 3px dot. Tune them per callout with the `leaderWidth`, `leaderHeight` and `dotRadius` props (all in px). The callout surface's offset from the dot is derived from `leaderWidth`, so the line and the label stay aligned at any size.
+When values collapse to `0`, the component clamps the SVG canvas to a positive size (at least the dot diameter, and at least `1px`) so the SVG/viewBox can’t collapse to `0`.
+
+```svelte
+<TileMapCallout
+  lngLat={[-73.9868, 40.7567]}
+  leaderWidth={40}
+  leaderHeight={32}
+  dotRadius={5}
+>
+  Long leader
+</TileMapCallout>
+```
+
+<Canvas of={TileMapCalloutStories.CustomLeaderGeometry} />

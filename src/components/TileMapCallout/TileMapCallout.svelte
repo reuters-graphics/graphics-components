@@ -54,6 +54,63 @@
 
     return isFiniteNumber(lng) && isFiniteNumber(lat) ? [lng, lat] : null;
   };
+
+  /** Default leader-line width in px: horizontal distance from the marker dot to the callout surface. */
+  export const DEFAULT_TILE_MAP_CALLOUT_LEADER_WIDTH = 14;
+  /** Default leader-line height in px: vertical distance the diagonal rises or drops. */
+  export const DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT = 14;
+  /** Default marker dot radius in px. */
+  export const DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS = 3;
+
+  /**
+   * Coerce a geometry prop (leader width/height, dot radius) to a non-negative,
+   * finite number, falling back to the supplied default when the value is
+   * missing, non-numeric, negative or non-finite.
+   */
+  export const normalizeTileMapCalloutDimension = (
+    value: unknown,
+    fallback: number
+  ): number => (isFiniteNumber(value) && value >= 0 ? value : fallback);
+
+  export interface TileMapCalloutGeometry {
+    /** SVG canvas width and the surface's inline offset from the dot (px). */
+    leaderWidth: number;
+    /** SVG canvas height (px). */
+    svgHeight: number;
+    /** Dot centre x for the default (non-flipped) side. */
+    dotCx: number;
+    /** Dot centre x when flipped to the right of the surface. */
+    dotCxFlipped: number;
+    /** Dot centre y for `placement="above"`. */
+    dotCyAbove: number;
+    /** Dot centre y for `placement="below"`. */
+    dotCyBelow: number;
+  }
+
+  /**
+   * Resolve the leader-line SVG geometry from normalized dimensions. The canvas
+   * span is clamped to a positive size (at least the dot diameter, and at least
+   * `1`) so a zero-ish `leaderWidth`/`leaderHeight` can't collapse the SVG
+   * `width`/`viewBox` to an invalid `0`. The clamped `leaderWidth` is the single
+   * value used for the SVG width, the line endpoint AND the surface offset, so
+   * the line and label stay aligned — including when flipped.
+   */
+  export const resolveTileMapCalloutGeometry = (
+    leaderWidth: number,
+    leaderHeight: number,
+    dotRadius: number
+  ): TileMapCalloutGeometry => {
+    const clampedLeaderWidth = Math.max(leaderWidth, dotRadius * 2, 1);
+    const svgHeight = Math.max(leaderHeight + dotRadius * 2, 1);
+    return {
+      leaderWidth: clampedLeaderWidth,
+      svgHeight,
+      dotCx: dotRadius,
+      dotCxFlipped: clampedLeaderWidth - dotRadius,
+      dotCyAbove: svgHeight - dotRadius,
+      dotCyBelow: dotRadius,
+    };
+  };
 </script>
 
 <script lang="ts">
@@ -75,6 +132,20 @@
     class?: string;
     /** Add an id to the MapLibre marker wrapper. */
     id?: string;
+/**
+ * Leader-line width in px — horizontal distance from the dot edge to the callout
+ * surface. Values are normalized to non-negative finite numbers; when the
+ * requested width would collapse the SVG (e.g. `0`), it is clamped to at least
+ * the dot diameter (and at least `1px`) so the dot/offset stay aligned.
+ * Defaults to `14`.
+ */
+    /**
+     * Leader-line height in px — the vertical distance the diagonal rises
+     * (`placement="above"`) or drops (`placement="below"`). Defaults to `14`.
+     */
+    leaderHeight?: number;
+    /** Marker dot radius in px. Defaults to `3`. */
+    dotRadius?: number;
   }
 
   let {
@@ -84,6 +155,9 @@
     flip = false,
     class: cls = '',
     id = '',
+    leaderWidth = DEFAULT_TILE_MAP_CALLOUT_LEADER_WIDTH,
+    leaderHeight = DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT,
+    dotRadius = DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS,
   }: Props = $props();
 
   const mapStore = getContext<Writable<MaplibreMap | null>>('map');
@@ -92,14 +166,42 @@
     throw new Error('TileMapCallout must be used inside a TileMap component');
   }
 
-  const lineWidth = 32;
-  const lineHeight = 28;
-  const dotRadius = 4;
-  const svgHeight = lineHeight + dotRadius * 2;
-  const dotCx = dotRadius;
-  const dotCxFlipped = lineWidth - dotRadius;
-  const dotCyAbove = svgHeight - dotRadius;
-  const dotCyBelow = dotRadius;
+  // Leader geometry is derived from props so the SVG dimensions and the CSS
+  // custom properties below share a single source of truth (previously these
+  // were duplicated hardcoded constants that could — and did — drift apart).
+  let safeLeaderWidth = $derived(
+    normalizeTileMapCalloutDimension(
+      leaderWidth,
+      DEFAULT_TILE_MAP_CALLOUT_LEADER_WIDTH
+    )
+  );
+  let safeLeaderHeight = $derived(
+    normalizeTileMapCalloutDimension(
+      leaderHeight,
+      DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT
+    )
+  );
+  let safeDotRadius = $derived(
+    normalizeTileMapCalloutDimension(
+      dotRadius,
+      DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS
+    )
+  );
+  let geometry = $derived(
+    resolveTileMapCalloutGeometry(
+      safeLeaderWidth,
+      safeLeaderHeight,
+      safeDotRadius
+    )
+  );
+  // Feed the same values to the CSS via custom properties on the callout root:
+  // `--tile-map-callout-leader-width` sets the surface's inline offset and
+  // `--tile-map-callout-dot-radius` anchors the transform onto the dot. The
+  // offset uses the clamped `geometry.leaderWidth` so it matches the SVG.
+  let calloutStyle = $derived(
+    `--tile-map-callout-leader-width: ${geometry.leaderWidth}px; ` +
+      `--tile-map-callout-dot-radius: ${safeDotRadius}px;`
+  );
 
   let markerElement: HTMLDivElement;
   let marker: Marker | null = null;
@@ -155,7 +257,7 @@
   data-flip={safeFlip ? 'true' : 'false'}
   data-has-coordinates={safeLngLat ? 'true' : 'false'}
 >
-  <div class={calloutClasses}>
+  <div class={calloutClasses} style={calloutStyle}>
     <div class="callout-surface">
       {#if children}
         {@render children()}
@@ -163,41 +265,41 @@
     </div>
     <div class="leader-line" aria-hidden="true">
       <svg
-        width={lineWidth}
-        height={svgHeight}
-        viewBox="0 0 {lineWidth} {svgHeight}"
+        width={geometry.leaderWidth}
+        height={geometry.svgHeight}
+        viewBox="0 0 {geometry.leaderWidth} {geometry.svgHeight}"
         focusable="false"
       >
         {#if isBelow}
           <line
-            x1={safeFlip ? dotCxFlipped : dotCx}
-            y1={dotCyBelow}
-            x2={safeFlip ? 0 : lineWidth}
-            y2={svgHeight}
+            x1={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            y1={geometry.dotCyBelow}
+            x2={safeFlip ? 0 : geometry.leaderWidth}
+            y2={geometry.svgHeight}
             stroke="currentColor"
             stroke-width="1"
             vector-effect="non-scaling-stroke"
           />
           <circle
-            cx={safeFlip ? dotCxFlipped : dotCx}
-            cy={dotCyBelow}
-            r={dotRadius}
+            cx={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            cy={geometry.dotCyBelow}
+            r={safeDotRadius}
             fill="currentColor"
           />
         {:else}
           <line
-            x1={safeFlip ? dotCxFlipped : dotCx}
-            y1={dotCyAbove}
-            x2={safeFlip ? 0 : lineWidth}
+            x1={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            y1={geometry.dotCyAbove}
+            x2={safeFlip ? 0 : geometry.leaderWidth}
             y2={0}
             stroke="currentColor"
             stroke-width="1"
             vector-effect="non-scaling-stroke"
           />
           <circle
-            cx={safeFlip ? dotCxFlipped : dotCx}
-            cy={dotCyAbove}
-            r={dotRadius}
+            cx={safeFlip ? geometry.dotCxFlipped : geometry.dotCx}
+            cy={geometry.dotCyAbove}
+            r={safeDotRadius}
             fill="currentColor"
           />
         {/if}
@@ -219,8 +321,12 @@
   }
 
   .tile-map-callout {
-    --tile-map-callout-dot-radius: 4px;
-    --tile-map-callout-leader-width: 32px;
+    /* `--tile-map-callout-leader-width` and `--tile-map-callout-dot-radius`
+       are set inline from the `leaderWidth`/`dotRadius` props (see the script)
+       so geometry has a single source of truth; the values here are the
+       matching fallbacks. Colour/shadow/max-width vars remain the theming API. */
+    --tile-map-callout-dot-radius: 3px;
+    --tile-map-callout-leader-width: 14px;
     --tile-map-callout-surface-max-width: min(14rem, calc(100vw - 2rem));
     --tile-map-callout-surface-background: var(--theme-colour-background, #fff);
     --tile-map-callout-colour: var(--theme-colour-text-primary, #404040);
