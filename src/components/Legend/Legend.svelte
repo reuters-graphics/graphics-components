@@ -1,17 +1,7 @@
-<!-- @component `Legend` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-legend--docs)
+<!--
+  @component A presentational legend for maps and charts in one of five modes: threshold, continuous, diverging, categorical or proportional symbols.
 
-Quantitative and categorical legend for maps and data displays.
-
-Renders one of five legend types:
-- `threshold`: discrete bins with color swatches
-- `continuous`: a continuous gradient with ticks
-- `diverging`: threshold bins with a highlighted midpoint
-- `categorical`: square swatches with labels in a horizontal row
-- `proportional-symbols`: nested circles with leader lines and labels
-
-The component is presentational and can be placed anywhere in page layout. The
-optional `noData` prop renders a separate fallback swatch for missing, unknown,
-or unavailable values across all legend modes.
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-legend--docs)
 -->
 <script lang="ts" module>
   export type LegendMode =

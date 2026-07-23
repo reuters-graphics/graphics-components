@@ -1,4 +1,8 @@
-<!-- @component `SiteHeadline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-siteheadline--docs) -->
+<!--
+  @component A story headline block with section label, byline authors and publish/update times; links author names to their Reuters author pages.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-siteheadline--docs)
+-->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import Byline from '../Byline/Byline.svelte';

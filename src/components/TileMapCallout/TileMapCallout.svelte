@@ -1,8 +1,7 @@
-<!-- @component `TileMapCallout` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemapcallout--docs)
+<!--
+  @component A positioned annotation marker for a longitude/latitude point on a TileMap. Used inside TileMap.
 
-A MapLibre-aware callout for `TileMap`. Render it as a child of any
-`TileMap`, pass a longitude/latitude pair, and the component manages marker
-placement and lifecycle through the map context.
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemapcallout--docs)
 -->
 <script lang="ts" module>
   export type TileMapCalloutPlacement = 'above' | 'below';

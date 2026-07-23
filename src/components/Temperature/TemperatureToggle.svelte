@@ -1,18 +1,4 @@
-<!--
-  @component Celsius/Fahrenheit toggle.
-
-  A clickable switch that flips the shared (or provided) unit state, persisting
-  the explicit choice to localStorage and broadcasting it so every
-  `Temperature`, chart and cross-bundle listener updates. Uses the `switch` role
-  with `aria-checked` for accessibility.
-
-  ```svelte
-  <TemperatureToggle />
-  <TemperatureToggle {state} />
-  ```
-
-  Pass no props to use the context / shared singleton, or an explicit `state`.
--->
+<!-- @component An accessible °C/°F switch that flips and persists the reader's unit preference so every Temperature updates. Pairs with Temperature. -->
 <script lang="ts">
   import { getUnitContext, type TemperatureUnitState } from './state.svelte';
 

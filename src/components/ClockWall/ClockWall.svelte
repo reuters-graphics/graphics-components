@@ -1,3 +1,4 @@
+<!-- @component A row of live analog clocks showing the current time across a list of cities or time zones. -->
 <script lang="ts">
   import type { ComponentProps } from 'svelte';
   import type { ContainerWidth } from '../@types/global';

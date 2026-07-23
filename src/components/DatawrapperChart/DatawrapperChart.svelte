@@ -1,4 +1,8 @@
-<!-- @component `DatawrapperChart` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-datawrapperchart--docs) -->
+<!--
+  @component An embedded Datawrapper chart that auto-resizes to the height Datawrapper reports, with title, description and notes.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-datawrapperchart--docs)
+-->
 <script lang="ts">
   import { onMount, onDestroy, type Snippet } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';

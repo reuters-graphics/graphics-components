@@ -1,4 +1,8 @@
-<!-- @component `LeaderboardAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-leaderboardad--docs) -->
+<!--
+  @component A top-of-page leaderboard banner ad that briefly sticks on scroll then retracts, adapting its height for narrow screens.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-leaderboardad--docs)
+-->
 <script lang="ts">
   import type { LeaderboardAdType } from './@types/ads';
   import ResponsiveAd from './ResponsiveAd.svelte';

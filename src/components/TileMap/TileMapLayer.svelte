@@ -1,4 +1,4 @@
-<!-- @component `TileMapLayer` - Add GeoJSON layers to a TileMap component -->
+<!-- @component Adds a styled GeoJSON layer (fill, line, circle, symbol…) to a parent TileMap. Used inside TileMap. -->
 <script lang="ts">
   import { getContext, onMount } from 'svelte';
   import type { Map as MaplibreMap, GeoJSONSource } from 'maplibre-gl';

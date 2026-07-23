@@ -1,3 +1,4 @@
+<!-- @component A container that pans its children sideways as the reader scrolls down, with optional snap stops and easing. -->
 <script lang="ts">
   import { onMount, type Snippet } from 'svelte';
   import { Tween } from 'svelte/motion';

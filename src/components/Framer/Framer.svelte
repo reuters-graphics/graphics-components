@@ -1,3 +1,4 @@
+<!-- @component A dev harness that previews graphic pages in a resizable Pym.js iframe, with a picker to switch between embeds. -->
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faDesktop, faLink } from '@fortawesome/free-solid-svg-icons';

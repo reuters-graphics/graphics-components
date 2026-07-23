@@ -1,4 +1,8 @@
-<!-- @component `LanguageButton` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-languagebutton--docs) -->
+<!--
+  @component A toggle link that switches an article between two locales (English/Spanish by default), handling both embed and standalone URLs.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-languagebutton--docs)
+-->
 <script lang="ts">
   interface Props {
     /** The current locale of the article */

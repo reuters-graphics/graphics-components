@@ -1,4 +1,8 @@
-<!-- @component `Visible` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-visible--docs) -->
+<!--
+  @component A wrapper that tracks whether its content is in the viewport (via IntersectionObserver) and passes a `visible` flag to its children.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-visible--docs)
+-->
 <script lang="ts">
   import { onMount, type Snippet } from 'svelte';
 

@@ -1,3 +1,4 @@
+<!-- @component A single live-blog entry — headline, authors and timestamps above slotted body content. Pairs with BlogTOC. -->
 <script lang="ts">
   interface Props {
     /** Title of the blog post */

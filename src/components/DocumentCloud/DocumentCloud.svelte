@@ -1,4 +1,8 @@
-<!-- @component `DocumentCloud` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-documentcloud--docs) -->
+<!--
+  @component An embedded DocumentCloud document, referenced by slug in a sandboxed iframe and sized to a container width.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-documentcloud--docs)
+-->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
   import Block from '../Block/Block.svelte';

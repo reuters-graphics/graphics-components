@@ -1,4 +1,8 @@
-<!-- @component `Analytics` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-analytics--docs) -->
+<!--
+  @component Initialises page analytics (Google Analytics, Chartbeat, Google Tag Manager) on mount; exports `registerPageview()` for client-side route changes.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-analytics--docs)
+-->
 <script module>
   import { registerPageview as registerChartbeatPageview } from './providers/chartbeat';
   import { registerPageview as registerGAPageview } from './providers/ga';

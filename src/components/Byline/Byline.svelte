@@ -1,4 +1,8 @@
-<!-- @component `Byline` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-byline--docs) -->
+<!--
+  @component An article byline and dateline: linked author names with formatted publish and update times.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-byline--docs)
+-->
 <script lang="ts">
   import { getAuthorPageUrl, formatTime } from '../../utils';
   import Block from '../Block/Block.svelte';

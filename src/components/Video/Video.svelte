@@ -1,4 +1,8 @@
-<!-- @component `Video` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-video--docs) -->
+<!--
+  @component A GraphicBlock-wrapped HTML5 video with title, description and notes, plus optional play-when-in-view, poster and custom controls.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-multimedia-video--docs)
+-->
 <script lang="ts">
   import IntersectionObserver from 'svelte-intersection-observer';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';

@@ -1,4 +1,8 @@
-<!-- @component `BioBox` shows one or more author biographies in a bordered box, echoing the contributor box on Reuters.com stories. [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-biobox--docs) -->
+<!--
+  @component A bordered box of one or more author bios (rendered as Bio cards), echoing the contributor box on Reuters.com stories.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-biobox--docs)
+-->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import Bio from './Bio.svelte';

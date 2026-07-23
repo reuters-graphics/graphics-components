@@ -1,3 +1,4 @@
+<!-- @component A native in-article ad slot marked as an advertisement; set `n` (1–3) to place several inline ads on one page. -->
 <!-- @migration-task Error while migrating Svelte code: Cannot set properties of undefined (setting 'next') -->
 <!-- @component `InlineAd` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-ads-analytics-inlinead--docs) -->
 <script lang="ts">

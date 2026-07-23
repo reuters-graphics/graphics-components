@@ -1,4 +1,8 @@
-<!-- @component `FaqBox` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-faqbox--docs) -->
+<!--
+  @component A collapsible FAQ section built from question-and-answer pairs using native, accessible `<details>` disclosures.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-faqbox--docs)
+-->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
   import type { FaqItem } from './types';

@@ -1,4 +1,8 @@
-<!-- @component `ReferralBlock` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-referralblock--docs) -->
+<!--
+  @component A block of related-story cards (rendered as Referral children), fetching recent Reuters.com stories by section or taking supplied ones.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-referralblock--docs)
+-->
 <script lang="ts">
   // Utils
   import { onMount } from 'svelte';

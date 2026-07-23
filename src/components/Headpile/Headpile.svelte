@@ -1,3 +1,4 @@
+<!-- @component A stacked column of people profiles — headshot, name, role and description — rendered from a `figures` array. -->
 <script lang="ts">
   import type { ContainerWidth } from '../@types/global';
   import Block from '../Block/Block.svelte';

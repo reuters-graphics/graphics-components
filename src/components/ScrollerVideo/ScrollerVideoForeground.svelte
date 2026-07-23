@@ -1,3 +1,4 @@
+<!-- @component A timed caption or overlay that fades in and out over a parent ScrollerVideo. Used inside ScrollerVideo. -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import { fade } from 'svelte/transition';

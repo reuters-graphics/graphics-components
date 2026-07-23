@@ -1,3 +1,4 @@
+<!-- @component A collapsible table of contents for a live blog, grouping posts by date with in-page anchor links. Pairs with BlogPost. -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import TOCList from './TOCList.svelte';

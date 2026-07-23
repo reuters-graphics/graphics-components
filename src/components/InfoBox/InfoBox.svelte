@@ -1,4 +1,8 @@
-<!-- @component `InfoBox` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-infobox--docs) -->
+<!--
+  @component A callout aside with an optional title, markdown body and footnotes for supplementary context within article text.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-infobox--docs)
+-->
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import type { ContainerWidth } from '../@types/global';

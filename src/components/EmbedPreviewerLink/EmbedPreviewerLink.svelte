@@ -1,3 +1,4 @@
+<!-- @component A dev-only floating link to the embed previewer page; renders nothing unless `dev` is true. -->
 <script lang="ts">
   import Fa from 'svelte-fa';
   import { faWindowRestore } from '@fortawesome/free-regular-svg-icons';

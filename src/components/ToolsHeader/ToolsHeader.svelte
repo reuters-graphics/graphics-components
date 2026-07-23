@@ -1,4 +1,8 @@
-<!-- @component `ToolsHeader` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-toolsheader--docs) -->
+<!--
+  @component A lightweight header with the Reuters Graphics logo and a slot for extra content; optionally sticky.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-page-furniture-toolsheader--docs)
+-->
 <script lang="ts">
   import ReutersGraphicsLogo from '../ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';
   import type { Snippet } from 'svelte';

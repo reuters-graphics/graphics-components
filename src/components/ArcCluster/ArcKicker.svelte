@@ -1,7 +1,4 @@
-<!--
-  @component `ArcKicker` renders the optional label above an `ArcHeader`
-  headline. When linked, it includes the same rotated chevron Reuters.com uses.
--->
+<!-- @component The small label above an ArcHeader headline, gaining Reuters.com's chevron when linked — a sub-part of ArcHeader. -->
 <script lang="ts">
   interface Props {
     /** Small label above the headline, e.g. a section name. */

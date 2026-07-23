@@ -1,3 +1,4 @@
+<!-- @component A caption or custom overlay shown over a parent Lottie between set frames. Must be used inside Lottie. -->
 <script lang="ts">
   import Block from '../Block/Block.svelte';
   import { fade } from 'svelte/transition';

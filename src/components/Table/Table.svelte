@@ -1,4 +1,8 @@
-<!-- @component `Table` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs) -->
+<!--
+  @component A data-driven table from an array of records, with optional search, filtering, sorting, pagination and custom cell formatters.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-text-elements-table--docs)
+-->
 <script lang="ts">
   /** Import local helpers */
   import Block from '../Block/Block.svelte';

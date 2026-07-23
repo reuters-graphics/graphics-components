@@ -1,4 +1,8 @@
-<!-- @component `ReutersLogo` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-reuterslogo--docs) -->
+<!--
+  @component The primary Reuters logo (Kinesis mark plus wordmark) as inline SVG, with configurable colours and width.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-logos-reuterslogo--docs)
+-->
 <script lang="ts">
   interface Props {
     /** "Kinesis" colour */

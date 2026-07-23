@@ -1,4 +1,8 @@
-<!-- @component `Geocoder` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-controls-geocoder--docs) -->
+<!--
+  @component An accessible location search backed by the Mapbox geocoding API, debounced to limit billed calls; returns the chosen place's coordinates.
+
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-controls-geocoder--docs)
+-->
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { geocode, type GeocodeFeature, type GeocodeOptions } from './geocode';

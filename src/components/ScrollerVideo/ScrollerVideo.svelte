@@ -1,3 +1,4 @@
+<!-- @component A scroll-driven video that scrubs playback by scroll position (built on scrollyvideo.js); hosts ScrollerVideoForeground overlays. -->
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import ScrollerVideo from './ts/ScrollerVideo';

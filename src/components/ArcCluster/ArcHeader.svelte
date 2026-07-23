@@ -1,9 +1,4 @@
-<!--
-  @component `ArcHeader` renders the kicker, headline and dek at the top of an
-  `ArcCluster`, styled to match the section headers on Reuters.com so an embed
-  reads as part of the homepage. All fields are optional except `headline`, and
-  the kicker and headline can each link out.
--->
+<!-- @component The kicker, headline and dek at the top of an ArcCluster embed; only the headline is required. -->
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import ArcKicker from './ArcKicker.svelte';

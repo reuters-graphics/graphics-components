@@ -1,14 +1,4 @@
-<!--
-  @component `ArcFonts` loads the version of the Reuters Knowledge font that
-  Reuters.com uses (regular, medium and bold). Reuters.com uses a different cut
-  of Knowledge than the one that ships with our standard graphics kit, so to make
-  an embed match the homepage we load that version here and register it under its
-  own name, `ArcKnowledge`, so it sits alongside the kit's standard Knowledge
-  font instead of replacing it. The files are served from the Reuters graphics
-  CDN because the copies on Reuters.com can't be loaded by other websites — they
-  are missing the cross-origin header a browser needs before it will use a font
-  from another domain. Render it once near the root of an embed layout.
--->
+<!-- @component Loads Reuters.com's cut of the Knowledge font (registered as ArcKnowledge) from the graphics CDN. Rendered automatically by ArcCluster. -->
 <svelte:head>
   {@html `<style>
     @font-face {
