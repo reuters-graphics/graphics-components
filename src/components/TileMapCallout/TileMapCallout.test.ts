@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { render } from 'svelte/server';
 import TileMapCallout, {
+  DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS,
+  DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT,
+  DEFAULT_TILE_MAP_CALLOUT_LEADER_WIDTH,
   normalizeTileMapCalloutCoordinates,
+  normalizeTileMapCalloutDimension,
   normalizeTileMapCalloutFlip,
   normalizeTileMapCalloutPlacement,
 } from './TileMapCallout.svelte';
@@ -42,6 +46,24 @@ describe('TileMapCallout helpers', () => {
     expect(normalizeTileMapCalloutCoordinates([Number.NaN, 40])).toBeNull();
     expect(normalizeTileMapCalloutCoordinates({ lng: -73.9 })).toBeNull();
     expect(normalizeTileMapCalloutCoordinates('Times Square')).toBeNull();
+  });
+
+  it('defaults the leader geometry to the local-callout values', () => {
+    expect(DEFAULT_TILE_MAP_CALLOUT_LEADER_WIDTH).toBe(14);
+    expect(DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT).toBe(14);
+    expect(DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS).toBe(3);
+  });
+
+  it('normalizes geometry dimensions to a non-negative finite number', () => {
+    expect(normalizeTileMapCalloutDimension(20, 14)).toBe(20);
+    expect(normalizeTileMapCalloutDimension(0, 14)).toBe(0);
+    expect(normalizeTileMapCalloutDimension(-5, 14)).toBe(14);
+    expect(normalizeTileMapCalloutDimension(Number.NaN, 14)).toBe(14);
+    expect(normalizeTileMapCalloutDimension(Number.POSITIVE_INFINITY, 14)).toBe(
+      14
+    );
+    expect(normalizeTileMapCalloutDimension('32', 14)).toBe(14);
+    expect(normalizeTileMapCalloutDimension(undefined, 3)).toBe(3);
   });
 });
 

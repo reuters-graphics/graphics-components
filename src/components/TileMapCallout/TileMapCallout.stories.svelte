@@ -22,6 +22,20 @@
         control: 'boolean',
         description: 'Flip the callout surface to the left of the coordinate.',
       },
+      leaderWidth: {
+        control: { type: 'number', min: 0 },
+        description:
+          'Leader-line width in px — horizontal distance from the dot to the surface.',
+      },
+      leaderHeight: {
+        control: { type: 'number', min: 0 },
+        description:
+          'Leader-line height in px — vertical rise/drop of the diagonal.',
+      },
+      dotRadius: {
+        control: { type: 'number', min: 0 },
+        description: 'Marker dot radius in px.',
+      },
     },
   });
 </script>
@@ -61,6 +75,37 @@
     </TileMapCallout>
     <TileMapCallout lngLat={[-73.9819, 40.7681]} placement="below" flip>
       Below + flipped
+    </TileMapCallout>
+  </TileMap>
+</Story>
+
+<Story asChild name="Custom leader geometry" tags={['!autodocs', '!dev']}>
+  <TileMap
+    id="tile-map-callout-leader-demo"
+    center={[-73.9868, 40.7567]}
+    zoom={13}
+    interactive={true}
+    title="Custom leader geometry"
+    description="Tune the leader line and dot with the leaderWidth, leaderHeight and dotRadius props. The surface offset and the SVG stay in sync."
+    height="500px"
+  >
+    <TileMapCallout lngLat={[-73.9868, 40.7567]}>
+      Default (14×14, dot 3)
+    </TileMapCallout>
+    <TileMapCallout
+      lngLat={[-73.9776, 40.7527]}
+      leaderWidth={40}
+      leaderHeight={32}
+      dotRadius={5}
+    >
+      Long leader (40×32, dot 5)
+    </TileMapCallout>
+    <TileMapCallout
+      lngLat={[-73.9942, 40.7505]}
+      leaderWidth={6}
+      leaderHeight={6}
+    >
+      Short leader (6×6)
     </TileMapCallout>
   </TileMap>
 </Story>
