@@ -1,7 +1,8 @@
-<!--
-  @component A positioned annotation marker for a longitude/latitude point on a TileMap. Used inside TileMap.
+<!-- @component `TileMapCallout` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemapcallout--docs)
 
-  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemapcallout--docs)
+A MapLibre-aware callout for `TileMap`. Render it as a child of any
+`TileMap`, pass a longitude/latitude pair, and the component manages marker
+placement and lifecycle through the map context.
 -->
 <script lang="ts" module>
   export type TileMapCalloutPlacement = 'above' | 'below';
@@ -132,13 +133,14 @@
     class?: string;
     /** Add an id to the MapLibre marker wrapper. */
     id?: string;
-/**
- * Leader-line width in px — horizontal distance from the dot edge to the callout
- * surface. Values are normalized to non-negative finite numbers; when the
- * requested width would collapse the SVG (e.g. `0`), it is clamped to at least
- * the dot diameter (and at least `1px`) so the dot/offset stay aligned.
- * Defaults to `14`.
- */
+    /**
+     * Leader-line width in px — the horizontal distance from the marker dot to
+     * the callout surface. Also sets the surface's offset from the dot so the
+     * line and surface always line up. Clamped to at least the dot diameter
+     * (and at least `1px`) so a `0`-ish value can't collapse the SVG. Defaults
+     * to `14`.
+     */
+    leaderWidth?: number;
     /**
      * Leader-line height in px — the vertical distance the diagonal rises
      * (`placement="above"`) or drops (`placement="below"`). Defaults to `14`.
