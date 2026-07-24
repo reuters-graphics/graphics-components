@@ -38,20 +38,18 @@ placement and lifecycle through the map context.
 
   export type TileMapCalloutSurface = 'filled' | 'bare';
 
-  const VALID_SURFACES = new Set<TileMapCalloutSurface>(['filled', 'bare']);
-
   export const normalizeTileMapCalloutSurface = (
     value: unknown,
     fallback: TileMapCalloutSurface = 'filled'
   ): TileMapCalloutSurface => {
     if (typeof value !== 'string') return fallback;
 
+    // The literal comparison narrows `normalized` to `TileMapCalloutSurface`
+    // in the truthy branch, so this stays fully type-safe with no assertions.
     const normalized = value.trim().toLowerCase();
-    if (VALID_SURFACES.has(normalized as TileMapCalloutSurface)) {
-      return normalized as TileMapCalloutSurface;
-    }
-
-    return fallback;
+    return normalized === 'filled' || normalized === 'bare'
+      ? normalized
+      : fallback;
   };
 
   const isFiniteNumber = (value: unknown): value is number =>

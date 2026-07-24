@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import type { ComponentProps } from 'svelte';
 import { render } from 'svelte/server';
+import { writable } from 'svelte/store';
 import TileMapCallout, {
   DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS,
   DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT,
@@ -112,6 +114,15 @@ describe('TileMapCallout helpers', () => {
 });
 
 describe('TileMapCallout component', () => {
+  // Render on the server with a mock `map` context so the component doesn't
+  // throw. The marker `$effect` (which needs MapLibre) is client-only and
+  // doesn't run during SSR, so the rendered markup reflects the props alone.
+  const renderWithMap = (props: ComponentProps<typeof TileMapCallout>) =>
+    render(TileMapCallout, {
+      props,
+      context: new Map([['map', writable(null)]]),
+    });
+
   it('requires TileMap context', () => {
     expect(() => {
       const result = render(TileMapCallout, {
@@ -119,5 +130,19 @@ describe('TileMapCallout component', () => {
       });
       expect(result.body).toBeDefined();
     }).toThrow('TileMapCallout must be used inside a TileMap component');
+  });
+
+  it('applies the surface-bare class when surface="bare"', () => {
+    const { body } = renderWithMap({
+      lngLat: [-73.9868, 40.7567],
+      surface: 'bare',
+    });
+    expect(body).toContain('surface-bare');
+  });
+
+  it('omits the surface-bare class for the default filled surface', () => {
+    const { body } = renderWithMap({ lngLat: [-73.9868, 40.7567] });
+    expect(body).toContain('callout-surface');
+    expect(body).not.toContain('surface-bare');
   });
 });
