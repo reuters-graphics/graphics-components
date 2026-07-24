@@ -152,6 +152,7 @@ export type {
 export type {
   TileMapCalloutCoordinates,
   TileMapCalloutPlacement,
+  TileMapCalloutSurface,
 } from './components/TileMapCallout/TileMapCallout.svelte';
 
 export type {

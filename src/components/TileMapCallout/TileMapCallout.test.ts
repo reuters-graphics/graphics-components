@@ -8,6 +8,7 @@ import TileMapCallout, {
   normalizeTileMapCalloutDimension,
   normalizeTileMapCalloutFlip,
   normalizeTileMapCalloutPlacement,
+  normalizeTileMapCalloutSurface,
   resolveTileMapCalloutGeometry,
 } from './TileMapCallout.svelte';
 
@@ -23,6 +24,15 @@ describe('TileMapCallout helpers', () => {
     expect(normalizeTileMapCalloutFlip(true)).toBe(true);
     expect(normalizeTileMapCalloutFlip(false)).toBe(false);
     expect(normalizeTileMapCalloutFlip('true')).toBe(false);
+  });
+
+  it('normalizes surface values', () => {
+    expect(normalizeTileMapCalloutSurface('bare')).toBe('bare');
+    expect(normalizeTileMapCalloutSurface('filled')).toBe('filled');
+    expect(normalizeTileMapCalloutSurface(' BARE ')).toBe('bare');
+    expect(normalizeTileMapCalloutSurface('glass')).toBe('filled');
+    expect(normalizeTileMapCalloutSurface(undefined)).toBe('filled');
+    expect(normalizeTileMapCalloutSurface(null)).toBe('filled');
   });
 
   it('accepts common longitude/latitude shapes', () => {

@@ -36,6 +36,24 @@ placement and lifecycle through the map context.
     return fallback;
   };
 
+  export type TileMapCalloutSurface = 'filled' | 'bare';
+
+  const VALID_SURFACES = new Set<TileMapCalloutSurface>(['filled', 'bare']);
+
+  export const normalizeTileMapCalloutSurface = (
+    value: unknown,
+    fallback: TileMapCalloutSurface = 'filled'
+  ): TileMapCalloutSurface => {
+    if (typeof value !== 'string') return fallback;
+
+    const normalized = value.trim().toLowerCase();
+    if (VALID_SURFACES.has(normalized as TileMapCalloutSurface)) {
+      return normalized as TileMapCalloutSurface;
+    }
+
+    return fallback;
+  };
+
   const isFiniteNumber = (value: unknown): value is number =>
     typeof value === 'number' && Number.isFinite(value);
 
@@ -148,6 +166,13 @@ placement and lifecycle through the map context.
     leaderHeight?: number;
     /** Marker dot radius in px. Defaults to `3`. */
     dotRadius?: number;
+    /**
+     * Surface chrome. `"filled"` (default) draws the themed box (background,
+     * border and shadow). `"bare"` removes that chrome so you can render your
+     * own container inside the callout — the marker, leader line and
+     * positioning still apply. Useful when wrapping a pre-styled card.
+     */
+    surface?: TileMapCalloutSurface;
   }
 
   let {
@@ -160,6 +185,7 @@ placement and lifecycle through the map context.
     leaderWidth = DEFAULT_TILE_MAP_CALLOUT_LEADER_WIDTH,
     leaderHeight = DEFAULT_TILE_MAP_CALLOUT_LEADER_HEIGHT,
     dotRadius = DEFAULT_TILE_MAP_CALLOUT_DOT_RADIUS,
+    surface = 'filled',
   }: Props = $props();
 
   const mapStore = getContext<Writable<MaplibreMap | null>>('map');
@@ -211,6 +237,7 @@ placement and lifecycle through the map context.
   let safeLngLat = $derived(normalizeTileMapCalloutCoordinates(lngLat));
   let safeFlip = $derived(normalizeTileMapCalloutFlip(flip));
   let safePlacement = $derived(normalizeTileMapCalloutPlacement(placement));
+  let safeSurface = $derived(normalizeTileMapCalloutSurface(surface));
   let isBelow = $derived(safePlacement === 'below');
   let calloutClasses = $derived(
     ['tile-map-callout', `placement-${safePlacement}`, safeFlip && 'flip', cls]
@@ -260,7 +287,7 @@ placement and lifecycle through the map context.
   data-has-coordinates={safeLngLat ? 'true' : 'false'}
 >
   <div class={calloutClasses} style={calloutStyle}>
-    <div class="callout-surface">
+    <div class="callout-surface" class:surface-bare={safeSurface === 'bare'}>
       {#if children}
         {@render children()}
       {/if}
@@ -323,20 +350,25 @@ placement and lifecycle through the map context.
   }
 
   .tile-map-callout {
-    /* `--tile-map-callout-leader-width` and `--tile-map-callout-dot-radius`
-       are set inline from the `leaderWidth`/`dotRadius` props (see the script)
-       so geometry has a single source of truth; the values here are the
-       matching fallbacks. Colour/shadow/max-width vars remain the theming API. */
+    /* Geometry vars (`--tile-map-callout-leader-width` /
+       `--tile-map-callout-dot-radius`) are set inline from the
+       leaderWidth/dotRadius props (see the script) so the drawn line and the
+       surface offset share one source of truth; the values here are the
+       matching fallbacks — don't override them via CSS, use the props.
+
+       The theming vars (surface background/border/shadow/colour/max-width) are
+       deliberately NOT declared on the element: they're consumed below with
+       inline fallbacks. That lets a consumer set any of them on their OWN
+       wrapper class and have it cascade in — no specificity fight, and no need
+       to target the internal `.callout-surface` (which downstream CSS purging
+       can strip). Prefer `surface="bare"` when you just want to drop the box. */
     --tile-map-callout-dot-radius: 3px;
     --tile-map-callout-leader-width: 14px;
-    --tile-map-callout-surface-max-width: min(14rem, calc(100vw - 2rem));
-    --tile-map-callout-surface-background: var(--theme-colour-background, #fff);
-    --tile-map-callout-colour: var(--theme-colour-text-primary, #404040);
-    --tile-map-callout-border-colour: var(--theme-colour-text-primary, #404040);
-    --tile-map-callout-shadow: 0 0.125rem 0.5rem
-      var(--theme-colour-brand-shadow, rgb(64 64 64 / 8%));
 
-    color: var(--tile-map-callout-colour);
+    color: var(
+      --tile-map-callout-colour,
+      var(--theme-colour-text-primary, #404040)
+    );
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -344,7 +376,10 @@ placement and lifecycle through the map context.
     position: absolute;
     left: 0;
     top: 0;
-    max-width: var(--tile-map-callout-surface-max-width);
+    max-width: var(
+      --tile-map-callout-surface-max-width,
+      min(14rem, calc(100vw - 2rem))
+    );
     box-sizing: border-box;
     transform: translate(
       calc(-1 * var(--tile-map-callout-dot-radius)),
@@ -380,17 +415,41 @@ placement and lifecycle through the map context.
     margin-block-end: -1px;
     margin-inline-start: var(--tile-map-callout-leader-width);
     width: max-content;
-    max-width: var(--tile-map-callout-surface-max-width);
+    max-width: var(
+      --tile-map-callout-surface-max-width,
+      min(14rem, calc(100vw - 2rem))
+    );
     box-sizing: border-box;
-    background: var(--tile-map-callout-surface-background);
-    border: 1px solid var(--tile-map-callout-border-colour);
-    box-shadow: var(--tile-map-callout-shadow);
+    background: var(
+      --tile-map-callout-surface-background,
+      var(--theme-colour-background, #fff)
+    );
+    border: 1px solid
+      var(
+        --tile-map-callout-border-colour,
+        var(--theme-colour-text-primary, #404040)
+      );
+    box-shadow: var(
+      --tile-map-callout-shadow,
+      0 0.125rem 0.5rem var(--theme-colour-brand-shadow, rgb(64 64 64 / 8%))
+    );
     padding: 0.375rem 0.625rem;
     font-family: var(--theme-font-family-note, Knowledge, sans-serif);
     font-size: var(--theme-font-size-xs, 0.875rem);
     font-weight: 700;
     line-height: 1.25;
     overflow-wrap: anywhere;
+  }
+
+  /* `surface="bare"`: strip the box so a consumer can render their own
+     container inside the callout. Authored here (in the library) so it ships in
+     the component's own CSS and isn't a consumer-side override that purging
+     could remove. */
+  .callout-surface.surface-bare {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
   }
 
   .tile-map-callout.flip .callout-surface {

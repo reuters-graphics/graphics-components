@@ -36,6 +36,12 @@
         control: { type: 'number', min: 0 },
         description: 'Marker dot radius in px.',
       },
+      surface: {
+        control: 'select',
+        options: ['filled', 'bare'],
+        description:
+          'Surface chrome: "filled" draws the themed box; "bare" removes it so you can render your own container.',
+      },
     },
   });
 </script>
@@ -128,6 +134,25 @@
   </TileMap>
 </Story>
 
+<Story asChild name="Bare surface" tags={['!autodocs', '!dev']}>
+  <TileMap
+    id="tile-map-callout-bare-demo"
+    center={[-73.9868, 40.7567]}
+    zoom={13}
+    interactive={true}
+    title="Bare surface"
+    description="With surface='bare' the callout draws no box — render your own pre-styled container inside. The marker, leader line and positioning still apply."
+    height="500px"
+  >
+    <TileMapCallout lngLat={[-73.9868, 40.7567]} surface="bare">
+      <div class="bare-card">
+        <strong>Times Square</strong>
+        <span>Bring your own box</span>
+      </div>
+    </TileMapCallout>
+  </TileMap>
+</Story>
+
 <style lang="scss">
   .rich-callout {
     display: grid;
@@ -142,5 +167,25 @@
   .rich-callout span {
     color: var(--theme-colour-text-secondary);
     font-size: 0.85em;
+  }
+
+  .bare-card {
+    display: grid;
+    gap: 0.125rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--theme-colour-brand-primary, #0078d1);
+    color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 20%);
+    font-weight: 400;
+  }
+
+  .bare-card strong {
+    font-weight: 700;
+  }
+
+  .bare-card span {
+    font-size: 0.85em;
+    opacity: 0.85;
   }
 </style>
