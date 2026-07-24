@@ -47,8 +47,8 @@ placement and lifecycle through the map context.
     // The literal comparison narrows `normalized` to `TileMapCalloutSurface`
     // in the truthy branch, so this stays fully type-safe with no assertions.
     const normalized = value.trim().toLowerCase();
-    return normalized === 'filled' || normalized === 'bare'
-      ? normalized
+    return normalized === 'filled' || normalized === 'bare' ?
+        normalized
       : fallback;
   };
 
