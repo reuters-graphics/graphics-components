@@ -1,0 +1,169 @@
+// Football-newsapp scss mixins.
+//
+// Re-exports the base library mixins so a football component can do
+// `@use '../../styles/mixins' as mixins;` and get *both* the base token
+// mixins (text-*, fpx-*, tracking-*, font-*, h4, …) and the football-specific
+// ones defined below (buttons, shadows, the match-stage rule, etc.).
+//
+// Ported from the World Cup app's `src/lib/styles/_mixins.scss`, with the
+// app-glue removed and the base-mixins path pointed at this repo's scss.
+
+@forward '../../../scss/mixins';
+
+@use '../../../scss/mixins' as mixins;
+
+// ---------------------------------------------------------------------------
+// Local scss vars
+// ---------------------------------------------------------------------------
+$mobile-breakpoint: 475px;
+$shadow-color-soft: rgba(0, 0, 0, 0.2);
+$shadow-color-hard: rgba(0, 0, 0, 0.15);
+
+// ---------------------------------------------------------------------------
+// Keyframes
+// ---------------------------------------------------------------------------
+@keyframes football-pulse {
+  0% {
+    color: var(--theme-colour-text-primary);
+  }
+  100% {
+    color: var(--theme-colour-live-red);
+  }
+}
+
+@keyframes football-shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Button
+// ---------------------------------------------------------------------------
+@mixin button-primary {
+  @include mixins.text-sm;
+  @include mixins.fpx-4;
+  @include mixins.fpy-2;
+  @include mixins.tracking-wide;
+  width: max-content;
+  border: 2px solid var(--theme-colour-tan-grey);
+  color: var(--theme-colour-text-secondary);
+  background-color: transparent;
+  border-radius: calc(10 * var(--theme-style-border-radius));
+  cursor: pointer;
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--theme-colour-muted-grey);
+    color: var(--theme-colour-text-primary);
+    text-shadow:
+      0.02em 0 0 currentColor,
+      -0.02em 0 0 currentColor;
+    @include hard-shadow;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Live dot pulse
+// ---------------------------------------------------------------------------
+@mixin pulse-animation {
+  animation: football-pulse 1s ease-in-out infinite;
+}
+
+// ---------------------------------------------------------------------------
+// Shadows
+// ---------------------------------------------------------------------------
+@mixin soft-shadow {
+  filter: drop-shadow(
+    0 var(--theme-font-size-sm) var(--theme-font-size-base) #{$shadow-color-soft}
+  );
+
+  @media (max-width: $mobile-breakpoint) {
+    filter: drop-shadow(
+      0 var(--theme-font-size-sm) var(--theme-font-size-xs) #{$shadow-color-soft}
+    );
+  }
+}
+
+@mixin hard-shadow {
+  filter: drop-shadow(0 0.15rem 0.3rem $shadow-color-hard);
+
+  @media (max-width: $mobile-breakpoint) {
+    filter: drop-shadow(0 0.1rem 0.15rem $shadow-color-hard);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Section labels with horizontal rules
+// ---------------------------------------------------------------------------
+@mixin match-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .name {
+    text-align: center;
+    @include mixins.h4;
+    @include mixins.fmx-2;
+    @include mixins.fmy-0;
+  }
+
+  .hr {
+    width: var(--theme-font-size-5xl);
+    height: 2px;
+    background: var(--theme-colour-muted-grey);
+    border-radius: var(--theme-style-border-radius);
+    @include hard-shadow;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Hide scrollbar
+// ---------------------------------------------------------------------------
+@mixin hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// ---------------------------------------------------------------------------
+// Hover interaction (only where hover is supported)
+// ---------------------------------------------------------------------------
+@mixin hover-supported {
+  transition:
+    transform 0.35s ease-in-out,
+    filter 0.35s ease-in-out,
+    background-color 0.35s ease-in-out,
+    color 0.35s ease-in-out;
+  backdrop-filter: blur(0); // forces GPU compositing on Safari
+
+  &:hover {
+    @content;
+    @include soft-shadow;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Loading shimmer (respects reduced motion)
+// ---------------------------------------------------------------------------
+@mixin loading {
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 8%,
+    #f8f8f8 18%,
+    transparent 33%
+  );
+  background-size: 200% 100%;
+  animation: football-shine 1.5s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}

@@ -135,6 +135,11 @@
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./football-newsapp": {
+      "types": "./dist/components/football-newsapp/index.d.ts",
+      "svelte": "./dist/components/football-newsapp/index.js",
+      "default": "./dist/components/football-newsapp/index.js"
+    },
     "./scss/*": "./dist/scss/*",
     "./llm-docs/*": "./dist/llm-docs/*"
   },

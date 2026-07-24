@@ -48,6 +48,10 @@ export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.sve
 export { default as LanguageButton } from './components/LanguageButton/LanguageButton.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as Legend } from './components/Legend/Legend.svelte';
+export { default as TabGroup } from './components/TabGroup/TabGroup.svelte';
+export type { Tab } from './components/TabGroup/TabGroup.svelte';
+export { default as LazyMount } from './components/LazyMount/LazyMount.svelte';
+export { default as NoIndex } from './components/NoIndex/NoIndex.svelte';
 export { default as TileMapCallout } from './components/TileMapCallout/TileMapCallout.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';

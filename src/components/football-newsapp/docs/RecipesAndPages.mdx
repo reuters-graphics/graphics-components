@@ -1,0 +1,173 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Football/Recipes & Pages" />
+
+# Football newsapp — Recipes & Pages
+
+Page templates are **documentation, not exported components**. You assemble a
+tournament from the widgets in this namespace. Below are reference recipes for
+the six standard pages — copy, then swap in your data.
+
+All recipes assume you've done the [Data & Setup](/docs/football-data-setup--docs)
+wiring: `setFootballContext(...)` is set once in a layout, and `model` is your
+`buildFootballModel(raw)` result. **Data flows as props; services via context.**
+
+```ts
+import {
+  Nav,
+  MatchStrip,
+  MatchCard,
+  MatchesRail,
+  MatchList,
+  MatchCalendar,
+  Standings,
+  Results,
+  Bracket,
+  TeamCard,
+  TeamMatches,
+  Squad,
+  TrophyCabinet,
+  Countdown,
+  MatchViews,
+  VenueMap,
+  Lineup,
+  MatchStats,
+  Commentary,
+  PhotoGallery,
+} from '@reuters-graphics/graphics-components/football-newsapp';
+```
+
+> Widget names below follow the #457 plan. Some are ported incrementally — a
+> recipe referencing a not-yet-ported widget still documents the intended
+> composition, so the page shape is stable as widgets land.
+
+---
+
+## Home
+
+The tournament landing page: a live/next-up strip, then group standings or the
+knockout bracket depending on stage.
+
+```svelte
+<script>
+  import { model } from '$lib/data';
+</script>
+
+<MatchStrip matches={model.matches} />
+
+{#if model.showKnockouts}
+  <Bracket rounds={model.bracket} />
+{:else}
+  {#each model.groups as group (group.name)}
+    <h3>{group.name}</h3>
+    <Standings rows={group.standings} />
+  {/each}
+{/if}
+```
+
+## Schedule
+
+Date-grouped fixtures. `MatchList` is the date-grouped schedule widget (distinct
+from a team's fixtures — that's `TeamMatches`).
+
+```svelte
+<MatchCalendar matches={model.matches} bind:selectedDate />
+<MatchList matches={model.matches} {selectedDate} />
+```
+
+## Groups
+
+Every group's standings + results.
+
+```svelte
+{#each model.groups as group (group.name)}
+  <section>
+    <h3>{group.name}</h3>
+    <Standings rows={group.standings} />
+    <Results matches={group.matches} />
+  </section>
+{/each}
+```
+
+## Knockouts
+
+```svelte
+<Bracket rounds={model.bracket} />
+```
+
+## Match
+
+A single match page: header/countdown for fixtures, then the in-match tab
+switcher (`MatchViews`, which consumes the base `TabGroup`). Pass **derived**
+data as props — the widgets don't call Opta selectors themselves.
+
+```svelte
+<script>
+  import { model } from '$lib/data';
+  export let matchId;
+  const match = model.getMatch(matchId);
+</script>
+
+{#if model.isUpcoming(match)}
+  <Countdown kickoff={match.isoDate} />
+{/if}
+
+<MatchViews
+  {match}
+  commentary={model.commentaryFor(matchId)}
+  matchStats={model.statsFor(matchId)}
+  homeTeam={model.homeTeam(match)}
+  awayTeam={model.awayTeam(match)}
+/>
+
+<VenueMap venue={match.venue} />
+```
+
+`MatchViews` internally renders `TabGroup` and switches between `Commentary`,
+`MatchStats`, `Lineup` and `PhotoGallery`.
+
+## Team
+
+A team's page: card, honours, fixtures, squad.
+
+```svelte
+<script>
+  import { model } from '$lib/data';
+  export let slug;
+  const team = model.getTeamBySlug(slug);
+</script>
+
+<TeamCard {team} />
+<TrophyCabinet honours={model.honoursFor(team.id)} />
+<TeamMatches matches={model.matchesForTeam(team.id)} />
+<Squad players={model.squadFor(team.id)} />
+```
+
+---
+
+## Navigation & chrome
+
+`Nav` (with `NavLogo` / `Logo`), `MatchesRail` and `TeamsMenu` compose the
+persistent app chrome. Mount `Nav` in the layout, above `{@render children()}`:
+
+```svelte
+<Nav>
+  <MatchesRail matches={model.matches} />
+  <TeamsMenu teams={model.teams} />
+</Nav>
+```
+
+## Embeds & share cards
+
+For standalone embeds and prerendered share cards, set `embed: true` in the
+context (or pass it as a prop) and mount `NoIndex` so the page isn't crawled:
+
+```svelte
+<script>
+  import { NoIndex } from '@reuters-graphics/graphics-components';
+  import { MatchStripEmbed } from '@reuters-graphics/graphics-components/football-newsapp';
+</script>
+
+<NoIndex />
+<MatchStripEmbed matches={model.matches} embed />
+```

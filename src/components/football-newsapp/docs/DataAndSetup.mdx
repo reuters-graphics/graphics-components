@@ -1,0 +1,186 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Football/Data & Setup" />
+
+# Football newsapp — Data & Setup
+
+This is the **from-scratch** wiring guide for the `football-newsapp` component
+namespace. There is **no template/blueprint** — you compose a tournament page
+yourself from these components. This page shows the whole chain:
+
+> install data package → `buildFootballModel(raw)` → `setFootballContext(services)` in a layout → pass data as **props** → a working page.
+
+Everything imports from the subpath export:
+
+```ts
+import {
+  setFootballContext,
+  footballTheme,
+  Flag,
+  MatchCard,
+  Standings,
+  // …
+} from '@reuters-graphics/graphics-components/football-newsapp';
+```
+
+---
+
+## The two channels: data vs. services
+
+The components are decoupled from any app store. Two different things flow in,
+through two different channels — keeping them separate is the whole design:
+
+| | Channel | Examples |
+| --- | --- | --- |
+| **Data** | **props** (explicit, per instance) | match arrays, standings rows, `showKnockouts`, a single `match` |
+| **Ambient services** | **context** (set once, read at any depth) | `getTeam`, `linkBase`, `embed`, `windowWidth` |
+
+Data is **never** put in context. Services are the deliberately-narrow coupling
+surface — see the `FootballContext` type.
+
+### The context contract
+
+```ts
+type FootballContext = {
+  getTeam: (code: string) => { slug: string; name: string } | undefined;
+  getTeamSlugById?: (id: string) => string | undefined;
+  getMatch?: (id: string) => Match | undefined;
+  linkBase: string;   // URL prefix for in-app links (no trailing slash)
+  embed: boolean;     // true inside a third-party iframe / share card
+  windowWidth: number;
+};
+```
+
+Every component resolves each service **prop → context → default**:
+
+- In an **app**, call `setFootballContext(...)` once near the root — components
+  read it automatically, at any depth.
+- In **Storybook / embeds**, pass the service(s) as **props** on the component
+  instead — no context required.
+- If a required service is missing from **both**, the component throws a
+  dev-time error naming the exact fix.
+
+---
+
+## Step 1 — Install the data package
+
+> **Note (interim):** the companion package
+> `@reuters-graphics/opta-football-data` is not published yet. Until it lands,
+> the namespace ships local view-model types (`Match`, `Team`, `StandingRow`,
+> `BracketRound`, …) that mirror its selector outputs, so you can build against
+> the final shapes today. When the package publishes, swap the type imports —
+> the component prop types already reference these names.
+
+```bash
+npm i @reuters-graphics/opta-football-data
+```
+
+The data package's job is to turn a raw Opta feed into **view-models** and to
+expose **selectors** (the insulation layer). Components stay Opta-agnostic;
+each selector's output type is a component's prop type.
+
+## Step 2 — Build the model
+
+```ts
+// src/lib/data.ts
+import { buildFootballModel } from '@reuters-graphics/opta-football-data';
+
+// `raw` is the JSON your app polls from S3 / the feed.
+export const model = buildFootballModel(raw);
+// → { teams, matches, groups, bracket, getTeam, getMatch, getTeamSlugById, … }
+```
+
+## Step 3 — Set the context once (in a layout)
+
+```svelte
+<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import { Theme } from '@reuters-graphics/graphics-components';
+  import {
+    setFootballContext,
+    footballTheme,
+  } from '@reuters-graphics/graphics-components/football-newsapp';
+  import { model } from '$lib/data';
+
+  let { children } = $props();
+  let windowWidth = $state(1000);
+
+  // Ambient services — set ONCE. Data does NOT go here.
+  setFootballContext({
+    getTeam: (code) => model.getTeam(code),
+    getTeamSlugById: (id) => model.getTeamSlugById(id),
+    getMatch: (id) => model.getMatch(id),
+    get linkBase() {
+      return ''; // e.g. '' or '/my-app'
+    },
+    embed: false,
+    get windowWidth() {
+      return windowWidth;
+    },
+  });
+</script>
+
+<svelte:window bind:innerWidth={windowWidth} />
+
+<!-- footballTheme() supplies the --theme-* custom properties the widgets use -->
+<Theme theme={footballTheme(windowWidth)}>
+  {@render children()}
+</Theme>
+```
+
+## Step 4 — Pass data as props on a page
+
+```svelte
+<!-- src/routes/+page.svelte (a Home page) -->
+<script lang="ts">
+  import {
+    MatchStrip,
+    Standings,
+  } from '@reuters-graphics/graphics-components/football-newsapp';
+  import { model } from '$lib/data';
+</script>
+
+<!-- getTeam/linkBase/embed come from context; DATA is passed as props -->
+<MatchStrip matches={model.matches} />
+
+{#each model.groups as group (group.name)}
+  <h3>{group.name}</h3>
+  <Standings rows={group.standings} />
+{/each}
+```
+
+That's the full chain. No component reached into a global store.
+
+---
+
+## Prop-override mode (embeds & stories)
+
+When you can't (or don't want to) set a context — a standalone embed, a
+Storybook story — pass the services as props directly:
+
+```svelte
+<Flag
+  country="ENG"
+  getTeam={(code) => ({ slug: 'england', name: 'England' })}
+  linkBase=""
+  embed={true}
+/>
+```
+
+The prop wins over context, which wins over the built-in default. This is
+exactly how the stories in this section render standalone.
+
+---
+
+## Flag images
+
+`Flag` resolves the flag picture through an injectable seam so the namespace
+doesn't hard-depend on an asset package:
+
+```svelte
+<Flag country="ENG" resolveFlag={(slug, shape) => flagUrlFor(slug, shape)} />
+```
+
+Wire `@reuters-graphics/watercolour-flags` (slug/ISO-keyed images) into
+`resolveFlag`. With no resolver, an inlined fallback flag renders — so `Flag`
+works out of the box in docs and tests.

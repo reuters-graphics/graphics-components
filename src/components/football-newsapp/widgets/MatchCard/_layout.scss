@@ -1,0 +1,194 @@
+@use '../../styles/mixins' as mixins;
+
+.match-card-wrapper {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  background-color: var(--theme-colour-muted-grey);
+  border-radius: var(--theme-style-border-radius);
+  color: var(--theme-colour-text-primary);
+  max-width: 70vw;
+
+  @media (max-width: 850px) {
+    max-width: inherit;
+  }
+
+  &:before {
+    content: '';
+    pointer-events: none;
+    width: var(--cardWidth);
+    height: var(--cardHeight);
+    position: absolute;
+    display: block;
+    border-radius: var(--theme-style-border-radius);
+    top: 0;
+    left: 0;
+    background-color: var(--theme-colour-muted-grey);
+  }
+
+  // The `.team` markup lives inside the `<Team>` child component (different
+  // Svelte scope hash), so reach into it with `:global { ... }` while keeping
+  // the selectors contained under `.match-card-wrapper`.
+  :global {
+    .team {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+
+      &.home-team {
+        left: 25%;
+        top: -11%;
+        transform: translate(-50%, 0);
+
+        @media (max-width: 475px) {
+          left: 21%;
+        }
+      }
+
+      &.away-team {
+        right: 25%;
+        top: -11%;
+        transform: translate(50%, 0);
+
+        @media (max-width: 475px) {
+          right: 21%;
+        }
+      }
+
+      .team-name {
+        @include mixins.font-medium;
+        @include mixins.text-lg;
+        @include mixins.fmt-2;
+        @include mixins.leading-none;
+        max-width: 9rem;
+        white-space: normal;
+        text-align: center;
+
+        @media (max-width: 475px) {
+          @include mixins.text-base;
+        }
+      }
+
+      .flag-container {
+        @include mixins.hard-shadow;
+        width: 4rem;
+        aspect-ratio: 3/2;
+        overflow: visible;
+
+        // `Flag` ships a base64-inlined placeholder PNG and renders it until
+        // the real flag decodes, so no background-image fallback is needed.
+        &.loading {
+          background-color: var(--theme-colour-tan-grey);
+        }
+      }
+    }
+  }
+}
+
+.results-wrapper {
+  width: 100%;
+  height: 7rem;
+  background-color: var(--theme-colour-muted-grey);
+  border-radius: var(--theme-style-border-radius)
+    var(--theme-style-border-radius) 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  @media (max-width: 475px) {
+    height: 5.6rem;
+  }
+}
+
+.scores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include mixins.font-medium;
+  margin: 0;
+  position: relative;
+
+  .scores-results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include mixins.text-xl;
+
+    @media (max-width: 475px) {
+      @include mixins.fmt-4;
+      @include mixins.text-lg;
+    }
+  }
+
+  .score-separator {
+    @include mixins.fmx-2;
+  }
+
+  .team-score {
+    display: flex;
+    align-items: center;
+    @include mixins.font-semibold;
+  }
+
+  .pen {
+    display: inline-block;
+    @include mixins.font-regular;
+    @include mixins.text-base;
+    @include mixins.fml-1;
+  }
+
+  .scores-overtime {
+    position: absolute;
+    margin: 0 auto;
+    @include mixins.font-regular;
+    @include mixins.text-xs;
+    @include mixins.fpt-7;
+
+    @media (max-width: 475px) {
+      @include mixins.fmt-2;
+      @include mixins.text-xxs;
+    }
+  }
+}
+
+.date-time {
+  @include mixins.fp-2;
+  position: absolute;
+
+  top: -3.75rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--theme-colour-background);
+
+  @include mixins.hard-shadow;
+
+  @media (max-width: 475px) {
+    top: -2.8rem;
+  }
+
+  .date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--theme-font-size-lg) * 2);
+    color: var(--theme-colour-text-secondary);
+    .day {
+      @include mixins.leading-none;
+      @include mixins.tracking-wide;
+      @include mixins.font-semibold;
+      @include mixins.text-base;
+    }
+
+    .month {
+      @include mixins.font-regular;
+    }
+  }
+}
