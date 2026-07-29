@@ -1,0 +1,43 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as ToggleStories from './Toggle.stories.svelte';
+
+<Meta of={ToggleStories} />
+
+# Toggle
+
+`Toggle` is a compact segmented control for switching between two or more short options, such as alternate table views or time ranges. It is controlled: the parent owns the selected `value` and updates it from `onselect`.
+
+The component is built on native radio inputs instead of buttons, so keyboard navigation and screen-reader selected-state announcements come from the platform without custom ARIA bookkeeping.
+
+```svelte
+<script>
+  import { Toggle } from '@reuters-graphics/graphics-components';
+
+  const options = [
+    { value: 'summary', label: 'Summary' },
+    { value: 'detail', label: 'Detail' },
+  ];
+
+  let view = $state('summary');
+</script>
+
+<Toggle
+  {options}
+  value={view}
+  legend="Choose table view"
+  onselect={(value) => (view = value)}
+/>
+```
+
+<Canvas of={ToggleStories.Default} />
+
+## Props
+
+- `options`: an array of `{ value, label }` option objects. Keep labels short; two or three options work best.
+- `value`: the currently selected option value.
+- `legend`: accessible name for the radio group. It is visually hidden but announced by assistive technology.
+- `onselect`: callback fired with the selected option value.
+- `name`: optional form control name. Defaults to a unique, prerender-safe value so multiple toggles on a page do not interfere with each other.
+
+<Canvas of={ToggleStories.ThreeOptions} />

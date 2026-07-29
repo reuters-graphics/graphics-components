@@ -77,6 +77,7 @@ export { default as SponsorshipAd } from './components/AdSlot/SponsorshipAd.svel
 export { default as Table } from './components/Table/Table.svelte';
 export { default as Temperature } from './components/Temperature/Temperature.svelte';
 export { default as TemperatureToggle } from './components/Temperature/TemperatureToggle.svelte';
+export { default as Toggle } from './components/Toggle/Toggle.svelte';
 export { default as Theme, themes } from './components/Theme/Theme.svelte';
 export { default as ToolsHeader } from './components/ToolsHeader/ToolsHeader.svelte';
 export { default as Video } from './components/Video/Video.svelte';
@@ -148,6 +149,8 @@ export type {
   GeocodeFeature,
   GeocodeFeatureType,
 } from './components/Geocoder/geocode';
+
+export type { ToggleOption } from './components/Toggle/Toggle.svelte';
 
 export type {
   TileMapCalloutCoordinates,
