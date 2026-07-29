@@ -65,6 +65,8 @@
 </fieldset>
 
 <style lang="scss">
+  @use '../../scss/mixins/segmented-control';
+
   .toggle {
     margin: 0 0 1rem;
     padding: 0;
@@ -72,18 +74,7 @@
   }
 
   .toggle__track {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fff;
-    transition: border-color 0.2s;
-
-    &:hover {
-      border-color: #999;
-    }
+    @include segmented-control.track;
   }
 
   .toggle__option {
