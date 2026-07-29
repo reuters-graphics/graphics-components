@@ -26,7 +26,8 @@ describe('Toggle', () => {
     expect(body).toContain('type="radio"');
     expect(body).toContain('name="table-view"');
     expect(body).toContain('value="summary"');
-    expect(body).toMatch(/value="detail" checked/);
+    const detailInput = body.match(/<input[^>]*\bvalue="detail"[^>]*>/)?.[0];
+    expect(detailInput).toContain('checked');
   });
 
   it('uses slash dividers that are hidden from assistive technology', () => {
