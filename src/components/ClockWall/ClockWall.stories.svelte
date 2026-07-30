@@ -15,6 +15,11 @@
         options: ['Light', 'Normal', 'Bold'],
       },
     },
+    parameters: {
+      // Renders the live wall-clock time, redrawn every 10s, with no way to
+      // pin it externally — never visually stable, so skip Chromatic.
+      chromatic: { disable: true },
+    },
   });
 </script>
 

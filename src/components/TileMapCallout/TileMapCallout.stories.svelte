@@ -43,6 +43,10 @@
           'Surface chrome: "filled" draws the themed box; "bare" removes it so you can render your own container.',
       },
     },
+    parameters: {
+      // Every story nests a live TileMap (live tile fetches) — skip Chromatic.
+      chromatic: { disable: true },
+    },
   });
 </script>
 

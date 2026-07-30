@@ -151,6 +151,11 @@
         control: 'boolean',
       },
     },
+    parameters: {
+      // Renders live map tiles (and, in some stories, a live GeoJSON fetch
+      // or an embedded Geocoder) — never pixel-stable, so skip Chromatic.
+      chromatic: { disable: true },
+    },
   });
 </script>
 
