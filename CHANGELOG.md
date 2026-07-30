@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.8.0
+
+### Minor Changes
+
+- 5f6c628: Add a reusable `SegmentedToggle` radio control for choosing one option from a small set.
+
 ## 4.7.0
 
 ### Minor Changes
