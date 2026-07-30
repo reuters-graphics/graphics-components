@@ -32,23 +32,15 @@
   >
 </button>
 
-<style>
+<style lang="scss">
+  @use '../../scss/mixins/segmented-control';
+
   .temperature-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fff;
+    @include segmented-control.track;
+
     cursor: pointer;
     font-size: 14px;
     color: #999;
-    transition: border-color 0.2s;
-  }
-
-  .temperature-toggle:hover {
-    border-color: #999;
   }
 
   .temperature-toggle:focus-visible {

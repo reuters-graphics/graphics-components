@@ -1,0 +1,14 @@
+@mixin track {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: #999;
+  }
+}
