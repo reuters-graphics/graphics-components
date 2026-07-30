@@ -42,9 +42,17 @@
 
 <svelte:window onmousemove={onMouseMove} />
 
+<!--
+  Masked from Chromatic: this console reports async video-decode state, none of
+  which is stable between snapshots. The source URL is rewritten to a
+  per-build `capture-loopback.chromatic.com` host, and the framerate/time rows
+  race the video's metadata load. It's developer diagnostics, not product UI,
+  so there's nothing worth diffing here.
+-->
 <div
   style="position: absolute; top: {position.y}px; left: {position.x}px; z-index: 5; user-select: none;"
   role="region"
+  data-chromatic="ignore"
 >
   <details class="debug-info" open>
     <summary

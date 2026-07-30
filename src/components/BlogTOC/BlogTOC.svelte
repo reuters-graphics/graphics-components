@@ -117,13 +117,13 @@
                 <TOCList dates={contents} bind:listHeight />
 
                 {#if scrollPos > 10 && listHeight > maxHeight}
-                  <div class="scroll-icon up">
+                  <div class="scroll-icon up" data-chromatic="ignore">
                     <Fa icon={faAngleDoubleUp} />
                   </div>
                 {/if}
 
                 {#if listHeight > maxHeight && scrollPos < 0.95 * (listHeight - maxHeight)}
-                  <div class="scroll-icon down">
+                  <div class="scroll-icon down" data-chromatic="ignore">
                     <Fa icon={faAngleDoubleDown} />
                   </div>
                 {/if}

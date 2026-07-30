@@ -1,0 +1,11 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as BlogStories from './Blog.stories.svelte';
+
+<Meta of={BlogStories} />
+
+# Blog
+
+A live-news graphics blog page pairs a [`Headline`](?path=/docs/components-text-elements-headline--docs) with a [`ClockWall`](?path=/docs/components-blog-clockwall--docs) for the cities in the story, a [`BlogTOC`](?path=/docs/components-blog-blogtoc--docs) linking to every post published so far, and a series of [`BlogPost`](?path=/docs/components-blog-blogpost--docs) entries as the story develops.
+
+<Canvas of={BlogStories.Demo} />
