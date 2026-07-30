@@ -26,7 +26,8 @@
     "changeset:version": "changeset version",
     "changeset:publish": "git add --all && changeset publish",
     "knip": "knip",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "license": "MIT",
   "files": [
