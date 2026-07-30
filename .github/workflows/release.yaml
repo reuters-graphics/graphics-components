@@ -11,6 +11,7 @@ jobs:
     secrets: inherit
     with:
       node_version: '22'
+      publish_docs: true
 
   notify-downstream:
     needs: release
