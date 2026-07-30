@@ -94,8 +94,11 @@
    */
   let img: HTMLImageElement | undefined = $state(undefined);
 
-  /** Defaults with an empty DOMRect with all values set to 0 */
-  let imgOffset: DOMRect = $state(new DOMRect());
+  /** Defaults with a rect-like object with all values set to 0. Avoids `new DOMRect()`, which doesn't exist during SSR. */
+  let imgOffset: Pick<DOMRect, 'width' | 'left'> = $state({
+    width: 0,
+    left: 0,
+  });
   let sliding = false;
   let figure: HTMLElement | undefined = $state(undefined);
   let beforeOverlayWidth = $state(0);
