@@ -1,20 +1,22 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { expect, userEvent, within } from 'storybook/test';
-  import Toggle, { type ToggleOption } from './Toggle.svelte';
+  import SegmentedToggle, {
+    type SegmentedToggleOption,
+  } from './SegmentedToggle.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Controls/Toggle',
-    component: Toggle,
+    title: 'Components/Controls/SegmentedToggle',
+    component: SegmentedToggle,
     tags: ['autodocs'],
   });
 
-  const options: ToggleOption[] = [
+  const options: SegmentedToggleOption[] = [
     { value: 'summary', label: 'Summary' },
     { value: 'detail', label: 'Detail' },
   ];
 
-  const threeOptions: ToggleOption[] = [
+  const threeOptions: SegmentedToggleOption[] = [
     { value: 'day', label: 'Day' },
     { value: 'week', label: 'Week' },
     { value: 'month', label: 'Month' },
@@ -54,7 +56,7 @@
 -->
 <Story name="Default" play={selectionPlay}>
   {#snippet template()}
-    <Toggle
+    <SegmentedToggle
       {options}
       value={selected}
       legend="Choose table density"
@@ -65,7 +67,7 @@
 
 <Story name="Three options">
   {#snippet template()}
-    <Toggle
+    <SegmentedToggle
       options={threeOptions}
       value={range}
       legend="Choose time range"

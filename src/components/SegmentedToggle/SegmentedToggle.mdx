@@ -1,18 +1,18 @@
 import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 
-import * as ToggleStories from './Toggle.stories.svelte';
+import * as SegmentedToggleStories from './SegmentedToggle.stories.svelte';
 
-<Meta of={ToggleStories} />
+<Meta of={SegmentedToggleStories} />
 
-# Toggle
+# SegmentedToggle
 
-`Toggle` is a compact segmented control for switching between two or more short options, such as alternate table views or time ranges. It is controlled: the parent owns the selected `value` and updates it from `onselect`.
+`SegmentedToggle` is a compact segmented control for switching between two or more short options, such as alternate table views or time ranges. It is controlled: the parent owns the selected `value` and updates it from `onselect`.
 
 The component is built on native radio inputs instead of buttons, so keyboard navigation and screen-reader selected-state announcements come from the platform without custom ARIA bookkeeping.
 
 ```svelte
 <script>
-  import { Toggle } from '@reuters-graphics/graphics-components';
+  import { SegmentedToggle } from '@reuters-graphics/graphics-components';
 
   const options = [
     { value: 'summary', label: 'Summary' },
@@ -22,7 +22,7 @@ The component is built on native radio inputs instead of buttons, so keyboard na
   let view = $state('summary');
 </script>
 
-<Toggle
+<SegmentedToggle
   {options}
   value={view}
   legend="Choose table view"
@@ -30,7 +30,7 @@ The component is built on native radio inputs instead of buttons, so keyboard na
 />
 ```
 
-<Canvas of={ToggleStories.Default} />
+<Canvas of={SegmentedToggleStories.Default} />
 
 ## Props
 
@@ -40,4 +40,4 @@ The component is built on native radio inputs instead of buttons, so keyboard na
 - `onselect`: callback fired with the selected option value.
 - `name`: optional form control name. Defaults to a unique, prerender-safe value so multiple toggles on a page do not interfere with each other.
 
-<Canvas of={ToggleStories.ThreeOptions} />
+<Canvas of={SegmentedToggleStories.ThreeOptions} />

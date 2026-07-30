@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { render } from 'svelte/server';
-import Toggle from './Toggle.svelte';
+import SegmentedToggle from './SegmentedToggle.svelte';
 
-describe('Toggle', () => {
+describe('SegmentedToggle', () => {
   const options = [
     { value: 'summary', label: 'Summary' },
     { value: 'detail', label: 'Detail' },
   ];
 
   it('renders a native radio group with the selected value checked', () => {
-    const { body } = render(Toggle, {
+    const { body } = render(SegmentedToggle, {
       props: {
         options,
         value: 'detail',
@@ -31,7 +31,7 @@ describe('Toggle', () => {
   });
 
   it('uses slash dividers that are hidden from assistive technology', () => {
-    const { body } = render(Toggle, {
+    const { body } = render(SegmentedToggle, {
       props: {
         options,
         value: 'summary',

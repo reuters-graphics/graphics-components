@@ -1,5 +1,5 @@
 <!--
-  @component `Toggle` is a compact segmented control for choosing one option from a small set.
+  @component `SegmentedToggle` is a compact segmented control for choosing one option from a small set.
 
   It is built on native `<input type="radio">` elements rather than buttons.
   Radio semantics are the honest description of "pick one of these views", and
@@ -8,18 +8,21 @@
   remain focusable, with the focus ring drawn on the label.
 -->
 <script lang="ts" module>
-  export interface ToggleOption {
+  export interface SegmentedToggleOption {
     /** Stable value emitted when this option is selected. */
     value: string;
     /** Visible label for the option. */
     label: string;
   }
+
+  // Backward-compatibility alias for prior public type name.
+  export type ToggleOption = SegmentedToggleOption;
 </script>
 
 <script lang="ts">
   interface Props {
     /** Selectable options. Two or three short options work best. */
-    options: ToggleOption[];
+    options: SegmentedToggleOption[];
     /** Currently selected option value. */
     value: string;
     /** Accessible name for the group as a whole. */
@@ -79,7 +82,7 @@
 
   .toggle__option {
     position: relative;
-    display: inline-grid;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: 28px;
@@ -94,16 +97,19 @@
     // doesn't resize the option or make the control flash sideways.
     &::after {
       content: attr(data-label);
-      grid-area: 1 / 1;
-      height: 0;
-      overflow: hidden;
+      display: block;
+      white-space: nowrap;
       visibility: hidden;
       font-weight: 600;
       pointer-events: none;
     }
 
     > span {
-      grid-area: 1 / 1;
+      position: absolute;
+      inset: 0;
+      display: inline-grid;
+      align-items: center;
+      justify-content: center;
     }
 
     &:hover {
@@ -113,6 +119,9 @@
 
   .toggle__option.is-active {
     color: var(--color-text-primary, #333);
+  }
+
+  .toggle__option.is-active > span {
     font-weight: 600;
   }
 
@@ -135,9 +144,10 @@
     clip-path: inset(50%);
   }
 
-  .toggle__option:focus-within {
-    outline: 2px solid var(--color-text-primary, #333);
-    outline-offset: 2px;
+  .toggle__option:has(input:focus-visible) {
+    border-radius: 3px;
+    outline: 2px solid
+      var(--theme-colour-text-secondary, var(--color-text-secondary, #666666));
   }
 
   .visually-hidden {
