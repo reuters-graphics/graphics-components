@@ -1,10 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import BlogTOC from './BlogTOC.svelte';
-  import BlogPost from '../BlogPost/BlogPost.svelte';
-  import BodyText from '../BodyText/BodyText.svelte';
-  import Headline from '../Headline/Headline.svelte';
-  import ClockWall from '../ClockWall/ClockWall.svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Blog/BlogTOC',
@@ -53,36 +49,5 @@
 </script>
 
 <Story name="Demo" asChild>
-  <Headline
-    section="Graphics"
-    hed="Maps of the Iran crisis"
-    hedSize="big"
-    width="normal"
-    class="mb-2"
-  />
-
-  <ClockWall
-    cities={[
-      { name: 'Tehran', tzIdentifier: 'Asia/Tehran' },
-      { name: 'Tel Aviv', tzIdentifier: 'Asia/Tel_Aviv' },
-      { name: 'Washington D.C.', tzIdentifier: 'America/New_York' },
-    ]}
-  />
-
   <BlogTOC {posts} />
-
-  <BlogPost
-    title="Iran fires ballistic missiles at Israel in major escalation"
-    slugTitle="Iran fires ballistic missiles at Israel in major escalation"
-    authors={['John Smith', 'Jane Doe']}
-    publishTime="2024-10-01T18:30:00Z"
-    updateTime="2024-10-01T21:45:00Z"
-  >
-    <BodyText
-      text="Iran launched a barrage of ballistic missiles at Israel on Tuesday in its first direct attack on Israeli territory, marking a significant escalation in the conflict gripping the Middle East."
-    />
-    <BodyText
-      text="The attack, which Iran said was in retaliation for Israeli strikes that killed senior Hezbollah and Hamas leaders, prompted Israel and the United States to vow a response."
-    />
-  </BlogPost>
 </Story>
