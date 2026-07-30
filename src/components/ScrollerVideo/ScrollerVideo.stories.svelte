@@ -117,6 +117,15 @@
         },
       },
     },
+    parameters: {
+      // Frames are decoded off the main thread and painted to a canvas, so an
+      // unhinted snapshot can land before the first frame exists — the canvas
+      // captures blank on one build and painted on the next. Chromatic waits
+      // for resources but can't see the decode, so hold the capture to give it
+      // room to finish. Note this reduces the race rather than removing it: a
+      // slow runner can still beat the delay.
+      chromatic: { delay: 8000 },
+    },
   });
 
   let width: number = $state(0);
