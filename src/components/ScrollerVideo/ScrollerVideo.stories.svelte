@@ -168,7 +168,16 @@
   <Embedded />
 </Story>
 
-<Story asChild name="Autoplay">
+<Story
+  asChild
+  name="Autoplay"
+  parameters={{
+    // Canvas-decoded frames advance on a timer while autoplaying — never
+    // pixel-stable, so skip Chromatic (unlike the scroll-driven stories,
+    // which render a fixed frame at the static scroll position).
+    chromatic: { disable: true },
+  }}
+>
   <ScrollerVideo {...args} src={videoSrc.Goldengate} autoplay={true} />
 </Story>
 

@@ -35,6 +35,11 @@
         },
       },
     },
+    parameters: {
+      // Canvas-rendered autoplay animation — Chromatic can't pause canvas
+      // rendering the way it does CSS animations, so skip it.
+      chromatic: { disable: true },
+    },
   });
 
   let progress = $state(0);
