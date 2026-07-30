@@ -1,5 +1,6 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { expect, userEvent, within, waitFor } from 'storybook/test';
   import BlogTOC from './BlogTOC.svelte';
 
   const { Story } = defineMeta({
@@ -48,6 +49,36 @@
   ];
 </script>
 
-<Story name="Demo" asChild>
+<!--
+  BlogTOC is collapsed by default, so click it open — both to exercise the
+  interaction and so the Chromatic snapshot covers the expanded list, not
+  just the closed toggle button.
+-->
+<Story
+  name="Demo"
+  asChild
+  play={async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('button', { name: /show all articles/i });
+
+    await userEvent.click(toggle);
+
+    await waitFor(() =>
+      expect(
+        canvas.getByText(
+          'Oil prices surge amid fears of wider Middle East conflict'
+        )
+      ).toBeVisible()
+    );
+  }}
+  parameters={{
+    // The list slides open on click; give it a beat to settle before
+    // Chromatic snapshots so it doesn't land mid-transition. The infinite
+    // scroll-hint animations inside the list carry their own
+    // data-chromatic="ignore" markers (see BlogTOC.svelte), since they never
+    // settle.
+    chromatic: { delay: 400 },
+  }}
+>
   <BlogTOC {posts} />
 </Story>
