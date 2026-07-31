@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { expect, within } from 'storybook/test';
-  import Headline from '../components/Headline/Headline.svelte';
+  import SiteHeadline from '../components/SiteHeadline/SiteHeadline.svelte';
   import BodyText from '../components/BodyText/BodyText.svelte';
   import FeaturePhoto from '../components/FeaturePhoto/FeaturePhoto.svelte';
   import GraphicBlock from '../components/GraphicBlock/GraphicBlock.svelte';
@@ -215,9 +215,8 @@
   context: { parameters?: { theme?: string } }
 )}
   {@const isDark = context?.parameters?.theme === 'dark'}
-  <Headline
+  <SiteHeadline
     hed={content.hed}
-    dek={content.dek}
     section={content.section}
     authors={content.authors}
     publishTime={content.publishTime}
