@@ -157,6 +157,23 @@ function validateCoordinate(
   }
 }
 
+function validateReverseOptions(options: ReverseGeocodeOptions) {
+  if (
+    options.limit !== undefined &&
+    (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 5)
+  ) {
+    throw new RangeError('limit must be an integer between 1 and 5');
+  }
+
+  if (options.limit !== undefined && options.limit > 1) {
+    if (options.types?.length !== 1) {
+      throw new TypeError(
+        'types must contain exactly one feature type when limit is greater than 1'
+      );
+    }
+  }
+}
+
 /**
  * Look up the geographic features at a WGS84 longitude/latitude coordinate.
  *
@@ -171,6 +188,7 @@ export async function reverseGeocode(
 ): Promise<GeocodeFeature[]> {
   validateCoordinate('longitude', longitude, -180, 180);
   validateCoordinate('latitude', latitude, -90, 90);
+  validateReverseOptions(options);
 
   const params = new URLSearchParams({
     longitude: String(longitude),

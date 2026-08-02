@@ -33,7 +33,7 @@ const jsonResponse = (body: unknown, status = 200) =>
     headers: { 'Content-Type': 'application/json' },
   });
 
-describe('reverseGeocode', () => {
+describe('geocoding helpers', () => {
   const fetchMock = vi.fn<typeof fetch>();
 
   beforeEach(() => {
@@ -134,6 +134,43 @@ describe('reverseGeocode', () => {
       expect(fetchMock).not.toHaveBeenCalled();
     }
   );
+
+  it.each([0, 1.5, 6, Number.NaN, Number.POSITIVE_INFINITY])(
+    'rejects invalid reverse limit %s before requesting',
+    async (limit) => {
+      await expect(
+        reverseGeocode(0, 0, { accessToken: 'test-token', limit })
+      ).rejects.toThrow('limit must be an integer between 1 and 5');
+      expect(fetchMock).not.toHaveBeenCalled();
+    }
+  );
+
+  it('requires exactly one type when the reverse limit is greater than 1', async () => {
+    await expect(
+      reverseGeocode(0, 0, { accessToken: 'test-token', limit: 2 })
+    ).rejects.toThrow(
+      'types must contain exactly one feature type when limit is greater than 1'
+    );
+    await expect(
+      reverseGeocode(0, 0, {
+        accessToken: 'test-token',
+        limit: 2,
+        types: [],
+      })
+    ).rejects.toThrow(
+      'types must contain exactly one feature type when limit is greater than 1'
+    );
+    await expect(
+      reverseGeocode(0, 0, {
+        accessToken: 'test-token',
+        limit: 2,
+        types: ['address', 'place'],
+      })
+    ).rejects.toThrow(
+      'types must contain exactly one feature type when limit is greater than 1'
+    );
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 
   it('passes through the AbortSignal and does not swallow abort errors', async () => {
     fetchMock.mockImplementation(async (_input, init) => {

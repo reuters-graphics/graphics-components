@@ -76,7 +76,7 @@ function cleanup() {
 }
 ```
 
-The helper calls the Mapbox v6 reverse endpoint and returns `GeocodeFeature[]`, ordered from the most specific overlapping feature to the least specific. No result is represented by an empty array. Non-successful HTTP responses reject with an error containing the response status, and an optional `AbortSignal` is passed directly to `fetch`.
+The helper calls the Mapbox v6 reverse endpoint and returns `GeocodeFeature[]`, ordered from the most specific overlapping feature to the least specific. An empty array represents no results. Non-successful HTTP responses reject with an error containing the response status, and an optional `AbortSignal` is passed directly to `fetch`.
 
 `accessToken` is required. The supported reverse options are `country`, `language`, `limit`, `types`, `worldview`, and `permanent`. The reverse `limit` defaults to `1` and has a maximum of `5`; values above `1` require exactly one entry in `types`. See the [official reverse-geocoding reference](https://docs.mapbox.com/api/search/geocoding/#reverse-geocoding) for parameter details.
 
