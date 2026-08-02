@@ -2,20 +2,37 @@
  * Focused tests for the `onbeforetoggle` pre-mutation hook added to
  * `TemperatureToggle`.
  *
- * These tests exercise the exact onclick logic the component applies on every
+ * These tests verify the exact onclick logic the component applies on every
  * user activation:
  *
  *   const next = otherUnit(state.current);
  *   onbeforetoggle?.(next);
  *   state.set(next);
  *
- * We simulate this directly so the ordering proofs remain framework-agnostic
- * and run in the same Vitest/Node environment as the rest of the Temperature
- * test suite (no jsdom required).
+ * A source-contract test anchors the suite to the component, while the
+ * framework-agnostic tests exercise the sequence without requiring jsdom.
  */
+import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { TemperatureUnitState } from './state.svelte';
 import { otherUnit, type TemperatureUnit } from './units';
+
+describe('TemperatureToggle component contract', () => {
+  it('invokes onbeforetoggle before setting the next unit', () => {
+    const source = readFileSync(
+      new URL('./TemperatureToggle.svelte', import.meta.url),
+      'utf8'
+    );
+    const handler = source
+      .match(/onclick=\{\(\) => \{([\s\S]*?)\}\}/)?.[1]
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    expect(handler).toBe(
+      'const next = otherUnit(state.current); onbeforetoggle?.(next); state.set(next);'
+    );
+  });
+});
 
 // ---------------------------------------------------------------------------
 // Shared test helpers — mirrors the stubs in state.test.ts so the test env is
