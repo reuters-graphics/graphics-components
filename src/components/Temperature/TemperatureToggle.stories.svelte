@@ -64,18 +64,6 @@
   </div>
 </Story>
 
-<!--
-  WithPreHook: demonstrates the `onbeforetoggle` prop.
-
-  The callback receives the *next* unit synchronously before `state.set(next)`
-  commits the change, so external renderers (charts, maps, canvas layers) can
-  update their axis labels, colour scales or projections in the same task —
-  similar to how a MapLibre layer's `setLayoutProperty` call needs to happen
-  before the next render frame.
-
-  Nothing Climate Monitor-specific is required: any consumer of the
-  `TemperatureUnit` type can use this pattern.
--->
 <Story
   asChild
   name="WithPreHook"
