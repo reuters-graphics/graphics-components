@@ -11,6 +11,10 @@
   });
 </script>
 
+<script lang="ts">
+  let hookLog = $state('');
+</script>
+
 <!--
   The toggle flips the shared unit state and persists the choice. Any
   `Temperature` on the page — and any cross-bundle listener on the
@@ -92,26 +96,23 @@
     // reflects, and the final unit should match what the hook received.
     await userEvent.click(toggle);
     await waitFor(() => expect(toggle).toHaveAttribute('aria-checked', 'true'));
-    expect(log.textContent).toContain('next=fahrenheit');
+    await waitFor(() => expect(log).toHaveTextContent('next=fahrenheit'));
   }}
 >
-  {#snippet children()}
-    {@const hookLog = { text: '' }}
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <TemperatureToggle
-        onbeforetoggle={(next: TemperatureUnit) => {
-          // This callback fires before state.set(next).
-          // In a real app you might call:
-          //   map.setLayoutProperty('temperature-layer', 'text-field', next === 'fahrenheit' ? '{temp_f}' : '{temp_c}');
-          hookLog.text = `onbeforetoggle called — next=${next}`;
-        }}
-      />
-      <p
-        data-testid="hook-log"
-        style="font-family: monospace; font-size: 12px; color: #555;"
-      >
-        {hookLog.text || '(click the toggle to see the pre-hook log)'}
-      </p>
-    </div>
-  {/snippet}
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <TemperatureToggle
+      onbeforetoggle={(next: TemperatureUnit) => {
+        // This callback fires before state.set(next).
+        // In a real app you might call:
+        //   map.setLayoutProperty('temperature-layer', 'text-field', next === 'fahrenheit' ? '{temp_f}' : '{temp_c}');
+        hookLog = `onbeforetoggle called — next=${next}`;
+      }}
+    />
+    <p
+      data-testid="hook-log"
+      style="font-family: monospace; font-size: 12px; color: #555;"
+    >
+      {hookLog || '(click the toggle to see the pre-hook log)'}
+    </p>
+  </div>
 </Story>

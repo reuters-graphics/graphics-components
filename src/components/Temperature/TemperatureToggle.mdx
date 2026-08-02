@@ -94,13 +94,6 @@ call stack, and `state.set(next)` is never called. No attribute, localStorage,
 or window event side-effect fires. This lets callers veto a toggle when their
 external state cannot accept the new unit.
 
-### Backward compatibility
-
-`onbeforetoggle` is entirely optional. Omitting it leaves every existing
-behavior — state mutation, `<html data-temp-unit>`, `localStorage`,
-`temperature-unit-changed` event, SSR/bootstrap hydration, accessibility —
-100 % unchanged.
-
 ## Display a temperature
 
 ```svelte
