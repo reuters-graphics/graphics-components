@@ -4,6 +4,7 @@
   import TileMapLayer from './TileMapLayer.svelte';
   import TileMapCallout from '../TileMapCallout/TileMapCallout.svelte';
   import Geocoder from '../Geocoder/Geocoder.svelte';
+  import ReverseGeocodeMap from './demo/ReverseGeocodeMap.svelte';
   import type { FeatureCollection, Polygon, Point } from 'geojson';
 
   // Example GeoJSON data - Central Park polygon
@@ -353,4 +354,8 @@
       />
     </div>
   </TileMap>
+</Story>
+
+<Story asChild name="Reverse geocoding on click">
+  <ReverseGeocodeMap accessToken={mapboxAccessToken} />
 </Story>
