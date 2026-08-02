@@ -33,6 +33,74 @@ window event so every `Temperature`, chart and cross-bundle listener updates
 together. With no props it drives the shared singleton; pass an explicit `state`
 to control a scoped `TemperatureUnitState`.
 
+## Pre-mutation hook — `onbeforetoggle`
+
+<Canvas of={TemperatureToggleStories.WithPreHook} />
+
+Pass an `onbeforetoggle` callback to run your own logic **synchronously**
+immediately before `state.set(next)` commits the change. The callback receives
+the _next_ `TemperatureUnit` the component is about to apply.
+
+```svelte
+<script lang="ts">
+  import { TemperatureToggle } from '@reuters-graphics/graphics-components';
+  import type { TemperatureUnit } from '@reuters-graphics/graphics-components';
+</script>
+
+<TemperatureToggle
+  onbeforetoggle={(next: TemperatureUnit) => {
+    // Runs before state.set(next), the <html> attribute, localStorage,
+    // and the window event.
+    console.log('switching to', next);
+  }}
+/>
+```
+
+### MapLibre / external-renderer pattern
+
+When a map (or chart) needs its own axis labels or layer properties updated in
+the same synchronous task before the rest of the UI reflects the new unit, use
+`onbeforetoggle` to pre-sync it:
+
+```svelte
+<script lang="ts">
+  import { TemperatureToggle } from '@reuters-graphics/graphics-components';
+  import type { TemperatureUnit } from '@reuters-graphics/graphics-components';
+  import maplibregl from 'maplibre-gl';
+
+  let map: maplibregl.Map;
+</script>
+
+<TemperatureToggle
+  onbeforetoggle={(next: TemperatureUnit) => {
+    // Update the map layer's text field before state commits so the
+    // label and the toggle finish in the same browser task.
+    map.setLayoutProperty(
+      'temperature-labels',
+      'text-field',
+      next === 'fahrenheit' ? ['get', 'temp_f'] : ['get', 'temp_c']
+    );
+  }}
+/>
+```
+
+This pattern works for any renderer — D3 axes, Canvas layers, WebGL uniforms —
+that must update synchronously before the reactive Svelte tree re-renders.
+
+### Error propagation
+
+If the callback throws, the error is **not swallowed**: it propagates up the
+call stack, and `state.set(next)` is never called. No attribute, localStorage,
+or window event side-effect fires. This lets callers veto a toggle when their
+external state cannot accept the new unit.
+
+### Backward compatibility
+
+`onbeforetoggle` is entirely optional. Omitting it leaves every existing
+behavior — state mutation, `<html data-temp-unit>`, `localStorage`,
+`temperature-unit-changed` event, SSR/bootstrap hydration, accessibility —
+100 % unchanged.
+
 ## Display a temperature
 
 ```svelte

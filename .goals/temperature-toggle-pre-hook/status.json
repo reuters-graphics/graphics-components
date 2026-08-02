@@ -1,0 +1,16 @@
+{
+  "goal_id": "temperature-toggle-pre-hook",
+  "status": "completed",
+  "iteration": 1,
+  "builder_model": "Claude:Sonnet-4.6",
+  "inspector_model": "Claude:Haiku-4.5",
+  "initial_sha": "b507ef990b676c6d048f6501a758c18fbf3113e4",
+  "created_at": "2026-08-02T13:40:51Z",
+  "history": [
+    {
+      "iteration": 1,
+      "verdict": "PASS",
+      "summary": "All API, ordering, compatibility, documentation, changeset, and validation criteria passed."
+    }
+  ]
+}

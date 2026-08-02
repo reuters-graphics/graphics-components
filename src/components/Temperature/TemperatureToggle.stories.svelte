@@ -3,6 +3,7 @@
   import { expect, userEvent, within, waitFor } from 'storybook/test';
   import TemperatureToggle from './TemperatureToggle.svelte';
   import Temperature from './Temperature.svelte';
+  import type { TemperatureUnit } from './units';
 
   const { Story } = defineMeta({
     title: 'Components/Controls/TemperatureToggle',
@@ -61,4 +62,68 @@
       <Temperature celsius={26.7} digits={1} />
     </span>
   </div>
+</Story>
+
+<!--
+  WithPreHook: demonstrates the `onbeforetoggle` prop.
+
+  The callback receives the *next* unit synchronously before `state.set(next)`
+  commits the change, so external renderers (charts, maps, canvas layers) can
+  update their axis labels, colour scales or projections in the same task —
+  similar to how a MapLibre layer's `setLayoutProperty` call needs to happen
+  before the next render frame.
+
+  Nothing Climate Monitor-specific is required: any consumer of the
+  `TemperatureUnit` type can use this pattern.
+-->
+<Story
+  asChild
+  name="WithPreHook"
+  parameters={{
+    docs: {
+      description: {
+        story:
+          'Pass `onbeforetoggle` to run your own logic **before** the unit state commits. Useful for pre-syncing external renderers such as charts or maps.',
+      },
+    },
+  }}
+  play={async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('switch');
+    const log = canvas.getByTestId('hook-log');
+
+    // Start from celsius.
+    if (toggle.getAttribute('aria-checked') !== 'false') {
+      await userEvent.click(toggle);
+      await waitFor(() =>
+        expect(toggle).toHaveAttribute('aria-checked', 'false')
+      );
+    }
+
+    // Click: the pre-hook message should appear before the toggle state
+    // reflects, and the final unit should match what the hook received.
+    await userEvent.click(toggle);
+    await waitFor(() => expect(toggle).toHaveAttribute('aria-checked', 'true'));
+    expect(log.textContent).toContain('next=fahrenheit');
+  }}
+>
+  {#snippet children()}
+    {@const hookLog = { text: '' }}
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <TemperatureToggle
+        onbeforetoggle={(next: TemperatureUnit) => {
+          // This callback fires before state.set(next).
+          // In a real app you might call:
+          //   map.setLayoutProperty('temperature-layer', 'text-field', next === 'fahrenheit' ? '{temp_f}' : '{temp_c}');
+          hookLog.text = `onbeforetoggle called — next=${next}`;
+        }}
+      />
+      <p
+        data-testid="hook-log"
+        style="font-family: monospace; font-size: 12px; color: #555;"
+      >
+        {hookLog.text || '(click the toggle to see the pre-hook log)'}
+      </p>
+    </div>
+  {/snippet}
 </Story>
