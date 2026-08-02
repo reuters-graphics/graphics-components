@@ -155,6 +155,8 @@ export type {
   ToggleOption,
 } from './components/SegmentedToggle/SegmentedToggle.svelte';
 
+export type { TemperatureToggleProps } from './components/Temperature/TemperatureToggle.svelte';
+
 export type {
   TileMapCalloutCoordinates,
   TileMapCalloutPlacement,

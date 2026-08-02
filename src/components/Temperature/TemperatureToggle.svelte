@@ -1,16 +1,35 @@
 <!-- @component An accessible °C/°F switch that flips and persists the reader's unit preference so every Temperature updates. Pairs with Temperature. -->
 <script lang="ts">
+  import { otherUnit, type TemperatureUnit } from './units';
   import { getUnitContext, type TemperatureUnitState } from './state.svelte';
 
-  interface Props {
+  export interface TemperatureToggleProps {
     /** State to control; defaults to the nearest context or the shared singleton. */
     state?: TemperatureUnitState;
     /** Accessible label for the control. */
     label?: string;
+    /**
+     * Optional pre-mutation hook. Called **synchronously** with the *next*
+     * {@link TemperatureUnit} immediately before `state.set(next)` commits the
+     * change.  Throw to prevent the mutation and all canonical side-effects
+     * (attribute, localStorage, window event) entirely.  Omitting the prop
+     * leaves all existing behaviour unchanged.
+     *
+     * @example Synchronise an external renderer before the unit commits:
+     * ```svelte
+     * <TemperatureToggle
+     *   onbeforetoggle={(next) => myChart.setUnit(next)}
+     * />
+     * ```
+     */
+    onbeforetoggle?: (next: TemperatureUnit) => void;
   }
 
-  let { state = getUnitContext(), label = 'Temperature unit' }: Props =
-    $props();
+  let {
+    state = getUnitContext(),
+    label = 'Temperature unit',
+    onbeforetoggle,
+  }: TemperatureToggleProps = $props();
 </script>
 
 <button
@@ -19,7 +38,11 @@
   role="switch"
   aria-checked={state.current === 'fahrenheit'}
   aria-label={label}
-  onclick={() => state.toggle()}
+  onclick={() => {
+    const next = otherUnit(state.current);
+    onbeforetoggle?.(next);
+    state.set(next);
+  }}
 >
   <span
     class="temperature-toggle__option"
