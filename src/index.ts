@@ -35,7 +35,7 @@ export type { FaqItem } from './components/FaqBox/types';
 export { default as FeaturePhoto } from './components/FeaturePhoto/FeaturePhoto.svelte';
 export { default as Framer } from './components/Framer/Framer.svelte';
 export { default as Geocoder } from './components/Geocoder/Geocoder.svelte';
-export { geocode } from './components/Geocoder/geocode';
+export { geocode, reverseGeocode } from './components/Geocoder/geocode';
 export { default as GraphicBlock } from './components/GraphicBlock/GraphicBlock.svelte';
 export { default as Headline } from './components/Headline/Headline.svelte';
 export { default as Headpile } from './components/Headpile/Headpile.svelte';
@@ -146,8 +146,12 @@ export type {
 
 export type {
   GeocodeOptions,
+  ReverseGeocodeOptions,
   GeocodeFeature,
   GeocodeFeatureType,
+  GeocodeResponseFeatureType,
+  ForwardGeocodeFilterType,
+  ReverseGeocodeFilterType,
 } from './components/Geocoder/geocode';
 
 export type {

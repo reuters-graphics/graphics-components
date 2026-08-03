@@ -281,6 +281,101 @@ Use `TileMapCallout` when you want a framed annotation attached to a map coordin
 - **id**: `string` - Add an id to the MapLibre marker wrapper
 - **children**: `Snippet` - Short label or compact rich content
 
+## Forward geocoding (search and fly)
+
+Use `Geocoder` inside `TileMap` when you want readers to search for a place name and then move the map there. The story below wires `onselect` to `map.flyTo()`.
+
+<Canvas of={TileMapStories.WithGeocoder} />
+
+```svelte
+<script lang="ts">
+  import { Geocoder, TileMap } from '@reuters-graphics/graphics-components';
+  import type { Map as MapType } from 'maplibre-gl';
+
+  const mapboxAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? '';
+  let mapRef: MapType;
+</script>
+
+<TileMap
+  id="geocoder-map"
+  center={[-98, 39]}
+  zoom={3}
+  interactive
+  onMapReady={(map) => {
+    mapRef = map;
+  }}
+>
+  <Geocoder
+    accessToken={mapboxAccessToken}
+    onselect={(loc) => {
+      mapRef?.flyTo({ center: [loc.lng, loc.lat], zoom: 10 });
+    }}
+  />
+</TileMap>
+```
+
+`accessToken` is required for geocoding requests. In Storybook docs builds, set `VITE_MAPBOX_ACCESS_TOKEN` so the search box can call Mapbox.
+
+## Reverse geocoding (click and identify)
+
+Use reverse geocoding when the interaction starts from a map coordinate instead of typed text. This pattern listens for a map click, calls `reverseGeocode()`, and displays the nearest named feature.
+
+<Canvas of={TileMapStories.ReverseGeocodingOnClick} />
+
+```svelte
+<script lang="ts">
+  import {
+    TileMap,
+    TileMapCallout,
+    reverseGeocode,
+  } from '@reuters-graphics/graphics-components';
+  import type { MapMouseEvent } from 'maplibre-gl';
+
+  const accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? '';
+  let activeRequest: AbortController | null = null;
+
+  let selectedLngLat: [number, number] | null = null;
+  let selectedLabel = '';
+
+  async function handleMapClick(event: MapMouseEvent) {
+    activeRequest?.abort();
+    activeRequest = new AbortController();
+
+    const { lng, lat } = event.lngLat.wrap();
+    selectedLngLat = [lng, lat];
+    selectedLabel = 'Looking up location...';
+
+    const [feature] = await reverseGeocode(
+      lng,
+      lat,
+      { accessToken, language: ['en'] },
+      activeRequest.signal
+    );
+
+    selectedLabel =
+      feature ?
+        (feature.properties.full_address ?? feature.properties.name)
+      : 'No named place found';
+  }
+</script>
+
+<TileMap
+  id="reverse-map"
+  center={[-98, 39]}
+  zoom={3}
+  interactive
+  onClick={handleMapClick}
+>
+  {#if selectedLngLat}
+    <TileMapCallout lngLat={selectedLngLat} placement="below">
+      {selectedLabel}
+    </TileMapCallout>
+  {/if}
+</TileMap>
+```
+
+This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while `reverseGeocode()` handles the API call and typed response data.
+
 ## Advanced usage
 
 For more control over the map, you can use the `onMapReady` callback to access the MapLibre GL instance:

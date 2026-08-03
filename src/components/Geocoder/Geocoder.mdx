@@ -6,7 +6,7 @@ import * as GeocoderStories from './Geocoder.stories.svelte';
 
 # Geocoder
 
-The `Geocoder` component provides an autocomplete location search powered by the [Mapbox Geocoding v6 API](https://docs.mapbox.com/api/search/geocoding-v6/). It returns coordinates and a place name via the `onselect` callback.
+The `Geocoder` component provides an autocomplete location search powered by the [Mapbox Geocoding v6 API](https://docs.mapbox.com/api/search/geocoding/). It returns coordinates and a place name via the `onselect` callback.
 
 ```svelte
 <script>
@@ -27,3 +27,57 @@ The `accessToken` prop is required. Look up the Reuters Mapbox token in the team
 To reduce the number of paid geocoding requests, use `minLength` (minimum characters before searching, default `2`) and `debounceMs` (delay after the last keystroke before requesting, default `300`). Raising them fires fewer requests while the user is still typing.
 
 <Canvas of={GeocoderStories.Demo} />
+
+## Reverse geocoding
+
+Use the framework-agnostic `reverseGeocode()` helper to look up the geographic features at a longitude and latitude. It works with any map library; this MapLibre example cancels the previous request when a reader clicks again:
+
+```ts
+import { reverseGeocode } from '@reuters-graphics/graphics-components';
+import type { MapMouseEvent } from 'maplibre-gl';
+
+const MAPBOX_TOKEN = 'your_mapbox_token';
+let activeRequest: AbortController | null = null;
+
+async function handleMapClick(event: MapMouseEvent) {
+  activeRequest?.abort();
+  activeRequest = new AbortController();
+
+  const { lng, lat } = event.lngLat.wrap();
+
+  try {
+    const [feature] = await reverseGeocode(
+      lng,
+      lat,
+      {
+        accessToken: MAPBOX_TOKEN,
+        language: ['en'],
+      },
+      activeRequest.signal
+    );
+
+    if (!feature) {
+      console.log('No named place found');
+      return;
+    }
+
+    console.log(feature.properties.full_address ?? feature.properties.name);
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') return;
+    throw error;
+  }
+}
+
+map.on('click', handleMapClick);
+
+function cleanup() {
+  activeRequest?.abort();
+  map.off('click', handleMapClick);
+}
+```
+
+The helper calls the Mapbox v6 reverse endpoint and returns `GeocodeFeature[]`, ordered from the most specific overlapping feature to the least specific. An empty array represents no results. Non-successful HTTP responses reject with an error containing the response status, and an optional `AbortSignal` is passed directly to `fetch`.
+
+`accessToken` is required. The supported reverse options are `country`, `language`, `limit`, `types`, `worldview`, and `permanent`. The reverse `limit` defaults to `1` and has a maximum of `5`; values above `1` require exactly one entry in `types`. See the [official reverse-geocoding reference](https://docs.mapbox.com/api/search/geocoding/#reverse-geocoding) for parameter details.
+
+> **Mapbox storage rules:** Geocoding is temporary by default, and temporary results must not be cached. Temporary requests explicitly bypass the browser HTTP cache. Set `permanent: true` only when you intend to store results and the Mapbox account has a valid credit card on file or an active enterprise contract. This library does not add application-level caching or storage for either response mode.
