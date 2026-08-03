@@ -352,10 +352,10 @@ Use reverse geocoding when the interaction starts from a map coordinate instead 
       activeRequest.signal
     );
 
-    selectedLabel = feature ?
-      (feature.properties.full_address ?? feature.properties.name)
-    :
-      'No named place found';
+    selectedLabel =
+      feature ?
+        (feature.properties.full_address ?? feature.properties.name)
+      : 'No named place found';
   }
 </script>
 
