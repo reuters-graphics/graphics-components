@@ -322,28 +322,56 @@ Use reverse geocoding when the interaction starts from a map coordinate instead 
 
 <Canvas of={TileMapStories.ReverseGeocodingOnClick} />
 
-```ts
-import { reverseGeocode } from '@reuters-graphics/graphics-components';
-import type { MapMouseEvent } from 'maplibre-gl';
+```svelte
+<script lang="ts">
+  import {
+    TileMap,
+    TileMapCallout,
+    reverseGeocode,
+  } from '@reuters-graphics/graphics-components';
+  import type { MapMouseEvent } from 'maplibre-gl';
 
-const accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? '';
-let activeRequest: AbortController | null = null;
+  const accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? '';
+  let activeRequest: AbortController | null = null;
 
-async function handleMapClick(event: MapMouseEvent) {
-  activeRequest?.abort();
-  activeRequest = new AbortController();
+  let selectedLngLat: [number, number] | null = null;
+  let selectedLabel = '';
 
-  const { lng, lat } = event.lngLat.wrap();
-  const [feature] = await reverseGeocode(
-    lng,
-    lat,
-    { accessToken, language: ['en'] },
-    activeRequest.signal
-  );
+  async function handleMapClick(event: MapMouseEvent) {
+    activeRequest?.abort();
+    activeRequest = new AbortController();
 
-  if (!feature) return;
-  console.log(feature.properties.full_address ?? feature.properties.name);
-}
+    const { lng, lat } = event.lngLat.wrap();
+    selectedLngLat = [lng, lat];
+    selectedLabel = 'Looking up location...';
+
+    const [feature] = await reverseGeocode(
+      lng,
+      lat,
+      { accessToken, language: ['en'] },
+      activeRequest.signal
+    );
+
+    selectedLabel = feature ?
+      (feature.properties.full_address ?? feature.properties.name)
+    :
+      'No named place found';
+  }
+</script>
+
+<TileMap
+  id="reverse-map"
+  center={[-98, 39]}
+  zoom={3}
+  interactive
+  onClick={handleMapClick}
+>
+  {#if selectedLngLat}
+    <TileMapCallout lngLat={selectedLngLat} placement="below">
+      {selectedLabel}
+    </TileMapCallout>
+  {/if}
+</TileMap>
 ```
 
 This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while `reverseGeocode()` handles the API call and typed response data.
