@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.10.0
+
+### Minor Changes
+
+- c3c1342: Add a framework-agnostic Mapbox v6 `reverseGeocode()` helper and an interactive TileMap example.
+
 ## 4.9.0
 
 ### Minor Changes
