@@ -30,18 +30,6 @@
     : lookupState === 'error' ? 'Location lookup failed'
     : placeName
   );
-  let statusMessage = $derived(
-    !hasAccessToken ?
-      'Set VITE_MAPBOX_ACCESS_TOKEN to enable reverse geocoding in this story.'
-    : lookupState === 'idle' ?
-      'Click the map, or focus it and press Enter or Space, to identify a location.'
-    : lookupState === 'loading' ? 'Looking up the selected location.'
-    : lookupState === 'empty' ?
-      'Mapbox returned no named place for the selected location.'
-    : lookupState === 'error' ?
-      'Mapbox could not look up the selected location. Try another point.'
-    : `Selected location: ${placeName}`
-  );
 
   function getPlaceName(feature: GeocodeFeature) {
     if (feature.properties.full_address) {
@@ -143,10 +131,6 @@
   });
 </script>
 
-{#snippet status()}
-  <p class="status" role="status" aria-live="polite">{statusMessage}</p>
-{/snippet}
-
 <TileMap
   id="reverse-geocode-map"
   center={[-73.9868, 40.7567]}
@@ -156,20 +140,9 @@
   description="Click the map to reverse-geocode that coordinate, or focus the map and press Enter or Space to use its center."
   notes="This example uses temporary geocoding and does not cache responses."
   height="500px"
-  legend={status}
   onMapReady={handleMapReady}
 >
   {#if coordinates}
     <TileMapCallout lngLat={coordinates}>{calloutText}</TileMapCallout>
   {/if}
 </TileMap>
-
-<style>
-  .status {
-    margin: 0;
-    color: var(--theme-colour-text-secondary, #666);
-    font-family: var(--theme-font-family-sans-serif, Arial, sans-serif);
-    font-size: var(--theme-font-size-xs, 0.875rem);
-    line-height: 1.4;
-  }
-</style>
