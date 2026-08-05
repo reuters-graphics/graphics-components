@@ -45,10 +45,11 @@
 
     if (!datawrapperHeights || typeof datawrapperHeights !== 'object') return;
 
-    const iframes =
+    const iframes = Array.from(
       containerElement?.querySelectorAll<HTMLIFrameElement>(
         'iframe.datawrapper'
-      );
+      ) ?? []
+    );
     if (!iframes?.length) return;
 
     for (const chartId in datawrapperHeights as Record<string, number>) {
