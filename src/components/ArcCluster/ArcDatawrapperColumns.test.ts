@@ -29,6 +29,7 @@ describe('ArcDatawrapperColumns', () => {
     expect(body).toContain('class="embed--container');
     expect(body).toContain('class="embed--column');
     expect(body).toContain('class="datawrapper ');
+    expect(body).toContain('data-chromatic="ignore"');
     expect(body).toContain('data-external="1"');
   });
 

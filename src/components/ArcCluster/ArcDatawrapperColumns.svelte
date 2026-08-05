@@ -17,7 +17,10 @@
     src: string;
     /** iframe scrolling option */
     scrolling?: ScrollingOption;
-    /** Optional initial/fallback iframe height in pixels */
+    /**
+     * Optional fixed iframe height in pixels. When set, postMessage-based
+     * resizing is skipped for that chart so paired columns can stay aligned.
+     */
     height?: number;
   }
 
@@ -60,6 +63,8 @@
 
       for (const iframe of iframes) {
         if (iframe.contentWindow === event.source) {
+          // Respect fixed heights for aligned two-up layouts.
+          if (iframe.hasAttribute('height')) continue;
           iframe.style.height = `${reportedHeight}px`;
         }
       }
@@ -92,6 +97,7 @@
         src={chart.src}
         scrolling={chart.scrolling ?? 'no'}
         frameborder="0"
+        data-chromatic="ignore"
         data-external="1"
         height={chart.height}
       ></iframe>
