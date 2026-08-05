@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.10.1
+
+### Patch Changes
+
+- f4740c8: Add ArcDatawrapperColumns for ArcCluster two-column Datawrapper embeds, including bundled layout CSS, Datawrapper postMessage resizing behavior, and docs/story updates.
+
 ## 4.10.0
 
 ### Minor Changes
