@@ -8,9 +8,10 @@ import * as ArcClusterStories from './ArcCluster.stories.svelte';
 
 `ArcCluster` is a small, reusable starter kit for building iframed embeds for the **Arc** content management system that runs Reuters.com. It supplies the shared chrome — a light `Theme`, the Reuters Knowledge font, [Pym.js](https://blog.apps.npr.org/pym.js/) iframe resizing and a simple stacked layout — with no styling tied to any one graphic, so you can drop your own header, stage (the main visual) and footer into named snippets and match the look of the homepage.
 
-The kit has three pieces you can use directly:
+The kit has four pieces you can use directly:
 
 - **`ArcCluster`** — the frame: header, a positioned `stage` for your visual, and an optional footer. It loads the Reuters Knowledge font for you.
+- **`ArcDatawrapperColumns`** — the Arc two-up Datawrapper layout: Reuters-style responsive columns, `.datawrapper` iframe styling and Datawrapper `postMessage` height syncing.
 - **`ArcHeader`** — a homepage-style title block with an optional kicker, headline and dek.
 - **`ArcKicker`** — the focused kicker subcomponent used by `ArcHeader`, exported for cases where you need that Reuters.com label pattern outside the standard header.
 
@@ -88,7 +89,7 @@ Unlike the fixed-height Demo above — where the photo is cropped to fill a set 
 
 ## Two-column Datawrapper embed
 
-A common pattern on the homepage, topic pages or section fronts is two charts side by side that stack on narrow screens. Set `stageHeight="auto"` so the stage grows with the charts, drop two [`DatawrapperChart`](/docs/components-graphics-datawrapperchart--docs) components (each `width="fluid"`) into a responsive CSS grid, and leave off `title`/`description`/`notes` so each chart uses its own built-in headline and footer.
+A common pattern on the homepage, topic pages or section fronts is two charts side by side that stack on narrow screens. Set `stageHeight="auto"` so the stage grows with the charts, then use `ArcDatawrapperColumns` to package the layout CSS and Datawrapper message-based height syncing.
 
 Two charts with different chrome — here the transits chart carries a legend the crude chart doesn't — report different heights, so their columns won't line up. Fix it in two parts: give both a matching `height` prop to pin their frames to the same size, and add [`?fitchart=true`](https://developer.datawrapper.de/docs/render-flags) to each chart's `src` so Datawrapper stretches the plot to fill that fixed height instead of leaving whitespace under the shorter chart. The footers and plot areas then line up.
 
@@ -98,59 +99,32 @@ Two charts with different chrome — here the transits chart carries a legend th
 <script>
   import {
     ArcCluster,
-    DatawrapperChart,
+    ArcDatawrapperColumns,
   } from '@reuters-graphics/graphics-components';
 </script>
 
 <ArcCluster stageHeight="auto">
   {#snippet stage()}
-    <div class="dw-columns">
-      <DatawrapperChart
-        width="fluid"
-        textWidth="fluid"
-        src="https://datawrapper.dwcdn.net/8lZUu/?fitchart=true"
-        frameTitle="Crude oil at sea"
-        ariaLabel="Chart: crude oil at sea"
-        id="dw-8lZUu"
-        scrolling="no"
-        height={470}
-      />
-      <DatawrapperChart
-        width="fluid"
-        textWidth="fluid"
-        src="https://datawrapper.dwcdn.net/GEfzN/?fitchart=true"
-        frameTitle="Oil-tanker transits through the Strait of Hormuz"
-        ariaLabel="Chart: oil-tanker transits through the Strait of Hormuz"
-        id="dw-GEfzN"
-        scrolling="no"
-        height={470}
-      />
-    </div>
+    <ArcDatawrapperColumns
+      charts={[
+        {
+          frameTitle: 'Crude oil at sea',
+          ariaLabel: 'Chart: crude oil at sea',
+          id: 'dw-8lZUu',
+          src: 'https://datawrapper.dwcdn.net/8lZUu/?fitchart=true',
+          height: 470,
+        },
+        {
+          frameTitle: 'Oil-tanker transits through the Strait of Hormuz',
+          ariaLabel: 'Chart: oil-tanker transits through the Strait of Hormuz',
+          id: 'dw-GEfzN',
+          src: 'https://datawrapper.dwcdn.net/GEfzN/?fitchart=true',
+          height: 470,
+        },
+      ]}
+    />
   {/snippet}
 </ArcCluster>
-
-<style>
-  .dw-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  /* DatawrapperChart wraps each chart in a GraphicBlock whose `fluid` width
-     adds full-bleed horizontal margins and extra width to break out of the
-     text well; contain it so each chart sits flush inside its grid cell. */
-  .dw-columns :global(.graphic) {
-    width: 100%;
-    margin: 0;
-  }
-
-  /* Stack on narrow screens. */
-  @media (max-width: 600px) {
-    .dw-columns {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
 ```
 
 ## Fonts
