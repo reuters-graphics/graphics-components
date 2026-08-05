@@ -17,7 +17,7 @@
   // Reuse an existing Storybook image asset for the basic stage, standing in for
   // whatever graphic (a map, chart or photo) an embed would render.
   import sharkSrc from '../FeaturePhoto/images/shark.jpg';
-  import DatawrapperChart from '../DatawrapperChart/DatawrapperChart.svelte';
+  import ArcDatawrapperColumns from './ArcDatawrapperColumns.svelte';
 </script>
 
 <!--
@@ -109,28 +109,27 @@
 <Story asChild name="Two-column Datawrapper" exportName="TwoColumnDatawrapper">
   <ArcCluster stageHeight="auto">
     {#snippet stage()}
-      <div class="arc-dw-columns">
-        <DatawrapperChart
-          width="fluid"
-          textWidth="fluid"
-          src="https://datawrapper.dwcdn.net/8lZUu/?fitchart=true"
-          frameTitle="Crude oil at sea"
-          ariaLabel="Chart: crude oil at sea"
-          id="arc-dw-8lZUu"
-          scrolling="no"
-          height={470}
-        />
-        <DatawrapperChart
-          width="fluid"
-          textWidth="fluid"
-          src="https://datawrapper.dwcdn.net/GEfzN/?fitchart=true"
-          frameTitle="Oil-tanker transits through the Strait of Hormuz"
-          ariaLabel="Chart: oil-tanker transits through the Strait of Hormuz"
-          id="arc-dw-GEfzN"
-          scrolling="no"
-          height={470}
-        />
-      </div>
+      <ArcDatawrapperColumns
+        charts={[
+          {
+            frameTitle: 'Crude oil at sea',
+            ariaLabel: 'Chart: crude oil at sea',
+            id: 'arc-dw-8lZUu',
+            src: 'https://datawrapper.dwcdn.net/8lZUu/?fitchart=true',
+            scrolling: 'no',
+            height: 470,
+          },
+          {
+            frameTitle: 'Oil-tanker transits through the Strait of Hormuz',
+            ariaLabel:
+              'Chart: oil-tanker transits through the Strait of Hormuz',
+            id: 'arc-dw-GEfzN',
+            src: 'https://datawrapper.dwcdn.net/GEfzN/?fitchart=true',
+            scrolling: 'no',
+            height: 470,
+          },
+        ]}
+      />
     {/snippet}
   </ArcCluster>
 </Story>
@@ -177,25 +176,6 @@
 
     span {
       color: #999;
-    }
-  }
-
-  .arc-dw-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-
-    // DatawrapperChart wraps each chart in a GraphicBlock whose `fluid` width
-    // adds full-bleed horizontal margins and extra width to break out of the
-    // text well; contain it so each chart sits flush inside its grid cell.
-    :global(.graphic) {
-      width: 100%;
-      margin: 0;
-    }
-
-    // Stack on narrow screens.
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
     }
   }
 </style>
