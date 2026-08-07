@@ -24,7 +24,10 @@
   import { writable } from 'svelte/store';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
-  import type { ProjectionSpecification } from 'maplibre-gl';
+  import type {
+    ProjectionSpecification,
+    StyleSpecification,
+  } from 'maplibre-gl';
   import { emphasizePlaceLabels } from './labels';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -67,9 +70,9 @@
      */
     interactive?: boolean;
     /**
-     * Map style URL
+     * Map style URL, or a full style spec object.
      */
-    styleUrl?: string;
+    styleUrl?: string | StyleSpecification;
     /**
      * Darken the basemap's place labels and give them a strong white halo, so
      * city/region names stay readable over colored data layers. Applied once on

@@ -1,0 +1,2333 @@
+{
+    "version": 8,
+    "name": "srm-1",
+    "metadata": {
+      "mapbox:autocomposite": false,
+      "mapbox:groups": {
+        "101da9f13b64a08fa4b6ac1168e89e5f": {
+          "collapsed": false,
+          "name": "Places"
+        },
+        "a14c9607bc7954ba1df7205bf660433f": { "name": "Boundaries" },
+        "b6371a3f2f5a9932464fa3867530a2e5": {
+          "collapsed": false,
+          "name": "Transportation"
+        }
+      },
+      "mapbox:type": "template",
+      "openmaptiles:mapbox:owner": "openmaptiles",
+      "openmaptiles:mapbox:source:url": "mapbox://openmaptiles.4qljc88t",
+      "openmaptiles:version": "3.x",
+      "maputnik:renderer": "mlgljs"
+    },
+    "sources": {
+      "reuters": {
+        "type": "vector",
+        "url": "pmtiles://https://graphics.thomsonreuters.com/reuters-protomaps/planet-20260515-124515-base-map-z0-9.pmtiles"
+      },
+      "reuters-custom": {
+        "type": "vector",
+        "url": "pmtiles://https://graphics.thomsonreuters.com/reuters-protomaps/reuters-custom.pmtiles"
+      },
+      "reuters-world-hillshade": {
+        "type": "raster",
+        "tiles": [
+          "https://graphics.thomsonreuters.com/reuters-protomaps/hillshade/{z}/{x}/{y}.png"
+        ],
+        "minzoom": 0,
+        "maxzoom": 6,
+        "scheme": "tms",
+        "tileSize": 256
+      }
+    },
+    "sprite":
+      "https://graphics.thomsonreuters.com/reuters-protomaps/sprite/sprite",
+    "glyphs":
+      "https://graphics.thomsonreuters.com/reuters-protomaps/pbf/{fontstack}/{range}.pbf",
+    "transition": { "duration": 300 },
+    "layers": [
+      {
+        "id": "background",
+        "type": "background",
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "background-color": {
+            "stops": [
+              [4.5, "rgba(250, 250, 245, 1)"],
+              [5, "rgba(247, 244, 238, 1)"],
+              [6, "rgba(235, 235, 232, 1)"]
+            ]
+          }
+        }
+      },
+      {
+        "id": "hillshade",
+        "type": "raster",
+        "source": "reuters-world-hillshade",
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "raster-opacity": {
+            "stops": [
+              [4, 1],
+              [5, 0]
+            ]
+          }
+        }
+      },
+      {
+        "id": "reuters_polar_caps",
+        "type": "fill",
+        "source": "reuters-custom",
+        "source-layer": "polar_caps",
+        "paint": {
+          "fill-color": [
+            "case",
+            ["==", ["get", "hemisphere"], "north"],
+            "#d2e6ec",
+            ["==", ["get", "hemisphere"], "south"],
+            "#f7f7f7",
+            "#cccccc"
+          ],
+          "fill-opacity": 0.8
+        }
+      },
+      {
+        "id": "road_area_pier",
+        "type": "fill",
+        "metadata": {},
+        "source": "reuters",
+        "source-layer": "transportation",
+        "filter": ["all", ["==", "$type", "Polygon"], ["==", "class", "pier"]],
+        "layout": { "visibility": "visible" },
+        "paint": { "fill-antialias": true, "fill-color": "rgb(242,243,240)" }
+      },
+      {
+        "id": "aboriginal_lands",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "boundary",
+        "minzoom": 0,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["==", "class", "aboriginal_lands"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-antialias": true,
+          "fill-color": "#6d28d9",
+          "fill-opacity": {
+            "stops": [
+              [4, 0],
+              [5, 0.01]
+            ]
+          }
+        }
+      },
+      {
+        "id": "landuse_industrial",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "landuse",
+        "minzoom": 0,
+        "maxzoom": 16,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["==", "class", "industrial"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": { "fill-color": "rgba(235,235,235, 1)", "fill-opacity": 1 }
+      },
+      {
+        "id": "landuse_residential",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "landuse",
+        "minzoom": 0,
+        "maxzoom": 16,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["==", "class", "residential"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "rgb(224, 224, 220)",
+          "fill-opacity": [
+            "interpolate",
+            ["exponential", 0.6],
+            ["zoom"],
+            1,
+            0,
+            4,
+            0,
+            5,
+            0.8,
+            7,
+            0.4,
+            8,
+            0
+          ]
+        }
+      },
+      {
+        "id": "landuse_park",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "park",
+        "filter": ["==", "$type", "Polygon"],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "rgba(167, 210, 182, 1)",
+          "fill-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0, 5, 0.075]
+        }
+      },
+      {
+        "id": "landcover_cemetary",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "landuse",
+        "minzoom": 4,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["==", "class", "cemetery"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "#a7d2b6",
+          "fill-opacity": {
+            "base": 1,
+            "stops": [
+              [7, 0],
+              [20, 0.5]
+            ]
+          }
+        }
+      },
+      {
+        "id": "landcover_park",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "landcover",
+        "minzoom": 4,
+        "filter": ["all", ["==", "$type", "Polygon"], ["==", "subclass", "park"]],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "#a7d2b6",
+          "fill-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0, 5, 0.1]
+        }
+      },
+      {
+        "id": "landcover_grass",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "landcover",
+        "minzoom": 4,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["==", "class", "grass"],
+          ["==", "subclass", "recreation_ground"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "rgba(63, 98, 18, 1)",
+          "fill-opacity": {
+            "base": 1,
+            "stops": [
+              [7, 0],
+              [20, 0.2]
+            ]
+          }
+        }
+      },
+      {
+        "id": "landcover_wood",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "landcover",
+        "minzoom": 4,
+        "filter": ["all", ["==", "$type", "Polygon"], ["==", "class", "wood"]],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "rgba(63, 98, 18, 1)",
+          "fill-opacity": {
+            "base": 1,
+            "stops": [
+              [7, 0],
+              [20, 0.25]
+            ]
+          }
+        }
+      },
+      {
+        "id": "water_waterway_line",
+        "type": "line",
+        "source": "reuters",
+        "source-layer": "waterway",
+        "minzoom": 2,
+        "filter": ["==", "$type", "LineString"],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "line-opacity": {
+            "stops": [
+              [3, 0],
+              [4, 0.5],
+              [14, 0.5]
+            ]
+          },
+          "line-color": "rgba(190, 205, 218, 1)",
+          "line-width": 1
+        }
+      },
+      {
+        "id": "water_polygon",
+        "type": "fill",
+        "source": "reuters",
+        "source-layer": "water",
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["!=", "brunnel", "tunnel"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-antialias": true,
+          "fill-color": {
+            "stops": [
+              [0, "rgba(103, 108, 112, 0)"],
+              [6, "rgba(73, 79, 77, 1)"],
+              [10, "rgba(73, 79, 77, 1)"]
+            ]
+          },
+          "fill-translate-anchor": "map"
+        }
+      },
+      {
+        "id": "railway_dashline",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["all", ["!has", "service"], ["==", "class", "rail"]]
+        ],
+        "layout": { "line-join": "round", "visibility": "visible" },
+        "paint": {
+          "line-color": "#f9fafb",
+          "line-dasharray": [3, 3],
+          "line-width": {
+            "base": 1.3,
+            "stops": [
+              [16, 2],
+              [20, 6]
+            ]
+          },
+          "line-opacity": ["interpolate", ["linear"], ["zoom"], 13, 0, 14, 1]
+        }
+      },
+      {
+        "id": "railway_service_dashline",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 16,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["==", "class", "rail"],
+          ["has", "service"]
+        ],
+        "layout": { "line-join": "round", "visibility": "visible" },
+        "paint": {
+          "line-color": "#fafafa",
+          "line-dasharray": [3, 3],
+          "line-width": 2
+        }
+      },
+      {
+        "id": "railway_service",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 16,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["all", ["==", "class", "rail"], ["has", "service"]]
+        ],
+        "layout": { "line-join": "round", "visibility": "visible" },
+        "paint": { "line-color": "#dddddd", "line-width": 3 }
+      },
+      {
+        "id": "railway_transit",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 16,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["all", ["==", "class", "transit"], ["!in", "brunnel", "tunnel"]]
+        ],
+        "layout": { "line-join": "round", "visibility": "visible" },
+        "paint": { "line-color": "#dddddd", "line-width": 3 }
+      },
+      {
+        "id": "airport_area",
+        "type": "fill",
+        "metadata": { "mapbox:group": "1444849345966.4436" },
+        "source": "reuters",
+        "source-layer": "aeroway",
+        "minzoom": 4,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["==", "class", "aerodrome"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": { "fill-color": "rgba(235,235,235, 1)", "fill-opacity": 1 }
+      },
+      {
+        "id": "airport_taxiway",
+        "type": "line",
+        "metadata": { "mapbox:group": "1444849345966.4436" },
+        "source": "reuters",
+        "source-layer": "aeroway",
+        "minzoom": 12,
+        "filter": ["all", ["in", "class", "taxiway"]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "hsl(0, 0%, 87%)",
+          "line-opacity": 1,
+          "line-width": {
+            "base": 1.55,
+            "stops": [
+              [13, 1.8],
+              [20, 20]
+            ]
+          }
+        }
+      },
+      {
+        "id": "airport_runway_casing",
+        "type": "line",
+        "metadata": { "mapbox:group": "1444849345966.4436" },
+        "source": "reuters",
+        "source-layer": "aeroway",
+        "minzoom": 11,
+        "filter": ["all", ["in", "class", "runway"]],
+        "layout": {
+          "line-cap": "square",
+          "line-join": "miter",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(220, 220, 220,1)",
+          "line-opacity": {
+            "stops": [
+              [11, 0],
+              [11.25, 1]
+            ]
+          },
+          "line-width": {
+            "base": 1.5,
+            "stops": [
+              [11, 4],
+              [17, 20]
+            ]
+          }
+        }
+      },
+      {
+        "id": "airport_runway_taxiway",
+        "type": "fill",
+        "metadata": { "mapbox:group": "1444849345966.4436" },
+        "source": "reuters",
+        "source-layer": "aeroway",
+        "minzoom": 4,
+        "filter": [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["in", "class", "runway", "taxiway"]
+        ],
+        "layout": { "visibility": "visible" },
+        "paint": {
+          "fill-color": "rgba(255, 255, 255, 1)",
+          "fill-opacity": {
+            "base": 1,
+            "stops": [
+              [13, 0],
+              [14, 1]
+            ]
+          }
+        }
+      },
+      {
+        "id": "airport_runway",
+        "type": "line",
+        "metadata": { "mapbox:group": "1444849345966.4436" },
+        "source": "reuters",
+        "source-layer": "aeroway",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          ["in", "class", "runway"],
+          ["==", "$type", "LineString"]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(255, 255, 255, 1)",
+          "line-opacity": 1,
+          "line-dasharray": [4, 4]
+        }
+      },
+      {
+        "id": "road_pier",
+        "type": "line",
+        "metadata": {},
+        "source": "reuters",
+        "source-layer": "transportation",
+        "filter": ["all", ["==", "$type", "LineString"], ["in", "class", "pier"]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgb(242,243,240)",
+          "line-width": {
+            "base": 1.2,
+            "stops": [
+              [15, 1],
+              [17, 4]
+            ]
+          }
+        }
+      },
+      {
+        "id": "tunnel_motorway_inner",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 6,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["all", ["==", "brunnel", "tunnel"], ["==", "class", "motorway"]]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(220, 220, 220, 1)",
+          "line-width": {
+            "base": 1.4,
+            "stops": [
+              [4, 2],
+              [6, 1.3],
+              [20, 30]
+            ]
+          },
+          "line-opacity": 0.4
+        }
+      },
+      {
+        "id": "highway_minor_service",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 8,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["in", "class", "service"]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgb(230,230,230)",
+          "line-opacity": {
+            "stops": [
+              [12, 0],
+              [12.5, 1]
+            ]
+          },
+          "line-width": [
+            "interpolate",
+            ["exponential", 1.3],
+            ["zoom"],
+            10,
+            0.5,
+            12,
+            1.5,
+            16,
+            3,
+            18,
+            10,
+            19,
+            20,
+            20,
+            50
+          ]
+        }
+      },
+      {
+        "id": "highway_minor",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 8,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["in", "class", "minor", "track"]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgb(250,250,250)",
+          "line-opacity": {
+            "stops": [
+              [12, 0],
+              [13, 0.8]
+            ]
+          },
+          "line-width": [
+            "interpolate",
+            ["exponential", 1.3],
+            ["zoom"],
+            10,
+            0.5,
+            12,
+            1.5,
+            16,
+            3,
+            18,
+            10,
+            19,
+            20,
+            20,
+            50
+          ]
+        }
+      },
+      {
+        "id": "highway_major_casing",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["in", "class", "primary", "secondary", "tertiary", "trunk"]
+        ],
+        "layout": {
+          "line-cap": "butt",
+          "line-join": "miter",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": {
+            "stops": [
+              [14, "rgb(230, 230, 230)"],
+              [14.5, "rgb(220, 220, 220)"]
+            ]
+          },
+          "line-width": {
+            "base": 1.3,
+            "stops": [
+              [1, 1],
+              [12, 4],
+              [14, 10],
+              [16, 20],
+              [18, 70],
+              [20, 300]
+            ]
+          },
+          "line-opacity": {
+            "stops": [
+              [11, 0],
+              [13, 1],
+              [15, 0]
+            ]
+          },
+          "line-blur": {
+            "stops": [
+              [14, 3],
+              [14.5, 2]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_major_inner",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 0,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["in", "class", "primary", "secondary", "tertiary", "trunk"]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgb(250,250,250)",
+          "line-width": {
+            "base": 1.3,
+            "stops": [
+              [10, 0.5],
+              [12, 1.5],
+              [16, 3],
+              [18, 20],
+              [19, 30],
+              [20, 60]
+            ]
+          },
+          "line-opacity": {
+            "stops": [
+              [7, 0],
+              [10, 1]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_major_subtle",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 5,
+        "maxzoom": 24,
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "LineString"],
+          [
+            "match",
+            ["get", "class"],
+            ["primary", "secondary", "tertiary", "trunk"],
+            true,
+            false
+          ]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(255, 255, 255, 1)",
+          "line-width": {
+            "stops": [
+              [6, 2],
+              [10, 0.5]
+            ]
+          },
+          "line-opacity": {
+            "stops": [
+              [5, 0],
+              [10, 0.8]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_motorway",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 0,
+        "maxzoom": 12,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["==", "class", "motorway"]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(200, 200, 200, 1)",
+          "line-width": [
+            "interpolate",
+            ["exponential", 1.6],
+            ["zoom"],
+            3,
+            0,
+            6,
+            1.1,
+            12,
+            1.6,
+            15,
+            5,
+            18,
+            15
+          ],
+          "line-opacity": {
+            "stops": [
+              [6, 0.4],
+              [7, 0]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_motorway_casing",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 6,
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "LineString"],
+          [
+            "all",
+            ["match", ["get", "brunnel"], ["bridge", "tunnel"], false, true],
+            ["==", ["get", "class"], "motorway"]
+          ]
+        ],
+        "layout": {
+          "line-cap": "butt",
+          "line-join": "miter",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": {
+            "stops": [
+              [12, "rgba(215, 215, 215, 1)"],
+              [20, "rgba(225, 225, 225, 1)"]
+            ]
+          },
+          "line-dasharray": [2, 0],
+          "line-opacity": {
+            "stops": [
+              [6, 0],
+              [7, 1]
+            ]
+          },
+          "line-width": {
+            "base": 1.4,
+            "stops": [
+              [6, 6],
+              [12, 6],
+              [21, 20]
+            ]
+          },
+          "line-blur": {
+            "stops": [
+              [6, 5],
+              [9, 3]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_motorway_inner",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 6,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          [
+            "all",
+            ["!in", "brunnel", "bridge", "tunnel"],
+            ["==", "class", "motorway"]
+          ]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#fff",
+          "line-width": [
+            "interpolate",
+            ["exponential", 1.6],
+            ["zoom"],
+            3,
+            0,
+            6,
+            1.1,
+            12,
+            1.6,
+            15,
+            5,
+            18,
+            15
+          ],
+          "line-opacity": {
+            "stops": [
+              [6, 0],
+              [6.25, 1]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_motorway_bridge_inner",
+        "type": "line",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation",
+        "minzoom": 6,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["all", ["==", "brunnel", "bridge"], ["==", "class", "motorway"]]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#fff",
+          "line-width": [
+            "interpolate",
+            ["exponential", 1.6],
+            ["zoom"],
+            3,
+            0,
+            6,
+            1.1,
+            12,
+            1.6,
+            15,
+            5,
+            18,
+            15
+          ],
+          "line-opacity": {
+            "stops": [
+              [6, 0],
+              [6.25, 1]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_name_other",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation_name",
+        "filter": [
+          "all",
+          ["!=", "class", "motorway"],
+          ["==", "$type", "LineString"],
+          ["!=", "class", "ferry"],
+          ["!=", "class", "path"]
+        ],
+        "layout": {
+          "symbol-placement": "line",
+          "symbol-spacing": 350,
+          "text-field": [
+            "coalesce",
+            ["get", "name_int"],
+            ["get", "name:en"],
+            ["get", "name_en"],
+            ["get", "route_1_ref"],
+            ["get", "route_1_name"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-max-angle": 30,
+          "text-pitch-alignment": "viewport",
+          "text-rotation-alignment": "map",
+          "text-size": {
+            "stops": [
+              [10, 8],
+              [16, 9]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "text-letter-spacing": 0.15
+        },
+        "paint": {
+          "text-color": "rgba(143, 143, 143, 1)",
+          "text-halo-blur": 2,
+          "text-halo-color": "rgba(255, 255, 255, 0.7)",
+          "text-halo-width": 1,
+          "text-translate": [0, 0],
+          "text-opacity": {
+            "stops": [
+              [12, 0.4],
+              [14, 0.8]
+            ]
+          }
+        }
+      },
+      {
+        "id": "highway_name_motorway",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5" },
+        "source": "reuters",
+        "source-layer": "transportation_name",
+        "filter": [
+          "all",
+          ["==", "class", "motorway"],
+          ["==", "$type", "LineString"],
+          ["!=", "class", "ferry"]
+        ],
+        "layout": {
+          "symbol-placement": "line",
+          "symbol-spacing": 350,
+          "text-field": [
+            "coalesce",
+            ["get", "name_int"],
+            ["get", "name:en"],
+            ["get", "name_en"],
+            ["get", "route_1_ref"],
+            ["get", "route_1_name"]
+          ],
+          "text-font": ["Knowledge2017 Medium"],
+          "text-max-angle": 30,
+          "text-pitch-alignment": "viewport",
+          "text-rotation-alignment": "map",
+          "text-size": {
+            "stops": [
+              [10, 8],
+              [16, 11]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "text-letter-spacing": 0.2
+        },
+        "paint": {
+          "text-color": "rgba(143, 143, 143, 1)",
+          "text-halo-color": "rgba(255, 255, 255)",
+          "text-halo-width": 1,
+          "text-translate": [0, 0],
+          "text-opacity": {
+            "stops": [
+              [6, 0.5],
+              [14, 0.7]
+            ]
+          }
+        }
+      },
+      {
+        "id": "boundary_state_admin_3",
+        "type": "line",
+        "metadata": { "mapbox:group": "a14c9607bc7954ba1df7205bf660433f" },
+        "source": "reuters",
+        "source-layer": "boundary",
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["==", "admin_level", 3],
+          ["!=", "maritime", 1]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(200, 200, 200, 1)",
+          "line-opacity": 1,
+          "line-width": {
+            "stops": [
+              [2, 0],
+              [4, 0.3],
+              [5.5, 0.7],
+              [8, 0.8]
+            ]
+          },
+          "line-dasharray": [20, 4]
+        }
+      },
+      {
+        "id": "boundary_state",
+        "type": "line",
+        "metadata": { "mapbox:group": "a14c9607bc7954ba1df7205bf660433f" },
+        "source": "reuters",
+        "source-layer": "boundary",
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["==", "admin_level", 4],
+          ["!=", "maritime", 1]
+        ],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(200, 200, 200, 1)",
+          "line-opacity": 1,
+          "line-width": {
+            "stops": [
+              [2, 0],
+              [4, 0.3],
+              [5.5, 0.7],
+              [8, 0.9]
+            ]
+          },
+          "line-dasharray": [20, 4]
+        }
+      },
+      {
+        "id": "boundary_reuters_country_z5-14",
+        "type": "line",
+        "source": "reuters-custom",
+        "source-layer": "borders_high",
+        "filter": ["all", ["==", "disputed", 0]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(100, 100, 100, 1)",
+          "line-opacity": {
+            "stops": [
+              [5, 0],
+              [6, 0.8]
+            ]
+          },
+          "line-width": 0.8
+        }
+      },
+      {
+        "id": "boundary_reuters_country_z5-14-disputed",
+        "type": "line",
+        "source": "reuters-custom",
+        "source-layer": "borders_high",
+        "maxzoom": 24,
+        "filter": ["all", ["==", "disputed", 1]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(100, 100, 100, 1)",
+          "line-opacity": {
+            "stops": [
+              [5, 0],
+              [6, 0.8]
+            ]
+          },
+          "line-width": 1,
+          "line-dasharray": [3, 3]
+        }
+      },
+      {
+        "id": "boundary_reuters_country_z3-4",
+        "type": "line",
+        "source": "reuters-custom",
+        "source-layer": "borders_medium",
+        "filter": ["all", ["==", "disputed", 0]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(150, 150, 150, 1)",
+          "line-opacity": {
+            "stops": [
+              [1.5, 0],
+              [2, 0.6],
+              [5, 0.8],
+              [6, 0]
+            ]
+          },
+          "line-width": 0.8
+        }
+      },
+      {
+        "id": "boundary_reuters_country_z3-4-disputed",
+        "type": "line",
+        "source": "reuters-custom",
+        "source-layer": "borders_medium",
+        "maxzoom": 24,
+        "filter": ["all", ["==", "disputed", 1]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(150, 150, 150, 1)",
+          "line-opacity": {
+            "stops": [
+              [3, 0],
+              [3.5, 0.8],
+              [5, 0.8],
+              [6, 0]
+            ]
+          },
+          "line-width": 1,
+          "line-dasharray": [2, 2]
+        }
+      },
+      {
+        "id": "boundary_reuters_country_z0-2",
+        "type": "line",
+        "source": "reuters-custom",
+        "source-layer": "borders_low",
+        "filter": ["all", ["==", "disputed", 0]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(200, 200, 200, 1)",
+          "line-opacity": {
+            "stops": [
+              [1.75, 1],
+              [2, 0]
+            ]
+          },
+          "line-width": 0.8
+        }
+      },
+      {
+        "id": "boundary_reuters_country_z0-2-disputed",
+        "type": "line",
+        "source": "reuters-custom",
+        "source-layer": "borders_low",
+        "maxzoom": 24,
+        "filter": ["all", ["==", "disputed", 1]],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(200, 200, 200, 1)",
+          "line-opacity": {
+            "stops": [
+              [2.95, 0.8],
+              [3.5, 0]
+            ]
+          },
+          "line-width": 1,
+          "line-dasharray": [2, 2]
+        }
+      },
+      {
+        "id": "label_place_other",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "maxzoom": 24,
+        "filter": [
+          "all",
+          [
+            "in",
+            "class",
+            "continent",
+            "hamlet",
+            "neighbourhood",
+            "isolated_dwelling"
+          ],
+          ["==", "$type", "Point"],
+          ["<=", "rank", 50]
+        ],
+        "layout": {
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-justify": "center",
+          "text-offset": [0.5, 0],
+          "text-size": 13,
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "symbol-spacing": 250,
+          "symbol-placement": "point",
+          "text-letter-spacing": 0.2,
+          "symbol-avoid-edges": false,
+          "text-allow-overlap": true,
+          "text-padding": 0
+        },
+        "paint": {
+          "text-color": "#808080",
+          "text-halo-blur": 1,
+          "text-halo-color": "rgba(255, 255, 255, 0.5)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [14, 0],
+              [14.25, 0.8]
+            ]
+          }
+        }
+      },
+      {
+        "id": "label_place_suburb",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "maxzoom": 24,
+        "filter": ["all", ["==", "$type", "Point"], ["==", "class", "suburb"]],
+        "layout": {
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name:en"],
+            ["get", "name"],
+            ["get", "name:latin"],
+            ["get", "int"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-justify": "center",
+          "text-offset": [0, 0],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 12, 10, 8],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 13, 10, 13]
+          ],
+          "text-transform": {
+            "stops": [
+              [13, "none"],
+              [14, "uppercase"]
+            ]
+          },
+          "visibility": "visible",
+          "text-letter-spacing": {
+            "stops": [
+              [13, 0.05],
+              [14, 0.2]
+            ]
+          }
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 0.4, 13, 0],
+            14,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 0.9, 15, 0.9]
+          ]
+        }
+      },
+      {
+        "id": "label_place_village",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 10,
+        "maxzoom": 24,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["==", "class", "village"],
+          ["<", "rank", 20]
+        ],
+        "layout": {
+          "icon-size": 0.4,
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name:latin"],
+            ["get", "name_int"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-justify": "center",
+          "text-offset": [0.5, 0.2],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 8, 13, 6],
+            12,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 13, 15, 13]
+          ],
+          "text-transform": {
+            "stops": [
+              [13, "none"],
+              [14, "uppercase"]
+            ]
+          },
+          "visibility": "visible",
+          "text-letter-spacing": {
+            "stops": [
+              [13, 0.075],
+              [14, 0.2]
+            ]
+          }
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-blur": 0,
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            12,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 0.6, 20, 0.2],
+            14,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 0.9, 15, 0.9]
+          ]
+        }
+      },
+      {
+        "id": "label_place_town",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 7,
+        "maxzoom": 24,
+        "filter": ["all", ["==", "$type", "Point"], ["==", "class", "town"]],
+        "layout": {
+          "icon-image": "",
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"],
+            ["get", "name:latin"],
+            ["get", "name_int"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-justify": "center",
+          "text-offset": [0, 0],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 8, 13, 6],
+            12,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 13, 15, 13]
+          ],
+          "text-transform": {
+            "stops": [
+              [13, "none"],
+              [14, "uppercase"]
+            ]
+          },
+          "visibility": "visible",
+          "text-letter-spacing": {
+            "stops": [
+              [13, 0.05],
+              [14, 0.2]
+            ]
+          }
+        },
+        "paint": {
+          "icon-opacity": 0.7,
+          "text-color": "#3a3a3a",
+          "text-halo-blur": 0,
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 0.5, 20, 0.2],
+            12,
+            ["interpolate", ["linear"], ["get", "rank"], 10, 0.9, 20, 0.9]
+          ]
+        }
+      },
+      {
+        "id": "label_water_name",
+        "type": "symbol",
+        "source": "reuters",
+        "source-layer": "water_name",
+        "minzoom": 0,
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["!=", "intermittent", 1]
+        ],
+        "layout": {
+          "symbol-placement": "line-center",
+          "symbol-spacing": 500,
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"],
+            ["get", "name:latin"],
+            ["get", "name_int"]
+          ],
+          "text-font": ["Knowledge2017 Italic"],
+          "text-rotation-alignment": "map",
+          "text-size": 11,
+          "visibility": "visible",
+          "text-letter-spacing": 0.1,
+          "text-allow-overlap": false,
+          "symbol-z-order": "viewport-y"
+        },
+        "paint": {
+          "text-color": "rgba(44, 82, 111, 1)",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "icon-opacity": {
+            "stops": [
+              [5.5, 0],
+              [6, 1]
+            ],
+            "base": 0
+          },
+          "text-opacity": {
+            "stops": [
+              [1, 0],
+              [2, 0.9]
+            ]
+          },
+          "text-translate-anchor": "viewport"
+        }
+      },
+      {
+        "id": "label_water_name_line",
+        "type": "symbol",
+        "source": "reuters",
+        "source-layer": "waterway",
+        "filter": [
+          "all",
+          ["==", "$type", "LineString"],
+          ["!=", "brunnel", "tunnel"],
+          ["!=", "class", "stream"]
+        ],
+        "layout": {
+          "symbol-placement": "line",
+          "text-font": ["Knowledge2017 Italic"],
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name:latin"],
+            ["get", "name_int"]
+          ],
+          "text-size": 11,
+          "text-letter-spacing": 0.1,
+          "visibility": "visible"
+        },
+        "paint": {
+          "text-color": "rgba(127, 172, 206, 1)",
+          "text-opacity": {
+            "stops": [
+              [8, 0],
+              [11, 0.7]
+            ]
+          },
+          "text-halo-color": "rgba(255, 255, 255, .5)",
+          "text-halo-width": 2
+        }
+      },
+      {
+        "id": "label_reuters_name_addendum",
+        "type": "symbol",
+        "source": "reuters-custom",
+        "source-layer": "reuters_name_addendum",
+        "layout": {
+          "text-field": ["coalesce", ["get", "name"]],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-size": {
+            "stops": [
+              [4, 9],
+              [10, 14]
+            ]
+          },
+          "text-letter-spacing": {
+            "stops": [
+              [4, 0.15],
+              [10, 0.2]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible"
+        },
+        "paint": {
+          "text-color": "#808080",
+          "icon-halo-width": 2,
+          "icon-halo-blur": 1,
+          "icon-halo-color": "rgba(255, 255, 255, 1)",
+          "text-opacity": {
+            "stops": [
+              [6, 0],
+              [7, 1]
+            ]
+          },
+          "text-halo-width": 1,
+          "text-halo-color": "rgba(255, 255, 255, .5)"
+        }
+      },
+      {
+        "id": "label_reuters_custom_airport",
+        "type": "symbol",
+        "source": "reuters-custom",
+        "source-layer": "ne_airport_names",
+        "minzoom": 8,
+        "filter": ["all"],
+        "layout": {
+          "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+          "text-font": ["Knowledge2017 Italic"],
+          "visibility": "visible",
+          "text-size": 12
+        },
+        "paint": {
+          "text-opacity": {
+            "stops": [
+              [9, 0],
+              [10, 0.5]
+            ]
+          },
+          "icon-opacity": 1,
+          "text-halo-width": 1,
+          "text-color": "#808080"
+        }
+      },
+      {
+        "id": "label_place_city",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 0,
+        "maxzoom": 24,
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "Point"],
+          [
+            "all",
+            ["!=", ["get", "capital"], 2],
+            ["==", ["get", "class"], "city"],
+            [">", ["get", "rank"], 6]
+          ]
+        ],
+        "layout": {
+          "icon-image": "",
+          "icon-size": 0.4,
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Medium"],
+          "text-justify": "center",
+          "text-offset": [0.5, 0.2],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 12, 10, 8],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 16, 10, 13],
+            14,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 16, 10, 14]
+          ],
+          "text-transform": {
+            "stops": [
+              [13, "none"],
+              [14, "uppercase"]
+            ]
+          },
+          "visibility": "visible",
+          "text-letter-spacing": {
+            "stops": [
+              [13, 0.05],
+              [14, 0.2]
+            ]
+          }
+        },
+        "paint": {
+          "icon-opacity": 1,
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 0.2, 10, 0.1],
+            9,
+            [
+              "interpolate",
+              ["linear"],
+              ["get", "rank"],
+              3,
+              0.9,
+              10,
+              0.9,
+              20,
+              0.2
+            ],
+            14,
+            [
+              "interpolate",
+              ["linear"],
+              ["get", "rank"],
+              3,
+              0.9,
+              10,
+              0.9,
+              20,
+              0.9
+            ]
+          ],
+          "icon-halo-width": 1
+        }
+      },
+      {
+        "id": "label_place_state_minor",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 0,
+        "maxzoom": 12,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["==", "class", "state"],
+          [">", "rank", 2]
+        ],
+        "layout": {
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-size": {
+            "stops": [
+              [4, 9],
+              [10, 18]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "text-allow-overlap": false,
+          "text-letter-spacing": {
+            "stops": [
+              [4, 0.15],
+              [10, 0.2]
+            ]
+          }
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [5, 0],
+              [5.4, 1]
+            ]
+          }
+        }
+      },
+      {
+        "id": "label_place_state_major",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 0,
+        "maxzoom": 12,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["==", "class", "state"],
+          ["<=", "rank", 2]
+        ],
+        "layout": {
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Regular"],
+          "text-size": {
+            "stops": [
+              [4, 9],
+              [10, 18]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "text-allow-overlap": false,
+          "text-letter-spacing": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            4,
+            0.15,
+            10,
+            0.3
+          ]
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-blur": 0,
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [4, 0],
+              [4.3, 1]
+            ]
+          }
+        }
+      },
+      {
+        "id": "label_place_city_large",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 1,
+        "maxzoom": 24,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          [
+            "all",
+            ["!=", "capital", 2],
+            ["<=", "rank", 6],
+            ["==", "class", "city"]
+          ]
+        ],
+        "layout": {
+          "icon-size": 0.35,
+          "text-anchor": {
+            "stops": [
+              [6, "left"],
+              [7, "center"]
+            ]
+          },
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "symbol-sort-key": ["get", "rank"],
+          "text-font": ["Knowledge2017 Medium"],
+          "text-justify": "auto",
+          "text-offset": [0.3, 0.3],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            1,
+            ["interpolate", ["linear"], ["get", "rank"], 1, 10, 6, 8],
+            3,
+            ["interpolate", ["linear"], ["get", "rank"], 1, 14, 6, 12],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 16, 10, 14]
+          ],
+          "text-transform": "none",
+          "visibility": "visible",
+          "text-letter-spacing": 0.05,
+          "icon-image": "circle-11",
+          "symbol-z-order": "auto",
+          "text-allow-overlap": true,
+          "text-ignore-placement": false,
+          "icon-text-fit": "none"
+        },
+        "paint": {
+          "icon-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0.8, 3, 0.4],
+            6,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0.8, 3, 0.6],
+            7,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0, 3, 0]
+          ],
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            ["interpolate", ["linear"], ["get", "rank"], 1, 0.8, 3, 0.5],
+            6,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0.8, 3, 0.7],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0.9, 3, 0.9]
+          ]
+        }
+      },
+      {
+        "id": "label_place_country_other",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "maxzoom": 8,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["==", "class", "country"],
+          ["!has", "iso_a2"]
+        ],
+        "layout": {
+          "text-field": "{name_en}",
+          "text-font": ["Knowledge2017 Regular"],
+          "text-size": {
+            "base": 1,
+            "stops": [
+              [0, 9],
+              [6, 11]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible"
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [3, 0],
+              [4, 0.4]
+            ]
+          }
+        }
+      },
+      {
+        "id": "label_aboriginal-lands",
+        "type": "symbol",
+        "source": "reuters",
+        "source-layer": "place",
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["==", "class", "aboriginal_lands"]
+        ],
+        "layout": {
+          "text-font": ["Knowledge2017 Regular"],
+          "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+          "text-size": {
+            "stops": [
+              [6, 8],
+              [10, 12]
+            ]
+          },
+          "text-letter-spacing": 0.1,
+          "text-transform": "uppercase"
+        },
+        "paint": {
+          "text-opacity": {
+            "stops": [
+              [6, 0],
+              [9, 0.2]
+            ]
+          },
+          "text-translate-anchor": "map"
+        }
+      },
+      {
+        "id": "label_place_island",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "maxzoom": 10,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["<=", "rank", 2],
+          ["==", "class", "island"],
+          ["!=", "$id", 96923293],
+          ["!=", "$id", 39559773]
+        ],
+        "layout": {
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Medium"],
+          "text-size": {
+            "base": 1.4,
+            "stops": [
+              [0, 8],
+              [2, 10],
+              [4, 13]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "none",
+          "symbol-spacing": 250,
+          "text-letter-spacing": 0.2,
+          "symbol-z-order": "auto"
+        },
+        "paint": {
+          "text-color": "#808080",
+          "text-halo-color": "rgba(255, 255, 255, .6)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [2, 0.5],
+              [4, 1],
+              [8, 1],
+              [10, 0]
+            ]
+          },
+          "text-halo-blur": 1
+        }
+      },
+      {
+        "id": "label_place_capital",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "minzoom": 1,
+        "maxzoom": 24,
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "Point"],
+          [
+            "all",
+            ["==", ["get", "capital"], 2],
+            ["==", ["get", "class"], "city"]
+          ],
+          ["any", [">=", ["zoom"], 5], ["!=", ["get", "name_en"], "Hamilton"]]
+        ],
+        "layout": {
+          "icon-image": "star-11",
+          "icon-size": 0.4,
+          "text-anchor": "left",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Bold"],
+          "text-justify": "auto",
+          "text-offset": [0.4, 0.4],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            1,
+            ["interpolate", ["linear"], ["get", "rank"], 1, 10, 3, 8],
+            3,
+            ["interpolate", ["linear"], ["get", "rank"], 1, 14, 3, 12],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 3, 16, 10, 14]
+          ],
+          "text-transform": "none",
+          "visibility": "visible",
+          "symbol-z-order": "auto",
+          "text-letter-spacing": 0.025,
+          "text-allow-overlap": true,
+          "icon-allow-overlap": true
+        },
+        "paint": {
+          "icon-opacity": 0.5,
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "icon-color": "rgba(0, 0, 0, 1)",
+          "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0.9, 3, 0.7],
+            4,
+            ["interpolate", ["linear"], ["get", "rank"], 1, 0.9, 3, 0.7],
+            10,
+            ["interpolate", ["linear"], ["get", "rank"], 0, 0.9, 3, 0.9]
+          ],
+          "icon-halo-width": 1,
+          "icon-halo-color": "rgba(255, 255, 255, .5)"
+        }
+      },
+      {
+        "id": "label_place_country_minor",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "maxzoom": 10,
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "Point"],
+          ["==", ["get", "class"], "country"],
+          [">=", ["get", "rank"], 2],
+          ["has", "iso_a2"]
+        ],
+        "layout": {
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Medium"],
+          "text-size": {
+            "base": 1.4,
+            "stops": [
+              [0, 8],
+              [2, 10],
+              [4, 13]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "symbol-spacing": 250,
+          "text-letter-spacing": 0.2,
+          "symbol-z-order": "auto"
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [3, 0],
+              [4, 0.4],
+              [8, 0.4],
+              [9, 0]
+            ]
+          }
+        }
+      },
+      {
+        "id": "label_place_country_major",
+        "type": "symbol",
+        "metadata": { "mapbox:group": "101da9f13b64a08fa4b6ac1168e89e5f" },
+        "source": "reuters",
+        "source-layer": "place",
+        "maxzoom": 12,
+        "filter": [
+          "all",
+          ["==", "$type", "Point"],
+          ["<=", "rank", 1],
+          ["==", "class", "country"],
+          ["has", "iso_a2"]
+        ],
+        "layout": {
+          "text-anchor": "center",
+          "text-field": [
+            "coalesce",
+            ["get", "name_en"],
+            ["get", "name:en"],
+            ["get", "name"]
+          ],
+          "text-font": ["Knowledge2017 Medium"],
+          "text-size": {
+            "base": 1.4,
+            "stops": [
+              [0, 8],
+              [2, 10],
+              [4, 13],
+              [8, 13]
+            ]
+          },
+          "text-transform": "uppercase",
+          "visibility": "visible",
+          "symbol-spacing": 250,
+          "text-letter-spacing": 0.2,
+          "symbol-z-order": "auto"
+        },
+        "paint": {
+          "text-color": "#3a3a3a",
+          "text-halo-color": "rgba(255, 255, 255, 0.55)",
+          "text-halo-width": 1,
+          "text-opacity": {
+            "stops": [
+              [3, 0],
+              [4, 0.4],
+              [8, 0.4],
+              [9, 0]
+            ]
+          }
+        }
+      },
+      {
+        "id": "label_reuters_custom_water",
+        "type": "symbol",
+        "source": "reuters-custom",
+        "source-layer": "ne_water_names",
+        "maxzoom": 24,
+        "filter": ["all", ["==", "$type", "Point"], ["!=", "ne_id", 1159120729]],
+        "layout": {
+          "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+          "symbol-sort-key": ["get", "scalerank"],
+          "text-font": [
+            "case",
+            ["<=", ["get", "scalerank"], 1],
+            ["literal", ["Knowledge2017 Medium Italic"]],
+            [">=", ["get", "scalerank"], 2],
+            ["literal", ["Knowledge2017 Italic"]],
+            ["literal", ["Knowledge2017 Italic"]]
+          ],
+          "text-size": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            ["interpolate", ["linear"], ["get", "scalerank"], 0, 12, 10, 10],
+            10,
+            ["interpolate", ["linear"], ["get", "scalerank"], 0, 15, 10, 15]
+          ],
+          "visibility": "visible",
+          "symbol-placement": "point",
+          "text-letter-spacing": 0.075
+        },
+        "paint": {
+          "text-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            [
+              "interpolate",
+              ["linear"],
+              ["get", "scalerank"],
+              0,
+              "rgba(44, 82, 111, 1)",
+              5,
+              "rgba(44, 82, 111, 0.55)"
+            ],
+            14,
+            [
+              "interpolate",
+              ["linear"],
+              ["get", "scalerank"],
+              0,
+              "rgba(44, 82, 111, 0.9)",
+              2,
+              "rgba(44, 82, 111, 0.9)"
+            ]
+          ],
+          "text-opacity": [
+            "step",
+            ["zoom"],
+            0,
+            0.5,
+            [
+              "case",
+              ["<", ["get", "scalerank"], 1],
+              1,
+              ["<=", ["get", "scalerank"], 3],
+              0,
+              0
+            ],
+            3,
+            [
+              "case",
+              ["<=", ["get", "scalerank"], 1],
+              1,
+              ["<=", ["get", "scalerank"], 2],
+              1,
+              0
+            ],
+            6,
+            [
+              "case",
+              [">=", ["get", "scalerank"], 0],
+              0,
+              ["<=", ["get", "scalerank"], 3],
+              1,
+              0
+            ],
+            8,
+            [
+              "case",
+              [">=", ["get", "scalerank"], 0],
+              1,
+              ["<=", ["get", "scalerank"], 7],
+              1,
+              1
+            ]
+          ],
+          "text-halo-width": 1,
+          "text-halo-color": "rgba(255, 255, 255, 0.55)"
+        }
+      }
+    ],
+    "id": "reuters"
+  }

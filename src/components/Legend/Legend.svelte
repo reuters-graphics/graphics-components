@@ -579,7 +579,19 @@
       })
       .filter((tick): tick is NonNullable<typeof tick> => Boolean(tick));
 
-    return startTick ? [startTick, ...breakTicks] : breakTicks;
+    const lastItem = items[items.length - 1];
+    const endTick =
+      isFiniteNumber(lastItem?.to) ?
+        {
+          value: lastItem.to,
+          label: formatValue(lastItem.to, formatter),
+          position: 100,
+        }
+      : null;
+
+    return [startTick, ...breakTicks, endTick].filter(
+      (tick): tick is NonNullable<typeof tick> => Boolean(tick)
+    );
   }
 
   function buildProportionalSymbolLayout(
