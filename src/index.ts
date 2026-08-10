@@ -52,6 +52,7 @@ export { default as Legend } from './components/Legend/Legend.svelte';
 export { default as TileMapCallout } from './components/TileMapCallout/TileMapCallout.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
+export { default as InsetMap } from './components/InsetMap/InsetMap.svelte';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
@@ -167,6 +168,14 @@ export type {
   TileMapCalloutPlacement,
   TileMapCalloutSurface,
 } from './components/TileMapCallout/TileMapCallout.svelte';
+
+export type {
+  InsetMapCorner,
+  InsetMapAnnotation,
+  InsetMapAnnotationShape,
+  InsetMapLabelPosition,
+  InsetMapLabelOffset,
+} from './components/InsetMap/InsetMap.svelte';
 
 export type {
   LegendMode,

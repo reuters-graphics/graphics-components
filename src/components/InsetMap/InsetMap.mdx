@@ -1,0 +1,466 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+
+import * as InsetMapStories from './InsetMap.stories.svelte';
+
+<Meta of={InsetMapStories} />
+
+# InsetMap
+
+`InsetMap` is a component to render locator inset map as a SVG. A country silhouette (from a built-in low-resolution dataset, or your own GeoJSON) with labelled annotations, anchored to a corner of its parent. Drop it in as a child of any relatively (or absolutely) positioned container like `TileMap`, `GraphicBlock`, `Video`, or any other component whenever readers need more context about the location a graphic is showing. It's a static SVG, not a MapLibre map, so it doesn't cost a WebGL context or tile requests.
+
+The `country` prop looks up a silhouette by name or ISO 3166-1 numeric code in a built-in, medium-resolution (50m) world atlas. Pass your own shape instead with `geojson` — useful for a region smaller than a country, or higher-detail data.
+
+`countryLabel` is centered on the largest polygon in the shape, not the shape's overall bounding box. So for a country with islands or exclaves (e.g. France, the US), the label lands on the mainland instead of drifting toward open water.
+
+```svelte
+<script>
+  import { InsetMap } from '@reuters-graphics/graphics-components';
+</script>
+
+<InsetMap
+  country="Japan"
+  countryLabel="Japan"
+  annotations={[
+    {
+      name: 'Tokyo',
+      lngLat: [139.6503, 35.6762],
+      labelPosition: 'right',
+      shape: 'square',
+    },
+    { name: 'Osaka', lngLat: [135.5023, 34.6937], labelPosition: 'right' },
+  ]}
+  corner="top-right"
+  size={200}
+/>
+```
+
+## Basic
+
+To add an InsetMap nested inside its parent TileMap, add the following structure to your ArchieML doc...
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-locate-demo
+center: [136.24464429825332, 34.94325188351801]
+zoom: 7.5
+interactive: false
+title: Japan approves bullet train link between Nagoya and Osaka
+description: The high-speed rail project would cut travel time between the two cities by half, part of a broader push to boost economic ties across central Japan.
+
+  [.layers]
+	type: tile-map-layer
+	id: bullet-train-route
+	data: bullet-train-route.geojson
+	layerType: line
+	lineColor: '#e01e37'
+	lineWidth: 3
+
+  [.inset]
+	type: inset-map
+	country: Japan
+	countryLabel: Japan
+	annotations:
+	  - name: Tokyo
+		lngLat: [139.6503, 35.6762]
+	  - name: Osaka
+		lngLat: [135.5023, 34.6937]
+
+:end
+```
+
+and then parse it out of a block object before passing to the `TileMap` and `InsetMap` components.
+
+```svelte
+<script>
+  import {
+    TileMap,
+    TileMapLayer,
+    InsetMap,
+  } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.layers as layerBlock}
+        {#if layerBlock.type === 'tile-map-layer'}
+          <TileMapLayer
+            id={layerBlock.id}
+            data={layerBlock.data}
+            type={layerBlock.layerType}
+            paint={{
+              'line-color': layerBlock.lineColor,
+              'line-width': layerBlock.lineWidth,
+            }}
+          />
+        {/if}
+      {/each}
+
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            country={insetBlock.country}
+            countryLabel={insetBlock.countryLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+            size={200}
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+```
+
+[Demo](?path=/story/compositions-insetmap--locating-a-region)
+
+<Canvas of={InsetMapStories.LocatingARegion} />
+
+## Custom shape
+
+Pass your own GeoJSON via `geojson` to draw a region smaller than a country, instead of looking one up by name. The shape itself is a static asset you import in code. Only the label and annotations come from your ArchieML doc.
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-geojson-demo
+center: [-96.79539236004823, 32.775606715068946]
+zoom: 8
+interactive: false
+title: Texas grid operator warns of strain as summer demand hits record
+description: ERCOT says power use between Dallas and Houston is on pace to top last year's peak, reviving questions about the grid's ability to handle extreme heat.
+
+  [.inset]
+	type: inset-map
+	countryLabel: Texas
+	annotations:
+	  - name: Dallas
+		lngLat: [-96.7969, 32.7767]
+	  - name: Houston
+		lngLat: [-95.3698, 29.7604]
+
+:end
+```
+
+```svelte
+<script>
+  import { TileMap, InsetMap } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+  import texasShape from './texas.geojson';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            geojson={texasShape}
+            countryLabel={insetBlock.countryLabel}
+            annotations={insetBlock.annotations}
+            size={140}
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+```
+
+[Demo](?path=/story/compositions-insetmap--custom-shape)
+
+<Canvas of={InsetMapStories.CustomShape} />
+
+## Country resolution
+
+`country`/`geojson` accept a feature from any resolution of the [world-atlas](https://github.com/topojson/world-atlas) dataset — the built-in lookup uses 50m, but you can pass a 110m or 10m feature via `geojson` for a coarser or more detailed silhouette.
+
+`world-atlas` is only the default source for country shapes, not a requirement — pass any GeoJSON `Feature`/`Geometry` via `geojson` and `InsetMap` will draw it, no matter where it came from.
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-resolution-demo
+center: [15.97885620895, 45.789934344]
+zoom: 12
+interactive: false
+title: Croatia moves to limit new coastal construction along the Adriatic
+description: Zagreb says a surge in tourism-driven development is straining protected shoreline, and plans stricter permits before next summer's season.
+
+  [.inset]
+	type: inset-map
+	countryLabel: Croatia
+	annotations:
+	  - name: Zagreb
+		lngLat: [15.9819, 45.815]
+
+:end
+```
+
+```svelte
+<script>
+  import { TileMap, InsetMap } from '@reuters-graphics/graphics-components';
+  import { feature } from 'topojson-client';
+  import topology110m from 'world-atlas/countries-110m.json';
+  import topology50m from 'world-atlas/countries-50m.json';
+  import topology10m from 'world-atlas/countries-10m.json';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+
+  // Use the highest-resolution atlas for a tighter coastline than the
+  // built-in `country` lookup, which uses 50m.
+  const { features } = feature(topology10m, topology10m.objects.countries);
+  const croatia = features.find((f) => f.properties.name === 'Croatia');
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            geojson={croatia}
+            countryLabel={insetBlock.countryLabel}
+            countryLabelOffset={[18, 20, 0, 0]}
+            annotations={insetBlock.annotations}
+            size={220}
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+```
+
+[Demo](?path=/story/compositions-insetmap--country-resolution)
+
+<Canvas of={InsetMapStories.CountryResolution} />
+
+## Custom styling
+
+Pass a `class` to `InsetMap` and target its `.inset-shape`, `.inset-annotation-dot` and `.inset-country-label` parts to restyle it.
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-custom-style-demo
+center: [-51.9, -14.2]
+zoom: 4
+interactive: false
+title: Blackout leaves millions without power across southeastern Brazil
+description: Grid operators are still tracing the outage that knocked out electricity in Rio de Janeiro and reached the capital, Brasília, before dawn.
+
+  [.inset]
+	type: inset-map
+	country: Brazil
+	countryLabel: Brazil
+	annotations:
+	  - name: Rio de Janeiro
+		lngLat: [-43.1729, -22.9068]
+	  - name: Brasília
+		lngLat: [-47.8825, -15.7942]
+
+:end
+```
+
+```svelte
+<script>
+  import { TileMap, InsetMap } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            country={insetBlock.country}
+            countryLabel={insetBlock.countryLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+            class="dark-inset"
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+
+<style>
+  :global(.dark-inset .inset-shape) {
+    fill: #1c1c1c;
+    stroke: #555;
+  }
+
+  :global(.dark-inset .inset-annotation-dot) {
+    fill: #ffd23f;
+  }
+
+  :global(.dark-inset .inset-annotation-label),
+  :global(.dark-inset .inset-country-label) {
+    fill: #fff;
+  }
+</style>
+```
+
+[Demo](?path=/story/compositions-insetmap--custom-styling)
+
+<Canvas of={InsetMapStories.CustomStyling} />
+
+## Standalone, without TileMap
+
+`InsetMap` doesn't need a `TileMap` as a parent. Just drop it into any relatively (or absolutely) positioned container, like `Video` or `GraphicBlock`.
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: video
+src: videos/nairobi-mombasa-bridge.mp4
+width: widest
+ariaDescription: Silent aerial footage of a highway bridge under construction.
+title: Kenya opens new highway bridge linking Nairobi to the Mombasa trade route
+description: The bypass is meant to ease congestion on one of East Africa's busiest freight corridors, cutting hours off truck travel to the coast.
+
+  [.inset]
+	type: inset-map
+	country: Kenya
+	countryLabel: Kenya
+	annotations:
+	  - name: Nairobi
+		lngLat: [36.8219, -1.2921]
+	  - name: Mombasa
+		lngLat: [39.6682, -4.0435]
+
+:end
+```
+
+```svelte
+<script>
+  import { Video, InsetMap } from '@reuters-graphics/graphics-components';
+  import { asset } from '$app/paths';
+  import content from '$locales/en/content.json';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'video'}
+    <div style="position: relative;">
+      <Video
+        ariaDescription={block.ariaDescription}
+        src={asset(`/${block.src}`)}
+        width={block.width}
+        title={block.title}
+        description={block.description}
+      />
+
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            country={insetBlock.country}
+            countryLabel={insetBlock.countryLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+          />
+        {/if}
+      {/each}
+    </div>
+  {/if}
+{/each}
+```
+
+[Demo](?path=/story/compositions-insetmap--standalone-without-tile-map)
+
+<Canvas of={InsetMapStories.StandaloneWithoutTileMap} />
+
+## Responsive size
+
+`size` is just a number, so drive it from viewport width to keep the inset from taking over the screen on phones.
+
+```svelte
+<script>
+  import { InsetMap } from '@reuters-graphics/graphics-components';
+
+  let screenWidth = $state(0);
+  const insetSize = $derived(
+    screenWidth < 510 ? 160
+    : screenWidth < 930 ? 180
+    : 240
+  );
+</script>
+
+<svelte:window bind:innerWidth={screenWidth} />
+
+<InsetMap
+  country="Japan"
+  countryLabel="Japan"
+  annotations={[
+    {
+      name: 'Tokyo',
+      lngLat: [139.6503, 35.6762],
+      labelPosition: 'right',
+      shape: 'square',
+    },
+    { name: 'Osaka', lngLat: [135.5023, 34.6937], labelPosition: 'right' },
+  ]}
+  corner="top-right"
+  size={insetSize}
+/>
+```
+
+[Demo](?path=/story/compositions-insetmap--responsive-size)
+
+<Canvas of={InsetMapStories.ResponsiveSize} />
+
+## Wildfire tracker composition
+
+For a fuller production example — `InsetMap` layered with `TileMapLayer` and a custom map style — see [TileMap's wildfire burnt area demo](/docs/components-graphics-tilemap--docs#adding-a-locator-inset), the kind of build you'd reach for when covering an active wildfire.
+
+## Props
+
+<Controls of={InsetMapStories.LocatingARegion} />
