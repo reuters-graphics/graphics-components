@@ -8,6 +8,8 @@ import * as TileMapStories from './TileMap.stories.svelte';
 
 Easily add an interactive map to your page using MapLibre GL and PMTiles.
 
+[Demo](?path=/story/components-graphics-tilemap--demo)
+
 ```svelte
 <script>
   import { TileMap } from '@reuters-graphics/graphics-components';
@@ -31,6 +33,8 @@ The TileMap component uses [MapLibre GL JS](https://maplibre.org/) and [PMTiles]
 Use the `projection` prop to display a 3D globe. The projection accepts a [ProjectionSpecification](https://maplibre.org/maplibre-style-spec/types/#projectiondefinition) object:
 
 <Canvas of={TileMapStories.GlobeView} />
+
+[Demo](?path=/story/components-graphics-tilemap--globe-view)
 
 ```svelte
 <TileMap
@@ -58,6 +62,8 @@ Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass G
 <Canvas of={TileMapStories.WithGeoJSONLayers} />
 
 ### Basic example with local data
+
+[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
 
 ```svelte
 <script lang="ts">
@@ -116,6 +122,8 @@ Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass G
 
 You can also pass a URL string to fetch GeoJSON data:
 
+[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
+
 ```svelte
 <TileMap center={[-73.9712, 40.7831]} zoom={11}>
   <TileMapLayer
@@ -131,6 +139,8 @@ You can also pass a URL string to fetch GeoJSON data:
 ```
 
 ### Adding point markers
+
+[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
 
 ```svelte
 <script lang="ts">
@@ -202,6 +212,8 @@ You can also pass a URL string to fetch GeoJSON data:
 
 You can combine multiple layers to create rich visualizations:
 
+[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
+
 ```svelte
 <TileMap center={[-73.9712, 40.7831]} zoom={11}>
   <!-- Background polygon -->
@@ -243,11 +255,40 @@ You can combine multiple layers to create rich visualizations:
 </TileMap>
 ```
 
+## Keeping labels readable over data
+
+`emphasizeLabels` (on `TileMap`) darkens the basemap's place labels and adds a white halo; `beneathLabels` (on a `TileMapLayer` fill) inserts the data below those labels, so place names stay readable on top of the colored overlay.
+
+<Canvas of={TileMapStories.LabelsAboveData} />
+
+[Demo](?path=/story/components-graphics-tilemap--labels-above-data)
+
+```svelte
+<script lang="ts">
+  import { TileMap, TileMapLayer } from '@reuters-graphics/graphics-components';
+  import iowaOutline from './iowa-outline.geojson?raw';
+
+  const iowaData = JSON.parse(iowaOutline);
+</script>
+
+<TileMap center={[-93.5, 42]} zoom={6} emphasizeLabels height="500px">
+  <TileMapLayer
+    id="iowa-fill"
+    data={iowaData}
+    type="fill"
+    beneathLabels
+    paint={{ 'fill-color': '#d64000', 'fill-opacity': 0.75 }}
+  />
+</TileMap>
+```
+
 ## Adding coordinate callouts
 
 Use `TileMapCallout` when you want a framed annotation attached to a map coordinate without writing MapLibre marker glue yourself. Render it as a child of `TileMap` and pass a longitude/latitude pair.
 
 <Canvas of={TileMapStories.WithCallouts} />
+
+[Demo](?path=/story/components-graphics-tilemap--with-callouts)
 
 ```svelte
 <script lang="ts">
@@ -281,11 +322,75 @@ Use `TileMapCallout` when you want a framed annotation attached to a map coordin
 - **id**: `string` - Add an id to the MapLibre marker wrapper
 - **children**: `Snippet` - Short label or compact rich content
 
+## Wildfire burnt area example
+
+This example layers a real wildfire event over a custom basemap style: a burnt-area perimeter as a fill, NASA FIRMS active-fire hotspots as circles, and an [InsetMap](?path=/docs/compositions-insetmap--docs) locating the region within Spain.
+
+<Canvas of={TileMapStories.WildfireBurntArea} />
+
+[Demo](?path=/story/components-graphics-tilemap--wildfire-burnt-area)
+
+```svelte
+<script lang="ts">
+  import {
+    TileMap,
+    TileMapLayer,
+    InsetMap,
+  } from '@reuters-graphics/graphics-components';
+  import burntAreaData from './navaluenga-burnt-area.geojson?raw';
+  import fireSpotsData from './fire-spots.geojson?raw';
+  import wildfireStyleUrl from './wildfire-style.json?url';
+
+  const burntArea = JSON.parse(burntAreaData);
+  const fireSpots = JSON.parse(fireSpotsData);
+</script>
+
+<TileMap center={[-4.1, 40.4126]} zoom={8} styleUrl={wildfireStyleUrl}>
+  <TileMapLayer
+    id="burnt-area"
+    data={burntArea}
+    type="fill"
+    beneathLabels
+    paint={{ 'fill-color': '#8a6a48', 'fill-opacity': 0.4 }}
+  />
+
+  <TileMapLayer
+    id="fire-spots"
+    data={fireSpots}
+    type="circle"
+    paint={{ 'circle-radius': 2, 'circle-color': '#ff5a1f' }}
+  />
+
+  <InsetMap
+    corner="top-right"
+    country="Spain"
+    countryLabel="Spain"
+    annotations={[
+      { name: 'Madrid', lngLat: [-3.7038, 40.4168], shape: 'square' },
+      { name: 'Seville', lngLat: [-5.9835, 37.4009] },
+    ]}
+    class="wildfire-inset"
+  />
+</TileMap>
+
+<style>
+  :global(.wildfire-inset) {
+    filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.2));
+  }
+</style>
+```
+
+`styleUrl` on `TileMap` accepts any MapLibre style URL, not just the default — the example above uses a custom style with muted forest colors so the burnt-area fill and fire hotspots stand out. [Download `wildfire-style.json`](https://raw.githubusercontent.com/reuters-graphics/graphics-components/main/src/components/TileMap/demo/wildfire-style.json) to use it in your own project.
+
+The burnt-area perimeter (`navaluenga-burnt-area.geojson`) is the [Copernicus EMS/EFFIS rapid damage assessment](https://forest-fire.emergency.copernicus.eu/applications/data-and-services) polygon for the Navaluenga fire (Ávila, Spain, July 2026). The hotspots (`fire-spots.geojson`) are [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) VIIRS/MODIS active-fire detections for the same event — both are static snapshots bundled with this repo for the demo, not live-fetched.
+
 ## Forward geocoding (search and fly)
 
 Use `Geocoder` inside `TileMap` when you want readers to search for a place name and then move the map there. The story below wires `onselect` to `map.flyTo()`.
 
 <Canvas of={TileMapStories.WithGeocoder} />
+
+[Demo](?path=/story/components-graphics-tilemap--with-geocoder)
 
 ```svelte
 <script lang="ts">
@@ -321,6 +426,8 @@ Use `Geocoder` inside `TileMap` when you want readers to search for a place name
 Use reverse geocoding when the interaction starts from a map coordinate instead of typed text. This pattern listens for a map click, calls `reverseGeocode()`, and displays the nearest named feature.
 
 <Canvas of={TileMapStories.ReverseGeocodingOnClick} />
+
+[Demo](?path=/story/components-graphics-tilemap--reverse-geocoding-on-click)
 
 ```svelte
 <script lang="ts">
