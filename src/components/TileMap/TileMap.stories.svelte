@@ -161,7 +161,7 @@
 </script>
 
 <script lang="ts">
-  import { NavigationControl, type Map as MapType } from 'maplibre-gl';
+  import type { Map as MapType } from 'maplibre-gl';
   const mapboxAccessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? '';
   let geocoderMapRef: MapType;
 </script>
@@ -369,7 +369,6 @@
       if (map.getSource('reuters-world-terrain')) {
         map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
       }
-      map.addControl(new NavigationControl({ visualizePitch: true }));
       map.setPitch(60);
     }}
   />

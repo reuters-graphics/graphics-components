@@ -45,19 +45,17 @@ Use the `projection` prop to display a 3D globe. The projection accepts a [Proje
 
 ## Enabling 3D terrain
 
-`reuters-world-terrain` is a Reuters-hosted terrain (elevation) source available in the default style. Use the `onMapReady` callback to grab the MapLibre instance and call `map.setTerrain()`, then add a pitch control so readers can tilt the map to see it — terrain has no visible effect at pitch `0`.
+`reuters-world-terrain` is a Reuters-hosted terrain (elevation) source available in the default style. Use the `onMapReady` callback to grab the MapLibre instance, call `map.setTerrain()`, and set a pitch — terrain has no visible effect at pitch `0`.
 
 <Canvas of={TileMapStories.Terrain} />
 
 ```svelte
 <script lang="ts">
   import { TileMap } from '@reuters-graphics/graphics-components';
-  import { NavigationControl } from 'maplibre-gl';
   import type { Map as MaplibreMap } from 'maplibre-gl';
 
   function handleMapReady(map: MaplibreMap) {
     map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
-    map.addControl(new NavigationControl({ visualizePitch: true }));
     map.setPitch(60);
   }
 </script>
