@@ -356,24 +356,6 @@
   </TileMap>
 </Story>
 
-<Story asChild name="Terrain" tags={['!autodocs']}>
-  <TileMap
-    id="terrain-map"
-    center={[-3.7, 40.2]}
-    zoom={5}
-    interactive={true}
-    title="3D terrain"
-    description="Spain, viewed with 3D terrain enabled and the map tilted to show it."
-    height="500px"
-    onMapReady={(map) => {
-      if (map.getSource('reuters-world-terrain')) {
-        map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
-      }
-      map.setPitch(60);
-    }}
-  />
-</Story>
-
 <Story asChild name="Reverse geocoding on click">
   <ReverseGeocodeMap accessToken={mapboxAccessToken} />
 </Story>
