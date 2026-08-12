@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.10.2
+
+### Patch Changes
+
+- 033d187: Document how to enable the Reuters-hosted `reuters-world-terrain` 3D terrain source in `TileMap`, with a live Storybook example.
+
 ## 4.10.1
 
 ### Patch Changes
