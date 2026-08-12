@@ -43,6 +43,33 @@ Use the `projection` prop to display a 3D globe. The projection accepts a [Proje
 />
 ```
 
+## Enabling 3D terrain
+
+`reuters-world-terrain` is a Reuters-hosted terrain (elevation) source available in the default style. Use the `onMapReady` callback to grab the MapLibre instance and call `map.setTerrain()`, then add a pitch control so readers can tilt the map to see it — terrain has no visible effect at pitch `0`.
+
+<Canvas of={TileMapStories.Terrain} />
+
+```svelte
+<script lang="ts">
+  import { TileMap } from '@reuters-graphics/graphics-components';
+  import { NavigationControl } from 'maplibre-gl';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+
+  function handleMapReady(map: MaplibreMap) {
+    map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
+    map.addControl(new NavigationControl({ visualizePitch: true }));
+    map.setPitch(60);
+  }
+</script>
+
+<TileMap
+  center={[-3.7, 40.2]}
+  zoom={5}
+  interactive
+  onMapReady={handleMapReady}
+/>
+```
+
 ## Non-interactive mode
 
 Disable interaction for static maps:
@@ -375,40 +402,6 @@ Use reverse geocoding when the interaction starts from a map coordinate instead 
 ```
 
 This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while `reverseGeocode()` handles the API call and typed response data.
-
-## Enabling 3D terrain
-
-The Reuters Protomaps style now includes a Reuters-hosted terrain (DEM) source, `reuters-world-terrain`, built from PMTiles raster-dem tiles. It's separate from the basemap's existing 2D hillshade layer — hillshade shades relief into the flat map at normal zoomed-out views, while terrain gives the map actual 3D elevation that appears when the map is pitched. You can use both together: hillshade for the flat look, terrain once the reader tilts the view.
-
-`TileMap` doesn't have a `terrain` prop of its own. Instead, use the `onMapReady` callback to grab the MapLibre instance and call `map.setTerrain()` directly, exactly as you would in a plain MapLibre GL JS app. Since terrain has no visible effect at pitch `0`, also give readers a way to tilt the map — either MapLibre's built-in `NavigationControl` with `visualizePitch: true`, or your own button that calls `map.setPitch()`.
-
-```svelte
-<script lang="ts">
-  import { TileMap } from '@reuters-graphics/graphics-components';
-  import { NavigationControl } from 'maplibre-gl';
-  import type { Map as MaplibreMap } from 'maplibre-gl';
-
-  function handleMapReady(map: MaplibreMap) {
-    // Turn on the Reuters-hosted 3D terrain
-    map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
-
-    // Add a pitch-enabled navigation control so readers can tilt the map
-    // to see the terrain (it's invisible at pitch 0)
-    map.addControl(new NavigationControl({ visualizePitch: true }));
-    map.setPitch(60);
-  }
-</script>
-
-<TileMap
-  id="terrain-map"
-  center={[86.925, 27.988]}
-  zoom={10}
-  interactive
-  onMapReady={handleMapReady}
-/>
-```
-
-To turn terrain back off, call `map.setTerrain(null)`.
 
 ## Advanced usage
 
