@@ -63,7 +63,21 @@ Pass a number to set your own exaggeration. `1` is true-to-life; higher values a
 <TileMap center={[-3.7, 40.2]} zoom={5} terrain={2} pitch={60} />
 ```
 
-Terrain is 3D geometry, so it only shows on a tilted map. Shaded relief is separate: it ships in the style as a flat hillshade and is already drawn on every map at zoom 5 and above, whether or not `terrain` is on.
+Terrain is 3D geometry, so it only shows on a tilted map. Switching it on also does two things for you: it reveals the high-detail shaded relief drawn from the same elevation tiles, and it drops the map off the globe projection, which cannot render a terrain mesh.
+
+Maps that don't ask for terrain are untouched — they keep the style's default flat hillshade and nothing more.
+
+If you build a map yourself rather than through this component, `enableTerrain` and `disableTerrain` do the same work against a raw MapLibre map:
+
+```ts
+import {
+  enableTerrain,
+  disableTerrain,
+} from '@reuters-graphics/graphics-components';
+
+enableTerrain(map); // or enableTerrain(map, 2) for more exaggeration
+disableTerrain(map);
+```
 
 ## Non-interactive mode
 

@@ -17,24 +17,6 @@
       pmtilesProtocolRegistered = true;
     }
   }
-
-  /** Elevation source published by the Reuters basemap style. */
-  export const TERRAIN_SOURCE_ID = 'reuters-world-terrain';
-  export const DEFAULT_TERRAIN_EXAGGERATION = 1.5;
-
-  export function applyTerrain(map: maplibregl.Map, terrain: boolean | number) {
-    if (!map.getSource(TERRAIN_SOURCE_ID)) {
-      console.warn(
-        `TileMap: terrain is on but the style has no "${TERRAIN_SOURCE_ID}" source, so no terrain was applied.`
-      );
-      return;
-    }
-    map.setTerrain({
-      source: TERRAIN_SOURCE_ID,
-      exaggeration:
-        terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : Number(terrain),
-    });
-  }
 </script>
 
 <script lang="ts">
@@ -44,6 +26,7 @@
   import type { ContainerWidth } from '../@types/global';
   import type { ProjectionSpecification } from 'maplibre-gl';
   import { emphasizePlaceLabels } from './labels';
+  import { enableTerrain, DEFAULT_TERRAIN_EXAGGERATION } from './terrain';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
   interface Props {
@@ -233,7 +216,10 @@
         }
 
         if (terrain) {
-          applyTerrain(map, terrain);
+          enableTerrain(
+            map,
+            terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : Number(terrain)
+          );
         }
 
         if (onMapReady) {
