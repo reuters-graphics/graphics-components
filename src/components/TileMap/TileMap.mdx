@@ -55,7 +55,9 @@ Use the `projection` prop to display a 3D globe. The projection accepts a [Proje
   import type { Map as MaplibreMap } from 'maplibre-gl';
 
   function handleMapReady(map: MaplibreMap) {
-    map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
+    if (map.getSource('reuters-world-terrain')) {
+      map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 120 });
+    }
     map.setPitch(60);
   }
 </script>

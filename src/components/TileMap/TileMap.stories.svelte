@@ -203,7 +203,7 @@
     height="500px"
     onMapReady={(map) => {
       if (map.getSource('reuters-world-terrain')) {
-        map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
+        map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 120 });
       }
       map.setPitch(60);
     }}
