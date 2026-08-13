@@ -27,6 +27,7 @@
   import type { ProjectionSpecification } from 'maplibre-gl';
   import { emphasizePlaceLabels } from './labels';
   import { enableTerrain, DEFAULT_TERRAIN_EXAGGERATION } from './terrain';
+  import { configureMaplibreWorker } from './worker';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
   interface Props {
@@ -169,6 +170,8 @@
         boxZoom: interactive,
         keyboard: interactive,
       };
+
+      configureMaplibreWorker();
 
       const mapInstance = new maplibregl.Map(mapOptions);
 
