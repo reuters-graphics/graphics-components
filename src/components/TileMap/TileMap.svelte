@@ -19,10 +19,10 @@
   }
 
   /** Elevation source published by the Reuters basemap style. */
-  const TERRAIN_SOURCE_ID = 'reuters-world-terrain';
-  const DEFAULT_TERRAIN_EXAGGERATION = 1.5;
+  export const TERRAIN_SOURCE_ID = 'reuters-world-terrain';
+  export const DEFAULT_TERRAIN_EXAGGERATION = 1.5;
 
-  function applyTerrain(map: maplibregl.Map, terrain: boolean | number) {
+  export function applyTerrain(map: maplibregl.Map, terrain: boolean | number) {
     if (!map.getSource(TERRAIN_SOURCE_ID)) {
       console.warn(
         `TileMap: terrain is on but the style has no "${TERRAIN_SOURCE_ID}" source, so no terrain was applied.`
