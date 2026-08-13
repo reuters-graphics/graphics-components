@@ -59,6 +59,7 @@ export {
   TERRAIN_RELIEF_LAYER_ID,
   DEFAULT_TERRAIN_EXAGGERATION,
 } from './components/TileMap/terrain';
+export { configureMaplibreWorker } from './components/TileMap/worker';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
