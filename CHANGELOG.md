@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.11.0
+
+### Minor Changes
+
+- 0dbd1fe: Add opt-in 3D terrain to `TileMap` via `terrain` and `pitch` props, plus `enableTerrain`/`disableTerrain` for raw MapLibre maps. Switching terrain on reveals the high-detail shaded relief and leaves the globe projection, which cannot render a terrain mesh. Maps that don't ask for terrain are unchanged. Upgrades `maplibre-gl` to 6.3.
+
 ## 4.10.2
 
 ### Patch Changes
