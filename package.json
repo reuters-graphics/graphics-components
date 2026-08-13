@@ -118,7 +118,7 @@
     "dayjs": "^1.11.13",
     "es-toolkit": "^1.35.0",
     "journalize": "^2.6.0",
-    "maplibre-gl": "^5.15.0",
+    "maplibre-gl": "^6.3.0",
     "mp4box": "^0.5.4",
     "pmtiles": "^4.3.2",
     "proper-url-join": "^2.1.2",

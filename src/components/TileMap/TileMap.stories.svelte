@@ -201,12 +201,8 @@
     title="3D terrain"
     description="Spain, viewed with 3D terrain enabled and the map tilted to show it."
     height="500px"
-    onMapReady={(map) => {
-      if (map.getSource('reuters-world-terrain')) {
-        map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 120 });
-      }
-      map.setPitch(60);
-    }}
+    terrain
+    pitch={60}
   />
 </Story>
 
