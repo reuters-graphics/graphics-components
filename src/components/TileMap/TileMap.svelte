@@ -5,7 +5,7 @@
 -->
 <script lang="ts" module>
   import { Protocol } from 'pmtiles';
-  import maplibregl from 'maplibre-gl';
+  import * as maplibregl from 'maplibre-gl';
 
   // Track if PMTiles protocol has been registered (only do this once per page)
   let pmtilesProtocolRegistered = false;
@@ -26,6 +26,7 @@
   import type { ContainerWidth } from '../@types/global';
   import type { ProjectionSpecification } from 'maplibre-gl';
   import { emphasizePlaceLabels } from './labels';
+  import { enableTerrain, DEFAULT_TERRAIN_EXAGGERATION } from './terrain';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
   interface Props {
@@ -62,6 +63,18 @@
      * See https://maplibre.org/maplibre-style-spec/types/#projectiondefinition
      */
     projection?: ProjectionSpecification;
+    /**
+     * Show 3D terrain using the basemap's elevation tiles. Pass `true` for the
+     * default exaggeration or a number to set your own. Terrain is only visible
+     * on a tilted map, so pair it with `pitch`. A no-op on styles without an
+     * elevation source, so it degrades gracefully.
+     */
+    terrain?: boolean | number;
+    /**
+     * Tilt the map, in degrees away from straight down. Required to see
+     * `terrain`. MapLibre caps this at 60.
+     */
+    pitch?: number;
     /**
      * Enable interactive controls (zoom, pan, etc.)
      */
@@ -111,6 +124,8 @@
     minZoom = 0,
     maxZoom = 22,
     projection,
+    terrain = false,
+    pitch = 0,
     interactive = true,
     styleUrl = 'https://graphics.thomsonreuters.com/reuters-protomaps/style.json',
     emphasizeLabels = false,
@@ -144,6 +159,7 @@
         zoom,
         minZoom,
         maxZoom,
+        pitch,
         attributionControl: false,
         scrollZoom: false, // Always disabled for consistency
         doubleClickZoom: interactive,
@@ -197,6 +213,13 @@
         // Set projection after map loads if specified
         if (projection) {
           map.setProjection(projection);
+        }
+
+        if (terrain !== false) {
+          enableTerrain(
+            map,
+            terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : terrain
+          );
         }
 
         if (onMapReady) {

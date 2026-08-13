@@ -6,6 +6,11 @@
   import type { GeoJSON } from 'geojson';
   import { findFirstSymbolLayerId } from './labels';
 
+  type PaintProperty = Parameters<MaplibreMap['setPaintProperty']>[1];
+  type PaintValue = Parameters<MaplibreMap['setPaintProperty']>[2];
+  type LayoutProperty = Parameters<MaplibreMap['setLayoutProperty']>[1];
+  type LayoutValue = Parameters<MaplibreMap['setLayoutProperty']>[2];
+
   interface Props {
     /**
      * Unique ID for this layer
@@ -191,8 +196,10 @@
     const map = $mapStore;
     if (!map || !isInitialized || !paint) return;
 
+    // Object.entries widens keys to string, so each name is asserted back into
+    // the property union MapLibre expects.
     Object.entries(paint).forEach(([property, value]) => {
-      map.setPaintProperty(id, property, value);
+      map.setPaintProperty(id, property as PaintProperty, value as PaintValue);
     });
   });
 
@@ -202,7 +209,11 @@
     if (!map || !isInitialized || !layout) return;
 
     Object.entries(layout).forEach(([property, value]) => {
-      map.setLayoutProperty(id, property, value);
+      map.setLayoutProperty(
+        id,
+        property as LayoutProperty,
+        value as LayoutValue
+      );
     });
   });
 
