@@ -215,10 +215,10 @@
           map.setProjection(projection);
         }
 
-        if (terrain) {
+        if (terrain !== false) {
           enableTerrain(
             map,
-            terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : Number(terrain)
+            terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : terrain
           );
         }
 
