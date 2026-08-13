@@ -29,7 +29,19 @@ describe('maplibre worker asset', () => {
     const workers = assets.filter((f) => f.startsWith('maplibre-gl-worker'));
     expect(workers).toHaveLength(1);
 
+    // A worker that statically imports anything is a split worker: the browser
+    // fetches a sibling nobody emitted, and every map goes blank. Both
+    // spellings count — a bundler only has to reach for one of them.
+    //
+    // Dynamic `import()` is deliberately not checked: MapLibre uses it at
+    // runtime to load protocol plugins, with a variable specifier no bundler
+    // can resolve, so it can never be a missing sibling.
     const code = await readFile(join(outDir, 'assets', workers[0]), 'utf8');
-    expect(code).not.toMatch(/from\s*["'][^"']+["']/);
+    for (const [form, pattern] of Object.entries({
+      'import … from "…"': /\bfrom\s*["']/,
+      'import "…"': /\bimport\s*["']/,
+    })) {
+      expect(code, `worker should contain no ${form}`).not.toMatch(pattern);
+    }
   }, 60000);
 });
