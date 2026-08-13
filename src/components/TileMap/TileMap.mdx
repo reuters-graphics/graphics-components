@@ -45,28 +45,25 @@ Use the `projection` prop to display a 3D globe. The projection accepts a [Proje
 
 ## Enabling 3D terrain
 
-`reuters-world-terrain` is a Reuters-hosted terrain (elevation) source available in the default style. Use the `onMapReady` callback to grab the MapLibre instance, call `map.setTerrain()`, and set a pitch — terrain has no visible effect at pitch `0`.
+The default style publishes Reuters-hosted elevation tiles. Set `terrain` to switch them on, and `pitch` to tilt the map — terrain has no visible effect at pitch `0`.
 
 <Canvas of={TileMapStories.Terrain} />
 
 ```svelte
 <script lang="ts">
   import { TileMap } from '@reuters-graphics/graphics-components';
-  import type { Map as MaplibreMap } from 'maplibre-gl';
-
-  function handleMapReady(map: MaplibreMap) {
-    map.setTerrain({ source: 'reuters-world-terrain', exaggeration: 1.2 });
-    map.setPitch(60);
-  }
 </script>
 
-<TileMap
-  center={[-3.7, 40.2]}
-  zoom={5}
-  interactive
-  onMapReady={handleMapReady}
-/>
+<TileMap center={[-3.7, 40.2]} zoom={5} interactive terrain pitch={60} />
 ```
+
+Pass a number to set your own exaggeration. `1` is true-to-life; higher values are an editorial choice, and anything much above `2` looks like a caricature.
+
+```svelte
+<TileMap center={[-3.7, 40.2]} zoom={5} terrain={2} pitch={60} />
+```
+
+Terrain is 3D geometry, so it only shows on a tilted map. Shaded relief is separate: it ships in the style as a flat hillshade and is already drawn on every map at zoom 5 and above, whether or not `terrain` is on.
 
 ## Non-interactive mode
 
@@ -438,6 +435,8 @@ For more control over the map, you can use the `onMapReady` callback to access t
 - **zoom**: `number` - Initial zoom level (default: `2`)
 - **minZoom**: `number` - Minimum zoom level (default: `0`)
 - **maxZoom**: `number` - Maximum zoom level (default: `22`)
+- **terrain**: `boolean | number` - Show 3D terrain from the style's elevation tiles. `true` uses the default exaggeration of `1.5`; pass a number to set your own (default: `false`). Needs a non-zero `pitch` to be visible.
+- **pitch**: `number` - Tilt the map, in degrees away from straight down, capped at `60` (default: `0`)
 - **interactive**: `boolean` - Enable interactive controls (default: `true`)
 - **styleUrl**: `string` - Map style URL (default: Reuters Protomaps style)
 - **emphasizeLabels**: `boolean` - Darken the basemap's place labels and add a white halo so city/region names stay readable over colored data layers (default: `false`). Applied on map load; a no-op on styles without `place` labels.

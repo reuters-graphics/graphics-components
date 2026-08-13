@@ -5,7 +5,7 @@
 -->
 <script lang="ts" module>
   import { Protocol } from 'pmtiles';
-  import maplibregl from 'maplibre-gl';
+  import * as maplibregl from 'maplibre-gl';
 
   // Track if PMTiles protocol has been registered (only do this once per page)
   let pmtilesProtocolRegistered = false;
@@ -16,6 +16,24 @@
       maplibregl.addProtocol('pmtiles', protocol.tile);
       pmtilesProtocolRegistered = true;
     }
+  }
+
+  /** Elevation source published by the Reuters basemap style. */
+  const TERRAIN_SOURCE_ID = 'reuters-world-terrain';
+  const DEFAULT_TERRAIN_EXAGGERATION = 1.5;
+
+  function applyTerrain(map: maplibregl.Map, terrain: boolean | number) {
+    if (!map.getSource(TERRAIN_SOURCE_ID)) {
+      console.warn(
+        `TileMap: terrain is on but the style has no "${TERRAIN_SOURCE_ID}" source, so no terrain was applied.`
+      );
+      return;
+    }
+    map.setTerrain({
+      source: TERRAIN_SOURCE_ID,
+      exaggeration:
+        terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : Number(terrain),
+    });
   }
 </script>
 
@@ -62,6 +80,18 @@
      * See https://maplibre.org/maplibre-style-spec/types/#projectiondefinition
      */
     projection?: ProjectionSpecification;
+    /**
+     * Show 3D terrain using the basemap's elevation tiles. Pass `true` for the
+     * default exaggeration or a number to set your own. Terrain is only visible
+     * on a tilted map, so pair it with `pitch`. A no-op on styles without an
+     * elevation source, so it degrades gracefully.
+     */
+    terrain?: boolean | number;
+    /**
+     * Tilt the map, in degrees away from straight down. Required to see
+     * `terrain`. MapLibre caps this at 60.
+     */
+    pitch?: number;
     /**
      * Enable interactive controls (zoom, pan, etc.)
      */
@@ -111,6 +141,8 @@
     minZoom = 0,
     maxZoom = 22,
     projection,
+    terrain = false,
+    pitch = 0,
     interactive = true,
     styleUrl = 'https://graphics.thomsonreuters.com/reuters-protomaps/style.json',
     emphasizeLabels = false,
@@ -144,6 +176,7 @@
         zoom,
         minZoom,
         maxZoom,
+        pitch,
         attributionControl: false,
         scrollZoom: false, // Always disabled for consistency
         doubleClickZoom: interactive,
@@ -197,6 +230,10 @@
         // Set projection after map loads if specified
         if (projection) {
           map.setProjection(projection);
+        }
+
+        if (terrain) {
+          applyTerrain(map, terrain);
         }
 
         if (onMapReady) {
