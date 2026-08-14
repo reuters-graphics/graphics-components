@@ -1,0 +1,343 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as LocalDateTimeStories from './LocalDateTime.stories.svelte';
+
+<Meta of={LocalDateTimeStories} />
+
+# LocalDateTime
+
+Datetimes are hard. Doubly so when you want to localise them for our readers
+around the world.
+
+This component prints an AP-style datetime in the reader's local timezone,
+falling back to GMT until the browser's zone can be detected. `display` chooses
+how much of it to show — a clock time (`3:45 p.m. EDT`), a calendar date
+(`Jan. 15, 2024`), or both. It renders bare text in a `<time>` element, carrying
+no presentational styles of its own, so it drops into any markup and inherits
+whatever type you give it.
+
+<Canvas of={LocalDateTimeStories.Demo} />
+
+```svelte
+<script>
+  import { LocalDateTime } from '@reuters-graphics/graphics-components';
+</script>
+
+<LocalDateTime datetime={publishedAt} />
+```
+
+## Props
+
+| Prop                  | Type                                    | Default    | Description                                                                                         |
+| --------------------- | --------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| `datetime`            | `Date \| string \| number`              | now        | The instant to display.                                                                             |
+| `display`             | `'time' \| 'date' \| 'datetime'`        | `'time'`   | Which parts to print; see below.                                                                    |
+| `precision`           | `'minute' \| 'second' \| 'millisecond'` | `'minute'` | How much of the clock to show; hours+minutes are always included. Inert when `display` is `'date'`. |
+| `showTimeZone`        | `boolean`                               | `true`     | Append the timezone abbreviation. Inert when `display` is `'date'`.                                 |
+| `showYear`            | `boolean \| 'auto'`                     | `true`     | Include the year; `'auto'` omits it in the current year. Inert when `display` is `'time'`.          |
+| `timeZone`            | `string`                                | —          | Force an IANA zone (or the literal `'GMT'`), skipping auto-detection.                               |
+| `relative`            | `boolean`                               | `false`    | Print a duration (“5 minutes ago”) instead; see below.                                              |
+| `relativeWithinHours` | `number`                                | `24`       | How far from now a duration is still used. Inert unless `relative` is on.                           |
+
+## What to show
+
+`display` picks the parts. Two props go inert depending on the mode, and the
+spoken form differs from the visible one on purpose — `Jan.` and `EST` read
+badly aloud:
+
+| `display`            | visible                        | spoken                                                                       |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| `'time'` _(default)_ | `7:00 a.m. EST`                | `January 15, 2024 at 7:00 a.m., North American Eastern Standard Time, GMT-5` |
+| `'date'`             | `Jan. 15, 2024`                | `January 15, 2024`                                                           |
+| `'datetime'`         | `Jan. 15, 2024, 7:00 a.m. EST` | `January 15, 2024 at 7:00 a.m., North American Eastern Standard Time, GMT-5` |
+
+`'time'` and `'datetime'` are spoken identically because the spoken form always
+spells the date out anyway — a bare clock time is ambiguous read aloud.
+
+Date and time are joined by `", "`, which is this library's documented Reuters
+style: `prettifyDate` is specified as producing `Jan. 1, 2023, 10:00 a.m.`
+
+`'date'` names no timezone, in either form. AP style never writes
+`Jan. 15, 2024 EST`, and appending a zone clause to a spoken date answers a
+question nobody asked — so `precision` and `showTimeZone` are ignored there.
+The zone still decides _which_ calendar day you get; it just isn't said. Note
+that this cuts both ways: `2024-01-15T23:30:00Z` is `Jan. 15` in New York and
+`Jan. 16` in Tokyo, so a date-only dateline is reader-dependent even though it
+looks absolute.
+
+<Canvas of={LocalDateTimeStories.DateOnly} />
+
+<Canvas of={LocalDateTimeStories.DateTime} />
+
+### Whether to print the year
+
+`showYear` takes three values rather than two, so the common newsroom case
+doesn't need computing outside the component:
+
+| `showYear`         | a date this year | a date in 2024  |
+| ------------------ | ---------------- | --------------- |
+| `true` _(default)_ | `May 20, 2026`   | `Jan. 15, 2024` |
+| `false`            | `May 20`         | `Jan. 15`       |
+| `'auto'`           | `May 20`         | `Jan. 15, 2024` |
+
+```svelte
+<!-- drop the year on this year's stories, keep it on the archive -->
+<LocalDateTime datetime={publishTime} display="date" showYear="auto" />
+```
+
+Two things to know about `'auto'`. It resolves the year in the same zone the
+date renders in, so `2024-01-01T02:00:00Z` is "this year" in UTC and last year
+in New York — meaning it's reader-dependent either side of New Year, exactly
+as the date itself already is. And it is **visual only**: the screen-reader text
+always names the year, in every mode and for every value of `showYear`. That's
+the same principle that makes a visible `7:00 a.m. EST` speak as a full date,
+zone and offset — omitting a year is an economy the eye can afford because the
+surrounding page supplies the context, and speech can't. Reach for
+`formatAccessibleDate` directly if you really do want a spoken date without one.
+
+## GMT until the reader's zone is known
+
+The server (and the first client paint) never know the reader's browser
+timezone, so `LocalDateTime` always renders in GMT until it can detect one —
+the detection runs in a `$effect` right after mount, and the text updates in
+place. If you need a specific, stable zone (an editorial dateline pinned to a
+particular city, a snapshot for Chromatic, etc.), pass `timeZone` explicitly
+and detection is skipped entirely.
+
+<Canvas of={LocalDateTimeStories.AutoDetected} />
+
+## Precision
+
+<Canvas of={LocalDateTimeStories.Precision} />
+
+## Relative time
+
+Set `relative` to print a duration — "5 minutes ago", "in 3 hours",
+"yesterday" — instead of a clock time, when `datetime` is close enough to now.
+Pluralisation and phrasing come from `Intl.RelativeTimeFormat`, which handles
+locale-specific grammar (e.g. Arabic's dual/plural minute forms) without a
+hand-rolled table.
+
+Beyond the window, `relative` falls back to the same AP-style output
+`relative: false` would show, honouring `precision`, `showTimeZone`, `showYear`
+and `timeZone` exactly as it would outside `relative` mode.
+
+### How far is "close enough"
+
+`relativeWithinHours` sets the half-width, defaulting to 24. It's symmetric —
+a magnitude applying equally to the past and the future.
+
+24 hours is a conservative default rather than a real limit. The underlying
+formatter stays readable much further out, so widen the window when a duration
+genuinely reads better than a date:
+
+| distance | prints         |
+| -------- | -------------- |
+| 23 hours | `23 hours ago` |
+| 25 hours | `yesterday`    |
+| 3 days   | `3 days ago`   |
+| 7 days   | `7 days ago`   |
+| 20 days  | `20 days ago`  |
+| 45 days  | `last month`   |
+
+```svelte
+<!-- a live blog, where "3 days ago" beats a clock time -->
+<LocalDateTime datetime={post.published} relative relativeWithinHours={168} />
+
+<!-- a "just now" stamp, relative only within the hour -->
+<LocalDateTime datetime={lastRefresh} relative relativeWithinHours={1} />
+
+<!-- never fall back -->
+<LocalDateTime
+  datetime={post.published}
+  relative
+  relativeWithinHours={Infinity}
+/>
+```
+
+It only turns vague around "last year", which is why the default is where it is
+rather than unbounded. No value needs guarding: `Infinity` is always relative,
+and `0`, a negative number or `NaN` never is.
+
+<Canvas of={LocalDateTimeStories.RelativeWideWindow} />
+
+Inside the window `relative` takes precedence over `display`, in all three
+modes, and that includes `display="date"`: `Intl.RelativeTimeFormat` yields
+"yesterday" / "today" / "tomorrow" at day scale, which is exactly what a
+relative date should say. Beyond the window it falls back to whatever `display`
+asks for.
+
+This is a one-shot computation made against the render instant — like the
+rest of `LocalDateTime`, it doesn't tick, so the text won't update on its own as
+more time passes, including when it crosses the window boundary. Re-render
+the component (e.g. on a prop change) to refresh it.
+
+<Canvas of={LocalDateTimeStories.Relative} />
+
+<Canvas of={LocalDateTimeStories.RelativeFallback} />
+
+## What screen readers hear
+
+The visible text is written for the eye, and it reads badly aloud: `EST` comes
+out as letters, a bare clock time is ambiguous without a date, and in
+`relative` mode "5 minutes ago" is imprecise. So `LocalDateTime` renders the
+visible string `aria-hidden` and puts an unabbreviated absolute sentence in a
+visually hidden sibling:
+
+```html
+<time datetime="2024-01-15T12:00:00.000Z">
+  <span aria-hidden="true">7:00 a.m. EST</span>
+  <span class="visually-hidden">
+    January 15, 2024 at 7:00 a.m., North American Eastern Standard Time, GMT-5
+  </span>
+</time>
+```
+
+The spoken form is always absolute, including in `relative` mode, and always
+describes the same instant as the visible text — it honours `precision` and
+`timeZone`, and `showTimeZone={false}` drops the zone from both. It does **not**
+honour `showYear`: the year is always named, for the reasons above. A zone with
+no curated name
+has the offset as its long form too, so it's said once rather than twice
+(`... at 5:45 p.m., GMT+5:45`). See the table above for how the spoken form
+varies by `display`.
+
+This is deliberately not an `aria-label` on the `<time>` element. Naming is
+prohibited on that element's implicit role, so axe flags it for review and
+several screen readers ignore the label and read the text content anyway.
+The hidden-sibling pattern works everywhere. Two things to know about: selecting
+and copying the component's text picks up both strings, and the hidden span
+forces `text-transform: none` so a host that uppercases its datelines can't make
+a screen reader spell `JAN.` out letter by letter.
+
+## Timezone abbreviations
+
+Abbreviations come from a hand-maintained whitelist, not from `Intl`.
+`Intl`'s own short style isn't dependable for this: outside North America it
+usually has no letter abbreviation at all and hands back a `GMT±offset`
+string even for zones with a household name — `Europe/London` in British
+Summer Time and `Asia/Tokyo` report `GMT+1` and `GMT+9`.
+
+So `LocalDateTime` matches `Intl`'s long-form name against a reviewed list of 43
+names across 30 zones: the four AP-sanctioned continental US zones
+(`EST`/`EDT`, `CST`/`CDT`, `MST`/`MDT`, `PST`/`PDT`) and the rest of North
+America (`AKST`/`AKDT`, `HST`, `NST`/`NDT`); Europe (`GMT`, `BST`,
+`CET`/`CEST`, `EET`/`EEST`, `WET`/`WEST`, `MSK`); and major readership
+regions elsewhere (`IST`, `PKT`, `NPT`, `MMT`, `ICT`, `SGT`, `HKT`, `JST`,
+`KST`, `GST`, `SAST`, `EAT`, `WAT`, `AWST`, `ACST`/`ACDT`, `AEST`/`AEDT`,
+`NZST`/`NZDT`). Anything off the list falls back to the `GMT±offset`
+convention rather than guessing — or to a bare `GMT` where the offset is zero,
+since `Intl` spells that one differently in Node and in the browser and the
+two have to agree across hydration.
+
+Each entry is keyed by the IANA zone _and_ the long name — `Asia/Kolkata|India
+Standard Time`, not just `India Standard Time` — which is what makes the list
+safe to grow. Deriving abbreviations generically instead (from the initials of
+the long name, say) collides with the AP-sanctioned US set: "Moscow Standard
+Time" would come out `MST`. Keying on the zone means `Europe/Moscow` resolves
+to `MSK` and can never be mistaken for Denver's. It contains the genuinely
+overloaded abbreviations the same way — `IST` is India, Ireland _and_ Israel,
+so only `Asia/Kolkata` is mapped and `Europe/Dublin` stays on the offset
+fallback.
+
+<Canvas of={LocalDateTimeStories.NonUSZone} />
+
+<Canvas of={LocalDateTimeStories.CuratedZones} />
+
+## The datetime toolkit
+
+This component is a thin shell over a standalone, dependency-free engine in
+`src/utils/datetime/`. Every part of it is exported, so you can build your own
+display or reuse the AP formatting anywhere — including outside a Svelte
+component, since nothing in it knows about the framework or the DOM.
+
+It is also the library's single date/time implementation. If you're formatting a
+date anywhere in a graphic, reach for this rather than `toLocaleTimeString`,
+`toLocaleDateString` or journalize's `apdate` — all three read the _executing
+machine's_ timezone, which means the server's during SSR and the reader's
+afterwards.
+
+### Visible formatters
+
+```ts
+import {
+  formatApTime,
+  formatApDate,
+  formatApDateTime,
+  formatRelativeTime,
+} from '@reuters-graphics/graphics-components';
+
+const chi = { timeZone: 'America/Chicago' };
+
+formatApTime(new Date(), chi); // "7:45 a.m. CST"
+formatApDate(new Date(), chi); // "Jan. 15, 2024"
+formatApDate(new Date(), { ...chi, showYear: false }); // "Jan. 15"
+formatApDateTime(new Date(), { ...chi, display: 'datetime' });
+// "Jan. 15, 2024, 7:45 a.m. CST"
+formatRelativeTime(fiveMinutesAgo); // "5 minutes ago"
+```
+
+`formatApDate` is byte-identical to journalize's `apdate` — a unit test asserts
+that against journalize itself — but resolved in an explicit zone rather than
+the machine's.
+
+### Spoken counterparts
+
+Each visible formatter has a spelled-out twin taking the same options, for
+building your own accessible markup:
+
+```ts
+import {
+  formatAccessibleTime,
+  formatAccessibleDate,
+  formatAccessibleDateTime,
+} from '@reuters-graphics/graphics-components';
+
+const chi = { timeZone: 'America/Chicago' };
+
+formatAccessibleTime(new Date(), chi);
+// "January 15, 2024 at 7:45 a.m., North American Central Standard Time, GMT-6"
+formatAccessibleDate(new Date(), chi); // "January 15, 2024"
+formatAccessibleDateTime(new Date(), { ...chi, display: 'date' });
+// "January 15, 2024"
+```
+
+### Zone labels, detection and comparison
+
+```ts
+import {
+  resolveTimeZoneLabel,
+  detectLocalTimeZone,
+  isSameDay,
+  zonedDateKey,
+  isValidDate,
+  isWithinRelativeWindow,
+  DEFAULT_RELATIVE_WINDOW_HOURS,
+} from '@reuters-graphics/graphics-components';
+
+resolveTimeZoneLabel(new Date(), 'America/Chicago');
+// { short: 'CST', long: 'North American Central Standard Time',
+//   timeZone: 'America/Chicago', offset: 'GMT-6', isWhitelisted: true }
+
+detectLocalTimeZone(); // e.g. "America/Chicago", or undefined off the client
+
+// Zone-aware comparison — "same day" depends on where you're standing.
+isSameDay(a, b, 'America/New_York'); // true
+isSameDay(a, b, 'Asia/Tokyo'); // false, for the same two instants
+zonedDateKey(new Date(), 'Asia/Tokyo'); // "2024-01-16" — sortable, groupable
+isValidDate(value); // accepts Date | string | number, and accepts the epoch
+
+// The same decision the component's `relative` prop makes, so a hand-composed
+// dateline lands on identical behaviour instead of re-deriving the threshold.
+isWithinRelativeWindow(date); // within ±24h of now?
+isWithinRelativeWindow(date, 168); // ±1 week
+isWithinRelativeWindow(date, 24, someOtherNow); // measure from a fixed instant
+
+const windowHours = DEFAULT_RELATIVE_WINDOW_HOURS; // 24
+```
+
+`isSameDay` and `zonedDateKey` take a zone for a reason worth internalising:
+comparing with local-time getters (`getDate()` and friends) gives a different
+answer on the server than in the browser, so a same-day check can flip across
+hydration and change which branch renders — a structural mismatch, not just
+different text.

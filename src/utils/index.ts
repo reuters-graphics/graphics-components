@@ -1,4 +1,9 @@
 import slug from 'slugify';
+// Deliberately imported from the specific modules rather than the datetime
+// barrel: this file is a grab-bag, and a barrel import would drag the timezone
+// whitelist's module graph in for everyone who only wanted `slugify`.
+import { formatApTime, type FormatApTimeOptions } from './datetime/format';
+import { detectLocalTimeZone } from './datetime/detect';
 
 /** Helper function to generate a random 4-character string */
 export const random4 = () =>
@@ -103,10 +108,33 @@ const prettifyAmPm = (text: string) => {
 export const slugify = (str: string) =>
   slug(str, { lower: true, strict: true });
 
-/** Formats a datetime string into a localized time string with hour, minute, and time zone for the dateline */
-export const formatTime = (datetime: string) =>
-  new Date(datetime).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZoneName: 'short',
+/**
+ * Formats a datetime string as an AP-style time for a dateline —
+ * `9:05 a.m. EST`.
+ *
+ * Now a thin wrapper over {@link formatApTime}. The previous implementation
+ * called `toLocaleTimeString([])`, which took its hour cycle from the *viewer's*
+ * machine — the same instant rendered `09:05 AM UTC` for an `en-US` reader and
+ * `09:05 UTC` (24-hour, no meridiem) for an `en-GB` one, and neither was AP
+ * style. It also accepted no timezone, so server rendering emitted whatever zone
+ * the build machine sat in.
+ *
+ * The zone now defaults to the reader's detected zone, falling back to GMT —
+ * which is what server rendering always gets, since detection is deliberately
+ * client-only. That makes SSR output deterministic, but it does mean a dateline
+ * formatted this way still changes text between the server paint and the client.
+ * Prefer the `<LocalDateTime>` component, which resolves the zone in an
+ * `$effect` and handles that transition properly, or pass `timeZone` explicitly.
+ *
+ * @param datetime - Datetime string to format.
+ * @param options - Optional zone, precision and abbreviation controls, matching
+ *   {@link formatApTime}. Omit entirely for the reader's own zone.
+ */
+export const formatTime = (
+  datetime: string,
+  options: FormatApTimeOptions = {}
+) =>
+  formatApTime(new Date(datetime), {
+    timeZone: detectLocalTimeZone() ?? 'GMT',
+    ...options,
   });
