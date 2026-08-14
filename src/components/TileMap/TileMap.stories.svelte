@@ -192,6 +192,20 @@
   }}
 />
 
+<Story asChild name="Terrain" tags={['!autodocs']}>
+  <TileMap
+    id="terrain-map"
+    center={[-3.7, 40.2]}
+    zoom={5}
+    interactive={true}
+    title="3D terrain"
+    description="Spain, viewed with 3D terrain enabled and the map tilted to show it."
+    height="500px"
+    terrain
+    pitch={60}
+  />
+</Story>
+
 <Story
   name="Non-interactive"
   tags={['!autodocs']}

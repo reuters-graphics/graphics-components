@@ -54,6 +54,14 @@ export type { LocalDateTimeProps } from './components/LocalDateTime/LocalDateTim
 export { default as TileMapCallout } from './components/TileMapCallout/TileMapCallout.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
+export {
+  enableTerrain,
+  disableTerrain,
+  TERRAIN_SOURCE_ID,
+  TERRAIN_RELIEF_LAYER_ID,
+  DEFAULT_TERRAIN_EXAGGERATION,
+} from './components/TileMap/terrain';
+export { configureMaplibreWorker } from './components/TileMap/worker';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';

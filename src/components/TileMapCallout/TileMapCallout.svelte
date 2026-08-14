@@ -131,7 +131,7 @@ placement and lifecycle through the map context.
 </script>
 
 <script lang="ts">
-  import maplibregl from 'maplibre-gl';
+  import * as maplibregl from 'maplibre-gl';
   import { getContext, onDestroy, type Snippet } from 'svelte';
   import type { Map as MaplibreMap, Marker } from 'maplibre-gl';
   import type { Writable } from 'svelte/store';
