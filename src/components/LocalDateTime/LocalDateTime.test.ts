@@ -105,8 +105,8 @@ describe('LocalDateTime', () => {
 
     it('omits the year in the current year with showYear="auto"', () => {
       const y = new Date().getFullYear();
-      const inThisYear = new Date(y, 4, 20, 12);
-      const inAnotherYear = new Date(y - 2, 0, 15, 12);
+      const inThisYear = new Date(Date.UTC(y, 4, 20, 12));
+      const inAnotherYear = new Date(Date.UTC(y - 2, 0, 15, 12));
 
       expect(
         visible(
@@ -126,7 +126,7 @@ describe('LocalDateTime', () => {
 
     it('always names the year in the spoken text, whatever showYear says', () => {
       const y = new Date().getFullYear();
-      const inThisYear = new Date(y, 4, 20, 12);
+      const inThisYear = new Date(Date.UTC(y, 4, 20, 12));
       for (const showYear of [true, false, 'auto'] as const) {
         for (const display of ['date', 'time', 'datetime'] as const) {
           expect(

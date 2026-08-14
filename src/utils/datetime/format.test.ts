@@ -438,10 +438,13 @@ describe('formatAccessibleDateTime', () => {
 });
 
 describe('showYear: auto', () => {
-  // Built relative to the real current year so these stay true every January.
+  // Built relative to the real current year so these stay true every January,
+  // and from an absolute UTC instant so they mean the same thing on every
+  // machine — `new Date(y, 4, 20, 12)` would be a different instant in each
+  // timezone, which is the very bug this module exists to prevent.
   const y = new Date().getFullYear();
-  const inThisYear = new Date(y, 4, 20, 12);
-  const inAnotherYear = new Date(y - 2, 0, 15, 12);
+  const inThisYear = new Date(Date.UTC(y, 4, 20, 12));
+  const inAnotherYear = new Date(Date.UTC(y - 2, 0, 15, 12));
   const ny = { timeZone: 'America/New_York' };
 
   it('omits the year for a date in the current year', () => {
@@ -472,7 +475,7 @@ describe('showYear: auto', () => {
         display: 'datetime',
         showYear: 'auto',
       })
-    ).toBe('May 20, 7:00 a.m. EDT');
+    ).toBe('May 20, 8:00 a.m. EDT');
     expect(
       formatApDateTime(inAnotherYear, {
         ...ny,
@@ -485,7 +488,7 @@ describe('showYear: auto', () => {
 
 describe('formatAccessibleDateTime and showYear', () => {
   const y = new Date().getFullYear();
-  const inThisYear = new Date(y, 4, 20, 12);
+  const inThisYear = new Date(Date.UTC(y, 4, 20, 12));
   const ny = { timeZone: 'America/New_York' };
 
   it('always names the year, in every mode and for every showYear value', () => {
