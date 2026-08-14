@@ -93,6 +93,7 @@
     "react-colorful": "^5.6.1",
     "react-dom": "^18.3.1",
     "react-syntax-highlighter": "^15.6.1",
+    "remark-gfm": "^4.0.1",
     "remark-mdx": "^3.1.1",
     "remark-parse": "^11.0.0",
     "remark-stringify": "^11.0.0",

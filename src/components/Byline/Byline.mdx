@@ -93,7 +93,7 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customis
   import {
     Byline,
     getAuthorPageUrl,
-    formatTime,
+    formatApTime,
   } from '@reuters-graphics/graphics-components';
 
   let { content }: Props = $props();
@@ -120,15 +120,22 @@ Use [snippets](https://svelte.dev/docs/svelte/snippet) to conditionally customis
 {/snippet}
 
 {#snippet esPublished()}
-  Publicado <time datetime="2026-04-08T10:00:00.000Z">
+  Publicado <time datetime={new Date(content.publishTime).toISOString()}>
     {new Date(content.publishTime).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-    })}&nbsp;&nbsp;{formatTime(content.publishTime)}</time
+    })}&nbsp;&nbsp;{formatApTime(new Date(content.publishTime), {
+      timeZone: 'Europe/Madrid',
+    })}</time
   >
 {/snippet}
 ```
+
+Two details worth copying from that snippet: bind `datetime` to the same instant
+you format, so the machine-readable attribute and the visible text can't drift
+apart, and pass `timeZone` explicitly when you want a dateline pinned to one
+city rather than resolved against each reader's own clock.
 
 ```svelte
 <!-- In App.svelte -->
