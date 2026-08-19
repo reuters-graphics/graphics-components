@@ -9,13 +9,14 @@ anything else that needs to orient readers with a location.
 <script lang="ts" module>
   import { feature } from 'topojson-client';
   import type { Topology, GeometryCollection } from 'topojson-specification';
-  import worldAtlasTopology from 'world-atlas/countries-50m.json';
   import { geoArea } from 'd3-geo';
   import type {
     Feature,
+    FeatureCollection,
     GeoJSON as GeoJSONType,
     GeoJsonProperties,
     Geometry,
+    Position,
   } from 'geojson';
 
   export type InsetMapCorner =
@@ -72,52 +73,91 @@ anything else that needs to orient readers with a location.
     return { dx: dx * padding, dy: dy * padding, anchor, baseline };
   };
 
-  const worldCountries = feature(
-    worldAtlasTopology as unknown as Topology,
-    (worldAtlasTopology as unknown as Topology).objects
-      .countries as GeometryCollection
-  ) as unknown as { features: Feature<Geometry, GeoJsonProperties>[] };
+  /**
+   * Converts a locally-imported topology into features, without assuming a
+   * fixed object key — an `@reuters-graphics/graphics-atlas-client` topojson
+   * import keys its single object as `countries` or `lines` depending on
+   * which dataset it came from, so we just take whichever key is there.
+   */
+  export const topologyToFeatures = (
+    topology: Topology
+  ): Feature<Geometry, GeoJsonProperties>[] => {
+    const key = Object.keys(topology.objects)[0];
+    const converted = feature(
+      topology,
+      topology.objects[key] as GeometryCollection
+    ) as unknown as
+      | FeatureCollection<Geometry, GeoJsonProperties>
+      | Feature<Geometry, GeoJsonProperties>;
+    return converted.type === 'FeatureCollection' ?
+        converted.features
+      : [converted];
+  };
+
+  export type InsetMapFeatureKind = 'shape' | 'border' | 'context-border';
 
   /**
-   * Look up a country feature from the built-in dataset by name (case
-   * insensitive) or ISO 3166-1 numeric code. Returns `null` when nothing
-   * matches, so callers can fall back to their own `geojson` prop instead of
-   * crashing on a typo'd country name.
+   * Classifies a single feature as a filled shape or a stroked border line,
+   * purely from its geometry type — polygons fill, lines stroke. Runs
+   * per-feature (not per child) so a child registering a mixed bag of
+   * geometry — or the pooled features of several children — splits
+   * correctly instead of being judged as one all-or-nothing block. A
+   * border-lines dataset from the atlas client carries every segment
+   * (contested or not) with a `disputed` flag: disputed segments classify as
+   * `border`, everything else as `context-border` (rendered transparent by
+   * default — see `.inset-context-border-line` — so a caller bringing their
+   * own border topojson can opt into styling it instead of it just vanishing).
    */
-  export const findCountryFeature = (
-    features: Feature<Geometry, GeoJsonProperties>[],
-    country: string | undefined
-  ): Feature<Geometry, GeoJsonProperties> | null => {
-    const normalized = country?.trim().toLowerCase();
-    if (!normalized) return null;
+  export const classifyFeature = (
+    feature: Feature<Geometry, GeoJsonProperties>
+  ): InsetMapFeatureKind => {
+    const isLine =
+      feature.geometry?.type === 'LineString' ||
+      feature.geometry?.type === 'MultiLineString';
+    if (!isLine) return 'shape';
+    return feature.properties?.disputed ? 'border' : 'context-border';
+  };
 
-    return (
-      features.find(
-        (f) =>
-          typeof f.properties?.name === 'string' &&
-          f.properties.name.toLowerCase() === normalized
-      ) ??
-      features.find((f) => String(f.id).toLowerCase() === normalized) ??
-      null
-    );
+  export interface InsetMapChildFeature {
+    features: Feature<Geometry, GeoJsonProperties>[];
+    label?: string;
+    labelOffset?: InsetMapLabelOffset;
+  }
+
+  /** Context handed to `InsetMapFeature` children via `getContext('inset-map')`. */
+  export interface InsetMapContext {
+    unregisterChild(id: string): void;
+    setChildFeature(id: string, entry: InsetMapChildFeature): void;
+  }
+
+  const collectPolygonRings = (input: GeoJSONType): Position[][][] => {
+    if (input.type === 'FeatureCollection') {
+      return input.features.flatMap(collectPolygonRings);
+    }
+    const geometry = input.type === 'Feature' ? input.geometry : input;
+    if (geometry?.type === 'Polygon') return [geometry.coordinates];
+    if (geometry?.type === 'MultiPolygon') return geometry.coordinates;
+    return [];
   };
 
   /**
-   * Countries with islands or exclaves (e.g. France, the US) are
-   * MultiPolygons whose overall centroid can land in open water between
-   * landmasses. Pick out the largest ring by spherical area so the country
-   * label centers on the mainland instead.
+   * A country with islands or exclaves (e.g. France, the US) is a
+   * MultiPolygon whose overall centroid can land in open water between
+   * landmasses; a region or subregion is a FeatureCollection of several
+   * countries. Either way, pick out the largest ring by spherical area
+   * across all of it, so the label centers on the single biggest landmass
+   * instead of drifting toward water or a multi-country midpoint.
    */
   export const getLargestPolygonGeometry = (
     input: GeoJSONType
   ): GeoJSONType => {
-    const geometry = input.type === 'Feature' ? input.geometry : input;
-    if (!geometry || geometry.type !== 'MultiPolygon') return input;
+    const rings = collectPolygonRings(input);
+    if (rings.length === 0) return input;
 
-    let largest = geometry.coordinates[0];
+    let largest = rings[0];
     let largestArea = -Infinity;
 
-    for (const coordinates of geometry.coordinates) {
+    for (const coordinates of rings) {
       const area = geoArea({ type: 'Polygon', coordinates });
       if (area > largestArea) {
         largestArea = area;
@@ -129,7 +169,7 @@ anything else that needs to orient readers with a location.
   };
 
   /**
-   * Nudges a point away from nearby annotation markers so the country label
+   * Nudges a point away from nearby annotation markers so the location label
    * doesn't land on top of one. Tries the original position, then a ring of
    * offsets around it; falls back to the original position if all of them
    * are still crowded, rather than drifting arbitrarily far away.
@@ -158,7 +198,7 @@ anything else that needs to orient readers with a location.
     return candidates.find(isClear) ?? [x, y];
   };
 
-  /** Offset for the country label as `[top, right, bottom, left]` px, CSS-style. */
+  /** Offset for the location label as `[top, right, bottom, left]` px, CSS-style. */
   export type InsetMapLabelOffset = [
     top: number,
     right: number,
@@ -173,54 +213,252 @@ anything else that needs to orient readers with a location.
 </script>
 
 <script lang="ts">
-  import { geoMercator, geoPath, type GeoProjection } from 'd3-geo';
+  import { getContext, setContext, type Snippet } from 'svelte';
+  import { SvelteMap } from 'svelte/reactivity';
+  import type { Writable } from 'svelte/store';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+  import {
+    geoCentroid,
+    geoMercator,
+    geoPath,
+    type GeoProjection,
+  } from 'd3-geo';
+  import type { Polygon } from 'geojson';
 
   interface Props {
     /** Corner of the parent element to anchor the inset to. */
     corner?: InsetMapCorner;
-    /** Country name (e.g. "Spain") or ISO 3166-1 numeric code, looked up in the built-in world-atlas dataset. Ignored if `geojson` is set. */
-    country?: string;
-    /** Custom shape overriding the built-in country lookup, e.g. for a region smaller than a country. */
-    geojson?: GeoJSONType;
+    /** A locally-imported TopoJSON topology, e.g. from `@reuters-graphics/graphics-atlas-client/topojson/...`. Composed with any `InsetMapFeature` children if present. */
+    geometry?: Topology;
     /** A d3-geo projection factory. Defaults to `geoMercator`, the simplest choice at country scale. */
     projection?: () => GeoProjection;
     /** Labelled markers, positioned with the same projection as the shape so they always land in the right place. */
     annotations?: InsetMapAnnotation[];
-    /** Label rendered at the center of the largest shape (e.g. the country name). */
-    countryLabel?: string;
-    /** Fine-tune the country label position as `[top, right, bottom, left]` px. Defaults to `[0, 0, 0, 0]`. */
-    countryLabelOffset?: InsetMapLabelOffset;
+    /** Label rendered at the center of the largest shape (e.g. the country, region, or subregion name). */
+    locationLabel?: string;
+    /** Constrains the view to `[west, south, east, north]`, instead of auto-fitting to the rendered shape(s). Useful when `InsetMapFeature` children (e.g. border lines) extend beyond the region you want visible. */
+    bounds?: [west: number, south: number, east: number, north: number];
+    /** Padding to add around `bounds` before fitting, as a fraction of its width/height (e.g. `0.1` pads it 10% larger on each side). Only applies when `bounds` is set. Defaults to 0. */
+    padding?: number;
+    /** Render a thick crimson outline of the parent `TileMap`'s current viewport, so readers can see what portion of the shape the interactive map is showing. Only draws when `InsetMap` is nested inside a `TileMap` and its map has loaded. Defaults to false. */
+    showBounds?: boolean;
     /** Inset width and height in px (it's square). */
     size?: number;
     /** Add custom classes to the inset wrapper. */
     class?: string;
+    /** `InsetMapFeature` children, for composing several places into one inset. Composed with `geometry` if both are present. */
+    children?: Snippet;
   }
 
   let {
     corner = 'bottom-right',
-    country,
-    geojson,
+    geometry,
     projection,
     annotations = [],
-    countryLabel,
-    countryLabelOffset = [0, 0, 0, 0],
+    locationLabel,
+    bounds,
+    padding = 0,
+    showBounds = false,
     size = 160,
     class: cls = '',
+    children,
   }: Props = $props();
 
-  let resolvedFeature = $derived(
-    geojson ?? findCountryFeature(worldCountries.features, country)
+  const childFeatures = new SvelteMap<string, InsetMapChildFeature>();
+
+  const mapStore = getContext<Writable<MaplibreMap | null> | undefined>('map');
+
+  /** The parent `TileMap`'s current viewport, kept in sync with its pan/zoom. Only set when nested inside a `TileMap` and `showBounds` is on. */
+  let viewportBounds = $state<[number, number, number, number] | null>(null);
+
+  $effect(() => {
+    if (!showBounds || !mapStore) return;
+
+    const syncFromMap = (map: MaplibreMap) => {
+      const b = map.getBounds();
+      viewportBounds = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
+    };
+
+    let currentMap: MaplibreMap | null = null;
+    const unsubscribe = mapStore.subscribe((map) => {
+      currentMap?.off('move', onMove);
+      currentMap = map;
+      if (map) {
+        map.on('move', onMove);
+        syncFromMap(map);
+      } else {
+        viewportBounds = null;
+      }
+    });
+
+    function onMove() {
+      if (currentMap) syncFromMap(currentMap);
+    }
+
+    return () => {
+      currentMap?.off('move', onMove);
+      unsubscribe();
+    };
+  });
+
+  setContext<InsetMapContext>('inset-map', {
+    unregisterChild: (id) => childFeatures.delete(id),
+    setChildFeature: (id, entry) => childFeatures.set(id, entry),
+  });
+
+  let ownFeatures = $derived(geometry ? topologyToFeatures(geometry) : []);
+
+  let pooledFeatures = $derived([
+    ...ownFeatures,
+    ...Array.from(childFeatures.values()).flatMap((entry) => entry.features),
+  ]);
+
+  let shapeFeatures = $derived(
+    pooledFeatures.filter((f) => classifyFeature(f) === 'shape')
   );
 
+  let childBorderFeatures = $derived(
+    pooledFeatures.filter((f) => classifyFeature(f) === 'border')
+  );
+
+  let childContextBorderFeatures = $derived(
+    pooledFeatures.filter((f) => classifyFeature(f) === 'context-border')
+  );
+
+  /** Each child's own shape features (borders don't get a label), keyed by id. */
+  let childLabelEntries = $derived(
+    Array.from(childFeatures.entries())
+      .map(([id, entry]) => ({
+        id,
+        label: entry.label,
+        labelOffset: entry.labelOffset ?? [0, 0, 0, 0],
+        features: entry.features.filter((f) => classifyFeature(f) === 'shape'),
+      }))
+      .filter((entry) => entry.label && entry.features.length)
+  );
+
+  let resolvedFeature = $derived(
+    shapeFeatures.length === 0 ?
+      null
+    : ({
+        type: 'FeatureCollection',
+        features: shapeFeatures,
+      } as FeatureCollection<Geometry, GeoJsonProperties>)
+  );
+
+  /** `bounds` padded by `padding` — a fraction of its own width/height added to each side. */
+  let paddedBounds = $derived(
+    bounds ?
+      (([west, south, east, north]): [number, number, number, number] => {
+        const lonPad = (east - west) * padding;
+        const latPad = (north - south) * padding;
+        return [west - lonPad, south - latPad, east + lonPad, north + latPad];
+      })(bounds)
+    : null
+  );
+
+  let boundsPolygon = $derived(
+    paddedBounds ?
+      ({
+        type: 'Polygon',
+        // d3-geo's spherical algorithms (geoCentroid, which fitSize relies
+        // on) treat a ring's winding as significant: this order goes
+        // west,south -> west,north -> east,north -> east,south, which is
+        // clockwise in plain (lon,lat) terms but is what d3-geo needs to
+        // read the box itself as the (small) interior, rather than
+        // everything else on the globe.
+        coordinates: [
+          [
+            [paddedBounds[0], paddedBounds[1]],
+            [paddedBounds[0], paddedBounds[3]],
+            [paddedBounds[2], paddedBounds[3]],
+            [paddedBounds[2], paddedBounds[1]],
+            [paddedBounds[0], paddedBounds[1]],
+          ],
+        ],
+      } as Polygon)
+    : null
+  );
+
+  /** What the projection fits to — `bounds`, when given, otherwise the rendered shape(s). */
+  let fitFeature = $derived(boundsPolygon ?? resolvedFeature);
+
+  /**
+   * A location whose territory straddles ±180° longitude (New Zealand's
+   * Chatham Islands, Fiji, Russia...) gets its far side projected on the
+   * wrong side of the map under the default, zero-centered Mercator —
+   * `fitSize` then scales down to fit that artificially huge span. Rotating
+   * to center on the shape's own centroid first keeps everything on one
+   * side of the seam. Skipped when the caller supplies their own
+   * `projection`, since they may have already set a deliberate rotation.
+   *
+   * Clipping to the rendered viewport (rather than relying on the SVG's own
+   * overflow behavior) also means every stream-based computation on this
+   * projection — not just the rendered path, but also `.centroid()` for
+   * label placement below — only sees the visible portion of a shape. That's
+   * what keeps a child's label centered on the sliver of its country that's
+   * actually on screen instead of that country's real, possibly off-screen,
+   * overall centroid.
+   */
   let activeProjection = $derived(
-    resolvedFeature ?
-      (projection ?? geoMercator)().fitSize([size, size], resolvedFeature)
+    fitFeature ?
+      (projection ?
+        projection().fitSize([size, size], fitFeature)
+      : geoMercator()
+          .rotate([-geoCentroid(fitFeature)[0], 0])
+          .fitSize([size, size], fitFeature)
+      ).clipExtent([
+        [0, 0],
+        [size, size],
+      ])
     : null
   );
 
   let shapePath = $derived(
     activeProjection && resolvedFeature ?
       geoPath(activeProjection)(resolvedFeature)
+    : null
+  );
+
+  let borderPath = $derived(
+    activeProjection && childBorderFeatures.length ?
+      geoPath(activeProjection)({
+        type: 'FeatureCollection',
+        features: childBorderFeatures,
+      } as FeatureCollection<Geometry, GeoJsonProperties>)
+    : null
+  );
+
+  let contextBorderPath = $derived(
+    activeProjection && childContextBorderFeatures.length ?
+      geoPath(activeProjection)({
+        type: 'FeatureCollection',
+        features: childContextBorderFeatures,
+      } as FeatureCollection<Geometry, GeoJsonProperties>)
+    : null
+  );
+
+  let viewportPolygon = $derived(
+    viewportBounds ?
+      ({
+        type: 'Polygon',
+        // Same winding order as boundsPolygon above, for the same reason.
+        coordinates: [
+          [
+            [viewportBounds[0], viewportBounds[1]],
+            [viewportBounds[0], viewportBounds[3]],
+            [viewportBounds[2], viewportBounds[3]],
+            [viewportBounds[2], viewportBounds[1]],
+            [viewportBounds[0], viewportBounds[1]],
+          ],
+        ],
+      } as Polygon)
+    : null
+  );
+
+  let viewportPath = $derived(
+    activeProjection && viewportPolygon ?
+      geoPath(activeProjection)(viewportPolygon)
     : null
   );
 
@@ -247,19 +485,40 @@ anything else that needs to orient readers with a location.
 
   const ANNOTATION_LABEL_CLEARANCE = 18;
 
-  let countryLabelPosition = $derived(
+  let locationLabelPosition = $derived(
     activeProjection && resolvedFeature ?
-      applyLabelOffset(
-        avoidPointCollisions(
-          geoPath(activeProjection).centroid(
-            getLargestPolygonGeometry(resolvedFeature)
-          ),
-          annotationPoints,
-          ANNOTATION_LABEL_CLEARANCE
+      avoidPointCollisions(
+        geoPath(activeProjection).centroid(
+          getLargestPolygonGeometry(resolvedFeature)
         ),
-        countryLabelOffset
+        annotationPoints,
+        ANNOTATION_LABEL_CLEARANCE
       )
     : null
+  );
+
+  /** One label per `InsetMapFeature` child that set a `label`, each centered on its own largest shape. */
+  let childLabelPositions = $derived(
+    activeProjection ?
+      childLabelEntries
+        .map(({ id, label, labelOffset, features }) => {
+          const position = applyLabelOffset(
+            avoidPointCollisions(
+              geoPath(activeProjection!).centroid(
+                getLargestPolygonGeometry({
+                  type: 'FeatureCollection',
+                  features,
+                })
+              ),
+              annotationPoints,
+              ANNOTATION_LABEL_CLEARANCE
+            ),
+            labelOffset
+          );
+          return { id, label: label!, position };
+        })
+        .filter((entry) => entry.position.every(Number.isFinite))
+    : []
   );
 </script>
 
@@ -271,6 +530,23 @@ anything else that needs to orient readers with a location.
     {#if shapePath}
       <path d={shapePath} class="inset-shape" />
     {/if}
+    {#if contextBorderPath}
+      <path d={contextBorderPath} class="inset-context-border-line" />
+    {/if}
+    {#if borderPath}
+      <path d={borderPath} class="inset-border-line" />
+    {/if}
+    {#each childLabelPositions as entry (entry.id)}
+      <text
+        x={entry.position[0]}
+        y={entry.position[1]}
+        text-anchor="middle"
+        dominant-baseline="central"
+        class="inset-location-label"
+      >
+        {entry.label}
+      </text>
+    {/each}
     {#each annotationPoints as point (point.name)}
       {#if point.shape === 'square'}
         <rect
@@ -293,18 +569,24 @@ anything else that needs to orient readers with a location.
         {point.name}
       </text>
     {/each}
-    {#if countryLabel && countryLabelPosition && countryLabelPosition.every(Number.isFinite)}
+    {#if locationLabel && locationLabelPosition && locationLabelPosition.every(Number.isFinite)}
       <text
-        x={countryLabelPosition[0]}
-        y={countryLabelPosition[1]}
+        x={locationLabelPosition[0]}
+        y={locationLabelPosition[1]}
         text-anchor="middle"
         dominant-baseline="central"
-        class="inset-country-label"
+        class="inset-location-label"
       >
-        {countryLabel}
+        {locationLabel}
       </text>
     {/if}
+    {#if showBounds && viewportPath}
+      <path d={viewportPath} class="inset-bounds-box" />
+    {/if}
   </svg>
+  {#if children}
+    {@render children()}
+  {/if}
 </div>
 
 <style>
@@ -340,12 +622,37 @@ anything else that needs to orient readers with a location.
     stroke-width: 1;
   }
 
+  .inset-border-line {
+    fill: none;
+    stroke: crimson;
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+  }
+
+  .inset-bounds-box {
+    fill: none;
+    stroke: crimson;
+    stroke-width: 3;
+  }
+
+  /**
+   * Non-disputed segments of a border-lines dataset render transparent by
+   * default rather than not at all, so a caller using a custom border
+   * topojson can target this class to style them explicitly instead of the
+   * line just disappearing.
+   */
+  .inset-context-border-line {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 1;
+  }
+
   .inset-annotation-dot {
     fill: var(--theme-colour-accent, #ff5a1f);
   }
 
   .inset-annotation-label,
-  .inset-country-label {
+  .inset-location-label {
     fill: var(--theme-colour-text-primary, #404040);
     font-family: var(--theme-font-family-note, Knowledge, sans-serif);
   }
@@ -355,7 +662,7 @@ anything else that needs to orient readers with a location.
     font-weight: 600;
   }
 
-  .inset-country-label {
+  .inset-location-label {
     font-size: var(--theme-font-size-xxs, 0.875rem);
     font-weight: 400;
     text-transform: uppercase;

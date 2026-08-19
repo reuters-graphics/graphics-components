@@ -5,6 +5,9 @@ body {
 }
 
 table.docblock-argstable {
+  table-layout: fixed;
+  width: 100%;
+
   p {
     font-family: inherit;
     font-size: inherit;
@@ -12,6 +15,17 @@ table.docblock-argstable {
 
   ul {
     padding-inline-start: 20px;
+  }
+
+  td,
+  th {
+    overflow-wrap: break-word;
+
+    pre,
+    code {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
   }
 }
 

@@ -115,6 +115,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@lottiefiles/dotlottie-web": "^0.52.2",
+    "@reuters-graphics/graphics-atlas-client": "github:reuters-graphics/graphics-atlas-client#install/0.5.3-rc.1",
     "@reuters-graphics/svelte-markdown": "^0.0.3",
     "@sveltejs/kit": "^2.69.1",
     "@types/geojson": "^7946.0.16",
@@ -133,8 +134,7 @@
     "svelte-intersection-observer": "^1.0.0",
     "topojson-client": "^3.1.0",
     "ua-parser-js": "^2.0.3",
-    "vitest": "^4.1.10",
-    "world-atlas": "^2.0.2"
+    "vitest": "^4.1.10"
   },
   "exports": {
     ".": {

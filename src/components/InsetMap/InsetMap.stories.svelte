@@ -1,49 +1,25 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import { feature } from 'topojson-client';
-  import type { Topology, GeometryCollection } from 'topojson-specification';
-  import type {
-    Feature,
-    GeoJsonProperties,
-    Geometry,
-    LineString,
-    Polygon,
-  } from 'geojson';
-  import topology110m from 'world-atlas/countries-110m.json';
-  import topology50m from 'world-atlas/countries-50m.json';
-  import topology10m from 'world-atlas/countries-10m.json';
+  import type { Feature, LineString } from 'geojson';
+  import type { Topology } from 'topojson-specification';
   import Block from '../Block/Block.svelte';
   import TileMap from '../TileMap/TileMap.svelte';
   import TileMapLayer from '../TileMap/TileMapLayer.svelte';
-  import InsetMap, { findCountryFeature } from './InsetMap.svelte';
+  import InsetMap from './InsetMap.svelte';
+  import InsetMapFeature from './InsetMapFeature.svelte';
   import Video from '../Video/Video.svelte';
   import BridgeVideo from '../Video/demo/silent-video.mp4';
-
-  const RESOLUTIONS = {
-    '110m': topology110m,
-    '50m': topology50m,
-    '10m': topology10m,
-  } as const;
-
-  type Resolution = keyof typeof RESOLUTIONS;
-
-  const countriesByResolution: Record<
-    Resolution,
-    Feature<Geometry, GeoJsonProperties>[]
-  > = Object.fromEntries(
-    Object.entries(RESOLUTIONS).map(([key, topology]) => [
-      key,
-      (
-        feature(
-          topology as unknown as Topology,
-          (topology as unknown as Topology).objects
-            .countries as GeometryCollection
-        ) as unknown as { features: Feature<Geometry, GeoJsonProperties>[] }
-      ).features,
-    ])
-  ) as Record<Resolution, Feature<Geometry, GeoJsonProperties>[]>;
-
-  let resolution: Resolution = $state('110m');
+  import brTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/BR.json';
+  import keTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/KE.json';
+  import jpTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+  import inTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/IN.json';
+  import pkTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/PK.json';
+  import cnTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/CN.json';
+  import africaTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/africa.json';
+  import asiaLinesTopojson from '@reuters-graphics/graphics-atlas-client/topojson/lines/medium/asia-and-the-middle-east.json';
+  import geTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/GE.json';
+  import ruTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/RU.json';
+  import amTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/AM.json';
 
   let screenWidth: number = $state(0);
   const responsiveSize = $derived(
@@ -52,9 +28,15 @@
     : 240
   );
 
-  const texasShape: Polygon = {
-    type: 'Polygon',
-    coordinates: [
+  const texasTopology: Topology = {
+    type: 'Topology',
+    objects: {
+      texas: {
+        type: 'GeometryCollection',
+        geometries: [{ type: 'Polygon', arcs: [[0]] }],
+      },
+    },
+    arcs: [
       [
         [-103.05, 36.5],
         [-100.0, 36.5],
@@ -107,15 +89,10 @@
         options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
         description: 'Corner of the parent element to anchor the inset to.',
       },
-      country: {
-        control: 'text',
+      geometry: {
+        control: false,
         description:
-          'Country name or ISO 3166-1 numeric code, looked up in the built-in world-atlas dataset. Ignored if `geojson` is set.',
-      },
-      geojson: {
-        control: 'object',
-        description:
-          'Custom shape overriding the built-in country lookup, e.g. for a region smaller than a country.',
+          "A locally-imported TopoJSON topology, e.g. `import nz from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/NZ.json'`.",
       },
       projection: {
         control: false,
@@ -127,14 +104,9 @@
         description:
           'Labelled markers, positioned with the same projection as the shape so they always land in the right place.',
       },
-      countryLabel: {
+      locationLabel: {
         control: 'text',
         description: 'Label rendered at the center of the largest shape.',
-      },
-      countryLabelOffset: {
-        control: 'object',
-        description:
-          'Fine-tune the country label position as `[top, right, bottom, left]` px. Defaults to `[0, 0, 0, 0]`.',
       },
       size: {
         control: { type: 'number', min: 40 },
@@ -157,8 +129,8 @@
 <Story
   name="Locating a region"
   args={{
-    country: 'Japan',
-    countryLabel: 'Japan',
+    geometry: jpTopojson as unknown as Topology,
+    locationLabel: 'Japan',
     annotations: [
       {
         name: 'Tokyo',
@@ -198,8 +170,6 @@
   name="Custom shape"
   tags={['!autodocs']}
   args={{
-    geojson: texasShape,
-    countryLabel: 'Texas',
     annotations: [
       { name: 'Dallas', lngLat: [-96.7969, 32.7767], labelPosition: 'left' },
       {
@@ -213,7 +183,7 @@
 >
   {#snippet template(args)}
     <TileMap
-      id="inset-map-geojson-demo"
+      id="inset-map-topojson-demo"
       center={[-96.79539236004823, 32.775606715068946]}
       zoom={8}
       interactive={false}
@@ -221,76 +191,18 @@
       description="ERCOT says power use between Dallas and Houston is on pace to top last year's peak, reviving questions about the grid's ability to handle extreme heat."
       height="500px"
     >
-      <InsetMap {...args} />
+      <InsetMap {...args}>
+        <InsetMapFeature geometry={texasTopology} label="Texas" />
+      </InsetMap>
     </TileMap>
-  {/snippet}
-</Story>
-
-<Story
-  name="Country resolution"
-  tags={['!autodocs']}
-  args={{
-    countryLabel: 'Croatia',
-    countryLabelOffset: [18, 20, 0, 0],
-    annotations: [
-      {
-        name: 'Zagreb',
-        lngLat: [15.9819, 45.815],
-        labelPosition: 'right',
-        shape: 'square',
-      },
-    ],
-    corner: 'top-right',
-    size: 220,
-  }}
->
-  {#snippet template(args)}
-    <div class="resolution-demo">
-      <Block width="normal">
-        <div
-          class="resolution-tabs"
-          role="tablist"
-          aria-label="world-atlas country resolution"
-        >
-          {#each Object.keys(RESOLUTIONS) as key (key)}
-            <button
-              type="button"
-              role="tab"
-              aria-selected={resolution === key}
-              class="resolution-tab {resolution === key ? 'active' : ''}"
-              onclick={() => (resolution = key as Resolution)}
-            >
-              {key}
-            </button>
-          {/each}
-        </div>
-      </Block>
-      <TileMap
-        id="inset-map-resolution-demo"
-        center={[15.97885620895, 45.789934344]}
-        zoom={12}
-        interactive={false}
-        title="Croatia moves to limit new coastal construction along the Adriatic"
-        description="Zagreb says a surge in tourism-driven development is straining protected shoreline, and plans stricter permits before next summer's season."
-        height="500px"
-      >
-        <InsetMap
-          {...args}
-          geojson={findCountryFeature(
-            countriesByResolution[resolution],
-            'Croatia'
-          ) ?? undefined}
-        />
-      </TileMap>
-    </div>
   {/snippet}
 </Story>
 
 <Story
   name="Custom styling"
   args={{
-    country: 'Brazil',
-    countryLabel: 'Brazil',
+    geometry: brTopojson as unknown as Topology,
+    locationLabel: 'Brazil',
     annotations: [
       {
         name: 'Rio de Janeiro',
@@ -327,8 +239,8 @@
 <Story
   name="Standalone, without TileMap"
   args={{
-    country: 'Kenya',
-    countryLabel: 'Kenya',
+    geometry: keTopojson as unknown as Topology,
+    locationLabel: 'Kenya',
     class: 'inset-map-standalone-demo',
     annotations: [
       {
@@ -362,8 +274,8 @@
   name="Responsive size"
   tags={['!autodocs']}
   args={{
-    country: 'Japan',
-    countryLabel: 'Japan',
+    geometry: jpTopojson as unknown as Topology,
+    locationLabel: 'Japan',
     annotations: [
       {
         name: 'Tokyo',
@@ -391,30 +303,124 @@
   {/snippet}
 </Story>
 
+<Story
+  name="Combining countries"
+  tags={['!autodocs']}
+  args={{
+    corner: 'top-right',
+    size: 200,
+    // Focus the inset's projection on the India-Pakistan-China tripoint
+    // near the Karakoram Pass, rather than fitting to all three countries.
+    bounds: [70.015869, 31.770208, 79.508057, 36.315125],
+    padding: 0.15,
+    showBounds: true,
+  }}
+>
+  {#snippet template(args)}
+    <TileMap
+      id="inset-map-combined-demo"
+      center={[74.7972544424758, 34.09018471470494]}
+      zoom={8}
+      interactive={false}
+      title="Border tensions simmer along the Line of Actual Control"
+      description="Troop buildups on both sides of the disputed India-China frontier have raised concerns of a renewed standoff, with Pakistan watching closely from the west."
+      height="500px"
+    >
+      <InsetMap {...args}>
+        <InsetMapFeature
+          geometry={inTopojson as unknown as Topology}
+          label="India"
+          labelOffset={[0, 0, 20, 0]}
+        />
+        <InsetMapFeature
+          geometry={pkTopojson as unknown as Topology}
+          label="Pakistan"
+          labelOffset={[0, 0, 12, 7]}
+        />
+        <InsetMapFeature
+          geometry={cnTopojson as unknown as Topology}
+          label="China"
+          labelOffset={[20, 0, 0, 0]}
+        />
+        <InsetMapFeature geometry={asiaLinesTopojson as unknown as Topology} />
+      </InsetMap>
+    </TileMap>
+  {/snippet}
+</Story>
+
+<Story
+  name="Styling non-disputed borders"
+  tags={['!autodocs']}
+  args={{
+    corner: 'top-right',
+    size: 200,
+    class: 'caucasus-border-demo',
+    // Focus on Georgia, its disputed frontier with Russia, and Armenia to
+    // the south, rather than fitting to all of Russia's territory.
+    bounds: [40.613708, 41.488006, 45.359802, 43.510713],
+  }}
+>
+  {#snippet template(args)}
+    <TileMap
+      id="inset-map-caucasus-border-demo"
+      center={[44, 41.5]}
+      zoom={6}
+      interactive={false}
+      title="Tbilisi accuses Moscow of creeping annexation along disputed frontier"
+      description="Russian-backed forces continue shifting fence lines deeper into Georgian territory near the breakaway regions of South Ossetia and Abkhazia, as Armenia watches an increasingly tense Caucasus."
+      height="500px"
+    >
+      <InsetMap {...args}>
+        <InsetMapFeature
+          geometry={geTopojson as unknown as Topology}
+          label="Georgia"
+          labelOffset={[0, 20, 20, 0]}
+        />
+        <InsetMapFeature
+          geometry={ruTopojson as unknown as Topology}
+          label="Russia"
+        />
+        <InsetMapFeature geometry={amTopojson as unknown as Topology} />
+        <InsetMapFeature geometry={asiaLinesTopojson as unknown as Topology} />
+      </InsetMap>
+    </TileMap>
+  {/snippet}
+</Story>
+
+<Story
+  name="Region"
+  tags={['!autodocs']}
+  args={{
+    geometry: africaTopojson as unknown as Topology,
+    locationLabel: 'Africa',
+    class: 'inset-map-region',
+    corner: 'top-right',
+    annotations: [
+      {
+        name: 'Lagos',
+        lngLat: [3.347909128583438, 6.606408776144873],
+        labelPosition: 'right',
+      },
+    ],
+    size: 200,
+  }}
+>
+  {#snippet template(args)}
+    <TileMap
+      id="inset-map-region-demo"
+      center={[3.378036882192505, 6.464825841755208]}
+      zoom={12}
+      interactive={false}
+      title="African Union calls for coordinated response to Sahel food crisis"
+      description="Leaders across the region are weighing a joint relief effort as drought conditions push millions toward acute food insecurity."
+      height="500px"
+    >
+      <InsetMap {...args} />
+    </TileMap>
+  {/snippet}
+</Story>
+
 <style>
-  .resolution-tabs {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .resolution-tab {
-    padding: 0.35rem 0.9rem;
-    border: 1px solid #d6dde8;
-    border-radius: 999px;
-    background: #f8fbff;
-    color: #425466;
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .resolution-tab.active {
-    background: #315aa9;
-    border-color: #315aa9;
-    color: #fff;
-  }
-
   :global(.plain-wrapper) {
     position: relative;
     margin-top: 1rem;
@@ -440,12 +446,29 @@
   }
 
   :global(.dark-inset .inset-annotation-label),
-  :global(.dark-inset .inset-country-label) {
+  :global(.dark-inset .inset-location-label) {
     fill: #fff;
     text-shadow: 0 0 2px #000;
   }
 
   :global(.inset-map-standalone-demo) {
     transform: translate(0, 80%);
+  }
+
+  :global(.inset-map-region .inset-shape) {
+    fill: #fff;
+    stroke: #ccc;
+    stroke-width: 0.5px;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+  }
+
+  /* Georgia's border with Russia is flagged disputed in the atlas client's
+     lines dataset, so it already renders crimson and dotted with no extra
+     styling. This rule only covers the non-disputed segments pooled into
+     the same inset — Georgia's settled border with Armenia — so the two
+     borders read as visibly different without needing per-child styling. */
+  :global(.caucasus-border-demo .inset-context-border-line) {
+    stroke: #555;
+    stroke-width: 2;
   }
 </style>

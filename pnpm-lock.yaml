@@ -17,6 +17,9 @@ importers:
       '@lottiefiles/dotlottie-web':
         specifier: ^0.52.2
         version: 0.52.2
+      '@reuters-graphics/graphics-atlas-client':
+        specifier: github:reuters-graphics/graphics-atlas-client#install/0.5.3-rc.1
+        version: https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860
       '@reuters-graphics/svelte-markdown':
         specifier: ^0.0.3
         version: 0.0.3(svelte@5.56.4(@typescript-eslint/types@8.62.1))
@@ -74,9 +77,6 @@ importers:
       vitest:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@22.14.1)(vite@8.1.3(@types/node@22.14.1)(esbuild@0.28.1)(jiti@2.4.2)(sass@1.86.3)(tsx@4.22.4)(yaml@2.7.1))
-      world-atlas:
-        specifier: ^2.0.2
-        version: 2.0.2
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.2
@@ -1031,6 +1031,16 @@ packages:
   '@publint/pack@0.1.2':
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
+
+  '@reuters-graphics/graphics-atlas-client@https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860':
+    resolution: {tarball: https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860}
+    version: 0.5.3-rc.1
+    engines: {node: '>=18'}
+    peerDependencies:
+      flag-icons: '>=7'
+    peerDependenciesMeta:
+      flag-icons:
+        optional: true
 
   '@reuters-graphics/svelte-markdown@0.0.3':
     resolution: {integrity: sha512-K3DWKjm1XZxnwua+Vz9c7BRFrkFVWpVU+DnMKBPu3eadhCpT09Z0y+1MhJgs/573h4BpraZFuUVCl1h4XUxd1Q==}
@@ -4653,9 +4663,6 @@ packages:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
 
-  world-atlas@2.0.2:
-    resolution: {integrity: sha512-IXfV0qwlKXpckz1FhwXVwKRjiIhOnWttOskm5CtxMsjgE/MXAYRHWJqgXOpM8IkcPBoXnyTU5lFHcYa5ChG0LQ==}
-
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
     engines: {node: '>=10'}
@@ -5446,6 +5453,8 @@ snapshots:
   '@polka/url@1.0.0-next.29': {}
 
   '@publint/pack@0.1.2': {}
+
+  '@reuters-graphics/graphics-atlas-client@https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860': {}
 
   '@reuters-graphics/svelte-markdown@0.0.3(svelte@5.56.4(@typescript-eslint/types@8.62.1))':
     dependencies:
@@ -9653,8 +9662,6 @@ snapshots:
       stackback: 0.0.2
 
   word-wrap@1.2.5: {}
-
-  world-atlas@2.0.2: {}
 
   wrap-ansi@7.0.0:
     dependencies:

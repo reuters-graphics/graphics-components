@@ -340,6 +340,7 @@ This example layers a real wildfire event over a custom basemap style: a burnt-a
   import burntAreaData from './navaluenga-burnt-area.geojson?raw';
   import fireSpotsData from './fire-spots.geojson?raw';
   import wildfireStyleUrl from './wildfire-style.json?url';
+  import spain from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/ES.json';
 
   const burntArea = JSON.parse(burntAreaData);
   const fireSpots = JSON.parse(fireSpotsData);
@@ -363,8 +364,8 @@ This example layers a real wildfire event over a custom basemap style: a burnt-a
 
   <InsetMap
     corner="top-right"
-    country="Spain"
-    countryLabel="Spain"
+    geometry={spain}
+    locationLabel="Spain"
     annotations={[
       { name: 'Madrid', lngLat: [-3.7038, 40.4168], shape: 'square' },
       { name: 'Seville', lngLat: [-5.9835, 37.4009] },

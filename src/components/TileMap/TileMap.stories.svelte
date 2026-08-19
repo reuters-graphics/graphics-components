@@ -9,7 +9,9 @@
   import burntAreaData from './demo/navaluenga-burnt-area.geojson?raw';
   import fireSpotsData from './demo/fire-spots.geojson?raw';
   import wildfireStyleUrl from './demo/wildfire-style.json?url';
+  import esTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/ES.json';
   import type { FeatureCollection, Polygon, Point } from 'geojson';
+  import type { Topology } from 'topojson-specification';
 
   const navaluengaBurntArea = JSON.parse(burntAreaData) as FeatureCollection;
   const navaluengaFireSpots = JSON.parse(
@@ -348,7 +350,6 @@
     styleUrl={wildfireStyleUrl}
     title="Wildfire burnt area"
     description="A real burnt-area perimeter (Navaluenga, Ávila, Spain, July 2026) rendered as a TileMapLayer fill, plus NASA FIRMS active-fire hotspots as a circle layer, with an InsetMap locating the region within Spain."
-    notes="InsetMap renders a static SVG country silhouette and labelled annotations in a corner — it doesn't spin up a second MapLibre map. The map uses a custom styleUrl with muted forest colors, matching the reference wildfires map."
     height="500px"
   >
     <TileMapLayer
@@ -374,9 +375,8 @@
     />
     <InsetMap
       corner="top-right"
-      country="Spain"
-      countryLabel="Spain"
-      countryLabelOffset={[0, 8, 0, 0]}
+      geometry={esTopojson as unknown as Topology}
+      locationLabel="Spain"
       annotations={[
         {
           name: 'Madrid',
