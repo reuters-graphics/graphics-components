@@ -3,9 +3,20 @@
   import TileMap from './TileMap.svelte';
   import TileMapLayer from './TileMapLayer.svelte';
   import TileMapCallout from '../TileMapCallout/TileMapCallout.svelte';
+  import InsetMap from '../InsetMap/InsetMap.svelte';
   import Geocoder from '../Geocoder/Geocoder.svelte';
   import ReverseGeocodeMap from './demo/ReverseGeocodeMap.svelte';
+  import burntAreaData from './demo/navaluenga-burnt-area.geojson?raw';
+  import fireSpotsData from './demo/fire-spots.geojson?raw';
+  import wildfireStyleUrl from './demo/wildfire-style.json?url';
+  import esTopojson from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/ES.json';
   import type { FeatureCollection, Polygon, Point } from 'geojson';
+  import type { Topology } from 'topojson-specification';
+
+  const navaluengaBurntArea = JSON.parse(burntAreaData) as FeatureCollection;
+  const navaluengaFireSpots = JSON.parse(
+    fireSpotsData
+  ) as FeatureCollection<Point>;
 
   // Example GeoJSON data - Central Park polygon
   const centralParkData: FeatureCollection<Polygon> = {
@@ -344,6 +355,63 @@
   </TileMap>
 </Story>
 
+<Story asChild name="Wildfire burnt area" tags={['!autodocs']}>
+  <TileMap
+    id="wildfire-map"
+    center={[-4.1, 40.412624717893785]}
+    zoom={8}
+    interactive={false}
+    styleUrl={wildfireStyleUrl}
+    title="Wildfire burnt area"
+    description="A real burnt-area perimeter (Navaluenga, Ávila, Spain, July 2026) rendered as a TileMapLayer fill, plus NASA FIRMS active-fire hotspots as a circle layer, with an InsetMap locating the region within Spain."
+    height="500px"
+  >
+    <TileMapLayer
+      id="burnt-area"
+      data={navaluengaBurntArea}
+      type="fill"
+      beneathLabels
+      paint={{
+        'fill-color': '#8a6a48',
+        'fill-opacity': 0.4,
+        'fill-outline-color': 'transparent',
+      }}
+    />
+    <TileMapLayer
+      id="fire-spots"
+      data={navaluengaFireSpots}
+      type="circle"
+      paint={{
+        'circle-radius': 2,
+        'circle-color': '#ff5a1f',
+        'circle-opacity': 0.85,
+      }}
+    />
+    <InsetMap
+      corner="top-right"
+      geometry={esTopojson as unknown as Topology}
+      locationLabel="Spain"
+      annotations={[
+        {
+          name: 'Madrid',
+          lngLat: [-3.7038, 40.4168],
+          labelPosition: 'bottom',
+          padding: 6,
+          shape: 'square',
+        },
+        {
+          name: 'Seville',
+          lngLat: [-5.983490731533088, 37.40085875055126],
+          labelPosition: 'right',
+          padding: 6,
+        },
+      ]}
+      class="wildfire-inset"
+      size={240}
+    />
+  </TileMap>
+</Story>
+
 <Story asChild name="With Geocoder" tags={['!autodocs']}>
   <TileMap
     id="geocoder-map"
@@ -373,3 +441,9 @@
 <Story asChild name="Reverse geocoding on click">
   <ReverseGeocodeMap accessToken={mapboxAccessToken} />
 </Story>
+
+<style>
+  :global(.wildfire-inset) {
+    filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.2));
+  }
+</style>

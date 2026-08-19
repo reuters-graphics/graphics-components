@@ -17,6 +17,9 @@ importers:
       '@lottiefiles/dotlottie-web':
         specifier: ^0.52.2
         version: 0.52.2
+      '@reuters-graphics/graphics-atlas-client':
+        specifier: github:reuters-graphics/graphics-atlas-client#install/0.5.3-rc.1
+        version: https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860
       '@reuters-graphics/svelte-markdown':
         specifier: ^0.0.3
         version: 0.0.3(svelte@5.56.4(@typescript-eslint/types@8.62.1))
@@ -26,6 +29,9 @@ importers:
       '@types/geojson':
         specifier: ^7946.0.16
         version: 7946.0.16
+      d3-geo:
+        specifier: ^3.1.1
+        version: 3.1.1
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -62,6 +68,9 @@ importers:
       svelte-intersection-observer:
         specifier: ^1.0.0
         version: 1.0.0
+      topojson-client:
+        specifier: ^3.1.0
+        version: 3.1.0
       ua-parser-js:
         specifier: ^2.0.3
         version: 2.0.3
@@ -105,6 +114,9 @@ importers:
       '@types/css':
         specifier: ^0.0.37
         version: 0.0.37
+      '@types/d3-geo':
+        specifier: ^3.1.1
+        version: 3.1.1
       '@types/eslint':
         specifier: ^9.6.1
         version: 9.6.1
@@ -141,6 +153,12 @@ importers:
       '@types/react-syntax-highlighter':
         specifier: ^15.5.13
         version: 15.5.13
+      '@types/topojson-client':
+        specifier: ^3.1.5
+        version: 3.1.5
+      '@types/topojson-specification':
+        specifier: ^1.0.5
+        version: 1.0.5
       chromatic:
         specifier: ^11.28.2
         version: 11.28.2
@@ -1012,6 +1030,16 @@ packages:
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
 
+  '@reuters-graphics/graphics-atlas-client@https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860':
+    resolution: {tarball: https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860}
+    version: 0.5.3-rc.1
+    engines: {node: '>=18'}
+    peerDependencies:
+      flag-icons: '>=7'
+    peerDependenciesMeta:
+      flag-icons:
+        optional: true
+
   '@reuters-graphics/svelte-markdown@0.0.3':
     resolution: {integrity: sha512-K3DWKjm1XZxnwua+Vz9c7BRFrkFVWpVU+DnMKBPu3eadhCpT09Z0y+1MhJgs/573h4BpraZFuUVCl1h4XUxd1Q==}
     peerDependencies:
@@ -1394,6 +1422,9 @@ packages:
   '@types/css@0.0.37':
     resolution: {integrity: sha512-IVhWCNH1mw3VRjkOMHsxVAcnANhee9w//TX1fqmALP628Dzf6VMG1LRnOngpptnrilcWCkmcY1tj6QkKGUy0CA==}
 
+  '@types/d3-geo@3.1.1':
+    resolution: {integrity: sha512-65Emv9fQiQQqphLlRkuQ5ypPsOmWPhtBGCMv61JDPEPMvsx+gzhGf74yw1a78xFKPj6zw4AgQICJoQv0vK9M2w==}
+
   '@types/d3-scale-chromatic@3.1.0':
     resolution: {integrity: sha512-iWMJgwkK7yTRmWqRB5plb1kadXyQ5Sj8V/zYlFGMUBbIPKQScw+Dku9cAAMgJG+z5GYDoMjWGLVOvjghDEFnKQ==}
 
@@ -1492,6 +1523,12 @@ packages:
 
   '@types/supports-color@8.1.3':
     resolution: {integrity: sha512-Hy6UMpxhE3j1tLpl27exp1XqHD7n8chAiNPzWfz16LPZoMMoSc4dzLl6w9qijkEb/r5O1ozdu1CWGA2L83ZeZg==}
+
+  '@types/topojson-client@3.1.5':
+    resolution: {integrity: sha512-C79rySTyPxnQNNguTZNI1Ct4D7IXgvyAs3p9HPecnl6mNrJ5+UhvGNYcZfpROYV2lMHI48kJPxwR+F9C6c7nmw==}
+
+  '@types/topojson-specification@1.0.5':
+    resolution: {integrity: sha512-C7KvcQh+C2nr6Y2Ub4YfgvWvWCgP2nOQMtfhlnwsRL4pYmmwzBS7HclGiS87eQfDOU/DLQpX6GEscviaz4yLIQ==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -1921,6 +1958,9 @@ packages:
 
   comma-separated-tokens@1.0.8:
     resolution: {integrity: sha512-GHuDRO12Sypu2cV70d1dkA2EUmXHgntrzbpvOB+Qy+49ypNfGgFQIC2fhhXbnyrJRynDCAARsT7Ou0M6hirpfw==}
+
+  commander@2.20.3:
+    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
 
   commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
@@ -4329,6 +4369,10 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
+  topojson-client@3.1.0:
+    resolution: {integrity: sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==}
+    hasBin: true
+
   totalist@3.0.1:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}
     engines: {node: '>=6'}
@@ -5436,6 +5480,8 @@ snapshots:
 
   '@publint/pack@0.1.2': {}
 
+  '@reuters-graphics/graphics-atlas-client@https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860': {}
+
   '@reuters-graphics/svelte-markdown@0.0.3(svelte@5.56.4(@typescript-eslint/types@8.62.1))':
     dependencies:
       es-toolkit: 1.35.0
@@ -5795,6 +5841,10 @@ snapshots:
 
   '@types/css@0.0.37': {}
 
+  '@types/d3-geo@3.1.1':
+    dependencies:
+      '@types/geojson': 7946.0.16
+
   '@types/d3-scale-chromatic@3.1.0': {}
 
   '@types/d3-scale@4.0.9':
@@ -5899,6 +5949,15 @@ snapshots:
       csstype: 3.1.3
 
   '@types/supports-color@8.1.3': {}
+
+  '@types/topojson-client@3.1.5':
+    dependencies:
+      '@types/geojson': 7946.0.16
+      '@types/topojson-specification': 1.0.5
+
+  '@types/topojson-specification@1.0.5':
+    dependencies:
+      '@types/geojson': 7946.0.16
 
   '@types/trusted-types@2.0.7': {}
 
@@ -6346,6 +6405,8 @@ snapshots:
       delayed-stream: 1.0.0
 
   comma-separated-tokens@1.0.8: {}
+
+  commander@2.20.3: {}
 
   commander@7.2.0: {}
 
@@ -9372,6 +9433,10 @@ snapshots:
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
+
+  topojson-client@3.1.0:
+    dependencies:
+      commander: 2.20.3
 
   totalist@3.0.1: {}
 

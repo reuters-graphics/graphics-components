@@ -1,0 +1,672 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+
+import * as InsetMapStories from './InsetMap.stories.svelte';
+import InsetMapFeature from './InsetMapFeature.svelte';
+
+<Meta of={InsetMapStories} />
+
+# InsetMap
+
+`InsetMap` is a component to render locator inset map as a SVG. A country silhouette (from a built-in low-resolution dataset, or your own topojson) with labelled annotations, anchored to a corner of its parent. Drop it in as a child of any relatively (or absolutely) positioned container like `TileMap`, `GraphicBlock`, `Video`, or any other component whenever readers need more context about the location a graphic is showing. It's a static SVG, not a MapLibre map, so it doesn't cost a WebGL context or tile requests.
+
+The `geometry` prop takes a topology you import directly in your script, e.g. from `@reuters-graphics/graphics-atlas-client`'s bundled topojson: a country at `topojson/polygons/{low|medium|high}/{ISO alpha-2}.json`, or a whole UN region/subregion at `topojson/polygons/{low|medium|high}/{slug}.json`. Importing it directly (rather than fetching or looking one up by a runtime string) keeps the component tree-shakeable: your bundle only ever contains the shapes you actually reference.
+
+```javascript
+import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+```
+
+The other way to get the data, `AtlasMetadataClient`'s `fetch*` methods, pulls topojson from the package's CDN at runtime instead of bundling it, so it works when the geography is only known dynamically (e.g. from a CMS field) rather than at build time. It's not tree-shakeable, since a runtime-computed code can't be statically pruned:
+
+```javascript
+import AtlasMetadataClient from '@reuters-graphics/graphics-atlas-client';
+
+const client = new AtlasMetadataClient();
+const japan = await client.fetchCountryTopojson('JP');
+```
+
+---
+
+`locationLabel` is centered on the largest polygon in the shape, not the shape's overall bounding box. So for a country with islands or exclaves (e.g. France, the US), the label lands on the mainland instead of drifting toward open water, and for a region or subregion, it lands on the single biggest country in it.
+
+```svelte
+<script>
+  import { InsetMap } from '@reuters-graphics/graphics-components';
+  import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+</script>
+
+<InsetMap
+  geometry={japan}
+  locationLabel="Japan"
+  annotations={[
+    {
+      name: 'Tokyo',
+      lngLat: [139.6503, 35.6762],
+      labelPosition: 'right',
+      shape: 'square',
+    },
+    { name: 'Osaka', lngLat: [135.5023, 34.6937], labelPosition: 'right' },
+  ]}
+  corner="top-right"
+  size={200}
+/>
+```
+
+Pass an `InsetMapFeature` child with your own `geometry` instead, useful for composing several places, or an area smaller than a country.
+
+```svelte
+<script>
+  import {
+    InsetMap,
+    InsetMapFeature,
+  } from '@reuters-graphics/graphics-components';
+  import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+</script>
+
+<InsetMap
+  locationLabel="Japan"
+  annotations={[
+    {
+      name: 'Tokyo',
+      lngLat: [139.6503, 35.6762],
+      labelPosition: 'right',
+      shape: 'square',
+    },
+    { name: 'Osaka', lngLat: [135.5023, 34.6937], labelPosition: 'right' },
+  ]}
+  corner="top-right"
+  size={200}
+>
+  <InsetMapFeature geometry={japan} />
+</InsetMap>
+```
+
+## Basic
+
+To add an InsetMap nested inside its parent TileMap, add the following structure to your ArchieML doc. The shape itself is chosen in code (imported), so the doc only needs to carry the label and annotations.
+
+[Demo](?path=/story/compositions-insetmap--locating-a-region)
+
+<Canvas of={InsetMapStories.LocatingARegion} />
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-locate-demo
+center: [136.24464429825332, 34.94325188351801]
+zoom: 7.5
+interactive: false
+title: Japan approves bullet train link between Nagoya and Osaka
+description: The high-speed rail project would cut travel time between the two cities by half, part of a broader push to boost economic ties across central Japan.
+
+  [.layers]
+	type: tile-map-layer
+	id: bullet-train-route
+	data: bullet-train-route.geojson
+	layerType: line
+	lineColor: '#e01e37'
+	lineWidth: 3
+
+  []
+
+  [.inset]
+	type: inset-map
+	locationLabel: Japan
+	annotations:
+	  - name: Tokyo
+		lngLat: [139.6503, 35.6762]
+	  - name: Osaka
+		lngLat: [135.5023, 34.6937]
+
+  []
+
+:end
+```
+
+and then parse it out of a block object before passing to the `TileMap` and `InsetMap` components.
+
+```svelte
+<script>
+  import {
+    TileMap,
+    TileMapLayer,
+    InsetMap,
+  } from '@reuters-graphics/graphics-components';
+  import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.layers as layerBlock}
+        {#if layerBlock.type === 'tile-map-layer'}
+          <TileMapLayer
+            id={layerBlock.id}
+            data={layerBlock.data}
+            type={layerBlock.layerType}
+            paint={{
+              'line-color': layerBlock.lineColor,
+              'line-width': layerBlock.lineWidth,
+            }}
+          />
+        {/if}
+      {/each}
+
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            geometry={japan}
+            locationLabel={insetBlock.locationLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+            size={200}
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+```
+
+## Custom shape
+
+Pass an `InsetMapFeature` child with your own `geometry` to draw a region smaller than a country. The shape itself is a static asset you import in code. Only the label and annotations come from your ArchieML doc.
+
+[Demo](?path=/story/compositions-insetmap--custom-shape)
+
+<Canvas of={InsetMapStories.CustomShape} />
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-topojson-demo
+center: [-96.79539236004823, 32.775606715068946]
+zoom: 8
+interactive: false
+title: Texas grid operator warns of strain as summer demand hits record
+description: ERCOT says power use between Dallas and Houston is on pace to top last year's peak, reviving questions about the grid's ability to handle extreme heat.
+
+  [.inset]
+	type: inset-map
+	locationLabel: Texas
+	annotations:
+	  - name: Dallas
+		lngLat: [-96.7969, 32.7767]
+	  - name: Houston
+		lngLat: [-95.3698, 29.7604]
+
+  []
+
+:end
+```
+
+```svelte
+<script>
+  import {
+    TileMap,
+    InsetMap,
+    InsetMapFeature,
+  } from '@reuters-graphics/graphics-components';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+  import texasShape from './texas.topo.json';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap annotations={insetBlock.annotations} size={140}>
+            <InsetMapFeature
+              geometry={texasShape}
+              label={insetBlock.locationLabel}
+            />
+          </InsetMap>
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+```
+
+## Custom styling
+
+Pass a `class` to `InsetMap` and target its `.inset-shape`, `.inset-annotation-dot` and `.inset-location-label` parts to restyle it.
+
+[Demo](?path=/story/compositions-insetmap--custom-styling)
+
+<Canvas of={InsetMapStories.CustomStyling} />
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-custom-style-demo
+center: [-51.9, -14.2]
+zoom: 4
+interactive: false
+title: Blackout leaves millions without power across southeastern Brazil
+description: Grid operators are still tracing the outage that knocked out electricity in Rio de Janeiro and reached the capital, Brasília, before dawn.
+
+  [.inset]
+	type: inset-map
+	locationLabel: Brazil
+	annotations:
+	  - name: Rio de Janeiro
+		lngLat: [-43.1729, -22.9068]
+	  - name: Brasília
+		lngLat: [-47.8825, -15.7942]
+
+  []
+
+:end
+```
+
+```svelte
+<script>
+  import { TileMap, InsetMap } from '@reuters-graphics/graphics-components';
+  import brazil from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/BR.json';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            geometry={brazil}
+            locationLabel={insetBlock.locationLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+            class="dark-inset"
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+
+<style>
+  :global(.dark-inset .inset-shape) {
+    fill: #1c1c1c;
+    stroke: #555;
+  }
+
+  :global(.dark-inset .inset-annotation-dot) {
+    fill: #ffd23f;
+  }
+
+  :global(.dark-inset .inset-annotation-label),
+  :global(.dark-inset .inset-location-label) {
+    fill: #fff;
+  }
+</style>
+```
+
+## Standalone, without TileMap
+
+`InsetMap` doesn't need a `TileMap` as a parent. Just drop it into any relatively (or absolutely) positioned container, like `Video` or `GraphicBlock`.
+
+[Demo](?path=/story/compositions-insetmap--standalone-without-tile-map)
+
+<Canvas of={InsetMapStories.StandaloneWithoutTileMap} />
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: video
+src: videos/nairobi-mombasa-bridge.mp4
+width: widest
+ariaDescription: Silent aerial footage of a highway bridge under construction.
+title: Kenya opens new highway bridge linking Nairobi to the Mombasa trade route
+description: The bypass is meant to ease congestion on one of East Africa's busiest freight corridors, cutting hours off truck travel to the coast.
+
+  [.inset]
+	type: inset-map
+	locationLabel: Kenya
+	annotations:
+	  - name: Nairobi
+		lngLat: [36.8219, -1.2921]
+	  - name: Mombasa
+		lngLat: [39.6682, -4.0435]
+
+  []
+
+:end
+```
+
+```svelte
+<script>
+  import { Video, InsetMap } from '@reuters-graphics/graphics-components';
+  import kenya from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/KE.json';
+  import { asset } from '$app/paths';
+  import content from '$locales/en/content.json';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'video'}
+    <div style="position: relative;">
+      <Video
+        ariaDescription={block.ariaDescription}
+        src={asset(`/${block.src}`)}
+        width={block.width}
+        title={block.title}
+        description={block.description}
+      />
+
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            geometry={kenya}
+            locationLabel={insetBlock.locationLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+          />
+        {/if}
+      {/each}
+    </div>
+  {/if}
+{/each}
+```
+
+## Responsive size
+
+`size` is a plain number prop, so bind it to viewport width to keep the inset from overwhelming the screen on phones.
+
+[Demo](?path=/story/compositions-insetmap--responsive-size)
+
+<Canvas of={InsetMapStories.ResponsiveSize} />
+
+```svelte
+<script>
+  import { InsetMap } from '@reuters-graphics/graphics-components';
+  import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+
+  let screenWidth = $state(0);
+  const insetSize = $derived(
+    screenWidth < 510 ? 160
+    : screenWidth < 930 ? 180
+    : 240
+  );
+</script>
+
+<svelte:window bind:innerWidth={screenWidth} />
+
+<InsetMap
+  geometry={japan}
+  locationLabel="Japan"
+  annotations={[
+    {
+      name: 'Tokyo',
+      lngLat: [139.6503, 35.6762],
+      labelPosition: 'right',
+      shape: 'square',
+    },
+    { name: 'Osaka', lngLat: [135.5023, 34.6937], labelPosition: 'right' },
+  ]}
+  corner="top-right"
+  size={insetSize}
+/>
+```
+
+## Regions & subregions
+
+A region or subregion is just another topojson import: same `topojson/polygons/` directory, keyed by its slug (e.g. `africa`, `eastern-africa`) instead of an ISO alpha-2 code. The shape resolves to every country in it, so the label lands on the single biggest one.
+
+[Demo](?path=/story/compositions-insetmap--region)
+
+<Canvas of={InsetMapStories.Region} />
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-region-demo
+center: [3.378036882192505, 6.464825841755208]
+zoom: 12
+interactive: false
+title: African Union calls for coordinated response to Sahel food crisis
+description: Leaders across the region are weighing a joint relief effort as drought conditions push millions toward acute food insecurity.
+
+  [.inset]
+	type: inset-map
+	locationLabel: Africa
+	annotations:
+	  - name: Lagos
+		lngLat: [3.347909128583438, 6.606408776144873]
+
+  []
+
+:end
+```
+
+```svelte
+<script>
+  import { TileMap, InsetMap } from '@reuters-graphics/graphics-components';
+  import africa from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/africa.json';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            geometry={africa}
+            locationLabel={insetBlock.locationLabel}
+            annotations={insetBlock.annotations}
+            corner="top-right"
+            class="inset-map-region"
+            size={200}
+          />
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+
+<style>
+  :global(.inset-map-region .inset-shape) {
+    fill: #fff;
+    stroke: #ccc;
+    stroke-width: 0.5px;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+  }
+</style>
+```
+
+## Combining countries
+
+Pass `InsetMapFeature` children instead of (or alongside) `InsetMap`'s own `geometry` to club several places into one inset (e.g. a country plus its neighbors) rather than a single predefined UN region. `InsetMap` auto-fits its shape to the combined extent of everything it's given.
+
+Each `InsetMapFeature` takes a `geometry` shape imported directly (from `@reuters-graphics/graphics-atlas-client`'s bundled topojson, or your own file) plus an optional `label`. Whether it draws as a filled shape or a stroked border line is inferred from the geometry, not declared: polygons fill, lines stroke. A border-lines dataset ships every segment with a `disputed` flag: disputed segments render as a crimson dotted line, everything else renders transparent by default rather than being dropped, so you can target it explicitly (see below) instead of it just vanishing.
+
+`InsetMap` fits its projection to the combined extent of every shape feature it renders: its own `geometry` plus every child's (border lines don't count toward the fit, so a region-wide lines dataset won't blow out the framing). Pass `bounds` (`[west, south, east, north]`) to override the auto-fit with an explicit region instead, and `padding` to pad that region by a fraction of its own width/height (e.g. `0.15` pads it 15% larger on each side) rather than sizing exactly to `bounds`. Turn on `showBounds` while tuning `bounds`/`padding` to draw a thick crimson outline of the parent `TileMap`'s current viewport, so you can see how much of it the inset actually covers.
+
+[Demo](?path=/story/compositions-insetmap--combining-countries)
+
+<Canvas of={InsetMapStories.CombiningCountries} />
+
+```yaml
+# Archie ML doc
+[blocks]
+
+type: tile-map
+id: inset-map-combined-demo
+center: [76.5, 30]
+zoom: 4
+interactive: false
+title: Border tensions simmer along the Line of Actual Control
+description: Troop buildups on both sides of the disputed India-China frontier have raised concerns of a renewed standoff, with Pakistan watching closely from the west.
+
+  [.inset]
+	type: inset-map
+
+	[..places]
+	* India
+	* Pakistan
+	* China
+	[]
+
+  []
+
+:end
+```
+
+```svelte
+<script>
+  import {
+    TileMap,
+    InsetMap,
+    InsetMapFeature,
+  } from '@reuters-graphics/graphics-components';
+  import india from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/IN.json';
+  import pakistan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/PK.json';
+  import china from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/CN.json';
+  import indiaChinaBorder from '@reuters-graphics/graphics-atlas-client/topojson/lines/medium/asia-and-the-middle-east.json';
+  import content from '$locales/en/content.json';
+  import { truthy } from '$utils/propValidators';
+
+  const places = { India: india, Pakistan: pakistan, China: china };
+</script>
+
+{#each content.blocks as block}
+  {#if block.type === 'tile-map'}
+    <TileMap
+      id={block.id}
+      center={block.center}
+      zoom={block.zoom}
+      interactive={truthy(block.interactive)}
+      title={block.title}
+      description={block.description}
+      height="500px"
+    >
+      {#each block.inset as insetBlock}
+        {#if insetBlock.type === 'inset-map'}
+          <InsetMap
+            corner="top-right"
+            size={200}
+            bounds={[70.015869, 31.770208, 79.508057, 36.315125]}
+            padding={0.15}
+            showBounds
+          >
+            {#each insetBlock.places as place}
+              <InsetMapFeature geometry={places[place]} label={place} />
+            {/each}
+            <InsetMapFeature geometry={indiaChinaBorder} />
+          </InsetMap>
+        {/if}
+      {/each}
+    </TileMap>
+  {/if}
+{/each}
+```
+
+## Styling non-disputed borders
+
+A border segment is only classified as _disputed_ (and drawn as the crimson dotted line) when its feature carries a truthy `disputed` property, exactly like `@reuters-graphics/graphics-atlas-client`'s `topojson/lines/**` datasets do. Bringing your own border topojson (rather than the atlas client's) means its `LineString`/`MultiLineString` features need that same `disputed` property for the disputed styling to apply.
+
+Every other line segment (no `disputed` flag, or `disputed: false`) still renders, just transparent (`.inset-context-border-line`) rather than being dropped. That keeps custom datasets flexible: if you want your non-disputed borders visible (e.g. as thin context lines around a filled shape), target that class yourself, scoped through `class` on `InsetMap` the same way as [custom styling](#custom-styling) above.
+
+[Demo](?path=/story/compositions-insetmap--styling-non-disputed-borders)
+
+<Canvas of={InsetMapStories.StylingNonDisputedBorders} />
+
+```svelte
+<script>
+  import {
+    TileMap,
+    InsetMap,
+    InsetMapFeature,
+  } from '@reuters-graphics/graphics-components';
+  import georgia from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/GE.json';
+  import russia from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/RU.json';
+  import armenia from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/AM.json';
+  import caucasusBorders from '@reuters-graphics/graphics-atlas-client/topojson/lines/medium/asia-and-the-middle-east.json';
+</script>
+
+<TileMap center={[44, 41.5]} zoom={6} interactive={false} height="500px">
+  <InsetMap
+    corner="top-right"
+    class="caucasus-border-demo"
+    bounds={[40.613708, 41.488006, 45.359802, 43.510713]}
+  >
+    <InsetMapFeature
+      geometry={georgia}
+      label="Georgia"
+      labelOffset={[0, 20, 20, 0]}
+    />
+    <InsetMapFeature geometry={russia} label="Russia" />
+    <InsetMapFeature geometry={armenia} />
+    <InsetMapFeature geometry={caucasusBorders} />
+  </InsetMap>
+</TileMap>
+
+<style>
+  /* Georgia's border with Russia is flagged disputed in the atlas client's
+     lines dataset, so it already renders crimson and dotted with no extra
+     styling. This rule only covers the non-disputed segments pooled into
+     the same inset — Georgia's settled border with Armenia. */
+  :global(.caucasus-border-demo .inset-context-border-line) {
+    stroke: #555;
+    stroke-width: 2;
+  }
+</style>
+```
+
+## Wildfire tracker composition
+
+For a fuller production example (`InsetMap` layered with `TileMapLayer` and a custom map style), see [TileMap's wildfire burnt area demo](/docs/components-graphics-tilemap--docs#adding-a-locator-inset), the kind of build you'd reach for when covering an active wildfire.
+
+## Props
+
+<Controls of={InsetMapStories.LocatingARegion} />
+
+### InsetMapFeature Props
+
+<ArgTypes of={InsetMapFeature} />
