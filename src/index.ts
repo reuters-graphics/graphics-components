@@ -49,11 +49,21 @@ export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.sve
 export { default as LanguageButton } from './components/LanguageButton/LanguageButton.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as Legend } from './components/Legend/Legend.svelte';
+export { default as LocalDateTime } from './components/LocalDateTime/LocalDateTime.svelte';
+export type { LocalDateTimeProps } from './components/LocalDateTime/LocalDateTime.svelte';
 export { default as TileMapCallout } from './components/TileMapCallout/TileMapCallout.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
 export { default as InsetMap } from './components/InsetMap/InsetMap.svelte';
 export { default as InsetMapFeature } from './components/InsetMap/InsetMapFeature.svelte';
+export {
+  enableTerrain,
+  disableTerrain,
+  TERRAIN_SOURCE_ID,
+  TERRAIN_RELIEF_LAYER_ID,
+  DEFAULT_TERRAIN_EXAGGERATION,
+} from './components/TileMap/terrain';
+export { configureMaplibreWorker } from './components/TileMap/worker';
 export { default as PaddingReset } from './components/PaddingReset/PaddingReset.svelte';
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
@@ -131,6 +141,31 @@ export {
   getUnitContext,
   defaultUnitState,
 } from './components/Temperature/state.svelte';
+
+// Datetime toolkit (AP-style formatting, zone labels, detection, comparison)
+export {
+  formatApTime,
+  formatApDate,
+  formatApDateTime,
+  formatAccessibleTime,
+  formatAccessibleDate,
+  formatAccessibleDateTime,
+  formatRelativeTime,
+  resolveTimeZoneLabel,
+  detectLocalTimeZone,
+  isValidDate,
+  isSameDay,
+  zonedDateKey,
+  isWithinRelativeWindow,
+  DEFAULT_RELATIVE_WINDOW_HOURS,
+  type DateTimeDisplay,
+  type ShowYear,
+  type FormatApTimeOptions,
+  type FormatApDateOptions,
+  type FormatApDateTimeOptions,
+  type TimePrecision,
+  type TimeZoneLabel,
+} from './utils/datetime/index';
 
 export type {
   ContainerWidth,

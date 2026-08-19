@@ -1,6 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import { formatTime, getAuthorPageUrl } from '../../utils/index.js';
+  import { getAuthorPageUrl } from '../../utils/index.js';
+  import { formatApTime } from '../../utils/datetime';
   import Byline from './Byline.svelte';
 
   const { Story } = defineMeta({
@@ -66,12 +67,20 @@
 {/snippet}
 
 {#snippet esPublished()}
-  Publicado <time datetime="2026-04-08T10:00:00.000Z">
+  <!--
+    `datetime` is bound to the same instant the text formats — it used to be a
+    hard-coded literal that disagreed with it. The zone is pinned so the story
+    renders identically on every machine and CI runner.
+  -->
+  Publicado
+  <time datetime={new Date(publishTime).toISOString()}>
     {new Date(publishTime).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-    })}&nbsp;&nbsp;{formatTime(publishTime)}</time
+    })}&nbsp;&nbsp;{formatApTime(new Date(publishTime), {
+      timeZone: 'Europe/Madrid',
+    })}</time
   >
 {/snippet}
 
