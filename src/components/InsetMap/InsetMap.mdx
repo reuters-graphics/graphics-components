@@ -94,7 +94,10 @@ To add an InsetMap nested inside its parent TileMap, add the following structure
 
 type: tile-map
 id: inset-map-locate-demo
-center: [136.24464429825332, 34.94325188351801]
+[.center]
+	* 136.24464429825332
+	* 34.94325188351801
+[]
 zoom: 7.5
 interactive: false
 title: Japan approves bullet train link between Nagoya and Osaka
@@ -104,7 +107,7 @@ description: The high-speed rail project would cut travel time between the two c
 	type: tile-map-layer
 	id: bullet-train-route
 	layerType: line
-	lineColor: '#e01e37'
+	lineColor: #e01e37
 	lineWidth: 3
 
   []
@@ -148,8 +151,8 @@ and then parse it out of a block object before passing to the `TileMap` and `Ins
   {#if block.type === 'tile-map'}
     <TileMap
       id={block.id}
-      center={block.center}
-      zoom={block.zoom}
+      center={block.center.map(Number)}
+      zoom={parseFloat(block.zoom)}
       interactive={truthy(block.interactive)}
       title={block.title}
       description={block.description}
@@ -163,7 +166,7 @@ and then parse it out of a block object before passing to the `TileMap` and `Ins
             type={layerBlock.layerType}
             paint={{
               'line-color': layerBlock.lineColor,
-              'line-width': layerBlock.lineWidth,
+              'line-width': parseFloat(layerBlock.lineWidth),
             }}
           />
         {/if}
@@ -197,7 +200,10 @@ Pass an `InsetMapFeature` child with your own `geometry` to draw a region smalle
 
 type: tile-map
 id: inset-map-topojson-demo
-center: [-96.79539236004823, 32.775606715068946]
+[.center]
+	* -96.79539236004823
+	* 32.775606715068946
+[]
 zoom: 8
 interactive: false
 title: Texas grid operator warns of strain as summer demand hits record
@@ -239,8 +245,8 @@ description: ERCOT says power use between Dallas and Houston is on pace to top l
   {#if block.type === 'tile-map'}
     <TileMap
       id={block.id}
-      center={block.center}
-      zoom={block.zoom}
+      center={block.center.map(Number)}
+      zoom={parseFloat(block.zoom)}
       interactive={truthy(block.interactive)}
       title={block.title}
       description={block.description}
@@ -273,7 +279,10 @@ Pass a `class` to `InsetMap` and target its `.inset-shape`, `.inset-annotation-d
 
 type: tile-map
 id: inset-map-custom-style-demo
-center: [-51.9, -14.2]
+[.center]
+	* -51.9
+	* -14.2
+[]
 zoom: 4
 interactive: false
 title: Blackout leaves millions without power across southeastern Brazil
@@ -311,8 +320,8 @@ description: Grid operators are still tracing the outage that knocked out electr
   {#if block.type === 'tile-map'}
     <TileMap
       id={block.id}
-      center={block.center}
-      zoom={block.zoom}
+      center={block.center.map(Number)}
+      zoom={parseFloat(block.zoom)}
       interactive={truthy(block.interactive)}
       title={block.title}
       description={block.description}
@@ -332,6 +341,11 @@ description: Grid operators are still tracing the outage that knocked out electr
 {/each}
 
 <style>
+  :global(.dark-inset) {
+    filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.4));
+    transform: translate(0, -20%);
+  }
+
   :global(.dark-inset .inset-shape) {
     fill: #1c1c1c;
     stroke: #555;
@@ -473,7 +487,10 @@ A region or subregion is just another topojson import: same `topojson/polygons/`
 
 type: tile-map
 id: inset-map-region-demo
-center: [3.378036882192505, 6.464825841755208]
+[.center]
+	* 3.378036882192505
+	* 6.464825841755208
+[]
 zoom: 12
 interactive: false
 title: African Union calls for coordinated response to Sahel food crisis
@@ -505,8 +522,8 @@ description: Leaders across the region are weighing a joint relief effort as dro
   {#if block.type === 'tile-map'}
     <TileMap
       id={block.id}
-      center={block.center}
-      zoom={block.zoom}
+      center={block.center.map(Number)}
+      zoom={parseFloat(block.zoom)}
       interactive={truthy(block.interactive)}
       title={block.title}
       description={block.description}
@@ -554,8 +571,11 @@ Each `InsetMapFeature` takes a `geometry` shape imported directly (from `@reuter
 
 type: tile-map
 id: inset-map-combined-demo
-center: [76.5, 30]
-zoom: 4
+[.center]
+	* 74.7972544424758
+	* 34.09018471470494
+[]
+zoom: 8
 interactive: false
 title: Border tensions simmer along the Line of Actual Control
 description: Troop buildups on both sides of the disputed India-China frontier have raised concerns of a renewed standoff, with Pakistan watching closely from the west.
@@ -592,8 +612,8 @@ description: Troop buildups on both sides of the disputed India-China frontier h
   {#if block.type === 'tile-map'}
     <TileMap
       id={block.id}
-      center={block.center}
-      zoom={block.zoom}
+      center={block.center.map(Number)}
+      zoom={parseFloat(block.zoom)}
       interactive={truthy(block.interactive)}
       title={block.title}
       description={block.description}

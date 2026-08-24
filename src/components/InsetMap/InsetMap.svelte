@@ -42,9 +42,9 @@ anything else that needs to orient readers with a location.
     name: string;
     /** [longitude, latitude] of the annotation. */
     lngLat: [number, number];
-    /** Side of the marker the label is drawn on. Defaults to 'top-right'. */
+    /** Side of the marker the label is drawn on. Defaults to 'right'. */
     labelPosition?: InsetMapLabelPosition;
-    /** Spacing in px between the marker and the label. Defaults to 4. */
+    /** Spacing in px between the marker and the label. Defaults to 6. */
     padding?: number;
     /** Marker shape. Defaults to 'circle'. */
     shape?: InsetMapAnnotationShape;
@@ -527,8 +527,8 @@ anything else that needs to orient readers with a location.
             y: xy[1],
             shape: annotation.shape ?? 'circle',
             offset: getAnnotationLabelOffset(
-              annotation.labelPosition ?? 'top-right',
-              annotation.padding ?? 4
+              annotation.labelPosition ?? 'right',
+              annotation.padding ?? 6
             ),
           };
         })

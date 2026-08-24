@@ -102,7 +102,12 @@
       annotations: {
         control: 'object',
         description:
-          'Labelled markers, positioned with the same projection as the shape so they always land in the right place.',
+          'Labelled markers, positioned with the same projection as the shape so they always land in the right place. Each item supports:\n' +
+          '- `name` (string, required): annotation label.\n' +
+          '- `lngLat` ([number, number], required): [longitude, latitude] of the annotation.\n' +
+          "- `labelPosition` ('top' | 'top-right' | 'right' | 'bottom-right' | 'bottom' | 'bottom-left' | 'left' | 'top-left'): side of the marker the label is drawn on. Defaults to `'right'`.\n" +
+          '- `padding` (number): spacing in px between the marker and the label. Defaults to `6`.\n' +
+          "- `shape` ('circle' | 'square'): marker shape. Defaults to `'circle'`.",
       },
       locationLabel: {
         control: 'text',
