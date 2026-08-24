@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.13.0
+
+### Minor Changes
+
+- 01937ca: Add `InsetMap`, a static SVG locator inset, and `InsetMapFeature`, a child component for composing an inset from several places or sub-country areas by passing each its own `geometry`.
+
 ## 4.12.0
 
 ### Minor Changes
