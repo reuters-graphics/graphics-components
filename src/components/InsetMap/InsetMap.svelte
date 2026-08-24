@@ -122,6 +122,7 @@ anything else that needs to orient readers with a location.
     features: Feature<Geometry, GeoJsonProperties>[];
     label?: string;
     labelOffset?: InsetMapLabelOffset;
+    class?: string;
   }
 
   /** Context handed to `InsetMapFeature` children via `getContext('inset-map')`. */
@@ -236,6 +237,8 @@ anything else that needs to orient readers with a location.
     annotations?: InsetMapAnnotation[];
     /** Label rendered at the center of the largest shape (e.g. the country, region, or subregion name). */
     locationLabel?: string;
+    /** Fine-tune `locationLabel`'s position as `[top, right, bottom, left]` px. Defaults to `[0, 0, 0, 0]`. */
+    labelOffset?: InsetMapLabelOffset;
     /** Constrains the view to `[west, south, east, north]`, instead of auto-fitting to the rendered shape(s). Useful when `InsetMapFeature` children (e.g. border lines) extend beyond the region you want visible. */
     bounds?: [west: number, south: number, east: number, north: number];
     /** Padding to add around `bounds` before fitting, as a fraction of its width/height (e.g. `0.1` pads it 10% larger on each side). Only applies when `bounds` is set. Defaults to 0. */
@@ -256,6 +259,7 @@ anything else that needs to orient readers with a location.
     projection,
     annotations = [],
     locationLabel,
+    labelOffset,
     bounds,
     padding = 0,
     showBounds = false,
@@ -317,12 +321,30 @@ anything else that needs to orient readers with a location.
     pooledFeatures.filter((f) => classifyFeature(f) === 'shape')
   );
 
+  /**
+   * A child with its own `class` renders its own path (see `styledChildPaths`
+   * below) instead of being merged into these pooled ones, so it can be
+   * styled apart from the rest of the inset without also doubling it up.
+   */
+  let unstyledPooledFeatures = $derived([
+    ...ownFeatures,
+    ...Array.from(childFeatures.values())
+      .filter((entry) => !entry.class)
+      .flatMap((entry) => entry.features),
+  ]);
+
+  let renderShapeFeatures = $derived(
+    unstyledPooledFeatures.filter((f) => classifyFeature(f) === 'shape')
+  );
+
   let childBorderFeatures = $derived(
-    pooledFeatures.filter((f) => classifyFeature(f) === 'border')
+    unstyledPooledFeatures.filter((f) => classifyFeature(f) === 'border')
   );
 
   let childContextBorderFeatures = $derived(
-    pooledFeatures.filter((f) => classifyFeature(f) === 'context-border')
+    unstyledPooledFeatures.filter(
+      (f) => classifyFeature(f) === 'context-border'
+    )
   );
 
   /** Each child's own shape features (borders don't get a label), keyed by id. */
@@ -415,9 +437,40 @@ anything else that needs to orient readers with a location.
   );
 
   let shapePath = $derived(
-    activeProjection && resolvedFeature ?
-      geoPath(activeProjection)(resolvedFeature)
+    activeProjection && renderShapeFeatures.length ?
+      geoPath(activeProjection)({
+        type: 'FeatureCollection',
+        features: renderShapeFeatures,
+      } as FeatureCollection<Geometry, GeoJsonProperties>)
     : null
+  );
+
+  /** One set of paths per child with a custom `class`, kept out of the pooled paths above so they can be styled apart from the rest of the inset. */
+  let styledChildPaths = $derived(
+    activeProjection ?
+      Array.from(childFeatures.entries())
+        .filter(([, entry]) => entry.class)
+        .map(([id, entry]) => {
+          const toPath = (kind: InsetMapFeatureKind) => {
+            const features = entry.features.filter(
+              (f) => classifyFeature(f) === kind
+            );
+            return features.length ?
+                geoPath(activeProjection!)({
+                  type: 'FeatureCollection',
+                  features,
+                } as FeatureCollection<Geometry, GeoJsonProperties>)
+              : null;
+          };
+          return {
+            id,
+            class: entry.class!,
+            shapePath: toPath('shape'),
+            borderPath: toPath('border'),
+            contextBorderPath: toPath('context-border'),
+          };
+        })
+    : []
   );
 
   let borderPath = $derived(
@@ -487,12 +540,15 @@ anything else that needs to orient readers with a location.
 
   let locationLabelPosition = $derived(
     activeProjection && resolvedFeature ?
-      avoidPointCollisions(
-        geoPath(activeProjection).centroid(
-          getLargestPolygonGeometry(resolvedFeature)
+      applyLabelOffset(
+        avoidPointCollisions(
+          geoPath(activeProjection).centroid(
+            getLargestPolygonGeometry(resolvedFeature)
+          ),
+          annotationPoints,
+          ANNOTATION_LABEL_CLEARANCE
         ),
-        annotationPoints,
-        ANNOTATION_LABEL_CLEARANCE
+        labelOffset ?? [0, 0, 0, 0]
       )
     : null
   );
@@ -536,6 +592,20 @@ anything else that needs to orient readers with a location.
     {#if borderPath}
       <path d={borderPath} class="inset-border-line" />
     {/if}
+    {#each styledChildPaths as entry (entry.id)}
+      {#if entry.shapePath}
+        <path d={entry.shapePath} class={`inset-shape ${entry.class}`} />
+      {/if}
+      {#if entry.contextBorderPath}
+        <path
+          d={entry.contextBorderPath}
+          class={`inset-context-border-line ${entry.class}`}
+        />
+      {/if}
+      {#if entry.borderPath}
+        <path d={entry.borderPath} class={`inset-border-line ${entry.class}`} />
+      {/if}
+    {/each}
     {#each childLabelPositions as entry (entry.id)}
       <text
         x={entry.position[0]}

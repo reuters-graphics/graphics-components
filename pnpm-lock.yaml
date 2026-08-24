@@ -18,8 +18,8 @@ importers:
         specifier: ^0.52.2
         version: 0.52.2
       '@reuters-graphics/graphics-atlas-client':
-        specifier: github:reuters-graphics/graphics-atlas-client#install/0.5.3-rc.1
-        version: https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860
+        specifier: ^1.0.0
+        version: 1.0.0
       '@reuters-graphics/svelte-markdown':
         specifier: ^0.0.3
         version: 0.0.3(svelte@5.56.4(@typescript-eslint/types@8.62.1))
@@ -1030,9 +1030,8 @@ packages:
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
 
-  '@reuters-graphics/graphics-atlas-client@https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860':
-    resolution: {tarball: https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860}
-    version: 0.5.3-rc.1
+  '@reuters-graphics/graphics-atlas-client@1.0.0':
+    resolution: {integrity: sha512-THYthXLrWr9U4vpLGl9XhuLdvtVB/j641cduAMSzms2+DAaQj7ev21YYIzz05dMNnNG3j5H1wXBncfSWDLMiPQ==}
     engines: {node: '>=18'}
     peerDependencies:
       flag-icons: '>=7'
@@ -5480,7 +5479,7 @@ snapshots:
 
   '@publint/pack@0.1.2': {}
 
-  '@reuters-graphics/graphics-atlas-client@https://codeload.github.com/reuters-graphics/graphics-atlas-client/tar.gz/00fbdedeaea934dcc387c0a59a0012a242118860': {}
+  '@reuters-graphics/graphics-atlas-client@1.0.0': {}
 
   '@reuters-graphics/svelte-markdown@0.0.3(svelte@5.56.4(@typescript-eslint/types@8.62.1))':
     dependencies:

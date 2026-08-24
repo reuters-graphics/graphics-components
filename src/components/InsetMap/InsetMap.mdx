@@ -9,7 +9,7 @@ import InsetMapFeature from './InsetMapFeature.svelte';
 
 `InsetMap` is a component to render locator inset map as a SVG. A country silhouette (from a built-in low-resolution dataset, or your own topojson) with labelled annotations, anchored to a corner of its parent. Drop it in as a child of any relatively (or absolutely) positioned container like `TileMap`, `GraphicBlock`, `Video`, or any other component whenever readers need more context about the location a graphic is showing. It's a static SVG, not a MapLibre map, so it doesn't cost a WebGL context or tile requests.
 
-The `geometry` prop takes a topology you import directly in your script, e.g. from `@reuters-graphics/graphics-atlas-client`'s bundled topojson: a country at `topojson/polygons/{low|medium|high}/{ISO alpha-2}.json`, or a whole UN region/subregion at `topojson/polygons/{low|medium|high}/{slug}.json`. Importing it directly (rather than fetching or looking one up by a runtime string) keeps the component tree-shakeable: your bundle only ever contains the shapes you actually reference.
+The `geometry` prop takes a topology you import directly in your script, e.g. from `@reuters-graphics/graphics-atlas-client`'s [bundled topojson](https://reuters-graphics.github.io/graphics-atlas-client/topojson/): a country at `topojson/polygons/{low|medium|high}/{ISO alpha-2}.json`, or a whole UN region/subregion at `topojson/polygons/{low|medium|high}/{slug}.json`. Importing it directly (rather than fetching or looking one up by a runtime string) keeps the component tree-shakeable: your bundle only ever contains the shapes you actually reference.
 
 ```javascript
 import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
@@ -51,7 +51,7 @@ const japan = await client.fetchCountryTopojson('JP');
 />
 ```
 
-Pass an `InsetMapFeature` child with your own `geometry` instead, useful for composing several places, or an area smaller than a country.
+You could also pass an `InsetMapFeature` child with your own `geometry` instead, useful for composing several places, or an area smaller than a country.
 
 ```svelte
 <script>
@@ -82,11 +82,11 @@ Pass an `InsetMapFeature` child with your own `geometry` instead, useful for com
 
 ## Basic
 
-To add an InsetMap nested inside its parent TileMap, add the following structure to your ArchieML doc. The shape itself is chosen in code (imported), so the doc only needs to carry the label and annotations.
+To add an InsetMap nested inside its parent TileMap, add the following structure to your ArchieML doc.
 
-[Demo](?path=/story/compositions-insetmap--locating-a-region)
+[Demo](?path=/story/compositions-insetmap--basic)
 
-<Canvas of={InsetMapStories.LocatingARegion} />
+<Canvas of={InsetMapStories.Basic} />
 
 ```yaml
 # Archie ML doc
@@ -103,23 +103,28 @@ description: The high-speed rail project would cut travel time between the two c
   [.layers]
 	type: tile-map-layer
 	id: bullet-train-route
-	data: bullet-train-route.geojson
 	layerType: line
 	lineColor: '#e01e37'
 	lineWidth: 3
 
   []
 
-  [.inset]
-	type: inset-map
+  {.inset}
 	locationLabel: Japan
-	annotations:
-	  - name: Tokyo
-		lngLat: [139.6503, 35.6762]
-	  - name: Osaka
-		lngLat: [135.5023, 34.6937]
+	[.annotations]
+		name: Tokyo
+		[.lngLat]
+			* 139.6503
+			* 35.6762
+		[]
 
-  []
+		name: Osaka
+		[.lngLat]
+			* 135.5023
+			* 34.6937
+		[]
+	[]
+  {}
 
 :end
 ```
@@ -134,6 +139,7 @@ and then parse it out of a block object before passing to the `TileMap` and `Ins
     InsetMap,
   } from '@reuters-graphics/graphics-components';
   import japan from '@reuters-graphics/graphics-atlas-client/topojson/polygons/medium/JP.json';
+  import trainRoute from './bullet-train-route.json?url';
   import content from '$locales/en/content.json';
   import { truthy } from '$utils/propValidators';
 </script>
@@ -153,7 +159,7 @@ and then parse it out of a block object before passing to the `TileMap` and `Ins
         {#if layerBlock.type === 'tile-map-layer'}
           <TileMapLayer
             id={layerBlock.id}
-            data={layerBlock.data}
+            data={trainRoute}
             type={layerBlock.layerType}
             paint={{
               'line-color': layerBlock.lineColor,
@@ -163,17 +169,15 @@ and then parse it out of a block object before passing to the `TileMap` and `Ins
         {/if}
       {/each}
 
-      {#each block.inset as insetBlock}
-        {#if insetBlock.type === 'inset-map'}
-          <InsetMap
-            geometry={japan}
-            locationLabel={insetBlock.locationLabel}
-            annotations={insetBlock.annotations}
-            corner="top-right"
-            size={200}
-          />
-        {/if}
-      {/each}
+      {#if block.inset}
+        <InsetMap
+          geometry={japan}
+          locationLabel={block.inset.locationLabel}
+          annotations={block.inset.annotations}
+          corner="top-right"
+          size={200}
+        />
+      {/if}
     </TileMap>
   {/if}
 {/each}
@@ -199,16 +203,22 @@ interactive: false
 title: Texas grid operator warns of strain as summer demand hits record
 description: ERCOT says power use between Dallas and Houston is on pace to top last year's peak, reviving questions about the grid's ability to handle extreme heat.
 
-  [.inset]
-	type: inset-map
+  {.inset}
 	locationLabel: Texas
-	annotations:
-	  - name: Dallas
-		lngLat: [-96.7969, 32.7767]
-	  - name: Houston
-		lngLat: [-95.3698, 29.7604]
+	[.annotations]
+		name: Dallas
+		[.lngLat]
+			* -96.7969
+			* 32.7767
+		[]
 
-  []
+		name: Houston
+		[.lngLat]
+			* -95.3698
+			* 29.7604
+		[]
+	[]
+  {}
 
 :end
 ```
@@ -236,16 +246,14 @@ description: ERCOT says power use between Dallas and Houston is on pace to top l
       description={block.description}
       height="500px"
     >
-      {#each block.inset as insetBlock}
-        {#if insetBlock.type === 'inset-map'}
-          <InsetMap annotations={insetBlock.annotations} size={140}>
-            <InsetMapFeature
-              geometry={texasShape}
-              label={insetBlock.locationLabel}
-            />
-          </InsetMap>
-        {/if}
-      {/each}
+      {#if block.inset}
+        <InsetMap annotations={block.inset.annotations} size={140}>
+          <InsetMapFeature
+            geometry={texasShape}
+            label={block.inset.locationLabel}
+          />
+        </InsetMap>
+      {/if}
     </TileMap>
   {/if}
 {/each}
@@ -271,16 +279,22 @@ interactive: false
 title: Blackout leaves millions without power across southeastern Brazil
 description: Grid operators are still tracing the outage that knocked out electricity in Rio de Janeiro and reached the capital, Brasília, before dawn.
 
-  [.inset]
-	type: inset-map
+  {.inset}
 	locationLabel: Brazil
-	annotations:
-	  - name: Rio de Janeiro
-		lngLat: [-43.1729, -22.9068]
-	  - name: Brasília
-		lngLat: [-47.8825, -15.7942]
+	[.annotations]
+		name: Rio de Janeiro
+		[.lngLat]
+			* -43.1729
+			* -22.9068
+		[]
 
-  []
+		name: Brasília
+		[.lngLat]
+			* -47.8825
+			* -15.7942
+		[]
+	[]
+  {}
 
 :end
 ```
@@ -304,17 +318,15 @@ description: Grid operators are still tracing the outage that knocked out electr
       description={block.description}
       height="500px"
     >
-      {#each block.inset as insetBlock}
-        {#if insetBlock.type === 'inset-map'}
-          <InsetMap
-            geometry={brazil}
-            locationLabel={insetBlock.locationLabel}
-            annotations={insetBlock.annotations}
-            corner="top-right"
-            class="dark-inset"
-          />
-        {/if}
-      {/each}
+      {#if block.inset}
+        <InsetMap
+          geometry={brazil}
+          locationLabel={block.inset.locationLabel}
+          annotations={block.inset.annotations}
+          corner="top-right"
+          class="dark-inset"
+        />
+      {/if}
     </TileMap>
   {/if}
 {/each}
@@ -355,16 +367,22 @@ ariaDescription: Silent aerial footage of a highway bridge under construction.
 title: Kenya opens new highway bridge linking Nairobi to the Mombasa trade route
 description: The bypass is meant to ease congestion on one of East Africa's busiest freight corridors, cutting hours off truck travel to the coast.
 
-  [.inset]
-	type: inset-map
+  {.inset}
 	locationLabel: Kenya
-	annotations:
-	  - name: Nairobi
-		lngLat: [36.8219, -1.2921]
-	  - name: Mombasa
-		lngLat: [39.6682, -4.0435]
+	[.annotations]
+		name: Nairobi
+		[.lngLat]
+			* 36.8219
+			* -1.2921
+		[]
 
-  []
+		name: Mombasa
+		[.lngLat]
+			* 39.6682
+			* -4.0435
+		[]
+	[]
+  {}
 
 :end
 ```
@@ -388,16 +406,14 @@ description: The bypass is meant to ease congestion on one of East Africa's busi
         description={block.description}
       />
 
-      {#each block.inset as insetBlock}
-        {#if insetBlock.type === 'inset-map'}
-          <InsetMap
-            geometry={kenya}
-            locationLabel={insetBlock.locationLabel}
-            annotations={insetBlock.annotations}
-            corner="top-right"
-          />
-        {/if}
-      {/each}
+      {#if block.inset}
+        <InsetMap
+          geometry={kenya}
+          locationLabel={block.inset.locationLabel}
+          annotations={block.inset.annotations}
+          corner="top-right"
+        />
+      {/if}
     </div>
   {/if}
 {/each}
@@ -463,14 +479,16 @@ interactive: false
 title: African Union calls for coordinated response to Sahel food crisis
 description: Leaders across the region are weighing a joint relief effort as drought conditions push millions toward acute food insecurity.
 
-  [.inset]
-	type: inset-map
+  {.inset}
 	locationLabel: Africa
-	annotations:
-	  - name: Lagos
-		lngLat: [3.347909128583438, 6.606408776144873]
-
-  []
+	[.annotations]
+		name: Lagos
+		[.lngLat]
+			* 3.347909128583438
+			* 6.606408776144873
+		[]
+	[]
+  {}
 
 :end
 ```
@@ -494,18 +512,16 @@ description: Leaders across the region are weighing a joint relief effort as dro
       description={block.description}
       height="500px"
     >
-      {#each block.inset as insetBlock}
-        {#if insetBlock.type === 'inset-map'}
-          <InsetMap
-            geometry={africa}
-            locationLabel={insetBlock.locationLabel}
-            annotations={insetBlock.annotations}
-            corner="top-right"
-            class="inset-map-region"
-            size={200}
-          />
-        {/if}
-      {/each}
+      {#if block.inset}
+        <InsetMap
+          geometry={africa}
+          locationLabel={block.inset.locationLabel}
+          annotations={block.inset.annotations}
+          corner="top-right"
+          class="inset-map-region"
+          size={200}
+        />
+      {/if}
     </TileMap>
   {/if}
 {/each}
@@ -544,16 +560,13 @@ interactive: false
 title: Border tensions simmer along the Line of Actual Control
 description: Troop buildups on both sides of the disputed India-China frontier have raised concerns of a renewed standoff, with Pakistan watching closely from the west.
 
-  [.inset]
-	type: inset-map
-
-	[..places]
-	* India
-	* Pakistan
-	* China
+  {.inset}
+	[.places]
+		* India
+		* Pakistan
+		* China
 	[]
-
-  []
+  {}
 
 :end
 ```
@@ -586,22 +599,20 @@ description: Troop buildups on both sides of the disputed India-China frontier h
       description={block.description}
       height="500px"
     >
-      {#each block.inset as insetBlock}
-        {#if insetBlock.type === 'inset-map'}
-          <InsetMap
-            corner="top-right"
-            size={200}
-            bounds={[70.015869, 31.770208, 79.508057, 36.315125]}
-            padding={0.15}
-            showBounds
-          >
-            {#each insetBlock.places as place}
-              <InsetMapFeature geometry={places[place]} label={place} />
-            {/each}
-            <InsetMapFeature geometry={indiaChinaBorder} />
-          </InsetMap>
-        {/if}
-      {/each}
+      {#if block.inset}
+        <InsetMap
+          corner="top-right"
+          size={200}
+          bounds={[70.015869, 31.770208, 79.508057, 36.315125]}
+          padding={0.15}
+          showBounds
+        >
+          {#each block.inset.places as place}
+            <InsetMapFeature geometry={places[place]} label={place} />
+          {/each}
+          <InsetMapFeature geometry={indiaChinaBorder} />
+        </InsetMap>
+      {/if}
     </TileMap>
   {/if}
 {/each}
@@ -665,7 +676,7 @@ For a fuller production example (`InsetMap` layered with `TileMapLayer` and a cu
 
 ## Props
 
-<Controls of={InsetMapStories.LocatingARegion} />
+<Controls of={InsetMapStories.Basic} />
 
 ### InsetMapFeature Props
 

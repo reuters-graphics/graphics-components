@@ -127,7 +127,7 @@
 <svelte:window bind:innerWidth={screenWidth} />
 
 <Story
-  name="Locating a region"
+  name="Basic"
   args={{
     geometry: jpTopojson as unknown as Topology,
     locationLabel: 'Japan',
@@ -393,6 +393,7 @@
   args={{
     geometry: africaTopojson as unknown as Topology,
     locationLabel: 'Africa',
+    labelOffset: [0, 5, 0, 0],
     class: 'inset-map-region',
     corner: 'top-right',
     annotations: [

@@ -117,7 +117,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@lottiefiles/dotlottie-web": "^0.52.2",
-    "@reuters-graphics/graphics-atlas-client": "github:reuters-graphics/graphics-atlas-client#install/0.5.3-rc.1",
+    "@reuters-graphics/graphics-atlas-client": "^1.0.0",
     "@reuters-graphics/svelte-markdown": "^0.0.3",
     "@sveltejs/kit": "^2.69.1",
     "@types/geojson": "^7946.0.16",

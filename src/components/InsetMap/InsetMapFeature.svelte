@@ -23,9 +23,11 @@ ships every segment with that flag).
     label?: string;
     /** Fine-tune this feature's label position as `[top, right, bottom, left]` px. Defaults to `[0, 0, 0, 0]`. */
     labelOffset?: InsetMapLabelOffset;
+    /** Custom class added to this feature's rendered shape/border, so it can be styled apart from the rest of the inset. */
+    class?: string;
   }
 
-  let { geometry, label, labelOffset }: Props = $props();
+  let { geometry, label, labelOffset, class: cls }: Props = $props();
 
   const ctx = getContext<InsetMapContext>('inset-map');
   if (!ctx) {
@@ -45,6 +47,7 @@ ships every segment with that flag).
       features: topologyToFeatures(geometry),
       label,
       labelOffset,
+      class: cls,
     });
   });
 </script>

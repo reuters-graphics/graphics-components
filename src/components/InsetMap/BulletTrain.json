@@ -1,0 +1,14 @@
+{
+  "type": "Feature",
+  "properties": { "name": "Tokaido Shinkansen" },
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [136.8816, 35.1709],
+      [136.6885, 35.3168],
+      [136.2895, 35.3167],
+      [135.7681, 34.9858],
+      [135.5, 34.7338]
+    ]
+  }
+}
