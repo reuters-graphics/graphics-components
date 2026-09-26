@@ -214,10 +214,10 @@ anything else that needs to orient readers with a location.
 </script>
 
 <script lang="ts">
-  import { getContext, setContext, type Snippet } from 'svelte';
+  import { setContext, type Snippet } from 'svelte';
   import { SvelteMap } from 'svelte/reactivity';
-  import type { Writable } from 'svelte/store';
   import type { Map as MaplibreMap } from 'maplibre-gl';
+  import { getTileMapContext } from '../TileMap/context';
   import {
     geoCentroid,
     geoMercator,
@@ -270,7 +270,7 @@ anything else that needs to orient readers with a location.
 
   const childFeatures = new SvelteMap<string, InsetMapChildFeature>();
 
-  const mapStore = getContext<Writable<MaplibreMap | null> | undefined>('map');
+  const mapStore = getTileMapContext()?.map;
 
   /** The parent `TileMap`'s current viewport, kept in sync with its pan/zoom. Only set when nested inside a `TileMap` and `showBounds` is on. */
   let viewportBounds = $state<[number, number, number, number] | null>(null);
