@@ -83,86 +83,6 @@ enableTerrain(map); // or enableTerrain(map, 2) for more exaggeration
 disableTerrain(map);
 ```
 
-## Adding a deck.gl layer
-
-Use deck.gl when a map needs WebGL layers such as extruded polygons, arcs or large point collections. The example below adapts deck.gl's official `GeoJsonLayer` pattern to render a small local set of building footprints inside the Reuters basemap.
-
-<Canvas of={TileMapStories.DeckGlBuildings} />
-
-[Demo](?path=/story/components-graphics-tilemap--deck-gl-buildings)
-
-Install deck.gl's MapLibre integration and the layer packages your project uses:
-
-```console
-pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
-```
-
-Create the overlay after `TileMap` is ready and remove it when the component is destroyed. `interleaved: true` shares MapLibre's WebGL context, while `beforeId` keeps the basemap's labels above the deck.gl layer.
-
-```svelte
-<script lang="ts">
-  import { onDestroy } from 'svelte';
-  import type { GeoJsonLayerProps } from '@deck.gl/layers';
-  import type { MapLibreOverlay } from '@deck.gl/maplibre';
-  import type { Map as MaplibreMap } from 'maplibre-gl';
-  import { TileMap } from '@reuters-graphics/graphics-components';
-  import buildingsData from './buildings.geojson?raw';
-
-  type BuildingProperties = {
-    description: string;
-  };
-
-  type InterleavedLayerProps = GeoJsonLayerProps<BuildingProperties> & {
-    beforeId?: string;
-  };
-
-  const buildings = JSON.parse(buildingsData);
-  let overlay: MapLibreOverlay | null = null;
-  let destroyed = false;
-
-  async function addDeckLayer(map: MaplibreMap) {
-    const [{ GeoJsonLayer }, { MapLibreOverlay }] = await Promise.all([
-      import('@deck.gl/layers'),
-      import('@deck.gl/maplibre'),
-    ]);
-    if (destroyed) return;
-
-    const beforeId = map
-      .getStyle()
-      .layers?.find((layer) => layer.type === 'symbol')?.id;
-    const layerProps: InterleavedLayerProps = {
-      id: 'buildings',
-      data: buildings,
-      beforeId,
-      extruded: true,
-      getElevation: 18,
-      getFillColor: [201, 61, 46, 220],
-    };
-
-    overlay = new MapLibreOverlay({
-      interleaved: true,
-      layers: [new GeoJsonLayer<BuildingProperties>(layerProps)],
-    });
-    map.addControl(overlay);
-  }
-
-  onDestroy(() => {
-    destroyed = true;
-    overlay?.finalize();
-  });
-</script>
-
-<TileMap
-  center={[-77.02965, 38.91055]}
-  zoom={18}
-  pitch={55}
-  interactive
-  onMapReady={addDeckLayer}
-/>
-```
-
-Keep the deck.gl packages on the same tested minor version. This example uses deck.gl 9.4 with MapLibre 6. For a production component, also guard against a dynamic import finishing after the component has been destroyed; the complete Storybook demo includes that cleanup.
-
 ## Non-interactive mode
 
 Disable interaction for static maps:
@@ -599,6 +519,86 @@ Use reverse geocoding when the interaction starts from a map coordinate instead 
 ```
 
 This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while `reverseGeocode()` handles the API call and typed response data.
+
+## Adding a deck.gl layer
+
+Use deck.gl when a map needs WebGL layers such as extruded polygons, arcs or large point collections. After the MapLibre examples above, this example adapts deck.gl's official `GeoJsonLayer` pattern to render a small local set of building footprints and roof heights around Madison Square in New York.
+
+<Canvas of={TileMapStories.DeckGlBuildings} />
+
+[Demo](?path=/story/components-graphics-tilemap--deck-gl-buildings)
+
+Install deck.gl's MapLibre integration and the layer packages your project uses:
+
+```console
+pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
+```
+
+Create the overlay after `TileMap` is ready and remove it when the component is destroyed. `interleaved: true` shares MapLibre's WebGL context, while `beforeId` keeps the basemap's labels above the deck.gl layer.
+
+```svelte
+<script lang="ts">
+  import { onDestroy } from 'svelte';
+  import type { GeoJsonLayerProps } from '@deck.gl/layers';
+  import type { MapLibreOverlay } from '@deck.gl/maplibre';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+  import { TileMap } from '@reuters-graphics/graphics-components';
+  import buildingsData from './buildings.geojson?raw';
+
+  type BuildingProperties = {
+    heightMeters: number;
+  };
+
+  type InterleavedLayerProps = GeoJsonLayerProps<BuildingProperties> & {
+    beforeId?: string;
+  };
+
+  const buildings = JSON.parse(buildingsData);
+  let overlay: MapLibreOverlay | null = null;
+  let destroyed = false;
+
+  async function addDeckLayer(map: MaplibreMap) {
+    const [{ GeoJsonLayer }, { MapLibreOverlay }] = await Promise.all([
+      import('@deck.gl/layers'),
+      import('@deck.gl/maplibre'),
+    ]);
+    if (destroyed) return;
+
+    const beforeId = map
+      .getStyle()
+      .layers?.find((layer) => layer.type === 'symbol')?.id;
+    const layerProps: InterleavedLayerProps = {
+      id: 'buildings',
+      data: buildings,
+      beforeId,
+      extruded: true,
+      getElevation: (feature) => feature.properties.heightMeters,
+      getFillColor: [201, 61, 46, 220],
+    };
+
+    overlay = new MapLibreOverlay({
+      interleaved: true,
+      layers: [new GeoJsonLayer<BuildingProperties>(layerProps)],
+    });
+    map.addControl(overlay);
+  }
+
+  onDestroy(() => {
+    destroyed = true;
+    overlay?.finalize();
+  });
+</script>
+
+<TileMap
+  center={[-73.9885, 40.7422]}
+  zoom={15.8}
+  pitch={50}
+  interactive
+  onMapReady={addDeckLayer}
+/>
+```
+
+The complete Storybook demo uses a static subset of New York City's Building Footprints data, with source roof heights converted to metres. Keep the deck.gl packages on the same tested minor version. This example uses deck.gl 9.4 with MapLibre 6 and guards against a dynamic import finishing after the component has been destroyed.
 
 ## Advanced usage
 

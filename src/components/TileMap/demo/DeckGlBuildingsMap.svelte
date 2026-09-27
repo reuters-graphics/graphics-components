@@ -6,10 +6,13 @@
   import type { Feature, FeatureCollection, Polygon } from 'geojson';
   import type { Map as MaplibreMap } from 'maplibre-gl';
   import TileMap from '../TileMap.svelte';
-  import buildingsData from './logan-circle-buildings.geojson?raw';
+  import buildingsData from './madison-square-buildings.geojson?raw';
 
   interface BuildingProperties {
-    description: string;
+    bin: string;
+    name: string | null;
+    heightMeters: number;
+    constructionYear: number | null;
   }
 
   type BuildingFeature = Feature<Polygon, BuildingProperties>;
@@ -35,7 +38,10 @@
   function getTooltip({ object }: PickingInfo<BuildingFeature>) {
     if (!object) return null;
 
-    return { text: `Building footprint ${String(object.id)}` };
+    const { bin, name, heightMeters } = object.properties;
+    return {
+      text: `${name ?? `Building ${bin}`}\n${Math.round(heightMeters)} m roof height`,
+    };
   }
 
   function removeOverlay() {
@@ -59,7 +65,7 @@
       if (currentLoadId !== loadId) return;
 
       const layerProps: OverlayLayerProps = {
-        id: 'logan-circle-buildings',
+        id: 'madison-square-buildings',
         data: buildings,
         beforeId: findFirstSymbolLayerId(map),
         extruded: true,
@@ -67,7 +73,7 @@
         stroked: true,
         wireframe: false,
         opacity: 0.85,
-        getElevation: 18,
+        getElevation: (feature) => feature.properties.heightMeters,
         getFillColor: [201, 61, 46, 220],
         getLineColor: [255, 255, 255, 170],
         lineWidthMinPixels: 1,
@@ -104,14 +110,14 @@
 
 <TileMap
   id="deck-gl-buildings-map"
-  center={[-77.02965, 38.91055]}
-  zoom={18}
-  pitch={55}
+  center={[-73.9885, 40.7422]}
+  zoom={15.8}
+  pitch={50}
   interactive
   emphasizeLabels
-  title="Extruded buildings near Logan Circle"
-  description="A small deck.gl GeoJsonLayer renders extruded building footprints inside the Reuters MapLibre basemap. The extrusion height is illustrative."
-  notes="Building footprints: District of Columbia Office of the Chief Technology Officer, [Building Footprints 2023](https://www.arcgis.com/home/item.html?id=65246daf2e12425bae77e12dab00336f), licensed under CC BY 4.0. Subset and coordinate precision reduced by Reuters Graphics."
+  title="Buildings around Madison Square"
+  description="A small deck.gl GeoJsonLayer renders building footprints and roof heights inside the Reuters MapLibre basemap. Hover over a building for details."
+  notes="Building footprints and roof heights: New York City Office of Technology and Innovation, [Building Footprints](https://data.cityofnewyork.us/d/5zhs-2jue), published under the [NYC Open Data Terms of Use](https://opendata.cityofnewyork.us/overview/#termsofuse). Subset selected near Madison Square, heights converted to metres and coordinate precision reduced by Reuters Graphics."
   height="500px"
   onMapReady={handleMapReady}
 >
