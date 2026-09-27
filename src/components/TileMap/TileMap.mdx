@@ -522,7 +522,7 @@ This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while
 
 ## Adding a deck.gl layer
 
-Use deck.gl when a map needs WebGL layers such as extruded polygons, arcs or large point collections. After the MapLibre examples above, this example adapts deck.gl's official `GeoJsonLayer` pattern to render a small local set of building footprints and roof heights around Madison Square in New York.
+Use deck.gl when a map needs WebGL layers such as extruded polygons, arcs or large point collections. After the MapLibre examples above, this example adapts deck.gl's official `GeoJsonLayer` pattern to render a local set of building footprints and roof heights around Madison Square in New York.
 
 <Canvas of={TileMapStories.DeckGlBuildings} />
 
@@ -588,8 +588,6 @@ Create the overlay after `TileMap` is ready and remove it when the component is 
   onMapReady={addDeckLayer}
 />
 ```
-
-The complete Storybook demo uses a static subset of New York City's Building Footprints data, with source roof heights converted to metres. Keep the deck.gl packages on the same tested minor version. This example uses deck.gl 9.4 with MapLibre 6 and guards against a dynamic import finishing after the component has been destroyed.
 
 ## Advanced usage
 

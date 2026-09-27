@@ -106,7 +106,7 @@
   pitch={50}
   interactive
   title="Buildings around Madison Square"
-  description="A small deck.gl GeoJsonLayer renders building footprints and roof heights inside the Reuters MapLibre basemap. Hover over a building for details."
+  description="A deck.gl GeoJsonLayer renders building footprints and roof heights inside the Reuters MapLibre basemap. Hover over a building for details."
   notes="Building footprints and roof heights: New York City Office of Technology and Innovation, [Building Footprints](https://data.cityofnewyork.us/d/5zhs-2jue), published under the [NYC Open Data Terms of Use](https://opendata.cityofnewyork.us/overview/#termsofuse). Subset selected near Madison Square, heights converted to metres and coordinate precision reduced by Reuters Graphics."
   height="500px"
   onMapReady={handleMapReady}
