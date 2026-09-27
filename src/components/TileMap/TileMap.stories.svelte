@@ -335,15 +335,6 @@
   </TileMap>
 </Story>
 
-<Story
-  asChild
-  name="Deck.gl buildings"
-  exportName="DeckGlBuildings"
-  tags={['!autodocs']}
->
-  <DeckGlBuildingsMap />
-</Story>
-
 <Story asChild name="With callouts" tags={['!autodocs']}>
   <TileMap
     id="callout-map"
@@ -450,6 +441,15 @@
 
 <Story asChild name="Reverse geocoding on click">
   <ReverseGeocodeMap accessToken={mapboxAccessToken} />
+</Story>
+
+<Story
+  asChild
+  name="Deck.gl buildings"
+  exportName="DeckGlBuildings"
+  tags={['!autodocs']}
+>
+  <DeckGlBuildingsMap />
 </Story>
 
 <style>
