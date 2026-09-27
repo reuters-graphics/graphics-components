@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import type { PickingInfo } from '@deck.gl/core';
-  import type { GeoJsonLayerProps } from '@deck.gl/layers';
   import type { MapLibreOverlay } from '@deck.gl/maplibre';
   import type { Feature, FeatureCollection, Polygon } from 'geojson';
   import type { Map as MaplibreMap } from 'maplibre-gl';
@@ -16,9 +15,6 @@
   }
 
   type BuildingFeature = Feature<Polygon, BuildingProperties>;
-  type OverlayLayerProps = GeoJsonLayerProps<BuildingProperties> & {
-    beforeId?: string;
-  };
   type LoadStatus = 'loading' | 'ready' | 'error';
 
   const buildings = JSON.parse(buildingsData) as FeatureCollection<
@@ -30,10 +26,6 @@
   let loadStatus = $state<LoadStatus>('loading');
   let errorMessage = $state('');
   let loadId = 0;
-
-  function findFirstSymbolLayerId(map: MaplibreMap): string | undefined {
-    return map.getStyle().layers?.find((layer) => layer.type === 'symbol')?.id;
-  }
 
   function getTooltip({ object }: PickingInfo<BuildingFeature>) {
     if (!object) return null;
@@ -64,25 +56,24 @@
 
       if (currentLoadId !== loadId) return;
 
-      const layerProps: OverlayLayerProps = {
-        id: 'madison-square-buildings',
-        data: buildings,
-        beforeId: findFirstSymbolLayerId(map),
-        extruded: true,
-        filled: true,
-        stroked: true,
-        wireframe: false,
-        opacity: 0.85,
-        getElevation: (feature) => feature.properties.heightMeters,
-        getFillColor: [201, 61, 46, 220],
-        getLineColor: [255, 255, 255, 170],
-        lineWidthMinPixels: 1,
-        pickable: true,
-      };
-
       const nextOverlay = new MapLibreOverlay({
         interleaved: true,
-        layers: [new GeoJsonLayer<BuildingProperties>(layerProps)],
+        layers: [
+          new GeoJsonLayer<BuildingProperties>({
+            id: 'madison-square-buildings',
+            data: buildings,
+            extruded: true,
+            filled: true,
+            stroked: true,
+            wireframe: false,
+            opacity: 0.85,
+            getElevation: (feature) => feature.properties.heightMeters,
+            getFillColor: [201, 61, 46, 220],
+            getLineColor: [255, 255, 255, 170],
+            lineWidthMinPixels: 1,
+            pickable: true,
+          }),
+        ],
         getTooltip,
       });
 
@@ -114,7 +105,6 @@
   zoom={15.8}
   pitch={50}
   interactive
-  emphasizeLabels
   title="Buildings around Madison Square"
   description="A small deck.gl GeoJsonLayer renders building footprints and roof heights inside the Reuters MapLibre basemap. Hover over a building for details."
   notes="Building footprints and roof heights: New York City Office of Technology and Innovation, [Building Footprints](https://data.cityofnewyork.us/d/5zhs-2jue), published under the [NYC Open Data Terms of Use](https://opendata.cityofnewyork.us/overview/#termsofuse). Subset selected near Madison Square, heights converted to metres and coordinate precision reduced by Reuters Graphics."

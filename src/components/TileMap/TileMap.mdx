@@ -534,12 +534,11 @@ Install deck.gl's MapLibre integration and the layer packages your project uses:
 pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
 ```
 
-Create the overlay after `TileMap` is ready and remove it when the component is destroyed. `interleaved: true` shares MapLibre's WebGL context, while `beforeId` keeps the basemap's labels above the deck.gl layer.
+Create the overlay after `TileMap` is ready and remove it when the component is destroyed. `interleaved: true` shares MapLibre's WebGL context so deck.gl renders as part of the map.
 
 ```svelte
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import type { GeoJsonLayerProps } from '@deck.gl/layers';
   import type { MapLibreOverlay } from '@deck.gl/maplibre';
   import type { Map as MaplibreMap } from 'maplibre-gl';
   import { TileMap } from '@reuters-graphics/graphics-components';
@@ -547,10 +546,6 @@ Create the overlay after `TileMap` is ready and remove it when the component is 
 
   type BuildingProperties = {
     heightMeters: number;
-  };
-
-  type InterleavedLayerProps = GeoJsonLayerProps<BuildingProperties> & {
-    beforeId?: string;
   };
 
   const buildings = JSON.parse(buildingsData);
@@ -564,21 +559,17 @@ Create the overlay after `TileMap` is ready and remove it when the component is 
     ]);
     if (destroyed) return;
 
-    const beforeId = map
-      .getStyle()
-      .layers?.find((layer) => layer.type === 'symbol')?.id;
-    const layerProps: InterleavedLayerProps = {
-      id: 'buildings',
-      data: buildings,
-      beforeId,
-      extruded: true,
-      getElevation: (feature) => feature.properties.heightMeters,
-      getFillColor: [201, 61, 46, 220],
-    };
-
     overlay = new MapLibreOverlay({
       interleaved: true,
-      layers: [new GeoJsonLayer<BuildingProperties>(layerProps)],
+      layers: [
+        new GeoJsonLayer<BuildingProperties>({
+          id: 'buildings',
+          data: buildings,
+          extruded: true,
+          getElevation: (feature) => feature.properties.heightMeters,
+          getFillColor: [201, 61, 46, 220],
+        }),
+      ],
     });
     map.addControl(overlay);
   }
