@@ -102,7 +102,7 @@
 <TileMap
   id="deck-gl-buildings-map"
   center={[-73.9885, 40.7422]}
-  zoom={16.1}
+  zoom={16.5}
   pitch={50}
   interactive
   title="Buildings around Madison Square"
