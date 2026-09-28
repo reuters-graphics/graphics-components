@@ -39,6 +39,8 @@ The composition is intentionally small. It waits for the parent map, creates `Ma
     deckProps?: Omit<MapLibreOverlayProps, 'interleaved' | 'layers'>;
   } = $props();
 
+  let previousDeckProps = {};
+
   const tileMap = getTileMapContext();
   if (!tileMap) throw new Error('DeckGlOverlay must be used inside TileMap');
 
@@ -53,7 +55,14 @@ The composition is intentionally small. It waits for the parent map, creates `Ma
   });
 
   $effect(() => {
-    overlay?.setProps({ ...deckProps, layers });
+    const removedDeckProps = Object.fromEntries(
+      Object.keys(previousDeckProps)
+        .filter((key) => !(key in deckProps))
+        .map((key) => [key, undefined])
+    );
+
+    overlay?.setProps({ ...removedDeckProps, ...deckProps, layers });
+    previousDeckProps = deckProps;
   });
 </script>
 ```
@@ -78,4 +87,4 @@ Use the composition as a normal child of `TileMap`. Conditional rendering is saf
 </TileMap>
 ```
 
-Replacing `layers` or `deckProps` calls `setProps()` on the existing overlay. Changing `interleaved` recreates the overlay because deck.gl fixes that rendering mode when the overlay is constructed.
+Replacing `layers` or `deckProps` calls `setProps()` on the existing overlay. Removed `deckProps` keys are sent as `undefined` so deck.gl does not retain old callbacks or options. Changing `interleaved` recreates the overlay because deck.gl fixes that rendering mode when the overlay is constructed.

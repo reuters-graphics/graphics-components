@@ -6,6 +6,7 @@
   import type { Map as MaplibreMap } from 'maplibre-gl';
   import { untrack } from 'svelte';
   import { getTileMapContext } from '../../../components/TileMap/context';
+  import { createDeckPropsUpdate, type ForwardedDeckProps } from './helpers';
 
   interface Props {
     /** deck.gl layers rendered by the overlay. */
@@ -13,10 +14,10 @@
     /** Share MapLibre's WebGL context so deck.gl participates in map rendering. */
     interleaved?: boolean;
     /** Standard deck.gl options forwarded to the overlay. */
-    deckProps?: Omit<MapLibreOverlayProps, 'interleaved' | 'layers'>;
+    deckProps?: ForwardedDeckProps;
     /** Called after the overlay has been added to its parent map. */
     onOverlayReady?: (overlay: MapLibreOverlay) => void;
-    /** Called after updated layers or tooltip options reach the overlay. */
+    /** Called after updated layers or deck.gl options reach the overlay. */
     onOverlayUpdated?: (overlay: MapLibreOverlay) => void;
     /** Called after the overlay has been removed from its parent map. */
     onOverlayRemoved?: () => void;
@@ -44,6 +45,7 @@
 
   let overlay = $state.raw<MapLibreOverlay | null>(null);
   let overlayMap = $state.raw<MaplibreMap | null>(null);
+  let previousDeckProps: ForwardedDeckProps = {};
   let setupVersion = 0;
 
   function reportOverlayError(error: unknown) {
@@ -84,6 +86,7 @@
 
     overlay = null;
     overlayMap = null;
+    previousDeckProps = {};
 
     if (!currentOverlay) return;
 
@@ -120,6 +123,7 @@
       }
 
       overlayMap = map;
+      previousDeckProps = deckProps;
       overlay = nextOverlay;
       onOverlayReady?.(nextOverlay);
     } catch (error) {
@@ -167,9 +171,10 @@
 
     try {
       currentOverlay.setProps({
-        ...currentDeckProps,
+        ...createDeckPropsUpdate(previousDeckProps, currentDeckProps),
         layers: currentLayers,
       });
+      previousDeckProps = currentDeckProps;
       untrack(() => onOverlayUpdated?.(currentOverlay));
     } catch (error) {
       removeOverlay();

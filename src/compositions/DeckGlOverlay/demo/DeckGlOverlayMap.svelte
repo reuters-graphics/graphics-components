@@ -6,6 +6,10 @@
   import TileMap from '../../../components/TileMap/TileMap.svelte';
   import DeckGlOverlay from './DeckGlOverlay.svelte';
   import buildingsData from './madison-square-buildings.geojson?raw';
+  import {
+    getBuildingFillColor,
+    selectBuilding as getBuildingSelection,
+  } from './helpers';
 
   interface BuildingProperties {
     bin: string;
@@ -31,12 +35,8 @@
         stroked: true,
         opacity: 0.85,
         getElevation: (feature) => feature.properties.heightMeters,
-        getFillColor: (feature) => {
-          if (feature.properties.bin === selectedBin) {
-            return [244, 176, 41, 255];
-          }
-          return useBlue ? [23, 95, 176, 220] : [201, 61, 46, 220];
-        },
+        getFillColor: (feature) =>
+          getBuildingFillColor(feature.properties.bin, selectedBin, useBlue),
         getLineColor: [255, 255, 255, 170],
         lineWidthMinPixels: 1,
         pickable: true,
@@ -66,13 +66,10 @@
   function selectBuilding({ object }: PickingInfo<BuildingFeature>) {
     if (!object) return;
 
-    const { bin, name } = object.properties;
-    selectedBin = selectedBin === bin ? null : bin;
+    const selection = getBuildingSelection(selectedBin, object.properties);
+    selectedBin = selection.selectedBin;
     layers = createLayers(useBlue, selectedBin);
-    overlayStatus =
-      selectedBin ?
-        `Selected ${name ?? `building ${bin}`}`
-      : 'Selection cleared';
+    overlayStatus = selection.status;
   }
 
   const deckProps = $derived({

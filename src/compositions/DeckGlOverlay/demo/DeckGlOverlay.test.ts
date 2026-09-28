@@ -3,6 +3,11 @@ import { render } from 'svelte/server';
 import { writable } from 'svelte/store';
 import DeckGlOverlay from './DeckGlOverlay.svelte';
 import { tileMapContextKey } from '../../../components/TileMap/context';
+import {
+  createDeckPropsUpdate,
+  getBuildingFillColor,
+  selectBuilding,
+} from './helpers';
 
 describe('DeckGlOverlay composition', () => {
   it('requires TileMap context', () => {
@@ -21,5 +26,36 @@ describe('DeckGlOverlay composition', () => {
     });
 
     expect(result.body).toBe('<!--[--><!--]-->');
+  });
+
+  it('clears deck.gl options removed from deckProps', () => {
+    const onClick = () => undefined;
+    const getCursor = () => 'pointer';
+
+    expect(
+      createDeckPropsUpdate({ onClick, getCursor }, { getCursor })
+    ).toEqual({ onClick: undefined, getCursor });
+  });
+
+  it('selects, recolors and clears a clicked building', () => {
+    const building = { bin: '101', name: 'One Madison' };
+
+    const selected = selectBuilding(null, building);
+    expect(selected).toEqual({
+      selectedBin: '101',
+      status: 'Selected One Madison',
+    });
+    expect(getBuildingFillColor('101', selected.selectedBin, false)).toEqual([
+      244, 176, 41, 255,
+    ]);
+
+    const cleared = selectBuilding(selected.selectedBin, building);
+    expect(cleared).toEqual({
+      selectedBin: null,
+      status: 'Selection cleared',
+    });
+    expect(getBuildingFillColor('101', cleared.selectedBin, false)).toEqual([
+      201, 61, 46, 220,
+    ]);
   });
 });
