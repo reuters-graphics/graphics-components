@@ -1,17 +1,19 @@
 <script lang="ts">
-  import type { DeckProps } from '@deck.gl/core';
-  import type { MapLibreOverlay } from '@deck.gl/maplibre';
+  import type {
+    MapLibreOverlay,
+    MapLibreOverlayProps,
+  } from '@deck.gl/maplibre';
   import type { Map as MaplibreMap } from 'maplibre-gl';
   import { untrack } from 'svelte';
   import { getTileMapContext } from '../../../components/TileMap/context';
 
   interface Props {
     /** deck.gl layers rendered by the overlay. */
-    layers: NonNullable<DeckProps['layers']>;
+    layers: NonNullable<MapLibreOverlayProps['layers']>;
     /** Share MapLibre's WebGL context so deck.gl participates in map rendering. */
     interleaved?: boolean;
-    /** Optional deck.gl tooltip callback. */
-    getTooltip?: DeckProps['getTooltip'];
+    /** Standard deck.gl options forwarded to the overlay. */
+    deckProps?: Omit<MapLibreOverlayProps, 'interleaved' | 'layers'>;
     /** Called after the overlay has been added to its parent map. */
     onOverlayReady?: (overlay: MapLibreOverlay) => void;
     /** Called after updated layers or tooltip options reach the overlay. */
@@ -25,7 +27,7 @@
   let {
     layers,
     interleaved = true,
-    getTooltip,
+    deckProps = {},
     onOverlayReady,
     onOverlayUpdated,
     onOverlayRemoved,
@@ -105,9 +107,9 @@
       if (version !== setupVersion) return;
 
       nextOverlay = new MapLibreOverlay({
+        ...deckProps,
         interleaved: useInterleavedRendering,
         layers,
-        getTooltip,
       });
 
       map.addControl(nextOverlay);
@@ -159,14 +161,14 @@
   $effect(() => {
     const currentOverlay = overlay;
     const currentLayers = layers;
-    const currentTooltip = getTooltip;
+    const currentDeckProps = deckProps;
 
     if (!currentOverlay) return;
 
     try {
       currentOverlay.setProps({
+        ...currentDeckProps,
         layers: currentLayers,
-        getTooltip: currentTooltip,
       });
       untrack(() => onOverlayUpdated?.(currentOverlay));
     } catch (error) {

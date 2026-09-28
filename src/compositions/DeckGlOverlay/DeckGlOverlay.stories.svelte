@@ -41,6 +41,18 @@
     await expect(status).toHaveAttribute('data-overlay-attachments', '1');
 
     await userEvent.click(
+      canvas.getByRole('button', { name: 'Disable selection' })
+    );
+    await expect(status).toHaveTextContent('Building selection disabled');
+    await expect(status).toHaveAttribute('data-overlay-attachments', '1');
+
+    await userEvent.click(
+      canvas.getByRole('button', { name: 'Enable selection' })
+    );
+    await expect(status).toHaveTextContent('Building selection enabled');
+    await expect(status).toHaveAttribute('data-overlay-attachments', '1');
+
+    await userEvent.click(
       canvas.getByRole('button', { name: 'Remove buildings' })
     );
     await expect(status).toHaveTextContent('Overlay removed');
