@@ -17,7 +17,7 @@ Install the deck.gl packages in the project that uses the composition:
 pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
 ```
 
-The composition is intentionally small. It waits for the parent map, creates `MapLibreOverlay`, updates the existing overlay when `layers` or `getTooltip` changes, and removes the control when the child is destroyed.
+The composition is intentionally small. It waits for the parent map, creates `MapLibreOverlay`, updates the existing overlay when `layers` or `getTooltip` changes, and removes the control when the child is destroyed. Optional lifecycle callbacks report when the overlay is ready, updated, removed or fails, which lets a project show an honest loading state and test the real overlay operations.
 
 ```svelte
 <script lang="ts">

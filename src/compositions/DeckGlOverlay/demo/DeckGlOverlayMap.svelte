@@ -42,6 +42,9 @@
   let useBlue = $state(false);
   let layers = $state.raw(createLayers(false));
   let overlayStatus = $state('Waiting for TileMap');
+  let overlayAttachments = $state(0);
+  let overlayUpdates = $state(0);
+  let overlayRemovals = $state(0);
 
   function getTooltip({ object }: PickingInfo<BuildingFeature>) {
     if (!object) return null;
@@ -91,7 +94,13 @@
       <button type="button" onclick={changeColour} disabled={!showBuildings}>
         Change colour
       </button>
-      <span data-testid="overlay-status" aria-live="polite">
+      <span
+        data-testid="overlay-status"
+        data-overlay-attachments={overlayAttachments}
+        data-overlay-updates={overlayUpdates}
+        data-overlay-removals={overlayRemovals}
+        aria-live="polite"
+      >
         {overlayStatus}
       </span>
     </div>
@@ -102,7 +111,20 @@
       {layers}
       {getTooltip}
       onOverlayReady={() => {
+        overlayAttachments += 1;
         overlayStatus = 'Overlay attached';
+      }}
+      onOverlayUpdated={() => {
+        overlayUpdates += 1;
+      }}
+      onOverlayRemoved={() => {
+        overlayRemovals += 1;
+      }}
+      onOverlayError={(error) => {
+        overlayStatus =
+          error instanceof Error ?
+            `Overlay error: ${error.message}`
+          : 'Overlay error';
       }}
     />
   {/if}

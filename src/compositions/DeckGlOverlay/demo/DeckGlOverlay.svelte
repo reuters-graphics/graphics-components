@@ -14,6 +14,12 @@
     getTooltip?: DeckProps['getTooltip'];
     /** Called after the overlay has been added to its parent map. */
     onOverlayReady?: (overlay: MapLibreOverlay) => void;
+    /** Called after updated layers or tooltip options reach the overlay. */
+    onOverlayUpdated?: (overlay: MapLibreOverlay) => void;
+    /** Called after the overlay has been removed from its parent map. */
+    onOverlayRemoved?: () => void;
+    /** Called when the overlay cannot be created, attached or updated. */
+    onOverlayError?: (error: unknown) => void;
   }
 
   let {
@@ -21,6 +27,9 @@
     interleaved = true,
     getTooltip,
     onOverlayReady,
+    onOverlayUpdated,
+    onOverlayRemoved,
+    onOverlayError,
   }: Props = $props();
 
   const tileMap = getTileMapContext();
@@ -35,18 +44,29 @@
   let overlayMap = $state.raw<MaplibreMap | null>(null);
   let setupVersion = 0;
 
-  function removeOverlay() {
-    const currentOverlay = overlay;
-    const currentMap = overlayMap;
-
-    overlay = null;
-    overlayMap = null;
-
-    if (!currentOverlay) return;
-
-    if (currentMap) {
+  function reportOverlayError(error: unknown) {
+    if (onOverlayError) {
       try {
-        currentMap.removeControl(currentOverlay);
+        onOverlayError(error);
+      } catch (callbackError) {
+        console.error(
+          'The deck.gl overlay error callback failed.',
+          callbackError
+        );
+      }
+      return;
+    }
+
+    console.error('The deck.gl overlay encountered an error.', error);
+  }
+
+  function disposeOverlay(
+    map: MaplibreMap | null,
+    currentOverlay: MapLibreOverlay
+  ) {
+    if (map?.hasControl(currentOverlay)) {
+      try {
+        map.removeControl(currentOverlay);
         return;
       } catch {
         // The parent map may already be tearing down. Finalize directly below.
@@ -56,30 +76,66 @@
     currentOverlay.finalize();
   }
 
+  function removeOverlay() {
+    const currentOverlay = overlay;
+    const currentMap = overlayMap;
+
+    overlay = null;
+    overlayMap = null;
+
+    if (!currentOverlay) return;
+
+    try {
+      disposeOverlay(currentMap, currentOverlay);
+      onOverlayRemoved?.();
+    } catch (error) {
+      reportOverlayError(error);
+    }
+  }
+
   async function addOverlay(
     map: MaplibreMap,
     useInterleavedRendering: boolean,
     version: number
   ) {
-    const { MapLibreOverlay } = await import('@deck.gl/maplibre');
-    if (version !== setupVersion) return;
+    let nextOverlay: MapLibreOverlay | null = null;
 
-    const nextOverlay = new MapLibreOverlay({
-      interleaved: useInterleavedRendering,
-      layers,
-      getTooltip,
-    });
+    try {
+      const { MapLibreOverlay } = await import('@deck.gl/maplibre');
+      if (version !== setupVersion) return;
 
-    map.addControl(nextOverlay);
+      nextOverlay = new MapLibreOverlay({
+        interleaved: useInterleavedRendering,
+        layers,
+        getTooltip,
+      });
 
-    if (version !== setupVersion) {
-      map.removeControl(nextOverlay);
-      return;
+      map.addControl(nextOverlay);
+
+      if (version !== setupVersion) {
+        disposeOverlay(map, nextOverlay);
+        return;
+      }
+
+      overlayMap = map;
+      overlay = nextOverlay;
+      onOverlayReady?.(nextOverlay);
+    } catch (error) {
+      if (nextOverlay) {
+        if (overlay === nextOverlay) {
+          overlay = null;
+          overlayMap = null;
+        }
+
+        try {
+          disposeOverlay(map, nextOverlay);
+        } catch {
+          // Report the original mounting error below.
+        }
+      }
+
+      if (version === setupVersion) reportOverlayError(error);
     }
-
-    overlayMap = map;
-    overlay = nextOverlay;
-    onOverlayReady?.(nextOverlay);
   }
 
   $effect(() => {
@@ -105,9 +161,17 @@
     const currentLayers = layers;
     const currentTooltip = getTooltip;
 
-    currentOverlay?.setProps({
-      layers: currentLayers,
-      getTooltip: currentTooltip,
-    });
+    if (!currentOverlay) return;
+
+    try {
+      currentOverlay.setProps({
+        layers: currentLayers,
+        getTooltip: currentTooltip,
+      });
+      untrack(() => onOverlayUpdated?.(currentOverlay));
+    } catch (error) {
+      removeOverlay();
+      reportOverlayError(error);
+    }
   });
 </script>
