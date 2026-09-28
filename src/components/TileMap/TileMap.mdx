@@ -549,10 +549,11 @@ Create the overlay after `TileMap` is ready and remove it when the component is 
   };
 
   const buildings = JSON.parse(buildingsData);
+  let map: MaplibreMap | null = null;
   let overlay: MapLibreOverlay | null = null;
   let destroyed = false;
 
-  async function addDeckLayer(map: MaplibreMap) {
+  async function addDeckLayer(nextMap: MaplibreMap) {
     const [{ GeoJsonLayer }, { MapLibreOverlay }] = await Promise.all([
       import('@deck.gl/layers'),
       import('@deck.gl/maplibre'),
@@ -571,12 +572,18 @@ Create the overlay after `TileMap` is ready and remove it when the component is 
         }),
       ],
     });
-    map.addControl(overlay);
+    nextMap.addControl(overlay);
+    map = nextMap;
   }
 
   onDestroy(() => {
     destroyed = true;
-    overlay?.finalize();
+    if (overlay) {
+      if (map?.hasControl(overlay)) map.removeControl(overlay);
+      overlay.finalize();
+    }
+    map = null;
+    overlay = null;
   });
 </script>
 

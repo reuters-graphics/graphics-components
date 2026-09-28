@@ -22,6 +22,7 @@
     BuildingProperties
   >;
 
+  let activeMap: MaplibreMap | null = null;
   let overlay: MapLibreOverlay | null = null;
   let loadStatus = $state<LoadStatus>('loading');
   let errorMessage = $state('');
@@ -36,9 +37,18 @@
     };
   }
 
+  function disposeOverlay(
+    map: MaplibreMap | null,
+    currentOverlay: MapLibreOverlay
+  ) {
+    if (map?.hasControl(currentOverlay)) map.removeControl(currentOverlay);
+    currentOverlay.finalize();
+  }
+
   function removeOverlay() {
     loadId += 1;
-    overlay?.finalize();
+    if (overlay) disposeOverlay(activeMap, overlay);
+    activeMap = null;
     overlay = null;
   }
 
@@ -80,10 +90,11 @@
       map.addControl(nextOverlay);
 
       if (currentLoadId !== loadId) {
-        nextOverlay.finalize();
+        disposeOverlay(map, nextOverlay);
         return;
       }
 
+      activeMap = map;
       overlay = nextOverlay;
       loadStatus = 'ready';
     } catch (error) {
