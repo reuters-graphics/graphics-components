@@ -1,5 +1,18 @@
 # @reuters-graphics/graphics-components
 
+## 4.14.0
+
+### Minor Changes
+
+- e71f5ae: Expose read-only TileMap context, inline styles and advanced MapLibre options for custom layer integrations.
+
+### Patch Changes
+
+- e1cef79: Add a deck.gl composition showing how reusable, late-mounted overlays can use TileMap context.
+- decee0a: Expand the deck.gl overlay composition with standard deck.gl options and a building-selection example.
+- dfc0388: Add a deck.gl composition showing reusable, accessible data animation with a stable overlay.
+- 4c45f43: Document how to render an interleaved deck.gl building layer inside TileMap.
+
 ## 4.13.0
 
 ### Minor Changes
