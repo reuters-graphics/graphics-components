@@ -62,7 +62,7 @@ The composition is intentionally small. It waits for the parent map, creates `Ma
     );
 
     overlay?.setProps({ ...removedDeckProps, ...deckProps, layers });
-    previousDeckProps = deckProps;
+    previousDeckProps = { ...deckProps };
   });
 </script>
 ```

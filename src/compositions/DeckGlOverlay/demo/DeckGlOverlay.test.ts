@@ -4,9 +4,11 @@ import { writable } from 'svelte/store';
 import DeckGlOverlay from './DeckGlOverlay.svelte';
 import { tileMapContextKey } from '../../../components/TileMap/context';
 import {
+  createDeckPropsSnapshot,
   createDeckPropsUpdate,
   getBuildingFillColor,
   selectBuilding,
+  type ForwardedDeckProps,
 } from './helpers';
 
 describe('DeckGlOverlay composition', () => {
@@ -31,10 +33,15 @@ describe('DeckGlOverlay composition', () => {
   it('clears deck.gl options removed from deckProps', () => {
     const onClick = () => undefined;
     const getCursor = () => 'pointer';
+    const deckProps: ForwardedDeckProps = { onClick, getCursor };
+    const previousDeckProps = createDeckPropsSnapshot(deckProps);
 
-    expect(
-      createDeckPropsUpdate({ onClick, getCursor }, { getCursor })
-    ).toEqual({ onClick: undefined, getCursor });
+    delete deckProps.onClick;
+
+    expect(createDeckPropsUpdate(previousDeckProps, deckProps)).toEqual({
+      onClick: undefined,
+      getCursor,
+    });
   });
 
   it('selects, recolors and clears a clicked building', () => {

@@ -32,6 +32,12 @@ export function createDeckPropsUpdate(
   return { ...removed, ...current };
 }
 
+export function createDeckPropsSnapshot(
+  deckProps: ForwardedDeckProps
+): ForwardedDeckProps {
+  return { ...deckProps };
+}
+
 export function selectBuilding(
   currentBin: string | null,
   building: BuildingProperties

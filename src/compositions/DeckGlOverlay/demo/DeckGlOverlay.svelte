@@ -6,7 +6,11 @@
   import type { Map as MaplibreMap } from 'maplibre-gl';
   import { untrack } from 'svelte';
   import { getTileMapContext } from '../../../components/TileMap/context';
-  import { createDeckPropsUpdate, type ForwardedDeckProps } from './helpers';
+  import {
+    createDeckPropsSnapshot,
+    createDeckPropsUpdate,
+    type ForwardedDeckProps,
+  } from './helpers';
 
   interface Props {
     /** deck.gl layers rendered by the overlay. */
@@ -123,7 +127,7 @@
       }
 
       overlayMap = map;
-      previousDeckProps = deckProps;
+      previousDeckProps = createDeckPropsSnapshot(deckProps);
       overlay = nextOverlay;
       onOverlayReady?.(nextOverlay);
     } catch (error) {
@@ -174,7 +178,7 @@
         ...createDeckPropsUpdate(previousDeckProps, currentDeckProps),
         layers: currentLayers,
       });
-      previousDeckProps = currentDeckProps;
+      previousDeckProps = createDeckPropsSnapshot(currentDeckProps);
       untrack(() => onOverlayUpdated?.(currentOverlay));
     } catch (error) {
       removeOverlay();
