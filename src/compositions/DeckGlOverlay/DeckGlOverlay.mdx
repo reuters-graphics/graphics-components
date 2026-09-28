@@ -128,4 +128,4 @@ function createLayers(activeYear: number, reducedMotion: boolean) {
 
 Each frame replaces the layer, not the overlay. Reusing the layer ID lets deck.gl match the old and new layer, `updateTriggers` tells it which accessors depend on the year, and `transitions` animates the changed elevation and colour values. The map, WebGL context and overlay remain in place throughout playback.
 
-Copy both `AnimatedBuildingHistory.svelte` and `FramePlaybackController.ts` when adapting this pattern. The small GeoJSON example favors readable code; projects with tens of thousands of features may want to update typed arrays instead, as the sea-temperature story does.
+Copy both `AnimatedBuildingHistory.svelte` and `FramePlaybackController.ts` when adapting this pattern. The small GeoJSON example favors readable code; projects with tens of thousands of features may want to update typed arrays instead of recalculating every feature on each frame.

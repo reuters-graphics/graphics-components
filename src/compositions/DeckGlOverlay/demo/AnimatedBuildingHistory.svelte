@@ -180,6 +180,7 @@
             min="0"
             max={years.length - 1}
             value={activeIndex}
+            aria-valuetext={String(activeYear)}
             oninput={(event) =>
               playback?.setIndex(event.currentTarget.valueAsNumber)}
           />

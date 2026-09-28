@@ -98,6 +98,7 @@
     await expect(canvas.getByTestId('animation-year')).toHaveTextContent(
       '1850'
     );
+    await expect(slider).toHaveAttribute('aria-valuetext', '1850');
     await waitFor(
       () =>
         expect(Number(status.dataset.overlayUpdates)).toBeGreaterThan(

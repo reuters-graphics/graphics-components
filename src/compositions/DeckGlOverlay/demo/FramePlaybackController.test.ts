@@ -97,6 +97,22 @@ describe('FramePlaybackController', () => {
     });
   });
 
+  it('rejects invalid frame indexes without changing playback state', () => {
+    const playback = new FramePlaybackController(4, () => undefined, 100);
+
+    expect(() => playback.setIndex(Number.NaN)).toThrow(
+      'Playback index must be a whole number.'
+    );
+    expect(() => playback.setIndex(1.5)).toThrow(
+      'Playback index must be a whole number.'
+    );
+    expect(playback.current).toEqual({
+      index: 0,
+      running: false,
+      readerControlled: false,
+    });
+  });
+
   it('always pauses offscreen and only permits untouched autoplay to resume', () => {
     const playback = new FramePlaybackController(3, () => undefined, 100);
 

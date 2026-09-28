@@ -58,6 +58,10 @@ export class FramePlaybackController {
   }
 
   setIndex(index: number): void {
+    if (!Number.isInteger(index)) {
+      throw new RangeError('Playback index must be a whole number.');
+    }
+
     this.state.readerControlled = true;
     this.stop();
     this.state.index = Math.max(0, Math.min(index, this.frameCount - 1));
