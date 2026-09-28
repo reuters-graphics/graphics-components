@@ -1,14 +1,3 @@
-import type { MapLibreOverlayProps } from '@deck.gl/maplibre';
-
-export type ForwardedDeckProps = Omit<
-  MapLibreOverlayProps,
-  'interleaved' | 'layers'
->;
-
-type DeckPropsUpdate = {
-  [Key in keyof ForwardedDeckProps]?: ForwardedDeckProps[Key] | undefined;
-};
-
 interface BuildingProperties {
   bin: string;
   name: string | null;
@@ -17,25 +6,6 @@ interface BuildingProperties {
 interface BuildingSelection {
   selectedBin: string | null;
   status: string;
-}
-
-export function createDeckPropsUpdate(
-  previous: ForwardedDeckProps,
-  current: ForwardedDeckProps
-): DeckPropsUpdate {
-  const removed = Object.fromEntries(
-    (Object.keys(previous) as (keyof ForwardedDeckProps)[])
-      .filter((key) => !(key in current))
-      .map((key) => [key, undefined])
-  ) as DeckPropsUpdate;
-
-  return { ...removed, ...current };
-}
-
-export function createDeckPropsSnapshot(
-  deckProps: ForwardedDeckProps
-): ForwardedDeckProps {
-  return { ...deckProps };
 }
 
 export function selectBuilding(

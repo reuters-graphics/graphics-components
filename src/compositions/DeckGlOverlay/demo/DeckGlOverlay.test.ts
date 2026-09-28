@@ -1,15 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { render } from 'svelte/server';
 import { writable } from 'svelte/store';
-import DeckGlOverlay from './DeckGlOverlay.svelte';
-import { tileMapContextKey } from '../../../components/TileMap/context';
-import {
+import DeckGlOverlay, {
   createDeckPropsSnapshot,
   createDeckPropsUpdate,
-  getBuildingFillColor,
-  selectBuilding,
   type ForwardedDeckProps,
-} from './helpers';
+} from './DeckGlOverlay.svelte';
+import { tileMapContextKey } from '../../../components/TileMap/context';
+import { getBuildingFillColor, selectBuilding } from './helpers';
 
 describe('DeckGlOverlay composition', () => {
   it('requires TileMap context', () => {
