@@ -20,13 +20,20 @@
 </script>
 
 <script lang="ts">
-  import { onMount, onDestroy, setContext, type Snippet } from 'svelte';
-  import { writable } from 'svelte/store';
+  import { onMount, onDestroy, type Snippet } from 'svelte';
   import GraphicBlock from '../GraphicBlock/GraphicBlock.svelte';
   import type { ContainerWidth } from '../@types/global';
-  import type { ProjectionSpecification } from 'maplibre-gl';
+  import type {
+    ProjectionSpecification,
+    StyleSpecification,
+  } from 'maplibre-gl';
+  import { createTileMapContextState, setTileMapContext } from './context';
   import { emphasizePlaceLabels } from './labels';
-  import { enableTerrain, DEFAULT_TERRAIN_EXAGGERATION } from './terrain';
+  import {
+    completeTileMapSetup,
+    createTileMapOptions,
+    type TileMapMapOptions,
+  } from './options';
   import { configureMaplibreWorker } from './worker';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -81,9 +88,14 @@
      */
     interactive?: boolean;
     /**
-     * Map style URL
+     * MapLibre style URL or inline style object.
      */
-    styleUrl?: string;
+    styleUrl?: string | StyleSpecification;
+    /**
+     * Additional MapLibre constructor options that do not have first-class
+     * TileMap props. TileMap defaults are applied first, then these options.
+     */
+    mapOptions?: TileMapMapOptions;
     /**
      * Darken the basemap's place labels and give them a strong white halo, so
      * city/region names stay readable over colored data layers. Applied once on
@@ -129,6 +141,7 @@
     pitch = 0,
     interactive = true,
     styleUrl = 'https://graphics.thomsonreuters.com/reuters-protomaps/style.json',
+    mapOptions,
     emphasizeLabels = false,
     height = '500px',
     width = 'normal',
@@ -141,19 +154,15 @@
   let mapContainer: HTMLDivElement;
   let map: maplibregl.Map | null = null;
 
-  // Create a writable store for the map instance
-  const mapStore = writable<maplibregl.Map | null>(null);
-
-  // Set context with the store immediately (not in onMount)
-  setContext('map', mapStore);
+  const tileMapContext = createTileMapContextState();
+  setTileMapContext(tileMapContext.context);
 
   onMount(() => {
     if (typeof window !== 'undefined' && mapContainer) {
       // Set up PMTiles protocol (only once per page)
       ensurePMTilesProtocol();
 
-      // Set the map options
-      const mapOptions: maplibregl.MapOptions = {
+      const resolvedMapOptions = createTileMapOptions({
         container: mapContainer,
         style: styleUrl,
         center,
@@ -161,24 +170,19 @@
         minZoom,
         maxZoom,
         pitch,
-        attributionControl: false,
-        scrollZoom: false, // Always disabled for consistency
-        doubleClickZoom: interactive,
-        dragPan: interactive,
-        touchPitch: false, // Disabled to prevent unwanted tilting
-        touchZoomRotate: interactive,
-        boxZoom: interactive,
-        keyboard: interactive,
-      };
+        interactive,
+        mapOptions,
+      });
 
       configureMaplibreWorker();
 
-      const mapInstance = new maplibregl.Map(mapOptions);
+      const mapInstance = new maplibregl.Map(resolvedMapOptions);
 
       map = mapInstance;
 
-      // Update the store with the map instance
-      mapStore.set(mapInstance);
+      // Publish the instance immediately. Child components can observe the
+      // separate `ready` store before adding layers that need the loaded style.
+      tileMapContext.setMap(mapInstance);
 
       // Initialize controls only if interactive
       if (interactive) {
@@ -213,30 +217,22 @@
       map.on('load', () => {
         if (!map) return;
 
-        // Set projection after map loads if specified
-        if (projection) {
-          map.setProjection(projection);
-        }
-
-        if (terrain !== false) {
-          enableTerrain(
-            map,
-            terrain === true ? DEFAULT_TERRAIN_EXAGGERATION : terrain
-          );
-        }
-
-        if (onMapReady) {
-          onMapReady(map);
-        }
+        completeTileMapSetup({
+          map,
+          projection,
+          terrain,
+          setReady: tileMapContext.setReady,
+          onMapReady,
+        });
       });
     }
   });
 
   onDestroy(() => {
+    tileMapContext.reset();
     if (map) {
       map.remove();
       map = null;
-      mapStore.set(null);
     }
   });
 </script>

@@ -417,7 +417,7 @@ This example layers a real wildfire event over a custom basemap style: a burnt-a
 </style>
 ```
 
-`styleUrl` on `TileMap` accepts any MapLibre style URL, not just the default — the example above uses a custom style with muted forest colors so the burnt-area fill and fire hotspots stand out. [Download `wildfire-style.json`](https://raw.githubusercontent.com/reuters-graphics/graphics-components/main/src/components/TileMap/demo/wildfire-style.json) to use it in your own project.
+`styleUrl` on `TileMap` accepts a MapLibre style URL or an inline `StyleSpecification`, not just the default — the example above uses a custom style with muted forest colors so the burnt-area fill and fire hotspots stand out. [Download `wildfire-style.json`](https://raw.githubusercontent.com/reuters-graphics/graphics-components/main/src/components/TileMap/demo/wildfire-style.json) to use it in your own project.
 
 The burnt-area perimeter (`navaluenga-burnt-area.geojson`) is the [Copernicus EMS/EFFIS rapid damage assessment](https://forest-fire.emergency.copernicus.eu/applications/data-and-services) polygon for the Navaluenga fire (Ávila, Spain, July 2026). The hotspots (`fire-spots.geojson`) are [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) VIIRS/MODIS active-fire detections for the same event — both are static snapshots bundled with this repo for the demo, not live-fetched.
 
@@ -522,7 +522,7 @@ This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while
 
 ## Advanced usage
 
-For more control over the map, you can use the `onMapReady` callback to access the MapLibre GL instance:
+For one-off setup, use the `onMapReady` callback to access the MapLibre GL instance. The callback runs after the initial projection and terrain setup is complete:
 
 ```svelte
 <script>
@@ -548,8 +548,31 @@ For more control over the map, you can use the `onMapReady` callback to access t
   }
 </script>
 
-<Map id="custom-map" center={[0, 0]} zoom={2} onMapReady={handleMapReady} />
+<TileMap id="custom-map" center={[0, 0]} zoom={2} onMapReady={handleMapReady} />
 ```
+
+Reusable child components can use the read-only TileMap context instead. The map store is populated as soon as MapLibre is constructed; the ready store changes to `true` after the initial style, projection and terrain setup is complete.
+
+```svelte
+<script lang="ts">
+  import { getTileMapContext } from '@reuters-graphics/graphics-components';
+
+  const tileMap = getTileMapContext();
+  if (!tileMap) throw new Error('This component must be used inside TileMap');
+
+  const { map: mapStore, ready: readyStore } = tileMap;
+
+  $effect(() => {
+    if (!$mapStore || !$readyStore) return;
+
+    // Add custom layers or controls, and return cleanup when needed.
+  });
+</script>
+```
+
+Use `mapOptions` for MapLibre constructor settings that do not already have first-class TileMap props. Reuters defaults are applied first, followed by `mapOptions`; the map container and first-class props such as `center`, `zoom`, `pitch`, `interactive` and `styleUrl` are always applied last. MapLibre's built-in container resize tracking is on by default, and can be disabled with `mapOptions={{ trackResize: false }}` when a project needs to manage resizing itself.
+
+For custom MapLibre or interleaved deck.gl layers, the exported `findFirstSymbolLayerId(map)` helper returns a useful `beforeId` that keeps basemap labels above the data layer.
 
 ## Props
 
@@ -560,7 +583,8 @@ For more control over the map, you can use the `onMapReady` callback to access t
 - **terrain**: `boolean | number` - Show 3D terrain from the style's elevation tiles. `true` uses the default exaggeration of `1.5`; pass a number to set your own (default: `false`). Needs a non-zero `pitch` to be visible.
 - **pitch**: `number` - Tilt the map, in degrees away from straight down, capped at `60` (default: `0`)
 - **interactive**: `boolean` - Enable interactive controls (default: `true`)
-- **styleUrl**: `string` - Map style URL (default: Reuters Protomaps style)
+- **styleUrl**: `string | StyleSpecification` - MapLibre style URL or inline style object (default: Reuters Protomaps style)
+- **mapOptions**: `TileMapMapOptions` - Additional MapLibre constructor options that do not already have first-class TileMap props
 - **emphasizeLabels**: `boolean` - Darken the basemap's place labels and add a white halo so city/region names stay readable over colored data layers (default: `false`). Applied on map load; a no-op on styles without `place` labels.
 - **height**: `string` - Map height in CSS units (default: `'500px'`)
 - **width**: `ContainerWidth` - Width within the text well (default: `'normal'`)

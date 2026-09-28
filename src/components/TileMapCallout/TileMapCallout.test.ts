@@ -13,6 +13,7 @@ import TileMapCallout, {
   normalizeTileMapCalloutSurface,
   resolveTileMapCalloutGeometry,
 } from './TileMapCallout.svelte';
+import { tileMapContextKey } from '../TileMap/context';
 
 describe('TileMapCallout helpers', () => {
   it('normalizes placement values', () => {
@@ -120,7 +121,9 @@ describe('TileMapCallout component', () => {
   const renderWithMap = (props: ComponentProps<typeof TileMapCallout>) =>
     render(TileMapCallout, {
       props,
-      context: new Map([['map', writable(null)]]),
+      context: new Map([
+        [tileMapContextKey, { map: writable(null), ready: writable(false) }],
+      ]),
     });
 
   it('requires TileMap context', () => {

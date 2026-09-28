@@ -54,6 +54,12 @@ export type { LocalDateTimeProps } from './components/LocalDateTime/LocalDateTim
 export { default as TileMapCallout } from './components/TileMapCallout/TileMapCallout.svelte';
 export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
+export {
+  getTileMapContext,
+  type TileMapContext,
+} from './components/TileMap/context';
+export type { TileMapMapOptions } from './components/TileMap/options';
+export { findFirstSymbolLayerId } from './components/TileMap/labels';
 export { default as InsetMap } from './components/InsetMap/InsetMap.svelte';
 export { default as InsetMapFeature } from './components/InsetMap/InsetMapFeature.svelte';
 export {

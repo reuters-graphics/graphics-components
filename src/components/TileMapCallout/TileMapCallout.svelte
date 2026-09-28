@@ -132,9 +132,9 @@ placement and lifecycle through the map context.
 
 <script lang="ts">
   import * as maplibregl from 'maplibre-gl';
-  import { getContext, onDestroy, type Snippet } from 'svelte';
-  import type { Map as MaplibreMap, Marker } from 'maplibre-gl';
-  import type { Writable } from 'svelte/store';
+  import { onDestroy, type Snippet } from 'svelte';
+  import type { Marker } from 'maplibre-gl';
+  import { getTileMapContext } from '../TileMap/context';
 
   interface Props {
     /** Longitude/latitude to attach the callout to. Accepts [lng, lat] or an object with lng/lat, lon/lat or longitude/latitude. */
@@ -186,11 +186,13 @@ placement and lifecycle through the map context.
     surface = 'filled',
   }: Props = $props();
 
-  const mapStore = getContext<Writable<MaplibreMap | null>>('map');
+  const tileMapContext = getTileMapContext();
 
-  if (!mapStore) {
+  if (!tileMapContext) {
     throw new Error('TileMapCallout must be used inside a TileMap component');
   }
+
+  const { map: mapStore } = tileMapContext;
 
   // Leader geometry is derived from props so the SVG dimensions and the CSS
   // custom properties below share a single source of truth (previously these

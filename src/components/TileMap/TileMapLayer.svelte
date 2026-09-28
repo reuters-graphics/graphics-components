@@ -1,9 +1,9 @@
 <!-- @component Adds a styled GeoJSON layer (fill, line, circle, symbol…) to a parent TileMap. Used inside TileMap. -->
 <script lang="ts">
-  import { getContext, onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import type { Map as MaplibreMap, GeoJSONSource } from 'maplibre-gl';
-  import type { Writable } from 'svelte/store';
   import type { GeoJSON } from 'geojson';
+  import { getTileMapContext } from './context';
   import { findFirstSymbolLayerId } from './labels';
 
   type PaintProperty = Parameters<MaplibreMap['setPaintProperty']>[1];
@@ -78,11 +78,13 @@
     filter,
   }: Props = $props();
 
-  const mapStore = getContext<Writable<MaplibreMap | null>>('map');
+  const tileMapContext = getTileMapContext();
 
-  if (!mapStore) {
+  if (!tileMapContext) {
     throw new Error('TileMapLayer must be used inside a TileMap component');
   }
+
+  const { map: mapStore, ready: readyStore } = tileMapContext;
 
   const sourceId = `${id}-source`;
   let isInitialized = $state(false);
@@ -129,52 +131,42 @@
   // Subscribe to map store and initialize when map is available
   $effect(() => {
     const map = $mapStore;
+    const ready = $readyStore;
     const currentData = actualData; // Track actualData explicitly
     const loading = isLoading; // Track isLoading explicitly
 
-    if (!map || isInitialized || loading || !currentData) return;
+    if (!map || !ready || isInitialized || loading || !currentData) return;
 
-    const initializeLayer = () => {
-      if (isInitialized) return;
-
-      // Add source
-      if (!map.getSource(sourceId)) {
-        map.addSource(sourceId, {
-          type: 'geojson',
-          data: currentData,
-        });
-      }
-
-      // Add layer
-      if (!map.getLayer(id)) {
-        const layerConfig: Record<string, unknown> = {
-          id,
-          type,
-          source: sourceId,
-          paint,
-          layout,
-        };
-
-        if (minZoom !== undefined) layerConfig.minzoom = minZoom;
-        if (maxZoom !== undefined) layerConfig.maxzoom = maxZoom;
-        if (filter) layerConfig.filter = filter;
-
-        // An explicit `beforeId` wins; otherwise `beneathLabels` inserts the
-        // layer just below the first symbol (label) layer so labels stay on top.
-        const insertBefore =
-          beforeId ?? (beneathLabels ? findFirstSymbolLayerId(map) : undefined);
-        map.addLayer(layerConfig as never, insertBefore);
-      }
-
-      isInitialized = true;
-    };
-
-    // Wait for map to be loaded
-    if (!map.loaded()) {
-      map.once('load', initializeLayer);
-    } else {
-      initializeLayer();
+    // Add source
+    if (!map.getSource(sourceId)) {
+      map.addSource(sourceId, {
+        type: 'geojson',
+        data: currentData,
+      });
     }
+
+    // Add layer
+    if (!map.getLayer(id)) {
+      const layerConfig: Record<string, unknown> = {
+        id,
+        type,
+        source: sourceId,
+        paint,
+        layout,
+      };
+
+      if (minZoom !== undefined) layerConfig.minzoom = minZoom;
+      if (maxZoom !== undefined) layerConfig.maxzoom = maxZoom;
+      if (filter) layerConfig.filter = filter;
+
+      // An explicit `beforeId` wins; otherwise `beneathLabels` inserts the
+      // layer just below the first symbol (label) layer so labels stay on top.
+      const insertBefore =
+        beforeId ?? (beneathLabels ? findFirstSymbolLayerId(map) : undefined);
+      map.addLayer(layerConfig as never, insertBefore);
+    }
+
+    isInitialized = true;
   });
 
   // Update data reactively
