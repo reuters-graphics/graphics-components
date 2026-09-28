@@ -1,0 +1,62 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as DeckGlOverlayStories from './DeckGlOverlay.stories.svelte';
+
+<Meta of={DeckGlOverlayStories} />
+
+# Deck.gl overlay
+
+This composition shows how a reusable child component can attach a deck.gl overlay to `TileMap`. It is a project pattern rather than an exported graphics-components API: copy the small `DeckGlOverlay.svelte` component into a project that needs it and adapt its props there.
+
+<Canvas of={DeckGlOverlayStories.LateMountedBuildings} />
+
+The controls demonstrate both update paths. “Change colour” replaces the layer while the overlay stays attached. “Remove buildings” destroys the child and its overlay; “Add buildings” mounts a fresh child after MapLibre has already loaded. Because the child reads `TileMap`'s persistent `map` and `ready` stores, it attaches immediately when it is added later. It does not need the map passed through props and cannot miss a one-time `load` event.
+
+Install the deck.gl packages in the project that uses the composition:
+
+```console
+pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
+```
+
+The composition is intentionally small. It waits for the parent map, creates `MapLibreOverlay`, updates the existing overlay when `layers` or `getTooltip` changes, and removes the control when the child is destroyed. Optional lifecycle callbacks report when the overlay is ready, updated, removed or fails, which lets a project show an honest loading state and test the real overlay operations.
+
+```svelte
+<script lang="ts">
+  import { getTileMapContext } from '@reuters-graphics/graphics-components';
+  import type { DeckProps } from '@deck.gl/core';
+  import type { MapLibreOverlay } from '@deck.gl/maplibre';
+
+  let {
+    layers,
+    getTooltip,
+  }: {
+    layers: NonNullable<DeckProps['layers']>;
+    getTooltip?: DeckProps['getTooltip'];
+  } = $props();
+
+  const tileMap = getTileMapContext();
+  if (!tileMap) throw new Error('DeckGlOverlay must be used inside TileMap');
+
+  const { map: mapStore, ready: readyStore } = tileMap;
+  let overlay = $state.raw<MapLibreOverlay | null>(null);
+
+  $effect(() => {
+    if (!$mapStore || !$readyStore) return;
+
+    // Create and attach MapLibreOverlay here, then return its cleanup.
+  });
+
+  $effect(() => {
+    overlay?.setProps({ layers, getTooltip });
+  });
+</script>
+```
+
+Use the composition as a normal child of `TileMap`. Conditional rendering is safe even after the map is ready.
+
+```svelte
+<TileMap center={[-73.9885, 40.7422]} zoom={16.2} pitch={50}>
+  {#if showBuildings}
+    <DeckGlOverlay {layers} {getTooltip} />
+  {/if}
+</TileMap>
+```
