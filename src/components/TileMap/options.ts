@@ -15,6 +15,7 @@ export type TileMapMapOptions = Omit<
   | 'minZoom'
   | 'maxZoom'
   | 'pitch'
+  | 'projection'
   | 'interactive'
 >;
 
