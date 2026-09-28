@@ -40,6 +40,9 @@
         getLineColor: [255, 255, 255, 170],
         lineWidthMinPixels: 1,
         pickable: true,
+        updateTriggers: {
+          getFillColor: [useBlue, selectedBin],
+        },
       }),
     ];
   }
@@ -119,7 +122,7 @@
   zoom={16.2}
   pitch={50}
   interactive
-  title="A reusable deck.gl child component"
+  title="Buildings around Madison Square"
   description="Click a building to select it, or remove and add the buildings after TileMap has loaded. The child reads persistent map state and forwards standard deck.gl interactions without trying to catch MapLibre's one-time load event."
   notes="Building footprints and roof heights: New York City Office of Technology and Innovation, [Building Footprints](https://data.cityofnewyork.us/d/5zhs-2jue), published under the [NYC Open Data Terms of Use](https://opendata.cityofnewyork.us/overview/#termsofuse). Subset and coordinate precision reduced by Reuters Graphics."
   height="500px"
@@ -140,6 +143,7 @@
         data-overlay-attachments={overlayAttachments}
         data-overlay-updates={overlayUpdates}
         data-overlay-removals={overlayRemovals}
+        data-building-colour={useBlue ? 'blue' : 'red'}
         aria-live="polite"
       >
         {overlayStatus}

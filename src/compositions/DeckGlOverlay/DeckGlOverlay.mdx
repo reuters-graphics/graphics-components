@@ -7,7 +7,7 @@ import * as DeckGlOverlayStories from './DeckGlOverlay.stories.svelte';
 
 This composition shows how a reusable child component can attach a deck.gl overlay to `TileMap`. It is a project pattern rather than an exported graphics-components API: copy the small `DeckGlOverlay.svelte` component into a project that needs it and adapt its props there.
 
-<Canvas of={DeckGlOverlayStories.LateMountedBuildings} />
+<Canvas of={DeckGlOverlayStories.InteractiveBuildingOverlay} />
 
 Click a building to select it. The overlay forwards deck.gl's standard picking, tooltip and cursor options, so projects can add interactions without expanding the wrapper's API. The controls demonstrate both update paths: changing the colour or selection options updates the attached overlay, while removing the buildings destroys the child and its overlay. Adding them again mounts a fresh child after MapLibre has already loaded.
 
@@ -88,3 +88,44 @@ Use the composition as a normal child of `TileMap`. Conditional rendering is saf
 ```
 
 Replacing `layers` or `deckProps` calls `setProps()` on the existing overlay. Removed `deckProps` keys are sent as `undefined` so deck.gl does not retain old callbacks or options. Changing `interleaved` recreates the overlay because deck.gl fixes that rendering mode when the overlay is constructed.
+
+## Animate changing data
+
+<Canvas of={DeckGlOverlayStories.AnimatedBuildingHistory} />
+
+This example turns the same Madison Square building data into a small timeline. The controls start paused so the Storybook and Chromatic result is predictable. If a project enables autoplay, it begins only when the graphic is visible, pauses when it leaves the viewport and does not automatically resume after the reader uses a control. Reduced-motion preferences skip autoplay and remove the layer transitions.
+
+Keep playback separate from rendering. `FramePlaybackController.ts` owns the current frame, timer and reader interactions. `AnimatedBuildingHistory.svelte` turns that frame into a new layer with a stable ID and passes it to the existing overlay:
+
+```ts
+function createLayers(activeYear: number, reducedMotion: boolean) {
+  return [
+    new GeoJsonLayer({
+      id: 'madison-square-building-history',
+      data: datedBuildings,
+      extruded: true,
+      getElevation: (feature) =>
+        feature.properties.constructionYear <= activeYear ?
+          feature.properties.heightMeters
+        : 0,
+      getFillColor: (feature) =>
+        feature.properties.constructionYear > activeYear ? [0, 0, 0, 0]
+        : feature.properties.constructionYear === activeYear ?
+          [244, 176, 41, 255]
+        : [23, 95, 176, 220],
+      updateTriggers: {
+        getElevation: activeYear,
+        getFillColor: activeYear,
+      },
+      transitions: {
+        getElevation: reducedMotion ? 0 : 300,
+        getFillColor: reducedMotion ? 0 : 300,
+      },
+    }),
+  ];
+}
+```
+
+Each frame replaces the layer, not the overlay. Reusing the layer ID lets deck.gl match the old and new layer, `updateTriggers` tells it which accessors depend on the year, and `transitions` animates the changed elevation and colour values. The map, WebGL context and overlay remain in place throughout playback.
+
+Copy both `AnimatedBuildingHistory.svelte` and `FramePlaybackController.ts` when adapting this pattern. The small GeoJSON example favors readable code; projects with tens of thousands of features may want to update typed arrays instead of recalculating every feature on each frame.
