@@ -5,6 +5,7 @@
   import TileMapCallout from '../TileMapCallout/TileMapCallout.svelte';
   import InsetMap from '../InsetMap/InsetMap.svelte';
   import Geocoder from '../Geocoder/Geocoder.svelte';
+  import DeckGlBuildingsMap from './demo/DeckGlBuildingsMap.svelte';
   import ReverseGeocodeMap from './demo/ReverseGeocodeMap.svelte';
   import burntAreaData from './demo/navaluenga-burnt-area.geojson?raw';
   import fireSpotsData from './demo/fire-spots.geojson?raw';
@@ -440,6 +441,15 @@
 
 <Story asChild name="Reverse geocoding on click">
   <ReverseGeocodeMap accessToken={mapboxAccessToken} />
+</Story>
+
+<Story
+  asChild
+  name="Deck.gl buildings"
+  exportName="DeckGlBuildings"
+  tags={['!autodocs']}
+>
+  <DeckGlBuildingsMap />
 </Story>
 
 <style>

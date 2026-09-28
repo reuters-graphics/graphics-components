@@ -520,6 +520,82 @@ Use reverse geocoding when the interaction starts from a map coordinate instead 
 
 This keeps the lookup framework-agnostic: `TileMap` handles map rendering, while `reverseGeocode()` handles the API call and typed response data.
 
+## Adding a deck.gl layer
+
+Use deck.gl when a map needs WebGL layers such as extruded polygons, arcs or large point collections.
+
+<Canvas of={TileMapStories.DeckGlBuildings} />
+
+[Demo](?path=/story/components-graphics-tilemap--deck-gl-buildings)
+
+Install deck.gl's MapLibre integration and the layer packages your project uses:
+
+```console
+pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
+```
+
+Create the overlay after `TileMap` is ready and remove it when the component is destroyed. `interleaved: true` shares MapLibre's WebGL context so deck.gl renders as part of the map.
+
+```svelte
+<script lang="ts">
+  import { onDestroy } from 'svelte';
+  import type { MapLibreOverlay } from '@deck.gl/maplibre';
+  import type { Map as MaplibreMap } from 'maplibre-gl';
+  import { TileMap } from '@reuters-graphics/graphics-components';
+  import buildingsData from './buildings.geojson?raw';
+
+  type BuildingProperties = {
+    heightMeters: number;
+  };
+
+  const buildings = JSON.parse(buildingsData);
+  let map: MaplibreMap | null = null;
+  let overlay: MapLibreOverlay | null = null;
+  let destroyed = false;
+
+  async function addDeckLayer(nextMap: MaplibreMap) {
+    const [{ GeoJsonLayer }, { MapLibreOverlay }] = await Promise.all([
+      import('@deck.gl/layers'),
+      import('@deck.gl/maplibre'),
+    ]);
+    if (destroyed) return;
+
+    overlay = new MapLibreOverlay({
+      interleaved: true,
+      layers: [
+        new GeoJsonLayer<BuildingProperties>({
+          id: 'buildings',
+          data: buildings,
+          extruded: true,
+          getElevation: (feature) => feature.properties.heightMeters,
+          getFillColor: [201, 61, 46, 220],
+        }),
+      ],
+    });
+    nextMap.addControl(overlay);
+    map = nextMap;
+  }
+
+  onDestroy(() => {
+    destroyed = true;
+    if (overlay) {
+      if (map?.hasControl(overlay)) map.removeControl(overlay);
+      overlay.finalize();
+    }
+    map = null;
+    overlay = null;
+  });
+</script>
+
+<TileMap
+  center={[-73.9885, 40.7422]}
+  zoom={16.5}
+  pitch={50}
+  interactive
+  onMapReady={addDeckLayer}
+/>
+```
+
 ## Advanced usage
 
 For one-off setup, use the `onMapReady` callback to access the MapLibre GL instance. The callback runs after the initial projection and terrain setup is complete:

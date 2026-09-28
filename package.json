@@ -52,6 +52,10 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.2",
     "@chromatic-com/storybook": "^5.2.1",
+    "@deck.gl/core": "~9.4.0",
+    "@deck.gl/layers": "~9.4.0",
+    "@deck.gl/maplibre": "~9.4.0",
+    "@luma.gl/core": "~9.4.0",
     "@reuters-graphics/yaks-eslint": "^0.1.1",
     "@reuters-graphics/yaks-prettier": "^0.1.1",
     "@storybook/addon-a11y": "^10.4.6",
