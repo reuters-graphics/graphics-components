@@ -1,20 +1,53 @@
+<script module lang="ts">
+  import type {
+    MapLibreOverlay,
+    MapLibreOverlayProps,
+  } from '@deck.gl/maplibre';
+
+  export type ForwardedDeckProps = Omit<
+    MapLibreOverlayProps,
+    'interleaved' | 'layers'
+  >;
+
+  type DeckPropsUpdate = {
+    [Key in keyof ForwardedDeckProps]?: ForwardedDeckProps[Key] | undefined;
+  };
+
+  export function createDeckPropsUpdate(
+    previous: ForwardedDeckProps,
+    current: ForwardedDeckProps
+  ): DeckPropsUpdate {
+    const removed = Object.fromEntries(
+      (Object.keys(previous) as (keyof ForwardedDeckProps)[])
+        .filter((key) => !(key in current))
+        .map((key) => [key, undefined])
+    ) as DeckPropsUpdate;
+
+    return { ...removed, ...current };
+  }
+
+  export function createDeckPropsSnapshot(
+    deckProps: ForwardedDeckProps
+  ): ForwardedDeckProps {
+    return { ...deckProps };
+  }
+</script>
+
 <script lang="ts">
-  import type { DeckProps } from '@deck.gl/core';
-  import type { MapLibreOverlay } from '@deck.gl/maplibre';
   import type { Map as MaplibreMap } from 'maplibre-gl';
   import { untrack } from 'svelte';
   import { getTileMapContext } from '../../../components/TileMap/context';
 
   interface Props {
     /** deck.gl layers rendered by the overlay. */
-    layers: NonNullable<DeckProps['layers']>;
+    layers: NonNullable<MapLibreOverlayProps['layers']>;
     /** Share MapLibre's WebGL context so deck.gl participates in map rendering. */
     interleaved?: boolean;
-    /** Optional deck.gl tooltip callback. */
-    getTooltip?: DeckProps['getTooltip'];
+    /** Standard deck.gl options forwarded to the overlay. */
+    deckProps?: ForwardedDeckProps;
     /** Called after the overlay has been added to its parent map. */
     onOverlayReady?: (overlay: MapLibreOverlay) => void;
-    /** Called after updated layers or tooltip options reach the overlay. */
+    /** Called after updated layers or deck.gl options reach the overlay. */
     onOverlayUpdated?: (overlay: MapLibreOverlay) => void;
     /** Called after the overlay has been removed from its parent map. */
     onOverlayRemoved?: () => void;
@@ -25,7 +58,7 @@
   let {
     layers,
     interleaved = true,
-    getTooltip,
+    deckProps = {},
     onOverlayReady,
     onOverlayUpdated,
     onOverlayRemoved,
@@ -42,6 +75,7 @@
 
   let overlay = $state.raw<MapLibreOverlay | null>(null);
   let overlayMap = $state.raw<MaplibreMap | null>(null);
+  let previousDeckProps: ForwardedDeckProps = {};
   let setupVersion = 0;
 
   function reportOverlayError(error: unknown) {
@@ -82,6 +116,7 @@
 
     overlay = null;
     overlayMap = null;
+    previousDeckProps = {};
 
     if (!currentOverlay) return;
 
@@ -105,9 +140,9 @@
       if (version !== setupVersion) return;
 
       nextOverlay = new MapLibreOverlay({
+        ...deckProps,
         interleaved: useInterleavedRendering,
         layers,
-        getTooltip,
       });
 
       map.addControl(nextOverlay);
@@ -118,6 +153,7 @@
       }
 
       overlayMap = map;
+      previousDeckProps = createDeckPropsSnapshot(deckProps);
       overlay = nextOverlay;
       onOverlayReady?.(nextOverlay);
     } catch (error) {
@@ -159,15 +195,16 @@
   $effect(() => {
     const currentOverlay = overlay;
     const currentLayers = layers;
-    const currentTooltip = getTooltip;
+    const currentDeckProps = deckProps;
 
     if (!currentOverlay) return;
 
     try {
       currentOverlay.setProps({
+        ...createDeckPropsUpdate(previousDeckProps, currentDeckProps),
         layers: currentLayers,
-        getTooltip: currentTooltip,
       });
+      previousDeckProps = createDeckPropsSnapshot(currentDeckProps);
       untrack(() => onOverlayUpdated?.(currentOverlay));
     } catch (error) {
       removeOverlay();

@@ -1,10 +1,15 @@
 <script lang="ts">
   import type { PickingInfo } from '@deck.gl/core';
   import { GeoJsonLayer } from '@deck.gl/layers';
+  import type { MapLibreOverlayProps } from '@deck.gl/maplibre';
   import type { Feature, FeatureCollection, Polygon } from 'geojson';
   import TileMap from '../../../components/TileMap/TileMap.svelte';
   import DeckGlOverlay from './DeckGlOverlay.svelte';
   import buildingsData from './madison-square-buildings.geojson?raw';
+  import {
+    getBuildingFillColor,
+    selectBuilding as getBuildingSelection,
+  } from './helpers';
 
   interface BuildingProperties {
     bin: string;
@@ -20,7 +25,7 @@
     BuildingProperties
   >;
 
-  function createLayers(useBlue: boolean) {
+  function createLayers(useBlue: boolean, selectedBin: string | null) {
     return [
       new GeoJsonLayer<BuildingProperties>({
         id: 'madison-square-buildings-composition',
@@ -30,7 +35,8 @@
         stroked: true,
         opacity: 0.85,
         getElevation: (feature) => feature.properties.heightMeters,
-        getFillColor: useBlue ? [23, 95, 176, 220] : [201, 61, 46, 220],
+        getFillColor: (feature) =>
+          getBuildingFillColor(feature.properties.bin, selectedBin, useBlue),
         getLineColor: [255, 255, 255, 170],
         lineWidthMinPixels: 1,
         pickable: true,
@@ -40,7 +46,9 @@
 
   let showBuildings = $state(true);
   let useBlue = $state(false);
-  let layers = $state.raw(createLayers(false));
+  let selectionEnabled = $state(true);
+  let selectedBin = $state<string | null>(null);
+  let layers = $state.raw(createLayers(false, null));
   let overlayStatus = $state('Waiting for TileMap');
   let overlayAttachments = $state(0);
   let overlayUpdates = $state(0);
@@ -55,6 +63,22 @@
     };
   }
 
+  function selectBuilding({ object }: PickingInfo<BuildingFeature>) {
+    if (!object) return;
+
+    const selection = getBuildingSelection(selectedBin, object.properties);
+    selectedBin = selection.selectedBin;
+    layers = createLayers(useBlue, selectedBin);
+    overlayStatus = selection.status;
+  }
+
+  const deckProps = $derived({
+    getTooltip,
+    onClick: selectionEnabled ? selectBuilding : undefined,
+    getCursor: ({ isHovering }) =>
+      selectionEnabled && isHovering ? 'pointer' : 'grab',
+  } satisfies Omit<MapLibreOverlayProps, 'interleaved' | 'layers'>);
+
   function toggleBuildings() {
     if (showBuildings) {
       showBuildings = false;
@@ -63,15 +87,29 @@
     }
 
     // A finalized deck.gl layer cannot be reused when the child is mounted again.
-    layers = createLayers(useBlue);
+    layers = createLayers(useBlue, selectedBin);
     showBuildings = true;
     overlayStatus = 'Attaching overlay';
   }
 
   function changeColour() {
     useBlue = !useBlue;
-    layers = createLayers(useBlue);
+    layers = createLayers(useBlue, selectedBin);
     overlayStatus = 'Overlay updated';
+  }
+
+  function toggleSelection() {
+    selectionEnabled = !selectionEnabled;
+
+    if (!selectionEnabled && selectedBin) {
+      selectedBin = null;
+      layers = createLayers(useBlue, null);
+    }
+
+    overlayStatus =
+      selectionEnabled ?
+        'Building selection enabled'
+      : 'Building selection disabled';
   }
 </script>
 
@@ -82,7 +120,7 @@
   pitch={50}
   interactive
   title="A reusable deck.gl child component"
-  description="Remove and add the buildings after TileMap has loaded. The child reads the persistent map and ready state rather than trying to catch MapLibre's one-time load event."
+  description="Click a building to select it, or remove and add the buildings after TileMap has loaded. The child reads persistent map state and forwards standard deck.gl interactions without trying to catch MapLibre's one-time load event."
   notes="Building footprints and roof heights: New York City Office of Technology and Innovation, [Building Footprints](https://data.cityofnewyork.us/d/5zhs-2jue), published under the [NYC Open Data Terms of Use](https://opendata.cityofnewyork.us/overview/#termsofuse). Subset and coordinate precision reduced by Reuters Graphics."
   height="500px"
 >
@@ -93,6 +131,9 @@
       </button>
       <button type="button" onclick={changeColour} disabled={!showBuildings}>
         Change colour
+      </button>
+      <button type="button" onclick={toggleSelection} disabled={!showBuildings}>
+        {selectionEnabled ? 'Disable selection' : 'Enable selection'}
       </button>
       <span
         data-testid="overlay-status"
@@ -109,7 +150,7 @@
   {#if showBuildings}
     <DeckGlOverlay
       {layers}
-      {getTooltip}
+      {deckProps}
       onOverlayReady={() => {
         overlayAttachments += 1;
         overlayStatus = 'Overlay attached';

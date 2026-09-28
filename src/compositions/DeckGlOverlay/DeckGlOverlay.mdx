@@ -9,7 +9,9 @@ This composition shows how a reusable child component can attach a deck.gl overl
 
 <Canvas of={DeckGlOverlayStories.LateMountedBuildings} />
 
-The controls demonstrate both update paths. “Change colour” replaces the layer while the overlay stays attached. “Remove buildings” destroys the child and its overlay; “Add buildings” mounts a fresh child after MapLibre has already loaded. Because the child reads `TileMap`'s persistent `map` and `ready` stores, it attaches immediately when it is added later. It does not need the map passed through props and cannot miss a one-time `load` event.
+Click a building to select it. The overlay forwards deck.gl's standard picking, tooltip and cursor options, so projects can add interactions without expanding the wrapper's API. The controls demonstrate both update paths: changing the colour or selection options updates the attached overlay, while removing the buildings destroys the child and its overlay. Adding them again mounts a fresh child after MapLibre has already loaded.
+
+Because the child reads `TileMap`'s persistent `map` and `ready` stores, it attaches immediately when it is added later. It does not need the map passed through props and cannot miss a one-time `load` event.
 
 Install the deck.gl packages in the project that uses the composition:
 
@@ -17,21 +19,27 @@ Install the deck.gl packages in the project that uses the composition:
 pnpm add @deck.gl/core @deck.gl/layers @deck.gl/maplibre @luma.gl/core
 ```
 
-The composition is intentionally small. It waits for the parent map, creates `MapLibreOverlay`, updates the existing overlay when `layers` or `getTooltip` changes, and removes the control when the child is destroyed. Optional lifecycle callbacks report when the overlay is ready, updated, removed or fails, which lets a project show an honest loading state and test the real overlay operations.
+The composition is intentionally small. It waits for the parent map, creates `MapLibreOverlay`, updates the existing overlay when `layers` or `deckProps` changes, and removes the control when the child is destroyed. `deckProps` uses deck.gl's own type and supports options such as `getTooltip`, `onClick`, `onHover`, `getCursor`, `onError`, effects and rendering parameters. Optional lifecycle callbacks report when the overlay is ready, updated, removed or fails, which lets a project show an honest loading state and test the real overlay operations.
 
 ```svelte
 <script lang="ts">
   import { getTileMapContext } from '@reuters-graphics/graphics-components';
-  import type { DeckProps } from '@deck.gl/core';
-  import type { MapLibreOverlay } from '@deck.gl/maplibre';
+  import type {
+    MapLibreOverlay,
+    MapLibreOverlayProps,
+  } from '@deck.gl/maplibre';
 
   let {
     layers,
-    getTooltip,
+    interleaved = true,
+    deckProps = {},
   }: {
-    layers: NonNullable<DeckProps['layers']>;
-    getTooltip?: DeckProps['getTooltip'];
+    layers: NonNullable<MapLibreOverlayProps['layers']>;
+    interleaved?: boolean;
+    deckProps?: Omit<MapLibreOverlayProps, 'interleaved' | 'layers'>;
   } = $props();
+
+  let previousDeckProps = {};
 
   const tileMap = getTileMapContext();
   if (!tileMap) throw new Error('DeckGlOverlay must be used inside TileMap');
@@ -42,21 +50,41 @@ The composition is intentionally small. It waits for the parent map, creates `Ma
   $effect(() => {
     if (!$mapStore || !$readyStore) return;
 
-    // Create and attach MapLibreOverlay here, then return its cleanup.
+    // Create and attach MapLibreOverlay with interleaved, layers and
+    // the forwarded deckProps here, then return its cleanup.
   });
 
   $effect(() => {
-    overlay?.setProps({ layers, getTooltip });
+    const removedDeckProps = Object.fromEntries(
+      Object.keys(previousDeckProps)
+        .filter((key) => !(key in deckProps))
+        .map((key) => [key, undefined])
+    );
+
+    overlay?.setProps({ ...removedDeckProps, ...deckProps, layers });
+    previousDeckProps = { ...deckProps };
   });
 </script>
 ```
 
-Use the composition as a normal child of `TileMap`. Conditional rendering is safe even after the map is ready.
+Use the composition as a normal child of `TileMap`. Conditional rendering is safe even after the map is ready. Keep `layers` separate because the composition updates them reactively, and put normal deck.gl behaviour in `deckProps`.
 
 ```svelte
+<script lang="ts">
+  import type { MapLibreOverlayProps } from '@deck.gl/maplibre';
+
+  const deckProps = {
+    getTooltip,
+    onClick: selectBuilding,
+    getCursor: ({ isHovering }) => (isHovering ? 'pointer' : 'grab'),
+  } satisfies Omit<MapLibreOverlayProps, 'interleaved' | 'layers'>;
+</script>
+
 <TileMap center={[-73.9885, 40.7422]} zoom={16.2} pitch={50}>
   {#if showBuildings}
-    <DeckGlOverlay {layers} {getTooltip} />
+    <DeckGlOverlay {layers} {deckProps} />
   {/if}
 </TileMap>
 ```
+
+Replacing `layers` or `deckProps` calls `setProps()` on the existing overlay. Removed `deckProps` keys are sent as `undefined` so deck.gl does not retain old callbacks or options. Changing `interleaved` recreates the overlay because deck.gl fixes that rendering mode when the overlay is constructed.
