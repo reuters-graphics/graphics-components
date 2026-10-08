@@ -56,6 +56,7 @@ export { default as TileMap } from './components/TileMap/TileMap.svelte';
 export { default as TileMapLayer } from './components/TileMap/TileMapLayer.svelte';
 export {
   getTileMapContext,
+  setTileMapContext,
   type TileMapContext,
 } from './components/TileMap/context';
 export type { TileMapMapOptions } from './components/TileMap/options';
