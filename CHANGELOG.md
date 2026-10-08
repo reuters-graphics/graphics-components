@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.14.1
+
+### Patch Changes
+
+- 494ce1d: Export `setTileMapContext` so custom map wrappers can provide context to TileMap child components.
+
 ## 4.14.0
 
 ### Minor Changes
