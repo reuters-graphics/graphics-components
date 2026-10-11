@@ -30,3 +30,8 @@
 
 <Story name="Demo" play={checkDots} />
 <Story name="Inherited colour" args={{ colour: undefined }} />
+<Story
+  name="Dark background"
+  parameters={{ theme: 'dark' }}
+  args={{ colour: '#b8b8b8' }}
+/>
