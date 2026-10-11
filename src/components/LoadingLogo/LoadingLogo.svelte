@@ -41,7 +41,7 @@
   <span class="loading-logo__mark" aria-hidden="true">
     <KinesisLogo
       colour={markColour ??
-        'var(--loading-logo-mark-color, var(--neutral-400, #a3a3a3))'}
+        'var(--loading-logo-mark-color, var(--tr-light-grey, #afafaf))'}
       width="100%"
     />
   </span>

@@ -60,7 +60,7 @@
   .loading-scene {
     position: relative;
     min-height: 200px;
-    background: var(--neutral-100, #f5f5f5);
+    background: var(--tr-light-muted-grey, #f4f4f4);
   }
 
   .loading-box {

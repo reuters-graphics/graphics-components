@@ -32,5 +32,11 @@
 </script>
 
 <Story name="Demo" play={checkDots} />
-<Story name="Inherited colour" args={{ colour: undefined }} />
+<Story name="Inherited colour" args={{ colour: undefined }}>
+  {#snippet template(args)}
+    <div style="color: var(--tr-dark-blue);">
+      <LoadingDots {...args} />
+    </div>
+  {/snippet}
+</Story>
 <Story name="Dark background" parameters={{ theme: 'dark' }} />
