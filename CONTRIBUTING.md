@@ -39,6 +39,11 @@ All new components and component features should be accompanied by [Storybook st
 
 Be sure to target your Storybook docs for non-developers with real world examples of how to use components within the graphics kit.
 
+- Include every Storybook example on its component's docs page using `Canvas` so readers can see and try it there.
+- When adding, renaming, or removing an example, update the docs page in the same change.
+- Keep docs short and use plain language. Show how to import and use the component, then explain only the options readers need.
+- Before submitting, check that every example renders on its docs page and run `pnpm build:docs`, along with the lint and formatting checks above.
+
 ### 🍺 Submit code with a changeset
 
 All code contributions should be made through the normal [GitHub Flow](https://www.w3schools.com/git/git_github_flow.asp#:~:text=The%20GitHub%20flow%20is%20a,Make%20changes%20and%20add%20Commits). Basically, make a branch and submit a pull request.

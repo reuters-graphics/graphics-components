@@ -1,0 +1,26 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as LoadingDotsStories from './LoadingDots.stories.svelte';
+
+<Meta of={LoadingDotsStories} />
+
+# LoadingDots
+
+Show three gently dancing dots while data loads. Remove them when loading finishes.
+
+```svelte
+<script>
+  import { LoadingDots } from '@reuters-graphics/graphics-components';
+</script>
+
+<LoadingDots message="Loading forecast…" />
+```
+
+<Canvas of={LoadingDotsStories.Demo} />
+<Canvas of={LoadingDotsStories.InheritedColour} />
+<Canvas of={LoadingDotsStories.DarkBackground} />
+
+- `message`: required text for screen readers; always hidden.
+- `colour`: set the dots' colour; otherwise they match the surrounding text.
+- `announce={false}`: use when the surrounding content already tells screen readers that data is loading.
+
+The dots stay still for readers who turn off animation.

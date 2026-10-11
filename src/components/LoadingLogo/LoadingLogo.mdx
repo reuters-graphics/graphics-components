@@ -1,0 +1,32 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as LoadingLogoStories from './LoadingLogo.stories.svelte';
+
+<Meta of={LoadingLogoStories} />
+
+# LoadingLogo
+
+Show a slowly turning Reuters logo while data loads. Remove it when loading finishes.
+
+```svelte
+<script>
+  import { LoadingLogo } from '@reuters-graphics/graphics-components';
+</script>
+
+<LoadingLogo message="Loading chart data…" />
+```
+
+<Canvas of={LoadingLogoStories.Block} />
+<Canvas of={LoadingLogoStories.Inline} />
+<Canvas of={LoadingLogoStories.DarkBackground} />
+
+Combine the logo with a box and message, as in Climate Monitor:
+
+<Canvas of={LoadingLogoStories.BoxedLogoAndText} />
+
+- `message`: required text for screen readers; hidden by default.
+- `inline`: use a smaller logo in a line of text.
+- `showMessage`: show the message beside the logo.
+- `markColour` and `colour`: set the logo and message colours.
+- `announce={false}`: use when the surrounding content already tells screen readers that data is loading.
+
+The logo stays still for readers who turn off animation.
