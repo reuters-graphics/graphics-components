@@ -44,7 +44,7 @@
 <Story
   name="Boxed logo and text"
   args={{
-    message: "Loading today's forecast",
+    message: 'Loading data',
     inline: true,
     showMessage: true,
   }}
