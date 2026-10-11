@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { render } from 'svelte/server';
-import LoadingStatus from './LoadingStatus.svelte';
+import LoadingLogo from './LoadingLogo.svelte';
 import LoadingDots from '../LoadingDots/LoadingDots.svelte';
 
 describe('loading announcements', () => {
   for (const [name, component] of [
-    ['LoadingStatus', LoadingStatus],
+    ['LoadingLogo', LoadingLogo],
     ['LoadingDots', LoadingDots],
   ] as const) {
     it(`${name} renders one status with escaped descriptive text`, () => {
@@ -30,7 +30,7 @@ describe('loading announcements', () => {
   }
 
   it('allows a visible inline label and separate mark and text colours', () => {
-    const { body } = render(LoadingStatus, {
+    const { body } = render(LoadingLogo, {
       props: {
         message: 'Loading forecast…',
         inline: true,
@@ -39,7 +39,7 @@ describe('loading announcements', () => {
         markColour: '#bbb',
       },
     });
-    expect(body).not.toContain('loading-status--block');
+    expect(body).not.toContain('loading-logo--block');
     expect(body).not.toContain('sr-only');
     expect(body).toContain('color: #eee');
     expect(body).toContain('--logoColour: #bbb');

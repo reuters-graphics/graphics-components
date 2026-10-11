@@ -28,16 +28,7 @@ the pending request, use `announce={false}`. This removes the component's live
 region while keeping its hidden message. If the whole component is decorative
 inside an already labelled marker, place it in an `aria-hidden="true"` wrapper.
 
-```svelte
-<div role="status" aria-atomic="true">
-  <strong>New York</strong>
-  <LoadingDots message="Loading New York forecast…" announce={false} />
-</div>
-```
-
-<Canvas of={LoadingDotsStories.ParentAnnouncement} />
-
 Keep the location name visible and fit the dots into the existing label row.
 The owning project replaces them when the request finishes and handles errors
 or empty results. For larger content slots, use
-[LoadingStatus](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadingstatus--docs).
+[LoadingLogo](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadinglogo--docs).

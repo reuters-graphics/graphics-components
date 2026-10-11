@@ -30,9 +30,3 @@
 
 <Story name="Demo" play={checkDots} />
 <Story name="Inherited colour" args={{ colour: undefined }} />
-<Story name="Parent announcement" asChild>
-  <div role="status" aria-atomic="true" style="color: #666">
-    <strong style="display: block">New York</strong>
-    <LoadingDots message="Loading New York forecast…" announce={false} />
-  </div>
-</Story>

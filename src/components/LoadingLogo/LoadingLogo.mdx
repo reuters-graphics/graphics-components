@@ -1,45 +1,44 @@
 import { Meta, Canvas } from '@storybook/addon-docs/blocks';
-import * as LoadingStatusStories from './LoadingStatus.stories.svelte';
+import * as LoadingLogoStories from './LoadingLogo.stories.svelte';
 
-<Meta of={LoadingStatusStories} />
+<Meta of={LoadingLogoStories} />
 
-# LoadingStatus
+# LoadingLogo
 
-Use `LoadingStatus` while a chart, table, summary or map is waiting for data.
+Use `LoadingLogo` while a chart, table, summary or map is waiting for data.
 It turns the Reuters Kinesis mark slowly, once every eight seconds, and stops
 moving when the reader prefers reduced motion.
 
 The default is a centered 32px mark with a message available to screen readers.
 Use `inline` for a compact 24px mark in an existing line. Add `showMessage` when
-a visible label helps explain a large pending area, such as a map.
+a visible label helps explain what is loading.
 
 ```svelte
 <script>
-  import { LoadingStatus } from '@reuters-graphics/graphics-components';
+  import { LoadingLogo } from '@reuters-graphics/graphics-components';
   let loading = true;
 </script>
 
 <div style="min-height: 180px">
   {#if loading}
-    <LoadingStatus message="Loading monthly history…" />
+    <LoadingLogo message="Loading monthly history…" />
   {:else}
     <p>The chart goes here.</p>
   {/if}
 </div>
 ```
 
-<Canvas of={LoadingStatusStories.Block} />
-<Canvas of={LoadingStatusStories.WithMapLabel} />
+<Canvas of={LoadingLogoStories.Block} />
 
 ## Colour
 
 The mark defaults to neutral grey. Use `markColour` and `colour` for contrast on
 dark backgrounds. You can also set the inherited CSS custom properties
-`--loading-status-mark-color` and `--loading-status-color` on a containing element.
+`--loading-logo-mark-color` and `--loading-logo-color` on a containing element.
 Props take precedence over those properties. Message colour otherwise follows
 the theme's secondary text colour, falling back to `#666`.
 
-<Canvas of={LoadingStatusStories.DarkBackground} />
+<Canvas of={LoadingLogoStories.DarkBackground} />
 
 ## Loading messages and layout
 
@@ -56,5 +55,3 @@ error and empty states and replaces the loader when the request finishes.
 For small callouts, use [LoadingDots](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadingdots--docs).
 The existing [Spinner](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-spinner--docs) remains
 available for a rotating ring.
-
-<Canvas of={LoadingStatusStories.LoadingFamily} />

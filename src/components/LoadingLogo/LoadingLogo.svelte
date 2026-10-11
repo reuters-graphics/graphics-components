@@ -1,7 +1,7 @@
 <!--
   @component A slow-turning Kinesis mark with a descriptive loading message.
 
-  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadingstatus--docs)
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadinglogo--docs)
 -->
 <script lang="ts">
   import KinesisLogo from '../KinesisLogo/KinesisLogo.svelte';
@@ -11,7 +11,7 @@
     message: string;
     /** Use a compact 24px mark in the current line instead of a centered 32px block. */
     inline?: boolean;
-    /** Show the message beside the mark, for example over a map. */
+    /** Show the message beside the mark. */
     showMessage?: boolean;
     /** Disable when a parent already announces this loading message. */
     announce?: boolean;
@@ -32,34 +32,31 @@
 </script>
 
 <span
-  class="loading-status"
-  class:loading-status--block={!inline}
+  class="loading-logo"
+  class:loading-logo--block={!inline}
   role={announce ? 'status' : undefined}
   aria-atomic={announce ? 'true' : undefined}
   style:color={colour}
 >
-  <span class="loading-status__mark" aria-hidden="true">
+  <span class="loading-logo__mark" aria-hidden="true">
     <KinesisLogo
-      colour={markColour ?? 'var(--loading-status-mark-color, #aaa)'}
+      colour={markColour ?? 'var(--loading-logo-mark-color, #aaa)'}
       width="100%"
     />
   </span>
-  <span class="loading-status__message" class:sr-only={!showMessage}>
+  <span class="loading-logo__message" class:sr-only={!showMessage}>
     {message}
   </span>
 </span>
 
 <style>
-  .loading-status {
+  .loading-logo {
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
     max-width: 100%;
     vertical-align: middle;
-    color: var(
-      --loading-status-color,
-      var(--theme-colour-text-secondary, #666)
-    );
+    color: var(--loading-logo-color, var(--theme-colour-text-secondary, #666));
     font-family: var(--font-family-base, 'Knowledge', Arial, sans-serif);
     font-size: 0.8125rem;
     font-weight: 400;
@@ -67,14 +64,14 @@
     letter-spacing: normal;
   }
 
-  .loading-status--block {
+  .loading-logo--block {
     display: flex;
     justify-content: center;
     padding: 0.75rem 1rem;
     text-align: center;
   }
 
-  .loading-status__mark {
+  .loading-logo__mark {
     display: block;
     flex: 0 0 auto;
     width: 1.5rem;
@@ -82,12 +79,12 @@
     animation: kinesis-turn 8s linear infinite;
   }
 
-  .loading-status--block .loading-status__mark {
+  .loading-logo--block .loading-logo__mark {
     width: 2rem;
     height: 2rem;
   }
 
-  .loading-status__message {
+  .loading-logo__message {
     min-width: 0;
     overflow-wrap: anywhere;
   }
@@ -111,7 +108,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .loading-status__mark {
+    .loading-logo__mark {
       animation: none;
     }
   }
