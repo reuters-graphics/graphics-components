@@ -1,0 +1,43 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as LoadingDotsStories from './LoadingDots.stories.svelte';
+
+<Meta of={LoadingDotsStories} />
+
+# LoadingDots
+
+Use `LoadingDots` for small pending areas such as map callouts. Three periods
+lift by just 2px in a staggered 1.8-second cycle, without blinking or fading.
+They stay still when the reader prefers reduced motion.
+
+```svelte
+<script>
+  import { LoadingDots } from '@reuters-graphics/graphics-components';
+</script>
+
+<LoadingDots message="Loading forecast…" colour="#666" />
+```
+
+<Canvas of={LoadingDotsStories.Demo} />
+
+The dots inherit the surrounding font family and text colour. Set `colour` when
+needed for contrast. The periods are hidden from screen readers; `message` supplies
+the descriptive text in a polite status region.
+
+If a containing status region or a marker's accessible label already describes
+the pending request, use `announce={false}`. This removes the component's live
+region while keeping its hidden message. If the whole component is decorative
+inside an already labelled marker, place it in an `aria-hidden="true"` wrapper.
+
+```svelte
+<div role="status" aria-atomic="true">
+  <strong>New York</strong>
+  <LoadingDots message="Loading New York forecast…" announce={false} />
+</div>
+```
+
+<Canvas of={LoadingDotsStories.ParentAnnouncement} />
+
+Keep the location name visible and fit the dots into the existing label row.
+The owning project replaces them when the request finishes and handles errors
+or empty results. For larger content slots, use
+[LoadingStatus](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadingstatus--docs).
