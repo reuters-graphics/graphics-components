@@ -38,5 +38,5 @@
 <Story
   name="Dark background"
   parameters={{ theme: 'dark' }}
-  args={{ showMessage: true, colour: '#b8b8b8', markColour: '#b8b8b8' }}
+  args={{ markColour: '#b8b8b8' }}
 />
