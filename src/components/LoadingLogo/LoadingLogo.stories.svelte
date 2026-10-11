@@ -40,3 +40,47 @@
   parameters={{ theme: 'dark' }}
   args={{ markColour: '#b8b8b8' }}
 />
+
+<Story
+  name="Boxed logo and text"
+  args={{
+    message: "Loading today's forecast",
+    inline: true,
+    showMessage: true,
+  }}
+>
+  {#snippet template(args)}
+    <div class="loading-scene">
+      <div class="loading-box">
+        <LoadingLogo {...args} />
+      </div>
+    </div>
+  {/snippet}
+</Story>
+
+<style>
+  .loading-scene {
+    position: relative;
+    min-height: 200px;
+    background: #edf0ed;
+  }
+
+  .loading-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    max-width: calc(100% - 2rem);
+    padding: 0.4rem 0.75rem;
+    background: rgb(255 255 255 / 85%);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media (max-width: 767px) {
+    .loading-box {
+      padding: 0.3rem 0.75rem;
+    }
+  }
+</style>
