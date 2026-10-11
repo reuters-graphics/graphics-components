@@ -6,7 +6,10 @@
   const { Story } = defineMeta({
     title: 'Components/Utilities/LoadingDots',
     component: LoadingDots,
-    args: { message: 'Loading forecast…', colour: '#666' },
+    args: {
+      message: 'Loading forecast…',
+      colour: 'var(--theme-colour-text-secondary, #666)',
+    },
     argTypes: { colour: { control: 'color' } },
   });
 
@@ -30,8 +33,4 @@
 
 <Story name="Demo" play={checkDots} />
 <Story name="Inherited colour" args={{ colour: undefined }} />
-<Story
-  name="Dark background"
-  parameters={{ theme: 'dark' }}
-  args={{ colour: '#b8b8b8' }}
-/>
+<Story name="Dark background" parameters={{ theme: 'dark' }} />

@@ -28,7 +28,10 @@
   <span class="sr-only">{message}</span>
 </span>
 
-<style>
+<style lang="scss">
+  @use '../../scss/tokens/text/mixins/font-weight' as weight;
+  @use '../../scss/tokens/accessibility/mixins/visibility' as visibility;
+
   .loading-dots {
     display: inline-flex;
     vertical-align: middle;
@@ -37,8 +40,8 @@
   .loading-dots__marks {
     display: inline-flex;
     gap: 0.12em;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: var(--theme-font-size-base, 1.125rem);
+    @include weight.font-semibold;
   }
 
   .loading-dots__marks span {
@@ -55,15 +58,7 @@
   }
 
   .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
+    @include visibility.visually-hidden;
   }
 
   @keyframes dot-lift {

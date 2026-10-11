@@ -18,7 +18,9 @@
     await expect(status).toHaveTextContent('Loading chart data…');
     await expect(status).not.toHaveAttribute('aria-busy');
     const message = status.querySelector('.loading-logo__message')!;
-    await expect(getComputedStyle(message).clipPath).toBe('inset(50%)');
+    await expect(getComputedStyle(message).clip).toBe(
+      'rect(0px, 0px, 0px, 0px)'
+    );
     const mark = status.querySelector('.loading-logo__mark')!;
     await expect(getComputedStyle(mark).width).toBe('32px');
     await expect(getComputedStyle(mark).animationDuration).toBe(
@@ -35,11 +37,7 @@
 
 <Story name="Block" play={checkBlock} />
 <Story name="Inline" args={{ message: 'Loading…', inline: true }} />
-<Story
-  name="Dark background"
-  parameters={{ theme: 'dark' }}
-  args={{ markColour: '#b8b8b8' }}
-/>
+<Story name="Dark background" parameters={{ theme: 'dark' }} />
 
 <Story
   name="Boxed logo and text"
@@ -62,7 +60,7 @@
   .loading-scene {
     position: relative;
     min-height: 200px;
-    background: #edf0ed;
+    background: var(--neutral-100, #f5f5f5);
   }
 
   .loading-box {
@@ -73,7 +71,11 @@
     width: max-content;
     max-width: calc(100% - 2rem);
     padding: 0.4rem 0.75rem;
-    background: rgb(255 255 255 / 85%);
+    background: color-mix(
+      in srgb,
+      var(--theme-colour-background, #fff) 85%,
+      transparent
+    );
     text-align: center;
     pointer-events: none;
   }
