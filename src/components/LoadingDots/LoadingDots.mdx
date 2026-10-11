@@ -5,30 +5,20 @@ import * as LoadingDotsStories from './LoadingDots.stories.svelte';
 
 # LoadingDots
 
-Use `LoadingDots` for small pending areas such as map callouts. Three periods
-lift by just 2px in a staggered 1.8-second cycle, without blinking or fading.
-They stay still when the reader prefers reduced motion.
+Show three gently dancing dots while data loads. Remove them when loading finishes.
 
 ```svelte
 <script>
   import { LoadingDots } from '@reuters-graphics/graphics-components';
 </script>
 
-<LoadingDots message="Loading forecast…" colour="#666" />
+<LoadingDots message="Loading forecast…" />
 ```
 
 <Canvas of={LoadingDotsStories.Demo} />
 
-The dots inherit the surrounding font family and text colour. Set `colour` when
-needed for contrast. The periods are hidden from screen readers; `message` supplies
-the descriptive text in a polite status region.
+- `message`: required text for screen readers; always hidden.
+- `colour`: set the dots' colour; otherwise they match the surrounding text.
+- `announce={false}`: use when the surrounding content already tells screen readers that data is loading.
 
-If a containing status region or a marker's accessible label already describes
-the pending request, use `announce={false}`. This removes the component's live
-region while keeping its hidden message. If the whole component is decorative
-inside an already labelled marker, place it in an `aria-hidden="true"` wrapper.
-
-Keep the location name visible and fit the dots into the existing label row.
-The owning project replaces them when the request finishes and handles errors
-or empty results. For larger content slots, use
-[LoadingLogo](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadinglogo--docs).
+The dots stay still for readers who turn off animation.

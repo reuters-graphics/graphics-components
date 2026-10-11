@@ -5,53 +5,22 @@ import * as LoadingLogoStories from './LoadingLogo.stories.svelte';
 
 # LoadingLogo
 
-Use `LoadingLogo` while a chart, table, summary or map is waiting for data.
-It turns the Reuters Kinesis mark slowly, once every eight seconds, and stops
-moving when the reader prefers reduced motion.
-
-The default is a centered 32px mark with a message available to screen readers.
-Use `inline` for a compact 24px mark in an existing line. Add `showMessage` when
-a visible label helps explain what is loading.
+Show a slowly turning Reuters logo while data loads. Remove it when loading finishes.
 
 ```svelte
 <script>
   import { LoadingLogo } from '@reuters-graphics/graphics-components';
-  let loading = true;
 </script>
 
-<div style="min-height: 180px">
-  {#if loading}
-    <LoadingLogo message="Loading monthly history…" />
-  {:else}
-    <p>The chart goes here.</p>
-  {/if}
-</div>
+<LoadingLogo message="Loading chart data…" />
 ```
 
 <Canvas of={LoadingLogoStories.Block} />
 
-## Colour
+- `message`: required text for screen readers; hidden by default.
+- `inline`: use a smaller logo in a line of text.
+- `showMessage`: show the message beside the logo.
+- `markColour` and `colour`: set the logo and message colours.
+- `announce={false}`: use when the surrounding content already tells screen readers that data is loading.
 
-The mark defaults to neutral grey. Use `markColour` and `colour` for contrast on
-dark backgrounds. You can also set the inherited CSS custom properties
-`--loading-logo-mark-color` and `--loading-logo-color` on a containing element.
-Props take precedence over those properties. Message colour otherwise follows
-the theme's secondary text colour, falling back to `#666`.
-
-<Canvas of={LoadingLogoStories.DarkBackground} />
-
-## Loading messages and layout
-
-Always supply a short message describing the request, even when it is hidden.
-The component uses a polite status region. If a parent already announces the same
-request, pass `announce={false}` to avoid a second live region; the message remains
-available to screen readers. Put `aria-busy` on the content being updated, rather
-than on the status announcement itself.
-
-Reserve large chart and table slots in the owning layout to keep the page steady.
-The component supplies the mark and message, while the project owns pending,
-error and empty states and replaces the loader when the request finishes.
-
-For small callouts, use [LoadingDots](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-loadingdots--docs).
-The existing [Spinner](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-utilities-spinner--docs) remains
-available for a rotating ring.
+The logo stays still for readers who turn off animation.
