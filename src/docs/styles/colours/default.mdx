@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+import scheme from '../../../scss/colours/_default.scss?raw';
+
+<Meta title="Styles/Colours/Default" parameters={{ ...parameters }} />
+
+export const rows = extractCssColourVariables(scheme);
+
+# Reuters Graphics palette
+
+The colours for charts and maps. This default set — six categorical colours and a grey ramp — is included on every page that loads the library's main stylesheet, so you only need its `@use` line if you don't. The [sequential](?path=/docs/styles-colours-sequential--docs), [diverging](?path=/docs/styles-colours-diverging--docs), [map](?path=/docs/styles-colours-maps--docs) and [U.S. politics](?path=/docs/styles-colours-us-politics--docs) palettes are imported when you need them, as are the map [patterns](?path=/docs/styles-colours-patterns--docs). For Illustrator and Photoshop, download the [Adobe swatches](?path=/docs/styles-colours-adobe-swatches--docs).
+
+## Categorical
+
+Use the colours in this order for series in a chart: rust, blue, teal, plum, green, yellow. Rust and blue are the closest pair in lightness, so they rely on hue to tell them apart — label series directly rather than leaning on a legend, and add line patterns or shapes when colour alone has to carry the difference.
+
+<CopyColourTable
+  title="Categorical"
+  js="categorical"
+  body={rows.slice(0, 6)}
+  partial="_default.scss"
+/>
+
+## Greys
+
+For axes, gridlines, annotations and context series. `--gfx-black` is the darkest stop, not pure black.
+
+<CopyColourTable
+  title="Greys"
+  js="greys"
+  body={rows.slice(6)}
+  partial="_default.scss"
+/>
+
+## In JavaScript
+
+Every palette is also exported as an array of hex strings, for d3 scales, canvas or Datawrapper. Like the CSS, each palette is its own import, shown above its table, so your bundle only carries the palettes you use.
+
+```javascript
+import {
+  categorical,
+  greys,
+  sequentialRust,
+  divergingBlueRust,
+} from '@reuters-graphics/graphics-components/colours';
+import { scaleOrdinal, scaleQuantize, scaleThreshold } from 'd3-scale';
+
+const colour = scaleOrdinal(categorical);
+const axis = greys[3];
+const choropleth = scaleQuantize([0, 100], sequentialRust);
+const change = scaleThreshold(
+  [-30, -20, -10, -2, 2, 10, 20, 30],
+  divergingBlueRust
+);
+```

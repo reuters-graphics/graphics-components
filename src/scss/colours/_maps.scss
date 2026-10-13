@@ -1,0 +1,17 @@
+// Reuters Graphics map colours: label inks, base-map and area fills, emphasis
+// colours and highlights. Land, water and green are for drawing a base map
+// yourself.
+:root {
+  --gfx-map-label-primary: #212223;
+  --gfx-map-label-secondary: #878787;
+  --gfx-map-label-water: #4e75ad;
+  --gfx-map-fill-land: #ebebe8;
+  --gfx-map-fill-water: #d7dded;
+  --gfx-map-fill-green: #cdd8c8;
+  --gfx-map-fill-neutral: #d5d5d5;
+  --gfx-map-fill-primary: #eeb49d;
+  --gfx-map-emphasis-primary: #d0381e;
+  --gfx-map-emphasis-secondary: #8914a2;
+  --gfx-map-highlight-light: #ffca05;
+  --gfx-map-highlight-dark: #7b3f71;
+}

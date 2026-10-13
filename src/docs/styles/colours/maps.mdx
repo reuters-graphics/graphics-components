@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+import scheme from '../../../scss/colours/_maps.scss?raw';
+
+<Meta title="Styles/Colours/Maps" parameters={{ ...parameters }} />
+
+# Maps
+
+Colours for maps: three label inks, five area fills, two emphasis colours and two highlights.
+
+Land, water and green are for drawing a base map yourself, from OSM or Natural Earth, in the style of published Reuters maps. Land matches the Reuters tile style. Water is the blue ramp's step 200, and green is a muted sage at the same lightness as the neutral grey, so a park never reads heavier than a grey area. The neutral fill is for areas the story isn't about, and the primary fill for the area it is.
+
+The highlights are emphasis fills: a light yellow that takes dark labels, and a dark plum — the categorical plum — that takes white ones. The plum prints as the same grey as the purple emphasis, so keep purple marks off a plum highlight.
+
+<CopyColourTable
+  title="Maps"
+  js="mappingDw"
+  body={extractCssColourVariables(scheme)}
+  partial="_maps.scss"
+/>

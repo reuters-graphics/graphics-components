@@ -1,7 +1,12 @@
 import type { KnipConfig } from 'knip';
 
 const config: KnipConfig = {
-  entry: ['src/index.js', 'src/**/*.stories.{svelte,mdx}', 'src/docs/**'],
+  entry: [
+    'src/index.js',
+    'src/colours/index.ts',
+    'src/**/*.stories.{svelte,mdx}',
+    'src/docs/**',
+  ],
   project: [
     'src/**/*.{mdx,js,jsx,ts,svelte}',
     'bin/**/*.{js,cjs}',

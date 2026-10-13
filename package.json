@@ -148,6 +148,10 @@
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./colours": {
+      "types": "./dist/colours/index.d.ts",
+      "default": "./dist/colours/index.js"
+    },
     "./scss/*": "./dist/scss/*",
     "./llm-docs/*": "./dist/llm-docs/*"
   },

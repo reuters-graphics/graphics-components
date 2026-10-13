@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+import blueRust from '../../../scss/colours/_diverging-blue-rust.scss?raw';
+import yellowBlue from '../../../scss/colours/_diverging-yellow-blue.scss?raw';
+import tealYellow from '../../../scss/colours/_diverging-teal-yellow.scss?raw';
+
+<Meta title="Styles/Colours/Diverging" parameters={{ ...parameters }} />
+
+# Diverging
+
+Nine-step scales for values either side of a meaningful midpoint — change, difference from average, a vote margin. Steps run from `-400` to `+400` around a shared neutral `0`, and each arm darkens evenly away from it. The two extremes match the `800` stops of the [sequential ramps](?path=/docs/styles-colours-sequential--docs). Each scale is its own import.
+
+Blue–rust and yellow–blue are the best-separated pairs the categorical colours allow. The blue arm is the same in both, as is the yellow arm in yellow–blue and teal–yellow.
+
+<CopyColourTable
+  title="Blue–rust"
+  js="divergingBlueRust"
+  body={extractCssColourVariables(blueRust)}
+  partial="_diverging-blue-rust.scss"
+/>
+<CopyColourTable
+  title="Yellow–blue"
+  js="divergingYellowBlue"
+  body={extractCssColourVariables(yellowBlue)}
+  partial="_diverging-yellow-blue.scss"
+/>
+<CopyColourTable
+  title="Teal–yellow"
+  js="divergingTealYellow"
+  body={extractCssColourVariables(tealYellow)}
+  partial="_diverging-teal-yellow.scss"
+/>

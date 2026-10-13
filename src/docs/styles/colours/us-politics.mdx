@@ -1,0 +1,18 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+import scheme from '../../../scss/colours/_us-politics.scss?raw';
+
+<Meta title="Styles/Colours/US Politics" parameters={{ ...parameters }} />
+
+# U.S. politics
+
+Party colours for U.S. election results: a win and a flip for each party, plus a tie.
+
+<CopyColourTable
+  title="U.S. politics"
+  js="usPolitics"
+  body={extractCssColourVariables(scheme)}
+  partial="_us-politics.scss"
+/>

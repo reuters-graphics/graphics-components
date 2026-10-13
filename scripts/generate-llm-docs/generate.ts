@@ -255,6 +255,22 @@ export function generateColoursMarkdown(data: ColoursData): string {
     'Then reference variables with `var(--blue-500)` etc.\n',
   ];
 
+  if (data.reutersGraphics.length > 0) {
+    lines.push('## Reuters Graphics palettes\n');
+    lines.push(
+      "The palette for charts and maps. `default` (categorical colours and greys) is included automatically. Every other palette below is its own file — import only the ones you use, e.g. `@use '@reuters-graphics/graphics-components/scss/colours/sequential-rust';`. The same values are exported as hex arrays, one named export per palette (`categorical`, `greys`, `sequentialRust`, `divergingBlueRust`, `mappingDw`, `usPolitics` and so on), e.g. `import { categorical, sequentialRust } from '@reuters-graphics/graphics-components/colours';`.\n"
+    );
+    for (const family of data.reutersGraphics) {
+      lines.push(`### ${family.name}\n`);
+      lines.push('| Variable | Value |');
+      lines.push('|----------|-------|');
+      for (const { variable, value } of family.variables) {
+        lines.push(`| \`${variable}\` | \`${value}\` |`);
+      }
+      lines.push('');
+    }
+  }
+
   if (data.primary.length > 0) {
     lines.push('## Primary palettes\n');
     for (const family of data.primary) {

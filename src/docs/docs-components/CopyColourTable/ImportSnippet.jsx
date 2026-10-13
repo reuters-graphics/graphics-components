@@ -5,11 +5,13 @@ import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/prism-light';
 import classes from './styles.module.scss';
 import { prismNord } from '../syntax/nord';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
+import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript';
 
 SyntaxHighlighter.registerLanguage('scss', scss);
+SyntaxHighlighter.registerLanguage('javascript', javascript);
 
 const formatPartial = (partial) => {
-  return partial.replace(/\/_/, '/').replace(/\.scss$/, '');
+  return partial.replace(/(^|\/)_/, '$1').replace(/\.scss$/, '');
 };
 
 const Copyable = (props) => {
@@ -24,9 +26,8 @@ const Copyable = (props) => {
     }, 1500);
   }, [copied]);
 
-  const handleClick = async ({ partial }) => {
-    const copyText = `@use "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`;
-    await navigator.clipboard.writeText(copyText);
+  const handleClick = async ({ text }) => {
+    await navigator.clipboard.writeText(text);
     setCopied(true);
   };
 
@@ -38,17 +39,41 @@ const Copyable = (props) => {
   );
 };
 
-const ImportSnippet = ({ included = false, partial = 'thematic/_tr.scss' }) => {
-  return included ?
-      <div className={classes.importsnippet}>
-        <p>Included</p>
-      </div>
-    : <div className={classes.importsnippet}>
-        <SyntaxHighlighter language="scss" style={prismNord}>
-          {`// global.scss \n@use "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
-        </SyntaxHighlighter>
-        <Copyable partial={partial} />
-      </div>;
+const Snippet = ({ language, comment, text }) => (
+  <div className={classes.importsnippet}>
+    <SyntaxHighlighter language={language} style={prismNord}>
+      {`${comment} \n${text}`}
+    </SyntaxHighlighter>
+    <Copyable text={text} />
+  </div>
+);
+
+const ImportSnippet = ({
+  included = false,
+  partial = 'thematic/_tr.scss',
+  js,
+}) => {
+  return (
+    <>
+      {included ?
+        <div className={classes.importsnippet}>
+          <p>Included</p>
+        </div>
+      : <Snippet
+          language="scss"
+          comment="// global.scss"
+          text={`@use "@reuters-graphics/graphics-components/scss/colours/${formatPartial(partial)}";`}
+        />
+      }
+      {js && (
+        <Snippet
+          language="javascript"
+          comment="// JavaScript"
+          text={`import { ${js} } from '@reuters-graphics/graphics-components/colours';`}
+        />
+      )}
+    </>
+  );
 };
 
 export default ImportSnippet;

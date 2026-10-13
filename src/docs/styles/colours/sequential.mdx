@@ -1,0 +1,83 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import CopyColourTable from '../../docs-components/CopyColourTable/Table.jsx';
+import { extractCssColourVariables } from '../../utils/parseCss';
+import rust from '../../../scss/colours/_sequential-rust.scss?raw';
+import blue from '../../../scss/colours/_sequential-blue.scss?raw';
+import teal from '../../../scss/colours/_sequential-teal.scss?raw';
+import plum from '../../../scss/colours/_sequential-plum.scss?raw';
+import green from '../../../scss/colours/_sequential-green.scss?raw';
+import yellow from '../../../scss/colours/_sequential-yellow.scss?raw';
+import yellowGreen from '../../../scss/colours/_sequential-yellow-green.scss?raw';
+import yellowPlum from '../../../scss/colours/_sequential-yellow-plum.scss?raw';
+import yellowBlue from '../../../scss/colours/_sequential-yellow-blue.scss?raw';
+
+<Meta title="Styles/Colours/Sequential" parameters={{ ...parameters }} />
+
+# Sequential
+
+Nine-step ramps for values that run from low to high, light (`100`) to dark (`900`). Every ramp darkens steadily in normal vision, under simulated deuteranopia, protanopia and tritanopia, and in greyscale. Each ramp is its own import, so a page only carries the ramps it uses.
+
+## Single hue
+
+One ramp per categorical colour, built to shared lightness steps so ramps of different hues line up. Each contains its categorical colour exactly: rust and teal at `500`, blue at `600`, plum and green at `700`, yellow at `400`.
+
+<CopyColourTable
+  title="Rust"
+  js="sequentialRust"
+  body={extractCssColourVariables(rust)}
+  partial="_sequential-rust.scss"
+/>
+<CopyColourTable
+  title="Blue"
+  js="sequentialBlue"
+  body={extractCssColourVariables(blue)}
+  partial="_sequential-blue.scss"
+/>
+<CopyColourTable
+  title="Teal"
+  js="sequentialTeal"
+  body={extractCssColourVariables(teal)}
+  partial="_sequential-teal.scss"
+/>
+<CopyColourTable
+  title="Plum"
+  js="sequentialPlum"
+  body={extractCssColourVariables(plum)}
+  partial="_sequential-plum.scss"
+/>
+<CopyColourTable
+  title="Green"
+  js="sequentialGreen"
+  body={extractCssColourVariables(green)}
+  partial="_sequential-green.scss"
+/>
+<CopyColourTable
+  title="Yellow"
+  js="sequentialYellow"
+  body={extractCssColourVariables(yellow)}
+  partial="_sequential-yellow.scss"
+/>
+
+## Two hue
+
+For a wider range of values, where a single hue runs short of distinguishable steps. Each starts at the yellow ramp's `100` and ends at the destination family's `900`, with the steps spaced evenly in lightness between.
+
+<CopyColourTable
+  title="Yellow–green"
+  js="sequentialYellowGreen"
+  body={extractCssColourVariables(yellowGreen)}
+  partial="_sequential-yellow-green.scss"
+/>
+<CopyColourTable
+  title="Yellow–plum"
+  js="sequentialYellowPlum"
+  body={extractCssColourVariables(yellowPlum)}
+  partial="_sequential-yellow-plum.scss"
+/>
+<CopyColourTable
+  title="Yellow–blue"
+  js="sequentialYellowBlue"
+  body={extractCssColourVariables(yellowBlue)}
+  partial="_sequential-yellow-blue.scss"
+/>

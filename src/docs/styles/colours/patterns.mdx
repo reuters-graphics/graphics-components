@@ -1,0 +1,131 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import { patterns, patternDefs, sequentialBlue } from '../../../colours/index';
+import '../../../scss/colours/_patterns.scss';
+
+<Meta title="Styles/Colours/Patterns" parameters={{ ...parameters }} />
+
+export const fills = [sequentialBlue[1], sequentialBlue[4], sequentialBlue[7]];
+
+# Patterns
+
+Six textures for maps, where a shape has to say something colour cannot: that the data behind it is disputed, provisional or missing. A pattern sits over the fill rather than replacing it, so the shape keeps its value and the texture adds its status. Because it is geometry rather than hue, it survives greyscale print and colour-vision deficiencies unchanged.
+
+Each pattern carries a grey and a white ink, so the same pattern works over light and dark fills. On mid-tone fills both inks show, and the texture reads slightly heavier.
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(17rem, 1fr))',
+    gap: '1rem 1.5rem',
+    margin: '1.5rem 0',
+  }}
+>
+  {patterns.map((p) => (
+    <div key={p.id} style={{ display: 'flex', gap: '0.75rem' }}>
+      <div
+        style={{
+          display: 'flex',
+          flex: 'none',
+          borderRadius: 4,
+          overflow: 'hidden',
+        }}
+      >
+        {fills.map((fill) => (
+          <span
+            key={fill}
+            style={{
+              width: 44,
+              height: 44,
+              background: `var(--${p.id}), ${fill}`,
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ fontSize: 13, lineHeight: 1.35 }}>
+        <strong>{p.label}</strong>
+        <br />
+        <code>--{p.id}</code>
+        <br />
+        <span style={{ fontSize: 13, opacity: 0.75 }}>{p.role}</span>
+      </div>
+    </div>
+  ))}
+</div>
+
+| Pattern       | CSS variable                 | Job                                                             |
+| ------------- | ---------------------------- | --------------------------------------------------------------- |
+| Hatch         | `--gfx-hatch-pattern`        | Disputed or contested territory.                                |
+| Dots          | `--gfx-dots-pattern`         | Provisional or partial data.                                    |
+| Cross-hatch   | `--gfx-cross-pattern`        | No data, where a blank shape would read as zero.                |
+| Reverse hatch | `--gfx-hatch-back-pattern`   | Excluded from the analysis, or not applicable.                  |
+| Sparse hatch  | `--gfx-sparse-hatch-pattern` | Projected or forecast. Also the forecast tail of an area chart. |
+| Sparse dots   | `--gfx-sparse-dots-pattern`  | Estimated or modelled rather than measured.                     |
+
+## On HTML elements
+
+Import the patterns like any other palette. Each variable is a tiling image, so put it in front of the element's colour as a background — legend keys, table cells, boxes:
+
+```scss
+@use '@reuters-graphics/graphics-components/scss/colours/patterns';
+
+.key-provisional {
+  background: var(--gfx-dots-pattern), var(--gfx-blue-300);
+}
+```
+
+That's all HTML needs.
+
+## On SVG shapes
+
+An SVG shape's `fill` can't take an image from CSS, so maps and charts drawn in SVG need the pattern definitions on the page too. Add them once, then draw the texture as a second shape over the coloured one, using the same name:
+
+```svelte
+<script>
+  import { PatternDefs } from '@reuters-graphics/graphics-components';
+</script>
+
+<PatternDefs />
+
+<svg>
+  <path d={shape} fill={colour} />
+  <path d={shape} fill="url(#gfx-hatch-pattern)" />
+</svg>
+```
+
+Outside Svelte, in d3 or plain JavaScript, add the same definitions from the colours module:
+
+```javascript
+import { patternDefs } from '@reuters-graphics/graphics-components/colours';
+
+document.body.insertAdjacentHTML('beforeend', patternDefs);
+```
+
+<div dangerouslySetInnerHTML={{ __html: patternDefs }} />
+
+<svg
+  width="300"
+  height="60"
+  role="img"
+  aria-label="Hatch over a pale, a mid and a dark blue, using the SVG pattern definitions"
+  style={{ display: 'block', margin: '1rem 0' }}
+>
+  {fills.map((fill, i) => (
+    <g key={fill}>
+      <rect x={i * 100} width="96" height="60" fill={fill} />
+      <rect x={i * 100} width="96" height="60" fill="url(#gfx-hatch-pattern)" />
+    </g>
+  ))}
+</svg>
+
+## Using them well
+
+Use no more than three patterns on one map. Past that they are as hard to tell apart as a seventh colour. Hatch and reverse hatch only work together on large, adjacent shapes; on small ones they read as the same texture. Pattern density is fixed in screen pixels, so a hatch on an inset map is the same weight as on the main map.
+
+The `patterns` export lists each pattern's `id`, `label` and `role`, for building a key from data:
+
+```javascript
+import { patterns } from '@reuters-graphics/graphics-components/colours';
+```
+
+For Illustrator, the patterns are also available as an SVG on the [Adobe swatches](?path=/docs/styles-colours-adobe-swatches--docs) page.

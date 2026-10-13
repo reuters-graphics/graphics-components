@@ -11,16 +11,18 @@ export interface ColourFamily {
 }
 
 export interface ColoursData {
+  reutersGraphics: ColourFamily[];
   primary: ColourFamily[];
   thematic: ColourFamily[];
 }
 
 export async function extractColours(scssRoot: string): Promise<ColoursData> {
-  const [primary, thematic] = await Promise.all([
+  const [reutersGraphics, primary, thematic] = await Promise.all([
+    readColourDir(join(scssRoot, 'colours')),
     readColourDir(join(scssRoot, 'colours/primary')),
     readColourDir(join(scssRoot, 'colours/thematic')),
   ]);
-  return { primary, thematic };
+  return { reutersGraphics, primary, thematic };
 }
 
 async function readColourDir(dir: string): Promise<ColourFamily[]> {

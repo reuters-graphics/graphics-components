@@ -74,6 +74,7 @@ export { default as PaddingReset } from './components/PaddingReset/PaddingReset.
 export { default as PhotoPack } from './components/PhotoPack/PhotoPack.svelte';
 export { default as PymChild } from './components/PymChild/PymChild.svelte';
 export { pym } from './components/PymChild/state.svelte';
+export { default as PatternDefs } from './colours/PatternDefs.svelte';
 export { default as ReferralBlock } from './components/ReferralBlock/ReferralBlock.svelte';
 export { default as Referral } from './components/ReferralBlock/Referral.svelte';
 export { default as ReutersGraphicsLogo } from './components/ReutersGraphicsLogo/ReutersGraphicsLogo.svelte';

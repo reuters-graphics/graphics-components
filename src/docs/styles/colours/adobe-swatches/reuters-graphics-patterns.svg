@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="968" height="318" viewBox="0 0 968 318">
+<title>Reuters Graphics patterns</title>
+<defs>
+<pattern id="gfx-hatch-pattern" width="6" height="6" patternUnits="userSpaceOnUse">
+<path d="M-1 -4.0808L7 -12.0808" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 1.9192L7 -6.0808" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 7.9192L7 -0.0808" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 13.9192L7 5.9192" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 -2.2423L7 -10.2423" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M-1 3.7577L7 -4.2423" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M-1 9.7577L7 1.7577" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M-1 15.7577L7 7.7577" stroke="#ffffff" stroke-width="1.3"/>
+</pattern>
+<pattern id="gfx-dots-pattern" width="5" height="5" patternUnits="userSpaceOnUse">
+<circle cx="1.25" cy="1.25" r="1.1" fill="#404040"/>
+<circle cx="3.75" cy="3.75" r="1.1" fill="#404040"/>
+<circle cx="3.75" cy="1.25" r="1.1" fill="#ffffff"/>
+<circle cx="1.25" cy="3.75" r="1.1" fill="#ffffff"/>
+</pattern>
+<pattern id="gfx-cross-pattern" width="6" height="6" patternUnits="userSpaceOnUse">
+<path d="M-1 -4.2929L7 -12.2929" stroke="#404040" stroke-width="1"/>
+<path d="M-1 1.7071L7 -6.2929" stroke="#404040" stroke-width="1"/>
+<path d="M-1 7.7071L7 -0.2929" stroke="#404040" stroke-width="1"/>
+<path d="M-1 13.7071L7 5.7071" stroke="#404040" stroke-width="1"/>
+<path d="M-1 -6.2929L7 1.7071" stroke="#404040" stroke-width="1"/>
+<path d="M-1 -0.2929L7 7.7071" stroke="#404040" stroke-width="1"/>
+<path d="M-1 5.7071L7 13.7071" stroke="#404040" stroke-width="1"/>
+<path d="M-1 11.7071L7 19.7071" stroke="#404040" stroke-width="1"/>
+<path d="M-1 -2.8787L7 -10.8787" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 3.1213L7 -4.8787" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 9.1213L7 1.1213" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 15.1213L7 7.1213" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 -4.8787L7 3.1213" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 1.1213L7 9.1213" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 7.1213L7 15.1213" stroke="#ffffff" stroke-width="1"/>
+<path d="M-1 13.1213L7 21.1213" stroke="#ffffff" stroke-width="1"/>
+</pattern>
+<pattern id="gfx-hatch-back-pattern" width="6" height="6" patternUnits="userSpaceOnUse">
+<path d="M-1 -6.0808L7 1.9192" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 -0.0808L7 7.9192" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 5.9192L7 13.9192" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 11.9192L7 19.9192" stroke="#404040" stroke-width="1.3"/>
+<path d="M-1 -4.2423L7 3.7577" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M-1 1.7577L7 9.7577" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M-1 7.7577L7 15.7577" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M-1 13.7577L7 21.7577" stroke="#ffffff" stroke-width="1.3"/>
+</pattern>
+<pattern id="gfx-sparse-hatch-pattern" width="11" height="11" patternUnits="userSpaceOnUse">
+<path d="M-1 -9.1515L12 -22.1515" stroke="#404040" stroke-width="1.2"/>
+<path d="M-1 1.8485L12 -11.1515" stroke="#404040" stroke-width="1.2"/>
+<path d="M-1 12.8485L12 -0.1515" stroke="#404040" stroke-width="1.2"/>
+<path d="M-1 23.8485L12 10.8485" stroke="#404040" stroke-width="1.2"/>
+<path d="M-1 -7.4544L12 -20.4544" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M-1 3.5456L12 -9.4544" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M-1 14.5456L12 1.5456" stroke="#ffffff" stroke-width="1.2"/>
+<path d="M-1 25.5456L12 12.5456" stroke="#ffffff" stroke-width="1.2"/>
+</pattern>
+<pattern id="gfx-sparse-dots-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="2.5" r="1.1" fill="#404040"/>
+<circle cx="7.5" cy="7.5" r="1.1" fill="#404040"/>
+<circle cx="7.5" cy="2.5" r="1.1" fill="#ffffff"/>
+<circle cx="2.5" cy="7.5" r="1.1" fill="#ffffff"/>
+</pattern>
+</defs>
+<rect x="24" y="24" width="120" height="120" fill="#d7dded"/>
+<rect x="24" y="24" width="120" height="120" fill="url(#gfx-hatch-pattern)"/>
+<rect x="24" y="144" width="120" height="120" fill="#2c405f"/>
+<rect x="24" y="144" width="120" height="120" fill="url(#gfx-hatch-pattern)"/>
+<text x="24" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#404040">--gfx-hatch-pattern</text>
+<rect x="184" y="24" width="120" height="120" fill="#d7dded"/>
+<rect x="184" y="24" width="120" height="120" fill="url(#gfx-dots-pattern)"/>
+<rect x="184" y="144" width="120" height="120" fill="#2c405f"/>
+<rect x="184" y="144" width="120" height="120" fill="url(#gfx-dots-pattern)"/>
+<text x="184" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#404040">--gfx-dots-pattern</text>
+<rect x="344" y="24" width="120" height="120" fill="#d7dded"/>
+<rect x="344" y="24" width="120" height="120" fill="url(#gfx-cross-pattern)"/>
+<rect x="344" y="144" width="120" height="120" fill="#2c405f"/>
+<rect x="344" y="144" width="120" height="120" fill="url(#gfx-cross-pattern)"/>
+<text x="344" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#404040">--gfx-cross-pattern</text>
+<rect x="504" y="24" width="120" height="120" fill="#d7dded"/>
+<rect x="504" y="24" width="120" height="120" fill="url(#gfx-hatch-back-pattern)"/>
+<rect x="504" y="144" width="120" height="120" fill="#2c405f"/>
+<rect x="504" y="144" width="120" height="120" fill="url(#gfx-hatch-back-pattern)"/>
+<text x="504" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#404040">--gfx-hatch-back-pattern</text>
+<rect x="664" y="24" width="120" height="120" fill="#d7dded"/>
+<rect x="664" y="24" width="120" height="120" fill="url(#gfx-sparse-hatch-pattern)"/>
+<rect x="664" y="144" width="120" height="120" fill="#2c405f"/>
+<rect x="664" y="144" width="120" height="120" fill="url(#gfx-sparse-hatch-pattern)"/>
+<text x="664" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#404040">--gfx-sparse-hatch-pattern</text>
+<rect x="824" y="24" width="120" height="120" fill="#d7dded"/>
+<rect x="824" y="24" width="120" height="120" fill="url(#gfx-sparse-dots-pattern)"/>
+<rect x="824" y="144" width="120" height="120" fill="#2c405f"/>
+<rect x="824" y="144" width="120" height="120" fill="url(#gfx-sparse-dots-pattern)"/>
+<text x="824" y="286" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#404040">--gfx-sparse-dots-pattern</text>
+</svg>

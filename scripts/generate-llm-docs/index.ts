@@ -223,10 +223,12 @@ async function runTokens(): Promise<GuideIndexEntry[]> {
     const md = generateColoursMarkdown(coloursData);
     await writeFile(join(OUT_GUIDES, 'colours.md'), md, 'utf-8');
     const totalFamilies =
-      coloursData.primary.length + coloursData.thematic.length;
+      coloursData.reutersGraphics.length +
+      coloursData.primary.length +
+      coloursData.thematic.length;
     entries.push({
       heading: 'Colour Palettes',
-      description: `CSS custom properties for ${totalFamilies} colour families (primary + thematic).`,
+      description: `CSS custom properties for ${totalFamilies} colour families (Reuters Graphics + primary + thematic).`,
       destFile: 'colours.md',
     });
     process.stdout.write(`  ✓ guides/colours.md\n`);

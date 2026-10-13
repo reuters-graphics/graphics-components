@@ -77,12 +77,13 @@ const CopyTable = ({
   mdnLink = null,
   included = false,
   partial,
+  js,
 }) => {
   const header = ['Colour', 'CSS variable'];
   return (
     <Unstyled>
       <div className={classes.title}>{title}</div>
-      <ImportSnippet included={included} partial={partial} />
+      <ImportSnippet included={included} partial={partial} js={js} />
       <table className={classes.table}>
         <thead>
           <tr>

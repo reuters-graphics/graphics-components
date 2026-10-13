@@ -1,0 +1,26 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { parameters } from '../../utils/docsPage.js';
+import ase from './adobe-swatches/reuters-graphics.ase?url';
+import ccLibrary from './adobe-swatches/reuters-graphics-cc-library.ase?url';
+import aco from './adobe-swatches/reuters-graphics.aco?url';
+import patternsSvg from './adobe-swatches/reuters-graphics-patterns.svg?url';
+
+<Meta title="Styles/Colours/Adobe Swatches" parameters={{ ...parameters }} />
+
+# Adobe swatches
+
+The Reuters Graphics palette as swatch files for Illustrator, Photoshop and InDesign, so print graphics and ai2svelte artwork start from the same values as the code. Every swatch is named after its CSS variable, such as `--gfx-rust-300`, and the groups follow the order of the colour pages: categorical, greys, sequential, diverging, maps and U.S. politics.
+
+| File                                                                                               | Use it for                                                                                                                                           |
+| -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a href={ase} download="reuters-graphics.ase">reuters-graphics.ase</a>                             | Illustrator, Photoshop and InDesign swatch panels, one group per palette.                                                                            |
+| <a href={ccLibrary} download="reuters-graphics-cc-library.ase">reuters-graphics-cc-library.ase</a> | Creative Cloud Libraries, which reject groups of more than five colours. Same colours, with each group split into parts.                             |
+| <a href={aco} download="reuters-graphics.aco">reuters-graphics.aco</a>                             | Older versions of Photoshop. The same colours as one list, without groups.                                                                           |
+| <a href={patternsSvg} download="reuters-graphics-patterns.svg">reuters-graphics-patterns.svg</a>   | The six [patterns](?path=/docs/styles-colours-patterns--docs) for Illustrator. Swatch files can only hold solid colours, so the patterns are an SVG. |
+
+## Loading them
+
+- **Illustrator and InDesign:** in the Swatches panel, open the Swatch Libraries menu, choose **Other Library…** and pick the `.ase` file. Don't open it with **File › Open**.
+- **Photoshop:** in the Swatches panel menu, choose **Import Swatches…** and pick the `.ase`, or the `.aco` in older versions.
+- **Creative Cloud Libraries:** load the `-cc-library.ase` in Illustrator as above, select its groups and click **Add selected Color Groups and Swatches to my current library**. Share the library with your team to use the colours in After Effects through the Libraries panel.
+- **Patterns:** in Illustrator, open the SVG with **File › Open**. Each pattern should arrive as a pattern swatch named after its CSS variable.
