@@ -84,7 +84,7 @@ You could also pass an `InsetMapFeature` child with your own `geometry` instead,
 
 To add an InsetMap nested inside its parent TileMap, add the following structure to your ArchieML doc.
 
-[Demo](?path=/story/compositions-insetmap--basic)
+[Demo](?path=/story/components-maps-insetmap--basic)
 
 <Canvas of={InsetMapStories.Basic} />
 
@@ -190,7 +190,7 @@ and then parse it out of a block object before passing to the `TileMap` and `Ins
 
 Pass an `InsetMapFeature` child with your own `geometry` to draw a region smaller than a country. The shape itself is a static asset you import in code. Only the label and annotations come from your ArchieML doc.
 
-[Demo](?path=/story/compositions-insetmap--custom-shape)
+[Demo](?path=/story/components-maps-insetmap--custom-shape)
 
 <Canvas of={InsetMapStories.CustomShape} />
 
@@ -269,7 +269,7 @@ description: ERCOT says power use between Dallas and Houston is on pace to top l
 
 Pass a `class` to `InsetMap` and target its `.inset-shape`, `.inset-annotation-dot` and `.inset-location-label` parts to restyle it.
 
-[Demo](?path=/story/compositions-insetmap--custom-styling)
+[Demo](?path=/story/components-maps-insetmap--custom-styling)
 
 <Canvas of={InsetMapStories.CustomStyling} />
 
@@ -366,7 +366,7 @@ description: Grid operators are still tracing the outage that knocked out electr
 
 `InsetMap` doesn't need a `TileMap` as a parent. Just drop it into any relatively (or absolutely) positioned container, like `Video` or `GraphicBlock`.
 
-[Demo](?path=/story/compositions-insetmap--standalone-without-tile-map)
+[Demo](?path=/story/components-maps-insetmap--standalone-without-tile-map)
 
 <Canvas of={InsetMapStories.StandaloneWithoutTileMap} />
 
@@ -437,7 +437,7 @@ description: The bypass is meant to ease congestion on one of East Africa's busi
 
 `size` is a plain number prop, so bind it to viewport width to keep the inset from overwhelming the screen on phones.
 
-[Demo](?path=/story/compositions-insetmap--responsive-size)
+[Demo](?path=/story/components-maps-insetmap--responsive-size)
 
 <Canvas of={InsetMapStories.ResponsiveSize} />
 
@@ -477,7 +477,7 @@ description: The bypass is meant to ease congestion on one of East Africa's busi
 
 A region or subregion is just another topojson import: same `topojson/polygons/` directory, keyed by its slug (e.g. `africa`, `eastern-africa`) instead of an ISO alpha-2 code. The shape resolves to every country in it, so the label lands on the single biggest one.
 
-[Demo](?path=/story/compositions-insetmap--region)
+[Demo](?path=/story/components-maps-insetmap--region)
 
 <Canvas of={InsetMapStories.Region} />
 
@@ -561,7 +561,7 @@ Each `InsetMapFeature` takes a `geometry` shape imported directly (from `@reuter
 
 `InsetMap` fits its projection to the combined extent of every shape feature it renders: its own `geometry` plus every child's (border lines don't count toward the fit, so a region-wide lines dataset won't blow out the framing). Pass `bounds` (`[west, south, east, north]`) to override the auto-fit with an explicit region instead, and `padding` to pad that region by a fraction of its own width/height (e.g. `0.15` pads it 15% larger on each side) rather than sizing exactly to `bounds`. Turn on `showBounds` while tuning `bounds`/`padding` to draw a thick crimson outline of the parent `TileMap`'s current viewport, so you can see how much of it the inset actually covers.
 
-[Demo](?path=/story/compositions-insetmap--combining-countries)
+[Demo](?path=/story/components-maps-insetmap--combining-countries)
 
 <Canvas of={InsetMapStories.CombiningCountries} />
 
@@ -644,7 +644,7 @@ A border segment is only classified as _disputed_ (and drawn as the crimson dott
 
 Every other line segment (no `disputed` flag, or `disputed: false`) still renders, just transparent (`.inset-context-border-line`) rather than being dropped. That keeps custom datasets flexible: if you want your non-disputed borders visible (e.g. as thin context lines around a filled shape), target that class yourself, scoped through `class` on `InsetMap` the same way as [custom styling](#custom-styling) above.
 
-[Demo](?path=/story/compositions-insetmap--styling-non-disputed-borders)
+[Demo](?path=/story/components-maps-insetmap--styling-non-disputed-borders)
 
 <Canvas of={InsetMapStories.StylingNonDisputedBorders} />
 
@@ -692,7 +692,7 @@ Every other line segment (no `disputed` flag, or `disputed: false`) still render
 
 ## Wildfire tracker composition
 
-For a fuller production example (`InsetMap` layered with `TileMapLayer` and a custom map style), see [TileMap's wildfire burnt area demo](/docs/components-graphics-tilemap--docs#adding-a-locator-inset), the kind of build you'd reach for when covering an active wildfire.
+For a fuller production example (`InsetMap` layered with `TileMapLayer` and a custom map style), see [TileMap's wildfire burnt area demo](/docs/components-maps-tilemap--docs#adding-a-locator-inset), the kind of build you'd reach for when covering an active wildfire.
 
 ## Props
 

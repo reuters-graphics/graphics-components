@@ -1,4 +1,4 @@
-<!-- @component `TileMapCallout` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemapcallout--docs)
+<!-- @component `TileMapCallout` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-maps-tilemapcallout--docs)
 
 A MapLibre-aware callout for `TileMap`. Render it as a child of any
 `TileMap`, pass a longitude/latitude pair, and the component manages marker

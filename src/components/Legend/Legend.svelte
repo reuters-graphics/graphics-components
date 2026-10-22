@@ -1,7 +1,7 @@
 <!--
   @component A presentational legend for maps and charts in one of five modes: threshold, continuous, diverging, categorical or proportional symbols.
 
-  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-legend--docs)
+  [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-maps-legend--docs)
 -->
 <script lang="ts" module>
   export type LegendMode =

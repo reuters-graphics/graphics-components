@@ -4,7 +4,7 @@
   import TileMapCallout from './TileMapCallout.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/TileMapCallout',
+    title: 'Components/Maps/TileMapCallout',
     component: TileMapCallout,
     tags: ['autodocs'],
     argTypes: {

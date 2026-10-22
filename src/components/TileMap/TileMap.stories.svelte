@@ -152,7 +152,7 @@
   };
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/TileMap',
+    title: 'Components/Maps/TileMap',
     component: TileMap,
     tags: ['autodocs'],
     argTypes: {
