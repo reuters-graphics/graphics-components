@@ -4,7 +4,7 @@
   import TileMap from '../TileMap/TileMap.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Graphics/Legend',
+    title: 'Components/Maps/Legend',
     component: Legend,
     tags: ['autodocs'],
     argTypes: {

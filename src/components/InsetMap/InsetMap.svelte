@@ -1,4 +1,4 @@
-<!-- @component `InsetMap` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/compositions-insetmap--docs)
+<!-- @component `InsetMap` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-maps-insetmap--docs)
 
 A static SVG locator inset: a country silhouette (from a built-in
 low-resolution dataset, or your own GeoJSON) with labelled annotations,

@@ -8,7 +8,7 @@ import * as TileMapStories from './TileMap.stories.svelte';
 
 Easily add an interactive map to your page using MapLibre GL and PMTiles.
 
-[Demo](?path=/story/components-graphics-tilemap--demo)
+[Demo](?path=/story/components-maps-tilemap--demo)
 
 ```svelte
 <script>
@@ -34,7 +34,7 @@ Use the `projection` prop to display a 3D globe. The projection accepts a [Proje
 
 <Canvas of={TileMapStories.GlobeView} />
 
-[Demo](?path=/story/components-graphics-tilemap--globe-view)
+[Demo](?path=/story/components-maps-tilemap--globe-view)
 
 ```svelte
 <TileMap
@@ -99,7 +99,7 @@ Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass G
 
 ### Basic example with local data
 
-[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
+[Demo](?path=/story/components-maps-tilemap--with-geo-json-layers)
 
 ```svelte
 <script lang="ts">
@@ -158,7 +158,7 @@ Use the `TileMapLayer` component to add GeoJSON data to your map. You can pass G
 
 You can also pass a URL string to fetch GeoJSON data:
 
-[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
+[Demo](?path=/story/components-maps-tilemap--with-geo-json-layers)
 
 ```svelte
 <TileMap center={[-73.9712, 40.7831]} zoom={11}>
@@ -176,7 +176,7 @@ You can also pass a URL string to fetch GeoJSON data:
 
 ### Adding point markers
 
-[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
+[Demo](?path=/story/components-maps-tilemap--with-geo-json-layers)
 
 ```svelte
 <script lang="ts">
@@ -248,7 +248,7 @@ You can also pass a URL string to fetch GeoJSON data:
 
 You can combine multiple layers to create rich visualizations:
 
-[Demo](?path=/story/components-graphics-tilemap--with-geo-json-layers)
+[Demo](?path=/story/components-maps-tilemap--with-geo-json-layers)
 
 ```svelte
 <TileMap center={[-73.9712, 40.7831]} zoom={11}>
@@ -297,7 +297,7 @@ You can combine multiple layers to create rich visualizations:
 
 <Canvas of={TileMapStories.LabelsAboveData} />
 
-[Demo](?path=/story/components-graphics-tilemap--labels-above-data)
+[Demo](?path=/story/components-maps-tilemap--labels-above-data)
 
 ```svelte
 <script lang="ts">
@@ -324,7 +324,7 @@ Use `TileMapCallout` when you want a framed annotation attached to a map coordin
 
 <Canvas of={TileMapStories.WithCallouts} />
 
-[Demo](?path=/story/components-graphics-tilemap--with-callouts)
+[Demo](?path=/story/components-maps-tilemap--with-callouts)
 
 ```svelte
 <script lang="ts">
@@ -360,11 +360,11 @@ Use `TileMapCallout` when you want a framed annotation attached to a map coordin
 
 ## Wildfire burnt area example
 
-This example layers a real wildfire event over a custom basemap style: a burnt-area perimeter as a fill, NASA FIRMS active-fire hotspots as circles, and an [InsetMap](?path=/docs/compositions-insetmap--docs) locating the region within Spain.
+This example layers a real wildfire event over a custom basemap style: a burnt-area perimeter as a fill, NASA FIRMS active-fire hotspots as circles, and an [InsetMap](?path=/docs/components-maps-insetmap--docs) locating the region within Spain.
 
 <Canvas of={TileMapStories.WildfireBurntArea} />
 
-[Demo](?path=/story/components-graphics-tilemap--wildfire-burnt-area)
+[Demo](?path=/story/components-maps-tilemap--wildfire-burnt-area)
 
 ```svelte
 <script lang="ts">
@@ -427,7 +427,7 @@ Use `Geocoder` inside `TileMap` when you want readers to search for a place name
 
 <Canvas of={TileMapStories.WithGeocoder} />
 
-[Demo](?path=/story/components-graphics-tilemap--with-geocoder)
+[Demo](?path=/story/components-maps-tilemap--with-geocoder)
 
 ```svelte
 <script lang="ts">
@@ -464,7 +464,7 @@ Use reverse geocoding when the interaction starts from a map coordinate instead 
 
 <Canvas of={TileMapStories.ReverseGeocodingOnClick} />
 
-[Demo](?path=/story/components-graphics-tilemap--reverse-geocoding-on-click)
+[Demo](?path=/story/components-maps-tilemap--reverse-geocoding-on-click)
 
 ```svelte
 <script lang="ts">
@@ -526,7 +526,7 @@ Use deck.gl when a map needs WebGL layers such as extruded polygons, arcs or lar
 
 <Canvas of={TileMapStories.DeckGlBuildings} />
 
-[Demo](?path=/story/components-graphics-tilemap--deck-gl-buildings)
+[Demo](?path=/story/components-maps-tilemap--deck-gl-buildings)
 
 Install deck.gl's MapLibre integration and the layer packages your project uses:
 

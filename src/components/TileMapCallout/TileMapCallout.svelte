@@ -1,4 +1,4 @@
-<!-- @component `TileMapCallout` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-graphics-tilemapcallout--docs)
+<!-- @component `TileMapCallout` [Read the docs.](https://reuters-graphics.github.io/graphics-components/?path=/docs/components-maps-tilemapcallout--docs)
 
 A MapLibre-aware callout for `TileMap`. Render it as a child of any
 `TileMap`, pass a longitude/latitude pair, and the component manages marker
@@ -133,8 +133,8 @@ placement and lifecycle through the map context.
 <script lang="ts">
   import * as maplibregl from 'maplibre-gl';
   import { onDestroy, type Snippet } from 'svelte';
-  import type { Marker } from 'maplibre-gl';
   import { getTileMapContext } from '../TileMap/context';
+  import { createCalloutMarkerLifecycle } from './markerLifecycle';
 
   interface Props {
     /** Longitude/latitude to attach the callout to. Accepts [lng, lat] or an object with lng/lat, lon/lat or longitude/latitude. */
@@ -193,6 +193,9 @@ placement and lifecycle through the map context.
   }
 
   const { map: mapStore } = tileMapContext;
+  const markerLifecycle = createCalloutMarkerLifecycle(
+    (element) => new maplibregl.Marker({ element, anchor: 'center' })
+  );
 
   // Leader geometry is derived from props so the SVG dimensions and the CSS
   // custom properties below share a single source of truth (previously these
@@ -232,7 +235,6 @@ placement and lifecycle through the map context.
   );
 
   let markerElement: HTMLDivElement;
-  let marker: Marker | null = null;
 
   let safeLngLat = $derived(normalizeTileMapCalloutCoordinates(lngLat));
   let safeFlip = $derived(normalizeTileMapCalloutFlip(flip));
@@ -246,35 +248,11 @@ placement and lifecycle through the map context.
   );
 
   $effect(() => {
-    const map = $mapStore;
-    const coordinates = safeLngLat;
-
-    if (!map || !markerElement || !coordinates) {
-      if (marker) {
-        marker.remove();
-        marker = null;
-      }
-      return;
-    }
-
-    if (!marker) {
-      marker = new maplibregl.Marker({
-        element: markerElement,
-        anchor: 'center',
-      })
-        .setLngLat(coordinates)
-        .addTo(map);
-      return;
-    }
-
-    marker.setLngLat(coordinates);
+    markerLifecycle.sync($mapStore, markerElement, safeLngLat);
   });
 
   onDestroy(() => {
-    if (marker) {
-      marker.remove();
-      marker = null;
-    }
+    markerLifecycle.destroy();
   });
 </script>
 

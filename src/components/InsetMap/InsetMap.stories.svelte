@@ -80,7 +80,7 @@
   };
 
   const { Story } = defineMeta({
-    title: 'Compositions/InsetMap',
+    title: 'Components/Maps/InsetMap',
     component: InsetMap,
     tags: ['autodocs'],
     argTypes: {
