@@ -114,7 +114,8 @@
 </TileMap>
 
 <style>
-  :global(.thematic-map-inset) {
+  :global(.thematic-map-inset.corner-top-left) {
+    left: 0;
     filter: drop-shadow(0 3px 5px rgb(0 0 0 / 20%));
   }
 </style>

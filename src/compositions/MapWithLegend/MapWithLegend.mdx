@@ -34,6 +34,12 @@ layers. Add an inset when readers may need help finding the area.
     <TileMapLayer id="burned-area" {data} type="fill" paint={areaPaint} />
   {/if}
 
-  <InsetMap corner="top-left" geometry={areaShape} />
+  <InsetMap corner="top-left" geometry={areaShape} class="thematic-map-inset" />
 </TileMap>
+
+<style>
+  :global(.thematic-map-inset.corner-top-left) {
+    left: 0;
+  }
+</style>
 ```
