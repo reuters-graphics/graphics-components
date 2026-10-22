@@ -49,6 +49,7 @@ export { default as InlineAd } from './components/AdSlot/InlineAd.svelte';
 export { default as KinesisLogo } from './components/KinesisLogo/KinesisLogo.svelte';
 export { default as LoadingLogo } from './components/LoadingLogo/LoadingLogo.svelte';
 export { default as LoadingDots } from './components/LoadingDots/LoadingDots.svelte';
+export { default as MapStatusOverlay } from './components/MapStatusOverlay/MapStatusOverlay.svelte';
 export { default as LanguageButton } from './components/LanguageButton/LanguageButton.svelte';
 export { default as LeaderboardAd } from './components/AdSlot/LeaderboardAd.svelte';
 export { default as Legend } from './components/Legend/Legend.svelte';

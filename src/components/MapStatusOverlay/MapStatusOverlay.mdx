@@ -1,0 +1,37 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as MapStatusOverlayStories from './MapStatusOverlay.stories.svelte';
+
+<Meta of={MapStatusOverlayStories} />
+
+# MapStatusOverlay
+
+Show a centered loading or error message over a map or other visual stage. The
+component does not depend on a map library. Put it inside a relatively
+positioned wrapper so it is centered over that area.
+
+```svelte
+<script>
+  import { MapStatusOverlay } from '@reuters-graphics/graphics-components';
+</script>
+
+<div class="map-stage">
+  <MapStatusOverlay tone="loading" message="Loading map…" />
+</div>
+
+<style>
+  .map-stage {
+    position: relative;
+  }
+</style>
+```
+
+<Canvas of={MapStatusOverlayStories.Loading} />
+<Canvas of={MapStatusOverlayStories.Error} />
+<Canvas of={MapStatusOverlayStories.LongMessage} />
+
+- `tone="loading"` shows the `LoadingLogo` and a visible message announced as a
+  status.
+- `tone="error"` shows the message as an alert.
+- `message` is required for either tone.
+
+The overlay does not capture pointer input, so the map remains interactive.
