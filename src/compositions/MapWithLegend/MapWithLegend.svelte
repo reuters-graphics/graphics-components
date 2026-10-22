@@ -93,7 +93,7 @@
   {/if}
 
   <InsetMap
-    corner="top-right"
+    corner="top-left"
     geometry={spainTopology as unknown as Topology}
     locationLabel="Spain"
     annotations={[
