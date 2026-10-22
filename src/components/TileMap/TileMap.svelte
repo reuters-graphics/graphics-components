@@ -28,12 +28,8 @@
     StyleSpecification,
   } from 'maplibre-gl';
   import { createTileMapContextState, setTileMapContext } from './context';
-  import { emphasizePlaceLabels } from './labels';
-  import {
-    completeTileMapSetup,
-    createTileMapOptions,
-    type TileMapMapOptions,
-  } from './options';
+  import { connectTileMapEvents } from './events';
+  import { createTileMapOptions, type TileMapMapOptions } from './options';
   import { configureMaplibreWorker } from './worker';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -153,6 +149,7 @@
 
   let mapContainer: HTMLDivElement;
   let map: maplibregl.Map | null = null;
+  let disconnectMapEvents: (() => void) | null = null;
 
   const tileMapContext = createTileMapContextState();
   setTileMapContext(tileMapContext.context);
@@ -191,44 +188,20 @@
         );
       }
 
-      // Darken the basemap's place labels so they read over data layers. Some
-      // styles keep applying their own label paint for a moment after the style
-      // loads, so a single call at `load` can be overridden and leave the
-      // labels their default (lighter) color. Apply on the first `styledata`
-      // where the place labels are present, then stop listening.
-      if (emphasizeLabels) {
-        const applyLabelEmphasis = () => {
-          if (!map) return;
-          const hasPlaceLabels = map
-            .getStyle()
-            ?.layers?.some(
-              (l) =>
-                l.type === 'symbol' &&
-                (l as { 'source-layer'?: string })['source-layer'] === 'place'
-            );
-          if (!hasPlaceLabels) return;
-          emphasizePlaceLabels(map);
-          map.off('styledata', applyLabelEmphasis);
-        };
-        map.on('styledata', applyLabelEmphasis);
-      }
-
-      // Call the callback when map is ready
-      map.on('load', () => {
-        if (!map) return;
-
-        completeTileMapSetup({
-          map,
-          projection,
-          terrain,
-          setReady: tileMapContext.setReady,
-          onMapReady,
-        });
+      disconnectMapEvents = connectTileMapEvents({
+        map: mapInstance,
+        projection,
+        terrain,
+        emphasizeLabels,
+        setReady: tileMapContext.setReady,
+        onMapReady,
       });
     }
   });
 
   onDestroy(() => {
+    disconnectMapEvents?.();
+    disconnectMapEvents = null;
     tileMapContext.reset();
     if (map) {
       map.remove();
