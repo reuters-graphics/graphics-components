@@ -26,34 +26,37 @@
 </div>
 
 <style lang="scss">
+  @use '../../scss/tokens/spacers/mixins/fluid-padding' as padding;
+  @use '../../scss/tokens/text/mixins/main' as text;
+
   .map-status {
     position: absolute;
     top: 50%;
     left: 50%;
     z-index: 1;
     transform: translate(-50%, -50%);
-    padding: 0.4rem 1rem;
+    @include padding.fpy-1;
+    @include padding.fpx-3;
     color: var(--theme-colour-text-secondary, #555);
     background: color-mix(
       in srgb,
       var(--theme-colour-background, #fff) 85%,
       transparent
     );
-    font-family: var(--theme-font-family-note, Knowledge, Arial, sans-serif);
-    font-size: 1.1rem;
-    font-weight: 600;
+    @include text.font-note;
+    @include text.text-base;
+    @include text.font-semibold;
     pointer-events: none;
 
     @media (max-width: 767px) {
-      padding: 0.3rem 0.75rem;
-      font-size: 0.85rem;
+      @include text.text-sm;
     }
   }
 
   .map-status--loading {
     width: max-content;
     max-width: calc(100% - 2rem);
-    padding: 0.4rem 0.75rem;
+    @include padding.fpx-2;
     text-align: center;
   }
 
