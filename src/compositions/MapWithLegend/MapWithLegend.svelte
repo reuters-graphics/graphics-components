@@ -92,7 +92,7 @@
     />
   {/if}
 
-  <!-- Leave out the Canary Islands so mainland Spain sits at the map's left edge. -->
+  <!-- Leave out the Canary Islands so mainland Spain fits in the corner. -->
   <InsetMap
     corner="top-left"
     bounds={[-9.5, 35.8, 4, 44]}
@@ -117,7 +117,9 @@
 
 <style>
   :global(.inset-map.thematic-map-inset.corner-top-left) {
-    left: 0;
+    /* Keep the visible mainland outline 10px from the map's top and left edges. */
+    left: 7px;
+    top: -12px;
     filter: drop-shadow(0 3px 5px rgb(0 0 0 / 20%));
   }
 </style>
