@@ -1,0 +1,39 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as MapWithLegendStories from './MapWithLegend.stories.svelte';
+
+<Meta of={MapWithLegendStories} />
+
+# Map with a legend
+
+Show map data, explain its colors, and mark where the area is.
+
+<Canvas of={MapWithLegendStories.WildfireMap} />
+
+The loading message sits over the map while both data files are fetched, then
+disappears when they arrive. This example adds a short pause before fetching so
+the message is easy to see. In your own map, remove that pause and use your data
+request directly.
+
+Keep the legend with the map and use the same colors for the key and the map
+layers. Add an inset when readers may need help finding the area.
+
+```svelte
+<TileMap center={[-4.1, 40.4126]} zoom={8}>
+  {#snippet legend()}
+    <Legend mode="categorical" items={legendItems} />
+  {/snippet}
+
+  {#if loading}
+    <MapStatusOverlay status="loading" message="Loading map data…" />
+  {:else if error}
+    <MapStatusOverlay
+      status="error"
+      message="Map data unavailable. Please refresh."
+    />
+  {:else}
+    <TileMapLayer id="burned-area" {data} type="fill" paint={areaPaint} />
+  {/if}
+
+  <InsetMap corner="top-right" geometry={areaShape} />
+</TileMap>
+```
