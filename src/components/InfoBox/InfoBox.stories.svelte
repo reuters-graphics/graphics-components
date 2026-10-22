@@ -49,11 +49,19 @@
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const readMore = canvas.getByRole('button', { name: 'Read more' });
+    const controlledId = readMore.getAttribute('aria-controls');
+    const controlledBody = Array.from(
+      canvasElement.querySelectorAll<HTMLElement>('[id]')
+    ).find(({ id }) => id === controlledId);
 
+    await expect(controlledBody).toBeInTheDocument();
+    await expect(controlledBody).toHaveClass('body--collapsed');
     await expect(readMore).toHaveAttribute('aria-expanded', 'false');
     await userEvent.click(readMore);
 
     let showLess = canvas.getByRole('button', { name: 'Show less' });
+    await expect(controlledBody).not.toHaveClass('body--collapsed');
+    await expect(showLess).toHaveAttribute('aria-controls', controlledId);
     await expect(showLess).toHaveAttribute('aria-expanded', 'true');
     await waitFor(() =>
       expect(
