@@ -193,8 +193,8 @@
       @include mixins.text-xs;
       @include mixins.font-semibold;
       @include mixins.text-secondary;
-      margin-block-start: 1.5rem;
-      margin-block-end: 0.35rem;
+      @include mixins.mt(6);
+      @include mixins.mb(1.5);
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
