@@ -28,7 +28,7 @@
 </script>
 
 <button
-  class="expand-collapse-button"
+  class="expand-collapse-button px-3.5 py-2 rounded-sm"
   type="button"
   aria-expanded={expanded}
   aria-controls={controls}
@@ -39,9 +39,7 @@
 
 <style lang="scss">
   .expand-collapse-button {
-    padding: 0.5rem 0.9rem;
     border: 1px solid var(--theme-colour-brand-rules, #d3d3d3);
-    border-radius: 2px;
     background: var(--theme-colour-background, #fff);
     color: var(--theme-colour-text-primary, #404040);
     font: inherit;
