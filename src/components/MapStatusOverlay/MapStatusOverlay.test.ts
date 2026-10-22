@@ -5,7 +5,7 @@ import MapStatusOverlay from './MapStatusOverlay.svelte';
 describe('MapStatusOverlay', () => {
   it('shows a visible, announced loading message with the logo', () => {
     const { body } = render(MapStatusOverlay, {
-      props: { tone: 'loading', message: 'Loading map data…' },
+      props: { status: 'loading', message: 'Loading map data…' },
     });
 
     expect(body).toContain('map-status--loading');
@@ -18,7 +18,7 @@ describe('MapStatusOverlay', () => {
   it('announces an error as an alert without a loading status', () => {
     const { body } = render(MapStatusOverlay, {
       props: {
-        tone: 'error',
+        status: 'error',
         message: 'This map is unavailable. Try refreshing the page.',
       },
     });

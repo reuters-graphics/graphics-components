@@ -6,19 +6,19 @@
 
   interface Props {
     /** Show the loading mark or an error message. */
-    tone: 'loading' | 'error';
+    status: 'loading' | 'error';
     /** Visible text describing the current state. */
     message: string;
   }
 
-  let { tone, message }: Props = $props();
+  let { status, message }: Props = $props();
 </script>
 
 <div
-  class="map-status map-status--{tone}"
-  role={tone === 'error' ? 'alert' : undefined}
+  class="map-status map-status--{status}"
+  role={status === 'error' ? 'alert' : undefined}
 >
-  {#if tone === 'loading'}
+  {#if status === 'loading'}
     <LoadingLogo {message} inline showMessage />
   {:else}
     {message}

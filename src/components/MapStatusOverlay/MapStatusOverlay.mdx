@@ -15,7 +15,7 @@ positioned wrapper so it is centered over that area.
 </script>
 
 <div class="map-stage">
-  <MapStatusOverlay tone="loading" message="Loading map…" />
+  <MapStatusOverlay status="loading" message="Loading map…" />
 </div>
 
 <style>
@@ -29,9 +29,9 @@ positioned wrapper so it is centered over that area.
 <Canvas of={MapStatusOverlayStories.Error} />
 <Canvas of={MapStatusOverlayStories.LongMessage} />
 
-- `tone="loading"` shows the `LoadingLogo` and a visible message announced as a
+- `status="loading"` shows the `LoadingLogo` and a visible message announced as a
   status.
-- `tone="error"` shows the message as an alert.
-- `message` is required for either tone.
+- `status="error"` shows the message as an alert.
+- `message` is required for either status.
 
 The overlay does not capture pointer input, so the map remains interactive.

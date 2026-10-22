@@ -5,14 +5,14 @@
   const { Story } = defineMeta({
     title: 'Components/Maps/MapStatusOverlay',
     component: MapStatusOverlay,
-    args: { tone: 'loading', message: 'Loading map…' },
+    args: { status: 'loading', message: 'Loading map…' },
     argTypes: {
-      tone: { control: 'inline-radio', options: ['loading', 'error'] },
+      status: { control: 'inline-radio', options: ['loading', 'error'] },
     },
   });
 </script>
 
-{#snippet template(args: { tone: 'loading' | 'error'; message: string })}
+{#snippet template(args: { status: 'loading' | 'error'; message: string })}
   <div class="map-scene">
     <MapStatusOverlay {...args} />
   </div>
@@ -23,7 +23,7 @@
   name="Error"
   {template}
   args={{
-    tone: 'error',
+    status: 'error',
     message: 'This map is unavailable. Try refreshing the page.',
   }}
 />
@@ -31,7 +31,7 @@
   name="Long message"
   {template}
   args={{
-    tone: 'error',
+    status: 'error',
     message:
       'The map could not be loaded right now. Check your connection and try again in a moment.',
   }}
