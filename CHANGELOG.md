@@ -1,5 +1,15 @@
 # @reuters-graphics/graphics-components
 
+## 4.17.0
+
+### Minor Changes
+
+- 5fe0041: Add a reusable MapStatusOverlay for loading and error messages over maps.
+
+### Patch Changes
+
+- 49e2ffd: Add a map composition example with a loading overlay, legend, and locator inset.
+
 ## 4.16.0
 
 ### Minor Changes
