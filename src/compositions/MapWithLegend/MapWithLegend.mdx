@@ -15,7 +15,8 @@ the message is easy to see. In your own map, remove that pause and use your data
 request directly.
 
 Keep the legend with the map and use the same colors for the key and the map
-layers. Add an inset when readers may need help finding the area.
+layers. This inset leaves out the Canary Islands so mainland Spain sits at the
+map's left edge.
 
 ```svelte
 <TileMap center={[-4.1, 40.4126]} zoom={8}>
@@ -34,11 +35,16 @@ layers. Add an inset when readers may need help finding the area.
     <TileMapLayer id="burned-area" {data} type="fill" paint={areaPaint} />
   {/if}
 
-  <InsetMap corner="top-left" geometry={areaShape} class="thematic-map-inset" />
+  <InsetMap
+    corner="top-left"
+    bounds={[-9.5, 35.8, 4, 44]}
+    geometry={areaShape}
+    class="thematic-map-inset"
+  />
 </TileMap>
 
 <style>
-  :global(.thematic-map-inset.corner-top-left) {
+  :global(.inset-map.thematic-map-inset.corner-top-left) {
     left: 0;
   }
 </style>

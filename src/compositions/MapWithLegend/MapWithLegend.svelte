@@ -92,8 +92,10 @@
     />
   {/if}
 
+  <!-- Leave out the Canary Islands so mainland Spain sits at the map's left edge. -->
   <InsetMap
     corner="top-left"
+    bounds={[-9.5, 35.8, 4, 44]}
     geometry={spainTopology as unknown as Topology}
     locationLabel="Spain"
     annotations={[
@@ -114,7 +116,7 @@
 </TileMap>
 
 <style>
-  :global(.thematic-map-inset.corner-top-left) {
+  :global(.inset-map.thematic-map-inset.corner-top-left) {
     left: 0;
     filter: drop-shadow(0 3px 5px rgb(0 0 0 / 20%));
   }
