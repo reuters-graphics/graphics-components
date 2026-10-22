@@ -1,0 +1,32 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+
+import * as ExpandCollapseButtonStories from './ExpandCollapseButton.stories.svelte';
+
+<Meta of={ExpandCollapseButtonStories} />
+
+# ExpandCollapseButton
+
+A reusable, accessible button for showing and hiding a related content region.
+The parent owns the expanded state; the button reports activation through
+`ontoggle` and updates its label and `aria-expanded` value from that state.
+
+<Canvas of={ExpandCollapseButtonStories.Demo} />
+
+```svelte
+<script>
+  import { ExpandCollapseButton } from '@reuters-graphics/graphics-components';
+
+  let expanded = $state(false);
+</script>
+
+<ExpandCollapseButton
+  {expanded}
+  controls="methodology"
+  ontoggle={() => (expanded = !expanded)}
+/>
+
+<div id="methodology" hidden={!expanded}>Additional information goes here.</div>
+```
+
+Use `expandLabel` and `collapseLabel` to provide translated or context-specific
+button text. The component defaults to “Read more” and “Show less”.

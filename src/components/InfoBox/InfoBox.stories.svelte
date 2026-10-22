@@ -1,7 +1,16 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { expect, userEvent, within, waitFor } from 'storybook/test';
   import InfoBox from './InfoBox.svelte';
   import BodyText from '../BodyText/BodyText.svelte';
+
+  const fullText = [
+    'The first paragraph introduces the data and the period it covers.',
+    'The second paragraph explains how the source is collected and checked.',
+    'The third paragraph describes the main calculation used in this example.',
+    '### How we calculate the estimates\n\nThe final paragraph gives additional detail that readers can reveal when they want it.',
+  ].join('\n\n');
+  const collapsedText = fullText.split('\n\n').slice(0, 3).join('\n\n');
 
   const { Story } = defineMeta({
     title: 'Components/Text elements/InfoBox',
@@ -33,6 +42,50 @@
     text="Ham drumstick tail ribeye pancetta, leberkas hamburger chicken spare ribs buffalo jerky sausage ground round meatball. Leberkas kevin short loin, tri-tip shank spare ribs buffalo beef pork belly corned beef chislic tongue."
   />
 </Story>
+
+<Story
+  name="Expandable"
+  asChild
+  play={async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const readMore = canvas.getByRole('button', { name: 'Read more' });
+
+    await expect(readMore).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(readMore);
+
+    let showLess = canvas.getByRole('button', { name: 'Show less' });
+    await expect(showLess).toHaveAttribute('aria-expanded', 'true');
+    await waitFor(() =>
+      expect(
+        canvas.getByText(
+          'The final paragraph gives additional detail that readers can reveal when they want it.'
+        )
+      ).toBeVisible()
+    );
+    await expect(
+      canvas.getByRole('heading', { name: 'How we calculate the estimates' })
+    ).toBeVisible();
+
+    await userEvent.click(showLess);
+    await expect(
+      canvas.getByRole('button', { name: 'Read more' })
+    ).toHaveAttribute('aria-expanded', 'false');
+    expect(
+      canvas.queryByText(
+        'The final paragraph gives additional detail that readers can reveal when they want it.'
+      )
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Read more' }));
+    showLess = canvas.getByRole('button', { name: 'Show less' });
+    await waitFor(() =>
+      expect(showLess).toHaveAttribute('aria-expanded', 'true')
+    );
+  }}
+>
+  <InfoBox title="About this data" text={fullText} {collapsedText} />
+</Story>
+
 <Story
   name="Lists"
   tags={['!autodocs', '!dev']}

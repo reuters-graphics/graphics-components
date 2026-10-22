@@ -19,6 +19,16 @@
      */
     text?: string;
     /**
+     * Optional shorter markdown preview. When provided with `text`, the box
+     * starts collapsed and offers a control to reveal or hide the full text.
+     * Has no effect when a custom `body` snippet is supplied.
+     */
+    collapsedText?: string;
+    /** Accessible label for the control while the box is collapsed. */
+    expandLabel?: string;
+    /** Accessible label for the control while the full text is shown. */
+    collapseLabel?: string;
+    /**
      * Additional footnotes
      */
     notes?: string | null;
@@ -49,6 +59,9 @@
   let {
     title = null,
     text,
+    collapsedText,
+    expandLabel = 'Read more',
+    collapseLabel = 'Show less',
     notes = null,
     width = 'normal',
     class: cls = '',
@@ -60,7 +73,21 @@
   }: Props = $props();
 
   import Block from '../Block/Block.svelte';
+  import ExpandCollapseButton from '../ExpandCollapseButton/ExpandCollapseButton.svelte';
   import { Markdown } from '@reuters-graphics/svelte-markdown';
+
+  let expanded = $state(false);
+  const instanceId = $props.id();
+  const bodyId = `infobox-body-${instanceId}`;
+  const canCollapse = $derived(
+    !body &&
+      text !== undefined &&
+      collapsedText !== undefined &&
+      collapsedText !== text
+  );
+  const displayedText = $derived(
+    canCollapse && !expanded ? (collapsedText ?? '') : (text ?? '')
+  );
 </script>
 
 <aside class="infobox {theme}">
@@ -84,6 +111,21 @@
       <div class="body">
         <!-- Custom body content -->
         {@render body()}
+      </div>
+    {:else if canCollapse}
+      <div class="body-wrap">
+        <div id={bodyId} class="body" class:body--collapsed={!expanded}>
+          <Markdown source={displayedText} />
+        </div>
+        <div class="body-control">
+          <ExpandCollapseButton
+            {expanded}
+            controls={bodyId}
+            {expandLabel}
+            {collapseLabel}
+            ontoggle={() => (expanded = !expanded)}
+          />
+        </div>
       </div>
     {:else}
       <div class="body">
@@ -146,6 +188,21 @@
       }
     }
 
+    :global(.body h3) {
+      @include mixins.font-sans;
+      @include mixins.text-xs;
+      @include mixins.font-semibold;
+      @include mixins.text-secondary;
+      margin-block-start: 1.5rem;
+      margin-block-end: 0.35rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    :global(.body h3:first-child) {
+      margin-block-start: 0;
+    }
+
     :global(.body ul),
     :global(.body ol) {
       @include mixins.body-note;
@@ -161,6 +218,25 @@
       &:last-child {
         @include mixins.fmb-0;
       }
+    }
+
+    .body--collapsed {
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 calc(100% - 2rem),
+        transparent
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        #000 calc(100% - 2rem),
+        transparent
+      );
+    }
+
+    .body-control {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.5rem;
     }
 
     :global(.footer p) {
