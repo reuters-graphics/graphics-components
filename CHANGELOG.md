@@ -1,5 +1,11 @@
 # @reuters-graphics/graphics-components
 
+## 4.16.0
+
+### Minor Changes
+
+- 9481e20: Add a reusable expand/collapse button and collapsible text with section subheads to InfoBox. Expose static margin Sass mixins for applying spacing tokens within component styles.
+
 ## 4.15.0
 
 ### Minor Changes
