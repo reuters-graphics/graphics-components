@@ -24,7 +24,7 @@
   {template}
   args={{
     status: 'error',
-    message: 'This map is unavailable. Try refreshing the page.',
+    message: 'Map unavailable. Please refresh.',
   }}
 />
 <Story

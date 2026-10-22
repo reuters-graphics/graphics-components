@@ -25,8 +25,22 @@ positioned wrapper so it is centered over that area.
 </style>
 ```
 
+## Loading
+
+Show this while map data loads.
+
 <Canvas of={MapStatusOverlayStories.Loading} />
+
+## Error
+
+Tell readers the map is unavailable and what to do next.
+
 <Canvas of={MapStatusOverlayStories.Error} />
+
+## Longer message
+
+Longer messages wrap to fit the map area.
+
 <Canvas of={MapStatusOverlayStories.LongMessage} />
 
 - `status="loading"` shows the `LoadingLogo` and a visible message announced as a

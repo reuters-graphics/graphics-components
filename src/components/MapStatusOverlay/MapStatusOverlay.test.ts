@@ -19,13 +19,13 @@ describe('MapStatusOverlay', () => {
     const { body } = render(MapStatusOverlay, {
       props: {
         status: 'error',
-        message: 'This map is unavailable. Try refreshing the page.',
+        message: 'Map unavailable. Please refresh.',
       },
     });
 
     expect(body).toContain('map-status--error');
     expect(body.match(/role="alert"/g)).toHaveLength(1);
-    expect(body).toContain('This map is unavailable. Try refreshing the page.');
+    expect(body).toContain('Map unavailable. Please refresh.');
     expect(body).not.toContain('role="status"');
   });
 });

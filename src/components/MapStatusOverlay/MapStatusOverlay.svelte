@@ -64,5 +64,7 @@
     max-width: min(34ch, 90%);
     line-height: 1.35;
     text-align: center;
+    @include text.text-sm;
+    @include text.font-regular;
   }
 </style>
