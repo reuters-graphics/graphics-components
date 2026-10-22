@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use 'sass:string';
+@use '../margin-levels' as margin;
+
+@function _margin-value($level) {
+  $key: '#{$level}';
+  $decimal-point: string.index($key, '.');
+
+  @if $decimal-point {
+    $key: string.insert($key, '\\', $decimal-point);
+  }
+
+  @if not map.has-key(margin.$margin-levels, $key) {
+    @error 'Unknown margin token level `#{$level}`.';
+  }
+
+  @return map.get(margin.$margin-levels, $key);
+}
+
+@mixin m($level) {
+  margin: _margin-value($level);
+}
+
+@mixin mx($level) {
+  $value: _margin-value($level);
+  margin-inline-start: $value;
+  margin-inline-end: $value;
+}
+
+@mixin my($level) {
+  $value: _margin-value($level);
+  margin-block-start: $value;
+  margin-block-end: $value;
+}
+
+@mixin mt($level) {
+  margin-block-start: _margin-value($level);
+}
+
+@mixin mr($level) {
+  margin-inline-end: _margin-value($level);
+}
+
+@mixin mb($level) {
+  margin-block-end: _margin-value($level);
+}
+
+@mixin ml($level) {
+  margin-inline-start: _margin-value($level);
+}

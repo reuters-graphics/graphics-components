@@ -22,6 +22,42 @@ The `InfoBox` component creates a stylised text box that provides additional inf
 
 <Canvas of={InfoBoxStories.Demo} />
 
+## Collapsible text
+
+Pass a shorter `collapsedText` preview alongside the full `text` to let readers
+expand and collapse a long InfoBox. The component supplies the “Read more” and
+“Show less” controls; you can override their labels for other languages. The
+preview applies to the Markdown `text` prop, not a custom `body` snippet.
+The toggle is also available as a standalone `ExpandCollapseButton` control for
+other content that needs to expand and collapse.
+
+```svelte
+<script>
+  const text = [
+    'First paragraph of the full explanation.',
+    'Second paragraph of the full explanation.',
+    'A final paragraph with more detail.',
+  ].join('\n\n');
+  const preview = text.split('\n\n').slice(0, 2).join('\n\n');
+</script>
+
+<InfoBox
+  title="About this data"
+  {text}
+  collapsedText={preview}
+  expandLabel="Read more"
+  collapseLabel="Show less"
+/>
+```
+
+<Canvas of={InfoBoxStories.Expandable} />
+
+## Section subheads
+
+Markdown level-three headings (`###`) inside the InfoBox body use a quiet,
+uppercase subhead style. The first heading starts flush with the body text; later
+headings have extra space above them.
+
 ## Using with ArchieML docs
 
 With the graphics kit, you'll likely get your text value from an ArchieML doc...

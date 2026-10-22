@@ -21,6 +21,17 @@ Spacers include tokens that control static and fluid margins and paddings.
 
 As a rule of thumb, if you're setting space between or adjacent to _text elements_, you'll likely want to use **fluid tokens** (`Fluid margin`/`Fluid padding` tables). If you're setting space between _block-like elements_, you probably want **static tokens** (`Margin`/`Padding`).
 
+Static margin tokens can also be used in component styles where you can't add utility classes directly, such as headings rendered from Markdown. Import the mixins and pass a token level:
+
+```scss
+@use '@reuters-graphics/graphics-components/scss/mixins' as mixins;
+
+.markdown h3 {
+  @include mixins.mt(6);
+  @include mixins.mb(1.5);
+}
+```
+
 ---
 
 <CopyTable
