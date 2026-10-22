@@ -75,7 +75,7 @@
     docs: {
       description: {
         story:
-          'Pass `onbeforetoggle` to run your own logic **before** the unit state commits. Useful for pre-syncing external renderers such as charts or maps.',
+          'Use `onbeforetoggle` to update a chart or map before the page changes temperature units.',
       },
     },
   }}
@@ -92,27 +92,26 @@
       );
     }
 
-    // Click: the pre-hook message should appear before the toggle state
-    // reflects, and the final unit should match what the hook received.
+    // Check that the callback receives the unit selected by the toggle.
     await userEvent.click(toggle);
     await waitFor(() => expect(toggle).toHaveAttribute('aria-checked', 'true'));
-    await waitFor(() => expect(log).toHaveTextContent('next=fahrenheit'));
+    await waitFor(() =>
+      expect(log).toHaveTextContent('Unit selected: fahrenheit')
+    );
   }}
 >
   <div style="display: flex; flex-direction: column; gap: 12px;">
     <TemperatureToggle
       onbeforetoggle={(next: TemperatureUnit) => {
-        // This callback fires before state.set(next).
-        // In a real app you might call:
-        //   map.setLayoutProperty('temperature-layer', 'text-field', next === 'fahrenheit' ? '{temp_f}' : '{temp_c}');
-        hookLog = `onbeforetoggle called — next=${next}`;
+        // In a real app, update your map or chart here.
+        hookLog = `Unit selected: ${next}`;
       }}
     />
     <p
       data-testid="hook-log"
       style="font-family: monospace; font-size: 12px; color: #555;"
     >
-      {hookLog || '(click the toggle to see the pre-hook log)'}
+      {hookLog || '(click the toggle to see the selected unit)'}
     </p>
   </div>
 </Story>
